@@ -209,8 +209,7 @@
       { color: C.superficie, borde: C.s7, texto: 'nodos reestructurados', forma: 'punto' },
       { color: C.superficie, borde: C.s6, texto: 'nodo resultado', forma: 'punto' },
     ]);
-    const registro = el('div', { class: 'mono', style: { fontSize: '12.5px', margin: '12px 0 0', padding: '10px 12px', background: '#f6f6f4', border: '1px solid #e1e0d9', minHeight: '2.6em', whiteSpace: 'pre-wrap', lineHeight: '1.6' } });
-    cuerpo.appendChild(registro);
+    const registro = VIZ.registro(cuerpo);
     const lectura = VIZ.lectura(cuerpo);
 
     let geo = null;

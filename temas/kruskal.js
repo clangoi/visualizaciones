@@ -65,25 +65,25 @@
       lienzo.limpiar();
       G.dibujar(lienzo, g, {
         pesos: true,
-        colorPeso: (a, e) => (s.estado[e] === 'aceptada' ? C.s1 : s.estado[e] === 'rechazada' ? '#c3c2b7' : C.tinta2),
+        colorPeso: (a, e) => (s.estado[e] === 'aceptada' ? C.s1 : s.estado[e] === 'rechazada' ? C.eje : C.tinta2),
         nodo: (i) => {
           const r = s.raiz(i), c = s.colorDe.get(r);
-          return c != null ? { relleno: VIZ.series[c % 8], borde: C.tinta, texto: '#fff' } : {};
+          return c != null ? { relleno: VIZ.series[c % 8], borde: C.tinta, texto: C.sobre } : {};
         },
         arista: (a, e) => {
           if (e === s.actual) return { color: C.s2, ancho: 4 };
           if (s.estado[e] === 'aceptada') return { color: C.s1, ancho: 3.5 };
           if (s.estado[e] === 'rechazada') return { color: VIZ.alfa(C.s8, 0.5), ancho: 1.5, guiones: [4, 4] };
-          return { color: '#c3c2b7' };
+          return { color: C.eje };
         },
       });
       tira.set(s.orden.map((e) => {
         const a = g.aristas[e], st = s.estado[e];
         return {
           texto: `${L(a.u)}${L(a.v)}:${a.w}${st === 'rechazada' ? ' ✗' : st === 'aceptada' ? ' ✓' : ''}`,
-          fondo: e === s.actual ? C.s2 : st === 'aceptada' ? C.s1 : '#fff',
-          tinta: e === s.actual || st === 'aceptada' ? '#fff' : st === 'rechazada' ? '#a9a8a0' : '#0b0b0b',
-          color: e === s.actual ? C.s2 : st === 'aceptada' ? C.s1 : '#c3c2b7',
+          fondo: e === s.actual ? C.s2 : st === 'aceptada' ? C.s1 : C.sobre,
+          tinta: e === s.actual || st === 'aceptada' ? C.sobre : st === 'rechazada' ? C.inactivo : C.tinta,
+          color: e === s.actual ? C.s2 : st === 'aceptada' ? C.s1 : C.eje,
         };
       }));
       registro.textContent = s.mensaje;

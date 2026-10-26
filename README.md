@@ -12,6 +12,15 @@ python3 -m http.server 8000
 
 Las fórmulas usan KaTeX y la tipografía IBM Plex desde CDN; sin conexión el sitio funciona, pero las fórmulas se ven como LaTeX sin renderizar.
 
+## Guía de estilo
+
+Las reglas de diseño, color, escritura y estructura de las páginas están en [GUIA_DE_ESTILO.md](GUIA_DE_ESTILO.md). Para crear un tema, copie [plantillas/tema.js](plantillas/tema.js). Antes de publicar:
+
+```bash
+npm install && npx playwright install chromium   # una vez
+npm run verificar
+```
+
 ## Estructura
 
 - `index.html` + `js/portada.js` — portada con secciones y tarjetas.
@@ -25,15 +34,4 @@ Las fórmulas usan KaTeX y la tipografía IBM Plex desde CDN; sin conexión el s
 
 ## Añadir un tema
 
-1. Agréguelo a una sección en `js/catalogo.js`.
-2. Cree `temas/<id>.js`:
-
-```js
-VIZ.registrarTema('<id>', {
-  intro: String.raw`<p>…</p>`,
-  visualizaciones: [{ titulo: '…', descripcion: '…', montar(cuerpo) { /* controles + lienzo */ } }],
-  teoria: String.raw`<h2>…</h2><p>\( … \)</p>`,
-});
-```
-
-Use `\( … \)` y `\[ … \]` para las fórmulas.
+Ver la sección 2 de [GUIA_DE_ESTILO.md](GUIA_DE_ESTILO.md).

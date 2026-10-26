@@ -14,7 +14,7 @@
     const pasadas = () => Math.ceil(Math.log2(Math.max(2, n)));
     const lienzo = VIZ.lienzo(cuerpo, { altoFn: () => (pasadas() + 1) * filaH + 8 });
     VIZ.leyenda(cuerpo, [
-      { color: '#a9a8a0', texto: 'elemento' },
+      { color: C.inactivo, texto: 'elemento' },
       { color: C.neutro, texto: 'bloque ordenado (alternado para distinguirlos)' },
     ]);
     const lectura = VIZ.lectura(cuerpo);
@@ -53,7 +53,7 @@
         }
         f.a.forEach((v, i) => {
           const h = (v / max) * (base - y0 - 4);
-          ctx.fillStyle = r === filas.length - 1 ? C.tinta : '#a9a8a0';
+          ctx.fillStyle = r === filas.length - 1 ? C.tinta : C.inactivo;
           ctx.fillRect(izq + i * paso + (paso > 6 ? 1 : 0), base - h, Math.max(1, paso - (paso > 6 ? 2 : 0)), h);
         });
         ctx.font = VIZ.fuente(11);

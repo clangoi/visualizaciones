@@ -102,6 +102,10 @@
     const ctl = VIZ.controles(cuerpo);
     ctl.rango({ etiqueta: 'Altura h', min: 1, max: 7, valor: altura, alCambiar: (v) => { altura = v; lienzo.ajustar(true); } });
     const lienzo = VIZ.lienzo(cuerpo, { altoFn: () => altura * 52 + 40 });
+    VIZ.leyenda(cuerpo, [
+      { color: VIZ.alfa(C.s2, 0.18), borde: C.tinta, texto: 'factor de balance ±1 (al límite)', forma: 'punto' },
+      { color: C.superficie, borde: C.tinta, texto: 'factor 0', forma: 'punto' },
+    ]);
     const lectura = VIZ.lectura(cuerpo);
     let contador;
     // Árbol de Fibonacci: subárbol izquierdo de altura h−1 y derecho de altura h−2.

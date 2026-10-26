@@ -11,6 +11,15 @@
   --linea-fuerte: #0b0b0b;
   --fondo: #ffffff;
   --fondo-2: #f6f6f4;
+  /* Paleta de los gráficos: debe coincidir con VIZ.color en js/comun.js. */
+  --serie-1: #2a78d6;
+  --serie-2: #eb6834;
+  --serie-3: #1baf7a;
+  --serie-4: #eda100;
+  --serie-5: #e87ba4;
+  --serie-6: #008300;
+  --serie-7: #6250d6;
+  --serie-8: #e34948;
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --ancho: 1240px;
@@ -502,6 +511,59 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 .lectura dd { overflow-wrap: anywhere; margin: 0; font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; }
 
 .nota-viz { font-size: 13px; color: var(--tinta-2); margin: 10px 0 0; }
+
+/* Registro de pasos: texto que narra lo que hace el algoritmo. */
+.registro {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  background: var(--fondo-2);
+  border: 1px solid var(--linea);
+  min-height: 2.6em;
+  white-space: pre-wrap;
+}
+.registro.grande { font-size: 14px; line-height: 1.5; white-space: pre; overflow-x: auto; }
+
+/* Subtítulo dentro de una figura (cuando hay más de un lienzo). */
+.subtitulo-viz { margin: 18px 0 6px; font-size: 13px; font-weight: 600; color: var(--tinta); }
+.subtitulo-viz:first-child { margin-top: 0; }
+
+/* Fichas: colas, pilas, listas de aristas, objetos. */
+.fichas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 0;
+  min-height: 30px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+.fichas-titulo { color: var(--tinta-2); margin-right: 6px; }
+.fichas-vacio { color: var(--tinta-3); }
+.ficha { border: 1.5px solid var(--tinta); background: var(--fondo); color: var(--tinta); padding: 2px 8px; white-space: nowrap; }
+.ficha.redonda { border-radius: 14px; min-width: 28px; text-align: center; padding: 0 7px; }
+
+/* Tablas de datos dentro de figuras. */
+.caja-desplazable { overflow-x: auto; margin-top: 12px; }
+.tabla-datos { border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; }
+.tabla-datos td, .tabla-datos th { padding: 3px 10px; border-bottom: 1px solid var(--linea); text-align: right; font-weight: 400; }
+.tabla-datos th { border-bottom-color: var(--tinta); font-weight: 600; }
+.tabla-datos .izq { text-align: left; color: var(--tinta-2); }
+
+/* Lista monoespaciada con una fila resaltable. */
+.lista-mono { font-family: var(--mono); font-size: 13px; line-height: 1.8; border: 1px solid var(--linea); padding: 8px 12px; }
+.lista-mono > div { padding: 0 4px; }
+.lista-mono > .activa { background: color-mix(in srgb, var(--serie-1) 12%, transparent); }
+
+/* Específico de Punto flotante: fila de bits y desglose. */
+.fila-bits { display: flex; flex-wrap: wrap; gap: 3px; margin: 6px 0 4px; user-select: none; }
+.fila-bits button { padding: 0; cursor: pointer; font-family: var(--mono); font-weight: 500; }
+.grupos-bits { display: flex; flex-wrap: wrap; gap: 18px; margin: 4px 0 0; font-family: var(--mono); font-size: 12px; color: var(--tinta-2); }
+.muestra-color { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 2px; vertical-align: -1px; }
+.desglose { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--linea); font-family: var(--mono); font-size: 13.5px; line-height: 1.75; white-space: pre; overflow-x: auto; }
 
 .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 

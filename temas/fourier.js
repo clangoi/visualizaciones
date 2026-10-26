@@ -235,7 +235,7 @@
         const r = Math.abs(b) * escala;
         const ang = k * t + (b < 0 ? Math.PI : 0);
         if (r > 0.6) {
-          ctx.strokeStyle = 'rgba(137,135,129,0.45)';
+          ctx.strokeStyle = VIZ.alfa(C.apagado, 0.45);
           ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.stroke();
         }
         const nx = x + r * Math.cos(ang), ny = y - r * Math.sin(ang);

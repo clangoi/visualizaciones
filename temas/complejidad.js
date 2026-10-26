@@ -123,6 +123,7 @@
     ctl.rango({ etiqueta: 'Operaciones por segundo', min: 6, max: 12, paso: 1, valor: ops,
       formato: (v) => `10^${v}`, alCambiar: (v) => { ops = v; dibujar(); } });
 
+    cuerpo.dataset.sinLeyenda = 'cada barra lleva su nombre al lado';
     const lienzo = VIZ.lienzo(cuerpo, { alto: 8 * 34 + 30 });
     VIZ.nota(cuerpo, 'Barras en escala logarítmica de tiempo. La línea vertical marca un segundo; la siguiente, un año.');
 
@@ -172,7 +173,7 @@
         if (ctx.textAlign === 'right') {
           // Texto sobre la barra: fondo para que sea legible.
           const tw = ctx.measureText(texto).width;
-          ctx.fillStyle = 'rgba(255,255,255,0.88)';
+          ctx.fillStyle = VIZ.alfa(C.superficie, 0.88);
           ctx.fillRect(tx - tw - 4, y + 3, tw + 8, 14);
         }
         ctx.fillStyle = C.tinta2;

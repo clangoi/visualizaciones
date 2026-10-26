@@ -24,7 +24,7 @@
     ]);
     const tira = G.estructura(cuerpo, 'Orden de las aristas:');
     const registro = VIZ.nota(cuerpo, '');
-    const tablaCaja = el('div', { style: { overflowX: 'auto', marginTop: '12px' } });
+    const tablaCaja = el('div', { class: 'caja-desplazable' });
     cuerpo.appendChild(tablaCaja);
     const lectura = VIZ.lectura(cuerpo);
     VIZ.nota(cuerpo, 'Haga clic en un vértice para usarlo como origen. La tabla muestra d[v] al final de cada pasada.');
@@ -111,25 +111,27 @@
       lienzo.limpiar();
       geo = G.dibujar(lienzo, g, {
         pesos: true,
-        nodo: (i) => (i === origen ? { relleno: C.tinta, borde: C.tinta, texto: '#fff', anillo: i === s.mejorado ? C.s2 : null } : { anillo: i === s.mejorado ? C.s2 : null }),
+        nodo: (i) => (i === origen ? { relleno: C.tinta, borde: C.tinta, texto: C.sobre, anillo: i === s.mejorado ? C.s2 : null } : { anillo: i === s.mejorado ? C.s2 : null }),
         arista: (a, e) => {
           if (s.ciclo && s.ciclo.has(e)) return { color: C.s8, ancho: 4 };
           if (e === s.arista) return { color: C.s2, ancho: 3.5 };
           if (s.padreArista.includes(e)) return { color: C.s1, ancho: 2.5 };
-          return { color: '#c3c2b7' };
+          return { color: C.eje };
         },
         debajo: (i) => G.dist(s.dist[i]),
         colorDebajo: (i) => (i === s.mejorado ? C.s2 : C.tinta),
       });
-      tira.set(g.aristas.map((a, e) => ({ texto: `${L(a.u)}→${L(a.v)}`, fondo: e === s.arista ? C.s2 : '#fff', tinta: e === s.arista ? '#fff' : a.w < 0 ? C.s8 : '#0b0b0b', color: e === s.arista ? C.s2 : '#c3c2b7' })));
+      tira.set(g.aristas.map((a, e) => ({ texto: `${L(a.u)}→${L(a.v)}`, fondo: e === s.arista ? C.s2 : C.sobre, tinta: e === s.arista ? C.sobre : a.w < 0 ? C.s8 : C.tinta, color: e === s.arista ? C.s2 : C.eje })));
       registro.textContent = s.mensaje;
       // Tabla de distancias por pasada.
       const n = g.nodos.length;
-      const celda = (txt, extra = {}) => el('td', { style: { padding: '3px 10px', borderBottom: '1px solid #e1e0d9', textAlign: 'right', fontFamily: 'var(--mono)', fontSize: '12.5px', ...extra } }, txt);
-      const filas = s.historia.map((d, p) => el('tr', null, celda(p === 0 ? 'inicio' : `pasada ${p}`, { textAlign: 'left', color: '#52514e' }),
-        ...d.map((x, i) => celda(G.dist(x), { fontWeight: p > 0 && x !== s.historia[p - 1][i] ? '700' : '400', color: p > 0 && x !== s.historia[p - 1][i] ? C.s2 : '#0b0b0b' }))));
-      tablaCaja.replaceChildren(el('table', { style: { borderCollapse: 'collapse' } },
-        el('tr', null, celda('', { borderBottom: '1px solid #0b0b0b' }), ...g.nodos.map((nd) => celda(nd.etiqueta, { fontWeight: '600', borderBottom: '1px solid #0b0b0b' }))),
+      const filas = s.historia.map((d, p) => el('tr', null, el('td', { class: 'izq' }, p === 0 ? 'inicio' : `pasada ${p}`),
+        ...d.map((x, i) => {
+          const cambio = p > 0 && x !== s.historia[p - 1][i];
+          return el('td', { style: cambio ? { color: C.s2, fontWeight: '700' } : null }, G.dist(x));
+        })));
+      tablaCaja.replaceChildren(el('table', { class: 'tabla-datos' },
+        el('tr', null, el('th'), ...g.nodos.map((nd) => el('th', null, nd.etiqueta))),
         ...filas));
       lectura.set([
         ['pasada', s.pasada ? (s.pasada >= n ? 'verificación' : `${s.pasada} de ${n - 1}`) : '—'],

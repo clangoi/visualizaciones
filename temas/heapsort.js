@@ -151,7 +151,7 @@
         ctx.lineWidth = 1.5;
         ctx.strokeStyle = col || C.tinta;
         ctx.stroke();
-        ctx.fillStyle = col ? '#fff' : C.tinta;
+        ctx.fillStyle = col ? C.sobre : C.tinta;
         ctx.font = VIZ.fuente(r > 12 ? 12 : 10, 500);
         ctx.fillText(String(a[i]), x, y);
       }
@@ -172,7 +172,7 @@
         ctx.strokeStyle = col || C.eje;
         ctx.lineWidth = 1;
         ctx.strokeRect(x + 1.5, yA + 0.5, celda - 3, celda - 3);
-        ctx.fillStyle = col ? '#fff' : C.tinta;
+        ctx.fillStyle = col ? C.sobre : C.tinta;
         ctx.font = VIZ.fuente(celda > 28 ? 12 : 10, 500);
         ctx.fillText(String(a[i]), x + celda / 2, yA + celda / 2 - 1);
         ctx.fillStyle = C.apagado;

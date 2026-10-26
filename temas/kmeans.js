@@ -194,7 +194,7 @@
       }
       // Puntos
       for (const p of datos.puntos) {
-        const col = p.c >= 0 ? VIZ.series[p.c] : '#a9a8a0';
+        const col = p.c >= 0 ? VIZ.series[p.c] : C.inactivo;
         ctx.fillStyle = col;
         ctx.beginPath();
         VIZ.forma(ctx, sx(p.x), sy(p.y), 3, p.c >= 0 ? p.c : 0);
@@ -232,7 +232,7 @@
 
       leyenda.set([
         ...cs.map((_, j) => ({ color: VIZ.series[j], texto: `grupo ${j + 1}` })),
-        { color: '#a9a8a0', texto: 'sin asignar', forma: 'punto' },
+        { color: C.inactivo, texto: 'sin asignar', forma: 'punto' },
       ]);
       const asignados = datos.puntos.some((p) => p.c >= 0);
       lectura.set([
@@ -276,6 +276,7 @@
   function montarCodo(cuerpo) {
     const KMAX = 10;
     let valores = [], hover = null, pendiente = null;
+    cuerpo.dataset.sinLeyenda = 'serie única, nombrada en el eje';
     const lienzo = VIZ.lienzo(cuerpo, { proporcion: 0.4, altoMin: 240, altoMax: 340 });
     const tip = VIZ.tooltip(lienzo);
     const lectura = VIZ.lectura(cuerpo);

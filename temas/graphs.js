@@ -23,12 +23,17 @@
     const izq = el('div'), der = el('div');
     columnas.append(izq, der);
     cuerpo.appendChild(columnas);
-    izq.appendChild(el('p', { class: 'nota-viz', style: { margin: '0 0 6px', fontWeight: 600, color: '#0b0b0b' } }, 'Grafo'));
+    VIZ.subtitulo(izq, 'Grafo');
     const lienzo = VIZ.lienzo(izq, { proporcion: 0.82, altoMax: 420 });
-    der.appendChild(el('p', { class: 'nota-viz', style: { margin: '0 0 6px', fontWeight: 600, color: '#0b0b0b' } }, 'Matriz de adyacencia'));
+    VIZ.subtitulo(der, 'Matriz de adyacencia');
     const matriz = VIZ.lienzo(der, { proporcion: 0.82, altoMax: 420 });
-    cuerpo.appendChild(el('p', { class: 'nota-viz', style: { margin: '16px 0 6px', fontWeight: 600, color: '#0b0b0b' } }, 'Listas de adyacencia'));
-    const listas = el('div', { class: 'mono', style: { fontSize: '13px', lineHeight: '1.8', border: '1px solid #e1e0d9', padding: '8px 12px' } });
+    VIZ.leyenda(cuerpo, [
+      { color: C.s1, texto: 'vértice bajo el cursor, sus aristas y su fila en la matriz', forma: 'punto' },
+      { color: C.superficie, borde: C.s1, texto: 'sus vecinos', forma: 'punto' },
+      { color: C.s2, texto: 'vértice seleccionado (clic en otro para unirlos)', forma: 'punto' },
+    ]);
+    VIZ.subtitulo(cuerpo, 'Listas de adyacencia');
+    const listas = el('div', { class: 'lista-mono' });
     cuerpo.appendChild(listas);
     const lectura = VIZ.lectura(cuerpo);
     VIZ.nota(cuerpo, 'Haga clic en un nodo y luego en otro para agregar o quitar la arista entre ellos. Pase el cursor sobre un nodo para resaltar su fila en la matriz y su lista.');
@@ -40,7 +45,7 @@
       if (hover >= 0) for (const a of g.aristas) { if (a.u === hover) vecinos.add(a.v); if (!g.dirigido && a.v === hover) vecinos.add(a.u); }
       geo = G.dibujar(lienzo, g, {
         pesos: est.ponderado,
-        nodo: (i) => (i === seleccion ? { relleno: C.s2, borde: C.s2, texto: '#fff' } : i === hover ? { relleno: C.s1, borde: C.s1, texto: '#fff' } : vecinos.has(i) ? { anillo: C.s1 } : {}),
+        nodo: (i) => (i === seleccion ? { relleno: C.s2, borde: C.s2, texto: C.sobre } : i === hover ? { relleno: C.s1, borde: C.s1, texto: C.sobre } : vecinos.has(i) ? { anillo: C.s1 } : {}),
         arista: (a) => (hover >= 0 && (a.u === hover || (!g.dirigido && a.v === hover)) ? { color: C.s1, ancho: 2.5 } : { color: C.apagado }),
       });
     }
@@ -66,7 +71,7 @@
           ctx.fillRect(x, y, c, c);
           ctx.strokeStyle = C.rejilla;
           ctx.strokeRect(x + 0.5, y + 0.5, c - 1, c - 1);
-          ctx.fillStyle = M[i][j] && (enFila || enCol) ? '#fff' : M[i][j] ? C.tinta : '#c3c2b7';
+          ctx.fillStyle = M[i][j] && (enFila || enCol) ? C.sobre : M[i][j] ? C.tinta : C.eje;
           ctx.font = VIZ.fuente(c > 24 ? 12 : 10, M[i][j] ? 600 : 400);
           ctx.fillText(String(M[i][j]), x + c / 2, y + c / 2 + 0.5);
         }
@@ -82,7 +87,7 @@
       const ady = G.adyacencia(g);
       dibujarGrafo();
       dibujarMatriz();
-      listas.replaceChildren(...g.nodos.map((nd, i) => el('div', { style: { background: i === hover ? 'rgba(42,120,214,0.12)' : 'transparent', padding: '0 4px' } },
+      listas.replaceChildren(...g.nodos.map((nd, i) => el('div', { class: i === hover ? 'activa' : null },
         el('b', null, nd.etiqueta), ' → ',
         ady[i].length ? ady[i].map((x) => g.nodos[x.v].etiqueta + (est.ponderado ? `(${x.w})` : '')).join(' → ') : '∅')));
       const n = g.nodos.length, m = g.aristas.length;

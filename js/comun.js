@@ -22,7 +22,11 @@ window.VIZ = (function () {
     rejilla: '#e1e0d9',
     eje: '#c3c2b7',
     superficie: '#ffffff',
-    neutro: '#f0efec',
+    neutro: '#f0efec',  // fondos de zonas activas, celdas alternas
+    fondo2: '#f6f6f4',  // paneles y registros (igual a --fondo-2)
+    inactivo: '#a9a8a0', // marcas pendientes o sin procesar
+    tenue: '#d9d8d2',   // aristas o marcas fuera de foco
+    sobre: '#ffffff',   // texto sobre un relleno de color
   };
   VIZ.series = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8'].map((k) => VIZ.color[k]);
 
@@ -486,6 +490,24 @@ window.VIZ = (function () {
       },
     };
   };
+
+  // Registro de pasos (ver .registro en estilos.css).
+  VIZ.registro = (padre, { grande = false } = {}) => {
+    const e = VIZ.el('div', { class: 'registro' + (grande ? ' grande' : '') });
+    padre.appendChild(e);
+    return e;
+  };
+  // Subtítulo de una parte de la figura.
+  VIZ.subtitulo = (padre, texto) => {
+    const e = VIZ.el('p', { class: 'subtitulo-viz' }, texto);
+    padre.appendChild(e);
+    return e;
+  };
+  // Ficha con colores de estado opcionales; los colores son los únicos estilos en línea permitidos.
+  VIZ.ficha = (texto, { color, fondo, tinta, redonda = false } = {}) => VIZ.el('span', {
+    class: 'ficha' + (redonda ? ' redonda' : ''),
+    style: { borderColor: color || null, background: fondo || null, color: tinta || null },
+  }, texto);
 
   VIZ.nota = (padre, html) => {
     const p = VIZ.el('p', { class: 'nota-viz', html });

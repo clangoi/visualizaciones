@@ -110,7 +110,7 @@
         if (raiz) raiz.color = NEGRO;
         const r = ctx; ctx = null; return r;
       },
-      estilo: (n) => (esRojo(n) ? { relleno: C.s8, borde: C.s8, texto: '#fff' } : { relleno: C.tinta, borde: C.tinta, texto: '#fff' }),
+      estilo: (n) => (esRojo(n) ? { relleno: C.s8, borde: C.s8, texto: C.sobre } : { relleno: C.tinta, borde: C.tinta, texto: C.sobre }),
       arista: (p, hijo) => (esRojo(hijo) ? { color: C.s8, ancho: 4 } : { color: C.eje, ancho: 1.2 }),
       info: (n) => `clave <b>${n.clave}</b><br>${esRojo(n) ? 'rojo: forma un nodo-3 con su padre' : 'negro'}`,
       lecturas: () => {
@@ -136,8 +136,7 @@
       leyenda: [{ color: C.tinta, texto: 'nodo negro', forma: 'punto' }, { color: C.s8, texto: 'nodo rojo (enlace rojo grueso)', forma: 'punto' }],
       alDibujar: () => lienzo23 && lienzo23.ajustar(true),
     });
-    const titulo = VIZ.el('p', { class: 'nota-viz', style: { marginTop: '22px', fontWeight: 600, color: '#0b0b0b' } }, 'Árbol 2-3 equivalente');
-    cuerpo.appendChild(titulo);
+    VIZ.subtitulo(cuerpo, 'Árbol 2-3 equivalente');
     lienzo23 = VIZ.lienzo(cuerpo, { altoFn: () => Math.max(110, VIZ.arbol.alturaMultiple(impl.a23()) * 60 + 20) });
     lienzo23.alDibujar = () => {
       const { ctx, ancho: W } = lienzo23;

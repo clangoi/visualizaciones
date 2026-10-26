@@ -164,7 +164,7 @@
       if (bajo != null && bajo !== '') {
         ctx.font = VIZ.fuente(11, 500);
         const tw = ctx.measureText(bajo).width + 8;
-        ctx.fillStyle = 'rgba(255,255,255,0.92)';
+        ctx.fillStyle = VIZ.alfa(C.superficie, 0.92);
         ctx.fillRect(x - tw / 2, y + r + 3, tw, 15);
         ctx.fillStyle = (o.colorDebajo && o.colorDebajo(i)) || C.tinta;
         ctx.fillText(bajo, x, y + r + 11);
@@ -182,17 +182,14 @@
 
   // Tira de «fichas» para mostrar una cola, pila o cola de prioridad.
   function estructura(padre, titulo) {
-    const caja = el('div', { style: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', margin: '12px 0 0', fontFamily: 'var(--mono)', fontSize: '12.5px', minHeight: '30px' } });
-    const etiqueta = el('span', { style: { color: '#52514e', marginRight: '6px' } }, titulo);
+    const caja = el('div', { class: 'fichas' });
+    const etiqueta = el('span', { class: 'fichas-titulo' }, titulo);
     padre.appendChild(caja);
     return {
       set(items, vacio = 'vacía') {
-        caja.replaceChildren(etiqueta, ...(items.length ? items.map((it) => el('span', {
-          style: {
-            border: `1.5px solid ${it.color || '#0b0b0b'}`, background: it.fondo || '#fff', color: it.tinta || '#0b0b0b',
-            padding: '2px 8px', whiteSpace: 'nowrap',
-          },
-        }, it.texto)) : [el('span', { style: { color: '#898781' } }, vacio)]));
+        caja.replaceChildren(etiqueta, ...(items.length
+          ? items.map((it) => VIZ.ficha(it.texto, it))
+          : [el('span', { class: 'fichas-vacio' }, vacio)]));
       },
       titulo(t) { etiqueta.textContent = t; },
     };

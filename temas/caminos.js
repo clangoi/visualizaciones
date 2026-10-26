@@ -328,14 +328,14 @@
           ctx.fillRect(x, y, cs, cs);
         }
         if (costo[i] > 1 && !muro[i] && cs >= 10) {
-          ctx.fillStyle = 'rgba(82,81,78,0.45)';
+          ctx.fillStyle = VIZ.alfa(C.tinta2, 0.45);
           ctx.fillRect(x + cs * 0.3, y + cs * 0.3, 1.5, 1.5);
           ctx.fillRect(x + cs * 0.65, y + cs * 0.6, 1.5, 1.5);
         }
       }
       // Rejilla
       if (cs >= 8) {
-        ctx.strokeStyle = 'rgba(11,11,11,0.07)';
+        ctx.strokeStyle = VIZ.alfa(C.tinta, 0.07);
         ctx.lineWidth = 1;
         ctx.beginPath();
         for (let c = 0; c <= COLUMNAS; c++) { ctx.moveTo(ox + c * cs + 0.5, 0); ctx.lineTo(ox + c * cs + 0.5, FILAS * cs); }

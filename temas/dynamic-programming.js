@@ -34,7 +34,7 @@
       VIZ.arbol.dibujarBinario(ctx, raiz, {
         x0: 6, y0: 20, ancho: W - 12, dy: 52,
         etiqueta: (q) => String(q.k),
-        estilo: (q) => (q.memo ? { relleno: C.superficie, borde: VIZ.series[q.k], texto: C.tinta } : { relleno: VIZ.series[q.k], borde: VIZ.series[q.k], texto: '#fff' }),
+        estilo: (q) => (q.memo ? { relleno: C.superficie, borde: VIZ.series[q.k], texto: C.tinta } : { relleno: VIZ.series[q.k], borde: VIZ.series[q.k], texto: C.sobre }),
       });
       leyenda.set([
         ...Array.from({ length: n + 1 }, (_, k) => ({ color: VIZ.series[k], texto: `fib(${k})`, forma: 'punto' })),
@@ -106,8 +106,7 @@
       { color: C.superficie, borde: C.s3, texto: 'celdas de las que depende' },
       { color: C.superficie, borde: C.s2, texto: 'camino de la solución' },
     ]);
-    const alineacion = el('pre', { class: 'mono', style: { fontSize: '14px', margin: '12px 0 0', padding: '10px 12px', background: '#f6f6f4', border: '1px solid #e1e0d9', lineHeight: '1.5' } });
-    cuerpo.appendChild(alineacion);
+    const alineacion = VIZ.registro(cuerpo, { grande: true });
     const registro = VIZ.nota(cuerpo, '');
     const lectura = VIZ.lectura(cuerpo);
 
@@ -164,7 +163,7 @@
         valor: (i, j) => D[i][j],
         encabFila: (i) => (i ? a[i - 1] : 'ε'), encabCol: (j) => (j ? b[j - 1] : 'ε'),
         estilo: (i, j) => {
-          if (i === i0 && j === j0) return { fondo: C.s1, texto: '#fff' };
+          if (i === i0 && j === j0) return { fondo: C.s1, texto: C.sobre };
           const f = D[i][j] == null ? {} : { fondo: VIZ.css(VIZ.enRampa((D[i][j] / max) * 0.5, VIZ.rampa)), texto: C.tinta };
           if (camino && camino.has(`${i},${j}`)) f.borde = C.s2;
           if (dep.has(`${i},${j}`)) f.borde = C.s3;
@@ -187,7 +186,7 @@
     ctl.rango({ etiqueta: 'Capacidad W', min: 3, max: 16, valor: cap, alCambiar: (v) => { cap = v; rep.reiniciar(); } });
     const rep = VIZ.reproductor(ctl, { iniciar, dibujar, velocidad: 3, velMax: 9 });
     ctl.boton('Nuevos objetos', () => { semilla++; rep.reiniciar(); });
-    const fichas = el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '8px', margin: '0 0 12px', fontFamily: 'var(--mono)', fontSize: '12.5px' } });
+    const fichas = el('div', { class: 'fichas', style: { margin: '0 0 12px' } });
     cuerpo.appendChild(fichas);
     const lienzo = VIZ.lienzo(cuerpo, { altoFn: (w) => altoTabla(w, nItems + 1, cap + 1) });
     VIZ.leyenda(cuerpo, [
@@ -234,7 +233,10 @@
       if (lienzo.alto !== altoTabla(lienzo.ancho, nItems + 1, cap + 1)) return lienzo.ajustar(true);
       const { ctx, ancho: W } = lienzo;
       lienzo.limpiar();
-      fichas.innerHTML = items.map((it, k) => `<span style="border:1.5px solid ${elegidos && elegidos.has(k + 1) ? C.s2 : '#0b0b0b'};background:${elegidos && elegidos.has(k + 1) ? C.s2 : '#fff'};color:${elegidos && elegidos.has(k + 1) ? '#fff' : '#0b0b0b'};padding:3px 10px">${it.nombre} · peso ${it.w} · valor ${it.v}</span>`).join('');
+      fichas.replaceChildren(...items.map((it, k) => {
+        const usado = elegidos && elegidos.has(k + 1);
+        return VIZ.ficha(`${it.nombre} · peso ${it.w} · valor ${it.v}`, usado ? { color: C.s2, fondo: C.s2, tinta: C.sobre } : {});
+      }));
       const it = i0 > 0 ? items[i0 - 1] : null;
       const vmax = Math.max(1, ...T.flat().filter((x) => x != null));
       const ruta = new Set();
@@ -244,7 +246,7 @@
         valor: (i, j) => T[i][j],
         encabFila: (i) => (i ? items[i - 1].nombre : '∅'), encabCol: (j) => String(j),
         estilo: (i, j) => {
-          if (i === i0 && j === j0) return { fondo: C.s1, texto: '#fff' };
+          if (i === i0 && j === j0) return { fondo: C.s1, texto: C.sobre };
           const f = T[i][j] == null ? {} : { fondo: VIZ.css(VIZ.enRampa((T[i][j] / vmax) * 0.5)) };
           if (it && i === i0 - 1 && j === j0) f.borde = C.s3;
           if (it && i === i0 - 1 && it.w <= j0 && j === j0 - it.w) f.borde = C.s7;

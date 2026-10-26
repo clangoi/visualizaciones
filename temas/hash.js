@@ -138,7 +138,7 @@
     function calcularAlto(w) { return tabla ? disp(w).filas * disp(w).altoBloque + 8 : 120; }
 
     const colorSondeos = (s) => VIZ.css(VIZ.enRampa(Math.min(1, (s - 1) / 6)));
-    const textoSobre = (s) => (s >= 4 ? '#fff' : C.tinta);
+    const textoSobre = (s) => (s >= 4 ? C.sobre : C.tinta);
 
     let zonas = [];
     function dibujar() {

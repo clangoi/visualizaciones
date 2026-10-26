@@ -163,7 +163,7 @@
     VIZ.leyenda(cuerpo, [
       ...METODOS.map((m) => ({ color: m.color, texto: m.nombre, forma: 'linea' })),
       { color: C.tinta, texto: 'punto inicial', forma: 'punto' },
-      { color: '#ffffff', borde: C.apagado, texto: 'pérdida baja' },
+      { color: C.superficie, borde: C.apagado, texto: 'pérdida baja' },
       { color: VIZ.rampaGris[5], texto: 'pérdida alta' },
     ]);
     const lectura = VIZ.lectura(cuerpo);
@@ -211,7 +211,7 @@
       ctx.imageSmoothingEnabled = true;
       ctx.drawImage(fondo, ax, ay, aw, ah);
       // Curvas de nivel
-      ctx.strokeStyle = 'rgba(82,81,78,0.45)';
+      ctx.strokeStyle = VIZ.alfa(C.tinta2, 0.45);
       ctx.lineWidth = 0.8;
       ctx.beginPath();
       for (const [[ia, ja], [ib, jb]] of segmentos) {
@@ -231,7 +231,7 @@
         const n = Math.max(1, Math.ceil(r.tray.length * progreso));
         const pts = r.tray.slice(0, n);
         // Anillo blanco bajo la línea para separarla del fondo y de otras trayectorias.
-        VIZ.trazar(ctx, plano, pts, 'rgba(255,255,255,0.85)', 4.5);
+        VIZ.trazar(ctx, plano, pts, VIZ.alfa(C.superficie, 0.85), 4.5);
         VIZ.trazar(ctx, plano, pts, m.color, 2);
         if (pts.length < 120) for (const [x, y] of pts.slice(1)) {
           ctx.fillStyle = m.color;

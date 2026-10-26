@@ -42,7 +42,7 @@
           if (camino.has(e)) return { color: C.s2, ancho: 4 };
           if (e === s.aristaActual) return { color: C.s2, ancho: 3 };
           if (s.padreArista.includes(e)) return { color: C.s1, ancho: 3 };
-          return { color: '#c3c2b7' };
+          return { color: C.eje };
         },
         debajo: (i) => (s.dist[i] === Infinity ? '∞' : `${cfg.prefijo}${G.dist(s.dist[i])}`),
         colorDebajo: (i) => (i === s.mejorado ? C.s2 : C.tinta),
@@ -149,7 +149,7 @@
         descripcion: 'Los vértices procesados se colorean según su distancia al origen: forman capas concéntricas. Bajo cada vértice, su distancia en número de aristas.',
         montar: (c) => montarBase(c, {
           semilla: 4, pesos: false, prefijo: 'd=', crear: crearBFS, tituloEstructura: 'Cola (frente → final):',
-          estiloNodo: (s, i) => (s.estado[i] === 2 ? { relleno: VIZ.css(VIZ.enRampa(0.25 + 0.7 * (s.dist[i] / Math.max(1, s.maxNivel)))), borde: C.tinta, texto: s.dist[i] / Math.max(1, s.maxNivel) > 0.35 ? '#fff' : C.tinta } : s.estado[i] === 1 ? { relleno: C.s4 } : {}),
+          estiloNodo: (s, i) => (s.estado[i] === 2 ? { relleno: VIZ.css(VIZ.enRampa(0.25 + 0.7 * (s.dist[i] / Math.max(1, s.maxNivel)))), borde: C.tinta, texto: s.dist[i] / Math.max(1, s.maxNivel) > 0.35 ? C.sobre : C.tinta } : s.estado[i] === 1 ? { relleno: C.s4 } : {}),
           estructura: (s, g) => s.cola.map((u) => ({ texto: `${g.nodos[u].etiqueta} (${s.dist[u]})`, fondo: C.s4 })),
           leyenda: [
             { color: C.s4, texto: 'en la cola', forma: 'punto' },
@@ -166,7 +166,7 @@
         descripcion: 'Los números sobre las aristas son pesos. Los vértices negros tienen distancia definitiva; los amarillos están en la frontera con una distancia provisional que puede mejorar.',
         montar: (c) => montarBase(c, {
           semilla: 6, pesos: true, prefijo: '', crear: crearDijkstra, tituloEstructura: 'Cola de prioridad (menor → mayor):',
-          estiloNodo: (s, i) => (s.final[i] ? { relleno: C.tinta, borde: C.tinta, texto: '#fff' } : s.frontera.has(i) ? { relleno: C.s4 } : {}),
+          estiloNodo: (s, i) => (s.final[i] ? { relleno: C.tinta, borde: C.tinta, texto: C.sobre } : s.frontera.has(i) ? { relleno: C.s4 } : {}),
           estructura: (s, g) => [...s.frontera].sort((a, b) => s.dist[a] - s.dist[b] || a - b).map((u) => ({ texto: `${g.nodos[u].etiqueta}: ${s.dist[u]}`, fondo: C.s4 })),
           leyenda: [
             { color: C.s4, texto: 'en la frontera (distancia provisional)', forma: 'punto' },

@@ -140,11 +140,11 @@
     ctl.boton('− 1 ULP', () => moverUlp(-1));
     ctl.boton('+ 1 ULP', () => moverUlp(1));
 
-    const filaBits = el('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '3px', margin: '6px 0 4px', userSelect: 'none' } });
-    const etiquetasGrupo = el('div', { style: { display: 'flex', gap: '18px', fontFamily: 'var(--mono)', fontSize: '12px', color: '#52514e', margin: '4px 0 0', flexWrap: 'wrap' } });
+    const filaBits = el('div', { class: 'fila-bits' });
+    const etiquetasGrupo = el('div', { class: 'grupos-bits' });
     cuerpo.append(filaBits, etiquetasGrupo);
     VIZ.nota(cuerpo, 'Haga clic en cualquier bit para invertirlo.');
-    const desglose = el('div', { style: { marginTop: '16px', fontFamily: 'var(--mono)', fontSize: '13.5px', lineHeight: '1.75', whiteSpace: 'pre', overflowX: 'auto', borderTop: '1px solid #e1e0d9', paddingTop: '12px' } });
+    const desglose = el('div', { class: 'desglose' });
     cuerpo.appendChild(desglose);
     const lectura = VIZ.lectura(cuerpo);
 
@@ -201,15 +201,15 @@
         const b = el('button', {
           type: 'button', title: `bit ${i}`, 'aria-label': `bit ${i}: ${bit}`,
           style: {
-            width: tam + 'px', height: tam + 6 + 'px', border: `1.5px solid ${col}`, background: bit ? col : '#fff',
-            color: bit ? '#fff' : col, font: `500 ${tam > 20 ? 13 : 11}px var(--mono)`, cursor: 'pointer', padding: 0,
+            width: tam + 'px', height: tam + 6 + 'px', border: `1.5px solid ${col}`, background: bit ? col : C.superficie,
+            color: bit ? C.sobre : col, fontSize: `${tam > 20 ? 13 : 11}px`,
             marginRight: i === f.W - 1 || i === f.P ? '8px' : '0',
           },
         }, String(bit));
         b.addEventListener('click', () => { patron ^= 1n << BigInt(i); entradaTexto = null; actualizar(); });
         filaBits.appendChild(b);
       }
-      const muestra = (c) => `<span style="display:inline-block;width:10px;height:10px;background:${c};margin-right:6px;border-radius:2px"></span>`;
+      const muestra = (c) => `<span class="muestra-color" style="background:${c}"></span>`;
       etiquetasGrupo.innerHTML = `<span>${muestra(C.s8)}signo · 1 bit</span><span>${muestra(C.s1)}exponente · ${f.E} bits (sesgo ${f.sesgo})</span><span>${muestra(C.s3)}fracción · ${f.P} bits</span>`;
 
       const bitsE = d.e.toString(2).padStart(f.E, '0');

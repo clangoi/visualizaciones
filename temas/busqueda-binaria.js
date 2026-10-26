@@ -78,8 +78,7 @@
       { color: C.neutro, texto: 'descartado' },
     ]);
     const lectura = VIZ.lectura(cuerpo);
-    const registro = el('pre', { class: 'mono', style: { fontSize: '12.5px', margin: '12px 0 0', padding: '10px 12px', background: '#f6f6f4', border: '1px solid #e1e0d9', minHeight: '3em', whiteSpace: 'pre-wrap' } });
-    cuerpo.appendChild(registro);
+    const registro = VIZ.registro(cuerpo);
     VIZ.nota(cuerpo, 'Haga clic en una celda para buscar su valor. Mueva el control «valor buscado» a un número que no esté en el arreglo para ver cómo termina una búsqueda fallida.');
 
     let espera = 0;
@@ -119,11 +118,11 @@
         const x = ox + col * d.celda, y = fila * d.altoFila + 18;
         const s = d.celda - 4;
         const enRango = i >= lo && i <= hi && estado === 'buscando';
-        let fondo = C.neutro, borde = C.neutro, texto = '#a9a8a0';
+        let fondo = C.neutro, borde = C.neutro, texto = C.inactivo;
         if (enRango || (estado !== 'buscando' && i === mid)) { fondo = C.superficie; borde = C.tinta; texto = C.tinta; }
-        if (estado === 'ausente') { fondo = C.neutro; borde = C.eje; texto = '#a9a8a0'; }
-        if (i === mid && estado === 'buscando') { fondo = C.s1; borde = C.s1; texto = '#fff'; }
-        if (i === mid && estado === 'encontrado') { fondo = C.s6; borde = C.s6; texto = '#fff'; }
+        if (estado === 'ausente') { fondo = C.neutro; borde = C.eje; texto = C.inactivo; }
+        if (i === mid && estado === 'buscando') { fondo = C.s1; borde = C.s1; texto = C.sobre; }
+        if (i === mid && estado === 'encontrado') { fondo = C.s6; borde = C.s6; texto = C.sobre; }
         ctx.fillStyle = fondo;
         ctx.fillRect(x + 2, y, s, s);
         ctx.strokeStyle = borde;

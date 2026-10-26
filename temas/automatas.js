@@ -26,6 +26,7 @@
     ctl.boton('Otra condición aleatoria', () => { semilla++; inicial = 'aleatoria'; dibujarTodo(); });
 
     // Tira con los 8 vecindarios: clic para alternar la salida.
+    cuerpo.dataset.sinLeyenda = 'la tira de vecindarios funciona como leyenda';
     const tira = VIZ.lienzo(cuerpo, { alto: 74 });
     const lienzo = VIZ.lienzo(cuerpo, { altoFn: (w) => Math.round((w / ancho) * Math.ceil(ancho / 2)) });
     const lectura = VIZ.lectura(cuerpo);
@@ -250,7 +251,7 @@
         ctx.fillRect(c * cs + 0.5, f * cs + 0.5, Math.max(1, cs - 1), Math.max(1, cs - 1));
       }
       if (cs >= 6) {
-        ctx.strokeStyle = 'rgba(11,11,11,0.05)';
+        ctx.strokeStyle = VIZ.alfa(C.tinta, 0.05);
         ctx.beginPath();
         for (let c = 0; c <= COLS; c++) { ctx.moveTo(c * cs, 0); ctx.lineTo(c * cs, H); }
         for (let f = 0; f <= FILAS; f++) { ctx.moveTo(0, f * cs); ctx.lineTo(W, f * cs); }

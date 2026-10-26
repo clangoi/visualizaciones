@@ -59,13 +59,13 @@
 
   function estiloNodo(s, i) {
     if (s.color[i] === 1) return { relleno: C.s4, borde: C.tinta, anillo: i === s.actual ? C.s2 : null };
-    if (s.color[i] === 2) return { relleno: C.tinta, borde: C.tinta, texto: '#fff' };
+    if (s.color[i] === 2) return { relleno: C.tinta, borde: C.tinta, texto: C.sobre };
     return {};
   }
   function estiloArista(s, e) {
     if (e === s.aristaActual) return { color: C.s2, ancho: 3.5 };
     const t = s.tipo[e];
-    return t ? TIPOS[t] : { color: '#c3c2b7' };
+    return t ? TIPOS[t] : { color: C.eje };
   }
 
   /* ---------- Fig. 1: DFS con tiempos y clasificación ---------- */
@@ -133,8 +133,14 @@
     ctl.boton('Nuevo DAG', () => { est.semilla++; nuevo(); });
 
     const lienzo = VIZ.lienzo(cuerpo, { proporcion: 0.45, altoMax: 400 });
-    cuerpo.appendChild(el('p', { class: 'nota-viz', style: { margin: '14px 0 4px', fontWeight: 600, color: '#0b0b0b' } }, 'Orden topológico (vértices por tiempo de término decreciente)'));
+    VIZ.subtitulo(cuerpo, 'Orden topológico (vértices por tiempo de término decreciente)');
     const lineal = VIZ.lienzo(cuerpo, { alto: 150 });
+    VIZ.leyenda(cuerpo, [
+      { color: C.s4, texto: 'en la pila', forma: 'punto' },
+      { color: C.tinta, texto: 'terminado', forma: 'punto' },
+      { color: C.s1, texto: 'arista hacia la derecha (respeta el orden)', forma: 'linea' },
+      { color: C.s2, texto: 'arista que se examina', forma: 'linea' },
+    ]);
     const registro = VIZ.nota(cuerpo, '');
 
     function nuevo() { g = G.generar({ n: est.n, grado: est.grado, dirigido: true, orientacion: 'dag', semilla: est.semilla }); rep.reiniciar(); }
@@ -170,7 +176,7 @@
       for (const [u, xx] of x) {
         ctx.beginPath(); ctx.arc(xx, y, 13, 0, Math.PI * 2);
         ctx.fillStyle = C.tinta; ctx.fill();
-        ctx.fillStyle = '#fff'; ctx.font = VIZ.fuente(12, 600);
+        ctx.fillStyle = C.sobre; ctx.font = VIZ.fuente(12, 600);
         ctx.fillText(g.nodos[u].etiqueta, xx, y + 0.5);
         ctx.fillStyle = C.apagado; ctx.font = VIZ.fuente(10);
         ctx.fillText(`f=${s.f[u]}`, xx, y + 22);

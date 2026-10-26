@@ -238,7 +238,7 @@
     const lienzo = VIZ.lienzo(cuerpo, { proporcion: 0.42, altoMin: 240, altoMax: 420 });
     const tip = VIZ.tooltip(lienzo);
     VIZ.leyenda(cuerpo, [
-      { color: '#a9a8a0', texto: 'sin ordenar' },
+      { color: C.inactivo, texto: 'sin ordenar' },
       { color: C.s1, texto: 'comparación' },
       { color: C.s2, texto: 'escritura / intercambio' },
       { color: C.s7, texto: 'pivote o posición fija' },
@@ -276,7 +276,7 @@
       const cmp = new Set(ev.cmp || []), mov = new Set(ev.mov || []);
       for (let i = 0; i < a.length; i++) {
         const h = Math.max(2, (a[i] / max) * (base - sup));
-        let col = '#a9a8a0';
+        let col = C.inactivo;
         if (e.listo.has(i)) col = C.tinta;
         if (ev.piv === i) col = C.s7;
         if (cmp.has(i)) col = C.s1;

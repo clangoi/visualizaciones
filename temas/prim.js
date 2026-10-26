@@ -71,7 +71,7 @@
       geo = G.dibujar(lienzo, g, {
         pesos: true,
         nodo: (i) => ({
-          ...(s.enArbol[i] ? { relleno: C.tinta, borde: C.tinta, texto: '#fff' } : s.clave[i] < Infinity ? { relleno: C.s4 } : {}),
+          ...(s.enArbol[i] ? { relleno: C.tinta, borde: C.tinta, texto: C.sobre } : s.clave[i] < Infinity ? { relleno: C.s4 } : {}),
           anillo: i === s.actual ? C.s2 : i === s.mejorado ? C.s2 : null,
         }),
         arista: (a, e) => {
@@ -79,7 +79,7 @@
           if (arbol.has(e)) return { color: C.s1, ancho: 3.5 };
           if (candidata.has(e)) return { color: C.s4, ancho: 3, guiones: [6, 4] };
           const cruza = s.enArbol[a.u] !== s.enArbol[a.v];
-          return { color: cruza ? C.apagado : '#d9d8d2', ancho: cruza ? 1.5 : 1.2 };
+          return { color: cruza ? C.apagado : C.tenue, ancho: cruza ? 1.5 : 1.2 };
         },
         debajo: (i) => (s.enArbol[i] ? '' : G.dist(s.clave[i])),
         colorDebajo: (i) => (i === s.mejorado ? C.s2 : C.tinta),

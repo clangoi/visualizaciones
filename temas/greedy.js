@@ -22,7 +22,7 @@
     const tip = VIZ.tooltip(lienzo);
     VIZ.leyenda(cuerpo, [
       { color: C.s1, texto: 'elegida' },
-      { color: '#d9d8d2', texto: 'descartada (se superpone con una elegida)' },
+      { color: C.tenue, texto: 'descartada (se superpone con una elegida)' },
       { color: C.superficie, borde: C.s2, texto: 'la que se examina' },
     ]);
     const registro = VIZ.nota(cuerpo, '');
@@ -87,12 +87,12 @@
       orden.forEach((a, k) => {
         const y = 26 + k * 22;
         const st = estado[k];
-        ctx.fillStyle = st === 'si' ? C.s1 : st === 'no' ? '#e9e8e3' : C.superficie;
+        ctx.fillStyle = st === 'si' ? C.s1 : st === 'no' ? C.neutro : C.superficie;
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(sx(a.ini) + 1, y, sx(a.fin) - sx(a.ini) - 2, 15, 3); else ctx.rect(sx(a.ini) + 1, y, sx(a.fin) - sx(a.ini) - 2, 15);
         ctx.fill();
         ctx.lineWidth = k === actual ? 3 : 1;
-        ctx.strokeStyle = k === actual ? C.s2 : st === 'si' ? C.s1 : st === 'no' ? '#c3c2b7' : C.tinta;
+        ctx.strokeStyle = k === actual ? C.s2 : st === 'si' ? C.s1 : st === 'no' ? C.eje : C.tinta;
         ctx.stroke();
         ctx.fillStyle = C.apagado;
         ctx.textAlign = 'right';
@@ -154,7 +154,7 @@
     const ctl = VIZ.controles(cuerpo);
     ctl.selector({ etiqueta: 'Sistema de monedas', opciones: SISTEMAS, valor: sistema, alCambiar: (v) => { sistema = v; calcular(); dibujar(); } });
     const sMonto = ctl.rango({ etiqueta: 'Monto', min: 1, max: 100, valor: monto, alCambiar: (v) => { monto = v; dibujar(); } });
-    const fichas = el('div', { style: { margin: '6px 0 14px', fontFamily: 'var(--mono)', fontSize: '13px', lineHeight: '2.1' } });
+    const fichas = el('div', { style: { margin: '6px 0 14px' } });
     cuerpo.appendChild(fichas);
     const lienzo = VIZ.lienzo(cuerpo, { proporcion: 0.38, altoMin: 230, altoMax: 340 });
     const tip = VIZ.tooltip(lienzo);
@@ -168,10 +168,13 @@
     let plano = null;
     function dibujar() {
       const v = codicioso.voraz(monto), o = codicioso.reconstruir(monto);
-      const ficha = (c, color) => `<span style="display:inline-block;min-width:28px;text-align:center;border:1.5px solid ${color};border-radius:14px;padding:0 7px;margin-right:4px">${c}</span>`;
-      fichas.innerHTML = `<div><b>Codicioso</b> (${v.length}): ${v.map((c) => ficha(c, C.s2)).join('')}</div>` +
-        `<div><b>Óptimo</b> (${o.length}): ${o.map((c) => ficha(c, C.s1)).join('')}</div>` +
-        `<div style="color:${v.length === o.length ? '#52514e' : C.s8}">${v.length === o.length ? 'El algoritmo codicioso es óptimo para este monto.' : `El codicioso usa ${v.length - o.length} moneda(s) de más.`}</div>`;
+      const fila = (titulo, lista, color) => el('div', { class: 'fichas', style: { margin: '4px 0' } },
+        el('span', { class: 'fichas-titulo' }, el('b', null, titulo), ` (${lista.length}):`),
+        ...lista.map((c) => VIZ.ficha(String(c), { color, redonda: true })));
+      const iguales = v.length === o.length;
+      fichas.replaceChildren(fila('Codicioso', v, C.s2), fila('Óptimo', o, C.s1),
+        el('p', { class: 'nota-viz', style: { color: iguales ? null : C.s8 } },
+          iguales ? 'El algoritmo codicioso es óptimo para este monto.' : `El codicioso usa ${v.length - o.length} moneda(s) de más.`));
       const { ctx } = lienzo;
       lienzo.limpiar();
       const datos = [];
@@ -223,8 +226,13 @@
     ctl.texto({ etiqueta: 'Texto a codificar', valor: texto, alCambiar: (v) => { texto = v || 'a'; rep.reiniciar(); }, alEnter: (v) => { texto = v || 'a'; rep.reiniciar(); } });
     const rep = VIZ.reproductor(ctl, { iniciar, dibujar, velocidad: 0.5 });
     const lienzo = VIZ.lienzo(cuerpo, { altoFn: () => calcularAlto() });
+    VIZ.leyenda(cuerpo, [
+      { color: C.superficie, borde: C.tinta, texto: 'hoja: símbolo (frecuencia a la derecha)', forma: 'punto' },
+      { color: C.neutro, borde: C.tinta, texto: 'nodo interno: suma de frecuencias', forma: 'punto' },
+      { color: C.s2, texto: 'última fusión', forma: 'punto' },
+    ]);
     const registro = VIZ.nota(cuerpo, '');
-    const tabla = el('div', { style: { overflowX: 'auto', marginTop: '10px' } });
+    const tabla = el('div', { class: 'caja-desplazable' });
     cuerpo.appendChild(tabla);
     const lectura = VIZ.lectura(cuerpo);
 
@@ -263,7 +271,7 @@
           x0: x, y0: 22, ancho: ancho - 4, dy: 46, radio: Math.min(14, Math.max(9, ancho / hojas(t) / 2.6)),
           etiqueta: (n) => (n.c != null ? simbolo(n.c) : String(n.f)),
           nota: (n) => (n.c != null ? String(n.f) : ''),
-          estilo: (n) => (n.c != null ? { relleno: C.superficie } : { relleno: n === fusion ? C.s2 : C.neutro, borde: n === fusion ? C.s2 : C.tinta, texto: n === fusion ? '#fff' : C.tinta }),
+          estilo: (n) => (n.c != null ? { relleno: C.superficie } : { relleno: n === fusion ? C.s2 : C.neutro, borde: n === fusion ? C.s2 : C.tinta, texto: n === fusion ? C.sobre : C.tinta }),
         });
         // Etiquetas 0/1 en las aristas.
         ctx.font = VIZ.fuente(10, 600);
@@ -291,9 +299,9 @@
         const bits = codigos.reduce((s, x) => s + x.f * x.cod.length, 0);
         const N = texto.length;
         const H = -codigos.reduce((s, x) => s + (x.f / N) * Math.log2(x.f / N), 0);
-        const td = (t, b) => el('td', { style: { padding: '3px 12px 3px 0', borderBottom: '1px solid #e1e0d9', fontFamily: 'var(--mono)', fontSize: '12.5px', fontWeight: b ? '600' : '400' } }, t);
-        tabla.replaceChildren(el('table', { style: { borderCollapse: 'collapse' } },
-          el('tr', null, td('símbolo', 1), td('frecuencia', 1), td('código', 1), td('bits', 1)),
+        const td = (t) => el('td', null, t);
+        tabla.replaceChildren(el('table', { class: 'tabla-datos' },
+          el('tr', null, ...['símbolo', 'frecuencia', 'código', 'bits'].map((t) => el('th', null, t))),
           ...codigos.map((x) => el('tr', null, td(simbolo(x.c)), td(String(x.f)), td(x.cod), td(String(x.f * x.cod.length))))));
         lectura.set([
           ['bits con Huffman', String(bits)], [`bits con largo fijo (${fijo} por símbolo)`, String(fijo * N)],

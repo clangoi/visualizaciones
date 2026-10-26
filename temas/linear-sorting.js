@@ -3,7 +3,7 @@
   const { color: C } = VIZ;
 
   const colorClave = (v, K) => VIZ.css(VIZ.enRampa(0.15 + (0.8 * v) / Math.max(1, K - 1)));
-  const textoSobre = (v, K) => ((0.15 + (0.8 * v) / Math.max(1, K - 1)) > 0.45 ? '#fff' : C.tinta);
+  const textoSobre = (v, K) => ((0.15 + (0.8 * v) / Math.max(1, K - 1)) > 0.45 ? C.sobre : C.tinta);
 
   // Celda con valor; `marca` dibuja un borde naranjo grueso.
   function celda(ctx, x, y, w, h, texto, { fondo = C.superficie, tinta = C.tinta, marca = false, sub = null } = {}) {
