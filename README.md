@@ -30,6 +30,7 @@ npm run verificar
 - `js/ordenar.js` — algoritmos de ordenamiento y sus figuras (`VIZ.orden`).
 - `js/arboles.js` — dibujo de árboles y editor genérico de árboles de búsqueda (`VIZ.arbol`).
 - `js/grafos.js` — generador, dibujo y utilidades de grafos (`VIZ.grafo`).
+- `js/busqueda.js` — búsqueda heurística (`VIZ.busqueda`): 8-puzzle con heurísticas, A*, IDA* y distancias exactas, dibujo de árboles generales y la figura «primero el mejor» sobre un grafo.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
