@@ -525,6 +525,70 @@ window.VIZ = (function () {
     };
   };
 
+  /* ---------- Reproductor de algoritmos paso a paso ---------- */
+
+  // Agrega a `ctl` los controles de reproducción de un algoritmo escrito como generador.
+  // op.iniciar(): reinicia el estado y devuelve un generador (cada next() es un paso).
+  // op.dibujar(): pinta el estado actual. op.velocidad: log₂ de pasos por segundo.
+  VIZ.reproductor = function (ctl, op) {
+    let gen = null, terminado = false, acum = 0, vel = Math.pow(2, op.velocidad ?? 1);
+    function paso() {
+      if (terminado) return false;
+      if (!gen) gen = op.iniciar();
+      if (gen.next().done) {
+        terminado = true;
+        if (op.alTerminar) op.alTerminar();
+        return false;
+      }
+      return true;
+    }
+    const bucle = VIZ.bucle((dt) => {
+      acum += (dt / 1000) * vel;
+      let hubo = false;
+      while (acum >= 1) {
+        acum -= 1;
+        hubo = true;
+        if (!paso()) { op.dibujar(); return false; }
+      }
+      if (hubo) op.dibujar();
+      return true;
+    }, () => { bPlay.textContent = 'Reproducir'; });
+
+    ctl.rango({
+      etiqueta: 'Velocidad', min: -1, max: op.velMax ?? 8, paso: 0.5, valor: op.velocidad ?? 1,
+      formato: (v) => { const p = Math.pow(2, v); return `${p < 1 ? +p.toFixed(2) : Math.round(p)} pasos/s`; },
+      alCambiar: (v) => { vel = Math.pow(2, v); },
+    });
+    const bPlay = ctl.boton('Reproducir', () => {
+      if (bucle.activo) return bucle.detener();
+      if (terminado) api.reiniciar();
+      acum = 1;
+      bPlay.textContent = 'Pausar';
+      bucle.iniciar();
+    }, { primario: true });
+    ctl.boton('Un paso', () => { bucle.detener(); paso(); op.dibujar(); });
+    ctl.boton('Hasta el final', () => {
+      bucle.detener();
+      for (let k = 0; k < 5e6 && paso(); k++);
+      op.dibujar();
+    });
+    ctl.boton('Reiniciar', () => api.reiniciar());
+
+    const api = {
+      reiniciar() {
+        bucle.detener();
+        gen = op.iniciar();
+        terminado = false;
+        op.dibujar();
+      },
+      detener() { bucle.detener(); },
+      paso,
+      get terminado() { return terminado; },
+      get activo() { return bucle.activo; },
+    };
+    return api;
+  };
+
   /* ---------- Aleatoriedad reproducible ---------- */
 
   VIZ.semilla = function (s = 1) {

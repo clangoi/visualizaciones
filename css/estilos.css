@@ -326,7 +326,7 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 .prosa ul, .prosa ol { padding-left: 1.3em; }
 .prosa li { margin: 4px 0; }
 .prosa .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
-.prosa table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 16px 0; }
+.prosa table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 16px 0; display: block; overflow-x: auto; }
 .prosa th, .prosa td { border-bottom: 1px solid var(--linea); padding: 7px 10px 7px 0; text-align: left; vertical-align: top; }
 .prosa th { border-bottom: 1px solid var(--tinta); font-weight: 600; }
 .prosa td.num, .prosa th.num { font-family: var(--mono); }
@@ -499,7 +499,7 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 }
 .lectura div { padding: 0 22px 4px 0; min-width: 110px; }
 .lectura dt { font-family: var(--mono); font-size: 11px; color: var(--tinta-3); text-transform: uppercase; letter-spacing: 0.04em; }
-.lectura dd { margin: 0; font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; }
+.lectura dd { overflow-wrap: anywhere; margin: 0; font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; }
 
 .nota-viz { font-size: 13px; color: var(--tinta-2); margin: 10px 0 0; }
 
@@ -508,11 +508,13 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 /* ---------- Adaptación a pantallas pequeñas ---------- */
 
 @media (max-width: 920px) {
-  .diseno-tema { grid-template-columns: 1fr; gap: 0; }
+  .diseno-tema { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .lateral { display: none; }
   .dos-columnas { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
+  /* Fórmulas en línea muy largas no deben provocar desplazamiento horizontal de la página. */
+  #tema { overflow-x: clip; }
   .contenedor, .barra-interior { padding-left: 16px; padding-right: 16px; }
   .viz-cuerpo { padding: 14px; }
   .viz-cabecera { padding: 14px; }
