@@ -22,7 +22,7 @@ Reglas para que todas las páginas se vean y se comporten igual. Muchas se compr
 | Campo | Regla |
 |---|---|
 | `id` | minúsculas con guiones, igual al nombre del archivo ✓ |
-| `titulo` | Nombre del concepto. Los algoritmos y estructuras de datos clásicos van con su nombre en inglés (*Merge Sort*, *AVL Trees*, *BFS & Dijkstra*); el resto, en español. Use `’` (no `'`) en posesivos: *Kruskal’s Algorithm*. |
+| `titulo` | Nombre del concepto **en inglés**, con mayúscula en cada palabra principal (*Merge Sort*, *AVL Trees*, *Gradient Descent*). El resto de la página (resumen, textos, secciones) va en español. Use `’` (no `'`) en posesivos: *Kruskal’s Algorithm*. |
 | `resumen` | Una frase de hasta 140 caracteres que diga qué se puede **hacer o ver** en la página. ✓ |
 | `visualizaciones` | Número exacto de figuras del tema. ✓ |
 | `glifo` | `g('…')` con trazos SVG en un cuadro de 44 × 44: grosor 1.5, `currentColor`, sin colores ✓, formas simples y reconocibles. |

@@ -225,7 +225,7 @@ window.CATALOGO = (function () {
       temas: [
         {
           id: 'punto-flotante',
-          titulo: 'Punto flotante IEEE 754',
+          titulo: 'IEEE 754 Floating Point',
           resumen: 'Edite bit a bit un número de 16, 32 o 64 bits y observe la densidad irregular de los valores representables.',
           visualizaciones: 2,
           glifo: g('<rect x="4" y="16" width="6" height="12"/><rect x="12" y="16" width="12" height="12"/><rect x="26" y="16" width="14" height="12"/><path d="M16 16v12M20 16v12M30 16v12M35 16v12"/>'),
@@ -239,7 +239,7 @@ window.CATALOGO = (function () {
       temas: [
         {
           id: 'descenso-gradiente',
-          titulo: 'Descenso de gradiente',
+          titulo: 'Gradient Descent',
           resumen: 'GD, momento, Nesterov y Adam sobre superficies de pérdida con distinto condicionamiento.',
           visualizaciones: 2,
           glifo: g('<ellipse cx="22" cy="22" rx="18" ry="11"/><ellipse cx="22" cy="22" rx="11" ry="6.5"/><ellipse cx="22" cy="22" rx="4" ry="2.4"/><path d="M8 12l6 9 3-6 3 6 2-1" stroke-width="2"/>'),
@@ -260,7 +260,7 @@ window.CATALOGO = (function () {
       temas: [
         {
           id: 'automatas',
-          titulo: 'Autómatas celulares',
+          titulo: 'Cellular Automata',
           resumen: 'Las 256 reglas elementales de Wolfram y el Juego de la vida de Conway.',
           visualizaciones: 2,
           glifo: g('<path d="M20 6h4v4h-4zM16 10h4v4h-4zM24 10h4v4h-4zM12 14h4v4h-4zM28 14h4v4h-4zM8 18h4v4H8zM16 18h4v4h-4zM24 18h4v4h-4zM32 18h4v4h-4z" fill="currentColor" stroke="none"/><path d="M6 30h32M6 36h32" stroke-dasharray="4 2"/>'),
@@ -274,7 +274,7 @@ window.CATALOGO = (function () {
       temas: [
         {
           id: 'fourier',
-          titulo: 'Transformada de Fourier',
+          titulo: 'Fourier Transform',
           resumen: 'Componga una señal, observe su espectro discreto, el aliasing, la fuga espectral y el fenómeno de Gibbs.',
           visualizaciones: 2,
           glifo: g('<path d="M4 16c3-8 6-8 9 0s6 8 9 0 6-8 9 0 6 8 9 0"/><path d="M6 38V34M12 38V26M18 38V32M24 38V36M30 38V30M36 38V35"/>'),
