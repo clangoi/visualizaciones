@@ -10,16 +10,8 @@
   'use strict';
   const { el } = VIZ;
   const raiz = document.getElementById('tema');
-  const lateral = document.getElementById('lateral');
   const id = new URLSearchParams(location.search).get('id');
   const tema = CATALOGO.buscar(id);
-
-  // Navegación lateral por secciones.
-  for (const s of CATALOGO.secciones) {
-    lateral.appendChild(el('h4', null, s.nombre));
-    lateral.appendChild(el('ul', null, s.temas.map((t) =>
-      el('li', null, el('a', { href: `tema.html?id=${t.id}`, 'aria-current': t === tema ? 'page' : null }, t.titulo)))));
-  }
 
   if (!tema) {
     raiz.append(
@@ -62,7 +54,7 @@
 
     (def.visualizaciones || []).forEach((v, i) => {
       const cuerpo = el('div', { class: 'viz-cuerpo' });
-      const figura = el('figure', { class: 'viz', id: `viz-${i + 1}`, style: { margin: '32px 0 40px' } },
+      const figura = el('figure', { class: 'viz', id: `viz-${i + 1}` },
         el('figcaption', { class: 'viz-cabecera' },
           el('h3', null, el('span', null, `Fig. ${i + 1}`), v.titulo),
           v.descripcion ? el('p', { html: v.descripcion }) : null),
