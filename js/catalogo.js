@@ -15,14 +15,14 @@ window.CATALOGO = (function () {
       temas: [
         {
           id: 'complejidad',
-          titulo: 'Crecimiento asintótico',
+          titulo: 'Asymptotic Growth',
           resumen: 'Comparación de órdenes de crecimiento y la definición formal de O grande con su constante y n₀.',
           visualizaciones: 3,
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M6 36C18 34 26 28 34 8"/><path d="M6 34c10-4 20-7 32-9" stroke-dasharray="2 3"/>'),
         },
         {
           id: 'busqueda-binaria',
-          titulo: 'Búsqueda binaria',
+          titulo: 'Binary Search',
           resumen: 'Cómo dividir el espacio de búsqueda a la mitad en cada paso y el árbol de decisión que se forma.',
           visualizaciones: 2,
           glifo: g('<circle cx="22" cy="8" r="3"/><circle cx="12" cy="22" r="3"/><circle cx="32" cy="22" r="3"/><circle cx="6" cy="36" r="3"/><circle cx="18" cy="36" r="3"/><path d="M20 10l-6 10M24 10l6 10M10.5 24.5L7.5 33.5M13.5 24.5l3 9"/>'),
@@ -78,7 +78,7 @@ window.CATALOGO = (function () {
         },
         {
           id: 'ordenamiento',
-          titulo: 'Comparación de algoritmos de ordenamiento',
+          titulo: 'Sorting Algorithms Compared',
           resumen: 'Todos los algoritmos de la sección lado a lado, con conteo de comparaciones y escrituras.',
           visualizaciones: 2,
           glifo: g('<path d="M6 38V30M13 38V22M20 38V26M27 38V14M34 38V8"/><path d="M4 38h36"/>'),
@@ -211,7 +211,7 @@ window.CATALOGO = (function () {
         },
         {
           id: 'caminos',
-          titulo: 'Búsqueda de caminos en cuadrículas',
+          titulo: 'Grid Pathfinding',
           resumen: 'BFS, DFS, Dijkstra, voraz y A* sobre una cuadrícula editable con muros y terreno costoso.',
           visualizaciones: 1,
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M6 17h11M27 6v15M17 28h21M17 17v11" /><path d="M10 34V24h12v-8h12V10" stroke-width="2.2"/>'),
@@ -246,7 +246,7 @@ window.CATALOGO = (function () {
         },
         {
           id: 'kmeans',
-          titulo: 'Agrupamiento k-medias',
+          titulo: 'k-Means Clustering',
           resumen: 'El algoritmo de Lloyd alternando asignación y actualización, con inicialización k-means++ y el método del codo.',
           visualizaciones: 2,
           glifo: g('<circle cx="12" cy="14" r="1.6" fill="currentColor"/><circle cx="8" cy="18" r="1.6" fill="currentColor"/><circle cx="14" cy="19" r="1.6" fill="currentColor"/><circle cx="30" cy="12" r="1.6" fill="currentColor"/><circle cx="34" cy="16" r="1.6" fill="currentColor"/><circle cx="22" cy="32" r="1.6" fill="currentColor"/><circle cx="27" cy="34" r="1.6" fill="currentColor"/><circle cx="24" cy="28" r="1.6" fill="currentColor"/><path d="M11 13l2 2m0-2l-2 2M31 13l2 2m0-2l-2 2M23 30l2 2m0-2l-2 2" stroke-width="1.3"/>'),
