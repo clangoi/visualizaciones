@@ -240,139 +240,44 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 
 /* ---------- Vista de tema ---------- */
 
-.diseno-tema { padding-top: 32px; }
-
-/* ---------- Panel lateral ---------- */
-
-:root { --ancho-panel: 280px; --alto-barra: 53px; }
-
-.boton-panel {
+.diseno-tema {
   display: grid;
-  place-items: center;
-  width: 34px;
-  height: 30px;
-  margin-right: 4px;
-  border: 1px solid var(--tinta);
-  background: var(--fondo);
-  color: var(--tinta);
-  cursor: pointer;
-  flex: none;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 48px;
+  padding-top: 32px;
 }
-.boton-panel:hover { background: var(--fondo-2); }
-body.panel-abierto .boton-panel { background: var(--tinta); color: var(--fondo); }
-.barra-interior .marca { margin-right: auto; }
-
-.panel {
-  position: fixed;
-  top: var(--alto-barra);
-  left: 0;
-  bottom: 0;
-  width: var(--ancho-panel);
-  background: var(--fondo);
-  border-right: 1px solid var(--tinta);
+.lateral {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  max-height: calc(100vh - 100px);
   overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 18px 14px 48px;
-  z-index: 30;
-  transform: translateX(-100%);
-  visibility: hidden;
   font-size: 14px;
 }
-body.panel-abierto .panel { transform: none; visibility: visible; }
-body.panel-listo .panel { transition: transform 0.2s ease, visibility 0.2s; }
-
-.panel-cabeza {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 4px 14px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid var(--linea);
-}
-.panel-inicio {
+.lateral h4 {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tinta-3);
+  margin: 20px 0 6px;
+}
+.lateral h4:first-child { margin-top: 0; }
+.lateral ul { list-style: none; margin: 0; padding: 0; }
+.lateral li a {
+  display: block;
+  padding: 3px 0 3px 12px;
+  border-left: 1px solid var(--linea);
   text-decoration: none;
   color: var(--tinta-2);
 }
-.panel-inicio:hover { color: var(--tinta); text-decoration: underline; }
-.panel-cerrar {
-  border: none;
-  background: none;
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-  color: var(--tinta-2);
-  padding: 0 4px;
-}
-.panel-cerrar:hover { color: var(--tinta); }
-
-.panel-lista, .panel-temas { list-style: none; margin: 0; padding: 0; }
-.panel-seccion { margin: 2px 0; }
-.panel-fila { display: flex; align-items: center; gap: 2px; }
-.panel-plegar {
-  width: 24px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--tinta-2);
-  flex: none;
-}
-.panel-plegar svg { transition: transform 0.15s; }
-.panel-plegar[aria-expanded="true"] svg { transform: rotate(90deg); }
-.panel-plegar:hover { color: var(--tinta); }
-.panel-seccion-enlace {
-  flex: 1;
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  padding: 4px 6px;
-  text-decoration: none;
-  font-weight: 600;
-}
-.panel-seccion-enlace:hover { background: var(--tinta); color: var(--fondo); }
-.panel-seccion-enlace:hover .panel-codigo { color: #c3c2b7; }
-.panel-codigo { font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--tinta-3); flex: none; }
-
-.panel-temas { margin: 2px 0 10px 35px; border-left: 1px solid var(--linea); }
-.panel-temas a {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  padding: 4px 8px 4px 12px;
-  margin-left: -1px;
-  border-left: 1px solid transparent;
-  text-decoration: none;
-  color: var(--tinta-2);
-  line-height: 1.35;
-}
-.panel-temas a:hover { color: var(--tinta); border-left-color: var(--tinta); background: var(--fondo-2); }
-.panel-temas a[aria-current="page"] {
+.lateral li a:hover { color: var(--tinta); border-left-color: var(--tinta); }
+.lateral li a[aria-current="page"] {
   color: var(--tinta);
   font-weight: 600;
   border-left: 3px solid var(--tinta);
   padding-left: 10px;
-}
-
-.panel-fondo {
-  position: fixed;
-  inset: var(--alto-barra) 0 0 0;
-  background: rgba(11, 11, 11, 0.35);
-  z-index: 25;
-}
-
-/* En escritorio el panel empuja el contenido; la barra superior sigue ocupando todo el ancho. */
-@media (min-width: 921px) {
-  body.panel-abierto { padding-left: var(--ancho-panel); }
-  body.panel-abierto .barra { margin-left: calc(-1 * var(--ancho-panel)); }
-  body.panel-listo { transition: padding-left 0.2s ease; }
-  body.panel-listo .barra { transition: margin-left 0.2s ease; }
-}
-@media (max-width: 920px) {
-  .panel { width: min(var(--ancho-panel), 86vw); box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12); }
 }
 
 .migas {
@@ -603,11 +508,12 @@ body.panel-listo .panel { transition: transform 0.2s ease, visibility 0.2s; }
 /* ---------- Adaptación a pantallas pequeñas ---------- */
 
 @media (max-width: 920px) {
+  .diseno-tema { grid-template-columns: 1fr; gap: 0; }
+  .lateral { display: none; }
   .dos-columnas { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .contenedor, .barra-interior { padding-left: 16px; padding-right: 16px; }
-  .barra nav { display: none; }
   .viz-cuerpo { padding: 14px; }
   .viz-cabecera { padding: 14px; }
   .herramientas { position: static; }
