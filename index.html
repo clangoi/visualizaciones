@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visualizaciones de computación</title>
+  <meta name="description" content="Visualizaciones interactivas de conceptos de computación con su fundamento matemático.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <div class="barra-interior">
+      <a class="marca" href="index.html"><span class="marca-simbolo"><span></span><span></span><span></span><span></span></span>Visualizaciones de computación</a>
+      <nav><a href="#secciones">Secciones</a></nav>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <section class="portada">
+      <h1>Conceptos de computación, en movimiento.</h1>
+      <p>Una colección de visualizaciones interactivas. Cada tema permite modificar parámetros para ver
+        qué ocurre, y viene acompañado de una explicación con su teoría matemática.</p>
+    </section>
+
+    <div class="herramientas" id="secciones">
+      <ul class="indice-secciones" id="indice-secciones"></ul>
+      <input class="buscador" id="buscador" type="search" placeholder="Filtrar temas…" aria-label="Filtrar temas">
+    </div>
+
+    <div id="lista-secciones"></div>
+    <p class="sin-resultados" id="sin-resultados" hidden>Ningún tema coincide con la búsqueda.</p>
+  </main>
+
+  <footer class="contenedor pie" id="pie"></footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/catalogo.js"></script>
+  <script src="js/portada.js"></script>
+</body>
+</html>
