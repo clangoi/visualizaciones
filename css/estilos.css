@@ -552,6 +552,8 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 .tabla-datos td, .tabla-datos th { padding: 3px 10px; border-bottom: 1px solid var(--linea); text-align: right; font-weight: 400; }
 .tabla-datos th { border-bottom-color: var(--tinta); font-weight: 600; }
 .tabla-datos .izq { text-align: left; color: var(--tinta-2); }
+.tabla-datos tr.activa td { background: color-mix(in srgb, var(--serie-1) 12%, transparent); }
+.caja-alta { max-height: 380px; overflow-y: auto; margin-top: 0; }
 
 /* Lista monoespaciada con una fila resaltable. */
 .lista-mono { font-family: var(--mono); font-size: 13px; line-height: 1.8; border: 1px solid var(--linea); padding: 8px 12px; }

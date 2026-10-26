@@ -31,6 +31,7 @@ npm run verificar
 - `js/arboles.js` — dibujo de árboles y editor genérico de árboles de búsqueda (`VIZ.arbol`).
 - `js/grafos.js` — generador, dibujo y utilidades de grafos (`VIZ.grafo`).
 - `js/busqueda.js` — búsqueda heurística (`VIZ.busqueda`): 8-puzzle con heurísticas, A*, IDA* y distancias exactas, dibujo de árboles generales y la figura «primero el mejor» sobre un grafo.
+- `js/ml.js` — aprendizaje automático (`VIZ.ml`): conjuntos de datos de juguete, regiones de decisión, curvas de nivel, dibujo de puntos por clase y un SVM (SMO) con kernels.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
