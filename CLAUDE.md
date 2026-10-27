@@ -1,4 +1,4 @@
-# Visualizaciones de computación
+# Computación en movimiento
 
 Sitio estático (HTML/CSS/JS sin compilación) publicado en GitHub Pages desde `main`.
 

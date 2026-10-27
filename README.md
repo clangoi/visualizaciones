@@ -1,4 +1,4 @@
-# Visualizaciones de computación
+# Computación en movimiento
 
 Sitio estático con visualizaciones interactivas de conceptos de computación y su teoría matemática.
 
