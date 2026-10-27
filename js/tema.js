@@ -29,7 +29,7 @@
     return;
   }
 
-  document.title = `${tema.titulo} — Visualizaciones de computación`;
+  document.title = `${tema.titulo} — Computación en movimiento`;
 
   const renderizarMatematica = (nodo) => {
     if (typeof window.renderMathInElement !== 'function') return;
