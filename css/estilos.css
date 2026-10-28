@@ -135,10 +135,7 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
   justify-content: space-between;
   padding: 24px 0;
   border-bottom: 1px solid var(--linea);
-  position: sticky;
-  top: 53px;
   background: var(--fondo);
-  z-index: 10;
 }
 .indice-secciones {
   display: flex;
@@ -596,7 +593,6 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
   .contenedor, .barra-interior { padding-left: 16px; padding-right: 16px; }
   .viz-cuerpo { padding: 14px; }
   .viz-cabecera { padding: 14px; }
-  .herramientas { position: static; }
   .seccion-cabecera { grid-template-columns: 1fr; }
   .seccion-cabecera p { grid-column: 1; }
   .navegacion-temas { grid-template-columns: 1fr; }
