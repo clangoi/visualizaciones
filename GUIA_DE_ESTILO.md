@@ -14,7 +14,7 @@ Reglas para que todas las páginas se vean y se comporten igual. Muchas se compr
 1. Elija un `id`: minúsculas con guiones (`red-black`, `linear-sorting`). ✓ Es parte de la URL (`tema.html?id=…`): **no lo cambie después**.
 2. Copie [plantillas/tema.js](plantillas/tema.js) a `temas/<id>.js` y cambie el id en `VIZ.registrarTema('<id>', …)`. ✓
 3. Agréguelo a una sección en [js/catalogo.js](js/catalogo.js) (ver §3). ✓
-4. Si necesita un módulo compartido (`ordenar.js`, `arboles.js`, `grafos.js`, `busqueda.js`, `ml.js`, `imagen.js`, `patrones.js`) ya está cargado en `tema.html`. Si crea uno nuevo, agréguelo a `tema.html` antes de `catalogo.js`.
+4. Si necesita un módulo compartido (`ordenar.js`, `arboles.js`, `grafos.js`, `busqueda.js`, `ml.js`, `imagen.js`, `patrones.js`, `bdd.js`) ya está cargado en `tema.html`. Si crea uno nuevo, agréguelo a `tema.html` antes de `catalogo.js`.
 5. Ejecute `npm run verificar -- <id>` y revise la página a 1300 px y a 390 px de ancho.
 
 ## 3. Catálogo

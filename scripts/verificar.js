@@ -45,7 +45,7 @@ for (const t of CATALOGO.temas) {
 for (const f of archivos) if (!ids.has(f)) falla(`temas/${f}.js no está en el catálogo`);
 
 // Reglas por archivo de tema y módulo
-const revisar = [...archivos.map((f) => `temas/${f}.js`), 'js/arboles.js', 'js/grafos.js', 'js/busqueda.js', 'js/ml.js', 'js/imagen.js', 'js/patrones.js', 'js/ordenar.js', 'js/portada.js', 'js/tema.js'];
+const revisar = [...archivos.map((f) => `temas/${f}.js`), 'js/arboles.js', 'js/grafos.js', 'js/busqueda.js', 'js/ml.js', 'js/imagen.js', 'js/patrones.js', 'js/bdd.js', 'js/ordenar.js', 'js/portada.js', 'js/tema.js'];
 const ESTILOS_PERMITIDOS = new Set(['color', 'background', 'borderColor', 'fontWeight', 'margin', 'width', 'height', 'border', 'fontSize', 'marginRight']);
 for (const p of revisar) {
   const lineas = leer(p).split('\n');

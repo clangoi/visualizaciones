@@ -567,6 +567,20 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 .muestra-color { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 2px; vertical-align: -1px; }
 .desglose { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--linea); font-family: var(--mono); font-size: 13.5px; line-height: 1.75; white-space: pre; overflow-x: auto; }
 
+/* Bases de datos: varias relaciones lado a lado, claves subrayadas, filas tachadas y bloques de código. */
+.tablas-bdd { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: flex-start; margin-top: 12px; }
+.tabla-bdd { max-width: 100%; overflow-x: auto; }
+.tabla-bdd-titulo { font-family: var(--mono); font-size: 12px; color: var(--tinta-2); margin: 0 0 4px; }
+.tabla-datos.texto td, .tabla-datos.texto th { text-align: left; }
+.tabla-datos th.clave { text-decoration: underline; text-underline-offset: 3px; }
+.tabla-datos tr.tachada td { text-decoration: line-through; color: var(--tinta-3); }
+.tabla-datos td.vacia { color: var(--tinta-3); font-style: italic; }
+.tabla-datos tr.clicable { cursor: pointer; }
+.tabla-datos tr.clicable:hover td { background: var(--fondo-2); }
+.codigo-bdd { font-family: var(--mono); font-size: 12.5px; line-height: 1.6; margin: 12px 0 0; padding: 10px 12px; border: 1px solid var(--linea); white-space: pre-wrap; overflow-wrap: anywhere; }
+.codigo-bdd .marca { background: color-mix(in srgb, var(--serie-2) 22%, transparent); }
+.codigo-bdd .dato { background: color-mix(in srgb, var(--serie-1) 16%, transparent); }
+
 .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
 /* ---------- Adaptación a pantallas pequeñas ---------- */
