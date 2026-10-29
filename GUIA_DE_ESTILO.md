@@ -14,7 +14,7 @@ Reglas para que todas las páginas se vean y se comporten igual. Muchas se compr
 1. Elija un `id`: minúsculas con guiones (`red-black`, `linear-sorting`). ✓ Es parte de la URL (`tema.html?id=…`): **no lo cambie después**.
 2. Copie [plantillas/tema.js](plantillas/tema.js) a `temas/<id>.js` y cambie el id en `VIZ.registrarTema('<id>', …)`. ✓
 3. Agréguelo a una sección en [js/catalogo.js](js/catalogo.js) (ver §3). ✓
-4. Si necesita un módulo compartido (`ordenar.js`, `arboles.js`, `grafos.js`, `busqueda.js`, `ml.js`, `imagen.js`, `patrones.js`, `bdd.js`) ya está cargado en `tema.html`. Si crea uno nuevo, agréguelo a `tema.html` antes de `catalogo.js`.
+4. Si necesita un módulo compartido (`ordenar.js`, `arboles.js`, `grafos.js`, `busqueda.js`, `ml.js`, `imagen.js`, `patrones.js`, `bdd.js`, `distribuidos.js`) ya está cargado en `tema.html`. Si crea uno nuevo, agréguelo a `tema.html` antes de `catalogo.js`.
 5. Ejecute `npm run verificar -- <id>` y revise la página a 1300 px y a 390 px de ancho.
 
 ## 3. Catálogo
@@ -28,6 +28,8 @@ Reglas para que todas las páginas se vean y se comporten igual. Muchas se compr
 | `glifo` | `g('…')` con trazos SVG en un cuadro de 44 × 44: grosor 1.5, `currentColor`, sin colores ✓, formas simples y reconocibles. |
 
 **Secciones:** nombre en español, descripción de una frase. Una sección agrupa temas que se estudian juntos; cree una nueva solo si ninguna existente encaja.
+
+**Máximo 12 temas por sección.** ✓ Si una sección pasa de 12 tarjetas, no se agrega una más: se reestructura en secciones más específicas, cada una con un nombre propio que describa su contenido (no un rótulo genérico como «Parte 1» ni el título de un temario ajeno). Las secciones que vienen de un mismo tema amplio van seguidas en el catálogo.
 
 ## 4. Estructura de una página de tema
 
@@ -139,7 +141,7 @@ Dentro de `montar(cuerpo)`, en este orden:
 
 ## 12. CSS
 
-- Los estilos viven en [css/estilos.css](css/estilos.css). Clases disponibles para figuras: `.registro`, `.subtitulo-viz`, `.fichas` / `.ficha`, `.tabla-datos`, `.caja-desplazable`, `.lista-mono`, `.dos-columnas`, `.nota-viz`.
+- Los estilos viven en [css/estilos.css](css/estilos.css). Clases disponibles para figuras: `.registro`, `.subtitulo-viz`, `.fichas` / `.ficha`, `.tabla-datos` (con `.sin-corte` si sus celdas no deben partirse), `.caja-desplazable`, `.lista-mono`, `.dos-columnas`, `.nota-viz`.
 - **Estilos en línea solo para valores que dependen de los datos**: colores de estado, tamaños calculados. Todo lo demás, una clase. (aviso)
 - No hay modo oscuro: la paleta está validada sobre fondo blanco.
 

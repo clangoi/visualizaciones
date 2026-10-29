@@ -4,7 +4,8 @@
      npm run verificar -- bst avl   → solo esos temas (las reglas estáticas se revisan siempre)
 
    1. Reglas estáticas (sin navegador): catálogo ↔ archivos, colores fuera de la paleta,
-      estilos en línea, plantillas de texto y sincronía entre estilos.css y VIZ.color.
+      estilos en línea, plantillas de texto, sincronía entre estilos.css y VIZ.color, y a lo más
+      12 temas por sección.
    2. En el navegador (playwright-core): cada tema carga sin errores, tiene tantas figuras como
       dice el catálogo, sus fórmulas se renderizan, todos los botones funcionan y no hay
       desplazamiento horizontal con 390 px de ancho.
@@ -43,9 +44,10 @@ for (const t of CATALOGO.temas) {
   if (/#[0-9a-f]{3,6}/i.test(t.glifo)) falla(`catálogo: el glifo de «${t.id}» no puede tener colores (use currentColor)`);
 }
 for (const f of archivos) if (!ids.has(f)) falla(`temas/${f}.js no está en el catálogo`);
+for (const s of CATALOGO.secciones) if (s.temas.length > 12) falla(`catálogo: la sección «${s.nombre}» tiene ${s.temas.length} temas; el máximo es 12, reestructúrela en secciones más específicas`);
 
 // Reglas por archivo de tema y módulo
-const revisar = [...archivos.map((f) => `temas/${f}.js`), 'js/arboles.js', 'js/grafos.js', 'js/busqueda.js', 'js/ml.js', 'js/imagen.js', 'js/patrones.js', 'js/bdd.js', 'js/ordenar.js', 'js/portada.js', 'js/tema.js'];
+const revisar = [...archivos.map((f) => `temas/${f}.js`), 'js/arboles.js', 'js/grafos.js', 'js/busqueda.js', 'js/ml.js', 'js/imagen.js', 'js/patrones.js', 'js/bdd.js', 'js/distribuidos.js', 'js/ordenar.js', 'js/portada.js', 'js/tema.js'];
 const ESTILOS_PERMITIDOS = new Set(['color', 'background', 'borderColor', 'fontWeight', 'margin', 'width', 'height', 'border', 'fontSize', 'marginRight']);
 for (const p of revisar) {
   const lineas = leer(p).split('\n');

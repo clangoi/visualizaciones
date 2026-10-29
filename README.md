@@ -32,6 +32,7 @@ npm run verificar
 - `js/grafos.js` — generador, dibujo y utilidades de grafos (`VIZ.grafo`).
 - `js/busqueda.js` — búsqueda heurística (`VIZ.busqueda`): 8-puzzle con heurísticas, A*, IDA* y distancias exactas, dibujo de árboles generales y la figura «primero el mejor» sobre un grafo.
 - `js/ml.js` — aprendizaje automático (`VIZ.ml`): conjuntos de datos de juguete, regiones de decisión, curvas de nivel, dibujo de puntos por clase y un SVM (SMO) con kernels.
+- `js/distribuidos.js` — sistemas distribuidos (`VIZ.dist`): diagramas espacio-tiempo, nodos y mensajes, ejecuciones aleatorias con relojes de Lamport y vectoriales, y verificadores de consistencia secuencial, causal y linealizable.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
