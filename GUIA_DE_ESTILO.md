@@ -25,9 +25,12 @@ Reglas para que todas las páginas se vean y se comporten igual. Muchas se compr
 | `titulo` | Nombre del concepto **en inglés**, con mayúscula en cada palabra principal (*Merge Sort*, *AVL Trees*, *Gradient Descent*). El resto de la página (resumen, textos, secciones) va en español. Use `’` (no `'`) en posesivos: *Kruskal’s Algorithm*. |
 | `resumen` | Una frase de hasta 140 caracteres que diga qué se puede **hacer o ver** en la página. ✓ |
 | `visualizaciones` | Número exacto de figuras del tema. ✓ |
+| `etiquetas` | (opcional, en el tema) áreas generales extra, como `['optimizacion', 'ia']`. Se suman a las `etiquetas` de su sección; el tema debe quedar con al menos una ✓. |
 | `glifo` | `g('…')` con trazos SVG en un cuadro de 44 × 44: grosor 1.5, `currentColor`, sin colores ✓, formas simples y reconocibles. |
 
 **Secciones:** nombre en español, descripción de una frase. Una sección agrupa temas que se estudian juntos; cree una nueva solo si ninguna existente encaja.
+
+**Áreas (`#`):** el catálogo define 20 áreas generales (`materias` en [js/catalogo.js](js/catalogo.js)) que funcionan como hashtags. Cada sección declara `etiquetas: [...]` con las áreas de todos sus temas, y cada tema puede sumar otras; un tema puede pertenecer a varias. La portada las muestra como botones que filtran la lista, y cada tarjeta y página de tema muestra las suyas. Para una nueva área, agréguela a `materias` (con `corto` para tarjetas y botones). Las áreas sin temas se ven apagadas.
 
 **Máximo 12 temas por sección.** ✓ Si una sección pasa de 12 tarjetas, no se agrega una más: se reestructura en secciones más específicas, cada una con un nombre propio que describa su contenido (no un rótulo genérico como «Parte 1» ni el título de un temario ajeno). Las secciones que vienen de un mismo tema amplio van seguidas en el catálogo.
 
