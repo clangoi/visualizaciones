@@ -580,6 +580,28 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 .codigo-bdd .marca { background: color-mix(in srgb, var(--serie-2) 22%, transparent); }
 .codigo-bdd .dato { background: color-mix(in srgb, var(--serie-1) 16%, transparent); }
 
+/* Matemáticas discretas: campo de fórmula, barra de símbolos, tablas de verdad y fórmulas en línea. */
+.campo-formula { grid-column: 1 / -1; }
+.campo-formula input[type="text"] { font: 15px var(--mono); }
+.simbolos { display: flex; flex-wrap: wrap; gap: 6px; margin: -6px 0 14px; }
+.boton.simbolo { padding: 3px 11px; font-size: 15px; min-width: 38px; }
+.tabla-verdad th, .tabla-verdad td { text-align: center; }
+.tabla-verdad th { position: sticky; top: 0; background: var(--fondo); }
+.tabla-verdad td.f { color: var(--tinta-3); }
+.tabla-verdad th.sep, .tabla-verdad td.sep { border-left: 1.5px solid var(--tinta); }
+.tabla-verdad td.fuerte { font-weight: 600; }
+.tabla-verdad tr.clicable { cursor: pointer; }
+.tabla-verdad tr.clicable:hover td { background: var(--fondo-2); }
+.tabla-verdad tr.modelo td { background: color-mix(in srgb, var(--serie-6) 14%, transparent); }
+.tabla-verdad tr.contraejemplo td { background: color-mix(in srgb, var(--serie-8) 14%, transparent); }
+.tabla-verdad tr.activa td { background: color-mix(in srgb, var(--serie-1) 16%, transparent); }
+.formula-viz { font-family: var(--mono); font-size: 16px; line-height: 1.9; margin: 12px 0 0; overflow-wrap: anywhere; }
+.formula-viz .tok { padding: 1px 0; }
+.formula-viz .tok.lig { font-weight: 600; }
+.formula-viz .tok.libre { color: var(--serie-8); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.celda-clic { cursor: pointer; }
+[hidden] { display: none !important; }
+
 .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
 /* ---------- Adaptación a pantallas pequeñas ---------- */
