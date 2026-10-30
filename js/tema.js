@@ -56,11 +56,6 @@
       el('header', { class: 'tema-cabecera' },
         el('h1', null, tema.titulo),
         el('p', null, tema.resumen),
-        el('ul', { class: 'etiquetas', 'aria-label': 'Áreas' },
-          ...tema.etiquetas.map((id) => {
-            const m = CATALOGO.materias.find((x) => x.id === id);
-            return el('li', null, el('a', { class: 'etiqueta', href: `index.html?materia=${id}`, title: m.nombre }, '#' + m.corto));
-          })),
         indiceTema));
 
     if (def.intro) raiz.appendChild(el('section', { class: 'prosa', html: def.intro }));

@@ -44,12 +44,6 @@ for (const t of CATALOGO.temas) {
   if (/#[0-9a-f]{3,6}/i.test(t.glifo)) falla(`catálogo: el glifo de «${t.id}» no puede tener colores (use currentColor)`);
 }
 for (const f of archivos) if (!ids.has(f)) falla(`temas/${f}.js no está en el catálogo`);
-const materiasValidas = new Set(CATALOGO.materias.map((m) => m.id));
-for (const s of CATALOGO.secciones) for (const e of s.etiquetas || []) if (!materiasValidas.has(e)) falla(`catálogo: la sección «${s.nombre}» usa el área desconocida «${e}»`);
-for (const t of CATALOGO.temas) {
-  if (!t.etiquetas.length) falla(`catálogo: «${t.id}» no tiene ningún área (agregue etiquetas a su sección o al tema)`);
-  for (const e of t.etiquetas) if (!materiasValidas.has(e)) falla(`catálogo: «${t.id}» usa el área desconocida «${e}»`);
-}
 for (const s of CATALOGO.secciones) if (s.temas.length > 12) falla(`catálogo: la sección «${s.nombre}» tiene ${s.temas.length} temas; el máximo es 12, reestructúrela en secciones más específicas`);
 
 // Reglas por archivo de tema y módulo

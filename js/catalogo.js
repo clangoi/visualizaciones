@@ -7,45 +7,17 @@ window.CATALOGO = (function () {
   const g = (cuerpo) =>
     `<svg class="tarjeta-glifo" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${cuerpo}</svg>`;
 
-  // Áreas generales, usadas como etiquetas (#) de cada tema. Una sección declara las
-  // etiquetas de todos sus temas y cada tema puede sumar otras; un tema puede tener varias.
-  // Áreas sin temas todavía se muestran apagadas en la portada.
-  const materias = [
-    { id: 'bdd', corto: 'Bases de datos', nombre: 'Bases de datos' },
-    { id: 'dl', corto: 'Deep learning', nombre: 'Deep learning' },
-    { id: 'mineria', corto: 'Minería de datos', nombre: 'Minería de datos' },
-    { id: 'distribuidos', corto: 'Sistemas distribuidos', nombre: 'Sistemas distribuidos' },
-    { id: 'logica', corto: 'Lógica', nombre: 'Lógica para ciencias de la computación' },
-    { id: 'algoritmos', corto: 'Diseño de algoritmos', nombre: 'Diseño y análisis de algoritmos' },
-    { id: 'estructuras', corto: 'Estructuras de datos', nombre: 'Estructuras de datos y algoritmos' },
-    { id: 'ia', corto: 'Inteligencia artificial', nombre: 'Inteligencia artificial' },
-    { id: 'ml', corto: 'Machine learning', nombre: 'Machine learning' },
-    { id: 'so', corto: 'Sistemas operativos', nombre: 'Sistemas operativos' },
-    { id: 'redes', corto: 'Redes', nombre: 'Redes' },
-    { id: 'patrones', corto: 'Reconocimiento de patrones', nombre: 'Reconocimiento de patrones' },
-    { id: 'inferencia', corto: 'Inferencia estadística', nombre: 'Inferencia estadística' },
-    { id: 'sistemas-info', corto: 'Sistemas de información', nombre: 'Sistemas de información' },
-    { id: 'web', corto: 'Web', nombre: 'Tecnologías y aplicaciones web' },
-    { id: 'automatas', corto: 'Autómatas y lenguajes', nombre: 'Teoría de autómatas y lenguajes' },
-    { id: 'visualizacion', corto: 'Visualización', nombre: 'Visualización de la información' },
-    { id: 'procesos', corto: 'Minería de procesos', nombre: 'Minería de procesos' },
-    { id: 'optimizacion', corto: 'Optimización', nombre: 'Optimización' },
-    { id: 'discretas', corto: 'Matemáticas discretas', nombre: 'Matemáticas discretas' },
-  ];
-
   const secciones = [
     {
       id: 'fundamentos',
       nombre: 'Fundamentos',
       descripcion: 'Cómo medir el costo de un algoritmo y la idea más simple para buscar rápido.',
-      etiquetas: ['algoritmos', 'estructuras'],
       temas: [
         {
           id: 'complejidad',
           titulo: 'Asymptotic Growth',
           resumen: 'Comparación de órdenes de crecimiento y la definición formal de O grande con su constante y n₀.',
           visualizaciones: 3,
-          etiquetas: ['discretas'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M6 36C18 34 26 28 34 8"/><path d="M6 34c10-4 20-7 32-9" stroke-dasharray="2 3"/>'),
         },
         {
@@ -61,7 +33,6 @@ window.CATALOGO = (function () {
       id: 'ordenamiento-sec',
       nombre: 'Ordenamiento',
       descripcion: 'Algoritmos para ordenar: cuadráticos, de dividir y conquistar, con montículos y de tiempo lineal.',
-      etiquetas: ['algoritmos', 'estructuras'],
       temas: [
         {
           id: 'selection-sort',
@@ -118,7 +89,6 @@ window.CATALOGO = (function () {
       id: 'arboles',
       nombre: 'Árboles de búsqueda',
       descripcion: 'Diccionarios ordenados con operaciones en tiempo logarítmico y las técnicas para mantenerlos balanceados.',
-      etiquetas: ['estructuras'],
       temas: [
         {
           id: 'bst',
@@ -154,14 +124,12 @@ window.CATALOGO = (function () {
       id: 'hashing',
       nombre: 'Hashing',
       descripcion: 'Diccionarios con operaciones en tiempo esperado constante.',
-      etiquetas: ['estructuras'],
       temas: [
         {
           id: 'hash',
           titulo: 'Hash Tables',
           resumen: 'Encadenamiento y direccionamiento abierto: colisiones, sondeos y el efecto del factor de carga.',
           visualizaciones: 2,
-          etiquetas: ['bdd'],
           glifo: g('<rect x="5" y="8" width="8" height="8"/><rect x="5" y="18" width="8" height="8"/><rect x="5" y="28" width="8" height="8"/><path d="M13 12h6M13 32h6M27 32h4"/><rect x="19" y="8" width="8" height="8"/><rect x="19" y="28" width="8" height="8"/><rect x="31" y="28" width="8" height="8"/>'),
         },
       ],
@@ -170,14 +138,12 @@ window.CATALOGO = (function () {
       id: 'diseno',
       nombre: 'Diseño de algoritmos',
       descripcion: 'Estrategias generales para atacar problemas: explorar con poda, decidir codiciosamente o reutilizar subproblemas.',
-      etiquetas: ['algoritmos', 'optimizacion'],
       temas: [
         {
           id: 'backtracking',
           titulo: 'Backtracking',
           resumen: 'El problema de las n reinas: construir soluciones paso a paso y retroceder al encontrar un conflicto.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M14 6v32M22 6v32M30 6v32M6 14h32M6 22h32M6 30h32"/><path d="M8 8h4v4H8zM24 16h4v4h-4zM16 24h4v4h-4z" fill="currentColor"/>'),
         },
         {
@@ -192,7 +158,6 @@ window.CATALOGO = (function () {
           titulo: 'Dynamic Programming',
           resumen: 'Subproblemas superpuestos, distancia de edición y mochila 0/1 llenando tablas paso a paso.',
           visualizaciones: 3,
-          etiquetas: ['ia'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M14 6v32M22 6v32M30 6v32M6 14h32M6 22h32M6 30h32"/><path d="M14 22h8v8h-8z" fill="currentColor"/><path d="M18 18v-2M12 26h-2M14 18l-2-2"/>'),
         },
       ],
@@ -201,14 +166,12 @@ window.CATALOGO = (function () {
       id: 'grafos',
       nombre: 'Grafos',
       descripcion: 'Representaciones, recorridos, caminos más cortos y árboles de expansión mínima.',
-      etiquetas: ['algoritmos', 'estructuras'],
       temas: [
         {
           id: 'graphs',
           titulo: 'Graphs',
           resumen: 'Definiciones y representaciones: matriz y listas de adyacencia sobre un grafo editable.',
           visualizaciones: 1,
-          etiquetas: ['discretas'],
           glifo: g('<circle cx="9" cy="10" r="4"/><circle cx="34" cy="9" r="4"/><circle cx="22" cy="23" r="4"/><circle cx="9" cy="35" r="4"/><circle cx="35" cy="34" r="4"/><path d="M12.5 12l6.5 8.5M31 11.5l-6 8.5M19 26l-7 6.5M25 26l7 6M13 10h17"/>'),
         },
         {
@@ -216,7 +179,6 @@ window.CATALOGO = (function () {
           titulo: 'DFS (Depth-First Search)',
           resumen: 'Búsqueda en profundidad con tiempos de descubrimiento y término, clasificación de aristas y orden topológico.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="22" cy="7" r="3.5"/><circle cx="12" cy="19" r="3.5"/><circle cx="32" cy="19" r="3.5"/><circle cx="7" cy="32" r="3.5"/><circle cx="17" cy="32" r="3.5"/><path d="M20 10l-5.5 6.5M10 22l-2 6.5M14 22l2 6.5M24 10l5.5 6.5" /><path d="M22 7 12 19 7 32" stroke-width="2.6"/>'),
         },
         {
@@ -224,7 +186,6 @@ window.CATALOGO = (function () {
           titulo: 'BFS & Dijkstra',
           resumen: 'Caminos más cortos por capas con una cola y con pesos usando una cola de prioridad.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'ia', 'redes'],
           glifo: g('<circle cx="22" cy="22" r="3.5" fill="currentColor"/><circle cx="22" cy="22" r="10" stroke-dasharray="3 3"/><circle cx="22" cy="22" r="18" stroke-dasharray="3 3"/><circle cx="32" cy="22" r="2.5"/><circle cx="14" cy="38" r="2.5"/>'),
         },
         {
@@ -232,7 +193,6 @@ window.CATALOGO = (function () {
           titulo: 'Bellman-Ford Algorithm',
           resumen: 'Caminos más cortos con pesos negativos y detección de ciclos negativos.',
           visualizaciones: 1,
-          etiquetas: ['optimizacion', 'redes'],
           glifo: g('<circle cx="8" cy="22" r="4"/><circle cx="22" cy="9" r="4"/><circle cx="36" cy="22" r="4"/><circle cx="22" cy="35" r="4"/><path d="M11 19l8-7M25 12l8 7M33 25l-8 7M19 32l-8-7"/><path d="M15 21h-3M30 21h-3" /><text x="17" y="25" font-size="8" fill="currentColor" stroke="none">−3</text>'),
         },
         {
@@ -240,7 +200,6 @@ window.CATALOGO = (function () {
           titulo: 'MST: Kruskal’s Algorithm',
           resumen: 'Árbol de expansión mínima agregando las aristas más livianas con union-find.',
           visualizaciones: 1,
-          etiquetas: ['optimizacion', 'redes'],
           glifo: g('<circle cx="8" cy="10" r="3.5"/><circle cx="24" cy="7" r="3.5"/><circle cx="37" cy="17" r="3.5"/><circle cx="12" cy="30" r="3.5"/><circle cx="30" cy="36" r="3.5"/><path d="M11.5 9.5l9-2M9 13.5l2 13M15 32l12 3" stroke-width="2.6"/><path d="M27 8.5l7 6M34 20l-3 13" stroke-dasharray="2 3"/>'),
         },
         {
@@ -248,7 +207,6 @@ window.CATALOGO = (function () {
           titulo: 'MST: Prim’s Algorithm',
           resumen: 'Árbol de expansión mínima que crece desde un vértice cruzando cortes.',
           visualizaciones: 1,
-          etiquetas: ['optimizacion', 'redes'],
           glifo: g('<circle cx="22" cy="22" r="4" fill="currentColor"/><circle cx="8" cy="12" r="3.5" fill="currentColor"/><circle cx="36" cy="10" r="3.5"/><circle cx="10" cy="36" r="3.5"/><circle cx="35" cy="34" r="3.5"/><path d="M18.5 19.5l-7-5.5" stroke-width="2.6"/><path d="M25.5 19l7-6M19 25l-6 8M25.5 25l7 6.5" stroke-dasharray="2 3"/>'),
         },
         {
@@ -256,7 +214,6 @@ window.CATALOGO = (function () {
           titulo: 'Grid Pathfinding',
           resumen: 'BFS, DFS, Dijkstra, voraz y A* sobre una cuadrícula editable con muros y terreno costoso.',
           visualizaciones: 1,
-          etiquetas: ['ia', 'optimizacion'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M6 17h11M27 6v15M17 28h21M17 17v11" /><path d="M10 34V24h12v-8h12V10" stroke-width="2.2"/>'),
         },
       ],
@@ -265,14 +222,12 @@ window.CATALOGO = (function () {
       id: 'busqueda-heuristica',
       nombre: 'Búsqueda heurística',
       descripcion: 'Resolver problemas explorando espacios de estados enormes, guiados por estimaciones de la distancia a la meta.',
-      etiquetas: ['ia', 'algoritmos'],
       temas: [
         {
           id: 'heuristic-search',
           titulo: 'Heuristic Search',
           resumen: 'Un mismo esqueleto con ABIERTA y CERRADA: cambie la estrategia y compare qué vértices se expanden.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion'],
           glifo: g('<circle cx="8" cy="22" r="3.5" fill="currentColor"/><circle cx="36" cy="22" r="3.5"/><path d="M11.5 22h4M20 22h4M28.5 22h4"/><path d="M8 18C14 6 30 6 36 18" stroke-dasharray="2 3"/><path d="M33 15l3 3 1-4"/>'),
         },
         {
@@ -301,7 +256,6 @@ window.CATALOGO = (function () {
           titulo: 'A* Search',
           resumen: 'A* paso a paso con f = g + h, heurísticas admisibles e inadmisibles y nodos expandidos en el 8-puzzle.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion'],
           glifo: g('<path d="M22 5l4.5 11.5L38 17l-9 7.5 3 12-10-6.5-10 6.5 3-12-9-7.5 11.5-.5z"/>'),
         },
         {
@@ -330,7 +284,6 @@ window.CATALOGO = (function () {
           titulo: 'Multi-Agent Search',
           resumen: 'Minimax, poda alfa-beta y expectimax sobre árboles de juego, y una partida de gato contra la computadora.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<path d="M22 4l5 8H17z"/><path d="M12 30l-4.5-8h9zM32 30l-4.5-8h9z"/><path d="M20 12l-7 10M24 12l7 10"/><path d="M8 32v4M16 32v4M28 32v4M36 32v4" /><path d="M35 33l2 3m0-3l-2 3" stroke-width="1.2"/>'),
         },
       ],
@@ -339,14 +292,12 @@ window.CATALOGO = (function () {
       id: 'representacion',
       nombre: 'Representación numérica',
       descripcion: 'Cómo una máquina finita guarda números reales y qué se pierde en el camino.',
-      etiquetas: ['estructuras'],
       temas: [
         {
           id: 'punto-flotante',
           titulo: 'IEEE 754 Floating Point',
           resumen: 'Edite bit a bit un número de 16, 32 o 64 bits y observe la densidad irregular de los valores representables.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info'],
           glifo: g('<rect x="4" y="16" width="6" height="12"/><rect x="12" y="16" width="12" height="12"/><rect x="26" y="16" width="14" height="12"/><path d="M16 16v12M20 16v12M30 16v12M35 16v12"/>'),
         },
       ],
@@ -355,14 +306,12 @@ window.CATALOGO = (function () {
       id: 'aprendizaje',
       nombre: 'Fundamentos de ML',
       descripcion: 'Aprender a partir de datos: la formulación, modelos supervisados y no supervisados, redes neuronales y aprendizaje por refuerzo.',
-      etiquetas: ['ml'],
       temas: [
         {
           id: 'machine-learning',
           titulo: 'Machine Learning',
           resumen: 'Matriz de atributos, vector objetivo y espacio de atributos; fit, transform y predict, y los tipos de aprendizaje.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="6" width="16" height="32"/><path d="M4 14h16M4 22h16M4 30h16M12 6v32"/><path d="M24 22h6M27 19l3 3-3 3"/><circle cx="35" cy="14" r="1.6" fill="currentColor"/><circle cx="38" cy="26" r="1.6" fill="currentColor"/><circle cx="34" cy="33" r="1.6"/>'),
         },
         {
@@ -370,7 +319,6 @@ window.CATALOGO = (function () {
           titulo: 'Supervised Learning',
           resumen: 'Entrenar y validar, subajuste y sobreajuste, sesgo y varianza, y validación cruzada con regresión polinomial.',
           visualizaciones: 3,
-          etiquetas: ['ia'],
           glifo: g('<path d="M6 38h32M6 38V6"/><circle cx="11" cy="30" r="1.6" fill="currentColor"/><circle cx="17" cy="20" r="1.6" fill="currentColor"/><circle cx="24" cy="24" r="1.6" fill="currentColor"/><circle cx="31" cy="14" r="1.6" fill="currentColor"/><path d="M8 34c6-14 10-6 14-10s8-12 14-14"/><path d="M8 30L36 12" stroke-dasharray="2 3"/>'),
         },
         {
@@ -378,7 +326,6 @@ window.CATALOGO = (function () {
           titulo: 'Linear Regression',
           resumen: 'Mínimos cuadrados con residuos visibles, ecuaciones normales y la superficie de pérdida que recorre el gradiente.',
           visualizaciones: 2,
-          etiquetas: ['inferencia', 'optimizacion'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M8 34L38 10"/><circle cx="13" cy="26" r="1.6" fill="currentColor"/><circle cx="20" cy="27" r="1.6" fill="currentColor"/><circle cx="27" cy="16" r="1.6" fill="currentColor"/><circle cx="33" cy="17" r="1.6" fill="currentColor"/><path d="M13 26v4M27 16v3"/>'),
         },
         {
@@ -386,7 +333,6 @@ window.CATALOGO = (function () {
           titulo: 'Gradient Descent',
           resumen: 'GD, momento, Nesterov y Adam sobre superficies de pérdida con distinto condicionamiento.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion'],
           glifo: g('<ellipse cx="22" cy="22" rx="18" ry="11"/><ellipse cx="22" cy="22" rx="11" ry="6.5"/><ellipse cx="22" cy="22" rx="4" ry="2.4"/><path d="M8 12l6 9 3-6 3 6 2-1" stroke-width="2"/>'),
         },
         {
@@ -394,7 +340,6 @@ window.CATALOGO = (function () {
           titulo: 'Logistic Regression',
           resumen: 'La sigmoide, la pérdida logarítmica y fronteras de decisión entrenadas por descenso de gradiente.',
           visualizaciones: 2,
-          etiquetas: ['inferencia'],
           glifo: g('<path d="M6 38h32"/><path d="M6 36c12 0 12-28 32-28"/><path d="M22 6v32" stroke-dasharray="2 3"/>'),
         },
         {
@@ -402,7 +347,6 @@ window.CATALOGO = (function () {
           titulo: 'Naive Bayes',
           resumen: 'Clasificador bayesiano con atributos independientes: gaussiano en el plano y un filtro de spam palabra por palabra.',
           visualizaciones: 2,
-          etiquetas: ['inferencia', 'patrones'],
           glifo: g('<path d="M4 36c6 0 8-22 14-22s8 22 14 22"/><path d="M14 36c6 0 8-16 13-16s8 16 13 16" stroke-dasharray="2 3"/><path d="M4 38h36"/>'),
         },
         {
@@ -410,7 +354,6 @@ window.CATALOGO = (function () {
           titulo: 'Decision Trees & Ensembles',
           resumen: 'Árboles de decisión, random forest y boosting: particiones del plano y cómo combinarlas.',
           visualizaciones: 3,
-          etiquetas: ['mineria'],
           glifo: g('<circle cx="22" cy="7" r="3"/><rect x="9" y="17" width="6" height="6"/><circle cx="32" cy="20" r="3"/><rect x="25" y="31" width="6" height="6"/><rect x="35" y="31" width="6" height="6"/><path d="M20 9l-7 8M24 9l7 9M30 23l-2 8M34 23l3 8"/>'),
         },
         {
@@ -418,7 +361,6 @@ window.CATALOGO = (function () {
           titulo: 'Support Vector Machines',
           resumen: 'Margen máximo y vectores de soporte, SVM multiclase y exemplar-SVM, y kernels para fronteras no lineales.',
           visualizaciones: 3,
-          etiquetas: ['optimizacion', 'patrones'],
           glifo: g('<path d="M8 38L36 6"/><path d="M4 32L30 4M14 40L40 12" stroke-dasharray="2 3"/><circle cx="12" cy="18" r="2" fill="currentColor"/><circle cx="10" cy="10" r="2" fill="currentColor"/><rect x="28" y="28" width="4" height="4"/><rect x="34" y="34" width="4" height="4"/>'),
         },
         {
@@ -426,7 +368,6 @@ window.CATALOGO = (function () {
           titulo: 'Unsupervised Learning',
           resumen: 'Estructura sin etiquetas: componentes principales y agrupamiento jerárquico con su dendrograma.',
           visualizaciones: 2,
-          etiquetas: ['mineria'],
           glifo: g('<path d="M6 38h6v-12h8v12h6V18h8v20"/><path d="M9 26V10h20v8" /><path d="M4 38h36"/>'),
         },
         {
@@ -434,7 +375,6 @@ window.CATALOGO = (function () {
           titulo: 'k-Means Clustering',
           resumen: 'El algoritmo de Lloyd alternando asignación y actualización, con inicialización k-means++ y el método del codo.',
           visualizaciones: 2,
-          etiquetas: ['mineria', 'patrones'],
           glifo: g('<circle cx="12" cy="14" r="1.6" fill="currentColor"/><circle cx="8" cy="18" r="1.6" fill="currentColor"/><circle cx="14" cy="19" r="1.6" fill="currentColor"/><circle cx="30" cy="12" r="1.6" fill="currentColor"/><circle cx="34" cy="16" r="1.6" fill="currentColor"/><circle cx="22" cy="32" r="1.6" fill="currentColor"/><circle cx="27" cy="34" r="1.6" fill="currentColor"/><circle cx="24" cy="28" r="1.6" fill="currentColor"/><path d="M11 13l2 2m0-2l-2 2M31 13l2 2m0-2l-2 2M23 30l2 2m0-2l-2 2" stroke-width="1.3"/>'),
         },
         {
@@ -442,7 +382,6 @@ window.CATALOGO = (function () {
           titulo: 'Neural Networks',
           resumen: 'Perceptrón, perceptrón multicapa entrenado por retropropagación y la convolución de las redes convolucionales.',
           visualizaciones: 3,
-          etiquetas: ['dl'],
           glifo: g('<circle cx="8" cy="14" r="3"/><circle cx="8" cy="30" r="3"/><circle cx="22" cy="10" r="3"/><circle cx="22" cy="22" r="3"/><circle cx="22" cy="34" r="3"/><circle cx="36" cy="22" r="3"/><path d="M11 14l8-4M11 14l8 8M11 14l8 19M11 30l8-19M11 30l8-8M11 30l8 4M25 10l8 11M25 22h8M25 34l8-11"/>'),
         },
         {
@@ -450,7 +389,6 @@ window.CATALOGO = (function () {
           titulo: 'Reinforcement Learning',
           resumen: 'Control de agentes que aprenden de la recompensa: iteración de valores y Q-learning en un mundo de celdas.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="8" width="36" height="27"/><path d="M13 8v27M22 8v27M31 8v27M4 17h36M4 26h36"/><path d="M31 8h9v9h-9z" fill="currentColor"/><path d="M8 30h10M15 27l3 3-3 3"/>'),
         },
       ],
@@ -459,14 +397,12 @@ window.CATALOGO = (function () {
       id: 'dist-servicios',
       nombre: 'Servidores, hilos y mensajes',
       descripcion: 'Cómo se reparte una aplicación entre máquinas y cómo se hablan sus procesos: capas, hilos, semáforos, máquinas virtuales, RPC, colas y eventos.',
-      etiquetas: ['distribuidos'],
       temas: [
         {
           id: 'client-server',
           titulo: 'Client-Server & Multitier Architectures',
           resumen: 'Reparta interfaz, lógica y datos entre cliente y servidores y vea el efecto en la latencia y en la capacidad.',
           visualizaciones: 1,
-          etiquetas: ['redes', 'web', 'sistemas-info'],
           glifo: g('<rect x="3" y="14" width="10" height="16"/><rect x="17" y="8" width="10" height="28"/><rect x="31" y="8" width="10" height="28"/><path d="M13 22h4M27 22h4"/><path d="M20 14h4M20 20h4M34 14h4M34 20h4"/>'),
         },
         {
@@ -474,7 +410,6 @@ window.CATALOGO = (function () {
           titulo: 'Processes, Threads & Scheduling',
           resumen: 'Planificación FCFS, SJF y Round Robin en un diagrama de Gantt, y un servidor con varios hilos que solapa CPU y E/S.',
           visualizaciones: 2,
-          etiquetas: ['so'],
           glifo: g('<path d="M4 10h14M4 22h24M4 34h10"/><path d="M18 6v8M28 18v8M14 30v8"/><path d="M32 10h8M18 34h22" stroke-dasharray="2 3"/>'),
         },
         {
@@ -482,7 +417,6 @@ window.CATALOGO = (function () {
           titulo: 'Semaphores & Producer–Consumer',
           resumen: 'Productores y consumidores sobre un buffer acotado coordinados con semáforos, paso a paso y con bloqueos visibles.',
           visualizaciones: 1,
-          etiquetas: ['so'],
           glifo: g('<rect x="6" y="16" width="32" height="12"/><path d="M14 16v12M22 16v12M30 16v12"/><rect x="7" y="17" width="6" height="10" fill="currentColor"/><rect x="15" y="17" width="6" height="10" fill="currentColor"/><path d="M22 6v6M19 9l3 3 3-3M22 32v6M19 35l3 3 3-3"/>'),
         },
         {
@@ -490,7 +424,6 @@ window.CATALOGO = (function () {
           titulo: 'Virtual Machines & Live Migration',
           resumen: 'Migración en vivo por precopia: rondas de páginas sucias, tiempo total y tiempo de detención frente a detener y copiar.',
           visualizaciones: 1,
-          etiquetas: ['so'],
           glifo: g('<rect x="3" y="10" width="14" height="24"/><rect x="27" y="10" width="14" height="24"/><path d="M6 15h8M6 20h8M6 25h4"/><path d="M30 15h8M30 20h4"/><path d="M18 22h8M23 19l3 3-3 3"/>'),
         },
         {
@@ -498,7 +431,6 @@ window.CATALOGO = (function () {
           titulo: 'Remote Procedure Call',
           resumen: 'Una llamada que cruza la red: stubs, empaquetado y las semánticas al menos una, a lo más una y exactamente una vez.',
           visualizaciones: 2,
-          etiquetas: ['redes'],
           glifo: g('<rect x="3" y="8" width="10" height="28"/><rect x="31" y="8" width="10" height="28"/><path d="M13 16h18M27 12l4 4-4 4"/><path d="M31 28H13M17 24l-4 4 4 4"/>'),
         },
         {
@@ -506,7 +438,6 @@ window.CATALOGO = (function () {
           titulo: 'Synchronous vs. Asynchronous Communication',
           resumen: 'Cliente bloqueado frente a colas de mensajes persistentes, y reintentos con backoff exponencial y jitter.',
           visualizaciones: 2,
-          etiquetas: ['redes'],
           glifo: g('<path d="M4 8h36M4 36h36"/><path d="M10 8l6 28M16 36l6-28" /><rect x="28" y="18" width="10" height="8"/><path d="M30 18v8M33 18v8"/>'),
         },
         {
@@ -514,7 +445,6 @@ window.CATALOGO = (function () {
           titulo: 'Publish/Subscribe',
           resumen: 'Filtros por tópico y por contenido, y enrutamiento de eventos por una red de brokers.',
           visualizaciones: 2,
-          etiquetas: ['redes', 'web'],
           glifo: g('<rect x="3" y="18" width="8" height="8"/><circle cx="22" cy="22" r="5"/><rect x="33" y="6" width="8" height="8"/><rect x="33" y="30" width="8" height="8"/><path d="M11 22h6M27 20l6-7M27 24l6 7"/><path d="M31 21h6" stroke-dasharray="2 2"/>'),
         },
       ],
@@ -523,14 +453,12 @@ window.CATALOGO = (function () {
       id: 'dist-tiempo',
       nombre: 'Tiempo y orden de los eventos',
       descripcion: 'Sin un reloj común: sincronizar relojes físicos, marcas lógicas, orden total y estados globales consistentes.',
-      etiquetas: ['distribuidos'],
       temas: [
         {
           id: 'clock-synchronization',
           titulo: 'Physical Clock Synchronization',
           resumen: 'Relojes que derivan, el algoritmo de Cristian y el promedio de Berkeley.',
           visualizaciones: 2,
-          etiquetas: ['redes'],
           glifo: g('<circle cx="14" cy="22" r="10"/><circle cx="32" cy="22" r="8"/><path d="M14 22v-6M14 22l4 3M32 22v-5M32 22l-3 3"/>'),
         },
         {
@@ -559,7 +487,6 @@ window.CATALOGO = (function () {
           titulo: 'Chandy–Lamport Snapshot',
           resumen: 'Marcadores que registran un estado global consistente mientras el dinero sigue circulando, y cortes consistentes.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos'],
           glifo: g('<path d="M4 8h36M4 22h36M4 36h36"/><path d="M18 4l4 18-6 18" stroke-dasharray="3 2"/><path d="M8 8l22 14"/><rect x="26" y="5" width="5" height="5" fill="currentColor"/>'),
         },
         {
@@ -567,7 +494,6 @@ window.CATALOGO = (function () {
           titulo: 'Termination Detection',
           resumen: 'El token de Dijkstra–Feijen–van Gasteren recorre el anillo y declara terminación solo cuando es seguro.',
           visualizaciones: 1,
-          etiquetas: ['algoritmos'],
           glifo: g('<circle cx="22" cy="22" r="14"/><circle cx="22" cy="8" r="3.5" fill="currentColor"/><circle cx="36" cy="22" r="3.5"/><circle cx="22" cy="36" r="3.5" fill="currentColor"/><circle cx="8" cy="22" r="3.5"/><rect x="28" y="9" width="6" height="6" transform="rotate(45 31 12)"/>'),
         },
       ],
@@ -576,14 +502,12 @@ window.CATALOGO = (function () {
       id: 'dist-coordinacion',
       nombre: 'Turnos, líderes y bloqueos',
       descripcion: 'Repartir recursos exclusivos, detectar interbloqueos, elegir un coordinador y recorrer la red.',
-      etiquetas: ['distribuidos'],
       temas: [
         {
           id: 'mutual-exclusion',
           titulo: 'Distributed Mutual Exclusion',
           resumen: 'Servidor central, Ricart–Agrawala y anillo con token, y la actualización perdida cuando falta el lock.',
           visualizaciones: 2,
-          etiquetas: ['so'],
           glifo: g('<rect x="13" y="20" width="18" height="16" rx="2"/><path d="M17 20v-5a5 5 0 0110 0v5"/><circle cx="22" cy="28" r="2" fill="currentColor"/><path d="M4 28h6M34 28h6"/>'),
         },
         {
@@ -591,7 +515,6 @@ window.CATALOGO = (function () {
           titulo: 'Dining Philosophers',
           resumen: 'Estrategias para tomar tenedores: el interbloqueo de la ingenua y cómo lo evitan la jerarquía y el camarero.',
           visualizaciones: 2,
-          etiquetas: ['so'],
           glifo: g('<circle cx="22" cy="22" r="9"/><circle cx="22" cy="5" r="3"/><circle cx="39" cy="22" r="3"/><circle cx="22" cy="39" r="3"/><circle cx="5" cy="22" r="3"/><path d="M30 10l-3 4M14 10l3 4M30 34l-3-4M14 34l3-4"/>'),
         },
         {
@@ -599,7 +522,6 @@ window.CATALOGO = (function () {
           titulo: 'Distributed Deadlock Detection',
           resumen: 'Grafos de espera repartidos entre sitios y el algoritmo de sondas de Chandy–Misra–Haas.',
           visualizaciones: 1,
-          etiquetas: ['so', 'bdd'],
           glifo: g('<circle cx="10" cy="10" r="4"/><circle cx="34" cy="10" r="4"/><circle cx="34" cy="34" r="4"/><circle cx="10" cy="34" r="4"/><path d="M14 10h16M34 14v16M30 34H14M10 30V14"/><path d="M27 7l3 3-3 3"/>'),
         },
         {
@@ -607,7 +529,6 @@ window.CATALOGO = (function () {
           titulo: 'Bully Algorithm',
           resumen: 'Haga caer al coordinador y observe la elección con ELECTION, OK y COORDINATOR, y su costo según quién la inicia.',
           visualizaciones: 2,
-          etiquetas: ['redes'],
           glifo: g('<circle cx="8" cy="34" r="4"/><circle cx="22" cy="22" r="4"/><circle cx="36" cy="10" r="4" stroke-dasharray="2 2"/><path d="M11 31l7-6M25 19l7-6"/><path d="M33 7l6 6M39 7l-6 6"/>'),
         },
         {
@@ -615,7 +536,6 @@ window.CATALOGO = (function () {
           titulo: 'Ring Election',
           resumen: 'Chang–Roberts y el anillo con lista: mensajes de elección que dan la vuelta y su costo según el orden de los ids.',
           visualizaciones: 2,
-          etiquetas: ['redes'],
           glifo: g('<circle cx="22" cy="22" r="14" stroke-dasharray="3 3"/><circle cx="22" cy="8" r="3.5" fill="currentColor"/><circle cx="36" cy="22" r="3.5"/><circle cx="22" cy="36" r="3.5"/><circle cx="8" cy="22" r="3.5"/><path d="M30 10l2 5-5 1"/>'),
         },
         {
@@ -623,7 +543,6 @@ window.CATALOGO = (function () {
           titulo: 'Probe/Echo Algorithm',
           resumen: 'Sondas que se expanden y ecos que regresan: un árbol de expansión y la topología completa en 2|E| mensajes.',
           visualizaciones: 1,
-          etiquetas: ['redes', 'algoritmos'],
           glifo: g('<circle cx="22" cy="7" r="3.5" fill="currentColor"/><circle cx="9" cy="24" r="3"/><circle cx="35" cy="24" r="3"/><circle cx="22" cy="38" r="3"/><path d="M20 10l-9 11M24 10l9 11" stroke-width="2.6"/><path d="M11 27l9 9M33 27l-9 9" stroke-dasharray="2 2"/><path d="M12 24h20"/>'),
         },
       ],
@@ -632,14 +551,12 @@ window.CATALOGO = (function () {
       id: 'dist-acuerdo',
       nombre: 'Acuerdo entre procesos que fallan',
       descripcion: 'Detectar fallas y decidir algo en común pese a caídas o traidores: commit atómico, Paxos, Raft y acuerdo bizantino.',
-      etiquetas: ['distribuidos'],
       temas: [
         {
           id: 'failure-detectors',
           titulo: 'Failure Detectors',
           resumen: 'Latidos con demoras variables: el compromiso entre detectar rápido y sospechar por error.',
           visualizaciones: 2,
-          etiquetas: ['redes'],
           glifo: g('<path d="M4 22h8l3-8 4 16 4-12 3 4h14"/><path d="M34 12l6 6M40 12l-6 6"/>'),
         },
         {
@@ -647,7 +564,6 @@ window.CATALOGO = (function () {
           titulo: 'Two-Phase Commit',
           resumen: 'Votos, decisión y fallas: por qué un coordinador caído deja bloqueados a los participantes.',
           visualizaciones: 1,
-          etiquetas: ['bdd'],
           glifo: g('<circle cx="8" cy="22" r="4"/><circle cx="36" cy="8" r="3.5"/><circle cx="36" cy="22" r="3.5"/><circle cx="36" cy="36" r="3.5"/><path d="M12 20l20-11M12 22h20M12 24l20 11"/><path d="M18 30l3 3 5-6"/>'),
         },
         {
@@ -655,7 +571,6 @@ window.CATALOGO = (function () {
           titulo: 'Paxos',
           resumen: 'Proponentes y aceptadores con prepare, promise, accept y accepted, incluso con proponentes en duelo.',
           visualizaciones: 1,
-          etiquetas: ['logica'],
           glifo: g('<circle cx="8" cy="22" r="4"/><circle cx="34" cy="8" r="3.5"/><circle cx="34" cy="22" r="3.5"/><circle cx="34" cy="36" r="3.5"/><path d="M12 20l18-10M12 22h18M12 24l18 10" stroke-dasharray="2 2"/><path d="M38 22h4"/>'),
         },
         {
@@ -670,7 +585,6 @@ window.CATALOGO = (function () {
           titulo: 'Byzantine Generals',
           resumen: 'El algoritmo OM(m) con traidores que mienten: hay acuerdo si y solo si n > 3m.',
           visualizaciones: 1,
-          etiquetas: ['redes'],
           glifo: g('<circle cx="22" cy="8" r="4"/><circle cx="8" cy="34" r="4"/><circle cx="36" cy="34" r="4" fill="currentColor"/><path d="M20 12l-10 18M24 12l10 18"/><path d="M12 34h20" stroke-dasharray="2 3"/>'),
         },
         {
@@ -686,14 +600,12 @@ window.CATALOGO = (function () {
       id: 'dist-replicas',
       nombre: 'Réplicas y modelos de memoria',
       descripcion: 'Qué puede leer quien consulta datos replicados: modelos de consistencia, quórums, cachés y particiones de red.',
-      etiquetas: ['distribuidos'],
       temas: [
         {
           id: 'sequential-consistency',
           titulo: 'Sequential Consistency',
           resumen: 'Busque un orden total válido para una historia y compare la prueba de buffers de escritura con y sin TSO.',
           visualizaciones: 2,
-          etiquetas: ['so'],
           glifo: g('<path d="M4 9h14M4 19h14"/><rect x="5" y="6" width="5" height="6"/><rect x="12" y="16" width="5" height="6"/><path d="M20 14h4M22 12l2 2-2 2"/><path d="M26 32h14"/><rect x="27" y="29" width="3" height="6"/><rect x="32" y="29" width="3" height="6"/><rect x="37" y="29" width="3" height="6"/><path d="M8 26c0 6 6 6 16 6"/>'),
         },
         {
@@ -708,7 +620,6 @@ window.CATALOGO = (function () {
           titulo: 'Linearizability',
           resumen: 'Arrastre operaciones en el tiempo y vea aparecer o desaparecer los puntos de linealización.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<rect x="4" y="9" width="18" height="7"/><rect x="16" y="28" width="22" height="7"/><path d="M15 6v13M25 25v13"/><path d="M15 19l10 6" stroke-dasharray="2 2"/>'),
         },
         {
@@ -723,7 +634,6 @@ window.CATALOGO = (function () {
           titulo: 'Eventual Consistency & Gossip',
           resumen: 'Anti-entropía por chismes: cómo una actualización llega a todas las réplicas en O(log N) rondas.',
           visualizaciones: 2,
-          etiquetas: ['bdd', 'redes'],
           glifo: g('<circle cx="22" cy="22" r="3" fill="currentColor"/><circle cx="8" cy="10" r="3"/><circle cx="36" cy="10" r="3"/><circle cx="8" cy="34" r="3"/><circle cx="36" cy="34" r="3"/><path d="M19 19l-8-7M25 19l8-7M19 25l-8 7M25 25l8 7" stroke-dasharray="2 2"/>'),
         },
         {
@@ -731,7 +641,6 @@ window.CATALOGO = (function () {
           titulo: 'Quorum Replication',
           resumen: 'N réplicas, quórums de lectura R y escritura W: cuándo R + W > N garantiza leer lo último.',
           visualizaciones: 2,
-          etiquetas: ['bdd'],
           glifo: g('<circle cx="8" cy="22" r="3.5"/><circle cx="17" cy="22" r="3.5" fill="currentColor"/><circle cx="26" cy="22" r="3.5" fill="currentColor"/><circle cx="35" cy="22" r="3.5"/><path d="M4 14h26M14 30h26"/>'),
         },
         {
@@ -739,7 +648,6 @@ window.CATALOGO = (function () {
           titulo: 'Cache Coherence & Shared Memory',
           resumen: 'El protocolo MSI con invalidaciones: lecturas, escrituras y los estados de cada copia de un bloque.',
           visualizaciones: 1,
-          etiquetas: ['so'],
           glifo: g('<rect x="4" y="6" width="10" height="10"/><rect x="17" y="6" width="10" height="10"/><rect x="30" y="6" width="10" height="10"/><path d="M4 26h36"/><path d="M9 16v10M22 16v10M35 16v10"/><rect x="14" y="31" width="16" height="8"/>'),
         },
         {
@@ -747,7 +655,6 @@ window.CATALOGO = (function () {
           titulo: 'Network Partitions & the CAP Theorem',
           resumen: 'Corte la red entre réplicas y elija: rechazar escrituras (CP) o aceptarlas y reconciliar después (AP).',
           visualizaciones: 1,
-          etiquetas: ['bdd', 'redes'],
           glifo: g('<circle cx="10" cy="14" r="4"/><circle cx="10" cy="30" r="4"/><circle cx="34" cy="22" r="4"/><path d="M10 18v8M14 16l16 5M14 28l16-5"/><path d="M20 6l4 32" stroke-dasharray="3 2"/>'),
         },
       ],
@@ -756,14 +663,12 @@ window.CATALOGO = (function () {
       id: 'dist-pares',
       nombre: 'Redes de pares',
       descripcion: 'Repartir claves y encontrar recursos sin servidores centrales: hashing consistente, Chord, superpares e inundación.',
-      etiquetas: ['distribuidos'],
       temas: [
         {
           id: 'consistent-hashing',
           titulo: 'Consistent Hashing',
           resumen: 'Agregue y quite servidores de un anillo de hash: cuántas claves se mueven y cómo los nodos virtuales reparten la carga.',
           visualizaciones: 2,
-          etiquetas: ['estructuras', 'redes'],
           glifo: g('<circle cx="22" cy="22" r="15"/><rect x="19" y="4" width="6" height="6" fill="currentColor"/><rect x="34" y="25" width="6" height="6" fill="currentColor"/><rect x="5" y="25" width="6" height="6" fill="currentColor"/><circle cx="32" cy="11" r="1.6" fill="currentColor"/><circle cx="12" cy="11" r="1.6" fill="currentColor"/><circle cx="22" cy="37" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -771,7 +676,6 @@ window.CATALOGO = (function () {
           titulo: 'Chord Distributed Hash Table',
           resumen: 'Anillo de identificadores, tablas de dedos y búsquedas en O(log N) saltos, medidas frente a la teoría.',
           visualizaciones: 2,
-          etiquetas: ['redes', 'estructuras'],
           glifo: g('<circle cx="22" cy="22" r="16"/><circle cx="22" cy="6" r="2.5" fill="currentColor"/><circle cx="38" cy="22" r="2.5" fill="currentColor"/><circle cx="13" cy="35" r="2.5" fill="currentColor"/><path d="M22 6L37 21M22 6l-8 27"/>'),
         },
         {
@@ -779,7 +683,6 @@ window.CATALOGO = (function () {
           titulo: 'Super-Peer Overlays',
           resumen: 'Redes superpuestas planas y jerárquicas: cuánto cuesta buscar cuando los pares débiles cuelgan de superpares.',
           visualizaciones: 1,
-          etiquetas: ['redes'],
           glifo: g('<circle cx="14" cy="16" r="4.5" fill="currentColor"/><circle cx="30" cy="16" r="4.5" fill="currentColor"/><path d="M18.5 16h7"/><circle cx="6" cy="34" r="2.5"/><circle cx="16" cy="36" r="2.5"/><circle cx="28" cy="36" r="2.5"/><circle cx="38" cy="34" r="2.5"/><path d="M13 20l-6 12M14 21l2 13M30 21l-2 13M31 20l6 12"/>'),
         },
         {
@@ -787,7 +690,6 @@ window.CATALOGO = (function () {
           titulo: 'Flooding vs. Random Walk',
           resumen: 'Busque un recurso en una red no estructurada por inundación con TTL o con caminatas aleatorias y compare costos.',
           visualizaciones: 2,
-          etiquetas: ['redes'],
           glifo: g('<circle cx="8" cy="22" r="3"/><circle cx="22" cy="10" r="3"/><circle cx="22" cy="34" r="3"/><circle cx="36" cy="22" r="3" fill="currentColor"/><path d="M10.5 20l9-8M10.5 24l9 8M25 12l9 8M25 32l9-8"/><path d="M8 22c6-3 6-10 14-12" stroke-width="2.6"/>'),
         },
       ],
@@ -796,14 +698,12 @@ window.CATALOGO = (function () {
       id: 'dist-analisis',
       nombre: 'Rendimiento y corrección',
       descripcion: 'Cómo se evalúa un algoritmo distribuido: carga y escalabilidad, propiedades de seguridad y vivacidad, y costo en mensajes.',
-      etiquetas: ['distribuidos'],
       temas: [
         {
           id: 'scalability-load-balancing',
           titulo: 'Scalability & Load Balancing',
           resumen: 'Servidores con colas y políticas de reparto: al azar, turnos, menos cargado y dos al azar.',
           visualizaciones: 2,
-          etiquetas: ['redes', 'web'],
           glifo: g('<rect x="16" y="4" width="12" height="8"/><path d="M22 12v6M8 18h28M8 18v6M22 18v6M36 18v6"/><rect x="3" y="24" width="10" height="14"/><rect x="17" y="24" width="10" height="14"/><rect x="31" y="24" width="10" height="14"/><path d="M5 34h6M5 30h6M19 34h6M33 34h6M33 30h6M33 26h6"/>'),
         },
         {
@@ -811,7 +711,6 @@ window.CATALOGO = (function () {
           titulo: 'Safety & Liveness',
           resumen: 'Explore todos los estados de protocolos de exclusión mutua y encuentre violaciones de invariantes y ciclos sin progreso.',
           visualizaciones: 1,
-          etiquetas: ['logica'],
           glifo: g('<circle cx="8" cy="22" r="3.5"/><circle cx="22" cy="10" r="3.5"/><circle cx="22" cy="34" r="3.5"/><circle cx="36" cy="22" r="3.5" fill="currentColor"/><path d="M11 20l8-8M11 24l8 8M25 12l8 8M25 32l8-8"/><path d="M19 32c-6-6-6-14 0-20" stroke-dasharray="2 2"/>'),
         },
         {
@@ -819,7 +718,6 @@ window.CATALOGO = (function () {
           titulo: 'Message Complexity',
           resumen: 'Mensajes y rondas de los algoritmos de la sección en función de n, en un mismo gráfico.',
           visualizaciones: 1,
-          etiquetas: ['algoritmos', 'redes'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M6 36c14-2 22-10 30-30"/><path d="M6 34l30-14"/><path d="M6 32h30" stroke-dasharray="2 3"/>'),
         },
       ],
@@ -828,14 +726,12 @@ window.CATALOGO = (function () {
       id: 'modelos',
       nombre: 'Modelos de computación',
       descripcion: 'Sistemas de reglas simples cuyo comportamiento colectivo puede ser sorprendentemente complejo.',
-      etiquetas: ['automatas'],
       temas: [
         {
           id: 'automatas',
           titulo: 'Cellular Automata',
           resumen: 'Las 256 reglas elementales de Wolfram y el Juego de la vida de Conway.',
           visualizaciones: 2,
-          etiquetas: ['discretas', 'visualizacion'],
           glifo: g('<path d="M20 6h4v4h-4zM16 10h4v4h-4zM24 10h4v4h-4zM12 14h4v4h-4zM28 14h4v4h-4zM8 18h4v4H8zM16 18h4v4h-4zM24 18h4v4h-4zM32 18h4v4h-4z" fill="currentColor" stroke="none"/><path d="M6 30h32M6 36h32" stroke-dasharray="4 2"/>'),
         },
       ],
@@ -844,14 +740,12 @@ window.CATALOGO = (function () {
       id: 'senales',
       nombre: 'Procesamiento de señales',
       descripcion: 'Descomponer señales en frecuencias: muestreo, espectros y series de Fourier.',
-      etiquetas: ['patrones'],
       temas: [
         {
           id: 'fourier',
           titulo: 'Fourier Transform',
           resumen: 'Componga una señal, observe su espectro discreto, el aliasing, la fuga espectral y el fenómeno de Gibbs.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion'],
           glifo: g('<path d="M4 16c3-8 6-8 9 0s6 8 9 0 6-8 9 0 6 8 9 0"/><path d="M6 38V34M12 38V26M18 38V32M24 38V36M30 38V30M36 38V35"/>'),
         },
       ],
@@ -860,14 +754,12 @@ window.CATALOGO = (function () {
       id: 'segmentacion',
       nombre: 'Segmentación y morfología',
       descripcion: 'Separar los objetos del fondo en una imagen y corregir su forma con operaciones morfológicas.',
-      etiquetas: ['patrones'],
       temas: [
         {
           id: 'otsu',
           titulo: 'Otsu Thresholding',
           resumen: 'El umbral que maximiza la varianza entre clases, sobre imágenes reales y sobre histogramas donde falla.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion'],
           glifo: g('<path d="M4 38h36"/><path d="M7 38V30M11 38V18M15 38V14M19 38V26M25 38V30M29 38V16M33 38V20M37 38V32"/><path d="M22 4v34" stroke-dasharray="2 3"/>'),
         },
         {
@@ -875,7 +767,6 @@ window.CATALOGO = (function () {
           titulo: 'Region Growing',
           resumen: 'Haga crecer una región desde una semilla en imágenes binarias, en grises y en color, píxel a píxel.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion'],
           glifo: g('<rect x="4" y="4" width="36" height="36"/><rect x="18" y="18" width="8" height="8" fill="currentColor"/><rect x="12" y="12" width="20" height="20" stroke-dasharray="2 2"/><path d="M8 34c4-2 6-6 6-10M34 10c-2 4-6 6-8 6" stroke-dasharray="2 2"/>'),
         },
         {
@@ -883,7 +774,6 @@ window.CATALOGO = (function () {
           titulo: 'Mathematical Morphology',
           resumen: 'Dilatación, erosión, perímetro, relleno, limpieza, esqueleto y unión sobre una imagen binaria que usted dibuja.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion', 'automatas'],
           glifo: g('<path d="M14 14h10v6h6v10H14z" fill="currentColor"/><path d="M10 10h18v6h6v18H10z" stroke-dasharray="2 2"/><path d="M4 40h36"/>'),
         },
       ],
@@ -892,14 +782,12 @@ window.CATALOGO = (function () {
       id: 'extraccion',
       nombre: 'Extracción de características',
       descripcion: 'Describir una imagen con números: texturas, puntos de interés y vocabularios visuales.',
-      etiquetas: ['patrones'],
       temas: [
         {
           id: 'lbp',
           titulo: 'Local Binary Patterns',
           resumen: 'Cada píxel se codifica comparándolo con sus 8 vecinos; el histograma de códigos describe y clasifica texturas.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<rect x="8" y="8" width="28" height="28"/><path d="M17.3 8v28M26.7 8v28M8 17.3h28M8 26.7h28"/><path d="M8 8h9.3v9.3H8zM26.7 8H36v9.3h-9.3zM26.7 26.7H36V36h-9.3z" fill="currentColor"/><circle cx="22" cy="22" r="2"/>'),
         },
         {
@@ -907,7 +795,6 @@ window.CATALOGO = (function () {
           titulo: 'SIFT',
           resumen: 'Detección de puntos de interés en el espacio de escalas y el descriptor de histogramas de gradientes.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<circle cx="14" cy="16" r="9"/><path d="M14 16l8-4"/><circle cx="31" cy="30" r="6"/><path d="M31 30l2 6"/><circle cx="34" cy="10" r="3"/><path d="M34 10h3"/>'),
         },
         {
@@ -915,7 +802,6 @@ window.CATALOGO = (function () {
           titulo: 'Bag of Visual Words',
           resumen: 'Un vocabulario de palabras visuales con k-means y el histograma que convierte una imagen en un vector.',
           visualizaciones: 2,
-          etiquetas: ['mineria', 'ml'],
           glifo: g('<path d="M4 38h36M9 38V24M16 38V12M23 38V30M30 38V18M37 38V32"/><circle cx="9" cy="8" r="2.5"/><rect x="19" y="5.5" width="5" height="5"/><path d="M30 10.5l3-5 3 5z"/>'),
         },
       ],
@@ -924,14 +810,12 @@ window.CATALOGO = (function () {
       id: 'seleccion',
       nombre: 'Selección de características',
       descripcion: 'Quedarse con pocas características que separen bien las clases: criterios, búsquedas y transformaciones.',
-      etiquetas: ['patrones'],
       temas: [
         {
           id: 'clean',
           titulo: 'Feature Cleaning',
           resumen: 'El algoritmo clean: descartar características constantes y redundantes mirando la matriz de correlación.',
           visualizaciones: 2,
-          etiquetas: ['mineria'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M6 14h32M6 22h32M6 30h32M14 6v32M22 6v32M30 6v32"/><path d="M6 6h8v8H6zM14 14h8v8h-8zM22 22h8v8h-8zM30 30h8v8h-8z" fill="currentColor"/><path d="M3 26h38" stroke-width="2.5"/>'),
         },
         {
@@ -939,7 +823,6 @@ window.CATALOGO = (function () {
           titulo: 'Fisher Criterion',
           resumen: 'Covarianzas intra y entre clases, el criterio J = tr(S_w⁻¹S_b) y la dirección de proyección de Fisher.',
           visualizaciones: 2,
-          etiquetas: ['inferencia', 'ml'],
           glifo: g('<ellipse cx="15" cy="15" rx="9" ry="5" transform="rotate(30 15 15)"/><ellipse cx="29" cy="27" rx="9" ry="5" transform="rotate(30 29 27)"/><path d="M6 40L40 6" stroke-dasharray="2 3"/>'),
         },
         {
@@ -947,7 +830,6 @@ window.CATALOGO = (function () {
           titulo: 'Exhaustive Feature Search',
           resumen: 'Evaluar todos los subconjuntos de m características y ver crecer el número de combinaciones.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'algoritmos'],
           glifo: g('<path d="M6 8h6v6H6zM22 8h6v6h-6zM14 19h6v6h-6zM30 19h6v6h-6zM6 30h6v6H6zM14 30h6v6h-6z" fill="currentColor"/><path d="M14 8h6v6h-6zM30 8h6v6h-6zM6 19h6v6H6zM22 19h6v6h-6zM22 30h6v6h-6zM30 30h6v6h-6z"/>'),
         },
         {
@@ -955,7 +837,6 @@ window.CATALOGO = (function () {
           titulo: 'Branch and Bound Selection',
           resumen: 'El árbol de Narendra y Fukunaga: un criterio monótono permite podar ramas sin perder el óptimo.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'algoritmos'],
           glifo: g('<circle cx="22" cy="7" r="3"/><circle cx="11" cy="21" r="3"/><circle cx="33" cy="21" r="3"/><circle cx="6" cy="36" r="3"/><circle cx="16" cy="36" r="3"/><path d="M20 9l-7 9M24 9l7 9M10 24l-3 9M12 24l3 9"/><path d="M29 31l8 8M37 31l-8 8"/>'),
         },
         {
@@ -963,7 +844,6 @@ window.CATALOGO = (function () {
           titulo: 'Sequential Forward Selection',
           resumen: 'Agregar en cada paso la característica que más mejora el criterio, y compararlo con SBS y el óptimo.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'ml'],
           glifo: g('<rect x="4" y="30" width="8" height="8" fill="currentColor"/><rect x="16" y="22" width="8" height="16"/><path d="M16 30h8"/><rect x="28" y="14" width="8" height="24"/><path d="M28 22h8M28 30h8"/><path d="M8 26V8h24v4M29 9l3 3 3-3"/>'),
         },
         {
@@ -971,7 +851,6 @@ window.CATALOGO = (function () {
           titulo: 'Principal Component Analysis',
           resumen: 'Las direcciones de máxima varianza, la varianza explicada y la proyección de diez características a dos.',
           visualizaciones: 2,
-          etiquetas: ['mineria', 'ml'],
           glifo: g('<ellipse cx="22" cy="22" rx="17" ry="7" transform="rotate(-30 22 22)"/><path d="M8 30L36 14" stroke-width="2"/><path d="M19 17l6 10"/>'),
         },
       ],
@@ -980,14 +859,12 @@ window.CATALOGO = (function () {
       id: 'clasificacion',
       nombre: 'Clasificación de patrones',
       descripcion: 'Clasificadores estadísticos, estimación de modelos, agrupamiento y cómo medir el desempeño.',
-      etiquetas: ['patrones'],
       temas: [
         {
           id: 'bayes',
           titulo: 'Bayesian Decision Theory',
           resumen: 'Probabilidades a priori, verosimilitudes, costos y el umbral que minimiza el riesgo esperado.',
           visualizaciones: 2,
-          etiquetas: ['inferencia'],
           glifo: g('<path d="M4 38c5 0 7-26 12-26s7 26 12 26"/><path d="M16 38c5 0 7-16 12-16s7 16 12 16"/><path d="M22 4v36" stroke-dasharray="2 3"/>'),
         },
         {
@@ -995,7 +872,6 @@ window.CATALOGO = (function () {
           titulo: 'LDA, QDA & Mahalanobis',
           resumen: 'Clasificadores gaussianos con covarianza común o propia, y la distancia de Mahalanobis frente a la euclidiana.',
           visualizaciones: 2,
-          etiquetas: ['inferencia', 'ml'],
           glifo: g('<ellipse cx="13" cy="14" rx="8" ry="5"/><ellipse cx="30" cy="30" rx="6" ry="9"/><path d="M4 34C16 30 26 20 30 4"/>'),
         },
         {
@@ -1003,7 +879,6 @@ window.CATALOGO = (function () {
           titulo: 'k-Nearest Neighbors',
           resumen: 'Clasificar por votación de los k vecinos más cercanos: fronteras, el efecto de k y el error de validación.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'mineria'],
           glifo: g('<circle cx="22" cy="22" r="11" stroke-dasharray="2 3"/><path d="M19 19l6 6M25 19l-6 6"/><circle cx="16" cy="14" r="2" fill="currentColor"/><circle cx="30" cy="17" r="2" fill="currentColor"/><rect x="24" y="27" width="4" height="4"/><circle cx="6" cy="37" r="2" fill="currentColor"/><rect x="35" y="35" width="4" height="4"/>'),
         },
         {
@@ -1011,7 +886,6 @@ window.CATALOGO = (function () {
           titulo: 'Least Squares',
           resumen: 'Ajuste de rectas, parábolas y círculos con la pseudoinversa, mínimos cuadrados totales y valores atípicos.',
           visualizaciones: 2,
-          etiquetas: ['inferencia', 'optimizacion'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M8 33L38 11"/><rect x="14" y="21" width="7" height="7"/><rect x="28" y="16" width="4" height="4"/><circle cx="14" cy="21" r="1.6" fill="currentColor"/><circle cx="32" cy="16" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -1019,7 +893,6 @@ window.CATALOGO = (function () {
           titulo: 'Nonlinear Estimation',
           resumen: 'Gauss-Newton y Levenberg-Marquardt ajustando modelos no lineales, con su recorrido sobre la superficie de costo.',
           visualizaciones: 2,
-          etiquetas: ['inferencia', 'optimizacion'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M8 10c6 18 14 24 30 25"/><path d="M8 20c8 10 16 14 30 15" stroke-dasharray="2 3"/><circle cx="12" cy="20" r="1.6" fill="currentColor"/><circle cx="20" cy="28" r="1.6" fill="currentColor"/><circle cx="30" cy="33" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -1027,7 +900,6 @@ window.CATALOGO = (function () {
           titulo: 'Clustering',
           resumen: 'k-means, mezclas gaussianas con EM, DBSCAN y enlace simple sobre los mismos datos, y EM paso a paso.',
           visualizaciones: 2,
-          etiquetas: ['mineria', 'ml'],
           glifo: g('<ellipse cx="12" cy="13" rx="8" ry="6"/><ellipse cx="31" cy="15" rx="7" ry="8"/><path d="M8 35c4-7 24-7 28 0" stroke-dasharray="2 3"/><circle cx="10" cy="13" r="1.6" fill="currentColor"/><circle cx="14" cy="12" r="1.6" fill="currentColor"/><circle cx="30" cy="13" r="1.6" fill="currentColor"/><circle cx="32" cy="18" r="1.6" fill="currentColor"/><circle cx="16" cy="33" r="1.6" fill="currentColor"/><circle cx="28" cy="33" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -1035,7 +907,6 @@ window.CATALOGO = (function () {
           titulo: 'Classifier Evaluation',
           resumen: 'Matriz de confusión, precisión y exhaustividad, curva ROC, y cuánto varían hold-out y validación cruzada.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'inferencia'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M6 38C8 16 18 8 38 6"/><path d="M6 38L38 6" stroke-dasharray="2 3"/>'),
         },
       ],
@@ -1044,14 +915,12 @@ window.CATALOGO = (function () {
       id: 'profundo',
       nombre: 'Aprendizaje profundo',
       descripcion: 'Redes de muchas capas: cómo se entrenan, por qué la profundidad ayuda, convoluciones y reconocimiento facial.',
-      etiquetas: ['dl', 'ml'],
       temas: [
         {
           id: 'backpropagation',
           titulo: 'Backpropagation',
           resumen: 'La regla de la cadena en un grafo de cómputo, nodo a nodo, y gradientes que se desvanecen con la profundidad.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion'],
           glifo: g('<circle cx="8" cy="16" r="4"/><circle cx="22" cy="16" r="4"/><circle cx="36" cy="16" r="4"/><path d="M12 16h6M26 16h6"/><path d="M36 30H10M14 26l-4 4 4 4"/>'),
         },
         {
@@ -1059,7 +928,6 @@ window.CATALOGO = (function () {
           titulo: 'Deep Learning',
           resumen: 'Cómo la profundidad multiplica las regiones lineales de una red ReLU, y sobreajuste con sus remedios.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="12" width="6" height="20"/><rect x="14" y="8" width="6" height="28"/><rect x="24" y="12" width="6" height="20"/><rect x="34" y="16" width="6" height="12"/><path d="M10 22h4M20 22h4M30 22h4"/>'),
         },
         {
@@ -1067,7 +935,6 @@ window.CATALOGO = (function () {
           titulo: 'Convolutional Neural Networks',
           resumen: 'Convolución, ReLU y max pooling sobre una imagen, y cómo crece el campo receptivo capa a capa.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="10" width="18" height="18"/><rect x="8" y="14" width="6" height="6" fill="currentColor"/><path d="M14 14l14 4M14 20l14 2"/><rect x="26" y="14" width="10" height="10"/><rect x="30" y="20" width="10" height="10"/>'),
         },
         {
@@ -1075,7 +942,6 @@ window.CATALOGO = (function () {
           titulo: 'DeepFace',
           resumen: 'Verificación de rostros con vectores de identidad: distancias, umbral, tasas FAR y FRR, y la pérdida triplete.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<ellipse cx="14" cy="21" rx="9" ry="12"/><circle cx="11" cy="18" r="1.2" fill="currentColor"/><circle cx="17" cy="18" r="1.2" fill="currentColor"/><path d="M11 26c2 2 4 2 6 0"/><path d="M26 21h4M28 19l2 2-2 2"/><circle cx="36" cy="12" r="1.6" fill="currentColor"/><circle cx="39" cy="17" r="1.6" fill="currentColor"/><rect x="34" y="28" width="3.5" height="3.5"/>'),
         },
       ],
@@ -1084,14 +950,12 @@ window.CATALOGO = (function () {
       id: 'bdd-relacional',
       nombre: 'Bases de datos relacionales',
       descripcion: 'Cómo se modelan, diseñan, normalizan y consultan los datos en una base relacional.',
-      etiquetas: ['bdd'],
       temas: [
         {
           id: 'modelo-relacional',
           titulo: 'Relational Model',
           resumen: 'Relaciones, tuplas y claves: pruebe qué atributos forman una clave y qué operaciones violan la integridad referencial.',
           visualizaciones: 2,
-          etiquetas: ['discretas', 'sistemas-info'],
           glifo: g('<rect x="4" y="8" width="36" height="28"/><path d="M4 16h36M4 23h36M4 30h36M16 8v28M28 8v28"/><path d="M6 12h8" stroke-width="2.4"/>'),
         },
         {
@@ -1099,7 +963,6 @@ window.CATALOGO = (function () {
           titulo: 'Relational Algebra',
           resumen: 'Selección, proyección, juntas y división sobre tablas reales, y un árbol de consulta evaluado nodo a nodo.',
           visualizaciones: 2,
-          etiquetas: ['discretas', 'logica'],
           glifo: g('<path d="M8 10h12M8 10l6 8-6 8h12"/><path d="M26 18l10 12M36 18L26 30M26 18v12M36 18v12"/>'),
         },
         {
@@ -1107,7 +970,6 @@ window.CATALOGO = (function () {
           titulo: 'Relational DBMS',
           resumen: 'El recorrido de una consulta por las capas de un motor: analizador, optimizador, ejecutor, buffer y disco.',
           visualizaciones: 1,
-          etiquetas: ['sistemas-info'],
           glifo: g('<rect x="8" y="4" width="28" height="7"/><rect x="8" y="14" width="28" height="7"/><rect x="8" y="24" width="28" height="7"/><ellipse cx="22" cy="36" rx="12" ry="3.5"/><path d="M22 11v3M22 21v3M22 31v1.5"/>'),
         },
         {
@@ -1115,7 +977,6 @@ window.CATALOGO = (function () {
           titulo: 'Entity-Relationship Diagrams',
           resumen: 'Entidades, atributos y relaciones con su cardinalidad, y cómo cada diagrama se traduce a tablas.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info', 'visualizacion'],
           glifo: g('<rect x="3" y="17" width="10" height="10"/><rect x="31" y="17" width="10" height="10"/><path d="M22 14l7 8-7 8-7-8z"/><path d="M13 22h2M29 22h2"/><ellipse cx="8" cy="8" rx="5" ry="3"/><path d="M8 11v6"/>'),
         },
         {
@@ -1123,7 +984,6 @@ window.CATALOGO = (function () {
           titulo: 'Ramakrishnan’s E/R Notation',
           resumen: 'Flechas y líneas gruesas para restricciones de llave y de participación, comprobadas sobre instancias.',
           visualizaciones: 1,
-          etiquetas: ['sistemas-info', 'visualizacion'],
           glifo: g('<rect x="3" y="17" width="10" height="10"/><rect x="31" y="17" width="10" height="10"/><path d="M22 15l6 7-6 7-6-7z"/><path d="M28 22h3" stroke-width="3"/><path d="M16 22h-3M13 22l3-2.5M13 22l3 2.5"/>'),
         },
         {
@@ -1131,7 +991,6 @@ window.CATALOGO = (function () {
           titulo: 'Functional Dependencies & Normal Forms',
           resumen: 'Clausura de atributos paso a paso, claves candidatas y descomposición en BCNF de un esquema con anomalías.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info', 'logica'],
           glifo: g('<rect x="4" y="6" width="36" height="8"/><path d="M14 14l-6 8M30 14l6 8"/><rect x="2" y="24" width="16" height="8"/><rect x="26" y="24" width="16" height="8"/><path d="M10 36h4M30 36h4"/>'),
         },
         {
@@ -1139,7 +998,6 @@ window.CATALOGO = (function () {
           titulo: 'SQL',
           resumen: 'Arme una consulta y vea cada etapa de su orden lógico; compare INNER, LEFT, RIGHT y FULL JOIN fila a fila.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info'],
           glifo: g('<path d="M6 10h20M6 18h28M6 26h16M6 34h24"/><path d="M36 26l4 4-4 4"/>'),
         },
         {
@@ -1147,7 +1005,6 @@ window.CATALOGO = (function () {
           titulo: 'Views, Triggers & Stored Procedures',
           resumen: 'Vistas virtuales y materializadas, disparadores que auditan cambios y un procedimiento de transferencia.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info', 'logica'],
           glifo: g('<rect x="4" y="6" width="16" height="14"/><rect x="24" y="6" width="16" height="14" stroke-dasharray="2 2"/><path d="M20 13h4"/><path d="M14 38l6-12h-4l4-6" /><rect x="24" y="26" width="16" height="12"/>'),
         },
       ],
@@ -1156,14 +1013,12 @@ window.CATALOGO = (function () {
       id: 'transacciones',
       nombre: 'Transacciones',
       descripcion: 'Qué garantiza una transacción, cómo se aíslan las concurrentes y cómo se recupera la base tras una falla.',
-      etiquetas: ['bdd'],
       temas: [
         {
           id: 'acid',
           titulo: 'ACID Transactions',
           resumen: 'Planificaciones de dos transacciones con anomalías, grafo de precedencia y una falla a mitad de una transferencia.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info', 'distribuidos'],
           glifo: g('<path d="M6 10h14M6 18h8M24 26h14M30 34h8"/><circle cx="34" cy="10" r="5"/><path d="M32 10l2 2 3-4"/>'),
         },
         {
@@ -1171,7 +1026,6 @@ window.CATALOGO = (function () {
           titulo: 'Crash Recovery',
           resumen: 'Bitácora con escritura anticipada, puntos de control y las fases de análisis, rehacer y deshacer tras una caída.',
           visualizaciones: 1,
-          etiquetas: ['sistemas-info', 'so'],
           glifo: g('<path d="M6 8h24M6 15h24M6 22h24"/><path d="M6 29h12" /><path d="M24 26l8 8M32 26l-8 8" /><path d="M36 14a8 8 0 1 1-4-7M36 4v4h-4"/>'),
         },
       ],
@@ -1180,14 +1034,12 @@ window.CATALOGO = (function () {
       id: 'almacenamiento',
       nombre: 'Almacenamiento y ejecución de consultas',
       descripcion: 'Del hardware a los operadores: páginas, buffer, índices, iteradores, juntas y ordenamiento externo.',
-      etiquetas: ['bdd'],
       temas: [
         {
           id: 'arquitectura-so',
           titulo: 'Computer Architecture & OS for Databases',
           resumen: 'Latencias de la jerarquía de memoria a escala humana y el costo de leer un disco al azar o en secuencia.',
           visualizaciones: 2,
-          etiquetas: ['so'],
           glifo: g('<path d="M18 6h8l4 8H14z"/><path d="M12 16h20l3 8H9z"/><path d="M7 26h30l3 10H4z"/>'),
         },
         {
@@ -1195,7 +1047,6 @@ window.CATALOGO = (function () {
           titulo: 'Storage Structures & Indexes',
           resumen: 'Inserte claves en un árbol B+ y compare cuántas páginas lee cada organización de archivo según la consulta.',
           visualizaciones: 2,
-          etiquetas: ['estructuras'],
           glifo: g('<rect x="14" y="4" width="16" height="7"/><rect x="2" y="18" width="16" height="7"/><rect x="26" y="18" width="16" height="7"/><path d="M18 11l-8 7M26 11l8 7"/><path d="M4 32h10M18 32h10M32 32h8"/><path d="M14 32h4M28 32h4" stroke-dasharray="1 2"/>'),
         },
         {
@@ -1203,7 +1054,6 @@ window.CATALOGO = (function () {
           titulo: 'Pages, Disk & Buffer Pool',
           resumen: 'Una página con ranuras que se llena y compacta, y un buffer que reemplaza páginas con LRU, Clock o MRU.',
           visualizaciones: 2,
-          etiquetas: ['so', 'estructuras'],
           glifo: g('<rect x="4" y="6" width="14" height="32"/><path d="M4 14h14M4 22h14"/><rect x="26" y="6" width="6" height="6"/><rect x="34" y="6" width="6" height="6"/><rect x="26" y="14" width="6" height="6"/><rect x="34" y="14" width="6" height="6" fill="currentColor"/><path d="M18 30h14M28 26l4 4-4 4"/>'),
         },
         {
@@ -1211,7 +1061,6 @@ window.CATALOGO = (function () {
           titulo: 'Iterator Model',
           resumen: 'Llamadas open, next y close que bajan por un plan de consulta y tuplas que suben de a una.',
           visualizaciones: 1,
-          etiquetas: ['algoritmos'],
           glifo: g('<rect x="14" y="4" width="16" height="7"/><rect x="14" y="18" width="16" height="7"/><rect x="14" y="32" width="16" height="7"/><path d="M18 11v7M18 25v7"/><path d="M27 18v-7M27 32v-7M25 13l2-2 2 2M25 27l2-2 2 2"/>'),
         },
         {
@@ -1219,7 +1068,6 @@ window.CATALOGO = (function () {
           titulo: 'Linear Operators',
           resumen: 'Selección, proyección y agregación en una pasada, y cuándo conviene un índice según la selectividad.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos'],
           glifo: g('<rect x="4" y="8" width="8" height="28"/><path d="M12 22h10M18 18l4 4-4 4"/><path d="M26 12l10 10-10 10z"/><path d="M36 22h4"/>'),
         },
         {
@@ -1227,7 +1075,6 @@ window.CATALOGO = (function () {
           titulo: 'Nested Loop Join',
           resumen: 'Cada tupla de la relación externa recorre toda la interna: cuente las páginas leídas y cambie el orden.',
           visualizaciones: 1,
-          etiquetas: ['algoritmos'],
           glifo: g('<rect x="4" y="6" width="12" height="32"/><rect x="28" y="6" width="12" height="32"/><path d="M4 14h12M28 14h12M28 22h12M28 30h12"/><path d="M16 10c8 0 8 4 12 4M16 10c8 0 8 12 12 12M16 10c8 0 8 20 12 20"/>'),
         },
         {
@@ -1235,7 +1082,6 @@ window.CATALOGO = (function () {
           titulo: 'Block Nested Loop Join',
           resumen: 'Cargar bloques de B − 2 páginas de la relación externa y cómo el costo baja al crecer el buffer.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos'],
           glifo: g('<rect x="4" y="6" width="12" height="32"/><path d="M4 22h12"/><rect x="5.5" y="7.5" width="9" height="13" fill="currentColor" stroke="none"/><rect x="28" y="6" width="12" height="32"/><path d="M28 14h12M28 22h12M28 30h12M16 14h12"/>'),
         },
         {
@@ -1243,7 +1089,6 @@ window.CATALOGO = (function () {
           titulo: 'External Merge Sort',
           resumen: 'Ordenar más datos de los que caben en memoria: corridas iniciales y mezclas de B − 1 vías, pasada a pasada.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos', 'so'],
           glifo: g('<path d="M4 8h8M16 8h8M28 8h8"/><path d="M8 12l8 10M20 12v10M32 12l-8 10"/><rect x="10" y="24" width="20" height="5"/><path d="M20 29v5M14 38h12"/>'),
         },
       ],
@@ -1252,14 +1097,12 @@ window.CATALOGO = (function () {
       id: 'mas-alla-relacional',
       nombre: 'Más allá de las tablas',
       descripcion: 'Mapeo de objetos, bases NoSQL y búsqueda de texto: cómo se guardan y recuperan datos sin SQL puro.',
-      etiquetas: ['bdd'],
       temas: [
         {
           id: 'orm',
           titulo: 'Object-Relational Mapping',
           resumen: 'Clases que se vuelven tablas, estrategias para la herencia y el problema de las N + 1 consultas.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info', 'web'],
           glifo: g('<rect x="3" y="8" width="14" height="20"/><path d="M3 14h14"/><path d="M19 18h6M23 15l3 3-3 3"/><rect x="27" y="8" width="14" height="20"/><path d="M27 14h14M27 20h14M34 14v14"/>'),
         },
         {
@@ -1267,7 +1110,6 @@ window.CATALOGO = (function () {
           titulo: 'NoSQL Databases',
           resumen: 'Los mismos datos como documentos, pares clave-valor, columnas y grafo, y el hashing consistente al agregar nodos.',
           visualizaciones: 2,
-          etiquetas: ['sistemas-info', 'distribuidos', 'web'],
           glifo: g('<circle cx="22" cy="22" r="14"/><circle cx="22" cy="8" r="2.5" fill="currentColor"/><circle cx="35" cy="27" r="2.5" fill="currentColor"/><circle cx="12" cy="32" r="2.5" fill="currentColor"/><path d="M8 18h4M30 12l3-2"/>'),
         },
         {
@@ -1275,7 +1117,6 @@ window.CATALOGO = (function () {
           titulo: 'Full-Text Search',
           resumen: 'Tokenizar, normalizar y construir un índice invertido; consultas AND y OR como mezcla de listas de postings.',
           visualizaciones: 1,
-          etiquetas: ['sistemas-info', 'web', 'estructuras'],
           glifo: g('<circle cx="16" cy="16" r="10"/><path d="M23 23l8 8"/><path d="M11 13h10M11 17h7"/><path d="M30 8h10M34 14h6M34 20h6"/>'),
         },
         {
@@ -1283,7 +1124,6 @@ window.CATALOGO = (function () {
           titulo: 'Information Retrieval',
           resumen: 'Ranking con TF-IDF y BM25, curvas de precisión y exhaustividad, y búsqueda vectorial por similitud.',
           visualizaciones: 3,
-          etiquetas: ['sistemas-info', 'mineria', 'web'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M10 34V14M16 34V20M22 34V24M28 34V28M34 34V31" stroke-width="3"/>'),
         },
       ],
@@ -1292,14 +1132,12 @@ window.CATALOGO = (function () {
       id: 'privacidad-datos',
       nombre: 'Privacidad de datos',
       descripcion: 'Qué datos identifican a una persona, cómo se re-identifican y cómo se publican con garantías de privacidad.',
-      etiquetas: ['sistemas-info'],
       temas: [
         {
           id: 'privacidad',
           titulo: 'Data Privacy',
           resumen: 'Cuántas personas quedan únicas al combinar fecha de nacimiento, sexo y código postal en una población simulada.',
           visualizaciones: 1,
-          etiquetas: ['bdd', 'mineria'],
           glifo: g('<rect x="10" y="20" width="24" height="18" rx="2"/><path d="M15 20v-6a7 7 0 0 1 14 0v6"/><circle cx="22" cy="28" r="2.5"/><path d="M22 30.5v3"/>'),
         },
         {
@@ -1307,7 +1145,6 @@ window.CATALOGO = (function () {
           titulo: 'Attribute Types: IdE, CId, AS, AnS',
           resumen: 'Clasifique cada columna como identificador explícito, cuasi-identificador, sensible o no sensible.',
           visualizaciones: 1,
-          etiquetas: ['bdd'],
           glifo: g('<rect x="4" y="6" width="36" height="32"/><path d="M13 6v32M22 6v32M31 6v32M4 14h36"/><path d="M6 10h5" stroke-width="2.6"/><path d="M15 10h5M24 10h5" stroke-dasharray="1.5 1.5"/>'),
         },
         {
@@ -1315,7 +1152,6 @@ window.CATALOGO = (function () {
           titulo: 'De-Identification',
           resumen: 'Suprimir, seudonimizar, enmascarar y generalizar columnas, y por qué un hash de RUT se revierte con fuerza bruta.',
           visualizaciones: 2,
-          etiquetas: ['bdd'],
           glifo: g('<circle cx="16" cy="14" r="6"/><path d="M6 34c0-7 4-11 10-11s10 4 10 11"/><path d="M28 10h12M28 16h12" stroke-width="3"/><path d="M30 26l8 8M38 26l-8 8"/>'),
         },
         {
@@ -1323,7 +1159,6 @@ window.CATALOGO = (function () {
           titulo: 'Re-Identification',
           resumen: 'Ataque de enlace entre una tabla clínica sin nombres y un registro público, y unicidad de trayectorias.',
           visualizaciones: 2,
-          etiquetas: ['bdd', 'mineria'],
           glifo: g('<rect x="3" y="8" width="14" height="24"/><rect x="27" y="8" width="14" height="24"/><path d="M3 16h14M3 24h14M27 16h14M27 24h14"/><path d="M17 20h10" stroke-width="2.6"/>'),
         },
         {
@@ -1331,7 +1166,6 @@ window.CATALOGO = (function () {
           titulo: 'Anonymization',
           resumen: 'El retículo de niveles de generalización: recorra los nodos y encuentre los mínimos que cumplen k.',
           visualizaciones: 1,
-          etiquetas: ['bdd'],
           glifo: g('<circle cx="22" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><circle cx="32" cy="18" r="3"/><circle cx="6" cy="30" r="3"/><circle cx="22" cy="30" r="3"/><circle cx="38" cy="30" r="3"/><circle cx="22" cy="40" r="2.5" fill="currentColor"/><path d="M20 8l-6 8M24 8l6 8M10 20l-3 8M14 20l7 8M30 20l-7 8M34 20l3 8M7 33l13 6M37 33l-13 6"/>'),
         },
         {
@@ -1339,7 +1173,6 @@ window.CATALOGO = (function () {
           titulo: 'k-Anonymity',
           resumen: 'Generalice los cuasi-identificadores hasta que cada fila tenga k − 1 gemelas, y vea el ataque de homogeneidad.',
           visualizaciones: 2,
-          etiquetas: ['bdd', 'mineria'],
           glifo: g('<circle cx="10" cy="14" r="4"/><circle cx="22" cy="14" r="4"/><circle cx="34" cy="14" r="4"/><path d="M4 30c0-5 3-8 6-8s6 3 6 8M16 30c0-5 3-8 6-8s6 3 6 8M28 30c0-5 3-8 6-8s6 3 6 8"/><path d="M4 36h36"/>'),
         },
         {
@@ -1347,7 +1180,6 @@ window.CATALOGO = (function () {
           titulo: 'l-Diversity',
           resumen: 'Valores sensibles distintos y entropía por clase de equivalencia, y la distancia de t-cercanía.',
           visualizaciones: 2,
-          etiquetas: ['bdd', 'mineria'],
           glifo: g('<rect x="4" y="8" width="36" height="28"/><path d="M4 22h36"/><circle cx="12" cy="15" r="2.5"/><rect x="20" y="12.5" width="5" height="5"/><path d="M32 12l3 5h-6z"/><circle cx="12" cy="29" r="2.5" fill="currentColor"/><circle cx="22" cy="29" r="2.5" fill="currentColor"/><circle cx="32" cy="29" r="2.5" fill="currentColor"/>'),
         },
         {
@@ -1355,7 +1187,6 @@ window.CATALOGO = (function () {
           titulo: 'Differential Privacy',
           resumen: 'El mecanismo de Laplace sobre dos bases vecinas, el efecto de ε y la respuesta aleatorizada con monedas.',
           visualizaciones: 2,
-          etiquetas: ['bdd', 'inferencia'],
           glifo: g('<path d="M4 36h36"/><path d="M4 35C12 34 14 10 18 10s6 24 14 25"/><path d="M10 35c8-1 10-25 14-25s6 24 14 25" stroke-dasharray="2 2"/>'),
         },
         {
@@ -1363,7 +1194,6 @@ window.CATALOGO = (function () {
           titulo: 'Privacy-Enhancing Techniques',
           resumen: 'Ruido, intercambio, microagregación, recorte y enmascaramiento sobre una columna: cuánto riesgo y cuánta utilidad.',
           visualizaciones: 1,
-          etiquetas: ['bdd'],
           glifo: g('<path d="M22 4l14 6v10c0 9-6 15-14 18C14 35 8 29 8 20V10z"/><path d="M16 20h12M16 26h8"/>'),
         },
         {
@@ -1371,7 +1201,6 @@ window.CATALOGO = (function () {
           titulo: 'Synthetic Data',
           resumen: 'Generar registros falsos que imitan los reales: marginales, gaussiana y con privacidad diferencial.',
           visualizaciones: 1,
-          etiquetas: ['mineria', 'ml'],
           glifo: g('<circle cx="10" cy="30" r="2"/><circle cx="16" cy="24" r="2"/><circle cx="22" cy="20" r="2"/><circle cx="30" cy="12" r="2"/><path d="M8 18l3 3M11 18l-3 3M26 28l3 3M29 28l-3 3M34 20l3 3M37 20l-3 3"/><path d="M4 38h36"/>'),
         },
       ],
@@ -1380,14 +1209,12 @@ window.CATALOGO = (function () {
       id: 'seguridad-datos',
       nombre: 'Seguridad y regulación',
       descripcion: 'Control de acceso y el marco legal chileno de protección de datos personales.',
-      etiquetas: ['sistemas-info'],
       temas: [
         {
           id: 'seguridad',
           titulo: 'Database Security',
           resumen: 'Privilegios con GRANT y REVOKE en cascada, y roles que deciden qué consultas puede ejecutar cada usuario.',
           visualizaciones: 2,
-          etiquetas: ['bdd', 'web'],
           glifo: g('<circle cx="14" cy="18" r="7"/><circle cx="14" cy="18" r="2"/><path d="M21 18h18M33 18v6M38 18v4"/><path d="M6 34h32"/>'),
         },
         {
@@ -1395,7 +1222,6 @@ window.CATALOGO = (function () {
           titulo: 'Chile’s Data Protection Law 21.719',
           resumen: 'Principios, bases de licitud y derechos ARCOP aplicados a casos, y la escala de infracciones y multas.',
           visualizaciones: 2,
-          etiquetas: ['bdd', 'web'],
           glifo: g('<path d="M22 6v30M12 36h20"/><path d="M8 12h28"/><path d="M8 12l-5 12h10zM36 12l-5 12h10z"/>'),
         },
       ],
@@ -1404,14 +1230,12 @@ window.CATALOGO = (function () {
       id: 'min-datos',
       nombre: 'Datos, escalas y distancias',
       descripcion: 'Cómo se representan los datos como vectores, cómo escalarlos, cómo medir parecido y por qué la dimensión alta lo complica.',
-      etiquetas: ['mineria'],
       temas: [
         {
           id: 'data-representation',
           titulo: 'Structured & Unstructured Data',
           resumen: 'Convertir texto e imágenes en vectores, y codificar características nominales, ordinales, de intervalo y de razón.',
           visualizaciones: 3,
-          etiquetas: ['bdd', 'estructuras'],
           glifo: g('<rect x="4" y="6" width="16" height="14"/><path d="M4 11h16M4 15.5h16M10 6v14"/><path d="M26 8h14M26 13h10M26 18h12"/><path d="M8 26v12M14 30v8M20 28v10M26 34v4M32 31v7M38 27v11"/><path d="M4 38h36"/>'),
         },
         {
@@ -1419,7 +1243,6 @@ window.CATALOGO = (function () {
           titulo: 'Normalization & Scaling',
           resumen: 'Min-max, estandarización z y escalamiento robusto: cómo cambian los vecinos y cuánto afectan los atípicos.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M6 38h32M6 38V6"/><path d="M10 34h6M10 30h20M10 26h8" stroke-width="2.5"/><path d="M26 14l8 0M30 10v8" /><path d="M12 12l6 6M18 12l-6 6"/>'),
         },
         {
@@ -1427,7 +1250,6 @@ window.CATALOGO = (function () {
           titulo: 'Distance & Similarity Measures',
           resumen: 'Bolas de Minkowski de p = 1 a ∞, Manhattan frente a euclidiana, y por qué el coseno ignora la longitud.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones'],
           glifo: g('<path d="M22 6L38 22 22 38 6 22z"/><circle cx="22" cy="22" r="11.3"/><rect x="14" y="14" width="16" height="16" stroke-dasharray="2 3"/>'),
         },
         {
@@ -1435,7 +1257,6 @@ window.CATALOGO = (function () {
           titulo: 'Curse of Dimensionality',
           resumen: 'Distancias que se concentran al subir la dimensión, la bola inscrita que desaparece y vecindarios que dejan de ser locales.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<rect x="6" y="14" width="22" height="22"/><path d="M6 14l10-8h22l-10 8M38 6v22l-10 8"/><circle cx="17" cy="25" r="6" stroke-dasharray="2 2"/>'),
         },
         {
@@ -1443,7 +1264,6 @@ window.CATALOGO = (function () {
           titulo: 'Exploratory Data Analysis',
           resumen: 'Matriz de dispersión con histogramas y correlaciones, y coordenadas paralelas con filtros para ver cuatro variables a la vez.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion', 'inferencia'],
           glifo: g('<path d="M8 6v32M22 6v32M36 6v32"/><path d="M8 12L22 30 36 16M8 30L22 14 36 34M8 20L22 22 36 26"/>'),
         },
       ],
@@ -1452,14 +1272,12 @@ window.CATALOGO = (function () {
       id: 'min-reduccion',
       nombre: 'Reducción de dimensionalidad',
       descripcion: 'Proyecciones lineales y mapas no lineales para ver datos de muchas dimensiones en el plano, y qué conserva cada uno.',
-      etiquetas: ['mineria'],
       temas: [
         {
           id: 'svd',
           titulo: 'Singular Value Decomposition',
           resumen: 'Toda matriz como rotación, estiramiento y rotación, y la mejor aproximación de rango k de una imagen.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<circle cx="11" cy="22" r="7"/><ellipse cx="33" cy="22" rx="9" ry="4" transform="rotate(-30 33 22)"/><path d="M19 22h5M22 19l3 3-3 3"/><path d="M11 22h7M11 22v-7" stroke-dasharray="2 2"/>'),
         },
         {
@@ -1467,7 +1285,6 @@ window.CATALOGO = (function () {
           titulo: 'Projections & Explained Variance',
           resumen: 'Girar una nube 3-D para ver cuánta varianza retiene cada vista, y proyecciones aleatorias de Johnson–Lindenstrauss.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'visualizacion'],
           glifo: g('<path d="M6 30l14-8 18 6-14 8z"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><circle cx="26" cy="8" r="1.6" fill="currentColor"/><circle cx="30" cy="14" r="1.6" fill="currentColor"/><path d="M16 12v15M26 10v18M30 16v12" stroke-dasharray="2 2"/>'),
         },
         {
@@ -1475,7 +1292,6 @@ window.CATALOGO = (function () {
           titulo: 't-SNE',
           resumen: 'Ver la optimización de t-SNE paso a paso, el efecto de la perplejidad y cómo σ se adapta a la densidad local.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion', 'ml'],
           glifo: g('<circle cx="12" cy="13" r="2" fill="currentColor"/><circle cx="16" cy="10" r="2" fill="currentColor"/><circle cx="15" cy="16" r="2" fill="currentColor"/><circle cx="31" cy="12" r="2" fill="currentColor"/><circle cx="34" cy="16" r="2" fill="currentColor"/><circle cx="20" cy="32" r="2" fill="currentColor"/><circle cx="25" cy="34" r="2" fill="currentColor"/><circle cx="22" cy="29" r="2" fill="currentColor"/><path d="M4 40c4-3 6-3 10 0s6 3 10 0 6-3 10 0" stroke-dasharray="2 2"/>'),
         },
         {
@@ -1483,7 +1299,6 @@ window.CATALOGO = (function () {
           titulo: 'UMAP',
           resumen: 'El grafo difuso de k vecinos con sus pesos, y la disposición en 2-D según n_neighbors y min_dist.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion', 'ml'],
           glifo: g('<circle cx="8" cy="10" r="2.5"/><circle cx="20" cy="6" r="2.5"/><circle cx="16" cy="20" r="2.5"/><circle cx="32" cy="16" r="2.5"/><circle cx="26" cy="32" r="2.5"/><circle cx="38" cy="34" r="2.5"/><circle cx="10" cy="34" r="2.5"/><path d="M10 11l4 7M10 9l8-2M18 19l12-3M22 8l8 7M17 22l8 8M28 33l8 1M12 33l12-1" />'),
         },
         {
@@ -1491,7 +1306,6 @@ window.CATALOGO = (function () {
           titulo: 'Comparing Dimensionality Reduction',
           resumen: 'PCA, t-SNE y UMAP sobre los mismos datos, con vecinos enlazados entre mapas y medidas de estructura local y global.',
           visualizaciones: 2,
-          etiquetas: ['visualizacion', 'ml'],
           glifo: g('<rect x="4" y="12" width="11" height="20"/><rect x="17" y="12" width="11" height="20"/><rect x="30" y="12" width="11" height="20"/><path d="M6 28l7-12M20 18h2M23 25h2M20 27h1M33 17h2M36 20h2M33 27h2"/>'),
         },
       ],
@@ -1500,14 +1314,12 @@ window.CATALOGO = (function () {
       id: 'min-vecinos',
       nombre: 'Vecinos cercanos y anomalías',
       descripcion: 'Índices espaciales para buscar vecinos rápido y métodos de densidad y aislamiento para encontrar datos atípicos.',
-      etiquetas: ['mineria'],
       temas: [
         {
           id: 'kd-tree',
           titulo: 'KD-Trees',
           resumen: 'Construir un árbol k-d por medianas y buscar el vecino más cercano podando regiones que no pueden ganar.',
           visualizaciones: 2,
-          etiquetas: ['estructuras', 'algoritmos'],
           glifo: g('<rect x="4" y="4" width="36" height="36"/><path d="M20 4v36M4 18h16M20 26h20M30 26v14"/><circle cx="12" cy="11" r="1.6" fill="currentColor"/><circle cx="31" cy="14" r="1.6" fill="currentColor"/><circle cx="25" cy="34" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -1515,7 +1327,6 @@ window.CATALOGO = (function () {
           titulo: 'Ball Trees',
           resumen: 'Bolas anidadas con poda por desigualdad triangular, y cuántas distancias ahorra frente al árbol k-d según la dimensión.',
           visualizaciones: 2,
-          etiquetas: ['estructuras', 'algoritmos'],
           glifo: g('<circle cx="22" cy="22" r="18"/><circle cx="14" cy="18" r="8"/><circle cx="29" cy="27" r="9"/><circle cx="12" cy="17" r="1.6" fill="currentColor"/><circle cx="31" cy="29" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -1523,7 +1334,6 @@ window.CATALOGO = (function () {
           titulo: 'k-Distance & Local Density',
           resumen: 'La distancia al k-ésimo vecino como densidad local y el gráfico ordenado cuyo codo sugiere ε para DBSCAN.',
           visualizaciones: 2,
-          etiquetas: ['patrones'],
           glifo: g('<circle cx="16" cy="18" r="10" stroke-dasharray="2 3"/><circle cx="16" cy="18" r="1.8" fill="currentColor"/><path d="M16 18l7 7"/><circle cx="23" cy="25" r="1.6" fill="currentColor"/><path d="M28 38c4-14 6-20 12-26"/>'),
         },
         {
@@ -1531,7 +1341,6 @@ window.CATALOGO = (function () {
           titulo: 'Local Outlier Factor',
           resumen: 'Distancia de alcanzabilidad, densidad local y LOF paso a paso, y por qué encuentra atípicos que la k-distancia no ve.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones'],
           glifo: g('<circle cx="12" cy="14" r="1.4" fill="currentColor"/><circle cx="15" cy="12" r="1.4" fill="currentColor"/><circle cx="14" cy="16" r="1.4" fill="currentColor"/><circle cx="11" cy="17" r="1.4" fill="currentColor"/><circle cx="24" cy="15" r="2"/><circle cx="24" cy="15" r="5" stroke-dasharray="2 2"/><circle cx="32" cy="32" r="1.4" fill="currentColor"/><circle cx="24" cy="36" r="1.4" fill="currentColor"/><circle cx="36" cy="26" r="1.4" fill="currentColor"/>'),
         },
         {
@@ -1539,7 +1348,6 @@ window.CATALOGO = (function () {
           titulo: 'Isolation Forest',
           resumen: 'Aislar un punto con cortes al azar, la profundidad de aislamiento y el mapa de puntajes de un bosque.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<rect x="4" y="4" width="36" height="36"/><path d="M28 4v36M28 14h12M34 4v10"/><circle cx="37" cy="8" r="1.8" fill="currentColor"/><circle cx="12" cy="24" r="1.4" fill="currentColor"/><circle cx="16" cy="28" r="1.4" fill="currentColor"/><circle cx="18" cy="22" r="1.4" fill="currentColor"/>'),
         },
       ],
@@ -1548,14 +1356,12 @@ window.CATALOGO = (function () {
       id: 'min-jerarquico',
       nombre: 'Clustering jerárquico y por densidad',
       descripcion: 'Agrupar fusionando vecinos o siguiendo zonas densas: dendrogramas, enlaces, árboles de expansión mínima, DBSCAN y HDBSCAN.',
-      etiquetas: ['mineria'],
       temas: [
         {
           id: 'hierarchical-clustering',
           titulo: 'Hierarchical Agglomerative Clustering',
           resumen: 'Fusiones paso a paso con su dendrograma, cortes a distintas alturas y los enlaces single, complete, average y Ward.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones', 'visualizacion'],
           glifo: g('<path d="M6 38V26h8v12M10 26V16h14V38M20 38V30M17 16V8h18v30"/><path d="M4 38h36"/>'),
         },
         {
@@ -1563,7 +1369,6 @@ window.CATALOGO = (function () {
           titulo: 'Minimum Spanning Trees & Single Linkage',
           resumen: 'El árbol de expansión mínima de los puntos con Kruskal y por qué cortar sus aristas más largas es el enlace simple.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos', 'ml'],
           glifo: g('<circle cx="6" cy="10" r="2"/><circle cx="14" cy="16" r="2"/><circle cx="8" cy="24" r="2"/><circle cx="32" cy="26" r="2"/><circle cx="38" cy="18" r="2"/><circle cx="34" cy="36" r="2"/><path d="M7.5 11.5l5 3M13 18l-4 4.5M34 26l3-6M32.5 28l1 6"/><path d="M16 17l14 8" stroke-dasharray="2 3"/>'),
         },
         {
@@ -1571,7 +1376,6 @@ window.CATALOGO = (function () {
           titulo: 'DBSCAN',
           resumen: 'Puntos núcleo, borde y ruido expandiendo grupos por densidad, y el mapa de resultados para cada ε y MinPts.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones'],
           glifo: g('<circle cx="15" cy="17" r="8" stroke-dasharray="2 2"/><circle cx="15" cy="17" r="2" fill="currentColor"/><circle cx="20" cy="22" r="2" fill="currentColor"/><circle cx="25" cy="27" r="2" fill="currentColor"/><circle cx="30" cy="30" r="2"/><path d="M34 8l4 4M38 8l-4 4"/>'),
         },
         {
@@ -1579,7 +1383,6 @@ window.CATALOGO = (function () {
           titulo: 'HDBSCAN',
           resumen: 'Distancia de alcanzabilidad mutua, el árbol condensado y la estabilidad que elige grupos de densidades distintas.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones'],
           glifo: g('<rect x="12" y="4" width="20" height="8"/><rect x="6" y="12" width="12" height="14"/><rect x="26" y="12" width="12" height="8"/><rect x="28" y="20" width="4" height="10"/><path d="M4 40h36"/><path d="M8 26v8M16 26v4"/>'),
         },
       ],
@@ -1588,14 +1391,12 @@ window.CATALOGO = (function () {
       id: 'min-mezclas',
       nombre: 'Modelos de mezcla y estimación',
       descripcion: 'Gaussianas multivariadas, máxima verosimilitud, inferencia bayesiana y el agrupamiento probabilístico con mezclas gaussianas.',
-      etiquetas: ['mineria'],
       temas: [
         {
           id: 'multivariate-gaussian',
           titulo: 'Multivariate Gaussian',
           resumen: 'Cómo la covarianza fija la forma de las elipses, la distancia de Mahalanobis y las distribuciones condicionales.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones'],
           glifo: g('<ellipse cx="22" cy="22" rx="16" ry="8" transform="rotate(-35 22 22)"/><ellipse cx="22" cy="22" rx="9" ry="4.5" transform="rotate(-35 22 22)"/><circle cx="22" cy="22" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -1603,7 +1404,6 @@ window.CATALOGO = (function () {
           titulo: 'Maximum Likelihood Estimation',
           resumen: 'Ajustar μ y σ a mano para maximizar la verosimilitud, y la superficie de log-verosimilitud que se angosta con n.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M4 38h36"/><path d="M4 37c8 0 10-28 18-28s10 28 18 28"/><path d="M12 38v-6M18 38v-18M27 38v-16M33 38v-5"/>'),
         },
         {
@@ -1611,7 +1411,6 @@ window.CATALOGO = (function () {
           titulo: 'Bayesian Parameter Inference',
           resumen: 'Prior, verosimilitud y posterior en una moneda beta-binomial, e intervalos creíbles frente a los de confianza.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M4 38h36"/><path d="M4 37c10 0 10-14 18-14s8 14 18 14" stroke-dasharray="2 3"/><path d="M8 37c10 0 12-30 17-30s6 30 15 30"/>'),
         },
         {
@@ -1619,7 +1418,6 @@ window.CATALOGO = (function () {
           titulo: 'Gaussian Mixture Models',
           resumen: 'El algoritmo EM paso a paso con probabilidades de pertenencia, y cómo elegir k con BIC y AIC.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones'],
           glifo: g('<ellipse cx="14" cy="16" rx="10" ry="6" transform="rotate(-20 14 16)"/><ellipse cx="29" cy="28" rx="8" ry="11" transform="rotate(25 29 28)"/><circle cx="21" cy="21" r="1.8" fill="currentColor"/>'),
         },
         {
@@ -1627,7 +1425,6 @@ window.CATALOGO = (function () {
           titulo: 'Probabilistic vs Density-Based Clustering',
           resumen: 'Mezclas gaussianas y DBSCAN sobre los mismos datos: formas, ruido, y pertenencia blanda frente a etiquetas duras.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'patrones'],
           glifo: g('<ellipse cx="12" cy="22" rx="8" ry="14"/><path d="M24 30c2-10 6-16 14-18" /><circle cx="27" cy="22" r="1.6" fill="currentColor"/><circle cx="31" cy="17" r="1.6" fill="currentColor"/><circle cx="35" cy="14" r="1.6" fill="currentColor"/><path d="M20 6v32" stroke-dasharray="2 3"/>'),
         },
       ],
@@ -1636,7 +1433,6 @@ window.CATALOGO = (function () {
       id: 'min-asociacion',
       nombre: 'Patrones frecuentes y reglas de asociación',
       descripcion: 'Qué productos aparecen juntos: soporte, confianza y lift, y cómo Apriori poda la retícula de itemsets.',
-      etiquetas: ['mineria'],
       temas: [
         {
           id: 'itemsets-support',
@@ -1672,7 +1468,6 @@ window.CATALOGO = (function () {
       id: 'min-probabilidad',
       nombre: 'Probabilidad y redes bayesianas',
       descripcion: 'Probabilidad conjunta, marginal y condicional, el teorema de Bayes, la independencia condicional y la inferencia en redes bayesianas.',
-      etiquetas: ['mineria', 'inferencia'],
       temas: [
         {
           id: 'joint-marginal-conditional',
@@ -1686,7 +1481,6 @@ window.CATALOGO = (function () {
           titulo: 'Bayes’ Theorem',
           resumen: 'Mil personas y una prueba diagnóstica para ver la falacia de la tasa base, y cómo se actualiza la creencia prueba tras prueba.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<rect x="4" y="4" width="36" height="36"/><rect x="4" y="4" width="8" height="36" fill="currentColor" fill-opacity="0.25"/><rect x="4" y="30" width="36" height="10" stroke-dasharray="2 2"/><path d="M12 4v36"/>'),
         },
         {
@@ -1701,7 +1495,6 @@ window.CATALOGO = (function () {
           titulo: 'Bayesian Networks',
           resumen: 'La red de la alarma con sus tablas de probabilidad: fijar evidencia, ver propagarse las creencias y el efecto explaining away.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<circle cx="10" cy="8" r="4"/><circle cx="34" cy="8" r="4"/><circle cx="22" cy="22" r="4"/><circle cx="10" cy="36" r="4"/><circle cx="34" cy="36" r="4"/><path d="M13 11l6 8M31 11l-6 8M19 25l-6 8M25 25l6 8"/>'),
         },
         {
@@ -1709,7 +1502,6 @@ window.CATALOGO = (function () {
           titulo: 'Marginalization & Inference',
           resumen: 'Eliminación de variables paso a paso con sus factores, y muestreo por rechazo y por ponderación frente al valor exacto.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="6" width="14" height="10"/><rect x="26" y="6" width="14" height="10"/><path d="M11 16v6h22v-6M22 22v6"/><rect x="15" y="28" width="14" height="10"/><path d="M19 33h6"/>'),
         },
       ],
@@ -1718,14 +1510,12 @@ window.CATALOGO = (function () {
       id: 'min-causalidad',
       nombre: 'Causalidad y grafos causales',
       descripcion: 'Correlación frente a causalidad, cadenas, forks y colliders, d-separación, intervenciones con el operador do y criterios de identificación.',
-      etiquetas: ['mineria', 'inferencia'],
       temas: [
         {
           id: 'correlation-causation',
           titulo: 'Correlation vs. Causation',
           resumen: 'Una causa común que fabrica una correlación, lo que cambia al aleatorizar, y la paradoja de Simpson con dos tratamientos.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="22" cy="8" r="4"/><circle cx="8" cy="34" r="4"/><circle cx="36" cy="34" r="4"/><path d="M20 12l-10 18M24 12l10 18"/><path d="M12 34h20" stroke-dasharray="2 3"/>'),
         },
         {
@@ -1733,7 +1523,6 @@ window.CATALOGO = (function () {
           titulo: 'Chains, Forks & Colliders',
           resumen: 'Las tres piezas de un grafo causal con datos simulados, y la condición causal de Markov comprobada con correlaciones parciales.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="6" cy="8" r="3"/><circle cx="22" cy="8" r="3"/><circle cx="38" cy="8" r="3"/><path d="M9 8h9M25 8h9"/><circle cx="6" cy="36" r="3"/><circle cx="22" cy="26" r="3"/><circle cx="38" cy="36" r="3"/><path d="M8.5 34l10-6M35.5 34l-10-6"/>'),
         },
         {
@@ -1741,7 +1530,6 @@ window.CATALOGO = (function () {
           titulo: 'D-Separation',
           resumen: 'Elegir X, Y y un conjunto de condicionamiento y ver qué caminos quedan abiertos o bloqueados, comprobado con datos.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'logica'],
           glifo: g('<circle cx="8" cy="22" r="4"/><circle cx="36" cy="22" r="4"/><circle cx="22" cy="10" r="4" fill="currentColor" fill-opacity="0.3"/><circle cx="22" cy="34" r="4"/><path d="M11 19l7-6M33 19l-7-6M11 25l7 6M33 25l-7 6"/><path d="M18 8l8 4" stroke-width="2.5"/>'),
         },
         {
@@ -1749,7 +1537,6 @@ window.CATALOGO = (function () {
           titulo: 'Interventions & the do-Operator',
           resumen: 'Observar frente a intervenir con cirugía en el grafo, y efectos total, directo e indirecto a través de un mediador.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="22" cy="8" r="4"/><circle cx="8" cy="34" r="4" fill="currentColor" fill-opacity="0.3"/><circle cx="36" cy="34" r="4"/><path d="M24 12l10 18M12 34h20"/><path d="M20 12l-4 7M13 24l-3 5" stroke-dasharray="2 2"/><path d="M14 18l6 4"/>'),
         },
         {
@@ -1757,7 +1544,6 @@ window.CATALOGO = (function () {
           titulo: 'Back-Door & Front-Door Criteria',
           resumen: 'Elegir qué variables ajustar para cerrar caminos de confusión, y estimar un efecto con confusión oculta a través de un mediador.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="8" cy="34" r="4"/><circle cx="22" cy="34" r="4"/><circle cx="36" cy="34" r="4"/><circle cx="22" cy="8" r="4" stroke-dasharray="2 2"/><path d="M12 34h6M26 34h6M20 12l-10 18M24 12l10 18"/>'),
         },
       ],
@@ -1766,14 +1552,12 @@ window.CATALOGO = (function () {
       id: 'min-efectos',
       nombre: 'Efectos causales y matching',
       descripcion: 'Resultados potenciales, ATE, ATT y ATC, y cómo estimarlos con matching, propensity scores y modelos de resultado.',
-      etiquetas: ['mineria', 'inferencia'],
       temas: [
         {
           id: 'potential-outcomes',
           titulo: 'Potential Outcomes',
           resumen: 'Los dos resultados de cada paciente, el problema fundamental de la inferencia causal, y el sesgo de la diferencia ingenua.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<rect x="4" y="6" width="36" height="32"/><path d="M4 14h36M16 6v32M28 6v32"/><path d="M8 22h4M20 22h4M32 22h4M8 30h4M32 30h4"/><path d="M21 28l2 4M23 28l-2 4" />'),
         },
         {
@@ -1781,7 +1565,6 @@ window.CATALOGO = (function () {
           titulo: 'Exact & Inexact Matching',
           resumen: 'Emparejar cada tratado con controles cercanos: distancias, caliper y reemplazo, y el compromiso del matching exacto por estratos.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<rect x="6" y="8" width="5" height="5"/><circle cx="16" cy="12" r="2.5"/><rect x="26" y="22" width="5" height="5"/><circle cx="35" cy="26" r="2.5"/><rect x="10" y="32" width="5" height="5"/><circle cx="20" cy="36" r="2.5"/><path d="M11 10.5l2.5 1M31 24.5l1.5 1M15 34.5l2.5 1.5"/>'),
         },
         {
@@ -1789,7 +1572,6 @@ window.CATALOGO = (function () {
           titulo: 'Propensity Scores',
           resumen: 'Estimar la probabilidad de tratamiento con regresión logística, revisar el solapamiento, y estratificar, ponderar o emparejar por ella.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M4 38h36"/><path d="M4 36c10 0 12-20 18-20" /><path d="M22 16c6 0 8 20 18 20" stroke-dasharray="2 2"/><path d="M6 6c8 0 10 6 16 16s8 16 16 16"/>'),
         },
         {
@@ -1797,7 +1579,6 @@ window.CATALOGO = (function () {
           titulo: 'Covariate Balance',
           resumen: 'El love plot de diferencias de medias estandarizadas antes y después de ajustar, y las distribuciones completas por grupo.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M22 4v36" stroke-dasharray="2 2"/><path d="M8 10h28M8 22h28M8 34h28" stroke="currentColor" stroke-opacity="0.3"/><circle cx="34" cy="10" r="2.5"/><rect x="21" y="8.5" width="3" height="3" fill="currentColor"/><circle cx="10" cy="22" r="2.5"/><rect x="23" y="20.5" width="3" height="3" fill="currentColor"/><circle cx="30" cy="34" r="2.5"/><rect x="20" y="32.5" width="3" height="3" fill="currentColor"/>'),
         },
         {
@@ -1805,7 +1586,6 @@ window.CATALOGO = (function () {
           titulo: 'Outcome Models & Doubly Robust Estimation',
           resumen: 'Estimar el efecto con un modelo por grupo, los riesgos de extrapolar, y por qué AIPW resiste un modelo mal especificado.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M4 38h36M4 38V4"/><path d="M6 30c8-2 18-8 32-20"/><path d="M6 36c8-2 18-6 32-16"/><path d="M30 13v10" stroke-dasharray="2 2"/>'),
         },
       ],
@@ -1814,14 +1594,12 @@ window.CATALOGO = (function () {
       id: 'min-validacion',
       nombre: 'Validación, refutación y robustez',
       descripcion: 'Cuánto confiar en un resultado: bootstrap, p-valores por permutación, refutación causal, sesgo y varianza, y estabilidad ante hiperparámetros.',
-      etiquetas: ['mineria', 'inferencia'],
       temas: [
         {
           id: 'bootstrap',
           titulo: 'Bootstrap',
           resumen: 'Remuestrear con reposición para estimar el error de cualquier estadístico, y comprobar la cobertura de sus intervalos.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<circle cx="8" cy="8" r="2.5"/><circle cx="16" cy="8" r="2.5"/><circle cx="24" cy="8" r="2.5"/><circle cx="32" cy="8" r="2.5"/><path d="M6 20h4M14 20h4M14 24h4M30 20h4"/><path d="M4 40h36"/><path d="M10 40v-4M16 40v-8M22 40v-12M28 40v-7M34 40v-3"/>'),
         },
         {
@@ -1829,7 +1607,6 @@ window.CATALOGO = (function () {
           titulo: 'Permutation Tests & p-Values',
           resumen: 'Barajar etiquetas para construir la distribución nula, y la prueba de Kolmogorov–Smirnov para comparar distribuciones completas.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M4 40h36"/><path d="M8 40v-4M13 40v-10M18 40v-18M23 40v-20M28 40v-12M33 40v-5"/><path d="M38 6v34" stroke-width="2"/><path d="M8 8l6 6M14 8l-6 6M20 6h8M20 10h8"/>'),
         },
         {
@@ -1837,7 +1614,6 @@ window.CATALOGO = (function () {
           titulo: 'Causal Refutation Tests',
           resumen: 'Placebo, causa común aleatoria y subconjuntos para intentar romper un efecto estimado, y el análisis de sensibilidad a confusores ocultos.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M22 4v36" stroke-dasharray="2 2"/><path d="M6 10h32M6 22h32M6 34h32" stroke-opacity="0.3"/><path d="M14 10h12M18 22h10M4 34h8"/><circle cx="20" cy="10" r="2.5" fill="currentColor"/><circle cx="23" cy="22" r="2.5" fill="currentColor"/><circle cx="8" cy="34" r="2.5" fill="currentColor"/>'),
         },
         {
@@ -1845,7 +1621,6 @@ window.CATALOGO = (function () {
           titulo: 'Bias, Variance & Estimate Stability',
           resumen: 'Muchos modelos entrenados con datos distintos, su promedio frente a la verdad, y la curva en U del error total.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<circle cx="22" cy="22" r="16"/><circle cx="22" cy="22" r="9"/><circle cx="22" cy="22" r="2"/><circle cx="29" cy="13" r="1.6" fill="currentColor"/><circle cx="31" cy="16" r="1.6" fill="currentColor"/><circle cx="27" cy="15" r="1.6" fill="currentColor"/><circle cx="30" cy="11" r="1.6" fill="currentColor"/>'),
         },
         {
@@ -1853,7 +1628,6 @@ window.CATALOGO = (function () {
           titulo: 'Evaluating Unsupervised Methods',
           resumen: 'El gráfico de silueta de un agrupamiento, y elegir k con criterios internos, externos y de estabilidad bootstrap.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M6 4v36"/><path d="M6 8h28M6 12h24M6 16h18M6 22h30M6 26h26M6 30h20M6 36h12" stroke-width="2.5"/>'),
         },
         {
@@ -1861,7 +1635,6 @@ window.CATALOGO = (function () {
           titulo: 'Hyperparameter Sensitivity & Robustness',
           resumen: 'Mesetas de estabilidad de DBSCAN a lo largo de ε, y un efecto causal estimado por matching según el caliper.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'optimizacion'],
           glifo: g('<path d="M4 40h36M4 40V4"/><path d="M6 34c4-2 6-14 10-14h12c4 0 6-10 10-12"/><rect x="16" y="16" width="12" height="8" stroke-dasharray="2 2"/>'),
         },
       ],
@@ -1871,14 +1644,12 @@ window.CATALOGO = (function () {
       id: 'dl-fundamentos',
       nombre: 'De la IA al aprendizaje profundo',
       descripcion: 'Qué significa aprender de ejemplos, cómo se mide la cercanía entre datos y por qué un modelo debe funcionar con datos nuevos.',
-      etiquetas: ['dl', 'ml'],
       temas: [
         {
           id: 'ai-ml-dl',
           titulo: 'AI, Machine Learning & Deep Learning',
           resumen: 'Explore los tres conjuntos anidados y compare una regla escrita por usted con una red que aprende la suya.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="22" cy="22" r="17"/><circle cx="22" cy="26" r="11"/><circle cx="22" cy="30" r="5"/>'),
         },
         {
@@ -1886,7 +1657,6 @@ window.CATALOGO = (function () {
           titulo: 'Instance-Based Learning',
           resumen: 'Haga consultas a un modelo que guarda todos sus ejemplos y compare su memoria y su costo con los de un modelo paramétrico.',
           visualizaciones: 2,
-          etiquetas: ['patrones'],
           glifo: g('<circle cx="10" cy="12" r="2"/><circle cx="32" cy="9" r="2"/><circle cx="36" cy="30" r="2"/><circle cx="12" cy="34" r="2"/><circle cx="22" cy="22" r="3.5"/><path d="M22 22L10 12M22 22l14 8M22 22L12 34" stroke-dasharray="2 3"/>'),
         },
         {
@@ -1894,7 +1664,6 @@ window.CATALOGO = (function () {
           titulo: 'Feature Spaces & Distances',
           resumen: 'Cambie la distancia y la escala de las características y vea cómo se transforman la vecindad de un punto y la exactitud.',
           visualizaciones: 2,
-          etiquetas: ['patrones'],
           glifo: g('<path d="M22 5l17 17-17 17L5 22z"/><circle cx="22" cy="22" r="11"/><circle cx="22" cy="22" r="2" fill="currentColor"/>'),
         },
         {
@@ -1902,7 +1671,6 @@ window.CATALOGO = (function () {
           titulo: 'Generalization & Train/Test Splits',
           resumen: 'Suba la complejidad de un modelo y observe subajuste, sobreajuste y la brecha entre entrenamiento y prueba.',
           visualizaciones: 2,
-          etiquetas: ['inferencia'],
           glifo: g('<path d="M5 38h34M5 38V6"/><path d="M8 30C14 8 18 36 24 20s9-10 14-14"/><path d="M26 38v-5M31 38v-5M36 38v-5"/>'),
         },
       ],
@@ -1911,14 +1679,12 @@ window.CATALOGO = (function () {
       id: 'dl-neuronas',
       nombre: 'Neuronas, activaciones y capas',
       descripcion: 'La neurona artificial, las funciones que le dan no linealidad y cómo viaja la señal por una red hacia adelante.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'artificial-neuron',
           titulo: 'The Artificial Neuron',
           resumen: 'Mueva pesos y sesgo para ver la frontera de una neurona, entrene un perceptrón y construya compuertas lógicas.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="29" cy="22" r="7"/><path d="M5 10h8l9 9M5 22h17M5 34h8l9-9M36 22h5"/>'),
         },
         {
@@ -1948,14 +1714,12 @@ window.CATALOGO = (function () {
       id: 'dl-optimizacion',
       nombre: 'Pérdida y optimización',
       descripcion: 'Qué se minimiza al entrenar una red, cómo se baja por la superficie de pérdida y qué cambian los optimizadores modernos.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'loss-functions-mle',
           titulo: 'Loss Functions & Maximum Likelihood',
           resumen: 'Compare el gradiente del error cuadrático y de la entropía cruzada y encuentre el máximo de la verosimilitud de una moneda.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'inferencia', 'ml'],
           glifo: g('<path d="M5 38h34M5 38V6"/><path d="M8 8c3 14 8 22 28 24"/><path d="M8 30c8 2 20-4 28-22" stroke-dasharray="2 3"/>'),
         },
         {
@@ -1963,7 +1727,6 @@ window.CATALOGO = (function () {
           titulo: 'Stochastic & Mini-Batch Gradient Descent',
           resumen: 'Siga el camino de los parámetros con lotes de 1, 8, 32 o todo el conjunto y compare pasos con trabajo realizado.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'ml'],
           glifo: g('<path d="M6 8l6 5-4 5 8 3-3 6 8 1-1 6 9 1"/><circle cx="37" cy="37" r="2.5"/>'),
         },
         {
@@ -1971,7 +1734,6 @@ window.CATALOGO = (function () {
           titulo: 'Learning Rate & Momentum',
           resumen: 'Estreche un valle y compare el zigzag del descenso simple con el momentum; recorra tasas pequeñas, críticas y divergentes.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'ml'],
           glifo: g('<ellipse cx="22" cy="22" rx="17" ry="8"/><ellipse cx="22" cy="22" rx="9" ry="4"/><path d="M7 12l11 4-7 3 9 3"/>'),
         },
         {
@@ -1979,7 +1741,6 @@ window.CATALOGO = (function () {
           titulo: 'AdaGrad, RMSProp & Adam',
           resumen: 'Haga competir SGD, Momentum, AdaGrad, RMSProp y Adam sobre tres superficies y sobre una red real.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'ml'],
           glifo: g('<path d="M5 9c10 4 20 4 31 13"/><path d="M5 14c8 10 18 14 31 8"/><path d="M5 19c6 10 16 18 31 3"/><circle cx="37" cy="22" r="2.5"/>'),
         },
         {
@@ -1987,7 +1748,6 @@ window.CATALOGO = (function () {
           titulo: 'Loss Surfaces',
           resumen: 'Corte la superficie de pérdida de una red entrenada en un plano y camine en línea recta entre dos soluciones.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion', 'visualizacion'],
           glifo: g('<path d="M4 38h36"/><path d="M4 32l8-14 6 8 8-18 6 14 8-4"/><path d="M4 36c10-6 20-2 36-8" stroke-dasharray="2 3"/>'),
         },
       ],
@@ -1996,14 +1756,12 @@ window.CATALOGO = (function () {
       id: 'dl-regularizacion',
       nombre: 'Regularización y estabilidad',
       descripcion: 'Cómo evitar que una red memorice, mantener estable la señal en redes profundas y leer las curvas de aprendizaje.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'l1-l2-regularization',
           titulo: 'L1 & L2 Regularization',
           resumen: 'Penalice los pesos de una red que sobreajusta y vea por qué la penalización L1 deja parámetros exactamente en cero.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'optimizacion'],
           glifo: g('<path d="M22 6l13 15-13 15L9 21z"/><ellipse cx="31" cy="27" rx="10" ry="4.5" transform="rotate(-35 31 27)" stroke-dasharray="2 3"/>'),
         },
         {
@@ -2011,7 +1769,6 @@ window.CATALOGO = (function () {
           titulo: 'Dropout',
           resumen: 'Apague neuronas al azar, compare cientos de subredes con la red completa y entrene con distintas probabilidades.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<circle cx="9" cy="13" r="3"/><circle cx="9" cy="31" r="3"/><circle cx="22" cy="22" r="3"/><circle cx="35" cy="13" r="3" stroke-dasharray="2 2"/><path d="M32 10l6 6M38 10l-6 6"/><circle cx="35" cy="31" r="3"/><path d="M12 14l7 6M12 30l7-6M25 21l7-6M25 23l7 6"/>'),
         },
         {
@@ -2019,7 +1776,6 @@ window.CATALOGO = (function () {
           titulo: 'Batch Normalization',
           resumen: 'Normalice un mini-lote saturado con γ y β y compare las activaciones de una red profunda con y sin normalización.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M4 38h36"/><path d="M4 38c3 0 5-20 9-20s6 20 9 20" stroke-dasharray="2 3"/><path d="M14 38c4 0 6-27 12-27s8 27 12 27"/>'),
         },
         {
@@ -2027,7 +1783,6 @@ window.CATALOGO = (function () {
           titulo: 'Weight Initialization',
           resumen: 'Siga la señal por decenas de capas con pesos en cero, pequeños, Xavier, He o grandes y entrene con cada uno.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M6 38V8M14 38V13M22 38V18M30 38V25M38 38V31"/><path d="M4 38h36"/>'),
         },
         {
@@ -2035,7 +1790,6 @@ window.CATALOGO = (function () {
           titulo: 'Learning Curves',
           resumen: 'Diagnostique sobreajuste, subajuste y falta de datos leyendo las curvas de pérdida por época y por tamaño del conjunto.',
           visualizaciones: 2,
-          etiquetas: ['ml', 'visualizacion'],
           glifo: g('<path d="M5 38h34M5 38V6"/><path d="M8 10c6 20 14 22 30 24"/><path d="M8 8c6 6 14 10 30 6" stroke-dasharray="2 3"/>'),
         },
       ],
@@ -2044,14 +1798,12 @@ window.CATALOGO = (function () {
       id: 'dl-cnn',
       nombre: 'Convolución e imágenes',
       descripcion: 'Cómo un filtro que se desliza detecta patrones, cómo se reduce la imagen capa a capa y cómo se organizan las grandes arquitecturas.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'convolution-kernels',
           titulo: 'Convolution Kernels & Feature Maps',
           resumen: 'Deslice un kernel paso a paso sobre una imagen, edite sus pesos y compare los mapas de seis filtros.',
           visualizaciones: 2,
-          etiquetas: ['patrones', 'ia'],
           glifo: g('<rect x="5" y="5" width="34" height="34"/><path d="M5 16h34M5 28h34M16 5v34M28 5v34"/><rect x="16" y="16" width="12" height="12" stroke-width="3"/>'),
         },
         {
@@ -2059,7 +1811,6 @@ window.CATALOGO = (function () {
           titulo: 'Stride, Padding & Pooling',
           resumen: 'Calcule el tamaño de salida de una capa convolucional y compare max y average pooling ante desplazamientos de la imagen.',
           visualizaciones: 2,
-          etiquetas: ['patrones'],
           glifo: g('<rect x="5" y="5" width="34" height="34" stroke-dasharray="2 3"/><rect x="11" y="11" width="22" height="22"/><path d="M22 11v22M11 22h22"/>'),
         },
         {
@@ -2067,7 +1818,6 @@ window.CATALOGO = (function () {
           titulo: 'Feature Hierarchies & Activation Maps',
           resumen: 'Entrene una CNN diminuta en su navegador, dibuje una figura y vea qué activa cada capa y qué aprenden sus filtros.',
           visualizaciones: 2,
-          etiquetas: ['patrones', 'visualizacion'],
           glifo: g('<rect x="5" y="5" width="15" height="15"/><rect x="24" y="5" width="15" height="15"/><rect x="5" y="24" width="15" height="15"/><rect x="24" y="24" width="15" height="15"/><path d="M8 17l9-9M27 17l9-9M8 36l9-9" />'),
         },
         {
@@ -2075,7 +1825,6 @@ window.CATALOGO = (function () {
           titulo: 'AlexNet, VGG, Inception & ResNet',
           resumen: 'Compare cuatro arquitecturas históricas y vea cómo una conexión residual conserva el gradiente a lo largo de decenas de capas.',
           visualizaciones: 2,
-          etiquetas: ['patrones', 'ia'],
           glifo: g('<rect x="5" y="17" width="8" height="12"/><rect x="18" y="13" width="8" height="20"/><rect x="31" y="17" width="8" height="12"/><path d="M9 15c4-11 26-11 30 0"/>'),
         },
       ],
@@ -2084,14 +1833,12 @@ window.CATALOGO = (function () {
       id: 'dl-deteccion',
       nombre: 'Detección de objetos',
       descripcion: 'De decir qué hay en una imagen a decir qué hay y dónde: cajas, solapamiento y propuestas de regiones.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'object-detection',
           titulo: 'Object Detection & Localization',
           resumen: 'Compare clasificar, localizar y detectar sobre la misma escena y explore la rejilla de un detector con backbone y cabeza.',
           visualizaciones: 2,
-          etiquetas: ['patrones', 'ia'],
           glifo: g('<rect x="5" y="5" width="34" height="34"/><rect x="9" y="11" width="14" height="14" stroke-dasharray="2 2"/><circle cx="31" cy="30" r="5"/><rect x="25" y="24" width="12" height="12" stroke-dasharray="2 2"/>'),
         },
         {
@@ -2099,7 +1846,6 @@ window.CATALOGO = (function () {
           titulo: 'IoU & Non-Maximum Suppression',
           resumen: 'Arrastre una caja para medir su intersección sobre unión y limpie detecciones duplicadas paso a paso con distintos umbrales.',
           visualizaciones: 2,
-          etiquetas: ['patrones'],
           glifo: g('<rect x="5" y="8" width="22" height="20"/><rect x="15" y="16" width="24" height="20" stroke-dasharray="3 3"/><rect x="15" y="16" width="12" height="12" stroke-width="2.6"/>'),
         },
         {
@@ -2107,7 +1853,6 @@ window.CATALOGO = (function () {
           titulo: 'Region Proposals',
           resumen: 'Cuente las ventanas de un barrido exhaustivo y vea cómo agrupar regiones parecidas propone cajas sobre los objetos.',
           visualizaciones: 2,
-          etiquetas: ['patrones'],
           glifo: g('<rect x="4" y="4" width="36" height="36"/><rect x="8" y="8" width="12" height="12"/><rect x="14" y="14" width="12" height="12" stroke-dasharray="2 2"/><rect x="22" y="22" width="14" height="14"/>'),
         },
       ],
@@ -2116,14 +1861,12 @@ window.CATALOGO = (function () {
       id: 'dl-transferencia',
       nombre: 'Transferencia e implementación',
       descripcion: 'Reutilizar redes ya entrenadas, no destruir lo que ya saben y llevar el entrenamiento a una GPU con Keras.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'transfer-learning',
           titulo: 'Transfer Learning & Fine-Tuning',
           resumen: 'Compare entrenar desde cero, extraer características y ajustar finamente una red en un dominio nuevo con pocos datos.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<rect x="5" y="10" width="8" height="24"/><rect x="18" y="10" width="8" height="24"/><path d="M30 20h9v9h-9z"/><path d="M32 20v-3a2.5 2.5 0 0 1 5 0v3"/>'),
         },
         {
@@ -2131,7 +1874,6 @@ window.CATALOGO = (function () {
           titulo: 'Catastrophic Forgetting',
           resumen: 'Entrene una CNN en una tarea nueva y mire cómo olvida la anterior; pruebe tasas bajas, congelar capas y repaso.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<path d="M5 38h34M5 38V6"/><path d="M8 10h12l4 24h14"/><path d="M8 34h12c6 0 10-20 18-22" stroke-dasharray="2 3"/>'),
         },
         {
@@ -2139,7 +1881,6 @@ window.CATALOGO = (function () {
           titulo: 'Keras: Sequential & Functional Models',
           resumen: 'Construya un modelo capa por capa, vea sus formas y parámetros y lea el código de un grafo con atajos o varias entradas.',
           visualizaciones: 2,
-          etiquetas: ['ml'],
           glifo: g('<rect x="8" y="5" width="28" height="8"/><rect x="8" y="18" width="28" height="8"/><rect x="8" y="31" width="28" height="8"/><path d="M22 13v5M22 26v5"/>'),
         },
         {
@@ -2147,7 +1888,6 @@ window.CATALOGO = (function () {
           titulo: 'GPU Training & Optimization',
           resumen: 'Explore cómo el tamaño del lote ocupa una GPU, cuándo se agota la memoria y cuánto rinden varias GPU en paralelo.',
           visualizaciones: 2,
-          etiquetas: ['so', 'optimizacion'],
           glifo: g('<rect x="11" y="11" width="22" height="22"/><rect x="17" y="17" width="10" height="10"/><path d="M17 5v6M22 5v6M27 5v6M17 33v6M22 33v6M27 33v6M5 17h6M5 22h6M5 27h6M33 17h6M33 22h6M33 27h6"/>'),
         },
       ],
@@ -2156,14 +1896,12 @@ window.CATALOGO = (function () {
       id: 'dl-recurrentes',
       nombre: 'Redes recurrentes y secuencias',
       descripcion: 'Procesar datos que llegan en orden: estado oculto, entrenamiento en el tiempo, memoria a largo plazo con puertas y generación letra por letra.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'rnn-hidden-state',
           titulo: 'Recurrent Neural Networks & Hidden States',
           resumen: 'Entrene una RNN para recordar un símbolo entre ruido y mire cómo su estado oculto lo guarda; compare pesos recurrentes.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="22" cy="25" r="6"/><path d="M26 20c8-12 16-4 12 4"/><path d="M35 21l3 3 3-4"/><path d="M6 25h10"/>'),
         },
         {
@@ -2171,7 +1909,6 @@ window.CATALOGO = (function () {
           titulo: 'Backpropagation Through Time',
           resumen: 'Retropropague el error a través de una RNN desplegada, vea el gradiente desvanecerse o explotar y trunque la secuencia.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion'],
           glifo: g('<circle cx="9" cy="24" r="4"/><circle cx="22" cy="24" r="4"/><circle cx="35" cy="24" r="4"/><path d="M31 24h-5M18 24h-5"/><path d="M9 14v6M22 14v6M35 14v6M30 20l-4 4"/>'),
         },
         {
@@ -2179,7 +1916,6 @@ window.CATALOGO = (function () {
           titulo: 'Long-Term Dependencies',
           resumen: 'Mida cuánto gradiente llega desde lejos en RNN, LSTM y GRU, y entrénelas a recordar un símbolo entre ruido.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<path d="M5 38h34M5 38V6"/><path d="M7 10c6 14 12 20 30 22"/><path d="M7 10c6 3 14 5 30 5" stroke-dasharray="2 3"/>'),
         },
         {
@@ -2187,7 +1923,6 @@ window.CATALOGO = (function () {
           titulo: 'Long Short-Term Memory (LSTM)',
           resumen: 'Mire las puertas de entrada, olvido y salida de una LSTM entrenada y manipule una celda para ver cómo se actualiza su memoria.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="6" y="8" width="32" height="28" rx="4"/><path d="M12 14v16M22 14v16M32 14v16"/><circle cx="12" cy="22" r="2.5"/><circle cx="22" cy="22" r="2.5"/><circle cx="32" cy="22" r="2.5"/>'),
         },
         {
@@ -2195,7 +1930,6 @@ window.CATALOGO = (function () {
           titulo: 'Gated Recurrent Units (GRU)',
           resumen: 'Observe las puertas de actualización y reinicio de una GRU entrenada y compare su tamaño con el de la LSTM y la RNN.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="6" y="8" width="32" height="28" rx="4"/><path d="M15 14v16M29 14v16"/><circle cx="15" cy="26" r="2.5"/><circle cx="29" cy="18" r="2.5"/>'),
         },
         {
@@ -2203,7 +1937,6 @@ window.CATALOGO = (function () {
           titulo: 'Language Modeling & Autoregressive Generation',
           resumen: 'Genere texto letra por letra con distintos contextos y temperaturas, y vea la perplejidad en texto visto y no visto.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="5" y="10" width="8" height="10"/><rect x="16" y="10" width="8" height="10"/><rect x="27" y="10" width="8" height="10" stroke-dasharray="2 2"/><path d="M9 24c0 10 26 10 26 0"/><path d="M32 29l3 3 3-4"/>'),
         },
       ],
@@ -2212,14 +1945,12 @@ window.CATALOGO = (function () {
       id: 'dl-seq2seq',
       nombre: 'Codificar, representar y alinear',
       descripcion: 'Resumir una secuencia en una representación latente, convertirla en otra y dejar que el decodificador mire lo que necesita.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'encoder-decoder',
           titulo: 'Sequence-to-Sequence & Encoder–Decoder',
           resumen: 'Mida el cuello de botella de un vector de contexto y recorra paso a paso cómo se lee y se escribe una traducción.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="14" width="12" height="16"/><rect x="28" y="14" width="12" height="16"/><path d="M16 22h12M25 19l3 3-3 3"/>'),
         },
         {
@@ -2227,7 +1958,6 @@ window.CATALOGO = (function () {
           titulo: 'Embeddings & Latent Representations',
           resumen: 'Mire un mapa de palabras construido solo con sus contextos y entrene un autocodificador con un cuello de botella de un número.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<circle cx="9" cy="11" r="2"/><circle cx="14" cy="16" r="2"/><circle cx="12" cy="8" r="2"/><circle cx="32" cy="13" r="2"/><circle cx="36" cy="19" r="2"/><circle cx="20" cy="34" r="2"/><circle cx="26" cy="31" r="2"/><circle cx="14" cy="34" r="2"/>'),
         },
         {
@@ -2235,7 +1965,6 @@ window.CATALOGO = (function () {
           titulo: 'Attention Mechanism',
           resumen: 'Vea la matriz de alineamiento de una traducción y cómo el contexto se obtiene como suma ponderada de los estados de origen.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M6 17h32M6 28h32M17 6v32M28 6v32"/><rect x="6" y="6" width="11" height="11" fill="currentColor"/><rect x="17" y="28" width="11" height="10" fill="currentColor"/><rect x="28" y="17" width="10" height="11" fill="currentColor"/>'),
         },
       ],
@@ -2244,14 +1973,12 @@ window.CATALOGO = (function () {
       id: 'dl-transformers',
       nombre: 'Transformers',
       descripcion: 'Autoatención con consultas, claves y valores, varias cabezas, posición, máscara causal y el bloque que se apila.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'self-attention-qkv',
           titulo: 'Self-Attention: Query, Key & Value',
           resumen: 'Elija una palabra que consulta y siga puntajes, pesos y salida; mueva una consulta en el plano y vea a quién atiende.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="9" cy="22" r="3"/><circle cx="35" cy="9" r="3"/><circle cx="35" cy="22" r="3"/><circle cx="35" cy="35" r="3"/><path d="M12 22L32 9M12 22h20M12 22l20 13" stroke-width="2.4"/>'),
         },
         {
@@ -2259,7 +1986,6 @@ window.CATALOGO = (function () {
           titulo: 'Multi-Head Attention',
           resumen: 'Compare cuatro cabezas con patrones distintos sobre la misma frase y vea cómo se reparten las dimensiones del modelo.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="5" y="5" width="22" height="22"/><rect x="12" y="12" width="22" height="22"/><rect x="18" y="18" width="21" height="21"/>'),
         },
         {
@@ -2267,7 +1993,6 @@ window.CATALOGO = (function () {
           titulo: 'Positional Encoding',
           resumen: 'Explore el patrón de senos y cosenos que identifica cada posición y compruebe que sin él la atención ignora el orden.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<path d="M4 13c5-10 8 10 13 0s8 10 13 0 7 8 10 4"/><path d="M4 31c8-10 10 10 18 0s9 10 18 0" stroke-dasharray="2 3"/>'),
         },
         {
@@ -2275,7 +2000,6 @@ window.CATALOGO = (function () {
           titulo: 'Masked (Causal) Attention',
           resumen: 'Avance fila por fila por una matriz de atención enmascarada y compruebe que cambiar una palabra no afecta a las anteriores.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<path d="M6 6v32h32z"/><path d="M6 6h32v32" stroke-dasharray="2 3"/><path d="M9 20h5M9 28h12" />'),
         },
         {
@@ -2283,7 +2007,6 @@ window.CATALOGO = (function () {
           titulo: 'Transformer Block: Residuals & Layer Norm',
           resumen: 'Apile decenas de capas con y sin atajos ni normalización y cuente los parámetros de un Transformer del tamaño de GPT-2.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="13" y="6" width="18" height="10"/><rect x="13" y="28" width="18" height="10"/><path d="M22 16v12M22 3v3M22 38v3"/><path d="M13 22H7V11h6M31 22h6V11h-6"/>'),
         },
         {
@@ -2291,7 +2014,6 @@ window.CATALOGO = (function () {
           titulo: 'RNNs vs. Transformers',
           resumen: 'Compare cómo crece el costo con el largo de la secuencia y cuánto llega de la primera palabra a la última en cada arquitectura.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<circle cx="8" cy="11" r="2.5"/><circle cx="22" cy="11" r="2.5"/><circle cx="36" cy="11" r="2.5"/><path d="M11 11h8M25 11h8"/><circle cx="8" cy="33" r="2.5"/><circle cx="22" cy="33" r="2.5"/><circle cx="36" cy="33" r="2.5"/><path d="M10 31.5l10 0M24 31.5l10 0M9 30c8-7 18-7 26 0"/>'),
         },
       ],
@@ -2300,14 +2022,12 @@ window.CATALOGO = (function () {
       id: 'dl-generativos',
       nombre: 'Modelos generativos, GPT y aprendizaje contrastivo',
       descripcion: 'Cómo un modelo de lenguaje trocea el texto, predice el siguiente token, aprende tareas desde el prompt y cómo se aprenden representaciones comparando pares.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'tokenization-bpe',
           titulo: 'Tokenization & Byte-Pair Encoding',
           resumen: 'Entrene un tokenizador BPE fusionando pares frecuentes, segmente sus propias palabras y recorra el compromiso entre vocabulario y largo.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="13" width="10" height="15"/><rect x="16" y="13" width="14" height="15"/><rect x="32" y="13" width="8" height="15"/><path d="M9 33v4M23 33v4M36 33v4"/>'),
         },
         {
@@ -2315,7 +2035,6 @@ window.CATALOGO = (function () {
           titulo: 'Next-Token Prediction & Pre-Training',
           resumen: 'Genere texto con temperatura, top-k y top-p y vea cómo el propio texto, sin etiquetas, produce los ejemplos de preentrenamiento.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="4" y="15" width="9" height="13"/><rect x="16" y="15" width="9" height="13"/><rect x="28" y="15" width="12" height="13" stroke-dasharray="2 2"/><path d="M8 33c0 7 24 7 24 0"/><path d="M29 36l3-3 3 3"/>'),
         },
         {
@@ -2323,7 +2042,6 @@ window.CATALOGO = (function () {
           titulo: 'Zero-, One- & Few-Shot Learning',
           resumen: 'Dé a un clasificador cero, uno o varios ejemplos en el prompt y compare cómo mejora, con etiquetas con y sin significado.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<path d="M5 7h34v22H21l-8 7v-7H5z"/><circle cx="14" cy="18" r="1.8"/><circle cx="22" cy="18" r="1.8"/><circle cx="30" cy="18" r="1.8"/>'),
         },
         {
@@ -2331,7 +2049,6 @@ window.CATALOGO = (function () {
           titulo: 'Contrastive Learning',
           resumen: 'Entrene una red solo con pares positivos y negativos y vea aparecer los grupos sin etiquetas; mire la matriz de InfoNCE.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<circle cx="9" cy="13" r="3"/><circle cx="22" cy="13" r="3"/><path d="M12 13h7"/><circle cx="11" cy="32" r="3"/><circle cx="34" cy="32" r="3"/><path d="M14 32h4M26 32h5" stroke-dasharray="2 2"/>'),
         },
         {
@@ -2339,7 +2056,6 @@ window.CATALOGO = (function () {
           titulo: 'Embedding Similarity',
           resumen: 'Compare coseno, producto punto y distancia sobre una matriz de palabras y haga búsquedas semánticas con softmax.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'mineria'],
           glifo: g('<path d="M7 37L37 11M7 37h31"/><path d="M21 37a14 14 0 0 0-6-11"/>'),
         },
       ],
@@ -2348,14 +2064,12 @@ window.CATALOGO = (function () {
       id: 'dl-refuerzo',
       nombre: 'Aprendizaje por refuerzo profundo',
       descripcion: 'Del marco de decisión de Markov y las ecuaciones de Bellman a las redes que aprenden valores y políticas por interacción.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'mdp-agent-environment',
           titulo: 'Agents, Environments & MDPs',
           resumen: 'Siga el ciclo estado–acción–recompensa de un agente que resbala y vea cómo varía el retorno entre episodios.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml', 'optimizacion'],
           glifo: g('<rect x="5" y="6" width="15" height="10"/><rect x="24" y="28" width="15" height="10"/><path d="M20 11h14v17M12 16v12h12"/><path d="M31 25l3 3 3-3"/>'),
         },
         {
@@ -2363,7 +2077,6 @@ window.CATALOGO = (function () {
           titulo: 'Bellman Equations & Policy Iteration',
           resumen: 'Evalúe una política con barridos de Bellman y alterne evaluación y mejora hasta encontrar la política óptima.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml', 'optimizacion'],
           glifo: g('<circle cx="22" cy="8" r="3"/><circle cx="10" cy="31" r="3"/><circle cx="34" cy="31" r="3"/><path d="M20 11L12 28M24 11l8 17"/><path d="M6 40h32" stroke-dasharray="2 3"/>'),
         },
         {
@@ -2371,7 +2084,6 @@ window.CATALOGO = (function () {
           titulo: 'Exploration vs. Exploitation & Discounting',
           resumen: 'Compare valores de ε en un bandido de cinco brazos y mueva γ para ver cuándo prefiere una recompensa cercana o lejana.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<path d="M5 36h8c9 0 9-24 18-24h8"/><path d="M13 36c10 0 10-9 25-9" stroke-dasharray="2 3"/><circle cx="39" cy="12" r="2"/>'),
         },
         {
@@ -2379,7 +2091,6 @@ window.CATALOGO = (function () {
           titulo: 'Deep Q-Networks (DQN)',
           resumen: 'Entrene una red que aproxima Q(s, a) en un mundo de rejilla y compare lo aprendido con el valor óptimo exacto.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<circle cx="9" cy="14" r="2.5"/><circle cx="9" cy="30" r="2.5"/><circle cx="22" cy="9" r="2.5"/><circle cx="22" cy="22" r="2.5"/><circle cx="22" cy="35" r="2.5"/><circle cx="35" cy="22" r="2.5"/><path d="M11 14l9-4M11 14l9 8M11 30l9-8M11 30l9 4M24 10l9 11M24 22h9M24 34l9-11"/>'),
         },
         {
@@ -2387,7 +2098,6 @@ window.CATALOGO = (function () {
           titulo: 'Experience Replay & Target Networks',
           resumen: 'Entrene cuatro agentes DQN con y sin repetición y red objetivo, y vea qué ocurre al priorizar las transiciones sorprendentes.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<rect x="5" y="8" width="18" height="6"/><rect x="5" y="19" width="18" height="6"/><rect x="5" y="30" width="18" height="6"/><path d="M23 11h8M23 22h8M23 33h8"/><circle cx="36" cy="22" r="4"/>'),
         },
         {
@@ -2395,7 +2105,6 @@ window.CATALOGO = (function () {
           titulo: 'Policy Gradient Methods',
           resumen: 'Entrene una red que devuelve probabilidades de acción con REINFORCE y vea cómo la ventaja sube o baja cada acción tomada.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml', 'optimizacion'],
           glifo: g('<path d="M5 38h26"/><path d="M8 38V26M16 38V12M24 38V20"/><path d="M30 18l8-8M32 10h6v6"/>'),
         },
       ],
@@ -2404,14 +2113,12 @@ window.CATALOGO = (function () {
       id: 'dl-evaluacion',
       nombre: 'Evaluar y elegir modelos',
       descripcion: 'Medir bien un clasificador, elegir hiperparámetros sin engañarse y calcular cuánto cuesta entrenar.',
-      etiquetas: ['dl', 'ml'],
       temas: [
         {
           id: 'imbalanced-metrics',
           titulo: 'Classification Metrics: Precision, Recall & Costs',
           resumen: 'Baje la prevalencia y vea fallar a la exactitud; mueva el umbral y elíjalo según el costo de cada tipo de error.',
           visualizaciones: 2,
-          etiquetas: ['inferencia', 'patrones'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M22 6v32M6 22h32"/><path d="M9 9h10v10H9zM25 25h10v10H25z" fill="currentColor"/>'),
         },
         {
@@ -2419,7 +2126,6 @@ window.CATALOGO = (function () {
           titulo: 'Hyperparameter Selection & Validation',
           resumen: 'Compare cuadrícula y búsqueda aleatoria con el mismo presupuesto y vea cómo elegir con la validación infla el resultado.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion'],
           glifo: g('<path d="M5 38h34M5 38V6"/><circle cx="14" cy="14" r="2"/><circle cx="26" cy="11" r="2"/><circle cx="19" cy="26" r="2"/><circle cx="33" cy="30" r="2"/><circle cx="12" cy="32" r="2"/><circle cx="29" cy="20" r="3.5" stroke-width="2.4"/>'),
         },
         {
@@ -2427,7 +2133,6 @@ window.CATALOGO = (function () {
           titulo: 'Training Cost, Data & Compute',
           resumen: 'Estime tiempo, dinero y energía de un entrenamiento y busque el reparto entre tamaño del modelo y datos con un presupuesto fijo.',
           visualizaciones: 2,
-          etiquetas: ['optimizacion'],
           glifo: g('<circle cx="22" cy="22" r="16"/><path d="M22 11v22M28 16c-2-3-11-3-11 2 0 5 11 2 11 7 0 4-9 4-11 1"/>'),
         },
       ],
@@ -2436,14 +2141,12 @@ window.CATALOGO = (function () {
       id: 'dl-etica',
       nombre: 'Confianza, justicia y despliegue',
       descripcion: 'Entender por qué decide un modelo, medir si trata igual a todos, probar su resistencia y anticipar los riesgos de usarlo en el mundo real.',
-      etiquetas: ['dl'],
       temas: [
         {
           id: 'interpretability',
           titulo: 'Interpretability & Explainability',
           resumen: 'Mire dónde se fija una CNN con oclusión y gradientes, y descomponga la decisión de un modelo de crédito variable a variable.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml', 'visualizacion'],
           glifo: g('<circle cx="19" cy="19" r="12"/><path d="M28 28l11 11"/><path d="M13 19h12M19 13v12"/>'),
         },
         {
@@ -2451,7 +2154,6 @@ window.CATALOGO = (function () {
           titulo: 'Algorithmic Bias & Fairness',
           resumen: 'Compare las tasas de cada grupo con un umbral común y por grupo, y vea el compromiso entre exactitud y equidad.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml', 'sistemas-info'],
           glifo: g('<path d="M22 6v32M12 38h20M7 13h30"/><path d="M7 13l-4 12h14zM37 13l-4 12h14z"/>'),
         },
         {
@@ -2459,7 +2161,6 @@ window.CATALOGO = (function () {
           titulo: 'Adversarial Examples & Robustness',
           resumen: 'Perturbe un punto o una imagen con FGSM hasta que la red cambie de opinión y mida cómo cae su exactitud.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M10 29l8-10 6 6 4-4 6 8"/><path d="M12 12l3 3M21 10l3 3M31 14l3 3M15 33l3 3" stroke-width="2.6"/>'),
         },
         {
@@ -2467,7 +2168,6 @@ window.CATALOGO = (function () {
           titulo: 'Privacy, Distribution Shift & Deployment Risks',
           resumen: 'Mida cuánto delata un modelo que memoriza y cuánto se degrada cuando los datos reales cambian, con una lista de verificación para desplegar.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'ml', 'sistemas-info'],
           glifo: g('<path d="M22 6L40 38H4z"/><path d="M22 17v10M22 31v3"/>'),
         },
       ],
@@ -2478,7 +2178,6 @@ window.CATALOGO = (function () {
       id: 'disc-fundamentos',
       nombre: 'Lo discreto, los conjuntos y los naturales',
       descripcion: 'Qué distingue a lo discreto de lo continuo, cómo se axiomatizan los números naturales y cómo se construyen estructuras a partir de conjuntos.',
-      etiquetas: ['discretas'],
       temas: [
         {
           id: 'discrete-continuous',
@@ -2492,7 +2191,6 @@ window.CATALOGO = (function () {
           titulo: 'Peano Axioms & the Successor Function',
           resumen: 'Sume y multiplique aplicando solo el sucesor, y pruebe qué axiomas cumple o viola cada estructura candidata.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<circle cx="7" cy="22" r="4"/><circle cx="22" cy="22" r="4"/><circle cx="37" cy="22" r="4"/><path d="M11 22h7M26 22h7M30 19l3 3-3 3"/>'),
         },
         {
@@ -2500,7 +2198,6 @@ window.CATALOGO = (function () {
           titulo: 'Well-Ordering Principle',
           resumen: 'Busque el mínimo de subconjuntos de ℕ y de ℤ, y vea por qué una medida que baja en cada paso obliga a terminar.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<path d="M6 38V12M15 38V20M24 38V28M33 38V33"/><path d="M4 38h36"/><path d="M33 26v-6M30 22l3-3 3 3"/>'),
         },
         {
@@ -2508,7 +2205,6 @@ window.CATALOGO = (function () {
           titulo: 'Sets, Membership & Subsets',
           resumen: 'Mueva elementos entre las regiones de un diagrama de Venn y explore el diagrama de Hasse del conjunto potencia.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<circle cx="16" cy="22" r="11"/><circle cx="28" cy="22" r="11"/><circle cx="22" cy="22" r="1.5"/>'),
         },
         {
@@ -2516,7 +2212,6 @@ window.CATALOGO = (function () {
           titulo: 'Building Mathematical Structures',
           resumen: 'Vea cada natural como el conjunto de los anteriores y los enteros como parejas de naturales que se suman por componentes.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<rect x="5" y="5" width="34" height="34"/><rect x="11" y="11" width="22" height="22"/><rect x="17" y="17" width="10" height="10"/>'),
         },
       ],
@@ -2525,14 +2220,12 @@ window.CATALOGO = (function () {
       id: 'disc-induccion',
       nombre: 'Inducción matemática simple',
       descripcion: 'Caso base, hipótesis inductiva y paso inductivo: demostrar una propiedad para todos los naturales, y reconocer cuándo una demostración falla.',
-      etiquetas: ['discretas'],
       temas: [
         {
           id: 'simple-induction',
           titulo: 'Simple Induction & the Domino Effect',
           resumen: 'Derribe una fila de fichas con y sin caso base, rompa el paso en un punto y vea n² crecer como suma de impares.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<path d="M6 38V20M14 38V20M22 38V20M30 38l8-17" /><path d="M4 38h36"/><path d="M12 12h20M28 8l4 4-4 4"/>'),
         },
         {
@@ -2540,7 +2233,6 @@ window.CATALOGO = (function () {
           titulo: 'Induction Proofs: Sums, Inequalities & Divisibility',
           resumen: 'Compruebe el paso de k a k + 1 con números concretos y vea desde qué caso base una desigualdad empieza a cumplirse.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<path d="M8 36V10M8 36h28"/><path d="M12 30l6-5 6-8 10-9" /><path d="M24 17v19M18 25v11" stroke-dasharray="2 2"/>'),
         },
         {
@@ -2548,7 +2240,6 @@ window.CATALOGO = (function () {
           titulo: 'Common Induction Fallacies',
           resumen: 'Encuentre el paso que falla en la «prueba» de los caballos y compare cuatro maneras de que una inducción no cierre.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<path d="M8 10l28 28M36 10L8 38"/><circle cx="22" cy="22" r="17"/>'),
         },
         {
@@ -2556,7 +2247,6 @@ window.CATALOGO = (function () {
           titulo: 'Inductive Chains & Starting Points',
           resumen: 'Genere cadenas con reglas de paso distintas, cuente los casos base necesarios y halle el mayor monto imposible con dos estampillas.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<circle cx="6" cy="22" r="3"/><circle cx="17" cy="22" r="3"/><circle cx="28" cy="22" r="3"/><path d="M9 22h5M20 22h5M31 22h8M36 19l3 3-3 3"/><path d="M6 32q11 8 22 0" />'),
         },
       ],
@@ -2565,14 +2255,12 @@ window.CATALOGO = (function () {
       id: 'disc-inducfuerte',
       nombre: 'Inducción fuerte y recursión',
       descripcion: 'Suponer todos los casos anteriores, comparar los principios de inducción y definir funciones y conjuntos por recursión.',
-      etiquetas: ['discretas'],
       temas: [
         {
           id: 'strong-induction',
           titulo: 'Strong Induction',
           resumen: 'Factorice cualquier n en un árbol de primos y vea de qué casos anteriores se apoya cada paso.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<circle cx="22" cy="8" r="4"/><circle cx="11" cy="24" r="4"/><circle cx="33" cy="24" r="4"/><circle cx="6" cy="38" r="3"/><circle cx="16" cy="38" r="3"/><path d="M19 11l-6 10M25 11l6 10M9 27l-2 8M13 27l2 8"/>'),
         },
         {
@@ -2580,7 +2268,6 @@ window.CATALOGO = (function () {
           titulo: 'Simple vs. Strong Induction',
           resumen: 'Vea qué hipótesis ofrece cada principio frente a cada tipo de paso, y localice el menor contraejemplo de un enunciado falso.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<path d="M6 14h32M6 30h32"/><path d="M30 14v-6M30 30v-6M10 30v-6M16 30v-6M22 30v-6M28 30v-6" /><path d="M34 22l4 4 4-4" />'),
         },
         {
@@ -2588,7 +2275,6 @@ window.CATALOGO = (function () {
           titulo: 'Recursive Definitions',
           resumen: 'Despliegue el árbol de llamadas de factorial, Fibonacci y Hanoi, y resuelva las torres con la recursión.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos', 'logica'],
           glifo: g('<path d="M22 6v8M22 14L10 24M22 14l12 10M10 24l-4 12M10 24l8 12M34 24l-4 12M34 24l8 12" /><circle cx="22" cy="6" r="2"/>'),
         },
         {
@@ -2596,7 +2282,6 @@ window.CATALOGO = (function () {
           titulo: 'Inductively Defined Sets',
           resumen: 'Genere un conjunto generación por generación y derive paso a paso si una cadena o un número pertenece a él.',
           visualizaciones: 2,
-          etiquetas: ['logica'],
           glifo: g('<circle cx="22" cy="22" r="4"/><circle cx="22" cy="22" r="10"/><circle cx="22" cy="22" r="17"/>'),
         },
       ],
@@ -2605,14 +2290,12 @@ window.CATALOGO = (function () {
       id: 'disc-estructural',
       nombre: 'Inducción estructural',
       descripcion: 'Definir objetos por casos base y reglas de construcción, medirlos por recursión y demostrar propiedades siguiendo su estructura.',
-      etiquetas: ['discretas', 'logica'],
       temas: [
         {
           id: 'structural-definitions',
           titulo: 'Structural Definitions & Derivation Trees',
           resumen: 'Arme expresiones con casos base y reglas, y siga su derivación por la izquierda sobre el árbol de derivación.',
           visualizaciones: 2,
-          etiquetas: ['automatas'],
           glifo: g('<circle cx="22" cy="8" r="4"/><circle cx="10" cy="24" r="4"/><circle cx="34" cy="24" r="4"/><path d="M19 11l-6 10M25 11l6 10"/><path d="M6 38h8M30 38h8"/>'),
         },
         {
@@ -2620,7 +2303,6 @@ window.CATALOGO = (function () {
           titulo: 'Depth, Size & Structural Recursion',
           resumen: 'Calcule tamaño, profundidad y hojas de una fórmula de abajo hacia arriba y compruebe las cotas con fórmulas aleatorias.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos', 'estructuras'],
           glifo: g('<path d="M8 36V8M8 36h28"/><circle cx="14" cy="32" r="2"/><circle cx="20" cy="26" r="3"/><circle cx="26" cy="18" r="4"/><circle cx="32" cy="10" r="5"/>'),
         },
         {
@@ -2636,7 +2318,6 @@ window.CATALOGO = (function () {
       id: 'disc-sintaxis',
       nombre: 'Sintaxis de la lógica proposicional',
       descripcion: 'Proposiciones, conectivos, fórmulas bien formadas, árboles sintácticos y precedencia de operadores.',
-      etiquetas: ['discretas', 'logica'],
       temas: [
         {
           id: 'connectives',
@@ -2650,7 +2331,6 @@ window.CATALOGO = (function () {
           titulo: 'Well-Formed Formulas & Grammar',
           resumen: 'Compruebe si una cadena es fórmula, vea dónde falla si no lo es y reproduzca su derivación con la gramática.',
           visualizaciones: 2,
-          etiquetas: ['automatas'],
           glifo: g('<path d="M8 12h28M8 22h20M8 32h26"/><path d="M34 20l4 4 4-5" />'),
         },
         {
@@ -2658,7 +2338,6 @@ window.CATALOGO = (function () {
           titulo: 'Syntax Trees & Subformulas',
           resumen: 'Haga clic en los nodos de un árbol sintáctico para aislar subfórmulas y marque las que se repiten.',
           visualizaciones: 2,
-          etiquetas: ['estructuras', 'automatas'],
           glifo: g('<circle cx="22" cy="8" r="4"/><circle cx="10" cy="26" r="4"/><circle cx="34" cy="26" r="4"/><circle cx="26" cy="40" r="2"/><path d="M19 11l-6 12M25 11l6 12M31 29l-5 9"/>'),
         },
         {
@@ -2666,7 +2345,6 @@ window.CATALOGO = (function () {
           titulo: 'Operator Precedence & Parsing',
           resumen: 'Vea los paréntesis implícitos de una fórmula y cuente cuántas lecturas tiene una cadena sin paréntesis.',
           visualizaciones: 2,
-          etiquetas: ['automatas'],
           glifo: g('<path d="M12 8c-6 6-6 22 0 28M32 8c6 6 6 22 0 28"/><circle cx="22" cy="22" r="2"/>'),
         },
       ],
@@ -2675,7 +2353,6 @@ window.CATALOGO = (function () {
       id: 'disc-semantica',
       nombre: 'Semántica, tablas de verdad y equivalencias',
       descripcion: 'Valuaciones y evaluación recursiva, clasificación de fórmulas, equivalencia lógica y conjuntos de conectivos que bastan para expresarlo todo.',
-      etiquetas: ['discretas', 'logica'],
       temas: [
         {
           id: 'truth-tables',
@@ -2703,7 +2380,6 @@ window.CATALOGO = (function () {
           titulo: 'Functionally Complete Connective Sets',
           resumen: 'Vea cuáles de las 16 funciones de dos variables alcanza cada conjunto de conectivos y construya uno con solo NAND.',
           visualizaciones: 2,
-          etiquetas: ['bdd'],
           glifo: g('<rect x="6" y="6" width="14" height="14"/><rect x="24" y="6" width="14" height="14"/><rect x="6" y="24" width="14" height="14"/><rect x="24" y="24" width="14" height="14"/><path d="M10 13h6M28 13h6M10 31h6M28 31h6"/>'),
         },
       ],
@@ -2712,14 +2388,12 @@ window.CATALOGO = (function () {
       id: 'disc-sat',
       nombre: 'Satisfacibilidad y formas normales',
       descripcion: 'Buscar modelos, entender las cláusulas como regiones prohibidas y convertir fórmulas a forma normal conjuntiva o disyuntiva.',
-      etiquetas: ['discretas', 'logica'],
       temas: [
         {
           id: 'satisfiability',
           titulo: 'Satisfiability & Models',
           resumen: 'Siga el árbol de búsqueda de DPLL y observe la transición de fase de 3-SAT: dónde se vuelve imposible y dónde cuesta más.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos', 'ia', 'optimizacion'],
           glifo: g('<path d="M22 6v8M22 14L10 24M22 14l12 10M10 24l-4 12M34 24l4 12" /><circle cx="22" cy="6" r="2"/><path d="M4 38l3 3 5-6"/>'),
         },
         {
@@ -2734,7 +2408,6 @@ window.CATALOGO = (function () {
           titulo: 'CNF & DNF Transformation',
           resumen: 'Convierta una fórmula a CNF o DNF paso a paso y mida cuándo la forma normal crece exponencialmente.',
           visualizaciones: 2,
-          etiquetas: ['algoritmos', 'ia'],
           glifo: g('<path d="M6 10h12M6 22h12M6 34h12M26 10h12M26 22h12M26 34h12"/><path d="M20 16l4 6-4 6"/>'),
         },
         {
@@ -2750,7 +2423,6 @@ window.CATALOGO = (function () {
       id: 'disc-consecuencia',
       nombre: 'Consecuencia lógica y razonamiento formal',
       descripcion: 'Cuándo una conclusión se sigue de sus premisas, cómo refutar un argumento con contraejemplos y cómo derivar con reglas de inferencia.',
-      etiquetas: ['discretas', 'logica'],
       temas: [
         {
           id: 'logical-consequence',
@@ -2786,14 +2458,12 @@ window.CATALOGO = (function () {
       id: 'disc-resolucion',
       nombre: 'Resolución proposicional',
       descripcion: 'Una sola regla sobre cláusulas que basta para refutar: resolventes, cláusula vacía, árboles de refutación y estrategias de selección.',
-      etiquetas: ['discretas', 'logica'],
       temas: [
         {
           id: 'resolution-rule',
           titulo: 'Clauses & the Resolution Rule',
           resumen: 'Resuelva dos cláusulas sobre un literal complementario y compruebe en la tabla que la resolvente se sigue de ambas.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'algoritmos'],
           glifo: g('<rect x="4" y="6" width="14" height="10"/><rect x="26" y="6" width="14" height="10"/><rect x="15" y="28" width="14" height="10"/><path d="M11 16l8 12M33 16l-8 12"/>'),
         },
         {
@@ -2801,7 +2471,6 @@ window.CATALOGO = (function () {
           titulo: 'Refutation & the Empty Clause',
           resumen: 'Sature un conjunto de cláusulas paso a paso hasta □ o hasta agotar los pares, y dibuje el árbol de la refutación.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'algoritmos'],
           glifo: g('<circle cx="22" cy="8" r="4" stroke-width="2.6"/><path d="M19 11L10 22M25 11l9 11M10 22l-4 10M10 22l6 10M34 22l-6 10M34 22l6 10"/>'),
         },
         {
@@ -2809,7 +2478,6 @@ window.CATALOGO = (function () {
           titulo: 'Clause Selection Strategies',
           resumen: 'Compare cuatro estrategias de resolución en pares resueltos, resolventes y crecimiento del conjunto de cláusulas.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'algoritmos', 'optimizacion'],
           glifo: g('<rect x="6" y="22" width="6" height="14"/><rect x="16" y="12" width="6" height="24"/><rect x="26" y="26" width="6" height="10"/><path d="M4 38h36"/>'),
         },
         {
@@ -2817,7 +2485,6 @@ window.CATALOGO = (function () {
           titulo: 'Automated Consequence Checking',
           resumen: 'Siga la tubería completa de un verificador y compare resolución con tabla de verdad en cadenas y en el principio del palomar.',
           visualizaciones: 2,
-          etiquetas: ['ia', 'algoritmos'],
           glifo: g('<rect x="4" y="14" width="10" height="16"/><rect x="30" y="14" width="10" height="16"/><path d="M14 22h16M26 18l4 4-4 4"/>'),
         },
       ],
@@ -2826,14 +2493,12 @@ window.CATALOGO = (function () {
       id: 'disc-predicados',
       nombre: 'Lógica de predicados, cuantificadores y modelos',
       descripcion: 'Objetos, predicados y relaciones; ∀ y ∃ con su alcance; negación de cuantificadores; y modelos y contramodelos para razonar con ellos.',
-      etiquetas: ['discretas', 'logica'],
       temas: [
         {
           id: 'predicates-domains',
           titulo: 'Predicates, Domains & Interpretations',
           resumen: 'Arme una interpretación con clics y vea qué elementos o pares satisfacen una fórmula; compare seis fórmulas en cinco relaciones.',
           visualizaciones: 2,
-          etiquetas: ['bdd'],
           glifo: g('<circle cx="10" cy="12" r="4"/><circle cx="26" cy="12" r="4"/><circle cx="10" cy="32" r="4"/><circle cx="34" cy="32" r="4"/><path d="M14 12h8M10 16v12M28 16l4 12"/>'),
         },
         {
@@ -2841,7 +2506,6 @@ window.CATALOGO = (function () {
           titulo: 'Universal & Existential Quantifiers',
           resumen: 'Busque ejemplos y contraejemplos de ∀ y ∃ en un dominio finito y compare ∀x∃y con ∃y∀x en una matriz.',
           visualizaciones: 2,
-          etiquetas: ['bdd'],
           glifo: g('<path d="M8 8l7 24 7-24M30 12h8M30 20h8M34 12v16M30 28h8" />'),
         },
         {
@@ -2863,7 +2527,6 @@ window.CATALOGO = (function () {
           titulo: 'Models, Counterexamples & Predicate Consequence',
           resumen: 'Busque contramodelos pequeños de razonamientos con cuantificadores y separe los silogismos válidos de las falacias.',
           visualizaciones: 2,
-          etiquetas: ['ia'],
           glifo: g('<rect x="6" y="6" width="32" height="32"/><circle cx="16" cy="16" r="3"/><circle cx="28" cy="16" r="3"/><circle cx="16" cy="28" r="3"/><path d="M26 26l8 8M34 26l-8 8"/>'),
         },
       ],
@@ -2878,14 +2541,11 @@ window.CATALOGO = (function () {
     s.temas.forEach((t, j) => {
       t.seccion = s;
       t.codigo = `${s.numero}.${j + 1}`;
-      t.etiquetas = [...new Set([...(s.etiquetas || []), ...(t.etiquetas || [])])]
-        .sort((a, b) => materias.findIndex((m) => m.id === a) - materias.findIndex((m) => m.id === b));
       temas.push(t);
     });
   });
 
   return {
-    materias,
     secciones,
     temas,
     buscar(id) {
