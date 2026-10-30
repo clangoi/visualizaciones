@@ -480,13 +480,18 @@ window.VIZ = (function () {
     return api;
   };
 
+  // Las etiquetas van en mayúsculas por CSS; las letras griegas (y sus acentos combinados) se protegen,
+  // porque σ y Σ, o λ y Λ, no significan lo mismo.
+  const sinMayusculas = (texto) => String(texto).split(/([\u0370-\u03ff\u1f00-\u1fff][\u0300-\u036f]*)/).filter(Boolean)
+    .map((t) => (/^[\u0370-\u03ff\u1f00-\u1fff]/.test(t) ? VIZ.el('span', { class: 'sin-mayusculas' }, t) : t));
+
   VIZ.lectura = function (padre) {
     const caja = VIZ.el('dl', { class: 'lectura' });
     padre.appendChild(caja);
     return {
       caja,
       set(pares) {
-        caja.replaceChildren(...pares.map(([k, v]) => VIZ.el('div', null, VIZ.el('dt', null, k), VIZ.el('dd', null, v))));
+        caja.replaceChildren(...pares.map(([k, v]) => VIZ.el('div', null, VIZ.el('dt', null, sinMayusculas(k)), VIZ.el('dd', null, v))));
       },
     };
   };

@@ -505,6 +505,7 @@ code { background: var(--fondo-2); padding: 0.05em 0.3em; border-radius: 2px; }
 }
 .lectura div { padding: 0 22px 4px 0; min-width: 110px; }
 .lectura dt { font-family: var(--mono); font-size: 11px; color: var(--tinta-3); text-transform: uppercase; letter-spacing: 0.04em; }
+.lectura dt .sin-mayusculas { text-transform: none; }
 .lectura dd { overflow-wrap: anywhere; margin: 0; font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; }
 
 .nota-viz { font-size: 13px; color: var(--tinta-2); margin: 10px 0 0; }

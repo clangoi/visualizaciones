@@ -33,6 +33,7 @@ npm run verificar
 - `js/busqueda.js` — búsqueda heurística (`VIZ.busqueda`): 8-puzzle con heurísticas, A*, IDA* y distancias exactas, dibujo de árboles generales y la figura «primero el mejor» sobre un grafo.
 - `js/ml.js` — aprendizaje automático (`VIZ.ml`): conjuntos de datos de juguete, regiones de decisión, curvas de nivel, dibujo de puntos por clase y un SVM (SMO) con kernels.
 - `js/distribuidos.js` — sistemas distribuidos (`VIZ.dist`): diagramas espacio-tiempo, nodos y mensajes, ejecuciones aleatorias con relojes de Lamport y vectoriales, y verificadores de consistencia secuencial, causal y linealizable.
+- `js/mineria.js` — minería de datos (`VIZ.min`): estadística y álgebra lineal pequeñas, conjuntos de juguete en 2-D y de alta dimensión, t-SNE y UMAP simplificados, clustering (jerárquico, DBSCAN, k-means, mezclas gaussianas), Apriori, redes bayesianas, modelos causales lineales con d-separación, estudios observacionales con matching, y dibujo de dispersiones, elipses e histogramas.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
