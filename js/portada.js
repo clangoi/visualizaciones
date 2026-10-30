@@ -12,9 +12,12 @@
   const normalizar = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
   let activa = null;
+  const itemsIndice = new Map();
 
   for (const s of secciones) {
-    indice.appendChild(el('li', null, el('a', { href: '#' + s.id }, s.nombre)));
+    const item = el('li', null, el('a', { href: '#' + s.id }, s.nombre));
+    itemsIndice.set(s.id, item);
+    indice.appendChild(item);
 
     const rejilla = el('div', { class: 'rejilla-tarjetas' });
     for (const t of s.temas) {
@@ -84,6 +87,7 @@
         if (ok) n++;
       }
       sec.hidden = n === 0;
+      itemsIndice.get(sec.id).hidden = sec.hidden;
       visibles += n;
     }
     sinResultados.hidden = visibles > 0;
