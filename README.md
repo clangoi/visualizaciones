@@ -36,6 +36,7 @@ npm run verificar
 - `js/mineria.js` — minería de datos (`VIZ.min`): estadística y álgebra lineal pequeñas, conjuntos de juguete en 2-D y de alta dimensión, t-SNE y UMAP simplificados, clustering (jerárquico, DBSCAN, k-means, mezclas gaussianas), Apriori, redes bayesianas, modelos causales lineales con d-separación, estudios observacionales con matching, y dibujo de dispersiones, elipses e histogramas.
 - `js/profundo.js` — aprendizaje profundo (`VIZ.dl`): perceptrón multicapa con retropropagación, optimizadores (SGD, Momentum, AdaGrad, RMSProp, Adam), convolución y pooling sobre imágenes pequeñas, dibujo de redes y mapas de calor, y un mundo de rejilla para aprendizaje por refuerzo.
 - `js/discretas.js` — matemáticas discretas (`VIZ.disc`): analizador y evaluador de fórmulas proposicionales y de predicados, tablas de verdad, leyes de reescritura, CNF/DNF, DPLL, resolución y dibujo de árboles sintácticos.
+- `js/procesos.js` — minería de procesos (`VIZ.proc`): árboles de procesos y simulación de registros de eventos, variantes, grafos de sucesión directa, matriz de huellas, algoritmo Alfa, redes de Petri con reproducción de fichas, disposición por capas y dibujo de redes y grafos de procesos.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
