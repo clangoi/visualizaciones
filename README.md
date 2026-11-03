@@ -38,6 +38,7 @@ npm run verificar
 - `js/discretas.js` — matemáticas discretas (`VIZ.disc`): analizador y evaluador de fórmulas proposicionales y de predicados, tablas de verdad, leyes de reescritura, CNF/DNF, DPLL, resolución y dibujo de árboles sintácticos.
 - `js/procesos.js` — minería de procesos (`VIZ.proc`): árboles de procesos y simulación de registros de eventos, variantes, grafos de sucesión directa, matriz de huellas, algoritmo Alfa, redes de Petri con reproducción de fichas, disposición por capas y dibujo de redes y grafos de procesos.
 - `js/optimizacion.js` — optimización (`VIZ.opt`): polígono factible y vértices en 2-D, Simplex en tableau paso a paso con duales, LP general por Big-M, ramificación y acotamiento, mochila, flujos máximo y de costo mínimo, derivadas numéricas, valores propios, Newton y Lagrangiano aumentado con multiplicadores.
+- `js/sistemasinfo.js` — sistemas de información (`VIZ.si`): series y tablas de hechos de ventas simuladas, agrupaciones y tablas dinámicas tipo OLAP, VPN, TIR y plazo de recuperación, matriz de riesgo, disponibilidad en serie y paralelo, colas M/M/c, ruta crítica (CPM), sprints de Scrum y cadena de suministro con efecto látigo.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
