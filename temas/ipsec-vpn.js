@@ -63,7 +63,7 @@
     ],
     teoria: String.raw`
       <h2>Asociación de seguridad</h2>
-      <p>Antes de enviar tráfico, los extremos negocian (con IKE, que usa <a href="tema.html?id=tls-handshake">intercambio de claves tipo Diffie–Hellman</a>) una <em>asociación de seguridad</em> (SA) unidireccional: algoritmos, claves y un identificador SPI que viaja en la cabecera ESP. Cada paquete lleva además un número de secuencia contra <em>repeticiones</em>.</p>
+      <p>Antes de enviar tráfico, los extremos negocian (con IKE, que usa <a href="tema.html?id=tls-key-exchange">intercambio de claves tipo Diffie–Hellman</a>) una <em>asociación de seguridad</em> (SA) unidireccional: algoritmos, claves y un identificador SPI que viaja en la cabecera ESP. Cada paquete lleva además un número de secuencia contra <em>repeticiones</em>.</p>
       <h2>Modos</h2>
       <table class="tabla-datos"><tr><th class="izq"></th><th class="izq">Transporte</th><th class="izq">Túnel</th></tr>
       <tr><td class="izq">protege</td><td class="izq">segmento (TCP/UDP + datos)</td><td class="izq">datagrama IP completo</td></tr>

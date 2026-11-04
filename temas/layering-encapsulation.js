@@ -74,7 +74,7 @@
     teoria: String.raw`
       <h2>Las cinco capas</h2>
       <table class="tabla-datos"><tr><th class="izq">Capa</th><th class="izq">Unidad</th><th class="izq">Función</th><th class="izq">Ejemplos</th></tr>
-      <tr><td class="izq">Aplicación</td><td class="izq">mensaje</td><td class="izq">lo que el usuario ve</td><td class="izq"><a href="tema.html?id=http-latency">HTTP</a>, <a href="tema.html?id=dns-resolution">DNS</a>, SMTP</td></tr>
+      <tr><td class="izq">Aplicación</td><td class="izq">mensaje</td><td class="izq">lo que el usuario ve</td><td class="izq"><a href="tema.html?id=http-latency">HTTP</a>, <a href="tema.html?id=dns-hierarchy-caching">DNS</a>, SMTP</td></tr>
       <tr><td class="izq">Transporte</td><td class="izq">segmento</td><td class="izq">entre procesos (puertos)</td><td class="izq"><a href="tema.html?id=ports-multiplexing">TCP, UDP</a></td></tr>
       <tr><td class="izq">Red</td><td class="izq">datagrama</td><td class="izq">entre hosts (direcciones IP)</td><td class="izq"><a href="tema.html?id=longest-prefix-forwarding">IP</a></td></tr>
       <tr><td class="izq">Enlace</td><td class="izq">trama</td><td class="izq">entre nodos vecinos (MAC)</td><td class="izq"><a href="tema.html?id=ethernet-switching">Ethernet</a>, Wi-Fi</td></tr>
@@ -84,6 +84,6 @@
       \[ \eta(m) = \frac{m}{m + 58}. \]
       <p>Con \(m = 1\,460\), \(\eta \approx 96{,}2\,\%\); con \(m = 10\), \(\eta \approx 14{,}7\,\%\). Por eso conviene agrupar datos pequeños.</p>
       <h2>Por qué capas</h2>
-      <p>Cada capa puede cambiar sin afectar a las demás mientras mantenga su interfaz: IPv6 sustituye a IPv4 sin tocar HTTP, y Wi-Fi reemplaza a Ethernet sin tocar TCP. El costo es redundancia y, a veces, rendimiento. Los <a href="tema.html?id=network-delays">retardos</a> se suman en cada salto, y la seguridad se puede añadir en distintas capas (<a href="tema.html?id=tls-handshake">TLS</a> en transporte, <a href="tema.html?id=ipsec-vpn">IPsec</a> en red).</p>`,
+      <p>Cada capa puede cambiar sin afectar a las demás mientras mantenga su interfaz: IPv6 sustituye a IPv4 sin tocar HTTP, y Wi-Fi reemplaza a Ethernet sin tocar TCP. El costo es redundancia y, a veces, rendimiento. Los <a href="tema.html?id=network-delays">retardos</a> se suman en cada salto, y la seguridad se puede añadir en distintas capas (<a href="tema.html?id=tls-key-exchange">TLS</a> en transporte, <a href="tema.html?id=ipsec-vpn">IPsec</a> en red).</p>`,
   });
 })();

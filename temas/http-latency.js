@@ -98,6 +98,6 @@ Content-Length: 2048
       <p>donde \(k\) es el número de conexiones paralelas. Con RTT de 100 ms y 10 objetos: 2,2 s, 1,2 s y 0,3 s.</p>
       <h2>Evolución</h2>
       <ul><li>HTTP/1.1: persistente; el <em>pipelining</em> sufre bloqueo de cabeza de línea.</li><li>HTTP/2: multiplexa varios flujos en una conexión TCP.</li><li>HTTP/3: lo hace sobre QUIC (UDP), evitando que una pérdida detenga todos los flujos.</li></ul>
-      <p>Cada conexión depende del <a href="tema.html?id=tcp-connection">handshake de TCP</a>, del <a href="tema.html?id=tcp-congestion-control">control de congestión</a> y de resolver el nombre con <a href="tema.html?id=dns-resolution">DNS</a>; con HTTPS se agrega el <a href="tema.html?id=tls-handshake">saludo de TLS</a>.</p>`,
+      <p>Cada conexión depende del <a href="tema.html?id=tcp-connection">handshake de TCP</a>, del <a href="tema.html?id=tcp-congestion-control">control de congestión</a> y de resolver el nombre con <a href="tema.html?id=dns-hierarchy-caching">DNS</a>; con HTTPS se agrega el <a href="tema.html?id=tls-key-exchange">saludo de TLS</a>.</p>`,
   });
 })();

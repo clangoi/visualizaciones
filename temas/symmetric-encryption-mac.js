@@ -65,13 +65,13 @@
     ],
     teoria: String.raw`
       <h2>Cifrado simétrico</h2>
-      <p>Cifrado por bloques (AES) o de flujo (ChaCha20): \(c = E_k(m)\), \(m = D_k(c)\). Su seguridad descansa en la clave: con \(n\) bits hay \(2^n\) claves, y probarlas todas es inviable para \(n \ge 128\). El problema es cómo compartir la clave: lo resuelve el <a href="tema.html?id=tls-handshake">intercambio de claves</a>.</p>
+      <p>Cifrado por bloques (AES) o de flujo (ChaCha20): \(c = E_k(m)\), \(m = D_k(c)\). Su seguridad descansa en la clave: con \(n\) bits hay \(2^n\) claves, y probarlas todas es inviable para \(n \ge 128\). El problema es cómo compartir la clave: lo resuelve el <a href="tema.html?id=tls-key-exchange">intercambio de claves</a>.</p>
       <h2>Integridad: hash y MAC</h2>
       <p>Una función hash \(H\) comprime cualquier mensaje a un resumen fijo, es difícil de invertir y cambia mucho ante cambios mínimos (avalancha). Pero cualquiera puede calcularla; para autenticar se mezcla con la clave:</p>
       \[ \text{MAC}_k(m) = H\bigl((k \oplus \text{opad}) \,\|\, H((k \oplus \text{ipad}) \,\|\, m)\bigr) \quad (\text{HMAC}). \]
       <p>El emisor envía \((m, \text{MAC}_k(m))\); el receptor recalcula y compara. Un atacante sin \(k\) no puede fabricar una etiqueta válida para un mensaje alterado.</p>
       <h2>Por qué cifrar no basta</h2>
-      <p>En los cifrados de flujo, invertir un bit del texto cifrado invierte el mismo bit del texto claro: el atacante modifica el mensaje a ciegas. Por eso los protocolos modernos usan <strong>cifrado autenticado</strong> (AES-GCM, ChaCha20-Poly1305), que cifra y calcula la etiqueta en un solo paso. Esto se aplica en <a href="tema.html?id=tls-handshake">TLS</a> y en el <a href="tema.html?id=ipsec-vpn">ESP de IPsec</a>.</p>
+      <p>En los cifrados de flujo, invertir un bit del texto cifrado invierte el mismo bit del texto claro: el atacante modifica el mensaje a ciegas. Por eso los protocolos modernos usan <strong>cifrado autenticado</strong> (AES-GCM, ChaCha20-Poly1305), que cifra y calcula la etiqueta en un solo paso. Esto se aplica en <a href="tema.html?id=tls-key-exchange">TLS</a> y en el <a href="tema.html?id=ipsec-vpn">ESP de IPsec</a>.</p>
       <p>Una suma de verificación o un <a href="tema.html?id=error-detection-crc">CRC</a> sirve contra el ruido, pero no contra un adversario, que puede recalcularlos tras alterar el mensaje.</p>`,
   });
 })();

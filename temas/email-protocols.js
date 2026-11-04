@@ -51,7 +51,7 @@ C: DATA                           S: 354 escriba el mensaje, termine con «.»
 C: …cabeceras y cuerpo…
 C: .                              S: 250 aceptado
 C: QUIT</code></pre>
-      <p>Usa conexiones persistentes y envía todos los mensajes pendientes en una sola. El servidor de destino se encuentra con el registro MX del <a href="tema.html?id=dns-resolution">DNS</a>. Si no responde, el servidor de origen reintenta durante días.</p>
+      <p>Usa conexiones persistentes y envía todos los mensajes pendientes en una sola. El servidor de destino se encuentra con el registro MX del <a href="tema.html?id=dns-hierarchy-caching">DNS</a>. Si no responde, el servidor de origen reintenta durante días.</p>
       <h2>POP3 frente a IMAP</h2>
       <table class="tabla-datos"><tr><th class="izq"></th><th class="izq">POP3</th><th class="izq">IMAP</th></tr>
       <tr><td class="izq">modelo</td><td class="izq">descarga y (normalmente) borra del servidor</td><td class="izq">el buzón vive en el servidor</td></tr>

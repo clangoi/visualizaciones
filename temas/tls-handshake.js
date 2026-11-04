@@ -1,71 +1,110 @@
 (function () {
   'use strict';
-  const { color: C, el } = VIZ;
+  const { color: C } = VIZ;
+  const W = VIZ.web;
 
-  function montarSec(cuerpo) {
-    VIZ.sor.figuraSecuencia(cuerpo, {
-      actores: ['Cliente', 'Servidor'],
-      etiquetaCaso: 'Versión',
-      casos: [
-        { id: '12', nombre: 'TLS 1.2 (2 RTT)', msgs: () => [
-          { de: 0, a: 1, texto: 'ClientHello', color: C.s1, nota: 'versiones, suites, aleatorio del cliente', expl: 'El cliente propone versiones y algoritmos (suites) y envía un número aleatorio.' },
-          { de: 1, a: 0, texto: 'ServerHello + certificado + KeyExchange', color: C.s2, nota: 'elige suite, aleatorio, clave pública DH', expl: 'El servidor elige la suite, envía su certificado (para autenticarse) y su parte del intercambio de claves.' },
-          { de: 0, a: 1, texto: 'ClientKeyExchange + Finished', color: C.s1, nota: 'ambos calculan el secreto', expl: 'El cliente verifica el certificado, envía su parte de DH y ambos derivan las claves de sesión. Finished lo autentica todo con un MAC.' },
-          { de: 1, a: 0, texto: 'Finished', color: C.s2, nota: 'comienzan los datos cifrados', expl: 'El servidor confirma. Desde aquí los datos van cifrados y autenticados con las claves de sesión (2 RTT desde el inicio de TLS).' },
-          { de: 0, a: 1, texto: 'Datos de la aplicación (cifrados)', color: C.s3, expl: 'El tráfico HTTP ya viaja protegido.' },
-        ] },
-        { id: '13', nombre: 'TLS 1.3 (1 RTT)', msgs: () => [
-          { de: 0, a: 1, texto: 'ClientHello + clave pública DH', color: C.s1, nota: 'ya adivina el grupo DH', expl: 'El cliente envía de una vez su clave pública para Diffie–Hellman, apostando por un grupo habitual.' },
-          { de: 1, a: 0, texto: 'ServerHello + clave DH + {certificado, Finished}', color: C.s2, nota: 'ya cifrado desde aquí', expl: 'El servidor responde con su clave DH; desde este mensaje todo lo demás (incluido el certificado) va cifrado.' },
-          { de: 0, a: 1, texto: '{Finished} + {Datos de la aplicación}', color: C.s3, nota: 'comienzan los datos', expl: 'El cliente termina y envía ya datos: 1 RTT desde el inicio de TLS.' },
-        ] },
-      ],
-      leyenda: [{ color: C.s1, texto: 'cliente' }, { color: C.s2, texto: 'servidor' }, { color: C.s3, texto: 'datos protegidos' }],
-      lectura: (c, m, k) => [['mensajes', `${k} de ${m.length}`], ['viajes de ida y vuelta de TLS', c.id === '12' ? '2' : '1'], ['más el RTT de TCP', '+1']],
+  /* ---------- Fig. 1: saludo TLS 1.3 y 1.2 ---------- */
+
+  function montarSaludo(cuerpo) {
+    const est = { v: '1.3', cert: true };
+    VIZ.web.figuraSecuencia(cuerpo, {
+      actores: [{ nombre: 'Navegador' }, { nombre: 'Servidor' }],
+      mensajes: () => {
+        const falla = [{ de: 0, a: 0, texto: 'verifica el certificado ✕', color: C.s8, nota: 'El navegador comprueba la cadena de certificados: el nombre no coincide o no confía en la entidad emisora.' }, { de: 0, a: 1, texto: 'alerta: certificado inválido', color: C.s8, nota: 'Aborta el saludo y muestra una advertencia. No se envía ningún dato de la aplicación.' }];
+        if (est.v === '1.3') {
+          const m = [
+            { de: 0, a: 1, texto: 'ClientHello + key_share', color: C.s1, nota: 'El cliente propone versiones y algoritmos, y ya envía su parte (g^a) del intercambio Diffie-Hellman: ahorra un viaje.' },
+            { de: 1, a: 0, texto: 'ServerHello + key_share', color: C.s2, nota: 'El servidor elige los algoritmos y envía su parte (g^b). Ambos pueden calcular ya el secreto compartido.' },
+            { de: 1, a: 0, texto: '{Certificate, Verify, Finished}', color: C.s3, nota: 'Desde aquí todo va cifrado: el servidor envía su certificado, una firma que prueba que posee la clave privada, y Finished.' },
+          ];
+          if (!est.cert) return [...m, ...falla];
+          m.push({ de: 0, a: 0, texto: 'verifica el certificado ✓', color: C.s6, nota: 'El navegador valida la cadena de certificados, el nombre del sitio y las fechas.' });
+          m.push({ de: 0, a: 1, texto: '{Finished}', color: C.s3, nota: 'El cliente confirma que el saludo no fue manipulado. 1 viaje de ida y vuelta en total.' });
+          m.push({ de: 0, a: 1, texto: 'GET /  (cifrado)', color: C.s6, nota: 'Ya se pueden enviar datos de la aplicación, cifrados con la clave de sesión.' });
+          m.push({ de: 1, a: 0, texto: '200 OK  (cifrado)', color: C.s6, nota: 'La respuesta también viaja cifrada y autenticada.' });
+          return m;
+        }
+        const m = [
+          { de: 0, a: 1, texto: 'ClientHello', color: C.s1, nota: 'El cliente propone versiones y suites de cifrado; envía un número aleatorio.' },
+          { de: 1, a: 0, texto: 'ServerHello + Certificate + KeyExchange', color: C.s2, nota: 'El servidor elige los algoritmos, envía su certificado y su parte del intercambio de claves, firmada.' },
+        ];
+        if (!est.cert) return [...m, ...falla];
+        m.push({ de: 0, a: 0, texto: 'verifica el certificado ✓', color: C.s6, nota: 'El navegador valida la cadena y el nombre del sitio.' });
+        m.push({ de: 0, a: 1, texto: 'ClientKeyExchange + Finished', color: C.s1, nota: 'El cliente envía su parte del intercambio y activa el cifrado. Segundo viaje.' });
+        m.push({ de: 1, a: 0, texto: 'Finished (cifrado)', color: C.s3, nota: 'El servidor confirma. Recién ahora, tras 2 viajes de ida y vuelta, puede enviarse la aplicación.' });
+        m.push({ de: 0, a: 1, texto: 'GET /  (cifrado)', color: C.s6, nota: 'Datos de la aplicación, cifrados.' });
+        m.push({ de: 1, a: 0, texto: '200 OK  (cifrado)', color: C.s6, nota: 'Respuesta cifrada.' });
+        return m;
+      },
+      controles(ctl, reiniciar) {
+        ctl.selector({ etiqueta: 'Versión de TLS', valor: est.v, opciones: [['1.3', 'TLS 1.3 (1 viaje)'], ['1.2', 'TLS 1.2 (2 viajes)']], alCambiar: (v) => { est.v = v; reiniciar(); } });
+        ctl.casilla({ etiqueta: 'el certificado del servidor es válido', valor: true, alCambiar: (v) => { est.cert = v; reiniciar(); } });
+      },
+      leyenda: [{ color: C.s1, texto: 'mensajes del cliente' }, { color: C.s2, texto: 'elección del servidor' }, { color: C.s3, texto: 'cifrados con las claves del saludo' }, { color: C.s6, texto: 'verificación y datos' }, { color: C.s8, texto: 'fallo' }],
+      lectura: (hasta, msgs) => [['paso', `${Math.max(0, hasta + 1)} de ${msgs.length}`], ['viajes antes de los datos', est.v === '1.3' ? '1' : '2'], ['resultado', est.cert ? 'canal seguro' : 'conexión abortada']],
+      nota: 'El saludo logra tres cosas: <b>acordar una clave</b> sin enviarla, <b>autenticar al servidor</b> con su certificado y <b>proteger la integridad</b> de todo el saludo.',
     });
   }
 
-  function montarDH(cuerpo) {
-    const P = 1019, G = 2;
-    let a = 123, b = 456;
-    const pm = (base, e) => { let r = 1, x = base % P; while (e > 0) { if (e & 1) r = (r * x) % P; x = (x * x) % P; e >>= 1; } return r; };
+  /* ---------- Fig. 2: costo en tiempo ---------- */
+
+  function montarCosto(cuerpo) {
+    const est = { rtt: 80 };
+    let barras = [];
     const ctl = VIZ.controles(cuerpo);
-    ctl.rango({ etiqueta: 'Secreto de Ana (a)', min: 2, max: 1000, valor: a, alCambiar: (v) => { a = v; dibujar(); } });
-    ctl.rango({ etiqueta: 'Secreto de Beto (b)', min: 2, max: 1000, valor: b, alCambiar: (v) => { b = v; dibujar(); } });
-    const caja = el('div', { class: 'caja-desplazable' });
-    cuerpo.appendChild(caja);
-    cuerpo.dataset.sinLeyenda = 'tabla de valores públicos y secretos';
+    ctl.rango({ etiqueta: 'Latencia (RTT)', min: 5, max: 300, valor: est.rtt, formato: (v) => `${v} ms`, alCambiar: (v) => { est.rtt = v; dibujar(); } });
+    const lienzo = VIZ.lienzo(cuerpo, { altoFn: () => 190 });
+    const tip = VIZ.tooltip(lienzo);
+    VIZ.leyenda(cuerpo, [{ color: C.s3, texto: 'TCP' }, { color: C.s7, texto: 'saludo TLS' }, { color: C.s2, texto: 'primera petición HTTP' }]);
     const registro = VIZ.registro(cuerpo);
     const lectura = VIZ.lectura(cuerpo);
-    VIZ.nota(cuerpo, 'Públicos: p = 1019 y g = 2. Cada uno envía g elevado a su secreto (mod p). Ambos llegan a g^(ab) sin enviarlo nunca. Con números de 12 bits un espía lo rompe probando; con 2048 bits, no.');
+    VIZ.nota(cuerpo, 'Tiempo hasta recibir el primer byte de la respuesta. La reanudación de sesión (0-RTT) reutiliza claves de una visita anterior: más rápido, con un riesgo de repetición que el servidor debe controlar.');
+    const MODOS = [{ t: 'HTTP sin cifrar', tls: 0 }, { t: 'HTTPS, TLS 1.2', tls: 2 }, { t: 'HTTPS, TLS 1.3', tls: 1 }, { t: 'TLS 1.3 con reanudación', tls: 0, esp: true }];
     function dibujar() {
-      const A = pm(G, a), B = pm(G, b), sA = pm(B, a), sB = pm(A, b);
-      let intentos = 0, hallado = -1; for (let x = 1; x < P; x++) { intentos++; if (pm(G, x) === A) { hallado = x; break; } }
-      caja.replaceChildren(el('table', { class: 'tabla-datos sin-corte' }, el('tr', null, ['', 'Ana', 'Beto', 'espía (ve el canal)'].map((h) => el('th', null, h))),
-        [['secreto', String(a), String(b), '—'], ['envía', `A = g^a mod p = ${A}`, `B = g^b mod p = ${B}`, `ve A = ${A} y B = ${B}`], ['calcula', `B^a mod p = ${sA}`, `A^b mod p = ${sB}`, 'debe resolver el logaritmo discreto']]
-          .map(([k, x, y, z]) => el('tr', null, el('td', { class: 'izq' }, k), el('td', null, x), el('td', null, y), el('td', null, z)))));
-      registro.textContent = sA === sB ? `Ambos obtienen el secreto compartido ${sA} (= g^(a·b) mod p). El espía, para igualarlo, debe encontrar a partir de A el exponente: probando ${intentos} valores lo halla (a = ${hallado}).` : 'Error de cálculo.';
-      lectura.set([['secreto de sesión', String(sA)], ['intentos del espía (fuerza bruta)', String(intentos)], ['con p de 2048 bits', 'inviable']]);
+      const { ctx, ancho: Wd } = lienzo;
+      lienzo.limpiar();
+      const r = est.rtt, izq = Wd < 600 ? 100 : 170, total = 4 * r, esc = (ms) => izq + (ms / total) * (Wd - izq - 54);
+      barras = [];
+      MODOS.forEach((m, i) => {
+        const y = 10 + i * 42, tcp = r, tls = m.tls * r, http = r;
+        W.texto(ctx, m.t, izq - 8, y + 14, { tam: Wd < 600 ? 9 : 11, alinear: 'right' });
+        let x = 0;
+        [[tcp, C.s3], [tls, C.s7], [http, C.s2]].forEach(([w, c]) => { if (w > 0) { ctx.fillStyle = c; ctx.fillRect(esc(x), y, esc(x + w) - esc(x) - 1, 28); } x += w; });
+        W.texto(ctx, `${Math.round(x)} ms`, esc(x) + 6, y + 14, { tam: 11, peso: 600, alinear: 'left' });
+        barras.push({ y, m, total: x });
+      });
+      const base = r * 2, t12 = r * 4, t13 = r * 3;
+      registro.textContent = `Con ${r} ms de latencia, el cifrado agrega ${t12 - base} ms con TLS 1.2 y ${t13 - base} ms con TLS 1.3 respecto de HTTP sin cifrar; con reanudación, casi nada.`;
+      lectura.set([['HTTP', `${base} ms`], ['TLS 1.2', `${t12} ms`], ['TLS 1.3', `${t13} ms`], ['TLS 1.3 reanudado', `${base} ms`]]);
     }
+    lienzo.alDibujar = dibujar;
+    lienzo.canvas.addEventListener('pointermove', (ev) => { const { x, y } = lienzo.posicion(ev); const b = barras.find((q) => y >= q.y && y <= q.y + 28); if (!b) return tip.ocultar(); tip.mostrar(x, y, `<b>${b.m.t}</b><br>${Math.round(b.total)} ms hasta el primer byte`); });
+    lienzo.canvas.addEventListener('pointerleave', () => tip.ocultar());
     dibujar();
   }
 
   VIZ.registrarTema('tls-handshake', {
     intro: String.raw`
-      <p><strong>TLS</strong> (sucesor de SSL) protege la comunicación entre dos procesos sobre TCP: es el candado de HTTPS. Antes de enviar datos, cliente y servidor ejecutan un <strong>saludo</strong> (<em>handshake</em>) para tres cosas: acordar algoritmos, <strong>autenticar al servidor</strong> con su certificado y establecer un <strong>secreto compartido</strong> del que derivan las claves simétricas de la sesión.</p>
-      <p>El secreto se obtiene con un intercambio de claves tipo Diffie–Hellman, que permite acordar una clave por un canal que un espía observa por completo.</p>`,
+      <p><strong>HTTPS</strong> es HTTP dentro de una conexión cifrada con <strong>TLS</strong> (<em>Transport Layer Security</em>). Antes de enviar la primera petición, navegador y servidor hacen un <strong>saludo</strong> (<em>handshake</em>)
+      que cumple tres objetivos: acordar claves secretas sin enviarlas, comprobar que el servidor es quien dice ser y asegurar que nadie altera lo que se dicen.</p>
+      <p>Después, todos los datos viajan cifrados con una clave simétrica de sesión. Quien intercepte el tráfico en una cafetería o en un enrutador solo ve bytes ininteligibles.</p>`,
     visualizaciones: [
-      { titulo: 'El saludo de TLS', descripcion: 'Compare TLS 1.2 y TLS 1.3: cuántos viajes de ida y vuelta pasan antes de que viajen los datos y qué se cifra desde antes.', montar: montarSec },
-      { titulo: 'Diffie–Hellman con números pequeños', descripcion: 'Cambie los secretos de Ana y Beto: siempre llegan al mismo valor. Observe cuántas pruebas necesita un espía con un módulo tan pequeño.', montar: montarDH },
+      { titulo: 'El saludo TLS paso a paso', descripcion: 'Compare TLS 1.2 y 1.3 y haga inválido el certificado: vea cuándo se acuerda la clave y cuándo se aborta la conexión.', montar: montarSaludo },
+      { titulo: 'Cuánto cuesta el cifrado', descripcion: 'Aumente la latencia y compare el tiempo hasta el primer byte con HTTP, TLS 1.2, TLS 1.3 y la reanudación de sesión.', montar: montarCosto },
     ],
     teoria: String.raw`
-      <h2>Diffie–Hellman</h2>
-      <p>Con un primo público \(p\) y una base \(g\): Ana elige \(a\) y envía \(A = g^a \bmod p\); Beto elige \(b\) y envía \(B = g^b \bmod p\). Cada uno calcula</p>
-      \[ B^a \equiv g^{ab} \equiv A^b \pmod p. \]
-      <p>El espía ve \(g\), \(p\), \(A\) y \(B\), pero obtener \(g^{ab}\) exigiría resolver el <em>logaritmo discreto</em>, que no se sabe hacer eficientemente para \(p\) de más de 2 000 bits (o con curvas elípticas, 256 bits). Como los secretos \(a, b\) son efímeros, aunque la clave del servidor se filtre después, las sesiones pasadas siguen protegidas (<em>secreto hacia adelante</em>).</p>
-      <h2>Autenticación y clave de sesión</h2>
-      <p>DH por sí solo no autentica: un atacante activo podría hacerse pasar por ambos (<em>hombre en el medio</em>). Por eso el servidor firma sus parámetros con la clave asociada a su <strong>certificado</strong>, emitido por una autoridad que el cliente conoce. Del secreto compartido y de los aleatorios de ambos se <em>derivan</em> claves distintas para cifrar y para el MAC de cada sentido, que protegen los registros con <a href="tema.html?id=symmetric-encryption-mac">cifrado autenticado</a>.</p>
+      <h2>Qué se negocia</h2>
+      <ol>
+        <li><strong>Versión y suite de cifrado</strong>: p. ej. <code>TLS_AES_256_GCM_SHA384</code> (cifrado simétrico + función hash).</li>
+        <li><strong>Clave de sesión</strong>: mediante un intercambio <a href="tema.html?id=key-exchange-dh">Diffie-Hellman</a> (efímero, por lo que cada sesión tiene claves nuevas: <em>secreto hacia adelante</em>).</li>
+        <li><strong>Autenticación</strong>: el servidor presenta un <a href="tema.html?id=digital-certificates">certificado</a> y firma el saludo con su clave privada.</li>
+      </ol>
+      <h2>Protección de los datos</h2>
+      <p>Los datos se dividen en <em>registros</em> cifrados con AES-GCM o ChaCha20-Poly1305, que ofrecen a la vez <strong>confidencialidad</strong> (nadie lee) e <strong>integridad</strong> (cualquier alteración se detecta con una etiqueta de autenticación). Cada registro lleva un número de secuencia que impide repetirlo.</p>
       <h2>Costo</h2>
-      <p>El tiempo hasta el primer byte útil es \(\mathrm{RTT}_{\text{TCP}} + k\cdot\mathrm{RTT}_{\text{TLS}}\), con \(k=2\) en TLS 1.2 y \(k=1\) en 1.3 (0 al reanudar). Con 100 ms de RTT: 300 ms frente a 200 ms. TLS corre sobre la capa de transporte (<a href="tema.html?id=tcp-connection">TCP</a>); la alternativa en la capa de red es <a href="tema.html?id=ipsec-vpn">IPsec</a>.</p>`,
+      <p>El tiempo hasta el primer byte es</p>
+      \[ T = \underbrace{r}_{\text{TCP}} + \underbrace{k\,r}_{\text{TLS}} + \underbrace{r}_{\text{HTTP}}, \qquad k = 2\ (\text{TLS 1.2}),\ 1\ (\text{TLS 1.3}),\ 0\ (\text{reanudación}). \]
+      <p>La criptografía asimétrica del saludo cuesta unos milisegundos de CPU; en la práctica lo que se nota es la latencia \(r\).</p>
+      <div class="recuadro">HTTPS protege el <em>canal</em>, no al servidor: un sitio malicioso puede tener un certificado válido para su propio dominio. Y el cifrado extremo a extremo de los mensajes es otra cosa. Otras piezas del recorrido completo: <a href="tema.html?id=request-lifecycle">vida de una petición web</a> y <a href="tema.html?id=symmetric-asymmetric-crypto">cifrado simétrico y asimétrico</a>.</div>`,
   });
 })();

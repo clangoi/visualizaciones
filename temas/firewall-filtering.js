@@ -70,7 +70,7 @@
       <h2>Con estado</h2>
       <p>Mantiene una tabla de conexiones (como el <a href="tema.html?id=nat-dhcp">NAT</a>): cuando un host interno abre una conexión saliente, se anota la tupla; los paquetes entrantes de esa conexión pasan sin regla propia. Sin estado habría que abrir todos los puertos altos (> 1024) hacia dentro para que funcionen las respuestas, lo que dejaría la red expuesta. El costo es memoria por conexión.</p>
       <h2>Límites</h2>
-      <ul><li>Un firewall no ve dentro del tráfico cifrado (<a href="tema.html?id=tls-handshake">TLS</a>) ni de un <a href="tema.html?id=ipsec-vpn">túnel VPN</a>.</li><li>No protege de ataques desde dentro ni de vulnerabilidades en los servicios permitidos.</li><li>La seguridad perimetral es una capa; se combina con cifrado y autenticación en otras (<a href="tema.html?id=symmetric-encryption-mac">cifrado y MAC</a>).</li></ul>
+      <ul><li>Un firewall no ve dentro del tráfico cifrado (<a href="tema.html?id=tls-key-exchange">TLS</a>) ni de un <a href="tema.html?id=ipsec-vpn">túnel VPN</a>.</li><li>No protege de ataques desde dentro ni de vulnerabilidades en los servicios permitidos.</li><li>La seguridad perimetral es una capa; se combina con cifrado y autenticación en otras (<a href="tema.html?id=symmetric-encryption-mac">cifrado y MAC</a>).</li></ul>
       <p>Las reglas se expresan con prefijos (<a href="tema.html?id=ipv4-subnetting">subredes</a>) y puertos (<a href="tema.html?id=ports-multiplexing">transporte</a>).</p>`,
   });
 })();
