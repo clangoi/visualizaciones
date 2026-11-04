@@ -53,7 +53,7 @@ for (const t of CATALOGO.temas) {
 for (const s of CATALOGO.secciones) if (s.temas.length > 12) falla(`catálogo: la sección «${s.nombre}» tiene ${s.temas.length} temas; el máximo es 12, reestructúrela en secciones más específicas`);
 
 // Reglas por archivo de tema y módulo
-const revisar = [...archivos.map((f) => `temas/${f}.js`), 'js/arboles.js', 'js/grafos.js', 'js/busqueda.js', 'js/ml.js', 'js/imagen.js', 'js/patrones.js', 'js/bdd.js', 'js/distribuidos.js', 'js/mineria.js', 'js/profundo.js', 'js/discretas.js', 'js/procesos.js', 'js/optimizacion.js', 'js/sistemasinfo.js', 'js/ordenar.js', 'js/portada.js', 'js/tema.js'];
+const revisar = [...archivos.map((f) => `temas/${f}.js`), 'js/arboles.js', 'js/grafos.js', 'js/busqueda.js', 'js/ml.js', 'js/imagen.js', 'js/patrones.js', 'js/bdd.js', 'js/distribuidos.js', 'js/mineria.js', 'js/profundo.js', 'js/discretas.js', 'js/procesos.js', 'js/optimizacion.js', 'js/sistemasinfo.js', 'js/sisop.js', 'js/ordenar.js', 'js/portada.js', 'js/tema.js'];
 const ESTILOS_PERMITIDOS = new Set(['color', 'background', 'borderColor', 'fontWeight', 'margin', 'width', 'height', 'border', 'fontSize', 'marginRight']);
 for (const p of revisar) {
   const lineas = leer(p).split('\n');
