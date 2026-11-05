@@ -42,6 +42,7 @@ npm run verificar
 - `js/automatas.js` — autómatas finitos (`VIZ.aut`): construcción, simulación, subconjuntos, minimización, producto, Thompson, KMP y dibujo de diagramas de transición.
 - `js/gramaticas.js` — gramáticas libres de contexto (`VIZ.gram`): derivaciones, árboles, ambigüedad, variables útiles, forma normal de Chomsky, CYK y dibujo de árboles.
 - `js/web.js` — tecnologías web (`VIZ.web`): diagramas de secuencia entre actores, cajas con texto y árboles de nodos para DOM y componentes.
+- `js/sisop.js` — sistemas operativos y redes (`VIZ.sor`): planificación de CPU (FCFS, SJF, SRTF, prioridades, Round Robin, MLFQ) con Gantt y métricas, reemplazo de páginas, planificación del brazo del disco, CRC y suma de verificación, direcciones IPv4, hash y cifrado de juguete, y diagramas de secuencia de protocolos.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
