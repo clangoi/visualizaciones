@@ -5399,6 +5399,362 @@ window.CATALOGO = (function () {
       ],
     },
     // </web12>
+    {
+      id: 'vis-fundamentos',
+      nombre: 'Fundamentos de la visualización de información',
+      descripcion: 'Qué es visualizar datos, cómo se pasa de una tabla a una imagen y qué papel cumplen HTML, CSS y JavaScript.',
+      etiquetas: ['visualizacion', 'web'],
+      temas: [
+        {
+          id: 'information-visualization',
+          titulo: 'Information Visualization',
+          resumen: 'Responda la misma pregunta con tabla y con barras, y descubra con el cuarteto de Anscombe qué esconden las estadísticas.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 38h32M6 38V8"/><rect x="11" y="24" width="5" height="14"/><rect x="19" y="14" width="5" height="24"/><rect x="27" y="20" width="5" height="18"/>'),
+        },
+        {
+          id: 'visual-mapping-pipeline',
+          titulo: 'Visual Mapping Pipeline',
+          resumen: 'Recorra de datos crudos a vista final y asigne atributos a posición, tamaño y color para ver cómo cambia la imagen.',
+          visualizaciones: 2,
+          glifo: g('<rect x="4" y="6" width="10" height="10"/><rect x="30" y="6" width="10" height="10"/><circle cx="22" cy="34" r="6"/><path d="M14 11h16M9 16l10 14M35 16L25 30"/>'),
+        },
+        {
+          id: 'html-css-js-layers',
+          titulo: 'HTML, CSS and JavaScript Layers',
+          resumen: 'Active estructura, estilo y programa por separado en un gráfico de barras y mida cuánto cuesta dibujar con DOM, SVG y canvas.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 10l16-6 16 6-16 6z"/><path d="M6 20l16 6 16-6"/><path d="M6 30l16 6 16-6"/>'),
+        },
+        {
+          id: 'dynamic-dom-manipulation',
+          titulo: 'Dynamic DOM Manipulation',
+          resumen: 'Agregue, quite y ordene barras reconstruyendo o actualizando el DOM, y siga la cadena evento, estado y dibujo.',
+          visualizaciones: 2,
+          glifo: g('<rect x="14" y="4" width="16" height="8"/><rect x="4" y="30" width="14" height="8"/><rect x="26" y="30" width="14" height="8"/><path d="M22 12v8M11 30v-6h22v6" /><path d="M36 14l4 4-4 4" stroke-dasharray="2 2"/>'),
+        },
+      ],
+    },
+    // </vis1>
+    {
+      id: 'vis-svg',
+      nombre: 'Gráficos vectoriales con SVG',
+      descripcion: 'Coordenadas, formas, trazados, transformaciones y animación: el lenguaje con que se dibujan muchas visualizaciones web.',
+      etiquetas: ['visualizacion', 'web'],
+      temas: [
+        {
+          id: 'svg-coordinates-viewbox',
+          titulo: 'SVG Coordinates and viewBox',
+          resumen: 'Cambie el viewBox para acercar y desplazar una escena, y vea por qué el eje y apunta hacia abajo.',
+          visualizaciones: 2,
+          glifo: g('<rect x="6" y="6" width="32" height="32"/><path d="M6 6l14 14M6 6h8M6 6v8"/><rect x="20" y="20" width="18" height="18" stroke-dasharray="3 2"/>'),
+        },
+        {
+          id: 'svg-shapes-attributes',
+          titulo: 'SVG Shapes and Attributes',
+          resumen: 'Construya rectángulos, círculos y polígonos con sus atributos, y reordene capas con distintos tipos de opacidad.',
+          visualizaciones: 2,
+          glifo: g('<rect x="5" y="9" width="18" height="18"/><circle cx="29" cy="15" r="9"/><path d="M12 38l7-8 7 8z"/>'),
+        },
+        {
+          id: 'svg-paths-curves',
+          titulo: 'SVG Paths and Bézier Curves',
+          resumen: 'Arrastre puntos de control de curvas de Bézier, vea su construcción con De Casteljau y recorra los cuatro arcos.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 36C10 6 34 6 38 36"/><circle cx="6" cy="36" r="2.5"/><circle cx="38" cy="36" r="2.5"/><path d="M6 36L12 12M38 36L32 12" stroke-dasharray="2 3"/>'),
+        },
+        {
+          id: 'svg-transforms-groups',
+          titulo: 'SVG Transforms and Groups',
+          resumen: 'Combine translate, rotate y scale, invierta su orden y mueva el área de un gráfico con la convención de márgenes.',
+          visualizaciones: 2,
+          glifo: g('<rect x="6" y="22" width="14" height="10" stroke-dasharray="2 2"/><rect x="18" y="8" width="14" height="10" transform="rotate(25 25 13)"/><path d="M13 22c0-8 4-10 10-10"/><path d="M21 10l3 2-3 2"/>'),
+        },
+        {
+          id: 'svg-animation',
+          titulo: 'SVG Animation',
+          resumen: 'Compare curvas de aceleración al mover una marca y haga crecer barras en cascada con retardo ajustable.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="10" cy="22" r="4"/><circle cx="22" cy="22" r="4" stroke-dasharray="2 2"/><circle cx="34" cy="22" r="4" stroke-dasharray="1 3"/><path d="M6 36C16 36 20 30 38 30" stroke-dasharray="2 3"/>'),
+        },
+      ],
+    },
+    // </vis2>
+    {
+      id: 'vis-d3',
+      nombre: 'Visualización de datos con D3.js',
+      descripcion: 'Data joins, escalas, generadores de formas, transiciones y simulaciones de fuerzas, reconstruidos paso a paso.',
+      etiquetas: ['visualizacion', 'web'],
+      temas: [
+        {
+          id: 'd3-data-join',
+          titulo: 'D3 Data Join',
+          resumen: 'Empareje datos con elementos por índice o por clave y vea cuáles entran, se actualizan o salen de un gráfico SVG.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="10" cy="10" r="4"/><circle cx="22" cy="10" r="4"/><circle cx="34" cy="10" r="4"/><rect x="6" y="30" width="8" height="8"/><rect x="18" y="30" width="8" height="8"/><path d="M10 14v16M22 14v16" /><path d="M34 14v8" stroke-dasharray="2 2"/>'),
+        },
+        {
+          id: 'd3-scales-axes',
+          titulo: 'D3 Scales and Axes',
+          resumen: 'Siga un valor desde el dominio hasta el píxel con escalas lineales, de raíz y logarítmicas, y reparta bandas para categorías.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 12h32M6 32h32"/><path d="M10 9v6M22 9v6M34 9v6M10 29v6M22 29v6M34 29v6"/><path d="M16 15l-4 14M24 15l6 14" stroke-dasharray="2 2"/>'),
+        },
+        {
+          id: 'd3-shape-generators',
+          titulo: 'D3 Line and Area Generators',
+          resumen: 'Compare cinco tipos de curva en una línea, vea el sobreimpulso y alterne entre áreas apiladas, normalizadas y centradas.',
+          visualizaciones: 2,
+          glifo: g('<path d="M4 36C10 30 12 14 20 18S30 32 40 8"/><path d="M4 36h36" stroke-dasharray="2 3"/><path d="M4 36C10 30 12 14 20 18S30 32 40 8V36z" fill="currentColor" fill-opacity=".12" stroke="none"/>'),
+        },
+        {
+          id: 'd3-transitions-interpolation',
+          titulo: 'D3 Transitions and Interpolation',
+          resumen: 'Interpole números, colores, listas y formas con un mismo parámetro y compare emparejar por clave o por índice.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="8" cy="22" r="4"/><circle cx="22" cy="22" r="4" stroke-dasharray="2 2"/><circle cx="36" cy="22" r="6"/><path d="M12 22h6M26 22h4"/>'),
+        },
+        {
+          id: 'd3-force-simulation',
+          titulo: 'D3 Force Simulation',
+          resumen: 'Arrastre nodos de un grafo que se acomoda con fuerzas de carga, enlace y centro, y agrupe burbujas con colisión.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="22" cy="22" r="4"/><circle cx="8" cy="10" r="3"/><circle cx="36" cy="12" r="3"/><circle cx="10" cy="36" r="3"/><circle cx="35" cy="35" r="3"/><path d="M10 12l10 8M34 14l-9 6M12 34l8-8M33 33l-8-8"/>'),
+        },
+      ],
+    },
+    // </vis3>
+    {
+      id: 'vis-dashboards',
+      nombre: 'Dashboards y reportes con Looker Studio',
+      descripcion: 'Dimensiones y métricas, filtros, comparaciones de períodos y diseño de paneles para comunicar resultados.',
+      etiquetas: ['visualizacion', 'sistemas-info'],
+      temas: [
+        {
+          id: 'dimensions-metrics',
+          titulo: 'Dimensions and Metrics',
+          resumen: 'Corte una tabla de ventas por dimensión, agregue una métrica y compruebe por qué no se promedian razones fila a fila.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 38V8M6 38h32"/><path d="M12 32h6M12 24h14M12 16h22"/>'),
+        },
+        {
+          id: 'dashboard-filters-controls',
+          titulo: 'Dashboard Filters and Controls',
+          resumen: 'Filtre un tablero por región, categoría y meses, haga filtro cruzado con un clic y compare con un período anterior.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 8h32l-12 14v14l-8-4V22z"/>'),
+        },
+        {
+          id: 'dashboard-layout-design',
+          titulo: 'Dashboard Layout Design',
+          resumen: 'Organice indicadores, tendencia, comparación y detalle en una rejilla y compare un orden jerárquico con uno sin criterio.',
+          visualizaciones: 1,
+          glifo: g('<rect x="5" y="6" width="34" height="6"/><rect x="5" y="16" width="10" height="10"/><rect x="18" y="16" width="21" height="10"/><rect x="5" y="30" width="34" height="8"/>'),
+        },
+      ],
+    },
+    // </vis4>
+    {
+      id: 'vis-modelo-anidado',
+      nombre: 'Modelo anidado de diseño y validación',
+      descripcion: 'Los cuatro niveles de decisión al diseñar una visualización y las amenazas y métodos de validación de cada uno.',
+      etiquetas: ['visualizacion'],
+      temas: [
+        {
+          id: 'munzner-nested-model',
+          titulo: 'Munzner’s Nested Model',
+          resumen: 'Recorra los cuatro niveles del modelo y siga un caso completo de dominio a algoritmo para ver cómo cada decisión depende de la anterior.',
+          visualizaciones: 2,
+          glifo: g('<rect x="4" y="4" width="36" height="36"/><rect x="9" y="9" width="26" height="26"/><rect x="14" y="14" width="16" height="16"/><rect x="19" y="19" width="6" height="6"/>'),
+        },
+        {
+          id: 'validation-threats',
+          titulo: 'Validation Threats',
+          resumen: 'Introduzca un error en un nivel y vea cómo invalida los inferiores; luego clasifique ocho escenarios según su amenaza.',
+          visualizaciones: 2,
+          glifo: g('<path d="M10 8h24M10 20h24M10 32h24"/><path d="M6 8l2 2 3-4M6 20l2 2 3-4"/><path d="M5 30l5 5M10 30l-5 5"/>'),
+        },
+      ],
+    },
+    // </vis5>
+    {
+      id: 'vis-marcas-canales',
+      nombre: 'Codificaciones elementales: marcas y canales',
+      descripcion: 'Los ladrillos de toda visualización: qué se dibuja (marcas) y con qué propiedad visual (canales), incluido el color.',
+      etiquetas: ['visualizacion'],
+      temas: [
+        {
+          id: 'marks-and-channels',
+          titulo: 'Marks and Channels',
+          resumen: 'Dibuje una misma serie con puntos, líneas, áreas y barras, y compare un valor en siete canales visuales.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="10" cy="32" r="3"/><path d="M6 14h14"/><rect x="26" y="8" width="12" height="12"/><path d="M24 36l6-8 6 8z"/>'),
+        },
+        {
+          id: 'color-channels-hsl',
+          titulo: 'Color Channels: Hue, Saturation, Luminance',
+          resumen: 'Varíe tono, saturación y luminosidad por separado y pruebe paletas con daltonismo y en escala de grises.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="22" cy="22" r="14"/><path d="M22 8v28M8 22h28" /><path d="M12 12l20 20" stroke-dasharray="2 3"/>'),
+        },
+      ],
+    },
+    // </vis6>
+    {
+      id: 'vis-percepcion',
+      nombre: 'Percepción humana y efectividad de las codificaciones',
+      descripcion: 'Qué canales se leen con precisión, qué salta a la vista sin buscar y cómo el cerebro agrupa lo que ve.',
+      etiquetas: ['visualizacion'],
+      temas: [
+        {
+          id: 'perceptual-accuracy',
+          titulo: 'Perceptual Accuracy',
+          resumen: 'Repita un experimento de estimación de razones con cuatro codificaciones y compare la subestimación de Stevens.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="22" cy="22" r="6"/><path d="M4 22c6-10 12-14 18-14s12 4 18 14c-6 10-12 14-18 14S10 32 4 22z"/>'),
+        },
+        {
+          id: 'preattentive-processing',
+          titulo: 'Preattentive Processing',
+          resumen: 'Cronometre su búsqueda de la marca distinta con uno o dos rasgos y recorra seis rasgos que saltan a la vista.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="8" cy="10" r="3"/><circle cx="20" cy="10" r="3"/><circle cx="32" cy="10" r="3"/><circle cx="8" cy="22" r="3"/><circle cx="20" cy="22" r="5" fill="currentColor"/><circle cx="32" cy="22" r="3"/><circle cx="8" cy="34" r="3"/><circle cx="20" cy="34" r="3"/><circle cx="32" cy="34" r="3"/>'),
+        },
+        {
+          id: 'gestalt-grouping',
+          titulo: 'Gestalt Grouping Principles',
+          resumen: 'Aplique proximidad, similitud, conexión, encierro, cierre y continuidad a una rejilla y a un gráfico de dispersión.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/><circle cx="30" cy="12" r="3"/><circle cx="38" cy="12" r="3"/><circle cx="8" cy="32" r="3"/><circle cx="16" cy="32" r="3"/><circle cx="30" cy="32" r="3"/><circle cx="38" cy="32" r="3"/><rect x="4" y="6" width="16" height="12" stroke-dasharray="2 2"/>'),
+        },
+      ],
+    },
+    // </vis7>
+    {
+      id: 'vis-abstraccion-tareas',
+      nombre: 'Abstracción de datos y tareas de análisis',
+      descripcion: 'Qué clases de datos y qué tareas genéricas hay detrás de cada problema, antes de elegir cómo dibujarlo.',
+      etiquetas: ['visualizacion'],
+      temas: [
+        {
+          id: 'data-types-attributes',
+          titulo: 'Data Types and Attributes',
+          resumen: 'Clasifique siete atributos como categóricos, ordinales o cuantitativos y compruebe por qué la razón no vale en °C.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 8h32M6 18h32M6 28h32M6 38h32M16 8v30M28 8v30"/>'),
+        },
+        {
+          id: 'dataset-types',
+          titulo: 'Dataset Types',
+          resumen: 'Vea las mismas estaciones como tabla, red y mapa, y explore los grados y componentes de una red al filtrar enlaces.',
+          visualizaciones: 2,
+          glifo: g('<rect x="4" y="6" width="14" height="14"/><circle cx="32" cy="12" r="3"/><circle cx="26" cy="32" r="3"/><circle cx="38" cy="30" r="3"/><path d="M31 15l-4 14M34 14l3 13M29 32h6"/>'),
+        },
+        {
+          id: 'analysis-tasks',
+          titulo: 'Analysis Tasks',
+          resumen: 'Distinga lookup, locate, browse y explore según lo que se conoce, y resuelva consultas de identificar, comparar y resumir.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="19" cy="19" r="11"/><path d="M27 27l11 11"/><path d="M14 19h10M19 14v10"/>'),
+        },
+      ],
+    },
+    // </vis8>
+    {
+      id: 'vis-codificaciones',
+      nombre: 'Codificaciones para tablas, redes y mapas',
+      descripcion: 'Histogramas, mapas de calor, matrices, diagramas de nodos y enlaces, layouts de grafos y mapas, y cómo elegir entre ellos.',
+      etiquetas: ['visualizacion'],
+      temas: [
+        {
+          id: 'histogram-bins',
+          titulo: 'Histograms and Bin Width',
+          resumen: 'Cambie la regla de intervalos y el ancho de banda de la densidad para ver cuándo una distribución bimodal aparece o se esconde.',
+          visualizaciones: 2,
+          glifo: g('<path d="M4 38h36"/><rect x="6" y="28" width="6" height="10"/><rect x="12" y="18" width="6" height="20"/><rect x="18" y="10" width="6" height="28"/><rect x="24" y="16" width="6" height="22"/><rect x="30" y="26" width="6" height="12"/>'),
+        },
+        {
+          id: 'heatmap-matrix',
+          titulo: 'Heatmaps and Matrices',
+          resumen: 'Pinte una tabla de ventas con distintas rampas y normalizaciones, y reordene una matriz de correlación hasta ver bloques.',
+          visualizaciones: 2,
+          glifo: g('<rect x="6" y="6" width="10" height="10" fill="currentColor" fill-opacity=".8"/><rect x="17" y="6" width="10" height="10" fill="currentColor" fill-opacity=".3"/><rect x="28" y="6" width="10" height="10" fill="currentColor" fill-opacity=".5"/><rect x="6" y="17" width="10" height="10" fill="currentColor" fill-opacity=".2"/><rect x="17" y="17" width="10" height="10" fill="currentColor" fill-opacity=".9"/><rect x="28" y="17" width="10" height="10" fill="currentColor" fill-opacity=".4"/><rect x="6" y="28" width="10" height="10" fill="currentColor" fill-opacity=".6"/><rect x="17" y="28" width="10" height="10" fill="currentColor" fill-opacity=".2"/><rect x="28" y="28" width="10" height="10" fill="currentColor" fill-opacity=".7"/>'),
+        },
+        {
+          id: 'node-link-vs-matrix',
+          titulo: 'Node-Link Diagrams versus Matrices',
+          resumen: 'Dibuje la misma red como nodos y enlaces y como matriz de adyacencia, suba la densidad y ordene la matriz por comunidades.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="10" cy="12" r="3"/><circle cx="22" cy="8" r="3"/><circle cx="14" cy="24" r="3"/><path d="M12 14l1 7M13 11l6-2M24 11l-8 12"/><rect x="26" y="22" width="12" height="12"/><path d="M30 22v12M34 22v12M26 26h12M26 30h12"/>'),
+        },
+        {
+          id: 'graph-layouts',
+          titulo: 'Graph Layouts',
+          resumen: 'Compare layouts circular, de rejilla, al azar y por fuerzas por cruces y longitud, y vea un grafo dirigido por capas.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="22" cy="8" r="3"/><circle cx="10" cy="22" r="3"/><circle cx="34" cy="22" r="3"/><circle cx="22" cy="36" r="3"/><path d="M20 10l-8 10M24 10l8 10M12 24l8 10M32 24l-8 10"/>'),
+        },
+        {
+          id: 'choropleth-symbol-maps',
+          titulo: 'Choropleth and Symbol Maps',
+          resumen: 'Pinte regiones por conteo o por tasa, cambie los cortes de clase y compare símbolos proporcionales por área o por radio.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 10l12-4 10 4 10-4v26l-10 4-10-4-12 4z"/><path d="M18 6v26M28 10v26"/><circle cx="12" cy="22" r="3" fill="currentColor" fill-opacity=".4"/><circle cx="33" cy="24" r="4" fill="currentColor" fill-opacity=".4"/>'),
+        },
+        {
+          id: 'chart-selection',
+          titulo: 'Chart Selection by Data Structure',
+          resumen: 'Elija la estructura de los datos y la tarea para recibir la codificación recomendada, sus alternativas y qué evitar.',
+          visualizaciones: 1,
+          glifo: g('<path d="M6 38V8M6 38h32"/><path d="M10 30l8-8 6 4 12-14"/><circle cx="18" cy="22" r="2"/><circle cx="24" cy="26" r="2"/><circle cx="36" cy="12" r="2"/>'),
+        },
+      ],
+    },
+    // </vis9>
+    {
+      id: 'vis-interaccion',
+      nombre: 'Interacción, exploración y evaluación',
+      descripcion: 'Seleccionar, enlazar vistas, acercar, pedir detalle, filtrar y ordenar, y comprobar con usuarios que la visualización funciona.',
+      etiquetas: ['visualizacion'],
+      temas: [
+        {
+          id: 'brushing-linking',
+          titulo: 'Brushing and Linking',
+          resumen: 'Seleccione con un rectángulo en una dispersión o con un intervalo de tiempo y vea los mismos ítems destacados en otras vistas.',
+          visualizaciones: 2,
+          glifo: g('<rect x="4" y="8" width="16" height="16" stroke-dasharray="3 2"/><circle cx="9" cy="14" r="2"/><circle cx="15" cy="19" r="2"/><rect x="24" y="20" width="16" height="16"/><circle cx="29" cy="26" r="2"/><circle cx="35" cy="31" r="2"/><path d="M20 16h6M26 16v4" />'),
+        },
+        {
+          id: 'zoom-pan',
+          titulo: 'Zoom and Pan',
+          resumen: 'Acerque y desplace una nube de puntos con panorama y compare el zoom geométrico con el semántico.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="19" cy="19" r="11"/><path d="M27 27l11 11M14 19h10M19 14v10"/>'),
+        },
+        {
+          id: 'details-on-demand',
+          titulo: 'Details on Demand',
+          resumen: 'Resalte una serie entre catorce con tooltips y paneles, y recorra panorama, filtro y detalle sobre una tabla de ventas.',
+          visualizaciones: 2,
+          glifo: g('<path d="M6 30l8-8 6 4 10-12"/><rect x="24" y="22" width="16" height="12"/><path d="M27 26h10M27 30h6"/>'),
+        },
+        {
+          id: 'filter-sort-search',
+          titulo: 'Filtering, Sorting and Searching',
+          resumen: 'Combine filtro, orden y búsqueda sobre veinte ríos y compare escalas lineal, logarítmica y truncada del eje.',
+          visualizaciones: 2,
+          glifo: g('<path d="M5 8h34l-13 14v12l-8-4V22z"/><path d="M30 8v0"/>'),
+        },
+        {
+          id: 'usability-evaluation',
+          titulo: 'Usability Evaluation',
+          resumen: 'Corrija seis defectos de un gráfico y simule un estudio con usuarios para ver cuándo una diferencia deja de ser detectable.',
+          visualizaciones: 2,
+          glifo: g('<circle cx="22" cy="14" r="6"/><path d="M10 38c0-8 5-12 12-12s12 4 12 12"/><path d="M30 8l4-4M34 12l4-2"/>'),
+        },
+      ],
+    },
+    // </vis10>
   ];
 
   // Lista plana con referencias a la sección, útil para navegación.

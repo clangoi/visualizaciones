@@ -41,6 +41,7 @@ npm run verificar
 - `js/sistemasinfo.js` — sistemas de información (`VIZ.si`): series y tablas de hechos de ventas simuladas, agrupaciones y tablas dinámicas tipo OLAP, VPN, TIR y plazo de recuperación, matriz de riesgo, disponibilidad en serie y paralelo, colas M/M/c, ruta crítica (CPM), sprints de Scrum y cadena de suministro con efecto látigo.
 - `js/web.js` — tecnologías web (`VIZ.web`): diagramas de secuencia entre actores, cajas con texto y árboles de nodos para DOM y componentes.
 - `js/sisop.js` — sistemas operativos y redes (`VIZ.sor`): planificación de CPU (FCFS, SJF, SRTF, prioridades, Round Robin, MLFQ) con Gantt y métricas, reemplazo de páginas, planificación del brazo del disco, CRC y suma de verificación, direcciones IPv4, hash y cifrado de juguete, y diagramas de secuencia de protocolos.
+- `js/visual.js` — visualización de la información (`VIZ.vis`): escalas lineales, datos sintéticos reproducibles (nubes, series, tabla de ventas), gráfico de barras sobre canvas con áreas de impacto, elementos SVG (`V.svg`, `V.lienzoSvg`) y una simulación de fuerzas al estilo de d3-force.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema

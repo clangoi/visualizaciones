@@ -677,6 +677,23 @@ a.etiqueta { color: inherit; text-decoration: none; }
 
 .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
+/* ---------- Demos con DOM real (temas de visualización) ---------- */
+.demo-dom { border: 1px solid var(--linea); background: var(--fondo); padding: 10px 12px; margin-top: 12px; font-size: 13px; overflow: hidden; }
+.demo-dom .fila { display: grid; grid-template-columns: 84px 1fr; align-items: center; gap: 8px; padding: 2px 0; }
+.demo-dom .fila > span { font-family: var(--mono); font-size: 12px; color: var(--tinta-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.demo-dom .barra { height: 16px; border-radius: 0 4px 4px 0; background: var(--serie-1); color: var(--fondo); font-family: var(--mono); font-size: 11px; line-height: 16px; padding-right: 4px; text-align: right; min-width: 2px; transition: width 0.25s; }
+.demo-dom.sin-estilo .fila { display: block; }
+.demo-dom.sin-estilo .barra { display: inline; background: none; color: var(--tinta); height: auto; padding: 0; text-align: left; }
+.demo-dom.sin-estilo .barra::before { content: ": "; }
+.demo-dom .nuevo { outline: 2px solid var(--serie-2); outline-offset: 1px; }
+.lienzo-svg { border: 1px solid var(--linea); background: var(--fondo); margin-top: 12px; overflow: hidden; }
+.lienzo-svg svg { display: block; width: 100%; height: auto; touch-action: none; }
+.lienzo-svg text { font-family: var(--mono); font-size: 10px; fill: var(--tinta-2); }
+.lienzo-svg .arrastrable { cursor: grab; }
+.lienzo-svg .arrastrable:active { cursor: grabbing; }
+.codigo-viz { font-family: var(--mono); font-size: 12px; line-height: 1.6; background: var(--fondo-2); border: 1px solid var(--linea); padding: 8px 12px; margin: 12px 0 0; white-space: pre; overflow-x: auto; max-height: 220px; overflow-y: auto; }
+.codigo-viz .nuevo { background: color-mix(in srgb, var(--serie-2) 20%, transparent); }
+
 /* ---------- Adaptación a pantallas pequeñas ---------- */
 
 @media (max-width: 920px) {
