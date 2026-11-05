@@ -43,6 +43,7 @@ npm run verificar
 - `js/gramaticas.js` — gramáticas libres de contexto (`VIZ.gram`): derivaciones, árboles, ambigüedad, variables útiles, forma normal de Chomsky, CYK y dibujo de árboles.
 - `js/web.js` — tecnologías web (`VIZ.web`): diagramas de secuencia entre actores, cajas con texto y árboles de nodos para DOM y componentes.
 - `js/sisop.js` — sistemas operativos y redes (`VIZ.sor`): planificación de CPU (FCFS, SJF, SRTF, prioridades, Round Robin, MLFQ) con Gantt y métricas, reemplazo de páginas, planificación del brazo del disco, CRC y suma de verificación, direcciones IPv4, hash y cifrado de juguete, y diagramas de secuencia de protocolos.
+- `js/visual.js` — visualización de la información (`VIZ.vis`): escalas lineales, datos sintéticos reproducibles (nubes, series, tabla de ventas), gráfico de barras sobre canvas con áreas de impacto, elementos SVG (`V.svg`, `V.lienzoSvg`) y una simulación de fuerzas al estilo de d3-force.
 - `temas/*.js` — un archivo por tema.
 
 ## Añadir un tema
