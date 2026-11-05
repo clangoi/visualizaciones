@@ -39,6 +39,8 @@ npm run verificar
 - `js/procesos.js` — minería de procesos (`VIZ.proc`): árboles de procesos y simulación de registros de eventos, variantes, grafos de sucesión directa, matriz de huellas, algoritmo Alfa, redes de Petri con reproducción de fichas, disposición por capas y dibujo de redes y grafos de procesos.
 - `js/optimizacion.js` — optimización (`VIZ.opt`): polígono factible y vértices en 2-D, Simplex en tableau paso a paso con duales, LP general por Big-M, ramificación y acotamiento, mochila, flujos máximo y de costo mínimo, derivadas numéricas, valores propios, Newton y Lagrangiano aumentado con multiplicadores.
 - `js/sistemasinfo.js` — sistemas de información (`VIZ.si`): series y tablas de hechos de ventas simuladas, agrupaciones y tablas dinámicas tipo OLAP, VPN, TIR y plazo de recuperación, matriz de riesgo, disponibilidad en serie y paralelo, colas M/M/c, ruta crítica (CPM), sprints de Scrum y cadena de suministro con efecto látigo.
+- `js/automatas.js` — autómatas finitos (`VIZ.aut`): construcción, simulación, subconjuntos, minimización, producto, Thompson, KMP y dibujo de diagramas de transición.
+- `js/gramaticas.js` — gramáticas libres de contexto (`VIZ.gram`): derivaciones, árboles, ambigüedad, variables útiles, forma normal de Chomsky, CYK y dibujo de árboles.
 - `js/web.js` — tecnologías web (`VIZ.web`): diagramas de secuencia entre actores, cajas con texto y árboles de nodos para DOM y componentes.
 - `temas/*.js` — un archivo por tema.
 
