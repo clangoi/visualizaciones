@@ -362,15 +362,33 @@
       <p>La respuesta depende de <strong>cómo se mide la distancia</strong>. Con distancias al cuadrado el óptimo es el centroide ponderado, que se deja arrastrar por los clientes lejanos.
       Con distancias euclidianas es la <em>mediana geométrica</em>, más robusta, que no tiene fórmula cerrada pero se calcula con el algoritmo de Weiszfeld. Con distancias
       manhattan (calles en cuadrícula) el problema se separa por coordenadas y el óptimo es la mediana ponderada de cada una.</p>`,
+    parametros: [
+      ['Métrica de distancia (Fig. 1)', String.raw`Forma de medir el costo del viaje: cambia la forma de las curvas de nivel y la ubicación del óptimo.`],
+      ['Un clic en vacío… (Fig. 1)', String.raw`Qué hace un clic en el plano: colocar la instalación de prueba o agregar un cliente.`],
+      ['Peso del cliente seleccionado (Fig. 1)', String.raw`Demanda del cliente; un peso grande atrae el óptimo hacia él.`],
+      ['Nuevos clientes, Quitar cliente, Instalación de prueba al óptimo (Fig. 1 y 2)', String.raw`Cambian los clientes, y colocan la prueba en el óptimo.`],
+      ['Método (Fig. 2)', String.raw`Weiszfeld o gradiente de paso fijo.`],
+      ['Paso η del gradiente (Fig. 2)', String.raw`Tamaño de paso del gradiente; muy grande oscila o diverge.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ubicar la instalación según la métrica',
         descripcion: 'Mueva clientes, cambie sus pesos y compare los tres óptimos (círculo, rombo y cuadrado). Arrastre la instalación de prueba y vea su costo frente al óptimo. Pruebe aumentar mucho el peso de un cliente: el óptimo euclidiano se pega a él y el manhattan salta a su coordenada.',
+        ayuda: String.raw`<p>Clientes (el número es su peso), la instalación de prueba arrastrable y las curvas de nivel del costo para la métrica elegida. Los óptimos de cada métrica se marcan con círculo, rombo y cuadrado.</p>
+          <ul>
+          <li><strong>Métrica</strong>: cambia las curvas de nivel y el óptimo.</li>
+          <li><strong>Peso</strong>: un peso grande mueve el óptimo hacia ese cliente.</li>
+          </ul>`,
         montar: montarUbicacion,
       },
       {
         titulo: 'Algoritmo de Weiszfeld y equilibrio de fuerzas',
         descripcion: 'Ejecute Weiszfeld paso a paso con los clientes de la figura 1. Las flechas amarillas son los tirones \\(w_i u_i\\) y la roja su suma, que se anula en el óptimo. Cambie a gradiente de paso fijo y suba \\(\\eta\\): el iterado oscila y no converge.',
+        ayuda: String.raw`<p>Arriba, clientes, trayectoria del método, tirones \(w_i u_i\) (amarillo) y su resultante, que es \(-\nabla f\). Abajo, el exceso \(f(x_k) - f^*\) por iteración.</p>
+          <ul>
+          <li><strong>Método</strong>: Weiszfeld converge sin elegir paso; el gradiente depende de η.</li>
+          <li><strong>Paso η</strong>: si es alto, el exceso oscila en lugar de bajar.</li>
+          </ul>`,
         montar: montarWeiszfeld,
       },
     ],

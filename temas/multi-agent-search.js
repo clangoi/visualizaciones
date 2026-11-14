@@ -347,15 +347,36 @@
       <p>El algoritmo <strong>minimax</strong> recorre el árbol de juego suponiendo que ambos juegan perfecto: MAX elige el mayor
       valor y MIN el menor. La <strong>poda alfa-beta</strong> obtiene el mismo resultado sin mirar ramas que no pueden influir en
       la decisión, y <strong>expectimax</strong> reemplaza al adversario por el azar (o por un rival que no es óptimo) promediando.</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Minimax (ambos jugadores juegan perfecto), poda alfa-beta (mismo resultado, menos hojas) o expectimax (el rival juega al azar y se usa el valor esperado).`],
+      ['Jugadas por turno b (Fig. 1)', String.raw`Cuántas jugadas tiene cada posición.`],
+      ['Profundidad (Fig. 1)', String.raw`Cuántos turnos tiene el árbol antes de llegar a posiciones finales.`],
+      ['Ordenar: mejor jugada primero (Fig. 1)', String.raw`Reordena las ramas para que la mejor se explore primero, el caso ideal para la poda alfa-beta.`],
+      ['Nuevos valores y reproductor (Fig. 1)', String.raw`Sortean otros valores en las hojas y controlan la animación.`],
+      ['La computadora empieza (Fig. 2)', String.raw`Si la primera jugada del gato es de la computadora (O) o suya (X).`],
+      ['Mostrar el valor de cada jugada (Fig. 2)', String.raw`Colorea las casillas libres según el resultado de jugar ahí con juego perfecto: ganar, empatar o perder.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Minimax, alfa-beta y expectimax',
         descripcion: 'Ejecute minimax y luego alfa-beta sobre los mismos valores: el valor de la raíz es idéntico, pero alfa-beta evalúa menos hojas. Active «mejor jugada primero» para ver la poda máxima.',
+        ayuda: String.raw`<p>Es un árbol de juego: △ son turnos de MAX, ▽ de MIN y ○ eventos al azar; los cuadrados son posiciones finales con su valor para MAX. Los valores suben desde las hojas: MAX toma el mayor de sus hijos, MIN el menor y el azar, el promedio. Amarillo: nodos en la pila; azul: valor ya calculado; naranja: la jugada elegida.</p>
+          <ul>
+          <li><strong>Minimax</strong> evalúa todas las hojas. <strong>Alfa-beta</strong> lleva una ventana \([\alpha, \beta]\) y corta (en rojo) las ramas que no pueden cambiar la decisión: el valor de la raíz es el mismo con menos «hojas evaluadas».</li>
+          <li><strong>Ordenar: mejor jugada primero</strong> lleva la poda a su máximo, cerca de la lectura «mejor caso alfa-beta».</li>
+          <li><strong>Expectimax</strong>: MIN se reemplaza por azar y el valor de la raíz suele subir, porque el rival ya no elige lo peor para MAX. Aquí no se puede podar.</li>
+          <li><strong>b</strong> y <strong>Profundidad</strong> agrandan el árbol: el número de hojas es \(b^D\).</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'Gato contra minimax',
         descripcion: 'La computadora explora el árbol completo del juego y nunca pierde. Compare cuántos nodos visitaría minimax puro y cuántos con poda alfa-beta.',
+        ayuda: String.raw`<p>Es un tablero de gato (tres en línea). Usted juega X con clics; la computadora juega O eligiendo la jugada que minimax considera mejor tras explorar todo el árbol que queda.</p>
+          <ul>
+          <li><strong>Mostrar el valor de cada jugada</strong>: verde, jugada con la que usted gana si sigue jugando perfecto; gris, lleva a empate; roja, pierde. Con juego perfecto de ambos, el gato siempre es empate.</li>
+          <li><strong>La computadora empieza</strong>: el árbol inicial es más grande; compare «minimax: nodos» con «alfa-beta: nodos» y el porcentaje de ahorro.</li>
+          </ul>`,
         montar: montarGato,
       },
     ],

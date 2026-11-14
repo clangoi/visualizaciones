@@ -279,15 +279,34 @@
       Esas decisiones cambian el resultado: el mismo sistema da registros distintos según se mire por pedido, por factura o por envío.</p>
       <p>Después viene la <strong>calidad</strong>: valores faltantes, duplicados, relojes desalineados entre sistemas y eventos fuera de orden. Cualquier modelo descubierto
       hereda sus errores, así que conviene detectar, limpiar y medir el efecto antes de modelar.</p>`,
+    parametros: [
+      ['Noción de caso (Case ID) (Fig. 1)', String.raw`Qué entidad define un caso (pedido, factura o envío). Cambia qué eventos se agrupan y cuáles se copian a varios casos o desaparecen.`],
+      ['Columnas activadas (Fig. 1)', String.raw`Casillas de columnas de las tablas relacionales que se usan para extraer eventos. Cada una aporta un tipo de evento al registro.`],
+      ['Reproductor y Nuevos datos (Fig. 1)', String.raw`Ejecutan la extracción columna por columna y generan otras tablas.`],
+      ['Actividades faltantes y Eventos duplicados (Fig. 2)', String.raw`Porcentaje de defectos inyectados: eventos sin registrar y eventos repetidos exactos.`],
+      ['Reloj de finanzas adelantado y Corrección aplicada (Fig. 2)', String.raw`El desfase del reloj de un sistema y el ajuste que se le aplica. Un desfase mal compensado invierte el orden de eventos entre sistemas.`],
+      ['Limpieza y Estimar corrección (Fig. 2)', String.raw`Activan eliminar duplicados exactos y descartar eventos sin actividad. «Estimar corrección» calcula el desfase del reloj a partir de los datos.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otro registro aleatorio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De tablas relacionales a eventos',
         descripcion: 'Ejecute la extracción columna por columna y cambie la noción de caso: con facturas o envíos como caso, los eventos del pedido se copian a cada caso y los pagos pendientes desaparecen.',
+        ayuda: String.raw`<p>A la izquierda están las tablas relacionales de origen y a la derecha el registro de eventos que se obtiene. Al avanzar, cada columna se convierte en eventos con caso, actividad y marca de tiempo.</p>
+          <ul>
+          <li><strong>Noción de caso (Case ID)</strong>: con facturas o envíos como caso, los eventos del pedido se copian a cada caso y los pagos pendientes desaparecen.</li>
+          <li><strong>Columnas activadas</strong>: quitar una columna elimina los eventos que aportaba y acorta las trazas.</li>
+          </ul>`,
         montar: montarExtraccion,
       },
       {
         titulo: 'Detectar y limpiar defectos',
         descripcion: 'Inyecte faltantes, duplicados y un reloj adelantado, y compare variantes y flechas espurias antes y después de limpiar. Use «Estimar corrección» para el reloj.',
+        ayuda: String.raw`<p>Compara el registro con defectos y el limpio mediante el número de variantes distintas y los pares sucesivos que el proceso real no tiene (flechas espurias).</p>
+          <ul>
+          <li><strong>Actividades faltantes</strong> y <strong>Eventos duplicados</strong>: aumentan las variantes y crean pares espurios; la limpieza los reduce.</li>
+          <li><strong>Reloj de finanzas adelantado</strong>: reordena eventos entre sistemas y produce flechas que no existen; <strong>Corrección aplicada</strong> igual al desfase las elimina.</li>
+          </ul>`,
         montar: montarCalidad,
       },
     ],

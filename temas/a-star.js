@@ -117,15 +117,34 @@
       estimación del costo de la mejor solución que pasa por \(s\).</p>
       <p>Si la heurística es admisible, A* encuentra siempre una solución óptima, y entre los algoritmos que garantizan eso con la
       misma información, ninguno expande menos nodos. Su punto débil es la memoria: guarda todo lo que genera.</p>`,
+    parametros: [
+      ['Heurística (Fig. 1)', String.raw`La estimación \(h\): línea recta (admisible), nula (A* se vuelve Dijkstra), el doble de la línea recta (inadmisible: puede sobrestimar) o la distancia exacta \(h^*\).`],
+      ['Vértices, Nuevo grafo y reproductor (Fig. 1)', String.raw`Tamaño del grafo, generar otro y controlar la animación.`],
+      ['Instancias por profundidad (Fig. 2)', String.raw`Cuántos puzzles al azar se promedian para cada longitud óptima. Más instancias, curvas más suaves pero cálculo más lento.`],
+      ['Nuevas instancias (Fig. 2)', String.raw`Sortea otros puzzles y recalcula.`],
+    ],
     visualizaciones: [
       {
         titulo: 'A* paso a paso',
         descripcion: 'Compare las cuatro heurísticas en el mismo grafo: con h = 0 la frontera crece en todas direcciones; con la heurística exacta, A* va directo a la meta; con la inadmisible puede devolver un camino más caro.',
+        ayuda: String.raw`<p>A* expande siempre el vértice de ABIERTA (amarillo) con menor \(f = g + h\): lo pagado más lo que se estima que falta. Los azules ya están expandidos (CERRADA). Bajo cada vértice se ven sus valores; el camino naranja es el resultado.</p>
+          <ul>
+          <li><strong>Nula</strong>: la frontera crece en círculos alrededor del inicio, como Dijkstra; expande mucho.</li>
+          <li><strong>Línea recta</strong>: la frontera se estira hacia la meta; el camino sigue siendo óptimo.</li>
+          <li><strong>Exacta</strong>: A* va derecho a la meta, expandiendo solo el camino óptimo. Es el ideal que ninguna heurística práctica alcanza.</li>
+          <li><strong>2 × línea recta</strong>: al sobrestimar, A* puede descartar el buen camino; compare «costo encontrado» con «costo óptimo».</li>
+          </ul>`,
         montar: montarPasoAPaso,
       },
       {
         titulo: 'La heurística decide el costo',
         descripcion: 'Nodos expandidos por A* en el 8-puzzle con cuatro heurísticas admisibles. Una mejor heurística no elimina el crecimiento exponencial, pero reduce su base \\(b^*\\).',
+        ayuda: String.raw`<p>El eje horizontal es la longitud óptima de la solución y el vertical (logarítmico), los nodos que expande A* en promedio. Una curva por heurística, todas admisibles: \(h = 0\), fichas fuera de lugar, Manhattan y Manhattan con conflictos lineales.</p>
+          <ul>
+          <li>Las curvas son rectas en escala logarítmica (crecimiento exponencial), pero con pendientes distintas: una heurística mejor baja la ramificación efectiva \(b^*\).</li>
+          <li>Las diferencias se multiplican con la profundidad: a 20 movimientos, la mejor heurística expande órdenes de magnitud menos que \(h = 0\).</li>
+          <li><strong>Instancias por profundidad</strong> solo reduce el ruido del promedio.</li>
+          </ul>`,
         montar: montarExpandidos,
       },
     ],

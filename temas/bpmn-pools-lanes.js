@@ -284,15 +284,33 @@
       Dentro de una piscina, los <strong>carriles</strong> (<em>lanes</em>) reparten las tareas entre roles o departamentos, por ejemplo Ventas, Finanzas y Bodega.</p>
       <p>La diferencia es clave: el trabajo que cambia de carril sigue siendo un solo flujo de <em>secuencia</em>, pero lo que cruza de una piscina a otra solo puede ser un <strong>mensaje</strong>.
       Cada traspaso, entre carriles o entre piscinas, es un lugar donde el caso espera, y esa espera se paga en tiempo.</p>`,
+    parametros: [
+      ['Espera por traspaso entre carriles (Fig. 1 y 2)', String.raw`Horas de espera cada vez que el trabajo pasa de un carril a otro dentro de una piscina.`],
+      ['Demora de un mensaje entre piscinas (Fig. 1 y 2)', String.raw`Horas que tarda un mensaje en llegar de una organización a otra.`],
+      ['Mostrar flujos de mensaje (Fig. 1)', String.raw`Dibuja u oculta las líneas discontinuas entre piscinas. Sin ellas cada piscina parece un proceso completo.`],
+      ['Carril de cada tarea (Fig. 2)', String.raw`Qué área ejecuta cada una de las cuatro tareas. Cada cambio de carril agrega una espera.`],
+      ['Todo en un carril y Diseño original (Fig. 2)', String.raw`Colocan todas las tareas en un solo carril o restauran la asignación inicial, para comparar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Colaboración entre tres participantes',
         descripcion: 'Avance tarea por tarea y distinga las líneas continuas (secuencia) de las discontinuas (mensajes). Apague los mensajes para ver que cada piscina, por sí sola, parece un proceso completo.',
+        ayuda: String.raw`<p>Tres participantes en piscinas, con carriles. Las líneas continuas son flujos de secuencia dentro de una piscina y las discontinuas, flujos de mensaje entre piscinas. Las tareas en curso se distinguen de las terminadas.</p>
+          <ul>
+          <li><strong>Mostrar flujos de mensaje</strong>: al apagarlos desaparecen las líneas discontinuas.</li>
+          <li><strong>Espera por traspaso</strong> y <strong>Demora de un mensaje</strong>: alargan el tiempo hasta que cada tarea comienza.</li>
+          </ul>`,
         montar: montarColaboracion,
       },
       {
         titulo: 'Cuánto cuestan los traspasos',
         descripcion: 'Mueva las cuatro tareas de la empresa entre carriles: cada cambio de carril agrega una espera. Compare su asignación con el diseño original y con «Todo en un carril», y suba la demora de los mensajes.',
+        ayuda: String.raw`<p>Eje horizontal: horas desde el pedido. Cada tarea se muestra como trabajo, con las esperas de traspaso entre carriles y de mensaje entre piscinas.</p>
+          <ul>
+          <li><strong>Carril de cada tarea</strong>: cada cambio de carril añade una espera de traspaso.</li>
+          <li><strong>Todo en un carril</strong>: elimina los traspasos y deja solo el trabajo.</li>
+          <li><strong>Demora de un mensaje</strong>: alarga el tiempo total por las comunicaciones entre piscinas.</li>
+          </ul>`,
         montar: montarTraspasos,
       },
     ],

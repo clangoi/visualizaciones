@@ -205,15 +205,32 @@
       <em>cuesta</em> hacerlo. Las intervenciones típicas son reducir esperas, automatizar una actividad y eliminar reprocesos.</p>
       <p>Con un modelo de proceso con tiempos y costos se puede simular cada intervención, medir el impacto en los KPIs y ordenar las opciones por ganancia frente a esfuerzo
       antes de tocar el proceso real.</p>`,
+    parametros: [
+      ['Intervenciones (casillas) (Fig. 1)', String.raw`Cada casilla es un cambio posible en el proceso. Marcarlas combina sus efectos sobre el ciclo, el costo, el SLA y los reprocesos.`],
+      ['SLA: ciclo máximo (Fig. 1)', String.raw`El tiempo máximo acordado por caso; cambia el KPI de cumplimiento, no el proceso en sí.`],
+      ['Nuevos casos (Fig. 1)', String.raw`Genera otra muestra simulada de 400 reclamos para ver la variación por azar.`],
+      ['Ganancia (Fig. 2)', String.raw`La métrica que se maximiza al elegir cartera: cambia el eje vertical y qué combinación resulta mejor.`],
+      ['Presupuesto de esfuerzo (Fig. 2)', String.raw`Los días-persona disponibles. Define la línea vertical y qué combinaciones son admisibles.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Simular intervenciones y medir el impacto',
         descripcion: 'Marque intervenciones y vea el efecto en ciclo, costo, SLA y reprocesos. Pruebe «priorizar la cola» solo y luego junto con la lista de verificación.',
+        ayuda: String.raw`<p>Cada barra es un KPI como porcentaje del estado actual. La barra gris es la situación actual (100 %), la verde mejora y la roja empeora; la línea gris marca 100 %.</p>
+          <ul>
+          <li><strong>Intervenciones</strong>: al marcar una, las barras de los KPI que afecta se mueven; al combinar dos sobre la misma espera, el efecto no es la suma.</li>
+          <li><strong>SLA</strong>: desplaza solo la barra de cumplimiento del acuerdo.</li>
+          </ul>`,
         montar: montarSimular,
       },
       {
         titulo: 'Ganancia frente a esfuerzo',
         descripcion: 'Las 64 combinaciones posibles y su frontera eficiente. Mueva el presupuesto para ver qué cartera conviene y cambie la métrica de ganancia.',
+        ayuda: String.raw`<p>Cada punto es una de las 64 combinaciones, con esfuerzo en el eje horizontal y ganancia en el vertical. Los puntos azules son intervenciones individuales, la línea naranja es la frontera eficiente y el punto verde, la mejor combinación dentro del presupuesto.</p>
+          <ul>
+          <li><strong>Presupuesto de esfuerzo</strong>: al moverlo, el punto verde salta a la mejor combinación que cabe a la izquierda de la línea vertical.</li>
+          <li><strong>Ganancia</strong>: cambiar la métrica reordena los puntos y puede cambiar la frontera y la cartera ganadora.</li>
+          </ul>`,
         montar: montarPortafolio,
       },
     ],

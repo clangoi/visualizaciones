@@ -120,15 +120,29 @@
       <p>La construcción por subconjuntos garantiza que un AFN con \(n\) estados se puede convertir en un AFD con a lo más \(2^n\). La pregunta natural es si esa explosión es real o solo una cota pesimista.
       Hay lenguajes, como «el \(n\)-ésimo símbolo desde el final es 1», para los que es <strong>inevitable</strong>: aunque el AFN tenga \(n+1\) estados, todo AFD necesita \(2^n\).</p>
       <p>Otros lenguajes, en cambio, determinizan sin costo. La figura 2 compara tres familias para ver qué las diferencia.</p>`,
+    parametros: [
+      ['n (Fig. 1)', String.raw`La posición contada desde el final que debe valer 1 («el n-ésimo símbolo desde el final es 1»). Subirla duplica los estados que un AFD debe recordar, \(2^n\).`],
+      ['Palabra binaria y Símbolos leídos (Fig. 1)', String.raw`La entrada y cuántos símbolos se han leído. Muestran qué ventana de los últimos n símbolos tiene el AFD y qué estados activos tiene el AFN.`],
+      ['Familia de lenguajes (Fig. 2)', String.raw`El tipo de lenguaje cuyos tamaños de autómata se comparan. Cada familia crece de forma distinta según el parámetro.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un AFD debe recordar una ventana',
         descripcion: 'Aumente n y avance sobre la palabra: el AFN solo cuenta, pero un AFD debe recordar los últimos n símbolos, de los que hay \\(2^n\\) posibilidades.',
+        ayuda: String.raw`<p>Se muestran los estados activos del AFN y, aparte, la ventana de los últimos n símbolos, que es el estado del AFD. Un resaltado distinto indica si la palabra acepta: el n-ésimo símbolo desde el final es 1.</p>
+          <ul>
+          <li><strong>n</strong>: el AFN solo necesita unos \(n+1\) estados, pero la ventana que debe recordar el AFD admite \(2^n\) valores.</li>
+          <li><strong>Símbolos leídos</strong>: al avanzar, la ventana se desplaza y entra el símbolo nuevo; el AFN conserva activos los estados que «adivinaron» bien la posición.</li>
+          </ul>`,
         montar: montarVentana,
       },
       {
         titulo: 'Tres familias, tres comportamientos',
         descripcion: 'Estados del AFN, del AFD por subconjuntos y del AFD mínimo según el parámetro. Pase el cursor para leer valores.',
+        ayuda: String.raw`<p>Gráfico de estados (eje vertical) según el parámetro de la familia. Compara tres series: los estados del AFN, los del AFD por subconjuntos y los del AFD mínimo.</p>
+          <ul>
+          <li><strong>Familia de lenguajes</strong>: en algunas familias el AFD crece exponencialmente mientras el AFN crece linealmente; en otras el mínimo coincide con el AFN o es menor, y la explosión no se da.</li>
+          </ul>`,
         montar: montarFamilias,
       },
     ],

@@ -101,9 +101,27 @@
     intro: String.raw`
       <p>Entrenar un buen modelo es la parte fácil de verificar; lo difícil empieza al <strong>desplegarlo</strong>. El mundo real no es el conjunto de prueba: los datos cambian con el tiempo (<em>deriva</em>), hay personas que intentan engañar al sistema, los datos de entrenamiento pueden filtrarse a través del modelo, y los errores tienen consecuencias para personas concretas.</p>
       <p>Esta página mira dos riesgos medibles. Primero, la <strong>privacidad</strong>: un modelo que memoriza sus datos de entrenamiento delata quién estuvo en ellos. Segundo, el <strong>cambio de distribución</strong>: un modelo que rinde bien en el laboratorio puede degradarse en silencio al cambiar la población que atiende.</p>`,
+    parametros: [
+      ['Neuronas por capa (capacidad) (Fig. 1)', String.raw`Qué tan flexible es el modelo. Mayor capacidad le permite memorizar los datos de entrenamiento y delatarlos.`],
+      ['Regularización L2 (Fig. 1)', String.raw`Penaliza los pesos grandes y reduce la memorización, por lo que el modelo filtra menos sobre sus datos de entrenamiento.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Nuevos datos genera otro conjunto; el reproductor entrena época por época, o reinicia.`],
+      ['Tipo de cambio (Fig. 2)', String.raw`Cómo se modifican los datos de entrada: se desplazan, son más ruidosos o giran.`],
+      ['Magnitud del cambio (Fig. 2)', String.raw`Qué tanto se alejan los datos de los de entrenamiento.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un modelo que memoriza delata a sus datos', descripcion: 'Aumente la capacidad y las épocas y vea cómo se separan las pérdidas de miembros y no miembros. Active L2 y compare.', montar: montarMembresia },
-      { titulo: 'Cuando los datos cambian', descripcion: 'Desplace, ensucie o gire los datos y compare la exactitud con la confianza que declara el modelo.', montar: montarDeriva },
+      { titulo: 'Un modelo que memoriza delata a sus datos', descripcion: 'Aumente la capacidad y las épocas y vea cómo se separan las pérdidas de miembros y no miembros. Active L2 y compare.',
+        ayuda: String.raw`<p>Arriba, histogramas de la pérdida del modelo en datos de entrenamiento («miembros») y en datos que no vio. Abajo, la exactitud del adversario que adivina si un ejemplo estaba en el entrenamiento, con el azar (50 %) como referencia.</p>
+          <ul>
+          <li><strong>Neuronas por capa</strong>: con más capacidad y más épocas, las pérdidas de miembros y no miembros se separan y el adversario supera el 50 %.</li>
+          <li><strong>Regularización L2</strong>: al activarla, las dos distribuciones se acercan y el adversario vuelve hacia el azar.</li>
+          </ul>`, montar: montarMembresia },
+      { titulo: 'Cuando los datos cambian', descripcion: 'Desplace, ensucie o gire los datos y compare la exactitud con la confianza que declara el modelo.',
+        ayuda: String.raw`<p>A la izquierda, el plano (x₁, …) con las regiones de cada clase y los datos cambiados. A la derecha, dos curvas según la magnitud: la exactitud real y la confianza media del modelo, que es lo único que se puede medir sin etiquetas.</p>
+          <ul>
+          <li><strong>Magnitud del cambio</strong>: al subirla, la exactitud real cae.</li>
+          <li>Si la confianza media no baja a la par, el modelo sigue seguro aunque se equivoque.</li>
+          <li><strong>Tipo de cambio</strong>: cada uno degrada la exactitud de forma distinta.</li>
+          </ul>`, montar: montarDeriva },
     ],
     teoria: String.raw`
       <h2>Privacidad</h2>

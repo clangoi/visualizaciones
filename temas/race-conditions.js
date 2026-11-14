@@ -102,9 +102,25 @@
     intro: String.raw`
       <p>Cuando dos hilos leen y escriben el mismo dato sin coordinarse, el resultado depende del orden exacto en que el planificador intercala sus instrucciones: es una <strong>condición de carrera</strong>. Lo traicionero es que el programa a veces funciona y a veces no, y los errores desaparecen al depurar.</p>
       <p>El ejemplo mínimo es <code>contador++</code>, que parece una sola operación pero son tres: leer, sumar, escribir. Si dos hilos intercalan esos pasos, un incremento se pierde.</p>`,
+    parametros: [
+      ['Avanza A, Avanza B, Intercalado al azar y Reiniciar (Fig. 1)', String.raw`Cada botón ejecuta la siguiente instrucción (leer, sumar o escribir) del hilo indicado, o varias al azar. El orden en que se intercalan decide si se pierde una actualización.`],
+      ['Hilos (Fig. 2)', String.raw`Cuántos hilos incrementan el mismo contador sin sincronización. Más hilos, más oportunidades de intercalado malo.`],
+      ['Incrementos por hilo (Fig. 2)', String.raw`Cuántas veces incrementa cada hilo. El resultado correcto es hilos por incrementos.`],
+      ['Otras 500 ejecuciones (Fig. 2)', String.raw`Repite el experimento con otros intercalados al azar; muestra que el resultado varía de una ejecución a otra.`],
+    ],
     visualizaciones: [
-      { titulo: 'Dos hilos, un contador', descripcion: 'Avance A y B a mano. Pruebe «A lee, B lee, A escribe, B escribe» para provocar la pérdida; luego use el intercalado al azar.', montar: montarManual },
-      { titulo: 'Qué tan frecuente es el error', descripcion: 'Con más hilos e incrementos casi nunca se obtiene el valor correcto, y el error es impredecible de una ejecución a otra.', montar: montarDistribucion },
+      { titulo: 'Dos hilos, un contador', descripcion: 'Avance A y B a mano. Pruebe «A lee, B lee, A escribe, B escribe» para provocar la pérdida; luego use el intercalado al azar.',
+        ayuda: String.raw`<p>Cada hilo (A, B) ejecuta tres pasos sobre el contador compartido: leer, sumar uno y escribir. Un marcador señala una actualización perdida, cuando un hilo escribe un valor calculado con una lectura ya vieja.</p>
+          <ul>
+          <li><strong>Avanza A</strong> y <strong>Avanza B</strong>: con A lee, B lee, A escribe, B escribe, ambos parten del mismo valor y el contador sube solo 1 en vez de 2.</li>
+          <li><strong>Intercalado al azar</strong>: mezcla los pasos; el resultado final correcto o equivocado depende del azar.</li>
+          </ul>`, montar: montarManual },
+      { titulo: 'Qué tan frecuente es el error', descripcion: 'Con más hilos e incrementos casi nunca se obtiene el valor correcto, y el error es impredecible de una ejecución a otra.',
+        ayuda: String.raw`<p>Histograma: el eje horizontal es el valor final del contador y el vertical, la frecuencia entre 500 ejecuciones. La barra oscura es el valor correcto (hilos por incrementos); las demás son resultados con actualizaciones perdidas.</p>
+          <ul>
+          <li><strong>Hilos</strong> e <strong>Incrementos por hilo</strong>: al subirlos el valor correcto queda más lejos y casi ninguna ejecución lo alcanza; la distribución se ensancha hacia valores menores.</li>
+          <li><strong>Otras 500 ejecuciones</strong>: la forma cambia un poco, así que el error es impredecible.</li>
+          </ul>`, montar: montarDistribucion },
     ],
     teoria: String.raw`
       <h2>Sección crítica</h2>

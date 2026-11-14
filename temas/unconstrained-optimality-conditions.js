@@ -389,15 +389,32 @@
       <p>Hay una zona gris: cuando la Hessiana es singular, la prueba puede no concluir. Los ejemplos clásicos \(x^4\) y \(x^3\) tienen la misma
       Hessiana en el origen y, sin embargo, uno es un mínimo y el otro no. La primera figura enfrenta cada condición con lo que f hace realmente
       alrededor del punto; la segunda muestra el método de Newton, que busca precisamente los puntos donde \(\nabla f=0\).</p>`,
+    parametros: [
+      ['Caso (Fig. 1)', String.raw`Función de prueba con su punto estacionario; algunos casos tienen Hessiana singular.`],
+      ['Radio r del anillo de prueba (Fig. 1)', String.raw`Distancia a la que se muestrea alrededor de p. Si es muy grande, deja de reflejar el comportamiento local.`],
+      ['Volver al punto estacionario (Fig. 1)', String.raw`Devuelve el punto de prueba a donde \(\nabla f = 0\).`],
+      ['Función (Fig. 2)', String.raw`Función a la que se aplica Newton.`],
+      ['Método (Fig. 2)', String.raw`Newton puro o regularizado; el regularizado impone dirección de descenso.`],
+      ['Punto inicial (Fig. 2)', String.raw`Devuelve el iterado a su inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Condiciones necesarias y suficientes frente a la realidad',
         descripcion: 'La lista de verificación evalúa las tres condiciones en \\(p\\); el anillo de puntos muestra si f sube o baja alrededor. Compare «\\(x^4 + y^2\\)» con «\\(x^3 + y^2\\)»: misma Hessiana singular, resultados opuestos. Haga clic en el mapa para mover \\(p\\) fuera del origen.',
+        ayuda: String.raw`<p>Anillo de puntos alrededor de p: sube, baja o igual que f(p). A su lado, la lista de condiciones y, abajo, \(\Delta f(\varphi)\) en función del ángulo.</p>
+          <ul>
+          <li><strong>Caso</strong>: con Hessiana singular, las condiciones suficientes no deciden y el anillo muestra el comportamiento real.</li>
+          <li><strong>Radio r</strong>: determina si el anillo ve el comportamiento local o ya efectos de orden mayor.</li>
+          </ul>`,
         montar: montarCondiciones,
       },
       {
         titulo: 'Newton como búsqueda de ∇f = 0',
         descripcion: 'Ejecute Newton paso a paso y observe dónde termina. En «\\(x^3 - 3x + y^2\\)» empiece cerca de \\((-1, 0)\\): el método puro converge a una silla. Cambie al método regularizado, que impone dirección de descenso, y compare cómo cae \\(\\|\\nabla f\\|\\).',
+        ayuda: String.raw`<p>Arriba, las iteraciones sobre las curvas de nivel: el paso baja o sube f. Abajo, \(\|\nabla f(x_k)\|\) en cada iteración.</p>
+          <ul>
+          <li><strong>Método</strong>: Newton puro puede ir a una silla o máximo con pasos que suben f; el regularizado baja siempre.</li>
+          </ul>`,
         montar: montarNewton,
       },
     ],

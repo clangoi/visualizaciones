@@ -95,15 +95,30 @@
       <p>Una <strong>proposición</strong> es una oración que es verdadera o falsa, pero no ambas: «llueve», «7 es primo». Con <strong>conectivos</strong> se arman proposiciones más grandes: «llueve <em>y</em> hace frío»,
       «<em>si</em> llueve <em>entonces</em> me mojo». Lo único que importa de una proposición compuesta es su valor de verdad, y este depende solo de los valores de las partes.</p>
       <p>La lógica proposicional deja de lado el contenido de las oraciones y se queda con ese esqueleto: variables \(p, q, r, \dots\) que valen V o F, y los conectivos \(\neg,\ \land,\ \lor,\ \to,\ \leftrightarrow\).</p>`,
+    parametros: [
+      ['Conectivo (Fig. 1)', String.raw`Qué operación lógica se muestra (negación, conjunción, implicación, etc.). Cada una define una columna distinta de la tabla.`],
+      ['Valores de p y q (Fig. 1)', String.raw`Los valores de entrada de la operación; la tabla resalta la fila que corresponde.`],
+      ['Oración, fórmula y Mostrar una respuesta (Fig. 2)', String.raw`La oración en español que se traduce y la fórmula propuesta con \(p\) y \(q\); la respuesta muestra una traducción correcta.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cada conectivo con su tabla de verdad',
         descripcion: 'Elija un conectivo y cambie los valores de \\(p\\) y \\(q\\). Preste atención a la implicación: es falsa en una sola fila.',
+        ayuda: String.raw`<p>Se dibuja el conectivo con sus entradas y su salida: verdadero (V) o falso (F). La tabla de verdad lista las cuatro combinaciones de \(p\) y \(q\).</p>
+          <ul>
+          <li><strong>Conectivo</strong>: cambia la columna de salida de la tabla.</li>
+          <li><strong>p y q</strong>: seleccionan la fila; en la implicación solo \(p\) verdadero y \(q\) falso da F.</li>
+          </ul>`,
         montar: montarConectivo,
       },
       {
         titulo: 'Del español a la lógica',
         descripcion: 'Traduzca oraciones usando solo \\(p\\) y \\(q\\). Algunas son engañosas: «solo si», «a menos que», «ni… ni».',
+        ayuda: String.raw`<p>La tabla compara la fórmula escrita con la oración elegida, fila por fila.</p>
+          <ul>
+          <li><strong>Oración</strong>: cambia la tabla de verdad que la traducción debe reproducir.</li>
+          <li><strong>Fórmula</strong>: si su tabla coincide con la de la oración, la traducción es correcta; «solo si», «a menos que» y «ni… ni» suelen dar diferencias.</li>
+          </ul>`,
         montar: montarTraduccion,
       },
     ],

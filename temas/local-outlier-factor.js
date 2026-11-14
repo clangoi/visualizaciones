@@ -163,15 +163,33 @@
       Un punto a 0,2 de una mancha muy compacta es sospechoso; a 0,2 de una mancha dispersa, es normal.</p>
       <p>El <strong>Local Outlier Factor</strong> (Breunig et al., 2000) formaliza esa idea: estima una densidad local para cada
       punto y la compara con la de sus vecinos. Un LOF cercano a 1 significa «tan denso como su entorno»; mucho mayor que 1, «atípico local».</p>`,
+    parametros: [
+      ['k (MinPts) (Fig. 1)', String.raw`Tamaño del vecindario \(N_k(p)\) del punto elegido. Define con cuántos vecinos se compara su densidad.`],
+      ['k (Fig. 2)', String.raw`Tamaño del vecindario usado por LOF y por la distancia al k-ésimo vecino. Cambia qué puntos resultan anómalos.`],
+      ['Marcar los m más anómalos (Fig. 2)', String.raw`Cuántos puntos de mayor puntaje se marcan como atípicos en cada método.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otro conjunto. El reproductor (Fig. 1) avanza por los pasos del cálculo del LOF.`],
+    ],
     visualizaciones: [
       {
         titulo: 'LOF de un punto, paso a paso',
         descripcion: 'Vecinos, distancias de alcanzabilidad, densidad local y el cociente final para el punto elegido.',
+        ayuda: String.raw`<p>Se muestra el punto p elegido, sus vecinos \(o\in N_k(p)\), el círculo k-dist(o) de cada vecino y las distancias de alcanzabilidad. El registro y la lectura desarrollan el cálculo hasta la densidad local y el cociente LOF.</p>
+          <ul>
+          <li><strong>k (MinPts)</strong> mayor: entran más vecinos y los círculos crecen; el LOF compara con un entorno más amplio.</li>
+          <li>Un punto suelto junto a la mancha compacta tiene densidad menor que la de sus vecinos: su LOF resulta mayor que 1.</li>
+          <li>Un punto del borde de la mancha dispersa tiene densidad parecida a la de su entorno: LOF cercano a 1.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'LOF frente a la distancia al k-ésimo vecino',
         descripcion: 'Dos puntajes de anomalía sobre los mismos datos, con densidades muy distintas. Compare cuáles quedan entre los m más anómalos.',
+        ayuda: String.raw`<p>Dos paneles sobre los mismos datos con dos puntajes de anomalía: la distancia al k-ésimo vecino y LOF. El color y el tamaño del punto crecen con el puntaje; se marcan los m de mayor puntaje y se distinguen los atípicos plantados.</p>
+          <ul>
+          <li><strong>Marcar los m más anómalos</strong>: compare cuántos atípicos plantados aparecen entre los marcados en cada puntaje.</li>
+          <li>La distancia al k-ésimo vecino confunde los atípicos junto a la mancha compacta con el borde de la dispersa; LOF los compara con su entorno y los encuentra con más frecuencia.</li>
+          <li><strong>k</strong>: cambia los puntajes y con ello cuáles quedan entre los m primeros.</li>
+          </ul>`,
         montar: montarComparar,
       },
     ],

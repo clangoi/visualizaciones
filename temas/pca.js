@@ -195,15 +195,31 @@
       <p>A diferencia de la <a href="tema.html?id=sfs">selección de características</a>, PCA <em>transforma</em>: cada componente
       mezcla todas las características originales. Y a diferencia del <a href="tema.html?id=fisher">discriminante de Fisher</a>,
       no usa las clases: busca la dirección donde los datos varían más, sea o no la que las separa.</p>`,
+    parametros: [
+      ['Correlación de los datos (Fig. 1)', String.raw`Cuánto se alinean las dos características. Con correlación alta, la nube se alarga y una dirección concentra casi toda la varianza.`],
+      ['Escala de x₁ / x₂ (Fig. 1)', String.raw`La relación entre las unidades de las dos características. Cambia qué dirección parece más variable aunque la información sea la misma.`],
+      ['Dirección θ y Primera componente (Fig. 1)', String.raw`El ángulo de la recta de proyección; el botón la lleva a la dirección de máxima varianza.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Regenera la muestra.`],
+      ['estandarizar las características (media 0, varianza 1) (Fig. 2)', String.raw`Pone todas las características en la misma escala antes de calcular las componentes. Evita que dominen las de mayor magnitud.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La dirección de máxima varianza',
         descripcion: 'Proyecte los datos sobre una recta que pasa por la media. La mejor recta es a la vez la de mayor varianza proyectada y la de menor error de reconstrucción.',
+        ayuda: String.raw`<p>Eje X: \(x_1\); eje Y: \(x_2\). Los puntos son los datos; la recta es la dirección elegida, con las proyecciones y el error de reconstrucción (distancia a la recta). Las componentes principales tienen largo proporcional a \(\sqrt{\lambda}\).</p>
+          <ul>
+          <li><strong>Dirección θ</strong>: al acercarse a la primera componente, la varianza proyectada sube y las distancias a la recta bajan.</li>
+          <li><strong>Escala de x₁ / x₂</strong>: una escala mayor hace que la componente principal se incline hacia esa característica.</li>
+          </ul>`,
         montar: montarDireccion,
       },
       {
         titulo: 'De diez características a dos',
         descripcion: 'Las nueve características no constantes de objetos de tres clases, proyectadas sobre sus dos primeras componentes principales.',
+        ayuda: String.raw`<p>Arriba, la varianza de cada componente y la acumulada. Abajo, los datos proyectados sobre PC1 y PC2, con tornillos, tuercas y arandelas distinguidos por color.</p>
+          <ul>
+          <li><strong>estandarizar las características</strong>: sin hacerlo, las características con unidades grandes dominan PC1; al activarlo la varianza se reparte según correlaciones.</li>
+          </ul>`,
         montar: montarProyeccion,
       },
     ],

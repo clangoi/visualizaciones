@@ -225,15 +225,33 @@
       La pregunta clave es qué significa «estar en un estado», porque el registro de eventos solo contiene actividades, no estados.</p>
       <p>La respuesta es una <strong>función de abstracción</strong> que resume lo que se recuerda del pasado (o se sabe del futuro) de un caso. Una que
       recuerda poco produce modelos pequeños que mezclan situaciones distintas; una que recuerda mucho distingue todo, pero crece sin control.</p>`,
+    parametros: [
+      ['Registro (Fig. 1)', String.raw`El registro de eventos del que se construye el sistema de transición.`],
+      ['Abstracción del estado (Fig. 1)', String.raw`Qué se recuerda del pasado para definir un estado: la traza exacta, el conjunto de actividades o una ventana de las últimas k. Decide cuándo dos historias se funden en un mismo estado.`],
+      ['k de la ventana (Fig. 1 y 2)', String.raw`Cuántas actividades recientes se recuerdan. Mayor k distingue más estados; solo afecta a la abstracción de ventana.`],
+      ['Reproductor (Fig. 1)', String.raw`Agrega el registro evento por evento al sistema.`],
+      ['Actividades en paralelo (Fig. 2)', String.raw`Cuántas actividades pueden ocurrir en cualquier orden. Más paralelismo multiplica los órdenes posibles.`],
+      ['Casos del registro y Nuevos datos (Fig. 2)', String.raw`Cantidad de casos procesados y una nueva muestra aleatoria.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Construcción del sistema de transición',
         descripcion: 'Reproduzca el registro evento por evento y cambie la abstracción: con el pasado exacto el sistema es un árbol, con el conjunto de actividades los órdenes paralelos se funden.',
+        ayuda: String.raw`<p>Los nodos son estados y las flechas, transiciones etiquetadas con actividades; el grosor es el número de casos. Se distingue el estado inicial, el último estado o transición agregada y los estados finales, donde algún caso termina.</p>
+          <ul>
+          <li><strong>Abstracción del estado</strong>: con el pasado exacto el sistema es un árbol; con el conjunto de actividades los órdenes paralelos se funden en un solo estado.</li>
+          <li><strong>k de la ventana</strong>: más k separa más historias y da más estados.</li>
+          </ul>`,
         montar: montarConstruccion,
       },
       {
         titulo: 'Explosión de estados',
         descripcion: 'Cuente los estados de cada abstracción según crece el número de actividades en paralelo. Pruebe 5 actividades y compare el pasado exacto con el conjunto.',
+        ayuda: String.raw`<p>El eje horizontal son los casos procesados y el vertical, el número de estados de cada abstracción; hay una referencia con el máximo teórico del pasado como secuencia.</p>
+          <ul>
+          <li><strong>Actividades en paralelo</strong>: con pasado exacto los estados crecen casi exponencialmente; con el conjunto, mucho más despacio.</li>
+          <li><strong>Casos del registro</strong>: más casos revelan más órdenes, hasta que las curvas se estabilizan.</li>
+          </ul>`,
         montar: montarExplosion,
       },
     ],

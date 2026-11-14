@@ -191,15 +191,29 @@
       si hay datos en línea, se usa para dar soporte operacional.</p>
       <p>Lo importante no es el orden lineal sino las <strong>iteraciones</strong>: casi siempre las primeras versiones del registro tienen problemas que
       solo aparecen al conectarlo con un modelo, y cada vuelta atrás vuelve obsoleto lo que se construyó después.</p>`,
+    parametros: [
+      ['Reproductor (Fig. 1)', String.raw`Reproducir recorre solo las etapas del proyecto de ejemplo; avanzar paso a paso permite ver cada transición, incluida la vuelta a la etapa 1 cuando los datos obligan a iterar.`],
+      ['Reiniciar proyecto y Ejecutar la siguiente posible (Fig. 2)', String.raw`Reiniciar deja todos los productos ausentes. La siguiente posible ejecuta la primera etapa cuyas entradas están vigentes, de modo que se ve el orden lógico de dependencias.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un proyecto recorriendo el ciclo L*',
         descripcion: 'Reproduzca un proyecto de ejemplo y observe cuándo se vuelve a la etapa 1. Haga clic en una etapa para ver sus entradas y salidas.',
+        ayuda: String.raw`<p>Cada recuadro es una etapa del ciclo L*. La azul es la que está en curso; las de borde y fondo verdes ya se realizaron y las grises están pendientes. La flecha naranja es la transición recién hecha y las discontinuas indican iteraciones posibles hacia etapas anteriores. Al hacer clic en una etapa, el panel muestra lo que consume y produce.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: cada paso pinta de verde una etapa más; cuando aparece una flecha naranja hacia atrás, el proyecto está iterando por un problema de datos.</li>
+          <li>Una etapa que ya se pintó de verde y vuelve a azul indica que se repite trabajo: el ciclo no es lineal.</li>
+          </ul>`,
         montar: montarCiclo,
       },
       {
         titulo: 'Qué produce y qué consume cada etapa',
         descripcion: 'Ejecute etapas en cualquier orden. Si falta una entrada, la etapa no puede hacerse; si repite una temprana, las posteriores quedan obsoletas.',
+        ayuda: String.raw`<p>Cada celda muestra el estado de un producto de una etapa: ficha verde vigente, amarilla obsoleta (se hizo antes de que cambiara una entrada) y roja ausente. Se cuentan las corridas y el trabajo desperdiciado.</p>
+          <ul>
+          <li><strong>Ejecutar la siguiente posible</strong>: solo avanza si las entradas de la etapa están vigentes; si no, avisa que no hay etapa disponible.</li>
+          <li><strong>Reiniciar proyecto</strong>: vuelve todas las fichas a rojo para probar otro orden, por ejemplo repetir la etapa 1 después de la 3 y ver cómo lo posterior pasa a amarillo.</li>
+          </ul>`,
         montar: montarDependencias,
       },
     ],

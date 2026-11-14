@@ -376,15 +376,33 @@
       camino entre vértices, y cuántas iteraciones lleva, depende de la elección.</p>
       <p>La regla de Dantzig prefiere la dirección que más baja el costo; la de Bland elige siempre el menor índice y garantiza que no habrá ciclos; la de mayor
       mejora mira cuánto subiría realmente \(z\). En la práctica el Simplex es rápido, pero en el peor caso puede ser exponencial.</p>`,
+    parametros: [
+      ['Alternar c: (1, 4) / (4, 1) (Fig. 1)', String.raw`Cambia el vector objetivo entre dos casos; en uno Dantzig y Bland recorren caminos distintos y en el otro coinciden.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza ambas reglas a la vez, un pivote por pulsación; Reiniciar vuelve al origen.`],
+      ['Familia de problemas (Fig. 2)', String.raw`Cubo de Klee–Minty (peor caso construido) o problemas aleatorios con datos positivos, donde el peor caso casi no aparece.`],
+      ['Dimensión máxima n (Fig. 2)', String.raw`Hasta cuántas variables y restricciones se miden; la curva se extiende a n mayores.`],
+      ['escala logarítmica (Fig. 2)', String.raw`Cambia el eje de iteraciones a escala log: un crecimiento exponencial se ve como recta.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra muestra aleatoria (solo cambia si la familia es aleatoria).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Dantzig frente a Bland en el mismo problema',
         descripcion: 'Ambas reglas parten del origen y avanzan juntas. Con \\(c=(1,4)\\) Dantzig llega en 2 pivotes y Bland da la vuelta por el otro lado del polígono en 5; con \\(c=(4,1)\\) ambas coinciden. Arrastre \\(c\\) y compare los recorridos.',
+        ayuda: String.raw`<p>El polígono es la región factible. La línea azul es el camino de Dantzig y la naranja el de Bland, ambos desde el origen. El vector \(c\) (punta arrastrable) fija la dirección de mejora.</p>
+          <ul>
+          <li><strong>Alternar c</strong>: con \((1,4)\) Dantzig llega en menos pivotes que Bland; con \((4,1)\) coinciden.</li>
+          <li>Arrastrar la punta de \(c\) cambia cuál arista parece más empinada y, por tanto, qué regla toma atajos.</li>
+          </ul>`,
         montar: montarComparacion,
       },
       {
         titulo: 'Cuántas iteraciones hacen falta',
         descripcion: 'En el cubo de Klee–Minty la regla de Dantzig necesita \\(2^n-1\\) pivotes; observe cómo se separa de las otras dos al subir \\(n\\). Cambie a problemas aleatorios y vea que el peor caso casi nunca aparece.',
+        ayuda: String.raw`<p>Eje horizontal: dimensión \(n\); eje vertical: iteraciones. Cada curva es una regla de entrada y la gris punteada es \(2^n-1\), válida solo para Klee–Minty.</p>
+          <ul>
+          <li><strong>Familia de problemas</strong>: en Klee–Minty la curva de Dantzig sigue \(2^n-1\); en aleatorios crece muy poco.</li>
+          <li><strong>Dimensión máxima n</strong> y <strong>escala logarítmica</strong>: en escala log una curva recta confirma crecimiento exponencial.</li>
+          </ul>`,
         montar: montarEscala,
       },
     ],

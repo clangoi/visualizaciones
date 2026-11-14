@@ -348,20 +348,45 @@
       simple no captura el patrón (<strong>subajuste</strong>, mucho <em>sesgo</em>); uno demasiado flexible memoriza también el
       ruido (<strong>sobreajuste</strong>, mucha <em>varianza</em>). Por eso se <strong>entrena</strong> con unos datos y se
       <strong>valida</strong> con otros, y la <strong>validación cruzada</strong> aprovecha todos los datos para ambas cosas.</p>`,
+    parametros: [
+      ['Grado del polinomio (Fig. 1 y 2)', String.raw`La complejidad del modelo: un polinomio de grado \(d\) tiene \(d + 1\) parámetros. Grado bajo subajusta; grado alto puede sobreajustar.`],
+      ['Ejemplos de entrenamiento / por conjunto / Ejemplos (Fig. 1, 2 y 3)', String.raw`Cuántos datos se usan para ajustar. Más datos permiten modelos más complejos sin sobreajustar.`],
+      ['Ruido σ (Fig. 1 y 2)', String.raw`La desviación del ruido que se suma a la función real. Es un error que ningún modelo puede eliminar.`],
+      ['Pliegues k (Fig. 3)', String.raw`En cuántas partes se dividen los datos para la validación cruzada. Cada pliegue valida una vez; el modelo entrena con \((k-1)/k\) de los datos.`],
+      ['Nuevos datos / Nuevos conjuntos (Fig. 1, 2 y 3)', String.raw`Sortean otra muestra de datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Subajuste y sobreajuste',
         descripcion: 'Suba el grado del polinomio: el error de entrenamiento baja siempre, pero el de validación forma una «U». Con pocos ejemplos y grado alto, el polinomio pasa por todos los puntos y oscila entre ellos.',
+        ayuda: String.raw`<p>A la izquierda, los datos (azules para entrenar, naranjos para validar), la función real que los generó (gris) y el polinomio ajustado (negro). A la derecha, el error cuadrático medio de entrenamiento y validación para cada grado, en escala logarítmica.</p>
+          <ul>
+          <li><strong>Grado</strong>: el error de entrenamiento siempre baja al subir el grado; el de validación forma una «U». El fondo de la «U» es el mejor grado.</li>
+          <li>Con pocos <strong>ejemplos</strong> y grado alto, el polinomio pasa por todos los puntos azules y oscila entre ellos: sobreajuste. Con más ejemplos, la «U» se ensancha.</li>
+          <li>Más <strong>ruido σ</strong> sube el piso de ambos errores y adelanta el sobreajuste.</li>
+          </ul>`,
         montar: montarAjuste,
       },
       {
         titulo: 'El equilibrio entre sesgo y varianza',
         descripcion: 'Cada curva clara es el mismo modelo entrenado con otro conjunto de datos. Con grado bajo todas se equivocan igual (sesgo); con grado alto, cada una se equivoca distinto (varianza). Pruebe más ejemplos: la varianza baja.',
+        ayuda: String.raw`<p>A la izquierda, muchos ajustes del mismo modelo, cada uno entrenado con otro conjunto de datos de la misma fuente (curvas azules claras), su promedio (naranja) y la función real (gris). A la derecha, el error esperado separado en sesgo², varianza y ruido según el grado.</p>
+          <ul>
+          <li><strong>Grado bajo</strong>: todas las curvas se parecen pero están lejos de la real (sesgo alto, varianza baja).</li>
+          <li><strong>Grado alto</strong>: el promedio se acerca a la real pero cada curva se dispersa mucho (sesgo bajo, varianza alta).</li>
+          <li>Más <strong>ejemplos por conjunto</strong> reducen la varianza y permiten grados mayores; el <strong>ruido σ</strong> agrega un piso \(\sigma^2\) que nada elimina.</li>
+          </ul>`,
         montar: montarSesgoVarianza,
       },
       {
         titulo: 'Validación cruzada de k pliegues',
         descripcion: 'Los datos se dividen en k pliegues; cada uno valida una vez mientras los demás entrenan. El promedio estima el error de generalización y permite elegir el grado sin apartar datos de prueba.',
+        ayuda: String.raw`<p>Arriba, cada fila es una ronda de la validación cruzada: el pliegue naranja valida y los azules entrenan. Abajo, el error promedio de validación cruzada para cada grado (con su desviación) y, en gris, el error en datos de prueba nunca vistos.</p>
+          <ul>
+          <li>El grado con menor error de validación cruzada es el que se elige; la curva gris confirma que ese error estima bien el de datos nuevos.</li>
+          <li><strong>Pliegues k</strong>: con más pliegues cada modelo entrena con más datos (lectura «entrena con»), a costa de más rondas de entrenamiento.</li>
+          <li>Con pocos <strong>ejemplos</strong>, las barras de desviación se agrandan: la estimación es menos confiable.</li>
+          </ul>`,
         montar: montarCV,
       },
     ],

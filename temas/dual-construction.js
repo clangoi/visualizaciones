@@ -306,15 +306,33 @@
       <p>Las dos figuras permiten ver la construcción desde dos ángulos: primero con las regiones factibles de ambos problemas
       (y su valor óptimo común), y luego con la tabla de reglas que decide el sentido de las restricciones y el signo de las
       variables duales.</p>`,
+    parametros: [
+      ['Forma del primal (Fig. 1)', String.raw`Elige el tipo de restricciones del primal (desigualdades o con una igualdad). Cada tipo cambia el signo exigido a las variables duales: una igualdad deja libre a su variable dual.`],
+      ['c₁ y c₂ (Fig. 1)', String.raw`Coeficientes del objetivo del primal; en el dual son los lados derechos de sus restricciones.`],
+      ['b₁ y b₂ (Fig. 1)', String.raw`Lados derechos del primal; en el dual son los coeficientes del objetivo.`],
+      ['Objetivo (Fig. 2)', String.raw`Maximizar o minimizar el primal; el dual siempre hace lo contrario.`],
+      ['Restricción i y Variable xⱼ (Fig. 2)', String.raw`Sentido (≤, ≥, =) de cada restricción y signo (≥ 0, ≤ 0, libre) de cada variable. La tabla las traduce al signo de cada variable dual y al sentido de cada restricción dual.`],
+      ['Forma canónica de máximo, Forma canónica de mínimo y Sorteo (Fig. 2)', String.raw`Cargan una combinación estándar o una al azar para ver el dual correspondiente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Primal y dual lado a lado',
         descripcion: 'Mueva \\(c\\) y \\(b\\) y observe cómo cambian las dos regiones; el valor óptimo de ambas coincide siempre. Pruebe las tres formas del primal: con una igualdad, la variable dual correspondiente queda libre y su región se extiende a valores negativos.',
+        ayuda: String.raw`<p>A la izquierda se ve la región factible del primal en \(x\) y a la derecha la del dual en \(y\). Las fronteras son las restricciones (continuas si son igualdades), la curva de nivel pasa por el óptimo y el punto marca la solución óptima de cada problema.</p>
+          <ul>
+          <li><strong>c</strong> y <strong>b</strong>: al mover \(c\) cambia la región del dual; al mover \(b\) cambia la del primal. El valor óptimo de ambos es el mismo.</li>
+          <li><strong>Forma del primal</strong>: con una igualdad, la variable dual asociada puede ser negativa y su región se extiende.</li>
+          </ul>`,
         montar: montarRegiones,
       },
       {
         titulo: 'Tabla de transformación',
         descripcion: 'Cambie el objetivo, el sentido de cada restricción y el signo de cada variable, y lea el dual resultante. Compruebe que el dual del dual es el primal y que, cuando ambos tienen óptimo, sus valores coinciden.',
+        ayuda: String.raw`<p>Dos bloques de texto: el primal y su dual calculado con las reglas de transformación. Al lado se indican el óptimo de cada uno y el dual del dual, que coincide con el primal.</p>
+          <ul>
+          <li><strong>Restricción i</strong>: pasar de ≤ a ≥ cambia el signo de la variable dual \(y_i\); una igualdad la hace libre.</li>
+          <li><strong>Variable xⱼ</strong>: un signo ≥ 0 produce una restricción dual ≥ (en maximización); libre produce una igualdad.</li>
+          </ul>`,
         montar: montarTabla,
       },
     ],

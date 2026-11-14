@@ -153,15 +153,29 @@
       <p>Muchos conjuntos importantes no se describen listando sus elementos sino con <strong>reglas</strong>: unos elementos iniciales y maneras de fabricar elementos nuevos a partir de los que ya existen.
       Las expresiones aritméticas, las fórmulas lógicas, los programas bien escritos y las cadenas de paréntesis balanceados se definen así.</p>
       <p>Lo bueno de una definición inductiva es que viene con su propio método de demostración: si algo vale para los elementos base y se conserva con cada regla, vale para todo el conjunto.</p>`,
+    parametros: [
+      ['Conjunto (Fig. 1 y 2)', String.raw`Elige el conjunto definido inductivamente: su caso base y sus reglas (por ejemplo, 3 ∈ M y la suma).`],
+      ['Generaciones aplicadas (Fig. 1)', String.raw`Cuántas veces se aplican las reglas a lo ya obtenido.`],
+      ['Elemento a probar y Derivar (Fig. 2)', String.raw`El elemento cuya pertenencia se quiere justificar; Derivar busca la secuencia de reglas que lo produce.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Generaciones de un conjunto',
         descripcion: 'Aplique las reglas generación por generación. Con la suma de múltiplos de 3 aparecen más números cada vez; con los paréntesis, las cadenas balanceadas de cada longitud.',
+        ayuda: String.raw`<p>Cada elemento se colorea según la generación en que aparece: anterior, nueva en esta, o todavía fuera del conjunto.</p>
+          <ul>
+          <li><strong>Generaciones aplicadas</strong>: más generaciones traen más elementos nuevos; el conjunto es la unión de todas.</li>
+          <li><strong>Conjunto</strong>: cambia las reglas y, con ellas, qué elementos aparecen.</li>
+          </ul>`,
         montar: montarGeneraciones,
       },
       {
         titulo: 'Derivación y pertenencia',
         descripcion: 'Escriba un elemento y obtenga su derivación. Pruebe uno que no esté en el conjunto y vea qué invariante viola.',
+        ayuda: String.raw`<p>El registro muestra la derivación paso a paso o el resultado de que el elemento no pertenece.</p>
+          <ul>
+          <li><strong>Elemento a probar</strong>: si pertenece, se obtiene una derivación; si no, se indica qué invariante viola.</li>
+          </ul>`,
         montar: montarDerivacion,
       },
     ],

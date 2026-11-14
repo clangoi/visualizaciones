@@ -86,9 +86,27 @@
     intro: String.raw`
       <p>Un agente que aprende por prueba y error enfrenta dos tensiones. La primera es <strong>explorar o explotar</strong>: ¿repite la acción que mejor le ha ido hasta ahora (explotar) o prueba otras por si hubiera algo mejor (explorar)? Sin explorar puede quedar atrapado en una opción mediocre; explorando todo el tiempo, nunca aprovecha lo aprendido.</p>
       <p>La segunda es <strong>cuánto importa el futuro</strong>. El factor de descuento \(\gamma\) pondera las recompensas lejanas: con \(\gamma\) cercano a 0 el agente solo mira lo inmediato; cercano a 1, planifica a largo plazo.</p>`,
+    parametros: [
+      ['Estimaciones iniciales optimistas (Q₀ = 3) (Fig. 1)', String.raw`Empezar con estimaciones de valor altas hace que cada brazo parezca bueno hasta probarlo, así que el agente explora aunque ε sea 0.`],
+      ['Otras máquinas (Fig. 1)', String.raw`Genera un nuevo bandido de cinco máquinas con otras recompensas medias, para comprobar si el resultado depende del caso.`],
+      ['Recompensa cercana R₁ y Pasos hasta R₁ (Fig. 2)', String.raw`Tamaño de la recompensa pequeña y cuántos pasos hay que esperar para obtenerla.`],
+      ['Recompensa lejana R₂ y Pasos hasta R₂ (Fig. 2)', String.raw`Tamaño de la recompensa grande y cuántos pasos cuesta alcanzarla. Cuanto más lejos, más la penaliza el descuento.`],
+      ['Descuento γ (Fig. 2)', String.raw`Qué tan paciente es el agente. Cada recompensa vale \(R\,\gamma^{n}\) con n los pasos de espera.`],
+    ],
     visualizaciones: [
-      { titulo: 'Explorar o explotar en un bandido', descripcion: 'Compare ε = 0, 0,02, 0,1 y 0,3. Active las estimaciones optimistas y vea cómo ε = 0 también explora.', montar: montarBandido },
-      { titulo: 'Impaciencia y paciencia', descripcion: 'Enfrente una recompensa cercana pequeña a una lejana grande y mueva γ para ver cuándo cambia la preferencia.', montar: montarDescuento },
+      { titulo: 'Explorar o explotar en un bandido', descripcion: 'Compare ε = 0, 0,02, 0,1 y 0,3. Active las estimaciones optimistas y vea cómo ε = 0 también explora.',
+        ayuda: String.raw`<p>Cada curva es la recompensa media obtenida por paso para un valor de ε (más ε, más acciones al azar); la línea gris es la recompensa media del mejor brazo, el techo alcanzable.</p>
+          <ul>
+          <li><strong>ε</strong> (en la leyenda): ε = 0 siempre explota y puede quedarse en un brazo mediocre; ε grande explora mucho y se queda por debajo del techo.</li>
+          <li><strong>Estimaciones iniciales optimistas</strong>: la curva de ε = 0 mejora porque prueba todos los brazos antes de decidir.</li>
+          </ul>`, montar: montarBandido },
+      { titulo: 'Impaciencia y paciencia', descripcion: 'Enfrente una recompensa cercana pequeña a una lejana grande y mueva γ para ver cuándo cambia la preferencia.',
+        ayuda: String.raw`<p>El eje horizontal es γ y el vertical el valor presente de cada recompensa: una curva para la cercana y otra para la lejana. La marca vertical indica el γ donde se cruzan, es decir, donde cambia la preferencia.</p>
+          <ul>
+          <li><strong>Pasos hasta R₂</strong>: al alejar la recompensa lejana, su curva cae y el cruce se desplaza hacia γ mayores.</li>
+          <li><strong>Recompensa lejana R₂</strong>: al subirla, la lejana gana con menos paciencia.</li>
+          <li><strong>Descuento γ</strong>: a la izquierda del cruce conviene la cercana; a la derecha, la lejana.</li>
+          </ul>`, montar: montarDescuento },
     ],
     teoria: String.raw`
       <h2>Estrategias de exploración</h2>

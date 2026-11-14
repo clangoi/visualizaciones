@@ -98,9 +98,23 @@
     intro: String.raw`
       <p>Un mismo fenómeno puede describirse con distintas <strong>abstracciones de datos</strong>. Los viajes en bicicleta compartida son una <em>tabla</em> (estaciones y sus atributos), una <em>red</em> (estaciones unidas por rutas) y un conjunto <em>espacial</em> (puntos en el territorio). Cada una vuelve fácil unas preguntas y difíciles otras.</p>
       <p>Elegir la abstracción es parte del diseño: determina qué codificaciones son posibles.</p>`,
+    parametros: [
+      ['Abstracción (Fig. 1)', String.raw`Forma de modelar las mismas ocho estaciones y once rutas: tabla de ítems y atributos, red de nodos y enlaces o mapa por posición. Cada una facilita una pregunta distinta.`],
+      ['Peso mínimo del enlace (viajes) (Fig. 2)', String.raw`Número mínimo de viajes para que una ruta se dibuje como enlace. Subirlo deja solo las conexiones fuertes y puede partir la red en componentes.`],
+      ['Quitar selección (Fig. 2)', String.raw`Deselecciona el nodo para volver a la vista general.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un fenómeno, tres abstracciones', descripcion: 'Alterne entre tabla, red y mapa para las mismas estaciones; la selección se conserva entre vistas.', montar: montarAbstracciones },
-      { titulo: 'Atributos de una red', descripcion: 'Filtre los enlaces por peso y vea cómo cambian el grado, los vecinos y las componentes conexas.', montar: montarRed },
+      { titulo: 'Un fenómeno, tres abstracciones', descripcion: 'Alterne entre tabla, red y mapa para las mismas estaciones; la selección se conserva entre vistas.',
+        ayuda: String.raw`<p>Las estaciones se muestran como puntos o filas azules y la estación seleccionada en naranja; las líneas grises son los viajes entre estaciones. La selección se conserva al cambiar de abstracción.</p>
+          <ul>
+          <li><strong>Abstracción</strong>: «Tabla» facilita leer atributos de cada estación, «Red» ver quién se conecta con quién y «Espacial» ver dónde están.</li>
+          </ul>`, montar: montarAbstracciones },
+      { titulo: 'Atributos de una red', descripcion: 'Filtre los enlaces por peso y vea cómo cambian el grado, los vecinos y las componentes conexas.',
+        ayuda: String.raw`<p>Cada nodo es una estación, con tamaño proporcional a su grado (cantidad de enlaces visibles). El nodo seleccionado es naranja y sus vecinos, aguamarina. La lectura indica grado, vecinos y componentes.</p>
+          <ul>
+          <li><strong>Peso mínimo del enlace</strong>: al subirlo desaparecen los enlaces débiles, los nodos se achican (menor grado) y la red se fragmenta en componentes conexas.</li>
+          <li><strong>Quitar selección</strong>: los nodos naranja y aguamarina vuelven a azul.</li>
+          </ul>`, montar: montarRed },
     ],
     teoria: String.raw`
       <h2>Tipos de conjuntos de datos</h2>

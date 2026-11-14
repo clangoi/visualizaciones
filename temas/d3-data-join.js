@@ -119,9 +119,26 @@
       <p>La idea central de D3 es el <strong>data join</strong>: en lugar de recorrer los datos y dibujar cada uno, usted <em>declara</em> la correspondencia entre una lista de datos y una lista de elementos, y D3 le entrega tres grupos:
       los datos que aún no tienen elemento (<em>enter</em>), los que ya lo tienen (<em>update</em>) y los elementos que perdieron su dato (<em>exit</em>).</p>
       <p>Así el mismo código dibuja la primera vez y actualiza todas las siguientes.</p>`,
+    parametros: [
+      ['Datos nuevos (Fig. 1)', String.raw`Cuál de los conjuntos (A, B, C…) se compara contra los elementos que ya existen. Determina cuántos datos entran, se actualizan o salen.`],
+      ['Emparejar por (Fig. 1)', String.raw`Cómo se asocia cada dato con un elemento: por posición (índice) o por identificador (clave). Con el índice, reordenar los datos hace que un elemento pase a representar otro dato; con la clave, cada elemento sigue a su dato.`],
+      ['Aplicar el join y Volver a A (Fig. 1)', String.raw`Aplicar el join deja los datos nuevos como los elementos existentes (el DOM ya los refleja); Volver a A restablece el estado inicial.`],
+      ['Agregar dato, Quitar un dato y Cambiar valores (Fig. 2)', String.raw`Modifican el arreglo de datos: añaden uno, eliminan uno al azar o alteran el valor de algunos. Cada acción produce enter, exit o update en las barras.`],
+    ],
     visualizaciones: [
-      { titulo: 'Emparejar datos con elementos', descripcion: 'Elija un conjunto nuevo y compare emparejar por índice o por clave. Pruebe el conjunto C, que solo reordena.', montar: montarEmparejar },
-      { titulo: 'Enter, update y exit sobre barras reales', descripcion: 'Agregue, quite y cambie datos; cada barra es un rect SVG que el join crea, actualiza o elimina.', montar: montarGrafico },
+      { titulo: 'Emparejar datos con elementos', descripcion: 'Elija un conjunto nuevo y compare emparejar por índice o por clave. Pruebe el conjunto C, que solo reordena.',
+        ayuda: String.raw`<p>Arriba están los datos nuevos y abajo los elementos existentes, cada uno con su id y valor. Las líneas azules unen datos con elementos emparejados (update); las cajas verdes son datos sin elemento (enter, línea punteada hacia abajo) y las rojas son elementos sin dato (exit).</p>
+          <ul>
+          <li><strong>Datos nuevos</strong>: cambian las cantidades de enter, update y exit que muestran la lectura y el registro.</li>
+          <li><strong>Emparejar por</strong> «clave» con un conjunto que solo reordena: las líneas azules se cruzan pero ningún elemento cambia de dato; con «índice», la lectura cuenta elementos que pasan a representar otro dato.</li>
+          </ul>`, montar: montarEmparejar },
+      { titulo: 'Enter, update y exit sobre barras reales', descripcion: 'Agregue, quite y cambie datos; cada barra es un rect SVG que el join crea, actualiza o elimina.',
+        ayuda: String.raw`<p>Cada barra es un <code>&lt;rect&gt;</code> con su valor encima. Verde es una barra recién creada (enter), azul una existente (update; más tenue si no cambió) y rojo una que se quita en 0,7 s (exit). El código y la lectura cuentan cuántos hubo de cada tipo.</p>
+          <ul>
+          <li><strong>Agregar dato</strong>: aparece una barra verde en una posición al azar; las demás se reacomodan.</li>
+          <li><strong>Quitar un dato</strong>: una barra se pone roja y desaparece.</li>
+          <li><strong>Cambiar valores</strong>: algunas barras cambian de altura y se resaltan como update.</li>
+          </ul>`, montar: montarGrafico },
     ],
     teoria: String.raw`
       <h2>Patrón clásico</h2>

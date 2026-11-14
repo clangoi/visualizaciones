@@ -86,9 +86,26 @@
     intro: String.raw`
       <p>La paginación tiene dos problemas prácticos. Primero, <strong>la tabla de páginas es enorme</strong>: un espacio de 32 bits con páginas de 4 KB necesita un millón de entradas por proceso, casi todas vacías. Segundo, <strong>cada acceso se duplica</strong>: hay que leer la tabla antes de leer el dato.</p>
       <p>Las <strong>tablas multinivel</strong> resuelven el primero creando solo las partes de la tabla que se usan. El <strong>TLB</strong>, una pequeña caché de traducciones recientes dentro de la MMU, resuelve el segundo.</p>`,
+    parametros: [
+      ['Entradas del TLB (Fig. 1)', String.raw`Capacidad de la caché de traducciones. Con más entradas caben más páginas recientes y suben los aciertos.`],
+      ['Localidad de los accesos (Fig. 1)', String.raw`Qué porcentaje de las referencias queda cerca de la página anterior. Alta localidad significa que el TLB reutiliza traducciones; baja, que casi siempre falla.`],
+      ['Tiempo de memoria (ns) (Fig. 1)', String.raw`Costo de un acceso a memoria; escala el tiempo efectivo pero no la tasa de aciertos.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Nuevos datos genera otra traza de referencias; los botones del reproductor la recorren paso a paso o completa.`],
+      ['Memoria usada por el proceso (MB, contigua) (Fig. 2)', String.raw`Cuánto espacio virtual ocupa el proceso. Determina cuántas tablas necesita cada esquema.`],
+    ],
     visualizaciones: [
-      { titulo: 'El TLB y la localidad', descripcion: 'Reproduzca los accesos. Con alta localidad el TLB acierta casi siempre y el tiempo efectivo se acerca a un acceso; con accesos al azar, no.', montar: montarTLB },
-      { titulo: 'Tabla plana frente a dos niveles', descripcion: 'Mueva la memoria que usa el proceso y compare el tamaño de las tablas.', montar: montarTablas },
+      { titulo: 'El TLB y la localidad', descripcion: 'Reproduzca los accesos. Con alta localidad el TLB acierta casi siempre y el tiempo efectivo se acerca a un acceso; con accesos al azar, no.',
+        ayuda: String.raw`<p>Cada barra es una referencia a página de la traza: verde si acertó en el TLB (1 acceso), roja si falló y hubo que recorrer las dos tablas (3 accesos), y gris si aún no se reproduce. Abajo se muestra el contenido del TLB en azul, con la página más reciente a la derecha.</p>
+          <ul>
+          <li><strong>Entradas del TLB</strong>: al aumentarlas, el contenido azul crece y desaparecen fallos por capacidad.</li>
+          <li><strong>Localidad de los accesos</strong>: con valores altos casi todo es verde y el tiempo efectivo se acerca a un acceso; con valores bajos predominan los rojos.</li>
+          <li><strong>Tiempo de memoria</strong>: cambia el tiempo efectivo mostrado, no los colores.</li>
+          </ul>`, montar: montarTLB },
+      { titulo: 'Tabla plana frente a dos niveles', descripcion: 'Mueva la memoria que usa el proceso y compare el tamaño de las tablas.',
+        ayuda: String.raw`<p>Compara el tamaño de las tablas de páginas para el proceso: en rojo la tabla plana y en azul el esquema de dos niveles, que solo reserva tablas para las regiones usadas.</p>
+          <ul>
+          <li><strong>Memoria usada por el proceso</strong>: la tabla plana crece de forma proporcional al espacio virtual; la de dos niveles crece por tramos, por eso la diferencia es mayor con procesos pequeños.</li>
+          </ul>`, montar: montarTablas },
     ],
     teoria: String.raw`
       <h2>Tablas de dos niveles</h2>

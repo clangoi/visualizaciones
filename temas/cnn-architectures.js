@@ -105,9 +105,25 @@
       <p>La competencia <em>ImageNet</em> (ILSVRC) empujó entre 2012 y 2015 una carrera de arquitecturas: <strong>AlexNet</strong> mostró que una CNN profunda entrenada con GPU superaba por mucho a los métodos clásicos; <strong>VGG</strong> demostró el poder de apilar convoluciones simples de \(3\times3\);
       <strong>Inception</strong> hizo más con menos parámetros usando ramas paralelas; y <strong>ResNet</strong> permitió entrenar redes de más de cien capas gracias a las conexiones residuales.</p>
       <p>Cada una resolvió un problema concreto: cómo crecer en profundidad sin que el entrenamiento se rompa y sin que el costo se dispare.</p>`,
+    parametros: [
+      ['Eje horizontal (Fig. 1)', String.raw`Magnitud que se compara contra el error top-5: parámetros (millones, escala log), profundidad o año. Muestra qué relación hay entre tamaño y precisión.`],
+      ['Profundidad (capas) (Fig. 2)', String.raw`Número de capas que atraviesa el gradiente hacia atrás.`],
+      ['Escala de la transformación por capa (Fig. 2)', String.raw`Cuánto amplifica o reduce cada capa el gradiente. Valores bajos hacen desaparecerlo en redes sin atajos.`],
+      ['Otros pesos (Fig. 2)', String.raw`Sortea otras matrices al azar.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cuatro arquitecturas', descripcion: 'Compare error, tamaño y profundidad. Cambie el eje horizontal y busque la que consigue menos error con menos parámetros.', montar: montarComparacion },
-      { titulo: 'Por qué funcionan las conexiones residuales', descripcion: 'Aumente la profundidad y reduzca la escala de cada capa: sin atajos el gradiente desaparece; con ellos se conserva.', montar: montarResidual },
+      { titulo: 'Cuatro arquitecturas', descripcion: 'Compare error, tamaño y profundidad. Cambie el eje horizontal y busque la que consigue menos error con menos parámetros.',
+        ayuda: String.raw`<p>Cada punto es una arquitectura (AlexNet, VGG-16, Inception, ResNet-152); el eje vertical es el error top-5 en porcentaje. El eje horizontal lo elige el control.</p>
+          <ul>
+          <li><strong>Eje horizontal</strong> en parámetros: Inception tiene bajo error con pocos millones, mientras VGG-16 usa muchos más; el tamaño no garantiza precisión.</li>
+          <li>En profundidad o año: el error baja con la profundidad de ResNet-152.</li>
+          </ul>`, montar: montarComparacion },
+      { titulo: 'Por qué funcionan las conexiones residuales', descripcion: 'Aumente la profundidad y reduzca la escala de cada capa: sin atajos el gradiente desaparece; con ellos se conserva.',
+        ayuda: String.raw`<p>Eje horizontal: capas atravesadas hacia atrás; vertical: norma relativa del gradiente. Una curva es la red sin atajos (g ← J·g) y otra, la residual (g ← (I + J)·g).</p>
+          <ul>
+          <li><strong>Profundidad</strong>: más capas aumentan la caída del gradiente sin atajos.</li>
+          <li><strong>Escala de la transformación por capa</strong> baja: la red sin atajos lo pierde; la residual lo conserva gracias a la identidad.</li>
+          </ul>`, montar: montarResidual },
     ],
     teoria: String.raw`
       <h2>Las ideas de cada una</h2>

@@ -89,9 +89,27 @@
     intro: String.raw`
       <p>La <strong>exactitud</strong> (<em>accuracy</em>) —la fracción de aciertos— es la métrica más intuitiva y la más engañosa. Si solo 1 de cada 100 transacciones es fraude, un modelo que dice siempre «no es fraude» acierta el 99 % y no sirve para nada.</p>
       <p>Por eso se mira cómo se reparten los aciertos y los errores en una <strong>matriz de confusión</strong>, y de ella se derivan la <strong>precisión</strong> (de lo que declaró positivo, ¿cuánto lo era?) y la <strong>exhaustividad</strong> (<em>recall</em>: de los positivos reales, ¿cuántos encontró?). La elección entre ambas depende de qué error sale más caro.</p>`,
+    parametros: [
+      ['Prevalencia de la clase positiva (Fig. 1) y Prevalencia (Fig. 2)', String.raw`Qué fracción de los casos es realmente positiva. Cuando es muy baja, un modelo que dice siempre «negativo» ya tiene alta exactitud sin detectar nada.`],
+      ['Separación de las clases (d′) y Separación d′ (Fig. 1 y 2)', String.raw`Distancia entre las distribuciones de puntajes de ambas clases. A mayor d′ el modelo distingue mejor y los errores son menos inevitables.`],
+      ['Umbral de decisión (Fig. 1)', String.raw`Puntaje a partir del cual el modelo responde «positivo». Moverlo cambia el reparto entre falsos positivos y falsos negativos.`],
+      ['Costo de un falso negativo y Costo de un falso positivo (Fig. 2)', String.raw`Cuánto cuesta cada tipo de error. Su proporción decide qué umbral conviene, que puede no coincidir con el de máximo F1.`],
+    ],
     visualizaciones: [
-      { titulo: 'Matriz de confusión y la paradoja de la exactitud', descripcion: 'Baje la prevalencia a 1 % y compare la exactitud del modelo con la de «todo negativo». Mueva el umbral y vea cómo cambian precisión y exhaustividad.', montar: montarMatriz },
-      { titulo: 'Elegir el umbral según el costo', descripcion: 'Ponga que un falso negativo cuesta 20 veces más que un falso positivo y compare el umbral óptimo con el de máximo F1.', montar: montarCosto },
+      { titulo: 'Matriz de confusión y la paradoja de la exactitud', descripcion: 'Baje la prevalencia a 1 % y compare la exactitud del modelo con la de «todo negativo». Mueva el umbral y vea cómo cambian precisión y exhaustividad.',
+        ayuda: String.raw`<p>Las curvas son las distribuciones de puntaje de la clase negativa (azul) y la positiva (naranja), con tamaño proporcional a su prevalencia. La línea vertical es el umbral; las áreas verdes son aciertos (VP / VN) y las rojas errores (FP / FN). Debajo se muestra la matriz de confusión con sus métricas.</p>
+          <ul>
+          <li><strong>Prevalencia</strong>: al bajarla, la clase positiva se encoge y la exactitud sube aunque la exhaustividad no mejore.</li>
+          <li><strong>Umbral de decisión</strong>: subirlo reduce los falsos positivos (más precisión) pero aumenta los falsos negativos (menos exhaustividad).</li>
+          <li><strong>Separación (d′)</strong>: al subirla las curvas se separan y disminuyen las áreas de error.</li>
+          </ul>`, montar: montarMatriz },
+      { titulo: 'Elegir el umbral según el costo', descripcion: 'Ponga que un falso negativo cuesta 20 veces más que un falso positivo y compare el umbral óptimo con el de máximo F1.',
+        ayuda: String.raw`<p>Eje horizontal: umbral. Cada curva es una métrica según el umbral (exhaustividad, precisión, F1) y otra, en la escala de la derecha, el costo esperado por caso. Una marca señala el umbral de menor costo.</p>
+          <ul>
+          <li><strong>Costo de un falso negativo</strong>: al subirlo, el umbral de menor costo se desplaza hacia valores bajos, para perder menos positivos.</li>
+          <li><strong>Costo de un falso positivo</strong>: al subirlo ocurre lo contrario, el umbral sube.</li>
+          <li><strong>Prevalencia</strong>: cambia la forma de las curvas de precisión y F1 y con ello su umbral óptimo.</li>
+          </ul>`, montar: montarCosto },
     ],
     teoria: String.raw`
       <h2>Definiciones</h2>

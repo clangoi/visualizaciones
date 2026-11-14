@@ -105,9 +105,27 @@
     intro: String.raw`
       <p>Para entrenar una RNN se «desdobla» en el tiempo: una copia de la celda por paso, todas con los mismos pesos. El error de la salida se retropropaga por esa cadena de copias hasta el primer paso: <strong>retropropagación a través del tiempo</strong> (<em>Backpropagation Through Time</em>, BPTT).</p>
       <p>El problema es que en cada paso hacia atrás el gradiente se multiplica por la misma matriz de pesos y por la derivada de la activación. Si esos factores son menores que 1, el gradiente se <strong>desvanece</strong> y la red no aprende de lo lejano; si son mayores que 1, <strong>explota</strong>. Esto último se controla con <em>recorte del gradiente</em>.</p>`,
+    parametros: [
+      ['Largo de la secuencia T (Fig. 1 y 2)', String.raw`Número de pasos de tiempo por los que debe retroceder el error. Cuanto más largo, más veces se multiplica el gradiente por el mismo factor.`],
+      ['Escala de los pesos recurrentes (Fig. 1)', String.raw`Magnitud de los pesos que conectan un paso con el siguiente. Por debajo de cierto valor el gradiente se desvanece; por encima, explota.`],
+      ['Recorte del gradiente (Fig. 1)', String.raw`Tope a la norma del gradiente. Evita que explote, pero no ayuda cuando se desvanece.`],
+      ['Otros pesos (Fig. 1)', String.raw`Sortea otra matriz de pesos con la misma escala.`],
+      ['Ventana de truncamiento k (Fig. 2)', String.raw`Cada cuántos pasos se corta la retropropagación. Dependencias más largas que k no reciben gradiente.`],
+    ],
     visualizaciones: [
-      { titulo: 'El gradiente hacia atrás en el tiempo', descripcion: 'Cambie la escala de los pesos y el largo y vea cómo la barra de cada paso crece o se encoge exponencialmente. Es un cálculo real sobre una RNN de 16 neuronas.', montar: montarGradiente },
-      { titulo: 'Retropropagación truncada', descripcion: 'Con secuencias muy largas, el gradiente se corta cada k pasos. Mueva k y vea qué dependencias dejan de ser aprendibles.', montar: montarTruncada },
+      { titulo: 'El gradiente hacia atrás en el tiempo', descripcion: 'Cambie la escala de los pesos y el largo y vea cómo la barra de cada paso crece o se encoge exponencialmente. Es un cálculo real sobre una RNN de 16 neuronas.',
+        ayuda: String.raw`<p>Cada barra es la norma del gradiente que llega al paso \(t\), relativa al último paso, que es donde nace el error (a la derecha). Azul es un valor normal, rojo es un gradiente que explota (más de 10 veces el último) y amarillo uno que se desvanece (menos de \(10^{-3}\)).</p>
+          <ul>
+          <li><strong>Escala de los pesos recurrentes</strong>: con valores bajos las barras de la izquierda se encogen exponencialmente (amarillo); con valores altos crecen (rojo).</li>
+          <li><strong>Largo de la secuencia T</strong>: más pasos aumentan el contraste entre el extremo derecho y el izquierdo.</li>
+          <li><strong>Recorte del gradiente</strong>: limita las barras rojas, pero las amarillas siguen igual.</li>
+          </ul>`, montar: montarGradiente },
+      { titulo: 'Retropropagación truncada', descripcion: 'Con secuencias muy largas, el gradiente se corta cada k pasos. Mueva k y vea qué dependencias dejan de ser aprendibles.',
+        ayuda: String.raw`<p>Se muestran los \(T\) pasos agrupados en tramos de \(k\) pasos con gradiente completo (azul). La curva naranja indica qué fracción de dependencias de largo \(d\) queda dentro de un mismo tramo y, por tanto, se aprende; las que cruzan el corte aparecen en rojo.</p>
+          <ul>
+          <li><strong>Ventana de truncamiento k</strong>: una ventana mayor deja aprender dependencias más largas, a costa de más memoria y cómputo.</li>
+          <li><strong>Largo de la secuencia T</strong>: con \(k\) fijo, más cortes y más dependencias que los cruzan.</li>
+          </ul>`, montar: montarTruncada },
     ],
     teoria: String.raw`
       <h2>El gradiente a través del tiempo</h2>

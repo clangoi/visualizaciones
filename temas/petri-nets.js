@@ -227,20 +227,40 @@
       <p>Una transición puede dispararse cuando todas sus plazas de entrada tienen una ficha; al hacerlo consume esas fichas y deposita una en cada plaza de
       salida. Con solo esa regla se expresan secuencia, elección, concurrencia y ciclos, y por eso las redes de Petri son el lenguaje de modelos que más usan
       los algoritmos de descubrimiento y de conformidad.</p>`,
+    parametros: [
+      ['Red (Fig. 1, 2 y 3)', String.raw`Elige la red de Petri (concurrencia, elección u otras; en la figura 3, redes defectuosas). Cada una tiene su estructura de plazas y transiciones.`],
+      ['Disparo al azar, Deshacer y Reiniciar (Fig. 1 y 3)', String.raw`Disparan una transición habilitada elegida al azar, recuperan el marcado anterior o vuelven al marcado inicial.`],
+      ['Secuencia de disparos (Fig. 2)', String.raw`Una traza que se intenta reproducir. Indica si la red puede ejecutarla y dónde falta una ficha.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Juego de fichas',
         descripcion: 'Dispare transiciones haciendo clic en las que tienen anillo amarillo. En la red de concurrencia, b y c quedan habilitadas a la vez; en la de elección, disparar una apaga la otra.',
+        ayuda: String.raw`<p>Los círculos son plazas, los rectángulos son transiciones y los puntos son fichas (un número si hay varias). Las transiciones habilitadas llevan anillo amarillo, la última disparada se marca y la plaza inicial es i y la final f.</p>
+          <ul>
+          <li><strong>Red</strong>: en concurrencia, b y c quedan habilitadas a la vez; en elección, disparar una apaga la otra.</li>
+          <li><strong>Deshacer</strong>: devuelve el marcado anterior; así se comparan decisiones distintas desde el mismo estado.</li>
+          </ul>`,
         montar: montarJuego(BASICAS, { analisis: false, nota: 'Haga clic en una transición habilitada para dispararla; «Disparo al azar» elige una por usted y «Deshacer» recupera el marcado anterior. Una transición con anillo amarillo es la que puede dispararse ahora.' }),
       },
       {
         titulo: 'Reproducir una secuencia de disparos',
         descripcion: 'Escriba una traza y vea si la red puede reproducirla. En la red de concurrencia, «abcd» y «acbd» funcionan (b y c conmutan) y «abd» falla en d: falta la ficha de p4.',
+        ayuda: String.raw`<p>Muestra la red con el marcado que resulta de disparar la secuencia escrita. Si un disparo es imposible, se indica porque falta una ficha en una plaza de entrada.</p>
+          <ul>
+          <li><strong>Secuencia de disparos</strong>: en la red de concurrencia, «abcd» y «acbd» funcionan porque b y c conmutan; «abd» falla en d por la ficha de p4.</li>
+          <li><strong>Red</strong>: cambia qué secuencias son válidas.</li>
+          </ul>`,
         montar: montarSecuencia,
       },
       {
         titulo: 'Cuando una red no se comporta bien',
         descripcion: 'Tres redes defectuosas. Juegue hasta ver el bloqueo, las fichas que crecen sin límite o las fichas sobrantes, y compare con el análisis exhaustivo de la lectura.',
+        ayuda: String.raw`<p>Redes defectuosas con la lectura del análisis exhaustivo de todos los marcados alcanzables: cuántos son, si alguno queda bloqueado y si el número de fichas está acotado.</p>
+          <ul>
+          <li><strong>Red</strong>: cada red tiene un defecto: un bloqueo, fichas que crecen sin límite o fichas sobrantes al terminar.</li>
+          <li>Al disparar hasta provocar el defecto, el resultado coincide con lo que dice el análisis.</li>
+          </ul>`,
         montar: montarJuego(FALLAS, { analisis: true, nota: 'Dispare transiciones con clic hasta provocar el defecto. La lectura explora todos los marcados alcanzables: cuántos son, si alguno queda bloqueado, si el número de fichas está acotado y si se termina sin fichas sobrantes.' }),
       },
     ],

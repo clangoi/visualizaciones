@@ -88,9 +88,24 @@
       <p><strong>HTTPS</strong> es HTTP dentro de una conexión cifrada con <strong>TLS</strong> (<em>Transport Layer Security</em>). Antes de enviar la primera petición, navegador y servidor hacen un <strong>saludo</strong> (<em>handshake</em>)
       que cumple tres objetivos: acordar claves secretas sin enviarlas, comprobar que el servidor es quien dice ser y asegurar que nadie altera lo que se dicen.</p>
       <p>Después, todos los datos viajan cifrados con una clave simétrica de sesión. Quien intercepte el tráfico en una cafetería o en un enrutador solo ve bytes ininteligibles.</p>`,
+    parametros: [
+      ['Versión de TLS (Fig. 1)', String.raw`Qué versión del protocolo se usa: TLS 1.3 negocia con un viaje de ida y vuelta; TLS 1.2 necesita dos antes de enviar datos.`],
+      ['el certificado del servidor es válido (Fig. 1)', String.raw`Si el certificado supera la verificación del navegador. Si no, el saludo se aborta y no se envía ningún dato de la aplicación.`],
+      ['Latencia (RTT) (Fig. 2)', String.raw`El tiempo de ida y vuelta de la red. Cada viaje extra del saludo cuesta un RTT completo.`],
+    ],
     visualizaciones: [
-      { titulo: 'El saludo TLS paso a paso', descripcion: 'Compare TLS 1.2 y 1.3 y haga inválido el certificado: vea cuándo se acuerda la clave y cuándo se aborta la conexión.', montar: montarSaludo },
-      { titulo: 'Cuánto cuesta el cifrado', descripcion: 'Aumente la latencia y compare el tiempo hasta el primer byte con HTTP, TLS 1.2, TLS 1.3 y la reanudación de sesión.', montar: montarCosto },
+      { titulo: 'El saludo TLS paso a paso', descripcion: 'Compare TLS 1.2 y 1.3 y haga inválido el certificado: vea cuándo se acuerda la clave y cuándo se aborta la conexión.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre cliente y servidor: cada flecha es un mensaje del saludo. Los colores distinguen mensajes del cliente, elección del servidor, mensajes cifrados con las claves del saludo, verificación y datos, y fallo.</p>
+          <ul>
+          <li><strong>Versión de TLS</strong> en 1.3: el ClientHello ya lleva su parte del intercambio de claves y el resto va cifrado en un solo viaje. En 1.2 aparece un segundo viaje antes del GET.</li>
+          <li><strong>el certificado del servidor es válido</strong> desmarcado: la verificación del navegador falla (rojo), llega una alerta y no hay GET ni respuesta.</li>
+          </ul>`, montar: montarSaludo },
+      { titulo: 'Cuánto cuesta el cifrado', descripcion: 'Aumente la latencia y compare el tiempo hasta el primer byte con HTTP, TLS 1.2, TLS 1.3 y la reanudación de sesión.',
+        ayuda: String.raw`<p>Barras horizontales por modo (HTTP sin cifrar, TLS 1.2, TLS 1.3, TLS 1.3 con reanudación) con tiempo hasta el primer byte. Cada barra se divide en TCP (aguamarina), saludo TLS (violeta) y primera petición HTTP (naranja).</p>
+          <ul>
+          <li><strong>Latencia (RTT)</strong> mayor alarga todas las barras, pero más las de TLS 1.2 que las de TLS 1.3: cada viaje del saludo pesa un RTT.</li>
+          <li>La reanudación de sesión elimina el tramo violeta, pero reutiliza claves previas y exige proteger contra repeticiones.</li>
+          </ul>`, montar: montarCosto },
     ],
     teoria: String.raw`
       <h2>Qué se negocia</h2>

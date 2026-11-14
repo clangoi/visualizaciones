@@ -141,15 +141,33 @@
       en cada nodo, las alturas de los subárboles izquierdo y derecho difieren en a lo más 1. Después de cada inserción o
       eliminación se revisan los nodos del camino y, si alguno quedó desbalanceado, se corrige con <strong>rotaciones</strong>,
       operaciones locales que reorganizan tres nodos sin romper el orden de las claves.</p>`,
+    parametros: [
+      ['Clave (Fig. 1)', String.raw`El número (1 a 99) sobre el que actúan Insertar, Eliminar y Buscar.`],
+      ['Insertar, Eliminar, Buscar (Fig. 1)', String.raw`Las operaciones del árbol. Insertar y eliminar pueden desbalancear algún nodo; el árbol lo corrige con rotaciones.`],
+      ['Insertar aleatoria / 10 aleatorias / 1, 2, …, 15 (Fig. 1)', String.raw`Atajos para poblar el árbol. La secuencia creciente, que degenera un ABB común, aquí da un árbol perfectamente balanceado.`],
+      ['Vaciar (Fig. 1)', String.raw`Borra el árbol.`],
+      ['Altura h (Fig. 2)', String.raw`La altura del árbol de Fibonacci que se dibuja: el AVL con la menor cantidad de nodos posible para esa altura.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Inserciones, eliminaciones y rotaciones',
         descripcion: 'El número junto a cada nodo es su factor de balance \\(h(\\text{izq}) - h(\\text{der})\\). Inserte 1, 2, …, 15 en orden: a diferencia de un ABB común, el árbol se mantiene perfectamente balanceado. El registro describe cada rotación.',
+        ayuda: String.raw`<p>Es un árbol binario de búsqueda donde el número junto a cada nodo es su <em>factor de balance</em>: la altura del subárbol izquierdo menos la del derecho. La regla AVL exige que valga −1, 0 o +1 en todos los nodos.</p>
+          <ul>
+          <li>Cuando una inserción o eliminación deja un factor ±2, el árbol rota: los nodos que cambian de lugar se resaltan en violeta y el registro dice si fue una rotación simple o doble.</li>
+          <li><strong>Insertar 1, 2, …, 15</strong>: compare con el mismo botón en el ABB común. Aquí cada pocas inserciones hay una rotación y la altura termina en 3, la mínima posible.</li>
+          <li>El anillo azul es el camino recorrido; su largo es lo que cuesta la operación, \(O(\log n)\).</li>
+          </ul>`,
         montar: (c) => VIZ.arbol.editor(c, crearAVL(), { inicial: [40, 20, 60, 10, 30, 50, 70, 25] }),
       },
       {
         titulo: 'El peor caso: árboles de Fibonacci',
         descripcion: 'El AVL con menos nodos para una altura dada. Su tamaño crece como los números de Fibonacci, lo que acota la altura de cualquier AVL.',
+        ayuda: String.raw`<p>Es el árbol AVL más «flaco» de altura \(h\): su subárbol izquierdo es el árbol de Fibonacci de altura \(h-1\) y el derecho, el de altura \(h-2\). Los nodos sombreados tienen factor de balance +1: están todos al límite de la condición AVL.</p>
+          <ul>
+          <li><strong>Altura h</strong>: al aumentarla, el número de nodos \(N(h)\) sigue la sucesión de Fibonacci (\(F(h+2)-1\)) y crece exponencialmente.</li>
+          <li>Al revés, eso dice que la altura de cualquier AVL con \(N\) nodos es a lo más ≈ \(1.44\log_2 N\): la lectura «h / log₂(N+2)» se acerca a esa constante.</li>
+          </ul>`,
         montar: montarFibonacci,
       },
     ],

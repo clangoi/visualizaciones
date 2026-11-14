@@ -76,8 +76,22 @@
     intro: String.raw`
       <p>La red subyacente (IP) puede perder, duplicar o reordenar paquetes. Para ofrecer una entrega <strong>fiable y ordenada</strong> encima, la capa de transporte usa números de secuencia, confirmaciones (ACK), un temporizador y retransmisiones. La pregunta es cuántos segmentos puede haber «en vuelo» sin confirmar.</p>
       <p>Con <strong>parar y esperar</strong> solo uno: simple pero lento. Con una <strong>ventana deslizante</strong> se envían varios seguidos: <em>Go-Back-N</em> retrocede y reenvía todo desde el primer perdido; la <em>repetición selectiva</em> reenvía solo los perdidos.</p>`,
+    parametros: [
+      ['Protocolo (Fig. 1)', String.raw`Estrategia de recuperación ante pérdidas: Go-Back-N retransmite todo desde el segmento perdido; la repetición selectiva retransmite solo el perdido.`],
+      ['Ventana N (Fig. 1)', String.raw`Cuántos segmentos puede tener el emisor sin confirmar. Con 1 es parar y esperar; ventanas mayores mantienen el canal ocupado.`],
+      ['Probabilidad de pérdida (Fig. 1)', String.raw`Porcentaje de segmentos que la red descarta. Más pérdida implica más retransmisiones y más tiempo total.`],
+      ['Retardo de un sentido (Fig. 1)', String.raw`Tiempo de ida del enlace en ranuras. Cuanto mayor es, más segmentos caben «en vuelo» y más ventana hace falta para aprovecharlo.`],
+      ['Nueva pérdida al azar (Fig. 1)', String.raw`Sortea otro patrón de pérdidas con los mismos parámetros.`],
+    ],
     visualizaciones: [
-      { titulo: 'Entrega fiable con ventana deslizante', descripcion: 'Con N = 1 el emisor casi siempre espera. Aumente la ventana, luego la pérdida, y compare Go-Back-N con repetición selectiva en envíos y tiempo total.', montar },
+      { titulo: 'Entrega fiable con ventana deslizante', descripcion: 'Con N = 1 el emisor casi siempre espera. Aumente la ventana, luego la pérdida, y compare Go-Back-N con repetición selectiva en envíos y tiempo total.',
+        ayuda: String.raw`<p>Cada punto es un envío: el eje horizontal es el tiempo (ranuras) y el vertical, el número de segmento. Los puntos azules son primeros envíos, los naranjas retransmisiones y los rojos segmentos perdidos. La lectura resume envíos y tiempo total.</p>
+          <ul>
+          <li><strong>Ventana N</strong>: al subirla los puntos se apilan en columnas (varios envíos por ranura) y el tiempo total baja.</li>
+          <li><strong>Probabilidad de pérdida</strong>: aparecen puntos rojos y naranjas; con Go-Back-N cada pérdida arrastra a toda una ventana de retransmisiones.</li>
+          <li><strong>Protocolo</strong>: compare la cantidad de puntos naranjas entre Go-Back-N y repetición selectiva con la misma pérdida.</li>
+          <li><strong>Retardo de un sentido</strong>: alarga el espacio entre un envío y su reconocimiento; con ventana pequeña el emisor queda más tiempo esperando.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>Utilización</h2>

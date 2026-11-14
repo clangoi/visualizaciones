@@ -122,9 +122,28 @@
       <p>En una red <em>feedforward</em> la información viaja en un solo sentido: de la <strong>capa de entrada</strong>, por una o más <strong>capas ocultas</strong>, hasta la <strong>capa de salida</strong>. No hay ciclos ni memoria.
       A ese viaje, que convierte un dato en una predicción, se le llama <strong>propagación hacia adelante</strong> (<em>forward propagation</em>).</p>
       <p>En cada capa, cada neurona suma sus entradas ponderadas más un sesgo y aplica la activación. Todas las neuronas de una capa se calculan a la vez con una sola multiplicación de matrices, lo que permite aprovechar las GPU.</p>`,
+    parametros: [
+      ['Activación oculta (Fig. 1 y 2)', String.raw`La función que se aplica a la salida de cada neurona oculta. Cambia qué neuronas se encienden y qué valores pasan a la capa siguiente.`],
+      ['Entrada x1, x2, x3 (Fig. 1)', String.raw`Los valores que entran a la red. Al cambiarlos se reinicia el cálculo y cambian las activaciones de todas las capas.`],
+      ['Nuevos pesos (Fig. 1 y 2)', String.raw`Sortea otra red con pesos distintos para las mismas entradas.`],
+      ['Reproductor (Fig. 1)', String.raw`Un paso calcula una capa; Reproducir avanza solo; Hasta el final termina el cálculo; Reiniciar vuelve a la entrada.`],
+      ['Capa (Fig. 2)', String.raw`Qué capa se muestra como producto de matrices: oculta 1 (3 → 4), oculta 2 (4 → 4) o salida (4 → 2).`],
+    ],
     visualizaciones: [
-      { titulo: 'La señal avanza capa por capa', descripcion: 'Avance con «Un paso» y haga clic en una neurona para ver su cálculo. Cambie las entradas y la activación y observe cuáles neuronas se encienden.', montar: montarAvance },
-      { titulo: 'Una capa es un producto de matrices', descripcion: 'Elija una capa y compare las matrices con el diagrama de la figura anterior: cada fila de W es una neurona.', montar: montarMatrices },
+      { titulo: 'La señal avanza capa por capa', descripcion: 'Avance con «Un paso» y haga clic en una neurona para ver su cálculo. Cambie las entradas y la activación y observe cuáles neuronas se encienden.',
+        ayuda: String.raw`<p>Cada círculo es una neurona y cada línea es una conexión: su color indica el signo del peso y su oscuridad, qué tan grande es. Los círculos más oscuros tienen activaciones mayores; los grises aún no se calcularon. Al hacer clic en una neurona aparece su suma ponderada, sesgo y activación.</p>
+          <ul>
+          <li><strong>Entrada x1…x3</strong>: cambian el punto de partida y por tanto todas las activaciones posteriores.</li>
+          <li><strong>Activación oculta</strong>: con ReLU las neuronas con suma negativa quedan apagadas; con Tanh o Sigmoide todas pasan algo de señal.</li>
+          <li><strong>Un paso</strong>: muestra que cada capa solo necesita la salida de la anterior.</li>
+          </ul>`, montar: montarAvance },
+      { titulo: 'Una capa es un producto de matrices', descripcion: 'Elija una capa y compare las matrices con el diagrama de la figura anterior: cada fila de W es una neurona.',
+        ayuda: String.raw`<p>Se muestran las matrices de la capa elegida: la matriz de pesos W, el vector de entrada, el sesgo y la salida, en el cálculo \(z = Wa + b\); el color distingue valores positivos y negativos. Cada fila de W corresponde a una neurona.</p>
+          <ul>
+          <li><strong>Capa</strong>: cambia el tamaño de W (filas = neuronas de salida, columnas = entradas).</li>
+          <li><strong>Activación</strong>: cambia el vector de salida \(a = f(z)\), pero no z.</li>
+          <li><strong>Nuevos pesos</strong>: cambia los números de W y b sin cambiar su forma.</li>
+          </ul>`, montar: montarMatrices },
     ],
     teoria: String.raw`
       <h2>Ecuaciones</h2>

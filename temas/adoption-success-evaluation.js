@@ -255,15 +255,34 @@
       operar los dos sistemas en <em>paralelo</em>, probar con un <em>piloto</em> o avanzar <em>por fases</em> reparte de modo distinto el riesgo, el costo y el esfuerzo de aprendizaje de la organización.</p>
       <p>Después de la puesta en marcha hay que evaluar el éxito con varios criterios a la vez: plazo, presupuesto, <em>uso real</em> frente al esperado, beneficios efectivamente obtenidos y satisfacción. Un proyecto puede cumplir plazo y
       presupuesto y aun así fracasar si nadie adopta la tecnología. Las figuras simulan una implementación y el cuadro de evaluación del resultado.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`Cómo se cambia al sistema nuevo: big bang, paralelo, piloto o por fases. Decide el ritmo y dónde se concentra el costo.`],
+      ['Defectos latentes del sistema (Fig. 1)', String.raw`Cuántos defectos hay sin descubrir. Se manifiestan cuando más usuarios usan el sistema.`],
+      ['Capacitación previa (Fig. 1)', String.raw`Cuánta formación se da antes del cambio. Reduce la productividad perdida mientras se aprende.`],
+      ['Retraso de la puesta en marcha y Sobrecosto de la inversión (Fig. 2)', String.raw`Qué tanto se desvían el plazo y el presupuesto del plan.`],
+      ['Techo de adopción real y Velocidad de adopción (Fig. 2)', String.raw`Hasta qué fracción de usuarios llega a usar el sistema y qué tan rápido. Determinan el uso real y los beneficios.`],
+      ['Satisfacción de los usuarios (Fig. 2)', String.raw`Qué tan conformes están los usuarios. Es un criterio de éxito aparte del plazo y el costo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cuatro estrategias de implementación',
         descripcion: 'Reproduzca la implementación de un sistema en ocho unidades. Compare big bang, paralelo, piloto y por fases: suba los defectos latentes y vea cómo el big bang concentra el costo en incidentes, mientras el paralelo paga doble operación.',
+        ayuda: String.raw`<p>Arriba, eje horizontal: semana, con los usuarios en el sistema nuevo. Abajo, el costo por semana apilado: productividad perdida mientras aprenden, doble operación (ambos sistemas) e incidentes por defectos.</p>
+          <ul>
+          <li><strong>Estrategia</strong> big bang: todos pasan a la vez, el costo se concentra en incidentes y productividad perdida.</li>
+          <li><strong>Estrategia</strong> paralelo: aparece doble operación durante más tiempo.</li>
+          <li><strong>Defectos latentes</strong> altos: crece el costo de incidentes, sobre todo cuando muchos usuarios ya usan el sistema.</li>
+          </ul>`,
         montar: montarEstrategias,
       },
       {
         titulo: 'Adopción y evaluación del éxito',
         descripcion: 'Baje el techo de adopción manteniendo plazo y presupuesto: las barras de plazo y costo siguen verdes pero el uso, los beneficios y el VPN se ponen rojos. Luego pruebe un proyecto atrasado con alta adopción.',
+        ayuda: String.raw`<p>Arriba, eje horizontal: mes; el uso esperado en el plan frente al uso real. Abajo, una evaluación por criterio con color: verde cumple (95 % o más), en riesgo (75 a 95 %) o fracaso parcial (menos de 75 %).</p>
+          <ul>
+          <li><strong>Techo de adopción real</strong> bajo: la curva de uso real queda bajo la esperada y las barras de uso, beneficios y VPN se ponen rojas aunque plazo y costo sigan verdes.</li>
+          <li><strong>Retraso de la puesta en marcha</strong> y <strong>Sobrecosto de la inversión</strong>: afectan sobre todo las barras de plazo y costo.</li>
+          </ul>`,
         montar: montarExito,
       },
     ],

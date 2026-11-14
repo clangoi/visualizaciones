@@ -149,15 +149,30 @@
       un <strong>balanceador de carga</strong> decide a qué servidor va cada pedido.</p>
       <p>La política de reparto importa más de lo que parece. Repartir al azar deja colas largas en unos servidores mientras otros están ociosos; mirar la carga de todos cuesta
       información; y una idea sorprendente, <strong>el poder de dos opciones</strong>, logra casi lo mismo mirando solo dos servidores al azar.</p>`,
+    parametros: [
+      ['Servidores (Fig. 1 y 2)', String.raw`Cantidad de servidores que reciben el trabajo. Con más servidores y la misma utilización, hay más ocasiones de que alguno quede libre.`],
+      ['Utilización ρ (Fig. 1)', String.raw`Qué fracción de la capacidad total se usa. Cerca de 100 % las colas crecen mucho y el tiempo de respuesta se dispara.`],
+      ['Otra simulación y reproductor (Fig. 1)', String.raw`Otra simulación usa otra secuencia aleatoria de llegadas; el reproductor avanza la simulación y la reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Las colas en vivo',
         descripcion: 'Reproduzca con utilización alta (85–95 %): al azar aparecen colas largas en servidores puntuales; con «dos al azar» las colas quedan parejas. Compare los tiempos de respuesta medio y percentil 99.',
+        ayuda: String.raw`<p>Cada servidor tiene una cola de trabajos. Los colores corresponden a las políticas de reparto de la leyenda: al azar, por turnos, dos al azar (el menos cargado) y el menos cargado de todos. Se muestran el tiempo de respuesta medio y el percentil 99.</p>
+          <ul>
+          <li><strong>Utilización ρ</strong>: con valores de 85–95 % el reparto al azar forma colas largas en algunos servidores.</li>
+          <li>Con «dos al azar» las colas quedan más parejas y baja el percentil 99.</li>
+          </ul>`,
         montar: montarColas,
       },
       {
         titulo: 'Respuesta según la utilización',
         descripcion: 'Todas las políticas explotan al acercarse al 100 %, pero a ritmos muy distintos. Repartir al azar equivale a k servidores independientes con cola propia, la curva gris.',
+        ayuda: String.raw`<p>Eje horizontal: utilización \(\rho\). Eje vertical: tiempo de respuesta medio. Cada curva es una política, y la referencia \(1/(1-\rho)\) corresponde a un solo servidor M/M/1.</p>
+          <ul>
+          <li><strong>Servidores</strong>: con más servidores las curvas se mantienen bajas hasta valores mayores de \(\rho\), y las políticas se separan más.</li>
+          <li>Todas explotan al acercarse a 1, pero a ritmos distintos.</li>
+          </ul>`,
         montar: montarCurva,
       },
     ],

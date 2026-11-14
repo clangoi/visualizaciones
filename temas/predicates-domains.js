@@ -128,15 +128,29 @@
       <p>La lógica proposicional no puede hablar de objetos: «Sócrates es mortal» es una sola proposición indivisible. La <strong>lógica de predicados</strong> abre esa caja. Hay <strong>objetos</strong> (los elementos de un <em>dominio</em>),
       <strong>predicados</strong> que dicen propiedades de ellos (\(P(x)\): «\(x\) es primo») y <strong>relaciones</strong> entre varios (\(R(x,y)\): «\(x\) es menor que \(y\)»).</p>
       <p>El significado de una fórmula ya no depende solo de valores V/F, sino de una <strong>interpretación</strong>: qué dominio se usa y a qué subconjunto o relación corresponde cada símbolo. Cambie la interpretación y la misma fórmula puede cambiar de valor.</p>`,
+    parametros: [
+      ['Fórmula, Elementos del dominio y Al hacer clic en un punto, editar (Fig. 1)', String.raw`La fórmula con variables libres, el tamaño del dominio y qué predicado (P, Q o la relación R) se modifica al hacer clic. Definen la interpretación contra la que se evalúa la fórmula.`],
+      ['Tamaño del dominio k (Fig. 2)', String.raw`Cantidad de elementos de la interpretación. Con más elementos hay muchas más relaciones posibles, y las fórmulas pueden dejar de cumplirse.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Dominio, predicados y relación',
         descripcion: 'Construya una interpretación con clics y mire qué elementos o pares satisfacen una fórmula con variables libres. Pruebe \\(P(x) \\land \\neg Q(x)\\) y \\(R(x,y) \\land R(y,x)\\).',
+        ayuda: String.raw`<p>Cada punto es un elemento del dominio, con el valor de los predicados según la leyenda; un anillo marca el elemento (o par) que satisface la fórmula y una celda azul indica R(x, y) verdadera.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: cambia qué elementos o pares tienen anillo.</li>
+          <li><strong>Elementos del dominio</strong>: agrega o quita puntos y, con ellos, filas y columnas de la relación.</li>
+          <li><strong>Al hacer clic en un punto, editar</strong>: elige qué se alterna al hacer clic; cambiar P, Q o R modifica los anillos si la fórmula los usa.</li>
+          </ul>`,
         montar: montarModelo,
       },
       {
         titulo: 'La misma fórmula en otras interpretaciones',
         descripcion: 'Seis fórmulas sobre cinco relaciones clásicas. Observe que ninguna fórmula es verdadera en todas: depende de la interpretación.',
+        ayuda: String.raw`<p>Se muestran las mismas fórmulas evaluadas sobre cinco relaciones clásicas; cada celda indica si la fórmula es verdadera o falsa en esa interpretación.</p>
+          <ul>
+          <li><strong>Tamaño del dominio k</strong>: la verdad de una fórmula puede cambiar con k, de modo que una fórmula no es verdadera en todas las interpretaciones.</li>
+          </ul>`,
         montar: montarInterpretaciones,
       },
     ],

@@ -263,15 +263,33 @@
       exámenes, ocupa una cama y esa cama pasa luego a otro paciente. Un modelo con un solo tipo de caso obliga a mirar estos procesos por separado y a perder cómo se afectan entre sí.</p>
       <p>La <strong>visualización centrada en objetos</strong> dibuja en un mismo grafo una ruta por tipo de objeto, con un color por tipo. Las actividades que tocan varios tipos son los puntos de
       encuentro, y ahí se ven las dependencias: la evaluación que no se califica retrasa las notas de todo un curso, la cama que no se limpia detiene el ingreso del paciente siguiente.</p>`,
+    parametros: [
+      ['Curso (Fig. 1)', String.raw`Qué curso del modelo se muestra, o todos. Filtra los objetos que entran.`],
+      ['Mínimo de objetos por arista (Fig. 1)', String.raw`Cuántos objetos deben recorrer una arista para dibujarla. Subirlo deja solo las relaciones más frecuentes.`],
+      ['Casillas de tipos de objeto (Fig. 1)', String.raw`Muestran u ocultan cada tipo de objeto en el modelo.`],
+      ['Objeto a seguir (Fig. 2)', String.raw`Cama, paciente o examen cuya ruta se destaca. Cada tipo muestra una vista distinta del hospital.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra asignación de quién usa cada cama.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Procesos de un curso universitario',
         descripcion: 'Un modelo con tres tipos de objeto: estudiante, curso y evaluación. Filtre por curso, apague tipos y suba el mínimo de objetos por arista; haga clic en «Publicar notas»: toca al curso, a la evaluación y a todos sus estudiantes.',
+        ayuda: String.raw`<p>Modelo con tres tipos de objeto (estudiante, curso y evaluación), cada uno en su color, y actividades como nodos. La actividad seleccionada se resalta.</p>
+          <ul>
+          <li><strong>Curso</strong>: limita el modelo a un curso.</li>
+          <li><strong>Mínimo de objetos por arista</strong>: oculta aristas poco recorridas y deja el esqueleto del proceso.</li>
+          <li><strong>Casillas de tipos</strong>: quitan un tipo y las aristas que dependían de él.</li>
+          </ul>`,
         montar: montarEducacion,
       },
       {
         titulo: 'Seguir una cama, un paciente o un examen',
         descripcion: 'En un hospital con tres tipos de objeto, elija una cama: su ruta es un ciclo entre pacientes. Luego elija un paciente o un examen y compare cómo se entrelazan; «Nuevos datos» cambia quién usa cada cama.',
+        ayuda: String.raw`<p>Modelo del hospital con tres tipos de objeto. El trazo grueso es la ruta del objeto elegido, con n× las veces que la recorre.</p>
+          <ul>
+          <li><strong>Objeto a seguir</strong>: una cama traza un ciclo entre pacientes; un paciente o un examen se entrelazan con otros objetos.</li>
+          <li><strong>Nuevos datos</strong>: cambia quién usa cada cama y, con ello, las rutas.</li>
+          </ul>`,
         montar: montarSalud,
       },
     ],

@@ -332,15 +332,33 @@
       Basta mirar el elemento del medio: si es menor que el buscado, toda la mitad izquierda puede descartarse; si es mayor,
       la derecha. Cada consulta reduce el espacio de búsqueda a la mitad, de modo que en un arreglo de un millón de elementos
       bastan unas 20 consultas, en lugar del millón que puede requerir una búsqueda lineal.</p>`,
+    parametros: [
+      ['Tamaño n (Fig. 1 y 2)', String.raw`Cantidad de elementos del arreglo ordenado. El peor número de consultas crece como \(\lfloor \log_2 n \rfloor + 1\): duplicar \(n\) agrega solo una consulta.`],
+      ['Valor buscado (Fig. 1)', String.raw`El número que se busca. Si no está en el arreglo, la búsqueda termina cuando el intervalo queda vacío (búsqueda fallida). También se elige haciendo clic en una celda.`],
+      ['Nuevo arreglo (Fig. 1)', String.raw`Genera otro arreglo ordenado al azar del mismo tamaño.`],
+      ['mostrar hojas de fallo (Fig. 2)', String.raw`Agrega al árbol las hojas que representan los \(n + 1\) huecos entre elementos, donde termina una búsqueda de un valor ausente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Búsqueda paso a paso',
         descripcion: 'El intervalo \\([\\mathit{lo}, \\mathit{hi}]\\) contiene los únicos candidatos posibles. En cada paso se consulta el punto medio y se descarta la mitad que no puede contener el valor.',
+        ayuda: String.raw`<p>Las celdas son el arreglo ordenado. La zona sin sombrear es el intervalo \([\mathit{lo}, \mathit{hi}]\) donde todavía puede estar el valor; la celda azul es el punto medio que se consulta y las grises ya se descartaron.</p>
+          <ul>
+          <li>Con <strong>Un paso</strong> se ve que cada consulta deja a lo más la mitad del intervalo; la lectura «tamaño intervalo» lo confirma.</li>
+          <li><strong>Tamaño n</strong>: compare «consultas binaria» con «consultas lineal». Al duplicar \(n\), la búsqueda lineal duplica su trabajo; la binaria agrega una consulta.</li>
+          <li><strong>Valor buscado</strong> que no está en el arreglo: el intervalo se reduce hasta quedar vacío (\(\mathit{lo} &gt; \mathit{hi}\)) y la búsqueda informa que el valor no existe.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Árbol de decisión implícito',
         descripcion: 'Toda ejecución de búsqueda binaria recorre un camino en este árbol. La raíz es el primer elemento consultado y la altura del árbol es el peor número de consultas.',
+        ayuda: String.raw`<p>Cada nodo es un índice del arreglo, ubicado en horizontal según su posición. La raíz es el primer elemento que consulta la búsqueda binaria; sus hijos, lo que consultaría después si el valor es menor o mayor. El color indica la profundidad: más oscuro, más consultas para llegar.</p>
+          <ul>
+          <li><strong>Tamaño n</strong>: la altura del árbol, que es el peor caso, aumenta en uno solo cuando \(n\) pasa una potencia de dos.</li>
+          <li><strong>Hojas de fallo</strong>: muestran dónde terminan las búsquedas de valores ausentes; todas quedan en los dos últimos niveles, por eso fallar cuesta casi lo mismo que acertar.</li>
+          <li>Al hacer clic en un nodo, el camino naranja muestra la secuencia de consultas que llevan a ese elemento.</li>
+          </ul>`,
         montar: montarArbol,
       },
     ],

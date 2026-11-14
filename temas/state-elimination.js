@@ -183,15 +183,30 @@
     intro: String.raw`
       <p>El teorema de Kleene tiene dos mitades. La construcción de Thompson lleva expresiones a autómatas; la otra mitad, de <strong>autómatas a expresiones regulares</strong>, se hace <em>eliminando estados</em>.</p>
       <p>La idea: permitir que las aristas lleven expresiones regulares en lugar de símbolos, y quitar los estados uno a uno, reemplazando cada camino que pasaba por el estado eliminado por una arista con la expresión equivalente. Al final queda una sola arista del inicial al final, y su etiqueta es la expresión buscada.</p>`,
+    parametros: [
+      ['Autómata (Fig. 1 y 2)', String.raw`El autómata cuya expresión regular se obtiene. Su estructura define cuántas aristas se reescriben al eliminar cada estado.`],
+      ['Orden de eliminación (Fig. 1)', String.raw`En qué secuencia se quitan los estados intermedios. Todas dan expresiones equivalentes, pero de distinto tamaño.`],
+      ['Reproductor (Fig. 1)', String.raw`Un paso elimina un estado y reescribe las aristas que pasaban por él; Reiniciar vuelve al autómata original.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Eliminar estados paso a paso',
         descripcion: 'Avance con «Un paso»: cada eliminación reescribe las aristas que pasaban por el estado. Cambie el orden y compare la expresión final.',
+        ayuda: String.raw`<p>El autómata con aristas etiquetadas por expresiones regulares. Se resalta el estado que se va a eliminar y las aristas nuevas o modificadas; al final queda una sola arista de S a T con la expresión resultante.</p>
+          <ul>
+          <li><strong>Orden de eliminación</strong>: cambia qué estado se quita primero y, con ello, cuán larga queda la expresión final.</li>
+          <li><strong>Un paso</strong>: cada arista de entrada se combina con el bucle y con cada arista de salida del estado eliminado, formando concatenaciones y uniones.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'El orden de eliminación importa',
         descripcion: 'Todas las permutaciones de estados dan expresiones equivalentes, pero de tamaño muy diferente. Haga clic en una barra para leer su expresión.',
+        ayuda: String.raw`<p>Barras con la longitud de la expresión final según el orden de eliminación; una barra se destaca como orden seleccionado y su expresión se lee al hacer clic.</p>
+          <ul>
+          <li><strong>Autómata</strong>: con más estados intermedios hay más permutaciones y mayor diferencia entre la mejor y la peor.</li>
+          <li>Una barra baja indica un orden que produce una expresión más corta, aunque denota el mismo lenguaje.</li>
+          </ul>`,
         montar: montarOrden,
       },
     ],

@@ -139,15 +139,30 @@
       etiquetas conocidas, cuando existen) y de <strong>estabilidad</strong> (si el resultado se repite con datos ligeramente distintos).</p>
       <p>Ninguno basta solo: un criterio interno favorece las formas que el algoritmo ya supone, y la estabilidad puede ser alta para una
       partición mala pero consistente.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`La forma de los datos sintéticos (por ejemplo, manchas, lunas o anillos). Decide si los grupos que k-means puede encontrar coinciden con la estructura real.`],
+      ['k-means con k (Fig. 1)', String.raw`El número de grupos que se le pide a k-means. Si no coincide con la estructura de los datos, la silueta de varios puntos baja.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra del mismo tipo de datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El gráfico de silueta',
         descripcion: 'k-means con el k elegido y la silueta de cada punto. Los puntos huecos tienen silueta negativa.',
+        ayuda: String.raw`<p>A un lado, los puntos coloreados por el grupo que asignó k-means; al otro, un gráfico de barras con la silueta de cada punto, agrupadas por grupo y ordenadas. Cerca de 1 el punto está bien dentro de su grupo, cerca de 0 está en la frontera y negativo, probablemente en el grupo equivocado (huecos en la figura). Una línea marca la silueta media.</p>
+          <ul>
+          <li><strong>k-means con k</strong>: con k igual al número real de manchas, las barras son largas y la silueta media es máxima; con k de más o de menos, aparecen barras cortas o negativas.</li>
+          <li><strong>Datos</strong>: en lunas o anillos, k-means corta la estructura y la silueta media no mejora con ningún k.</li>
+          </ul>`,
         montar: montarSilueta,
       },
       {
         titulo: 'Elegir k con tres criterios',
         descripcion: 'Silueta, estabilidad bootstrap y ARI externo para k = 2 … 8. Compare en qué conjuntos coinciden.',
+        ayuda: String.raw`<p>El eje horizontal es k (de 2 a 8) y el vertical, el valor de cada criterio (mayor es mejor): silueta media (interno), estabilidad bootstrap (ARI entre corridas) y ARI con los grupos reales (externo, posible solo porque los datos son sintéticos).</p>
+          <ul>
+          <li><strong>Datos</strong>: con manchas los tres criterios suelen coincidir en el k real; con lunas o anillos ninguno encuentra la estructura.</li>
+          <li><strong>Nuevos datos</strong>: si el k óptimo cambia entre muestras, el criterio no es confiable.</li>
+          </ul>`,
         montar: montarCriterios,
       },
     ],

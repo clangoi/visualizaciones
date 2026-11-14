@@ -263,15 +263,31 @@
       arma un <em>vocabulario</em> agrupando descriptores y cada imagen se representa por cuántas veces aparece cada palabra.</p>
       <p>Se pierde la posición de cada descriptor (por eso «bolsa»), pero se conserva qué tipo de patrones locales tiene la
       imagen y en qué proporción, que suele bastar para reconocer escenas y categorías de objetos.</p>`,
+    parametros: [
+      ['Palabras k (Fig. 1)', String.raw`El tamaño del vocabulario visual: cuántos centroides agrupan los descriptores. Con pocos, palabras muy generales; con muchos, muy específicas.`],
+      ['Dispersión de los descriptores (Fig. 1 y 2)', String.raw`Cuánto se separan los descriptores de una misma clase. Con mayor dispersión las clases se superponen y es más difícil distinguirlas.`],
+      ['Otra imagen y Nuevos datos (Fig. 1 y 2)', String.raw`Elegir otra imagen para ver su histograma o regenerar todos los datos.`],
+      ['Palabras en el vocabulario k y Descriptores por imagen (Fig. 2)', String.raw`Cuántas palabras se usan y cuántos descriptores aporta cada imagen. Más descriptores hacen el histograma más estable.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Vocabulario visual',
         descripcion: 'Descriptores de 30 imágenes de tres clases (en 2D para poder verlos) y las k palabras que encuentra k-means. Cambie k y observe cómo cambia el histograma de una misma imagen.',
+        ayuda: String.raw`<p>Cada punto es un descriptor en 2D; los centroides son las palabras visuales y los puntos resaltados son los descriptores de la imagen elegida. Debajo, el histograma cuenta cuántos descriptores caen en cada palabra.</p>
+          <ul>
+          <li><strong>Palabras k</strong>: cambia el número de centroides y el número de barras del histograma.</li>
+          <li><strong>Dispersión de los descriptores</strong>: nubes más anchas se mezclan y los histogramas de distintas clases se parecen más.</li>
+          </ul>`,
         montar: montarVocabulario,
       },
       {
         titulo: 'Exactitud según el tamaño del vocabulario',
         descripcion: 'Clasificación por el vecino más cercano entre histogramas, para cada tamaño de vocabulario, comparada con resumir cada imagen por la media de sus descriptores.',
+        ayuda: String.raw`<p>Eje X: palabras en el vocabulario k; eje Y: exactitud en prueba. La curva es la bolsa de palabras con 1-NN y distancia \(\chi^2\); las punteadas son la media de descriptores con 1-NN y el azar (1/3).</p>
+          <ul>
+          <li><strong>Dispersión de los descriptores</strong>: al subirla, la exactitud baja hacia el nivel del azar.</li>
+          <li><strong>Descriptores por imagen</strong>: más descriptores dan histogramas más estables y mayor exactitud.</li>
+          </ul>`,
         montar: montarExactitud,
       },
     ],

@@ -447,15 +447,32 @@
       responde de una vez a muchas preguntas de sensibilidad: qué tan lejos está cada parámetro del siguiente cambio, qué bases son vecinas y cuáles se pueden alcanzar.</p>
       <p>Cuando el cambio sí cruza la frontera de los recursos, la base anterior deja de ser factible pero conserva sus costos reducidos con el signo correcto. Esa es la
       situación del <strong>Simplex dual</strong>: en lugar de resolver desde cero, se repara la factibilidad con unos pocos pivotes, y por eso los solucionadores reoptimizan con rapidez.</p>`,
+    parametros: [
+      ['Plano de parámetros (Fig. 1)', String.raw`Elige qué datos se exploran: recursos \((b_1,b_2)\) o utilidades \((c_1,c_2)\). Cada región del plano corresponde a una base óptima distinta.`],
+      ['Cupo b₃ (Fig. 1)', String.raw`Disponibilidad del tercer recurso, que queda fija mientras se recorre el plano de recursos (se desactiva en el plano de utilidades).`],
+      ['Volver al punto original (Fig. 1)', String.raw`Regresa el punto a los datos originales.`],
+      ['Recurso que cambia y Nueva disponibilidad (Fig. 2)', String.raw`El recurso y su nuevo valor; si la base óptima deja de ser factible, el Simplex dual la repara.`],
+      ['Reproductor (Fig. 2)', String.raw`Un paso aplica una iteración del Simplex dual; Reiniciar vuelve a la base original.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mapa de bases óptimas',
         descripcion: 'Cada color es una base óptima distinta. Arrastre el punto por el plano: cuando cruza una frontera cambian las variables básicas, y la cruz negra muestra el intervalo de cada parámetro por separado (que siempre es una cuerda de la región). Cambie entre recursos y utilidades, y mueva b₃ para ver cómo se deforma el mapa.',
+        ayuda: String.raw`<p>Cada color es una base óptima distinta y las fronteras entre colores son donde cambian las variables básicas. El punto es el dato actual y la cruz negra muestra el intervalo de cada parámetro por separado; la zona infactible indica algún recurso negativo.</p>
+          <ul>
+          <li><strong>Plano de parámetros</strong>: en recursos aparecen bases factibles o infactibles; en utilidades, bases que cambian al girar \(c\).</li>
+          <li><strong>Cupo b₃</strong>: cambia el mapa y desplaza las fronteras.</li>
+          </ul>`,
         montar: montarMapa,
       },
       {
         titulo: 'Reoptimizar con el Simplex dual',
         descripcion: 'Cambie la disponibilidad de un recurso hasta que la base óptima deje de ser factible y avance con Un paso: las soluciones infactibles (con anillo rojo) se corrigen una por una hasta llegar a la región factible. Compare los pivotes del dual con los que haría el Simplex primal desde cero.',
+        ayuda: String.raw`<p>Región factible nueva con la restricción original en su lugar. Los puntos con anillo rojo son soluciones básicas infactibles (alguna variable negativa) y el verde es el óptimo. El tableau resalta fila y columna del pivote.</p>
+          <ul>
+          <li><strong>Nueva disponibilidad</strong>: dentro del rango la base sigue óptima; fuera, aparecen soluciones infactibles.</li>
+          <li><strong>Un paso</strong>: cada pivote saca una variable negativa hasta llegar a una solución factible.</li>
+          </ul>`,
         montar: montarDual,
       },
     ],

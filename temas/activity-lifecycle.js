@@ -280,15 +280,32 @@
       <em>completa</em> (<code>complete</code>). Cada transición es un evento con su propia marca de tiempo.</p>
       <p>Esa información extra vale mucho: permite reconstruir <strong>cuánto duró</strong> una actividad, <strong>cuánto esperó</strong> antes de empezar y <strong>qué actividades se
       solaparon</strong>. Sin ella, la espera y el trabajo real se mezclan en un solo número y el paralelismo se confunde con una sucesión.</p>`,
+    parametros: [
+      ['Caso (Fig. 1)', String.raw`El caso del registro cuyos eventos se emparejan. Cambia las duraciones y los tiempos de espera que se pueden calcular.`],
+      ['Eventos registrados por actividad (Fig. 1)', String.raw`Nivel de detalle del registro: solo complete, start y complete, o schedule, start y complete. Define qué intervalos se pueden medir.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otro caso aleatorio.`],
+      ['Inicio y Duración de «Emitir factura» (Fig. 2)', String.raw`Cuándo empieza y cuánto dura «Emitir factura» respecto de «Preparar envío». Con ello se solapa más o menos con ella.`],
+      ['Ejemplo: anidada y Ejemplo: secuencial (Fig. 2)', String.raw`Dos atajos que fijan la actividad dentro de la otra o una después de la otra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Emparejar start y complete',
         descripcion: 'Ejecute el emparejamiento evento por evento con los tres niveles de detalle. Con solo complete no hay duraciones; al agregar start y luego schedule aparecen primero el servicio y después la espera.',
+        ayuda: String.raw`<p>Cada actividad es una barra en el tiempo. El tramo de espera va de schedule a start y el de servicio, de start a complete; un evento atómico tiene solo complete. Se resalta el evento que se procesa ahora.</p>
+          <ul>
+          <li><strong>Eventos registrados por actividad</strong>: con solo complete no hay duraciones; al añadir start aparece el servicio; con schedule aparece además la espera.</li>
+          <li><strong>Caso</strong>: muestra cómo varían espera y servicio entre casos.</li>
+          </ul>`,
         montar: montarEmparejar,
       },
       {
         titulo: 'Actividades en paralelo',
         descripcion: 'Mueva el inicio y la duración de «Emitir factura» hasta que quede anidada dentro de «Preparar envío»: el registro con solo complete invierte su orden y sugiere una causalidad falsa.',
+        ayuda: String.raw`<p>Se muestran las actividades «Preparar envío» (30 min), «Emitir factura» y «Despachar» sobre el eje del tiempo, junto con lo que ve un registro que solo guarda complete.</p>
+          <ul>
+          <li><strong>Inicio</strong> y <strong>Duración</strong>: si «Emitir factura» queda dentro de «Preparar envío», termina antes que ella y el registro con solo complete invierte su orden, sugiriendo una causalidad falsa.</li>
+          <li><strong>Ejemplo: secuencial</strong>: no hay solapamiento y el orden de complete coincide con el real.</li>
+          </ul>`,
         montar: montarParalelo,
       },
     ],

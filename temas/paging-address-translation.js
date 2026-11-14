@@ -79,9 +79,26 @@
     intro: String.raw`
       <p>La <strong>paginación</strong> divide el espacio de direcciones virtual en bloques de tamaño fijo, las <em>páginas</em>, y la memoria física en <em>marcos</em> del mismo tamaño. Cualquier página puede ir en cualquier marco, de modo que ya no hay fragmentación externa ni hace falta que el proceso sea contiguo en memoria.</p>
       <p>Una <strong>tabla de páginas</strong> por proceso indica en qué marco está cada página. La MMU consulta la tabla en cada acceso: el número de página se reemplaza por el de marco y el desplazamiento se conserva.</p>`,
+    parametros: [
+      ['Tamaño de página (Fig. 1)', String.raw`Cuántos bits de la dirección son desplazamiento. Páginas más grandes dan menos entradas en la tabla pero más desperdicio dentro de cada página.`],
+      ['Dirección virtual (Fig. 1)', String.raw`La dirección de 16 bits que emite el proceso. Su página decide la fila de la tabla que se consulta; puede llevar a un marco o a una falla de página.`],
+      ['Otra tabla de páginas (Fig. 1)', String.raw`Genera otra asignación de páginas a marcos y otras páginas no presentes.`],
+      ['Tamaño medio de un proceso (KB) y Bytes por entrada de tabla (Fig. 2)', String.raw`El tamaño s del proceso y el costo e de cada entrada. Mayor s o mayor e encarece la tabla y desplaza el tamaño de página óptimo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Traducir una dirección virtual', descripcion: 'Mueva la dirección y observe cómo se separan número de página y desplazamiento. Si cae en una página «no presente» ocurre una falla de página. Cambie el tamaño de página.', montar: montarTraduccion },
-      { titulo: 'El tamaño de página óptimo', descripcion: 'La tabla pesa menos con páginas grandes; el desperdicio de la última página crece con ellas. Busque el mínimo del total.', montar: montarTamano },
+      { titulo: 'Traducir una dirección virtual', descripcion: 'Mueva la dirección y observe cómo se separan número de página y desplazamiento. Si cae en una página «no presente» ocurre una falla de página. Cambie el tamaño de página.',
+        ayuda: String.raw`<p>Arriba se ve la dirección en binario: los bits azules son el número de página y los naranjas, el desplazamiento. La tabla lista cada página con su presencia y su marco; la fila en negrita es la consultada (azul si está presente, roja si no). La línea inferior da la dirección física = marco × tamaño + desplazamiento.</p>
+          <ul>
+          <li><strong>Tamaño de página</strong>: al duplicarlo, un bit pasa de página a desplazamiento y la tabla se reduce a la mitad de filas.</li>
+          <li><strong>Dirección virtual</strong>: cambia la fila resaltada; en una página «no» presente aparece una falla de página en lugar de dirección física.</li>
+          <li><strong>Otra tabla de páginas</strong>: la misma dirección puede pasar a un marco distinto o a una falla.</li>
+          </ul>`, montar: montarTraduccion },
+      { titulo: 'El tamaño de página óptimo', descripcion: 'La tabla pesa menos con páginas grandes; el desperdicio de la última página crece con ellas. Busque el mínimo del total.',
+        ayuda: String.raw`<p>Eje horizontal, tamaño de página p; vertical, KB por proceso. La curva azul es el costo de la tabla (s·e/p), la naranja la fragmentación interna (p/2) y la negra su suma.</p>
+          <ul>
+          <li><strong>Tamaño medio de un proceso</strong>: al aumentarlo sube la curva azul y el mínimo de la negra se mueve hacia páginas mayores.</li>
+          <li><strong>Bytes por entrada de tabla</strong>: tiene el mismo efecto, porque cada entrada pesa más.</li>
+          </ul>`, montar: montarTamano },
     ],
     teoria: String.raw`
       <h2>Traducción</h2>

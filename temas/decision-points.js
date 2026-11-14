@@ -360,15 +360,32 @@
       por qué cada caso tomó la rama que tomó.</p>
       <p>El primer paso es medir: localizar los puntos de decisión en el modelo, contar cuántos casos eligen cada rama y listar qué datos
       tenía el caso <em>en ese momento</em>. Solo con esos datos, y no con los que aparecen después, puede explicarse la decisión.</p>`,
+    parametros: [
+      ['Casos (Fig. 1)', String.raw`Cantidad de casos que recorren el modelo. Con más casos, los porcentajes de cada rama son más estables.`],
+      ['Desvíos de la regla (Fig. 1 y 2)', String.raw`Porcentaje de casos en que la decisión real no sigue la regla de negocio. Más desvíos mezclan los atributos entre ramas y vuelven la decisión menos predecible.`],
+      ['Punto de decisión (Fig. 1 y 2)', String.raw`Qué rombo XOR se analiza: 1, tras evaluar el riesgo, o 2, tras la revisión manual.`],
+      ['Incluir atributos que se conocen después de decidir (Fig. 2)', String.raw`Agrega al análisis atributos que se registran después de la decisión. Parecen explicarla, pero no existen cuando hay que decidir.`],
+      ['Nuevos casos (Fig. 1 y 2)', String.raw`Genera otra muestra de casos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Puntos de decisión de un modelo y sus ramas',
         descripcion: 'Haga clic en un rombo o en una rama para ver cuántos casos la recorren y cómo se diferencian sus atributos. Aumente los desvíos de la regla y observe cómo se difuminan las diferencias entre ramas.',
+        ayuda: String.raw`<p>Es el modelo del proceso: los rombos son puntos de decisión (XOR) y de cada uno salen ramas de aprobación (verde), revisión manual (azul) y rechazo (rojo). Cada rama muestra cuántos casos la recorren; la rama elegida se resalta con trazo y debajo se comparan los atributos de sus casos.</p>
+          <ul>
+          <li><strong>Desvíos de la regla</strong>: al aumentarlos las ramas se parecen más entre sí en sus atributos, porque la regla deja de explicar la elección.</li>
+          <li><strong>Punto de decisión</strong>: cambia el rombo cuyas ramas se reparten y se comparan.</li>
+          </ul>`,
         montar: montarModelo,
       },
       {
         titulo: 'Atributos disponibles al decidir',
         descripcion: 'Mide qué atributos informan sobre la rama elegida. Active los atributos posteriores a la decisión y compare: los que se registran después aparecen como los mejores, pero son una fuga de información.',
+        ayuda: String.raw`<p>Cada barra es la ganancia de información (en bits) del mejor corte «atributo ≤ t» sobre la rama elegida. Se distingue qué atributos se conocen antes de decidir (usables) y cuáles se registran después (fuga de información).</p>
+          <ul>
+          <li><strong>Incluir atributos que se conocen después de decidir</strong>: aparecen barras de atributos posteriores, que lideran la lista pero no sirven para decidir.</li>
+          <li><strong>Desvíos de la regla</strong>: más desvíos reducen la ganancia de los atributos legítimos.</li>
+          </ul>`,
         montar: montarDisponibles,
       },
     ],

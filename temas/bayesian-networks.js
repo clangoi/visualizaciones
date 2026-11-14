@@ -116,15 +116,31 @@
       del nodo dado cada combinación de valores de sus padres.</p>
       <p>El ejemplo clásico de Judea Pearl: una alarma que puede dispararse por un robo o por un terremoto, y dos vecinos, Juan y María,
       que a veces llaman cuando la oyen. Con la red se puede razonar en cualquier dirección: de causas a efectos y de efectos a causas.</p>`,
+    parametros: [
+      ['Tabla de probabilidad de (Fig. 1)', String.raw`Elige el nodo cuya tabla de probabilidad condicional se muestra: cómo depende de sus padres.`],
+      ['Juan y María llaman, … y hubo un terremoto, Quitar evidencia (Fig. 1)', String.raw`Fijan observaciones sucesivas o las borran. Cada una cambia las probabilidades de los nodos no observados.`],
+      ['Máximo de padres por nodo k (Fig. 2)', String.raw`Cuántas causas directas puede tener cada variable. Más padres permiten dependencias más ricas pero tablas más grandes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Evidencia y creencias',
         descripcion: 'Fije observaciones haciendo clic en los nodos y vea cómo cambian las probabilidades de los demás. Pruebe los dos botones en orden.',
+        ayuda: String.raw`<p>Cada nodo es una variable; las flechas van de causa a efecto. Los nodos con evidencia se marcan como «sí» o «no», y bajo los no observados se lee P(sí | evidencia). Una marca indica si la probabilidad subió respecto del paso anterior. La tabla inferior es la del nodo elegido.</p>
+          <ul>
+          <li><strong>Juan y María llaman</strong>: sube la probabilidad de la alarma y del robo.</li>
+          <li><strong>… y hubo un terremoto</strong>: el robo baja aunque la alarma siga siendo probable, porque el terremoto la explica.</li>
+          <li><strong>Quitar evidencia</strong>: vuelve a las probabilidades previas.</li>
+          </ul>`,
         montar: montarEvidencia,
       },
       {
         titulo: 'Cuántos parámetros',
         descripcion: 'Números necesarios para especificar la distribución conjunta de n variables binarias, completa o factorizada con una red.',
+        ayuda: String.raw`<p>Parámetros necesarios (vertical) según el número de variables n (horizontal): la tabla conjunta completa, una red con a lo más k padres y el caso de variables independientes.</p>
+          <ul>
+          <li><strong>Máximo de padres</strong> bajo: la curva de la red queda cerca de la de independientes y muy lejos de la exponencial completa.</li>
+          <li><strong>Máximo de padres</strong> alto: la curva se acerca a la tabla completa y la ventaja de factorizar se reduce.</li>
+          </ul>`,
         montar: montarParametros,
       },
     ],

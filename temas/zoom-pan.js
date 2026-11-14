@@ -107,9 +107,24 @@
     intro: String.raw`
       <p>Con muchos datos, ninguna imagen cabe entera con suficiente detalle. <strong>Zoom</strong> (acercar) y <strong>pan</strong> (desplazar) permiten recorrer un espacio grande por partes. El riesgo es perderse: por eso se acompañan de un <em>panorama</em> que muestra dónde se está.</p>
       <p>Hay dos clases de zoom. El <em>geométrico</em> solo agranda lo que ya hay; el <em>semántico</em> cambia lo que se muestra según el nivel de acercamiento.</p>`,
+    parametros: [
+      ['Zoom (Fig. 1 y 2)', String.raw`Factor de ampliación de la vista. Muestra una parte más pequeña de los datos, con más detalle.`],
+      ['Restablecer (Fig. 1)', String.raw`Vuelve a 1× y recentra la vista.`],
+      ['Tipo de zoom (Fig. 2)', String.raw`Geométrico solo agranda el dibujo; semántico cambia qué se dibuja según el nivel de acercamiento.`],
+    ],
     visualizaciones: [
-      { titulo: 'Zoom y desplazamiento con panorama', descripcion: 'Acerque con la rueda o el control, desplace arrastrando y mueva el rectángulo del panorama.', montar: montarFocoContexto },
-      { titulo: 'Zoom geométrico y semántico', descripcion: 'Alterne entre ambos zooms y compare qué se ve a distintos niveles de acercamiento.', montar: montarSemantico },
+      { titulo: 'Zoom y desplazamiento con panorama', descripcion: 'Acerque con la rueda o el control, desplace arrastrando y mueva el rectángulo del panorama.',
+        ayuda: String.raw`<p>Vista principal con puntos azules y un panorama pequeño de todo el conjunto. El rectángulo naranja del panorama marca la ventana visible. La lectura da el punto bajo el cursor.</p>
+          <ul>
+          <li><strong>Zoom</strong>: al subirlo el rectángulo naranja se reduce, porque la vista ve menos del conjunto.</li>
+          <li><strong>Restablecer</strong>: el rectángulo cubre todo el panorama de nuevo.</li>
+          </ul>`, montar: montarFocoContexto },
+      { titulo: 'Zoom geométrico y semántico', descripcion: 'Alterne entre ambos zooms y compare qué se ve a distintos niveles de acercamiento.',
+        ayuda: String.raw`<p>Un mapa de puntos. Las celdas azules resumen muchos puntos con su conteo; los puntos naranja son individuales y con etiqueta.</p>
+          <ul>
+          <li><strong>Tipo de zoom</strong> «semántico»: al alejar los puntos se agrupan en celdas con conteo y al acercar aparecen individuales y rotulados; «geométrico» solo escala el dibujo.</li>
+          <li><strong>Zoom</strong>: define el nivel de acercamiento en que cambia la representación.</li>
+          </ul>`, montar: montarSemantico },
     ],
     teoria: String.raw`
       <h2>Transformación de la vista</h2>

@@ -114,15 +114,32 @@
     intro: String.raw`
       <p>La primera fase de un compilador, el <strong>análisis léxico</strong>, convierte el texto del programa —una larga sucesión de caracteres— en una sucesión de <strong>tokens</strong>: palabras reservadas, identificadores, números, operadores, signos de puntuación. Cada token es la clase de un trozo del texto, el <em>lexema</em>.</p>
       <p>Cada clase se describe con una expresión regular. Como varias reglas pueden coincidir en el mismo punto (<code>if</code> es a la vez palabra reservada e identificador), se necesitan reglas de desempate: el <strong>lexema más largo</strong> y, a igual largo, la <strong>prioridad</strong> de la regla.</p>`,
+    parametros: [
+      ['Programa fuente (Fig. 1 y 2)', String.raw`El texto que se tokeniza. Cada fragmento se asigna al token de la regla elegida.`],
+      ['Ejemplos (Fig. 1 y 2)', String.raw`Programas de muestra para cargar sin escribirlos.`],
+      ['Regla del lexema más largo (Fig. 1 y 2)', String.raw`Si está activa, el analizador toma la coincidencia más larga; si no, toma la primera que coincide aunque sea más corta.`],
+      ['Palabras reservadas antes que identificadores (Fig. 1)', String.raw`Si está activa, «if» es una palabra reservada; si no, se reconoce como identificador.`],
+      ['Reproductor (Fig. 2)', String.raw`Cada paso consume un token; Reiniciar vuelve al inicio del texto.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Del texto a los tokens',
         descripcion: 'Tokenice un programa. Cambie la estrategia de desempate y observe cómo «ifx» o «if» se analizan de otra manera.',
+        ayuda: String.raw`<p>El programa dividido en tokens, cada uno con su tipo. Un fragmento que ninguna regla reconoce se señala como ERROR léxico.</p>
+          <ul>
+          <li><strong>Regla del lexema más largo</strong>: al desactivarla, «ifx» se parte en trozos más cortos en lugar de un solo identificador.</li>
+          <li><strong>Palabras reservadas antes que identificadores</strong>: decide si «if» sale como palabra reservada o como identificador.</li>
+          </ul>`,
         montar: montarTokens,
       },
       {
         titulo: 'Qué regla gana en cada posición',
         descripcion: 'Avance token a token: la tabla muestra lo que cada regla reconocería desde la posición actual y cuál se elige.',
+        ayuda: String.raw`<p>Se distingue el texto ya consumido y el lexema que se elige ahora. La tabla muestra qué reconocería cada regla desde la posición actual y cuál gana.</p>
+          <ul>
+          <li><strong>Regla del lexema más largo</strong>: cambia qué candidato gana cuando dos reglas coinciden con distinta longitud.</li>
+          <li><strong>Reproductor</strong>: avanzar token a token deja ver en qué posiciones hay empate o competencia entre reglas.</li>
+          </ul>`,
         montar: montarCandidatos,
       },
     ],

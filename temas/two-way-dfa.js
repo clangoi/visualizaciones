@@ -165,15 +165,29 @@
     intro: String.raw`
       <p>Un autómata finito normal lee su entrada una sola vez, de izquierda a derecha, y no puede volver atrás. Un <strong>autómata de dos direcciones</strong> (2AFD) puede mover su cabeza lectora también hacia la izquierda: puede ir al final de la palabra, regresar, releer.</p>
       <p>Parece una ventaja grande, y sin embargo <strong>no reconoce más lenguajes</strong>: solo los regulares. Lo que cambia es el costo: un 2AFD puede ser bastante más pequeño que cualquier AFD equivalente, a cambio de leer más veces la entrada.</p>`,
+    parametros: [
+      ['2AFD (Fig. 1 y 2)', String.raw`El autómata de dos sentidos. Su regla de movimiento de la cabeza decide cuánto relee la entrada.`],
+      ['Palabra (Fig. 1)', String.raw`La entrada entre los marcadores ⊢ y ⊣. Determina el recorrido de la cabeza y si termina o cicla.`],
+      ['Reproductor (Fig. 1)', String.raw`Un paso mueve la cabeza una celda según la transición; Reiniciar la devuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La cabeza va y viene',
         descripcion: 'Ejecute un 2AFD sobre una palabra con marcadores ⊢ y ⊣. Observe el recorrido de la cabeza y pruebe «rebota» con una b para ver un ciclo infinito.',
+        ayuda: String.raw`<p>La cinta con los marcadores ⊢ y ⊣ y la cabeza sobre una celda. Se destacan el estado actual y la transición con la celda leída; el resultado final es aceptar (verde) o rechazar o ciclar (rojo).</p>
+          <ul>
+          <li><strong>Palabra</strong>: cada cambio de dirección de la cabeza es una relectura de celdas; «rebota» con una b entra en un ciclo infinito.</li>
+          <li><strong>2AFD</strong>: cambia la política de movimiento y por tanto el recorrido.</li>
+          </ul>`,
         montar: montarEjecucion,
       },
       {
         titulo: 'Pasos del 2AFD frente al AFD',
         descripcion: 'Un AFD siempre usa n pasos; un 2AFD puede usar más porque relee. Compare el peor caso medido sobre palabras aleatorias.',
+        ayuda: String.raw`<p>Eje horizontal: longitud n de la palabra. Eje vertical: pasos. Una serie es el AFD, que siempre usa n pasos; la otra es el peor caso medido del 2AFD sobre palabras aleatorias.</p>
+          <ul>
+          <li><strong>2AFD</strong>: según el autómata, la curva queda sobre la del AFD, lo que indica relecturas, aunque reconoce un lenguaje regular.</li>
+          </ul>`,
         montar: montarPasos,
       },
     ],

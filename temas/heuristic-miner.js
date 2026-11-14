@@ -304,20 +304,41 @@
       <p>Por eso tolera ruido y casos incompletos, donde el <a href="tema.html?id=alpha-algorithm">algoritmo Alfa</a> se rompe con una sola traza rara.
       El costo es que el resultado es un grafo de dependencias que hay que convertir después en un modelo con compuertas
       (<a href="tema.html?id=flexible-heuristics-miner">Flexible Heuristics Miner</a>).</p>`,
+    parametros: [
+      ['Casos y Ruido (Fig. 1 a 2)', String.raw`Casos es el tamaño del registro de eventos; Ruido, la fracción de trazas alteradas. Más ruido añade relaciones espurias que ensucian las medidas de dependencia.`],
+      ['Umbral de dependencia (Fig. 2 y 3)', String.raw`Valor mínimo de la medida a ⇒ b para aceptar una arista. Subirlo exige relaciones más claras: descarta ruido, pero puede perder dependencias reales.`],
+      ['Frecuencia mínima |a>b| (Fig. 2)', String.raw`Cuántas veces debe observarse a seguida de b para considerar la arista. Evita aceptar relaciones raras aunque su medida sea alta.`],
+      ['Nuevo registro y reproductor (Fig. 1 a 3)', String.raw`Nuevo registro genera otro registro aleatorio; los botones de paso recorren las candidatas una a una.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Matriz de medidas de dependencia',
         descripcion: 'Cada celda es \\(a \\Rightarrow b\\). Observe que a → b es fuerte y b → a negativa, y que d y e (paralelas) quedan cerca de 0. Pruebe subir el ruido y haga clic en una celda para ver el cálculo.',
+        ayuda: String.raw`<p>Matriz de dependencias: filas son la actividad origen a y columnas la destino b; cada celda es la medida \(a \Rightarrow b\). Las celdas cercanas a 1 indican que b depende de a, las débiles son dependencias tenues y las de cero o negativas indican que la relación fuerte es la inversa.</p>
+          <ul>
+          <li><strong>Ruido</strong>: al subirlo, aparecen valores intermedios fuera de las celdas fuertes, porque trazas alteradas crean pares a,b que no existen en el proceso.</li>
+          <li><strong>Casos</strong>: con más casos las medidas se estabilizan, pues cada par se apoya en más observaciones.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Umbrales y filtrado de ruido',
         descripcion: 'Suba el umbral de dependencia y vea desaparecer las aristas rojas del ruido antes que las reales; con ruido alto pruebe también la frecuencia mínima.',
+        ayuda: String.raw`<p>Grafo de dependencias filtrado. Las aristas verdaderas conservadas, las espurias conservadas (producto del ruido) y las verdaderas perdidas se distinguen por color según la leyenda.</p>
+          <ul>
+          <li><strong>Umbral de dependencia</strong>: al subirlo desaparecen primero las aristas espurias, y si es demasiado alto también se pierden verdaderas.</li>
+          <li><strong>Frecuencia mínima |a&gt;b|</strong>: descarta pares poco observados aunque tengan medida alta.</li>
+          <li><strong>Ruido</strong>: más ruido produce más aristas espurias que el filtro debe eliminar.</li>
+          </ul>`,
         montar: montarUmbral,
       },
       {
         titulo: 'Evaluar candidatas y bucles cortos',
         descripcion: 'Recorra paso a paso las candidatas: las aristas se aceptan o rechazan por su medida, y los bucles de longitud 1 y 2 usan sus propias medidas. Baje el umbral para ver qué se cuela.',
+        ayuda: String.raw`<p>Se recorren las aristas candidatas: las aceptadas, la candidata que se evalúa ahora y los bucles cortos (longitud 1 o 2), que usan sus propias medidas.</p>
+          <ul>
+          <li><strong>Umbral de dependencia</strong>: bajarlo acepta candidatas de medida más débil, y se cuelan relaciones dudosas.</li>
+          </ul>`,
         montar: montarPasos,
       },
     ],

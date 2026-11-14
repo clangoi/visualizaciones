@@ -291,15 +291,36 @@
       forma una cola, y los casos esperan a esa persona aunque haya otras libres: es un <strong>cuello de botella organizacional</strong>.</p>
       <p>La causa suele ser la forma de asignar el trabajo (todos piden a quien conocen) más que la falta de gente. Por eso se mide la desigualdad de carga y se prueban
       redistribuciones antes de contratar.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`El proceso del que se generan casos y personas por rol.`],
+      ['Casos que llegan por hora (Fig. 1 y 2)', String.raw`Ritmo de llegada; al subirlo aumenta la utilización de cada persona.`],
+      ['Polivalencia (Fig. 1)', String.raw`Probabilidad de que alguien haga actividades fuera de su rol; reparte mejor la carga y reduce la especialización.`],
+      ['Medida y Ordenar de mayor a menor (Fig. 1)', String.raw`Medida elige qué se grafica por persona (p. ej. carga, utilización o especialización); Ordenar pone a las más cargadas primero.`],
+      ['Personas en el rol clave (Fig. 2)', String.raw`Cuántas personas hay en el rol (bodega o soporte) que es cuello de botella.`],
+      ['Asignación del trabajo (Fig. 2)', String.raw`Regla para repartir casos: sesgada (todos piden a la primera persona) u otras que reparten mejor, como a quien quedaría libre antes.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra simulación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Carga, utilización y especialización',
         descripcion: 'Barras por persona, coloreadas por rol. Suba los casos por hora hasta que alguien supere el 100 % y cambie a «Especialización»; haga clic en una barra para ver su perfil de actividades.',
+        ayuda: String.raw`<p>Una barra por persona, coloreada por rol, con una línea de referencia (la media o el límite de utilización). Una barra sobre 100 % indica que la persona no alcanza a cubrir su carga.</p>
+          <ul>
+          <li><strong>Casos que llegan por hora</strong>: las barras crecen y quienes superan el límite quedan sobrecargados.</li>
+          <li><strong>Medida</strong>: cambia lo que mide cada barra.</li>
+          <li><strong>Polivalencia</strong>: al subirla, la carga se reparte entre más personas.</li>
+          </ul>`,
         montar: montarCarga,
       },
       {
         titulo: 'Colas y efecto de redistribuir',
         descripcion: 'Simulación de colas por persona. Con asignación sesgada se forma una cola frente a una sola persona aunque el equipo tenga holgura; pruebe «A quien quedaría libre antes» o agregue gente y compare esperas.',
+        ayuda: String.raw`<p>Simulación de colas por persona: se indica quién está trabajando o libre, cuántos casos esperan a esa persona y la cola máxima de toda la simulación.</p>
+          <ul>
+          <li><strong>Asignación del trabajo</strong>: con la sesgada se forma una cola frente a una sola persona aunque el equipo tenga holgura; repartir la reduce.</li>
+          <li><strong>Personas en el rol clave</strong>: más personas acortan las colas.</li>
+          <li><strong>Casos que llegan por hora</strong>: más llegadas alargan las colas.</li>
+          </ul>`,
         montar: montarCola,
       },
     ],

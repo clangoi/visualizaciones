@@ -81,9 +81,22 @@
     intro: String.raw`
       <p>Mostrar todo a la vez es ilegible; mostrar solo lo agregado deja sin respuesta las preguntas concretas. La solución es mostrar un <strong>panorama</strong> y revelar el <strong>detalle solo cuando se pide</strong>: al pasar el cursor, al hacer clic, al acercarse.</p>
       <p>Tres herramientas la hacen posible: el <em>tooltip</em> con el valor exacto, el <em>resaltado</em> que separa un elemento del resto y el <em>panel de detalle</em> que muestra los datos de origen.</p>`,
+    parametros: [
+      ['Ayuda para leer una serie (Fig. 1)', String.raw`Mecanismo de ayuda sobre las catorce líneas: ninguno, tooltip, resaltado de la línea bajo el cursor o resaltado con fijación y panel de detalle. Muestra cuánto facilita cada uno identificar una serie.`],
+      ['Etapa del recorrido (Fig. 2)', String.raw`Paso del mantra de Shneiderman: panorama general, acercar y filtrar, o detalle bajo demanda. Cada etapa muestra más información sobre una parte menor de los datos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Resaltar una serie entre catorce', descripcion: 'Compare sin ayuda, solo tooltip, resaltado y panel con selección fija; observe qué tan fácil es seguir una línea.', montar: montarResaltar },
-      { titulo: 'Panorama, acercar y detalle', descripcion: 'Recorra las tres etapas del mantra de Shneiderman sobre la tabla de ventas.', montar: montarMantra },
+      { titulo: 'Resaltar una serie entre catorce', descripcion: 'Compare sin ayuda, solo tooltip, resaltado y panel con selección fija; observe qué tan fácil es seguir una línea.',
+        ayuda: String.raw`<p>Catorce líneas, una por serie, con el mes en el eje horizontal y el valor en el vertical. Sin leyenda, las series se identifican por resaltado y rótulo directo. La lectura da los datos de la serie señalada.</p>
+          <ul>
+          <li><strong>Ayuda para leer una serie</strong> «ninguna»: las líneas grises se confunden; con «resaltar» la serie bajo el cursor pasa al frente y las demás se atenúan.</li>
+          <li>Con «resaltar y fijar», un clic deja la serie marcada y el panel la compara con el promedio.</li>
+          </ul>`, montar: montarResaltar },
+      { titulo: 'Panorama, acercar y detalle', descripcion: 'Recorra las tres etapas del mantra de Shneiderman sobre la tabla de ventas.',
+        ayuda: String.raw`<p>Mapa de calor de las ventas por región (filas) y mes (columnas); la rampa va de ventas bajas a altas, y la leyenda da los valores extremos. En la etapa 3 aparece debajo la tabla de filas que originan la celda elegida.</p>
+          <ul>
+          <li><strong>Etapa del recorrido</strong> 1: las 48 celdas resumen las 144 filas. En la 2 se atenúan las otras regiones y se elige una celda con un clic; en la 3 aparecen sus filas con región, mes, categoría, ventas, pedidos y costo.</li>
+          </ul>`, montar: montarMantra },
     ],
     teoria: String.raw`
       <h2>El mantra de la búsqueda visual de información</h2>

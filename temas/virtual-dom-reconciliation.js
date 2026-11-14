@@ -134,9 +134,24 @@
       <p>Modificar el DOM real es lento comparado con calcular en JavaScript. React mantiene entonces una descripción liviana de la interfaz, el <strong>DOM virtual</strong>:
       cuando el estado cambia, construye un árbol nuevo, lo <strong>compara</strong> con el anterior y aplica al DOM real solo las diferencias mínimas. Ese proceso se llama <strong>reconciliación</strong>.</p>
       <p>Comparar dos árboles de forma óptima es costoso, así que React usa dos heurísticas: nodos de distinto tipo producen árboles distintos, y las <code>key</code> identifican qué elemento de una lista es cuál.</p>`,
+    parametros: [
+      ['Cambio en el estado (Fig. 1)', String.raw`El tipo de cambio entre el árbol anterior y el nuevo. Decide cuántos nodos se reutilizan, actualizan, crean o eliminan.`],
+      ['Cambio en la lista (Fig. 2)', String.raw`La operación que se aplica a la lista: insertar al principio, quitar el primero o invertir.`],
+      ['key (Fig. 2)', String.raw`Con qué se identifica cada elemento: un id estable o su posición en el arreglo. La identidad determina qué nodos se reutilizan.`],
+    ],
     visualizaciones: [
-      { titulo: 'Diferencias entre dos árboles', descripcion: 'Elija un cambio y vea qué nodos se reutilizan, actualizan, crean o eliminan. Cambiar el tipo de un nodo reconstruye todo su subárbol.', montar: montarDiff },
-      { titulo: 'Listas: key por índice o por id', descripcion: 'Inserte un elemento al principio con ambas estrategias y compare cuántas operaciones necesita el DOM.', montar: montarKeys },
+      { titulo: 'Diferencias entre dos árboles', descripcion: 'Elija un cambio y vea qué nodos se reutilizan, actualizan, crean o eliminan. Cambiar el tipo de un nodo reconstruye todo su subárbol.',
+        ayuda: String.raw`<p>Se comparan el árbol anterior y el nuevo. El color de cada nodo indica su operación (reutilizado, actualizado, creado o eliminado) según la leyenda.</p>
+          <ul>
+          <li><strong>Cambio en el estado</strong>: un cambio de texto o de atributo actualiza solo un nodo; cambiar el tipo de un nodo reconstruye su subárbol.</li>
+          </ul>`, montar: montarDiff },
+      { titulo: 'Listas: key por índice o por id', descripcion: 'Inserte un elemento al principio con ambas estrategias y compare cuántas operaciones necesita el DOM.',
+        ayuda: String.raw`<p>Cada elemento de la lista se marca como reutilizado, actualizado, creado, eliminado o movido, y se cuentan las operaciones sobre el DOM.</p>
+          <ul>
+          <li><strong>key = id estable</strong> con insertar al principio: solo se crea un nodo y los demás se reutilizan.</li>
+          <li><strong>key = índice</strong> con el mismo cambio: cada posición cambia de contenido y se actualizan casi todos los nodos.</li>
+          <li><strong>Cambio en la lista</strong>: invertir el orden muestra movimientos con id estable y actualizaciones con índice.</li>
+          </ul>`, montar: montarKeys },
     ],
     teoria: String.raw`
       <h2>Por qué una heurística</h2>

@@ -425,6 +425,22 @@ a.etiqueta { color: inherit; text-decoration: none; }
   line-height: 1.5;
 }
 .prosa pre code { background: none; padding: 0; }
+.prosa dl.parametros {
+  margin: 12px 0 0;
+  border-top: 1px solid var(--linea);
+}
+.prosa dl.parametros dt {
+  font-family: var(--mono);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding-top: 12px;
+}
+.prosa dl.parametros dd {
+  margin: 4px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--linea);
+  color: #1d1d1b;
+}
 
 .navegacion-temas {
   display: grid;
@@ -464,6 +480,29 @@ a.etiqueta { color: inherit; text-decoration: none; }
 }
 .viz-cabecera h3 span { font-family: var(--mono); font-size: 12px; color: var(--tinta-3); font-weight: 400; }
 .viz-cabecera p { margin: 6px 0 0; font-size: 14px; color: var(--tinta-2); max-width: 80ch; }
+.viz-ayuda { margin-top: 10px; font-size: 14px; max-width: 80ch; }
+.viz-ayuda summary {
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--tinta);
+  text-decoration: underline;
+  text-decoration-color: var(--tinta-3);
+  text-underline-offset: 3px;
+  width: fit-content;
+}
+.viz-ayuda summary:hover { text-decoration-color: var(--tinta); }
+.viz-ayuda-cuerpo {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--tinta);
+  background: var(--fondo-2);
+  color: var(--tinta);
+}
+.viz-ayuda-cuerpo p { margin: 6px 0; font-size: 14px; color: var(--tinta); }
+.viz-ayuda-cuerpo ul { margin: 6px 0; padding-left: 1.2em; }
+.viz-ayuda-cuerpo li { margin: 3px 0; }
+.viz-ayuda-cuerpo .katex-display { overflow-x: auto; overflow-y: hidden; }
 .viz-cuerpo { padding: 16px 20px 20px; }
 
 .controles {

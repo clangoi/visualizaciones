@@ -307,20 +307,48 @@
       <strong>control de acceso</strong> (el mecanismo que aplica esas reglas cada vez que alguien intenta algo). Confundirlas es una fuente común de errores: iniciar sesión no significa poder verlo todo.</p>
       <p>Una contraseña por sí sola es un factor débil, porque se adivina, se filtra o se entrega a un sitio falso. Combinar factores de distinto tipo y conceder a cada persona solo los permisos que su trabajo
       requiere (<em>mínimo privilegio</em>) limita el daño cuando una cuenta cae.</p>`,
+    parametros: [
+      ['Alfabeto (Fig. 1)', String.raw`Conjunto de símbolos posibles en cada posición (minúsculas, mayúsculas, dígitos, palabras…). Más símbolos aumentan las combinaciones, pero menos que alargar la clave.`],
+      ['Largo (Fig. 1)', String.raw`Número de caracteres (o palabras). Cada posición multiplica las combinaciones por el tamaño del alfabeto.`],
+      ['Ataque (Fig. 1)', String.raw`Velocidad con que el atacante prueba claves (por ejemplo, hash rápido o lento). Cambia la escala de tiempo de todas las curvas.`],
+      ['Tipo de ataque (Fig. 2)', String.raw`Carga las probabilidades típicas de que el atacante obtenga cada factor en esa campaña (phishing, SIM swap, etc.).`],
+      ['Atacante obtiene contraseña / teléfono / huella (Fig. 2)', String.raw`Probabilidad de que el atacante consiga ese factor de una cuenta. Subirla muestra cuánto debilita al factor.`],
+      ['Exigir contraseña / teléfono / huella y Nuevo ataque (Fig. 2)', String.raw`Qué factores se piden para entrar: la cuenta cae solo si el atacante obtiene todos. Nuevo ataque repite el sorteo sobre las 400 cuentas.`],
+      ['Usuario e Intenta… (Fig. 3)', String.raw`El usuario y la acción que se prueba contra la matriz; muestran si sus roles le conceden el permiso.`],
+      ['Aplicar mínimo privilegio y Restaurar permisos iniciales (Fig. 3)', String.raw`Mínimo privilegio deja solo los permisos necesarios; Restaurar vuelve a la matriz inicial con permisos de sobra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cuánto tarda adivinar una contraseña',
         descripcion: 'Compare alfabetos y ataques sobre una escala logarítmica. Pruebe 8 caracteres con «hash rápido»: cae en segundos; luego suba el largo a 14 o use cuatro palabras al azar.',
+        ayuda: String.raw`<p>El eje horizontal es el largo y el vertical, los segundos promedio en escala logarítmica. Cada línea es un alfabeto y los hitos de tiempo marcan referencias (minuto, año, etc.).</p>
+          <ul>
+          <li><strong>Largo</strong>: cada carácter extra desplaza la línea hacia arriba por un factor igual al tamaño del alfabeto.</li>
+          <li><strong>Alfabeto</strong>: cambiar a uno mayor sube la línea, pero menos que sumar caracteres.</li>
+          <li><strong>Ataque</strong>: un ataque más rápido baja todas las líneas; una función lenta las sube.</li>
+          </ul>`,
         montar: montarContrasenas,
       },
       {
         titulo: 'Factores de autenticación contra un ataque',
         descripcion: 'Con solo contraseña, el ataque derriba a casi un tercio de las cuentas; exija además el teléfono o la huella y cuente cuántas caen. Pruebe «SIM swap» para ver cuándo falla el segundo factor.',
+        ayuda: String.raw`<p>Cada punto es una cuenta de 400: verde si es segura, intermedio si es segura pero el atacante obtuvo parte de los factores y rojo si fue comprometida.</p>
+          <ul>
+          <li><strong>Exigir…</strong>: con más factores exigidos, menos puntos rojos, porque el atacante debe conseguirlos todos.</li>
+          <li><strong>Atacante obtiene…</strong>: subir la probabilidad de un factor aumenta las cuentas comprometidas si ese factor es exigido.</li>
+          <li><strong>Tipo de ataque</strong>: con SIM swap el teléfono deja de ser una barrera confiable.</li>
+          </ul>`,
         montar: montarFactoresAutenticacion,
       },
       {
         titulo: 'Matriz de permisos por rol',
         descripcion: 'La matriz inicial concede de más. Pruebe a un usuario con una acción, quite celdas naranjas a mano y luego compare con «Aplicar mínimo privilegio»; el borde rojo marca lo que falta.',
+        ayuda: String.raw`<p>Filas son permisos y columnas, roles. Una celda concedida y necesaria, de más, faltante o no concedida se distingue por color; el borde rojo marca lo que falta.</p>
+          <ul>
+          <li><strong>Usuario</strong> e <strong>Intenta…</strong>: indican si la acción se permite con los roles de esa persona.</li>
+          <li><strong>Aplicar mínimo privilegio</strong>: quita las celdas de más (naranja) sin dejar faltantes.</li>
+          <li><strong>Restaurar permisos iniciales</strong>: recupera la matriz excesiva para comparar.</li>
+          </ul>`,
         montar: montarRoles,
       },
     ],

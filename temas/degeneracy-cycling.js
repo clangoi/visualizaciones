@@ -319,15 +319,33 @@
       alguna variable básica vale cero. Allí la prueba de razón puede dar \(0\): se cambia de base, pero no se avanza ni un milímetro y el objetivo no mejora.</p>
       <p>Con mala suerte, una sucesión de esos pivotes vuelve a la base de partida y el algoritmo <strong>cicla</strong> para siempre. Es raro en la práctica, pero existen
       ejemplos construidos a propósito, y hay reglas simples que lo impiden: la de Bland y la perturbación del lado derecho.</p>`,
+    parametros: [
+      ['b₁ (lado derecho de R₁) (Fig. 1)', String.raw`Mueve la primera restricción; con 5,6 tres rectas se cortan en un punto (vértice degenerado) y al alejarse se separan.`],
+      ['c₁ y c₂ (Fig. 1)', String.raw`Componentes del vector objetivo; determinan el camino del Simplex y si pasa por el vértice degenerado.`],
+      ['Regla (Fig. 1)', String.raw`Bland o Dantzig para elegir la variable entrante; en degeneración pueden dar caminos y pivotes distintos.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza un pivote por pulsación; Reiniciar vuelve al inicio.`],
+      ['Estrategia (Fig. 2)', String.raw`Regla anticiclo: Dantzig con desempate simple, Bland o perturbación de \(b\); decide si el Simplex entra en ciclo.`],
+      ['perturbación ε = 10^−k (k) (Fig. 2)', String.raw`Tamaño de la perturbación sumada a \(b\): mientras mayor es k, más pequeña es ε. Solo actúa con la estrategia de perturbación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un vértice sobredeterminado',
         descripcion: 'Con \\(b_1=5{,}6\\) tres rectas se cortan en un punto: observe la celda roja (variable básica en cero) y los pivotes que no mejoran \\(z\\). Cambie \\(b_1\\) unas décimas para ver desaparecer la degeneración.',
+        ayuda: String.raw`<p>El polígono es la región factible; las rectas son las restricciones. Los vértices recorridos y el actual están marcados; el vértice degenerado (una variable básica en cero) se distingue en la leyenda. El tableau resalta columna entrante, fila saliente y pivote.</p>
+          <ul>
+          <li><strong>b₁</strong>: en 5,6 aparece la degeneración y hay pivotes que no mejoran \(z\); un cambio leve la hace desaparecer.</li>
+          <li><strong>Regla</strong>: compara el número de pivotes entre Bland y Dantzig sobre el mismo vértice.</li>
+          </ul>`,
         montar: montarVertice,
       },
       {
         titulo: 'El ciclo de Beale',
         descripcion: 'En un problema de tres restricciones, Dantzig con desempate por menor índice da seis pivotes sin mejora y regresa a la base inicial. Pruebe Bland o la perturbación de \\(b\\), y mire cómo el objetivo sí llega a \\(5/4\\).',
+        ayuda: String.raw`<p>Eje horizontal: iteración; eje vertical: valor de \(z\). Los puntos azules son iteraciones, los de color rojo repiten una base ya vista (ciclo) y el verde es el óptimo. Debajo se listan las bases visitadas.</p>
+          <ul>
+          <li><strong>Estrategia</strong>: con Dantzig \(z\) queda plano y la base inicial reaparece (ciclo); con Bland o perturbación \(z\) termina subiendo hasta el óptimo.</li>
+          <li><strong>k</strong>: una perturbación muy pequeña puede no romper el empate numéricamente.</li>
+          </ul>`,
         montar: montarCiclo,
       },
     ],

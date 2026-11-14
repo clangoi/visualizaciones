@@ -110,9 +110,28 @@
     intro: String.raw`
       <p>En el <strong>aprendizaje por refuerzo</strong> no hay respuestas correctas dadas: un <strong>agente</strong> actúa en un <strong>entorno</strong> y solo recibe una señal de <strong>recompensa</strong>. En cada paso el agente observa un <strong>estado</strong>, elige una <strong>acción</strong>, el entorno le devuelve una recompensa y pasa a otro estado. El objetivo es acumular la mayor recompensa posible a lo largo del tiempo.</p>
       <p>El marco matemático es el <strong>proceso de decisión de Markov</strong> (MDP): el siguiente estado y la recompensa dependen solo del estado y la acción actuales. La <strong>política</strong> \(\pi\) es la regla con que el agente elige acciones.</p>`,
+    parametros: [
+      ['Entorno (Fig. 1 y 2)', String.raw`El mapa en el que vive el agente: Pequeño, Pasillo con muros o Trampas. Cambia dónde están la meta y las trampas y, con ello, qué recorridos dan recompensa.`],
+      ['Política del agente / Política (Fig. 1 y 2)', String.raw`La regla con que el agente elige acciones: al azar, la óptima calculada con el modelo o siempre a la derecha y luego abajo. Una mejor política obtiene retornos mayores.`],
+      ['Probabilidad de resbalar (Fig. 1 y 2)', String.raw`Probabilidad de que la acción elegida no se cumpla y el agente se mueva a otro lugar. Subirla hace el entorno más incierto: el mismo plan da resultados distintos.`],
+      ['Descuento γ (Fig. 1 y 2)', String.raw`Cuánto pesa el futuro: la recompensa obtenida en el paso t se multiplica por \(\gamma^t\). Con γ bajo solo importan las recompensas cercanas.`],
+      ['Otro episodio y reproductor (Fig. 1)', String.raw`Otro episodio cambia la semilla del azar para ver un recorrido distinto; el reproductor avanza o reinicia el episodio actual.`],
+    ],
     visualizaciones: [
-      { titulo: 'El ciclo estado–acción–recompensa', descripcion: 'Avance paso a paso con distintas políticas y probabilidad de resbalar. Mire cómo la recompensa se descuenta con \\(\\gamma^t\\).', montar: montarCiclo },
-      { titulo: 'El retorno varía; su promedio es el valor', descripcion: 'Simule 600 episodios y compare el histograma de retornos con el valor exacto del estado inicial.', montar: montarRetornos },
+      { titulo: 'El ciclo estado–acción–recompensa', descripcion: 'Avance paso a paso con distintas políticas y probabilidad de resbalar. Mire cómo la recompensa se descuenta con \\(\\gamma^t\\).',
+        ayuda: String.raw`<p>Es el mapa de casillas: el punto negro es el agente, el cuadro verde la meta (+1) y el cuadro rojo la trampa (−1); la línea es el recorrido hecho. Debajo, el registro anota cada paso (estado, acción, recompensa).</p>
+          <ul>
+          <li><strong>Política del agente</strong>: «Al azar» da recorridos largos y erráticos; «Óptima» va casi directo a la meta.</li>
+          <li><strong>Probabilidad de resbalar</strong>: con valores altos el recorrido se desvía de lo que la política ordena, incluso con la óptima.</li>
+          <li><strong>Descuento γ</strong>: no cambia el recorrido, sino cuánto vale la recompensa final en el retorno: más pasos, menos valor.</li>
+          </ul>`, montar: montarCiclo },
+      { titulo: 'El retorno varía; su promedio es el valor', descripcion: 'Simule 600 episodios y compare el histograma de retornos con el valor exacto del estado inicial.',
+        ayuda: String.raw`<p>El histograma cuenta cuántos de los 600 episodios terminaron con cada retorno descontado G. La marca del promedio estima el valor del estado inicial y la del valor exacto \(V(\text{inicio})\) viene de programación dinámica.</p>
+          <ul>
+          <li><strong>Política</strong>: la óptima concentra los retornos en valores altos; al azar los reparte y baja el promedio.</li>
+          <li><strong>Probabilidad de resbalar</strong>: ensancha el histograma, es decir, aumenta la variabilidad del retorno.</li>
+          <li><strong>Descuento γ</strong>: desplaza los retornos hacia cero al bajar γ; el promedio sigue acercándose al valor exacto.</li>
+          </ul>`, montar: montarRetornos },
     ],
     teoria: String.raw`
       <h2>Definición</h2>

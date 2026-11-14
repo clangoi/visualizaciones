@@ -105,15 +105,30 @@
       El <strong>DNS</strong> (<em>Domain Name System</em>) es la guía telefónica distribuida de Internet que traduce lo primero en lo segundo.</p>
       <p>Ningún servidor conoce todos los nombres: el sistema es una <strong>jerarquía</strong> (raíz → dominios de primer nivel → dominio) y un
       <em>resolvedor</em> recorre esa jerarquía por usted. Para no repetir el recorrido, cada respuesta se guarda en caché durante un tiempo de vida (<em>TTL</em>).</p>`,
+    parametros: [
+      ['Nombre (Fig. 1)', String.raw`El dominio que se quiere resolver. Según su estructura, la consulta pasa por la raíz, el TLD y el servidor autoritativo.`],
+      ['Caché del resolvedor (Fig. 1)', String.raw`Lo que el resolvedor ya sabe: nada, solo el TLD o la respuesta completa. Cuanto más sabe, menos consultas hacia la jerarquía hacen falta.`],
+      ['Latencia al resolvedor (Fig. 1)', String.raw`El tiempo de ida y vuelta entre el navegador y su resolvedor. Cada consulta del resolvedor a la jerarquía cuesta una fracción mayor de ese valor.`],
+      ['TTL del registro (Fig. 2)', String.raw`Cuánto tiempo puede conservarse una respuesta en caché. Un TTL mayor reutiliza más respuestas, pero tarda más en reflejar cambios.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Resolución de un nombre paso a paso',
         descripcion: 'Avance mensaje por mensaje y compare una caché vacía con una que ya conoce el TLD o la respuesta completa: observe cuántas consultas desaparecen.',
+        ayuda: String.raw`<p>Cada flecha es un mensaje entre el cliente, el resolvedor, la raíz, el TLD y el servidor autoritativo; la línea de tiempo muestra cuánto se acumula en cada paso.</p>
+          <ul>
+          <li><strong>Caché del resolvedor</strong>: con «tiene la respuesta» desaparecen las consultas a raíz, TLD y autoritativo, y el tiempo total baja.</li>
+          <li><strong>Latencia al resolvedor</strong>: escala los tiempos de cada salto, por lo que las consultas a la jerarquía pesan más que el primer tramo.</li>
+          </ul>`,
         montar: montarResolucion,
       },
       {
         titulo: 'TTL y aciertos de caché',
         descripcion: 'Mueva el TTL y vea cómo sube la fracción de consultas resueltas en caché, sobre todo para nombres muy visitados.',
+        ayuda: String.raw`<p>Cada curva es una frecuencia de consulta (poco visitado, mediano, muy visitado). El eje horizontal es el TTL en segundos y el vertical, la fracción de consultas respondidas desde la caché.</p>
+          <ul>
+          <li><strong>TTL del registro</strong>: al subirlo, todas las curvas suben; la del nombre muy visitado se acerca a 1 con TTL pequeños, y la del poco visitado necesita TTL largos.</li>
+          </ul>`,
         montar: montarTTL,
       },
     ],

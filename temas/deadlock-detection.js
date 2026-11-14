@@ -140,10 +140,19 @@
       En un sistema distribuido, en cambio, cada sitio conoce solo sus aristas: el ciclo puede atravesar varias máquinas y nadie lo ve completo.</p>
       <p>El algoritmo de <strong>Chandy, Misra y Haas</strong> (1983) busca el ciclo persiguiendo las aristas: un proceso bloqueado envía una
       <strong>sonda</strong> a quienes espera, estos la reenvían a quienes ellos esperan, y si la sonda vuelve al iniciador, hay un ciclo.</p>`,
+    parametros: [
+      ['Con un interbloqueo (Fig. 1)', String.raw`Si el grafo de espera generado contiene un ciclo. Con ciclo, las sondas vuelven al iniciador; sin ciclo, se agotan.`],
+      ['Nuevo grafo de espera y reproductor (Fig. 1)', String.raw`Nuevo grafo sortea otras esperas entre procesos. El reproductor avanza las sondas paso a paso o reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Sondas por el grafo de espera',
         descripcion: 'Avance paso a paso. La sonda (i, j, k) significa «iniciada por Pi, enviada por Pj a Pk». Si vuelve a Pi, el ciclo queda en rojo. Quite el interbloqueo y verá que las sondas se agotan.',
+        ayuda: String.raw`<p>Cada nodo es un proceso y cada flecha i → j significa que Pi necesita algo que tiene Pj. Las sondas enviadas en este paso y el proceso al que llegaron se resaltan, y un ciclo rojo indica interbloqueo detectado. Cada sonda \((i, j, k)\) está iniciada por Pi y enviada de Pj a Pk.</p>
+          <ul>
+          <li><strong>Con un interbloqueo</strong>: marcada, una sonda vuelve a su iniciador y pinta el ciclo; desmarcada, las sondas se agotan sin volver.</li>
+          <li><strong>Nuevo grafo de espera</strong>: cambia la forma del grafo y qué procesos están en el ciclo.</li>
+          </ul>`,
         montar,
       },
     ],

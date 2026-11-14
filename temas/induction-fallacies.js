@@ -109,15 +109,28 @@
       <strong>el paso inductivo supone algo que no vale para valores pequeños</strong>, o <strong>se confunde comprobar varios casos con demostrar</strong>.</p>
       <p>El ejemplo más famoso es la «prueba» de que todos los caballos son del mismo color. Cada línea suena razonable; el defecto está en un único paso, y aprender a encontrarlo
       es la mejor forma de entender qué hace realmente la inducción.</p>`,
+    parametros: [
+      ['Paso de k a k + 1 caballos: k = (Fig. 1)', String.raw`Cuántos caballos tiene el grupo del que se parte. Con k = 1 los grupos A y B no comparten caballo y el argumento deja de valer.`],
+      ['Intento de demostración (Fig. 2)', String.raw`Elige cuál de los cuatro enunciados se intenta demostrar, cada uno con una pieza defectuosa distinta.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Todos los caballos son del mismo color',
         descripcion: 'Varíe \\(k\\) y mire cuántos caballos comparten los grupos A y B. Con \\(k = 1\\) no hay ninguno: ahí se rompe el argumento.',
+        ayuda: String.raw`<p>Se arma un grupo de k + 1 caballos con dos grupos de k: A (los primeros k) y B (los últimos k). Se señalan los caballos comunes a A y B; si no hay ninguno, el argumento falla.</p>
+          <ul>
+          <li><strong>k</strong> mayor que 1: A y B comparten caballos, por lo que el color se transmite.</li>
+          <li><strong>k = 1</strong>: no hay caballo común; el paso de 1 a 2 es falso y por eso la «demostración» es inválida.</li>
+          </ul>`,
         montar: montarCaballos,
       },
       {
         titulo: 'Cuatro maneras de fallar',
         descripcion: 'Cada enunciado rompe una pieza distinta: caso base, paso, verificación empírica o punto de partida. Compare las filas de P(n) y de los pasos.',
+        ayuda: String.raw`<p>Filas con la validez de P(n), la de cada paso P(n) ⇒ P(n + 1) y la cadena válida que arranca en n = 0.</p>
+          <ul>
+          <li><strong>Intento de demostración</strong>: según el enunciado, falla el caso base, el paso, o la verificación empírica no basta; compare dónde aparece un paso falso o una cadena que no arranca.</li>
+          </ul>`,
         montar: montarFallas,
       },
     ],

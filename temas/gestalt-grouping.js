@@ -94,9 +94,26 @@
     intro: String.raw`
       <p>La psicología de la <strong>Gestalt</strong> estudió cómo el cerebro organiza lo que ve en conjuntos, sin que nadie se lo pida: dos puntos juntos «van juntos», una línea que los une los liga, un contorno los encierra. Esas reglas de agrupamiento rigen cómo se lee una visualización.</p>
       <p>Usarlas bien permite mostrar relaciones sin etiquetas; ignorarlas crea relaciones falsas, como agrupar por cercanía cosas que no tienen nada en común.</p>`,
+    parametros: [
+      ['Principio (Fig. 1)', String.raw`Qué factor de agrupamiento se aplica sobre la misma rejilla: proximidad, similitud, conexión, encierro, cierre o continuidad. El texto inferior explica el elegido.`],
+      ['Intensidad del factor (Fig. 1)', String.raw`Cuán fuerte es el factor: 0 deja la rejilla sin agrupar y valores altos hacen más claro el agrupamiento (más separación, más contraste, línea o contorno más marcado, hueco menor).`],
+      ['Color por grupo, Contorno por grupo y Separar los grupos en el espacio (Fig. 2)', String.raw`Tres señales de agrupamiento que se activan por separado: color (similitud), contorno (encierro) y distancia entre grupos (proximidad).`],
+    ],
     visualizaciones: [
-      { titulo: 'Seis principios de agrupamiento', descripcion: 'Elija un principio y varíe su intensidad sobre la misma rejilla de puntos.', montar: montarPrincipios },
-      { titulo: 'Agrupar marcas en un gráfico', descripcion: 'Active el color, el contorno y la separación espacial para llevar a la misma conclusión por tres vías.', montar: montarDispersion },
+      { titulo: 'Seis principios de agrupamiento', descripcion: 'Elija un principio y varíe su intensidad sobre la misma rejilla de puntos.',
+        ayuda: String.raw`<p>Una rejilla de 5 × 8 marcas (en continuidad, dos curvas de puntos azul y naranja; en cierre, dos círculos con hueco). Las líneas o contornos aguamarina aparecen en conexión y encierro. El texto inferior describe el principio activo.</p>
+          <ul>
+          <li><strong>Principio</strong> «Proximidad» con <strong>Intensidad</strong> alta: las columnas izquierda y derecha se separan y se ve dos bloques.</li>
+          <li><strong>Principio</strong> «Similitud»: al subir la intensidad, las filas alternas toman colores y formas distintos y se ven como filas.</li>
+          <li><strong>Principio</strong> «Cierre»: con intensidad alta el hueco de los círculos casi desaparece; con intensidad baja es grande y la figura se lee menos entera.</li>
+          </ul>`, montar: montarPrincipios },
+      { titulo: 'Agrupar marcas en un gráfico', descripcion: 'Active el color, el contorno y la separación espacial para llevar a la misma conclusión por tres vías.',
+        ayuda: String.raw`<p>Dispersión de 45 puntos en tres grupos (A azul, B naranja, C aguamarina) con atributo 1 en horizontal y atributo 2 en vertical. Sin señales, todos los puntos son grises y mezclados. El registro enumera las señales activas.</p>
+          <ul>
+          <li><strong>Color por grupo</strong>: los puntos toman el color de su grupo (similitud).</li>
+          <li><strong>Contorno por grupo</strong>: dibuja un contorno alrededor de cada grupo (encierro).</li>
+          <li><strong>Separar los grupos en el espacio</strong>: aleja los grupos entre sí (proximidad).</li>
+          </ul>`, montar: montarDispersion },
     ],
     teoria: String.raw`
       <h2>Principios</h2>

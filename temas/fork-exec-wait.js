@@ -93,9 +93,23 @@
       <p>En Unix, los procesos nacen de otros procesos. <code>fork()</code> crea un <strong>hijo</strong> que es una copia casi exacta del <strong>padre</strong>; <code>exec()</code> reemplaza el programa del proceso por otro;
       <code>wait()</code> hace que el padre espere a que el hijo termine y recoja su resultado. La combinación de las tres es la forma de lanzar cualquier programa.</p>
       <p>Así se forma una <strong>jerarquía de procesos</strong>: un árbol cuya raíz (init o systemd) es el primero que arranca el sistema.</p>`,
+    parametros: [
+      ['Llamadas consecutivas a fork() (Fig. 1)', String.raw`Cuántos fork() seguidos ejecuta el programa. Como cada proceso existente se duplica en cada llamada, el número de procesos es \(2^n\).`],
+      ['El shell ejecuta (Fig. 2)', String.raw`Si el shell lanza ls en primer plano (con wait) o en segundo plano (sin wait). Cambia si el padre se bloquea hasta que el hijo termine.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza o retrocede por los mensajes de la secuencia fork, exec y wait.`],
+    ],
     visualizaciones: [
-      { titulo: 'Árbol de procesos creado por fork', descripcion: 'Aumente el número de fork() consecutivos y cuente los procesos. Pase el cursor por una línea para ver de quién desciende.', montar: montarArbol },
-      { titulo: 'Cómo un shell lanza un programa', descripcion: 'Recorra la secuencia fork, exec, wait. Cambie a segundo plano para ver qué ocurre cuando el padre no espera.', montar: montarShell },
+      { titulo: 'Árbol de procesos creado por fork', descripcion: 'Aumente el número de fork() consecutivos y cuente los procesos. Pase el cursor por una línea para ver de quién desciende.',
+        ayuda: String.raw`<p>Cada línea horizontal es un proceso; el original va en negro y cada hijo en azul, según la llamada k que lo creó. Los puntos naranjas son los fork() que crearon cada hijo.</p>
+          <ul>
+          <li><strong>Llamadas consecutivas a fork()</strong>: con n llamadas hay \(2^n\) procesos; cada punto naranja agregado duplica las líneas.</li>
+          </ul>`, montar: montarArbol },
+      { titulo: 'Cómo un shell lanza un programa', descripcion: 'Recorra la secuencia fork, exec, wait. Cambie a segundo plano para ver qué ocurre cuando el padre no espera.',
+        ayuda: String.raw`<p>Diagrama de secuencia con dos líneas de vida: el shell o padre (azul) y el hijo (naranja). Cada flecha es una llamada o un retorno, con su nota.</p>
+          <ul>
+          <li><strong>El shell ejecuta</strong> en primer plano: el padre llama a wait, se bloquea y despierta cuando el hijo hace exit.</li>
+          <li><strong>El shell ejecuta</strong> en segundo plano: no hay wait, el padre sigue sin esperar y el hijo terminado puede quedar como zombi hasta que alguien lo recoja.</li>
+          </ul>`, montar: montarShell },
     ],
     teoria: String.raw`
       <h2>Las tres llamadas</h2>

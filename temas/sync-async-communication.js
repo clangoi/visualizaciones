@@ -189,15 +189,35 @@
       <p>La comunicación síncrona es simple de programar pero acopla a los procesos en el tiempo: el cliente no avanza si el servidor es lento o no está. Las
       colas de mensajes desacoplan, a cambio de que el emisor ya no sabe cuándo, ni si, su mensaje fue procesado. En ambos casos, ante una falla, hay que decidir
       cuánto esperar (<em>timeout</em>) y cómo reintentar.</p>`,
+    parametros: [
+      ['Comunicación (Fig. 1)', String.raw`Modo del cliente al hablar con el servidor: espera la respuesta, envía y sigue sin garantía, o deja el pedido en una cola persistente.`],
+      ['El servidor se desconecta un rato (Fig. 1)', String.raw`Simula una caída del servidor mientras el cliente envía sus pedidos. Muestra cómo cada modo tolera (o no) la ausencia.`],
+      ['Clientes que reintentan (Fig. 2)', String.raw`Cuántos clientes fallaron a la vez y reintentan. Más clientes elevan los picos de carga sobre el servidor.`],
+      ['Capacidad del servidor (pedidos/s) (Fig. 2)', String.raw`Pedidos por segundo que el servidor puede completar. Define la línea de saturación.`],
+      ['El servidor vuelve en t = (Fig. 2)', String.raw`Segundo en que el servidor se recupera. Los reintentos acumulados llegan a partir de ahí.`],
+      ['Otra simulación (Fig. 2)', String.raw`Sortea otros instantes de reintento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Síncrona, asíncrona y con cola',
         descripcion: 'Compare cuánto tarda el cliente en terminar sus 4 trabajos. Active la desconexión del servidor: la llamada síncrona termina en timeout, la asíncrona transitoria pierde mensajes y la cola los entrega después.',
+        ayuda: String.raw`<p>Una línea de tiempo por actor. Azul es trabajo local del cliente, amarillo el cliente bloqueado esperando, naranja el servidor atendiendo y rojo el servidor desconectado o un mensaje perdido. La fila «Cola» es el broker.</p>
+          <ul>
+          <li><strong>Comunicación</strong>: en la síncrona aparecen largos tramos amarillos; en las asíncronas el cliente termina sus 4 trabajos antes.</li>
+          <li><strong>El servidor se desconecta un rato</strong>: la síncrona termina en timeout, la transitoria pierde mensajes (rojo) y la cola los guarda y los entrega al volver.</li>
+          </ul>`,
         montar: montarModos,
       },
       {
         titulo: 'Reintentos y backoff',
         descripcion: 'Cuando el servidor vuelve, los reintentos a intervalo fijo llegan todos juntos y lo saturan una y otra vez. El backoff exponencial espacia los intentos; el jitter además los desincroniza.',
+        ayuda: String.raw`<p>Eje horizontal: tiempo en segundos; vertical: pedidos que llegan por segundo. Cada curva es una política (intervalo fijo azul, backoff exponencial naranja, exponencial con jitter aguamarina) y la línea gris es la capacidad del servidor.</p>
+          <ul>
+          <li><strong>Clientes que reintentan</strong>: sube las curvas; las que superan la línea gris saturan al servidor.</li>
+          <li><strong>Capacidad del servidor</strong>: sube o baja la línea gris frente a la que se comparan los picos.</li>
+          <li><strong>El servidor vuelve en t =</strong>: desplaza el momento en que comienzan los picos de reintentos.</li>
+          <li>El intervalo fijo repite picos sincronizados; el backoff los espacia y el jitter los reparte.</li>
+          </ul>`,
         montar: montarReintentos,
       },
     ],

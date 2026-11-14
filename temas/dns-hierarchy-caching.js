@@ -73,9 +73,24 @@
     intro: String.raw`
       <p>Las personas usan nombres (<code>www.uc.cl</code>) y las redes usan direcciones IP. El <strong>DNS</strong> (<em>Domain Name System</em>) es la base de datos distribuida que traduce unos en otras. Ningún servidor la tiene entera: está organizada en una <strong>jerarquía</strong> (raíz, dominios de primer nivel como «.cl» o «.com», y servidores autoritativos de cada organización).</p>
       <p>Un <strong>resolvedor</strong> recorre esa jerarquía por el usuario y guarda las respuestas en una <strong>caché</strong> durante un tiempo de vida (TTL), de modo que la mayoría de las consultas no salen del resolvedor.</p>`,
+    parametros: [
+      ['Consulta (Fig. 1)', String.raw`Elige resolución iterativa, recursiva o una respuesta ya guardada en caché. Cambia quién hace las consultas externas y cuántos mensajes hay.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza los mensajes uno a uno con su explicación.`],
+      ['Nombres distintos consultados (Fig. 2)', String.raw`Cuántos nombres diferentes pide la población de usuarios. Más variedad significa menos repeticiones que la caché pueda aprovechar.`],
+      ['Nuevo tráfico (Fig. 2)', String.raw`Genera otra muestra de consultas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Resolver un nombre', descripcion: 'Compare la resolución iterativa, la recursiva y una respuesta guardada en caché. Cuente los mensajes de cada una.', montar: montarResolucion },
-      { titulo: 'El efecto del TTL', descripcion: 'Un TTL mayor sube la tasa de aciertos de la caché. Cambie el número de nombres distintos.', montar: montarCache },
+      { titulo: 'Resolver un nombre', descripcion: 'Compare la resolución iterativa, la recursiva y una respuesta guardada en caché. Cuente los mensajes de cada una.',
+        ayuda: String.raw`<p>Las columnas son Host (azul), Resolvedor, Raíz (aguamarina), el TLD «.cl» (amarillo) y el servidor autoritativo de uc.cl (violeta). Cada flecha es una consulta o respuesta.</p>
+          <ul>
+          <li><strong>Consulta</strong>: en la iterativa el resolvedor pregunta él mismo a raíz, TLD y autoritativo; en la recursiva cada servidor delega al siguiente; con caché no hay consultas externas.</li>
+          </ul>`, montar: montarResolucion },
+      { titulo: 'El efecto del TTL', descripcion: 'Un TTL mayor sube la tasa de aciertos de la caché. Cambie el número de nombres distintos.',
+        ayuda: String.raw`<p>Eje horizontal, TTL en segundos (escala logarítmica); vertical, tasa de aciertos de la caché. La curva azul sube con el TTL.</p>
+          <ul>
+          <li><strong>Nombres distintos consultados</strong>: con más nombres la curva baja, pues hay menos repeticiones.</li>
+          <li><strong>Nuevo tráfico</strong>: cambia la muestra y mueve un poco la curva.</li>
+          </ul>`, montar: montarCache },
     ],
     teoria: String.raw`
       <h2>Jerarquía y registros</h2>

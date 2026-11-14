@@ -66,9 +66,21 @@
     intro: String.raw`
       <p>En una red local, los hosts se identifican por una dirección <strong>MAC</strong> de 48 bits, grabada en la tarjeta de red. <strong>Ethernet</strong> es la tecnología dominante: los hosts se conectan con cables a un <strong>switch</strong>, que reenvía cada trama solo al puerto del destinatario. El switch no necesita configuración: <em>aprende</em> mirando las direcciones de origen de las tramas que ve.</p>
       <p>Para pasar de una dirección IP a una MAC, un host usa <strong>ARP</strong>.</p>`,
+    parametros: [
+      ['Origen y Destino (Fig. 1)', String.raw`Qué host envía la trama y a quién va dirigida, o a difusión (FF:FF). Determina si el switch ya sabe por qué puerto está el destino.`],
+      ['Enviar trama y Vaciar la tabla (Fig. 1)', String.raw`Enviar trama transmite una trama; Vaciar la tabla hace que el switch olvide lo aprendido y vuelva a inundar.`],
+      ['Un paso y reproductor (Fig. 2)', String.raw`Avanzan o reinician los mensajes del ARP.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un switch que aprende', descripcion: 'Envíe tramas entre hosts. La primera vez el switch inunda; después, reenvía solo al puerto correcto. Pruebe la difusión y vacíe la tabla.', montar: montarSwitch },
-      { titulo: 'ARP: de IP a MAC', descripcion: 'Siga cómo A descubre la MAC de B con una consulta de difusión antes de enviar su primera trama.', montar: montarARP },
+      { titulo: 'Un switch que aprende', descripcion: 'Envíe tramas entre hosts. La primera vez el switch inunda; después, reenvía solo al puerto correcto. Pruebe la difusión y vacíe la tabla.',
+        ayuda: String.raw`<p>Los hosts cuelgan de los puertos del switch, que aprende en una tabla qué dirección MAC está en cada puerto. Las tramas naranjas se envían por inundación, las verdes solo al puerto correcto y el punto rojo marca una trama descartada porque origen y destino están en el mismo puerto.</p>
+          <ul>
+          <li><strong>Destino</strong> aún no aprendido o difusión: el switch inunda todos los puertos salvo el de entrada.</li>
+          <li>Tras haber visto al destino como origen, la trama sale solo por su puerto.</li>
+          <li><strong>Vaciar la tabla</strong>: se pierde lo aprendido y la siguiente trama vuelve a inundarse.</li>
+          </ul>`, montar: montarSwitch },
+      { titulo: 'ARP: de IP a MAC', descripcion: 'Siga cómo A descubre la MAC de B con una consulta de difusión antes de enviar su primera trama.',
+        ayuda: String.raw`<p>Columnas: host A, la red local y host B. Muestra la consulta ARP por difusión, la respuesta directa con la MAC de B y la trama Ethernet con el datagrama IP ya dirigida a esa MAC. Las figuras no tienen más controles que el reproductor.</p>`, montar: montarARP },
     ],
     teoria: String.raw`
       <h2>Algoritmo del switch</h2>

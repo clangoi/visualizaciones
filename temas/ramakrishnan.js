@@ -165,10 +165,19 @@
       <p>Hay solo dos marcas y se combinan: una <strong>flecha</strong> hacia el rombo es una <em>restricción de llave</em> («a lo más
       uno») y una <strong>línea gruesa</strong> es una <em>participación total</em> («al menos uno»). Una flecha gruesa significa
       «exactamente uno».</p>`,
+    parametros: [
+      ['Casillas de llave y total (Fig. 1)', String.raw`Las dos «llave» (flecha) limitan a cuántos pares puede pertenecer cada entidad (a lo más uno); las dos «total» (línea gruesa) exigen que toda entidad participe en al menos un par. Al activarlas cambia la notación del diagrama y las violaciones de la instancia.`],
+      ['Ejemplo y Vaciar pares (Fig. 1)', String.raw`Ejemplo carga pares de muestra entre empleados y departamentos; Vaciar pares los quita.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Flechas, líneas gruesas e instancias',
         descripcion: 'El ejemplo clásico del libro: Empleado dirige Departamento. Active y desactive las restricciones y vea el diagrama, las violaciones en la instancia y la traducción a SQL.',
+        ayuda: String.raw`<p>Diagrama Empleado dirige Departamento con las restricciones elegidas, instancia de pares (empleado, departamento) y traducción a SQL. Se marcan los pares que violan una restricción de llave y las entidades que violan la participación total.</p>
+          <ul>
+          <li><strong>llave</strong>: con la casilla de Departamento activa, un departamento con dos directores se marca como violación.</li>
+          <li><strong>total</strong>: con la casilla activa, una entidad sin ningún par se marca como violación de la participación total.</li>
+          </ul>`,
         montar: montarNotacion,
       },
     ],

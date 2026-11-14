@@ -147,15 +147,32 @@
     intro: String.raw`
       <p>Una gran ventaja de los lenguajes regulares es que muchas preguntas sobre ellos <strong>se pueden responder siempre</strong>, con un algoritmo: ¿acepta el autómata alguna palabra? ¿dos expresiones describen el mismo lenguaje? ¿un lenguaje está contenido en otro?</p>
       <p>Todas se reducen a una pregunta de alcanzabilidad en un grafo. Si la respuesta es «hay una palabra», el algoritmo entrega además un <em>testigo</em> (o un <em>contraejemplo</em>), que es la mejor explicación posible.</p>`,
+    parametros: [
+      ['Pregunta (Fig. 1)', String.raw`Qué se decide sobre las expresiones: por ejemplo equivalencia o vacío. Define qué par de estados cuenta como testigo.`],
+      ['Expresión A y Expresión B (Fig. 1)', String.raw`Las expresiones que se comparan; con ellas se arma el autómata producto que se recorre.`],
+      ['Ejemplos (Fig. 1)', String.raw`Parejas de expresiones de muestra para cargar sin escribirlas.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso visita un par de estados del producto en anchura; Reiniciar empieza la búsqueda de nuevo.`],
+      ['Restaurar finales (Fig. 2)', String.raw`Devuelve los estados finales originales después de los cambios hechos con clic.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Testigos en el autómata producto',
         descripcion: 'Escriba dos expresiones y elija la pregunta. La búsqueda en anchura recorre los pares de estados hasta hallar una palabra testigo, que además es la más corta.',
+        ayuda: String.raw`<p>Cada nodo es un par de estados del autómata producto de A y B. Se resalta el par que se visita ahora, los ya visitados y, al hallarlo, el par testigo con el camino más corto hasta él; ese camino da una palabra testigo.</p>
+          <ul>
+          <li><strong>Pregunta</strong>: cambia qué pares son testigos; si no existe ninguno alcanzable, la respuesta es la contraria.</li>
+          <li><strong>Expresión A / B</strong>: dos expresiones equivalentes no producen testigo; una diferencia mínima sí lo hace.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Alcanzabilidad y estados muertos',
         descripcion: 'Clasifique los estados en útiles, muertos e inalcanzables, y alterne estados finales con un clic para ver cuándo el lenguaje se vacía.',
+        ayuda: String.raw`<p>Los estados se clasifican en útiles (alcanzables y con camino a un final), muertos (alcanzables sin camino a un final) e inalcanzables desde el inicial.</p>
+          <ul>
+          <li><strong>Clic en un estado</strong>: alterna si es final; si ningún estado útil es final, el lenguaje queda vacío.</li>
+          <li><strong>Restaurar finales</strong>: recupera el autómata original.</li>
+          </ul>`,
         montar: montarAlcanzabilidad,
       },
     ],

@@ -36,8 +36,17 @@
     intro: String.raw`
       <p>IP envía paquetes «lo mejor posible», sin avisar si algo falla. <strong>ICMP</strong> (<em>Internet Control Message Protocol</em>) es el canal en el que routers y hosts informan de problemas: destino inalcanzable, tiempo excedido, solicitud de eco. Viaja dentro de paquetes IP, pero lo usan las capas de red, no las aplicaciones.</p>
       <p>Dos herramientas conocidas se basan en él: <code>ping</code> mide el RTT con mensajes de eco, y <code>traceroute</code> descubre la ruta usando el campo <strong>TTL</strong> de IP, que cada router decrementa.</p>`,
+    parametros: [
+      ['Herramienta (Fig. 1)', String.raw`Qué se observa: traceroute con TTL creciente, un ping (echo) o un error de red inalcanzable.`],
+      ['Un paso y reproductor (Fig. 1)', String.raw`Avanzan o reinician los mensajes, de uno en uno.`],
+    ],
     visualizaciones: [
-      { titulo: 'ping, traceroute y errores', descripcion: 'Siga cómo traceroute descubre uno a uno los routers con TTL creciente. Compare con ping y con un error de red inalcanzable.', montar },
+      { titulo: 'ping, traceroute y errores', descripcion: 'Siga cómo traceroute descubre uno a uno los routers con TTL creciente. Compare con ping y con un error de red inalcanzable.',
+        ayuda: String.raw`<p>Cada columna es un equipo (origen, tres routers, destino) y el tiempo corre hacia abajo. Las flechas azules son paquetes de prueba, las naranjas respuestas ICMP y el punto rojo marca un error. La lectura cuenta mensajes y routers descubiertos.</p>
+          <ul>
+          <li><strong>Herramienta</strong> traceroute: cada paquete con TTL mayor llega un router más lejos, donde el TTL se agota y vuelve «TTL excedido»; así se descubre la ruta.</li>
+          <li>Con ping solo hay petición y respuesta del destino; con «red inalcanzable» un router informa que no tiene ruta.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>TTL</h2>

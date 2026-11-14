@@ -449,20 +449,42 @@
       <p>Sus <strong>valores propios</strong> son las curvaturas extremas y sus vectores propios las direcciones donde ocurren. Si todos son
       positivos, el punto es localmente convexo (y, si además el gradiente se anula, un mínimo); si hay de ambos signos, es una silla. Las tres figuras
       calculan la Hessiana numéricamente, la descomponen y muestran en qué regiones es convexa la función.</p>`,
+    parametros: [
+      ['Función (Fig. 1 y 3)', String.raw`La función cuya Hessiana se analiza.`],
+      ['Mostrar el modelo cuadrático de Taylor (Fig. 1)', String.raw`Superpone la aproximación cuadrática en el punto; su curva coincide con la real cerca del punto.`],
+      ['Punto inicial (Fig. 1 y 3)', String.raw`Devuelve el punto elegido a su posición de partida.`],
+      ['Ejemplo de Hessiana (Fig. 2)', String.raw`Una Hessiana predefinida, para ver cada tipo de definición.`],
+      ['H₁₁, H₁₂, H₂₂ (Fig. 2)', String.raw`Entradas de la Hessiana simétrica. Determinan las curvaturas propias y si es definida o indefinida.`],
+      ['Dirección d (ángulo) (Fig. 2)', String.raw`Dirección en la que se mide la curvatura \(\kappa = d^\top H d\).`],
+      ['Colorear la región según la Hessiana (Fig. 3)', String.raw`Colorea el plano según el tipo de definición de H.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La Hessiana en un punto y su modelo cuadrático',
         descripcion: 'La tabla muestra \\(H(p)\\) calculada por diferencias finitas y las flechas sus direcciones propias. La curva violeta es la curva de nivel del modelo cuadrático de Taylor sobre la real (naranja ancha): en una función cuadrática coinciden; pruebe «Himmelblau» o «banana» y vea cuánto se separan lejos de \\(p\\).',
+        ayuda: String.raw`<p>Curvas de nivel real y del modelo cuadrático por el punto, y las direcciones propias de H: se distinguen las de \(\lambda &gt; 0\) (curvan hacia arriba) y \(\lambda &lt; 0\) (hacia abajo).</p>
+          <ul>
+          <li><strong>Modelo cuadrático</strong>: la diferencia entre ambas curvas indica hasta dónde vale la aproximación.</li>
+          </ul>`,
         montar: montarHessiana,
       },
       {
         titulo: 'Curvatura según la dirección',
         descripcion: 'Construya una Hessiana con los tres sliders. El gráfico polar muestra \\(\\kappa(\\theta) = d^\\top H d\\) (azul si es positiva, rojo si es negativa); abajo, el corte de la superficie en esa dirección. Pruebe los cuatro ejemplos: cuenco, colina, silla y valle plano.',
+        ayuda: String.raw`<p>Gráfico polar de \(\kappa(\theta)\), azul si es positiva y roja si es negativa, con las direcciones propias. Abajo, el corte \(\varphi(t)\) en la dirección d, en la de mayor y en la de menor curvatura.</p>
+          <ul>
+          <li><strong>H₁₁, H₁₂, H₂₂</strong>: si la curvatura cambia de signo, la Hessiana es indefinida (silla).</li>
+          <li><strong>Dirección d</strong>: el corte se curva hacia arriba o hacia abajo según el signo de κ.</li>
+          </ul>`,
         montar: montarCurvatura,
       },
       {
         titulo: 'Mapa de convexidad e indicatriz',
         descripcion: 'El color indica dónde la Hessiana es semidefinida positiva (azul), negativa (rojo) o indefinida (naranja). Haga clic en una región de cada color y observe cómo la indicatriz pasa de elipse a hipérbola.',
+        ayuda: String.raw`<p>Mapa coloreado: convexa localmente (H ⪰ 0), cóncava (H ⪯ 0) o silla (indefinida). La indicatriz \(d^\top H d = \pm c\) se dibuja en el punto elegido.</p>
+          <ul>
+          <li><strong>Colorear la región</strong>: la indicatriz es elipse donde H es definida e hipérbola donde es indefinida.</li>
+          </ul>`,
         montar: montarConvexidad,
       },
     ],

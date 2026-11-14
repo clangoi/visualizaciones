@@ -240,15 +240,34 @@
       <p>Como no hay etiquetas, no hay un error de validación evidente: evaluar un resultado no supervisado exige criterios
       propios (varianza explicada, compacidad de los grupos) o el juicio de un experto. A menudo sirve como paso previo de un
       problema supervisado: comprimir atributos, crear nuevos o detectar anomalías.</p>`,
+    parametros: [
+      ['Orientación de la nube (Fig. 1)', String.raw`El ángulo de la dirección en que los datos se estiran más.`],
+      ['Dispersión transversal σ₂ / σ₁ (Fig. 1)', String.raw`Qué tan ancha es la nube en la dirección perpendicular, comparada con su largo. Cerca de 0 es casi una línea; 1 es redonda.`],
+      ['Proyectar sobre la primera componente (Fig. 1)', String.raw`Reemplaza cada punto por su sombra sobre la primera componente: se pasa de dos números por punto a uno.`],
+      ['Enlace (Fig. 2)', String.raw`Cómo se mide la distancia entre dos grupos: entre sus puntos más cercanos (simple), más lejanos (completo), en promedio, o por cuánto aumentaría la varianza al unirlos (Ward).`],
+      ['Grupos (Fig. 2)', String.raw`En cuántos grupos se corta el dendrograma.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Sortean otra muestra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Componentes principales',
         descripcion: 'PCA encuentra la dirección de máxima varianza. Haga la nube muy alargada y proyecte: casi no se pierde información. Hágala redonda (σ₂/σ₁ = 1): ninguna dirección es mejor que otra.',
+        ayuda: String.raw`<p>Los puntos azules son datos en dos dimensiones. La flecha naranja es la primera componente principal (dirección de máxima varianza) y la aguamarina, la segunda, perpendicular; su largo es proporcional a la desviación en cada dirección.</p>
+          <ul>
+          <li><strong>Orientación</strong>: PCA encuentra la dirección sin que se la digan; compare «ángulo estimado» con el control.</li>
+          <li><strong>Dispersión transversal</strong> pequeña: casi toda la varianza está en la primera componente (lectura «varianza explicada») y proyectar pierde poco. Con 1, la nube es redonda y ninguna dirección es mejor.</li>
+          <li><strong>Proyectar</strong>: las líneas grises son el error de reconstrucción de cada punto; su promedio al cuadrado es la varianza de la segunda componente.</li>
+          </ul>`,
         montar: montarPCA,
       },
       {
         titulo: 'Agrupamiento jerárquico',
         descripcion: 'Partiendo de un grupo por punto, se une repetidamente el par más cercano. El dendrograma guarda toda la historia y permite elegir el número de grupos después. Compare el enlace simple con Ward.',
+        ayuda: String.raw`<p>A la izquierda, los datos sin etiquetas coloreados según el grupo al que quedan asignados. A la derecha, el <em>dendrograma</em>: cada unión horizontal es la fusión de dos grupos, a una altura igual a la distancia entre ellos. La línea punteada es el corte que define los grupos.</p>
+          <ul>
+          <li><strong>Grupos</strong> mueve el corte: por debajo de él quedan \(k\) ramas separadas. Un salto grande de altura antes de una fusión sugiere un buen número de grupos.</li>
+          <li><strong>Enlace simple</strong> encadena puntos cercanos y produce grupos alargados (y a veces un grupo gigante); <strong>completo</strong> y <strong>Ward</strong> producen grupos compactos de tamaño parecido.</li>
+          </ul>`,
         montar: montarJerarquico,
       },
     ],

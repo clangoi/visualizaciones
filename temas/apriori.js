@@ -137,15 +137,28 @@
       considera candidatos cuyos subconjuntos ya resultaron frecuentes.</p>
       <p>La idea descansa en el <strong>principio de monotonía</strong>: si \(\{\text{pan}, \text{leche}\}\) no es frecuente, ningún
       superconjunto suyo puede serlo, así que toda esa rama se descarta sin mirar los datos.</p>`,
+    parametros: [
+      ['Soporte mínimo (Fig. 1 y 2)', String.raw`Umbral que decide qué itemsets son frecuentes. Bajarlo hace que sobrevivan más candidatos, el algoritmo llegue a niveles más profundos y la poda tenga más trabajo.`],
+      ['Nuevas canastas y reproductor (Fig. 1 y 2)', String.raw`Nueva muestra de canastas y control del avance nivel por nivel. Los resultados dependen de la muestra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Apriori nivel por nivel',
         descripcion: 'Generación de candidatos, poda y conteo en cada nivel. Baje el soporte mínimo para ver niveles más profundos y más podas.',
+        ayuda: String.raw`<p>Cada nivel k lista sus candidatos. Se marcan los frecuentes (pasan a L_k), los contados e infrecuentes, los podados sin contar porque algún subconjunto no es frecuente, y los aún sin contar. El registro describe el paso actual.</p>
+          <ul>
+          <li><strong>Soporte mínimo</strong> bajo: más candidatos frecuentes y más niveles.</li>
+          <li><strong>Soporte mínimo</strong> alto: aparecen podas ya en el nivel 2 o 3 y el algoritmo termina antes.</li>
+          </ul>`,
         montar: montarNiveles,
       },
       {
         titulo: 'Cuánto ahorra la poda',
         descripcion: 'Por tamaño k: itemsets posibles, candidatos generados, los que de verdad se cuentan y los frecuentes.',
+        ayuda: String.raw`<p>Por tamaño k (eje horizontal) se comparan, en escala logarítmica, los itemsets posibles, los candidatos generados, los realmente contados y los frecuentes.</p>
+          <ul>
+          <li><strong>Soporte mínimo</strong>: al subirlo, las curvas de contados y frecuentes caen respecto a la de posibles; la distancia entre ellas es lo que la poda ahorra.</li>
+          </ul>`,
         montar: montarAhorro,
       },
     ],

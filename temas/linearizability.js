@@ -233,15 +233,29 @@
       <p>La diferencia con la <a href="tema.html?id=sequential-consistency">consistencia secuencial</a> es el tiempo real: si una operación
       termina antes de que otra empiece, la primera debe ir antes en el orden. Una lectura que empieza después de que una escritura terminó
       tiene que verla.</p>`,
+    parametros: [
+      ['Historia (Fig. 1 y 2)', String.raw`Qué ejemplo de operaciones se analiza: cada una tiene un intervalo de invocación a respuesta. Los casos incluyen historias linealizables y otras solo secuencialmente consistentes.`],
+      ['Restaurar (Fig. 1)', String.raw`Devuelve las operaciones a su posición original tras arrastrarlas.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza el verificador paso a paso y lo reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Arrastre las operaciones',
         descripcion: 'Cada barra va de la invocación a la respuesta. Si existe una linealización, se dibujan sus puntos y su orden. Arrastre la lectura de «Secuencial pero no linealizable» hacia la izquierda hasta que se solape con la escritura.',
+        ayuda: String.raw`<p>Cada barra es una operación, del instante de invocación al de respuesta; se distinguen escrituras y lecturas. Cuando existe una linealización se dibujan los puntos de linealización con su orden dentro de cada operación.</p>
+          <ul>
+          <li>Arrastrar una operación para que dos intervalos dejen de solaparse, o para que una lectura termine antes que una escritura, cambia el orden de tiempo real: puede desaparecer la linealización.</li>
+          <li><strong>Restaurar</strong>: vuelve a la historia original.</li>
+          </ul>`,
         montar: montarArrastre,
       },
       {
         titulo: 'Buscar una linealización',
         descripcion: 'El verificador de Wing y Gong elige en cada paso una operación mínima, comprueba que sea legal y retrocede si se atasca. «Dos escrituras solapadas» obliga a retroceder.',
+        ayuda: String.raw`<p>El verificador elige en cada paso una operación mínima, es decir, una que ninguna pendiente haya terminado antes. Los colores de la leyenda distinguen las operaciones ya linealizadas (con su posición), la candidata que se agrega, la rechazada por lectura incorrecta y las mínimas. Debajo se muestra el orden parcial por tiempo real.</p>
+          <ul>
+          <li><strong>Historia</strong>: en «Dos escrituras solapadas» aparecen candidatas rechazadas y el verificador retrocede para probar otro orden.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
     ],

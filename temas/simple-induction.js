@@ -114,15 +114,29 @@
       entonces valga para el siguiente (el <em>paso inductivo</em>).</p>
       <p>La imagen clásica es una fila de fichas de dominó: si se empuja la primera y cada ficha derriba a la siguiente, caen todas.
       Cada una de las dos condiciones es indispensable.</p>`,
+    parametros: [
+      ['Caso base: P(0) es verdadero (Fig. 1)', String.raw`Indica si la primera ficha recibe el empujón. Sin caso base, nada arranca aunque todos los pasos sean válidos.`],
+      ['Paso roto en k (Fig. 1)', String.raw`Marca un punto k donde P(k) no implica P(k + 1). Con 0 no hay ninguno; con otro valor la cadena se detiene allí.`],
+      ['n (Fig. 2)', String.raw`Tamaño del cuadrado: cuántas capas en L se han sumado, es decir, los n primeros impares.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Efecto dominó',
         descripcion: 'Quite el caso base, o rompa el paso en algún punto, y compare hasta dónde llega la demostración. Las dos condiciones se necesitan a la vez.',
+        ayuda: String.raw`<p>Cada ficha es un caso P(n). Las que están de pie aún no tienen P(n) demostrada; la que cae ahora es la que se demuestra en ese instante y las caídas ya tienen P(n) demostrada. Una ficha con paso roto marca donde P(k) no implica P(k + 1).</p>
+          <ul>
+          <li><strong>Caso base</strong> desmarcado: ninguna ficha cae, porque falta el punto de partida.</li>
+          <li><strong>Paso roto en k</strong> distinto de 0: las fichas caen hasta k y la cadena se corta; el resto queda sin demostrar.</li>
+          </ul>`,
         montar: montarDomino,
       },
       {
         titulo: 'n² como suma de impares',
         descripcion: 'Aumente \\(n\\) y vea el cuadrado crecer con una capa en L. Esa capa es exactamente el paso inductivo de \\(1 + 3 + \\cdots + (2n-1) = n^2\\).',
+        ayuda: String.raw`<p>El cuadrado de lado n se forma con el cuadrado de n − 1 (capas anteriores) más una capa nueva en L de 2n − 1 cuadritos.</p>
+          <ul>
+          <li><strong>n</strong>: al aumentarlo se añade una capa más, que es exactamente el paso inductivo \(n^2 = (n-1)^2 + (2n-1)\).</li>
+          </ul>`,
         montar: montarImpares,
       },
     ],

@@ -147,15 +147,33 @@
       el azar solo, y el <strong>p-valor</strong> es la fracción de esas barajas que igualan o superan lo observado.</p>
       <p>La misma idea sirve para cualquier estadístico: diferencias de medias, distancias entre distribuciones, lift de una regla de asociación,
       o la ganancia de un modelo sobre otro.</p>`,
+    parametros: [
+      ['Diferencia real entre grupos (Fig. 1)', String.raw`La diferencia verdadera entre las medias de A y B con que se generan los datos. En 0 no hay efecto, así que el p-valor tiende a ser grande; al subirla, la diferencia observada se aleja de la nula.`],
+      ['Datos por grupo (Fig. 1 y 2)', String.raw`El tamaño de cada grupo. Más datos hacen la distribución nula más estrecha, y una misma diferencia resulta más significativa.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos genera otra muestra. Reproducir, Un paso, Hasta el final y Reiniciar controlan cuántas permutaciones se han hecho.`],
+      ['Diferencia de medias (Fig. 2)', String.raw`Cuánto se separan las medias de los dos grupos. Desplaza una curva respecto de la otra.`],
+      ['Razón de desviaciones B / A (Fig. 2)', String.raw`Cuánto más dispersos están los datos de B que los de A. Con medias iguales y razón distinta de 1, las curvas se cruzan y se separan en las colas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Permutar etiquetas',
         descripcion: 'Dos grupos, la diferencia observada y la distribución nula construida barajando etiquetas. Lleve la diferencia real a 0 y vea cómo crece el p-valor.',
+        ayuda: String.raw`<p>Los puntos son los datos de los grupos A y B con las etiquetas de la permutación actual. El histograma reúne las diferencias de medias B − A obtenidas barajando etiquetas (distribución bajo la hipótesis nula); se resaltan las tan o más extremas que la observada, y una marca señala la diferencia observada.</p>
+          <ul>
+          <li><strong>Diferencia real entre grupos</strong>: en 0 la marca observada cae dentro del histograma y el p-valor es alto; al subirla se sale hacia la cola y el p-valor baja.</li>
+          <li><strong>Datos por grupo</strong>: con más datos el histograma se estrecha, de modo que una diferencia pequeña ya queda en la cola.</li>
+          </ul>`,
         montar: montarPermutaciones,
       },
       {
         titulo: 'Comparar distribuciones completas',
         descripcion: 'Funciones de distribución empíricas y la prueba de Kolmogorov–Smirnov, que detecta diferencias que una prueba de medias no ve.',
+        ayuda: String.raw`<p>Cada curva escalonada es la función de distribución empírica F(x) de un grupo (A y B). El segmento que une las curvas donde más se separan es la distancia KS, el estadístico de la prueba.</p>
+          <ul>
+          <li><strong>Diferencia de medias</strong>: desplaza una curva respecto de otra y agranda la distancia KS.</li>
+          <li><strong>Razón de desviaciones B / A</strong>: con medias iguales, una razón distinta de 1 hace que las curvas se crucen y se separen en las colas, algo que una prueba de medias no detecta.</li>
+          <li><strong>Datos por grupo</strong>: con pocos datos las curvas son más irregulares y la distancia KS necesaria para ser significativa es mayor.</li>
+          </ul>`,
         montar: montarKS,
       },
     ],

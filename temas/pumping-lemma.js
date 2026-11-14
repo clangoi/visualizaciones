@@ -131,15 +131,33 @@
     intro: String.raw`
       <p>Un autómata con \(n\) estados que lee una palabra de \(n\) o más símbolos <strong>pasa dos veces por un mismo estado</strong>: es el principio del palomar. El tramo entre las dos visitas es un ciclo, y como el autómata no recuerda cuántas veces lo recorrió, puede recorrerse cualquier número de veces sin cambiar el resultado.</p>
       <p>De esta observación sale el <strong>lema de bombeo</strong>, la herramienta clásica para demostrar que un lenguaje <em>no</em> es regular: se escoge una palabra y se muestra que ninguna forma de «bombearla» se queda dentro del lenguaje.</p>`,
+    parametros: [
+      ['AFD (Fig. 1)', String.raw`El autómata sobre el que se bombea. Su número de estados n fija la longitud mínima de palabra que obliga a repetir un estado.`],
+      ['Palabra w (de longitud ≥ n) (Fig. 1)', String.raw`La cadena que se descompone. Al ser al menos de longitud n, el AFD repite un estado y eso define el ciclo y.`],
+      ['Veces que se repite y (i) (Fig. 1)', String.raw`Cuántas copias del ciclo se usan en \(xy^iz\). Con i = 0 se elimina y; con i &gt; 1 se bombea.`],
+      ['Lenguaje L (Fig. 2)', String.raw`El lenguaje que se intenta refutar o no. Algunos se pueden bombear y otros no.`],
+      ['Longitud de bombeo p (Fig. 2)', String.raw`La constante que el adversario fija; su w debe tener longitud al menos p.`],
+      ['Su palabra w ∈ L, |w| ≥ p (Fig. 2)', String.raw`La palabra que usted propone. De ella depende si alguna descomposición permitida sale de L al bombear.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El ciclo que se puede repetir',
         descripcion: 'Escriba una palabra de al menos n símbolos: se localiza el primer estado repetido, se parte la palabra en x, y y z, y se repite y las veces que usted indique.',
+        ayuda: String.raw`<p>La palabra se divide en x (antes del ciclo), y (el ciclo, que se puede repetir) y z (después). El camino en el AFD vuelve a un estado ya visitado al recorrer y.</p>
+          <ul>
+          <li><strong>Palabra w</strong>: el primer estado repetido determina dónde empieza y; cambiarla mueve la partición.</li>
+          <li><strong>Veces que se repite y (i)</strong>: la palabra bombeada sigue aceptada, porque repetir el ciclo termina en el mismo estado.</li>
+          </ul>`,
         montar: montarBombeo,
       },
       {
         titulo: 'El juego del lema de bombeo',
         descripcion: 'Usted elige w; el adversario ensaya todas las descomposiciones permitidas. Compruebe que aⁿbⁿ se refuta, que una mala w no basta y que a*b* resiste.',
+        ayuda: String.raw`<p>Tabla con cada descomposición \(w=xyz\) permitida (con \(|xy|\le p\) y \(y\ne\varepsilon\)) y el veredicto, escrito en palabras y color de texto, de si existe un \(i\) que saque la palabra bombeada de L.</p>
+          <ul>
+          <li><strong>Su palabra w</strong>: si todas las descomposiciones se pueden bombear, no refuta nada; si alguna sale de L, el lenguaje no es regular.</li>
+          <li><strong>Lenguaje L</strong>: en aⁿbⁿ una buena w refuta todas; en a*b* ninguna lo logra, porque es regular.</li>
+          </ul>`,
         montar: montarJuego,
       },
     ],

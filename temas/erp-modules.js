@@ -283,20 +283,45 @@
       cantidad de módulos, sino que todos escriben y leen una <strong>base de datos única</strong>.</p>
       <p>Por eso un solo evento de negocio, como una venta, deja huella coherente en varias áreas: reserva existencias, dispara producción o compras,
       calcula comisiones y genera la factura y los asientos contables, sin que nadie vuelva a digitar el pedido.</p>`,
+    parametros: [
+      ['Unidades pedidas (Fig. 1)', String.raw`Tamaño del pedido que recorre los módulos. Un pedido mayor consume más existencias y genera más cuentas por cobrar y por pagar.`],
+      ['Producto terminado y materia prima en bodega (Fig. 1)', String.raw`Existencias disponibles al llegar el pedido. Si no alcanzan, el pedido obliga a producir o comprar y se activan más módulos.`],
+      ['Precio unitario (Fig. 1)', String.raw`Valor de venta de cada unidad. Cambia el ingreso, las cuentas por cobrar y la utilidad registrada.`],
+      ['Arquitectura (Fig. 2)', String.raw`Silos: cada área con su propia copia de los datos; ERP: una base única compartida. Define si Ventas ve el stock real o uno desactualizado.`],
+      ['Días entre conciliaciones (silos) (Fig. 2)', String.raw`Cada cuántos días los silos igualan sus copias. Más días, más distancia entre el stock que ve Ventas y el real.`],
+      ['Nuevas ventas (Fig. 2)', String.raw`Genera otra serie de ventas aleatorias para repetir la comparación.`],
+      ['Registros que cambian al mes (Fig. 3)', String.raw`Cuántos datos maestros (clientes, productos, proveedores) se modifican. Cada cambio debe replicarse en cada copia de un sistema aislado.`],
+      ['Minutos por actualizar una copia (Fig. 3)', String.raw`Esfuerzo de mantener cada copia. Multiplica el trabajo de conciliación en silos; con ERP la copia es única.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un pedido recorre los módulos',
         descripcion: 'Avance paso a paso y observe qué módulo actúa y cómo cambian las existencias, las cuentas por cobrar y por pagar y la utilidad. Reduzca el producto terminado y la materia prima en bodega: el mismo pedido activará también Producción, Compras y RRHH.',
+        ayuda: String.raw`<p>Diagrama de los módulos del ERP. Un color marca el módulo que actúa en este paso, otro los módulos ya actualizados por el pedido y los restantes siguen sin movimientos. Bajo el diagrama, el registro y la lectura muestran existencias, cuentas por cobrar y por pagar y utilidad.</p>
+          <ul>
+          <li><strong>Producto terminado en bodega</strong> bajo las unidades pedidas: el pedido no se cubre desde bodega y entran en juego los módulos de producción.</li>
+          <li><strong>Materia prima en bodega (kg)</strong> baja: además se activa Compras, porque falta insumo.</li>
+          <li><strong>Unidades pedidas</strong> y <strong>Precio unitario</strong> escalan los montos por cobrar, por pagar y la utilidad.</li>
+          </ul>`,
         montar: montarPedido,
       },
       {
         titulo: 'Silos frente a base única',
         descripcion: 'En modo silos, alargue los días entre conciliaciones: la vista de Ventas (naranja) se separa del stock real y aparecen promesas incumplidas (rojo) y ventas rechazadas teniendo stock (amarillo). Cambie a ERP y la brecha desaparece.',
+        ayuda: String.raw`<p>Un gráfico de líneas por día con unidades en stock: el stock real en bodega y el stock que ve Ventas. Las marcas señalan promesas incumplidas (se vendió sin stock) y ventas rechazadas habiendo stock.</p>
+          <ul>
+          <li><strong>Arquitectura</strong> «silos»: la vista de Ventas se separa del stock real; con base única ambas coinciden.</li>
+          <li><strong>Días entre conciliaciones</strong> más altos: la brecha dura más y aparecen más promesas incumplidas y ventas rechazadas.</li>
+          </ul>`,
         montar: montarSilos,
       },
       {
         titulo: 'Datos maestros duplicados',
         descripcion: 'Cada módulo de un sistema aislado guarda su propia copia de clientes, productos o proveedores. Apague módulos y vea cuántas copias y horas de conciliación se evitan; con ERP siempre hay una sola copia.',
+        ayuda: String.raw`<p>Barras con las copias de un mismo dato: las copias en silos (una por módulo que lo usa) frente a las de ERP (siempre una).</p>
+          <ul>
+          <li><strong>Registros que cambian al mes</strong> y <strong>Minutos por actualizar una copia</strong> más altos: crece el tiempo de conciliación en silos, mientras que ERP sigue con una copia.</li>
+          </ul>`,
         montar: montarMaestros,
       },
     ],

@@ -104,9 +104,23 @@
     intro: String.raw`
       <p>Una red puede dibujarse de dos maneras muy distintas. En el diagrama de <strong>nodos y enlaces</strong>, cada nodo es un punto y cada relación una línea que los une. En la <strong>matriz de adyacencia</strong>, filas y columnas son los nodos y una celda pintada indica que hay un enlace.</p>
       <p>El diagrama de nodos y enlaces es intuitivo para redes pequeñas y poco densas; la matriz resiste la densidad y el tamaño, a costa de ser menos obvia.</p>`,
+    parametros: [
+      ['Nodos (Fig. 1)', String.raw`Cantidad de nodos de la red generada, de 8 a 40.`],
+      ['Densidad de enlaces (Fig. 1)', String.raw`Porcentaje de los posibles enlaces que existen. Subirla satura el diagrama de nodos y enlaces.`],
+      ['Nueva red (Fig. 1 y 2)', String.raw`Genera otra red con la misma configuración para comprobar si la comparación se mantiene.`],
+      ['Orden de filas y columnas (Fig. 2)', String.raw`Si la matriz ordena los nodos al azar, por grado o por comunidad. No cambia la red, solo su legibilidad.`],
+    ],
     visualizaciones: [
-      { titulo: 'La misma red, dos codificaciones', descripcion: 'Aumente nodos y densidad y observe cuándo el diagrama se vuelve ilegible; haga clic en un nodo o en una fila.', montar: montarComparar },
-      { titulo: 'El orden de la matriz', descripcion: 'Cambie el orden de filas y columnas de una misma red con cuatro comunidades.', montar: montarOrden },
+      { titulo: 'La misma red, dos codificaciones', descripcion: 'Aumente nodos y densidad y observe cuándo el diagrama se vuelve ilegible; haga clic en un nodo o en una fila.',
+        ayuda: String.raw`<p>A la izquierda, el diagrama de nodos y enlaces y a la derecha, la matriz de adyacencia de la misma red; los colores son los grupos 1 a 4. Un clic en un nodo o en una fila resalta a sus vecinos.</p>
+          <ul>
+          <li><strong>Nodos</strong> y <strong>Densidad de enlaces</strong>: al subir la densidad el diagrama se vuelve una maraña, mientras la matriz sigue legible porque cada enlace tiene su celda.</li>
+          </ul>`, montar: montarComparar },
+      { titulo: 'El orden de la matriz', descripcion: 'Cambie el orden de filas y columnas de una misma red con cuatro comunidades.',
+        ayuda: String.raw`<p>Matriz de adyacencia de una red de 32 nodos con cuatro comunidades. Cada celda coloreada es un enlace dentro de una comunidad (color de la comunidad); los enlaces entre grupos van en gris oscuro.</p>
+          <ul>
+          <li><strong>Orden de filas y columnas</strong> «al azar»: la matriz parece ruido; «por comunidad» muestra cuatro bloques en la diagonal; «por grado» agrupa los nodos más conectados.</li>
+          </ul>`, montar: montarOrden },
     ],
     teoria: String.raw`
       <h2>Matriz de adyacencia</h2>

@@ -106,9 +106,28 @@
       <p>Casi todos los ataques de inyección tienen la misma raíz: el programa mezcla <strong>datos</strong> con <strong>código</strong> y un atacante logra que sus datos se interpreten como instrucciones.
       En <strong>XSS</strong> (<em>Cross-Site Scripting</em>) el código es JavaScript que se ejecuta en el navegador de otra persona; en la <strong>inyección SQL</strong>, comandos que ejecuta la base de datos.</p>
       <p>La defensa también es común: tratar siempre lo que viene del usuario como dato, nunca como código, usando el mecanismo adecuado a cada contexto.</p>`,
+    parametros: [
+      ['Comentario enviado por un atacante (Fig. 1)', String.raw`El texto que el atacante deja guardado en la página: un comentario normal, código en una etiqueta, en un atributo, en un enlace o HTML inofensivo. Define qué intenta ejecutar el navegador del lector.`],
+      ['Defensa de la página (Fig. 1)', String.raw`Cómo se inserta el comentario en el HTML: tal cual, escapado o sanitizado con lista blanca. Decide si el texto llega como dato o como código.`],
+      ['cabecera Content-Security-Policy (Fig. 1)', String.raw`Activa una política que prohíbe los scripts en línea, de modo que aun si el código llega al HTML el navegador se niega a ejecutarlo.`],
+      ['Lo que escribe el usuario (Fig. 2)', String.raw`La entrada de usuario y clave que se envía al login: una normal o dos con trucos de SQL.`],
+      ['Cómo arma la consulta el servidor (Fig. 2)', String.raw`Concatenar texto deja que la entrada se vuelva parte del SQL; la consulta parametrizada la trata siempre como un dato.`],
+    ],
     visualizaciones: [
-      { titulo: 'XSS en un comentario', descripcion: 'Envíe distintas cargas y active defensas: escape de salida, lista blanca y política CSP. El análisis busca lo que el navegador ejecutaría.', montar: montarXss },
-      { titulo: 'Inyección SQL en un login', descripcion: 'Pruebe una entrada normal y dos maliciosas, con consulta concatenada y con parámetros.', montar: montarSql },
+      { titulo: 'XSS en un comentario', descripcion: 'Envíe distintas cargas y active defensas: escape de salida, lista blanca y política CSP. El análisis busca lo que el navegador ejecutaría.',
+        ayuda: String.raw`<p>A la izquierda se ve lo que guarda la base de datos (el comentario sin cambios) y a la derecha el HTML que recibe el navegador del lector, ya procesado por la defensa. Debajo, las fichas de veredicto indican si el análisis encontró algo que el navegador ejecutaría.</p>
+          <ul>
+          <li><strong>Comentario enviado por un atacante</strong> con «etiqueta &lt;script&gt;» y <strong>Defensa</strong> «sin defensa»: el HTML recibido contiene el script intacto y el veredicto lo marca como ejecutable.</li>
+          <li>Con <strong>Defensa de la página</strong> en «escapar la salida», el HTML recibido muestra los símbolos escapados (&amp;lt;): el navegador lo dibuja como texto, no lo ejecuta.</li>
+          <li>Con «lista blanca» el comentario «HTML inofensivo» conserva la negrita, pero las etiquetas peligrosas desaparecen.</li>
+          <li><strong>cabecera Content-Security-Policy</strong> bloquea los scripts en línea aunque no haya otra defensa; no corrige el HTML, solo impide su ejecución.</li>
+          </ul>`, montar: montarXss },
+      { titulo: 'Inyección SQL en un login', descripcion: 'Pruebe una entrada normal y dos maliciosas, con consulta concatenada y con parámetros.',
+        ayuda: String.raw`<p>Arriba está el código de la consulta que arma el servidor con la entrada del usuario; debajo, la consulta SQL que realmente ejecuta la base de datos y la tabla de usuarios que devuelve.</p>
+          <ul>
+          <li><strong>Lo que escribe el usuario</strong> con la tautología o el comentario «--» y consulta <strong>concatenando texto</strong>: la consulta cambia de estructura y la tabla devuelve filas sin conocer la clave.</li>
+          <li>Con <strong>consulta parametrizada</strong>, la misma entrada se busca como texto literal y no coincide con ningún usuario: el ataque falla.</li>
+          </ul>`, montar: montarSql },
     ],
     teoria: String.raw`
       <h2>Tipos de XSS</h2>

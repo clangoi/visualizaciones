@@ -155,15 +155,35 @@
       resume lo que se sabe antes de ver datos y la actualiza con el teorema de Bayes hasta una distribución <strong>a posteriori</strong>.</p>
       <p>El resultado no es un número sino una distribución completa, de la que salen estimaciones puntuales e intervalos que
       se interpretan directamente como probabilidades sobre el parámetro.</p>`,
+    parametros: [
+      ['Prior a y Prior b (Fig. 1)', String.raw`Los «pseudo-conteos» de caras y sellos previos a los datos, más uno. Describen la creencia inicial sobre p: valores grandes expresan un prior fuerte.`],
+      ['p real de la moneda (Fig. 1)', String.raw`La probabilidad verdadera de cara que genera los lanzamientos. No la conoce el estimador: sirve para comprobar si el posterior se acerca.`],
+      ['Lanzar 1, 10 y 100 y Reiniciar (Fig. 1)', String.raw`Añaden lanzamientos y, con ellos, evidencia. Reiniciar borra los datos y vuelve al prior.`],
+      ['Media del prior μ₀ y Desviación del prior τ₀ (Fig. 2)', String.raw`Creencia inicial sobre la media: dónde se centra y con cuánta seguridad. Un τ₀ chico es un prior seguro.`],
+      ['μ real (Fig. 2)', String.raw`La media verdadera de la que se sortean los datos.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otra secuencia de datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una moneda con prior beta',
         descripcion: 'Lance la moneda y vea cómo el posterior se angosta alrededor de la proporción real. Cambie el prior para ver cuánto pesa con pocos datos.',
+        ayuda: String.raw`<p>El eje horizontal es p (probabilidad de cara) y el vertical, la densidad. Se superponen el prior Beta(a, b), la verosimilitud normalizada, el posterior Beta(a + caras, b + sellos) y la línea del p real.</p>
+          <ul>
+          <li><strong>Lanzar 10 / 100</strong>: el posterior se angosta alrededor de la proporción observada y se aleja del prior.</li>
+          <li><strong>Prior a y b</strong> grandes (por ejemplo a = 30, b = 2 con p real 0,3): con pocos lanzamientos el posterior queda cerca del prior, aunque esté equivocado.</li>
+          <li><strong>p real</strong>: cambia hacia dónde converge la verosimilitud.</li>
+          </ul>`,
         montar: montarMoneda,
       },
       {
         titulo: 'La media con varianza conocida',
         descripcion: 'Estimación bayesiana y MLE de una media a medida que llegan los datos, con sus intervalos del 95 %.',
+        ayuda: String.raw`<p>El eje horizontal es n (datos observados) y el vertical, la estimación de μ. Se comparan la media posterior con su intervalo creíble del 95 %, el MLE (media muestral) con su intervalo de confianza del 95 % y la línea del μ real.</p>
+          <ul>
+          <li><strong>Desviación del prior τ₀</strong> chica: la estimación bayesiana se mueve más despacio hacia los datos; con n grande ambos métodos coinciden.</li>
+          <li><strong>Media del prior μ₀</strong> lejos de μ real: el sesgo inicial se nota con pocos datos.</li>
+          <li>Con pocos datos el intervalo creíble es más estrecho que el del MLE si el prior es informativo.</li>
+          </ul>`,
         montar: montarMedia,
       },
     ],

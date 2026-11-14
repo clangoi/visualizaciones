@@ -195,15 +195,30 @@
       <p>Las condiciones de optimalidad no resuelven un problema restringido, solo lo caracterizan. Para calcular el óptimo se transforma el problema en una <em>secuencia</em> de problemas sin restricciones,
       que sí se saben resolver. La idea más simple es la <strong>penalización</strong>: sumar a \(f\) un castigo proporcional al cuadrado de la violación. Su defecto es que necesita un castigo cada vez más grande.</p>
       <p>El <strong>Lagrangiano aumentado</strong> añade además un término con multiplicadores estimados que se corrigen en cada ronda. Así converge sin que el castigo crezca sin límite y, de paso, entrega los multiplicadores.</p>`,
+    parametros: [
+      ['Problema (Fig. 1 y 2)', String.raw`Problema con restricciones h = 0 y g = 0 que se resuelve.`],
+      ['Parámetro de penalización ρ (Fig. 1 y 2)', String.raw`Peso del castigo por violar las restricciones. Mayor ρ acerca la solución a la región factible.`],
+      ['Crecimiento de ρ en la penalización (Fig. 1 y 2)', String.raw`Factor con que ρ aumenta en cada iteración del método de penalización.`],
+      ['Error a mostrar (Fig. 2)', String.raw`Distancia al óptimo o error del multiplicador.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Penalización frente a Lagrangiano aumentado',
         descripcion: 'Avance paso a paso y compare las dos trayectorias hacia el punto verde: la naranja llega desde fuera de la región factible y la azul mejora aunque \\(\\rho\\) no crezca. Pruebe otro problema y otros valores de \\(\\rho\\).',
+        ayuda: String.raw`<p>Restricciones, trayectoria de penalización (con ρ creciente), trayectoria del Lagrangiano aumentado con ρ fijo y óptimo exacto.</p>
+          <ul>
+          <li><strong>ρ</strong>: la penalización llega desde fuera de la región factible; el Lagrangiano aumentado mejora aunque ρ no crezca.</li>
+          </ul>`,
         montar: montarTrayectoria,
       },
       {
         titulo: 'Convergencia y estimación de multiplicadores',
         descripcion: 'Observe el error por iteración en escala logarítmica. Cambie \\(\\rho\\) y el crecimiento, y alterne entre el error en \\(x\\) y el error en el multiplicador.',
+        ayuda: String.raw`<p>Eje horizontal: iteración; vertical: error en escala logarítmica, para la penalización y el Lagrangiano aumentado.</p>
+          <ul>
+          <li><strong>Error a mostrar</strong>: alterna entre error en x y en el multiplicador.</li>
+          <li><strong>ρ</strong> y <strong>Crecimiento</strong>: un ρ grande acelera la convergencia pero empeora el condicionamiento.</li>
+          </ul>`,
         montar: montarConvergencia,
       },
     ],

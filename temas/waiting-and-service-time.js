@@ -225,15 +225,35 @@
     intro: String.raw`
       <p>El tiempo que un caso pasa en una actividad no es todo trabajo. Se descompone en <strong>tiempo de servicio</strong> (<em>service time</em>, el intervalo en que alguien ejecuta la actividad) y <strong>tiempo de espera</strong> (<em>waiting time</em>, el hueco entre que la actividad anterior terminó y esta empezó). En muchos procesos reales la espera supera con holgura al servicio.</p>
       <p>Separar ambos cambia las decisiones: si domina el servicio hay que acelerar el trabajo; si domina la espera hay que mirar colas, traspasos y capacidad. La razón entre servicio y ciclo se llama <em>proporción de valor</em> o eficiencia del flujo.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1)', String.raw`Qué proceso se analiza. Cada uno tiene actividades con servicios y esperas distintos.`],
+      ['Ordenar por (Fig. 1 y 2)', String.raw`Orden de las actividades: según el flujo del proceso o según su espera, para ver primero las peores.`],
+      ['Espera media entre actividades (min) (Fig. 1)', String.raw`Nivel general de espera antes de cada actividad. Subirlo muestra cuánto del tiempo total es espera y no trabajo.`],
+      ['Espera media del entorno (min) (Fig. 2)', String.raw`Nivel base de espera con el que se simulan los 400 casos antes de aplicar cualquier reducción.`],
+      ['Reducir la espera de (Fig. 2)', String.raw`Qué espera se ataca: la de todas las actividades o la de una sola. Permite comparar ahorro global y ahorro focalizado.`],
+      ['Reducción de esa espera (Fig. 2)', String.raw`Porcentaje en que se recorta la espera elegida. Más reducción acorta el ciclo, pero el servicio no cambia.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otra muestra de casos con los mismos parámetros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Servicio y espera por actividad',
         descripcion: 'Cada barra suma servicio (azul) y espera previa (naranjo) de una actividad. Suba la espera media y vea qué actividades cambian de color dominante; ordene por espera para encontrar las peores.',
+        ayuda: String.raw`<p>Cada barra es una actividad: la parte azul es el servicio medio (actividad en ejecución) y la naranja, la espera media antes de ella.</p>
+          <ul>
+          <li><strong>Espera media entre actividades (min)</strong>: al subirla crecen los tramos naranjas; donde superan al azul, la actividad pasa a estar dominada por la espera.</li>
+          <li><strong>Ordenar por</strong> «espera»: pone arriba las actividades donde más se espera, que son las candidatas a mejorar.</li>
+          </ul>`,
         montar: montarDescomposicion,
       },
       {
         titulo: 'Efecto de variar la espera',
         descripcion: 'Con los mismos 400 casos se escala la espera (con colas más largas en unas actividades que en otras). Compare reducir la espera de todas las actividades con atacar solo una: el ahorro y la proporción de valor cambian según dónde se acumula la espera.',
+        ayuda: String.raw`<p>El panel superior muestra el tiempo medio de ciclo: servicio (azul), espera tras la reducción (naranja) y la referencia sin reducción. El inferior grafica la proporción con reducción frente a la espera media del entorno.</p>
+          <ul>
+          <li><strong>Reducción de esa espera</strong>: al subirla se encoge la parte naranja; el servicio azul no cambia, por lo que existe un mínimo que la espera no puede bajar.</li>
+          <li><strong>Reducir la espera de</strong> una sola actividad: el ahorro es menor que con «todas las actividades», salvo que esa actividad concentre la mayor espera.</li>
+          <li><strong>Espera media del entorno (min)</strong>: con entornos más congestionados, la misma reducción ahorra más minutos.</li>
+          </ul>`,
         montar: montarEfecto,
       },
     ],

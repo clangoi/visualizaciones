@@ -68,9 +68,22 @@
     intro: String.raw`
       <p>Cada proceso cree tener la memoria para él solo, con direcciones que empiezan en 0: su <strong>espacio de direcciones</strong>. Esas son direcciones <em>lógicas</em> (o virtuales); la <em>MMU</em>, un circuito entre la CPU y la memoria, las traduce a direcciones <em>físicas</em> en cada acceso y a la vez comprueba que no se salgan de lo permitido.</p>
       <p>El esquema más simple usa un par de registros: <strong>base</strong> y <strong>límite</strong>. La <strong>segmentación</strong> lo generaliza: un par por cada parte lógica del programa (código, datos, montículo, pila).</p>`,
+    parametros: [
+      ['Dirección lógica generada (Fig. 1)', String.raw`La dirección que emite el proceso, relativa a su propio inicio. Si es menor que el límite se traduce sumando la base; si no, el hardware la rechaza.`],
+      ['Segmento y Desplazamiento (Fig. 2)', String.raw`Segmento elige qué entrada de la tabla de segmentos se usa y Desplazamiento es la posición dentro de él. Cambiar el desplazamiento por encima del límite del segmento provoca el acceso inválido.`],
+    ],
     visualizaciones: [
-      { titulo: 'Registros base y límite', descripcion: 'Mueva la dirección lógica: dentro del límite se traduce sumando la base; al pasarse, el hardware detiene el acceso.', montar: montarBaseLimite },
-      { titulo: 'Tabla de segmentos', descripcion: 'Elija un segmento y un desplazamiento. Pruebe uno mayor que el límite del segmento.', montar: montarSegmentos },
+      { titulo: 'Registros base y límite', descripcion: 'Mueva la dirección lógica: dentro del límite se traduce sumando la base; al pasarse, el hardware detiene el acceso.',
+        ayuda: String.raw`<p>La franja es la memoria física. El bloque azul es la región del proceso (base = 300, límite = 200). La flecha naranja marca la dirección física calculada y se vuelve roja cuando el acceso cae fuera del límite (trampa).</p>
+          <ul>
+          <li><strong>Dirección lógica generada</strong>: al moverla dentro de 0 a 199 la flecha se desplaza dentro del bloque (física = base + lógica); al superar el límite la flecha pasa a roja porque el acceso es ilegal.</li>
+          </ul>`, montar: montarBaseLimite },
+      { titulo: 'Tabla de segmentos', descripcion: 'Elija un segmento y un desplazamiento. Pruebe uno mayor que el límite del segmento.',
+        ayuda: String.raw`<p>La franja es la memoria física con un bloque de color por segmento, según la leyenda. La flecha naranja es la dirección física (base del segmento + desplazamiento); roja si el desplazamiento excede el límite del segmento.</p>
+          <ul>
+          <li><strong>Segmento</strong>: cambia el bloque donde cae la flecha, pues cada segmento tiene su propia base y límite.</li>
+          <li><strong>Desplazamiento</strong>: mueve la flecha dentro del bloque elegido; al pasar el límite se marca el fallo.</li>
+          </ul>`, montar: montarSegmentos },
     ],
     teoria: String.raw`
       <h2>Traducción y protección</h2>

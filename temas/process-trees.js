@@ -419,20 +419,46 @@
       <em>bucle</em> \(\circlearrowleft\). Como solo se pueden anidar bloques completos, nunca se obtiene un modelo con bloqueos o fichas sobrantes: es <em>sound por construcción</em>.</p>
       <p>Esa propiedad hace de los árboles el modelo preferido de algoritmos como el <a href="tema.html?id=inductive-miner">Inductive Miner</a>: descubren primero un árbol y,
       si hace falta, lo traducen a una red de Petri o a BPMN para mostrarlo.</p>`,
+    parametros: [
+      ['Operador (Fig. 1)', String.raw`El operador del nodo raíz: secuencia, elección exclusiva (×), paralelismo (∧) o bucle. Define cómo se combinan las trazas de los operandos.`],
+      ['Primer operando y Segundo operando (Fig. 1)', String.raw`Los subárboles que combina el operador. Su elección cambia el lenguaje resultante.`],
+      ['Repeticiones máx. (bucle) (Fig. 1 y 2)', String.raw`Cuántas veces se repite el bucle al listar trazas. Sin él, el lenguaje sería infinito.`],
+      ['Ejemplo (Fig. 2)', String.raw`El árbol de partida del editor.`],
+      ['Cambiar operador, Cambiar actividad, Agregar nodo y Eliminar nodo (Fig. 2)', String.raw`Editan el nodo seleccionado del árbol. Cambian el lenguaje, pero la red de Petri equivalente siempre es sound.`],
+      ['Árbol (Fig. 3)', String.raw`El árbol del que se simulan casos.`],
+      ['Casos y Nuevos datos (Fig. 3)', String.raw`Tamaño del registro simulado y una nueva muestra aleatoria.`],
+      ['Probabilidad de repetir el bucle (Fig. 3)', String.raw`Con qué probabilidad se vuelve a ejecutar el bucle. Define qué trazas son frecuentes o raras.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Lenguaje de cada operador',
         descripcion: 'Elija un operador y dos operandos: vea el árbol, las trazas que acepta y la red de Petri equivalente. Compare × con ∧ sobre los mismos operandos.',
+        ayuda: String.raw`<p>Se ve el árbol de proceso, la lista de trazas que acepta y la red de Petri equivalente. Los colores de la leyenda identifican los operadores.</p>
+          <ul>
+          <li><strong>Operador</strong>: × da una traza por operando; ∧ da todos los entrelazados; la secuencia concatena; el bucle repite.</li>
+          <li><strong>Primer operando</strong> y <strong>Segundo operando</strong>: cambian las trazas y el tamaño de la red.</li>
+          <li><strong>Repeticiones máx. (bucle)</strong>: acota la lista con bucle.</li>
+          </ul>`,
         montar: montarOperadores,
       },
       {
         titulo: 'Editor de árboles de procesos',
         descripcion: 'Seleccione nodos, cambie operadores y actividades, agregue y elimine. Pruebe convertir un × en ∧ y vea cómo cambia el número de trazas; la red equivalente siempre sale sound.',
+        ayuda: String.raw`<p>El árbol del ejemplo, con el nodo seleccionado marcado con un anillo, y debajo la red de Petri equivalente. La lectura indica el número de trazas y un mensaje con el resultado de la edición.</p>
+          <ul>
+          <li><strong>Cambiar operador</strong>: convertir × en ∧ aumenta el número de trazas porque aparecen todos los órdenes.</li>
+          <li><strong>Agregar nodo</strong> y <strong>Eliminar nodo</strong>: cambian la estructura, y la red sigue siendo sound.</li>
+          </ul>`,
         montar: montarEditor,
       },
       {
         titulo: 'De un árbol a un registro',
         descripcion: 'Simule casos de un árbol con bucles y compare con su lenguaje. Suba la probabilidad de repetir y los casos para ver qué trazas posibles faltan en el registro.',
+        ayuda: String.raw`<p>Cada barra es una traza del lenguaje del árbol y su altura es el número de casos que la siguen, ordenadas por frecuencia. Las marcas vacías son trazas posibles que nunca aparecieron en el registro.</p>
+          <ul>
+          <li><strong>Casos</strong>: con más casos aparecen más trazas raras y las marcas vacías disminuyen.</li>
+          <li><strong>Probabilidad de repetir el bucle</strong>: subirla genera trazas más largas, y muchas posibles faltan en el registro.</li>
+          </ul>`,
         montar: montarMuestreo,
       },
     ],

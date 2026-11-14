@@ -253,15 +253,29 @@
       <p>La clave es que el criterio sea <strong>monótono</strong>: quitar una característica nunca lo mejora. Entonces, si un
       nodo intermedio ya está por debajo de la mejor solución encontrada, nada de lo que cuelga de él puede ganarle, y todo su
       subárbol se descarta sin evaluarlo.</p>`,
+    parametros: [
+      ['Características a elegir m (Fig. 1 y 2)', String.raw`Cuántas características debe tener el subconjunto final. Cambia la profundidad del árbol y cuántas ramas se pueden podar.`],
+      ['ordenar los hijos por J (Fig. 1)', String.raw`Visita primero los hijos más prometedores. Así se encuentra pronto una buena hoja y se poda más.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Regenera los datos y por tanto los valores de \(J\) de los nodos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El árbol de búsqueda',
         descripcion: 'Seis características y el criterio de Fisher. Cada nodo es un subconjunto; las hojas tienen exactamente m. Siga la búsqueda paso a paso y observe dónde se poda.',
+        ayuda: String.raw`<p>Cada nodo es un subconjunto: sin evaluar, evaluado, nodo actual, podado (su subárbol no se visita) o mejor hoja. Las hojas tienen exactamente m características. El registro explica cada paso.</p>
+          <ul>
+          <li><strong>Características a elegir m</strong>: cambia las hojas del árbol y cuántos nodos quedan por visitar.</li>
+          <li><strong>ordenar los hijos por J</strong>: normalmente aumentan los nodos podados.</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'Cuánto se ahorra',
         descripcion: 'Nodos evaluados por branch and bound, con y sin ordenar los hijos, frente al número de subconjuntos de la búsqueda exhaustiva.',
+        ayuda: String.raw`<p>Eje X: características d; eje Y: evaluaciones de J. Se comparan branch and bound con hijos en orden fijo, con hijos ordenados por J, y la búsqueda exhaustiva \(C(d,m)\).</p>
+          <ul>
+          <li><strong>Características a elegir m</strong>: cambia las tres curvas; la distancia a \(C(d,m)\) es el ahorro por la poda.</li>
+          </ul>`,
         montar: montarAhorro,
       },
     ],

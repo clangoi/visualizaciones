@@ -5,8 +5,21 @@
     intro: String.raw`
       <p>En la planificación por <strong>prioridades</strong> cada proceso tiene un número (aquí, menor es más importante) y la CPU va al más prioritario. Sirve para que lo urgente (interfaz, tiempo real) pase delante de lo pesado, pero tiene un riesgo: los procesos de baja prioridad pueden no ejecutarse nunca (<strong>inanición</strong>).</p>
       <p>El remedio clásico es el <strong>envejecimiento</strong> (<em>aging</em>): mientras un proceso espera, su prioridad mejora poco a poco hasta que le toca.</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Si las prioridades se aplican sin apropiación (el proceso en CPU termina su ráfaga) o con apropiación (uno más prioritario lo desplaza al llegar).`],
+      ['Carga de trabajo (Fig. 1)', String.raw`El patrón de llegadas y ráfagas (al azar, una tarea corta entre muchas largas, o todos juntos en t = 0).`],
+      ['Procesos (Fig. 1)', String.raw`Cuántos procesos compiten; con más procesos, el de peor prioridad espera más.`],
+      ['Envejecimiento: cada k unidades (0 = sin) (Fig. 1)', String.raw`Cada cuántas unidades de espera mejora la prioridad de un proceso. Con 0 no hay envejecimiento y un proceso poco prioritario puede sufrir inanición; con valores bajos nadie espera indefinidamente.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Generan otra muestra de la carga; el reproductor avanza una unidad de tiempo por paso.`],
+    ],
     visualizaciones: [
-      { titulo: 'Prioridades y envejecimiento', descripcion: 'Ejecute sin envejecimiento y observe al proceso de peor prioridad al final; luego active el envejecimiento (valores bajos) y compare su espera. La tabla muestra las prioridades iniciales.', montar: (c) => VIZ.sor.figuraPlanificacion(c, { algs: ALGS, cargas: ['azar', 'larga', 'juntos'], n0: 6, envejecer: true, env0: 0 }) },
+      { titulo: 'Prioridades y envejecimiento', descripcion: 'Ejecute sin envejecimiento y observe al proceso de peor prioridad al final; luego active el envejecimiento (valores bajos) y compare su espera. La tabla muestra las prioridades iniciales.',
+        ayuda: String.raw`<p>Diagrama de Gantt con una fila por proceso: franja gris desde su llegada y tramo de color cuando usa la CPU. La tabla muestra la prioridad inicial (menor número, más importante), fin, espera, retorno y respuesta.</p>
+          <ul>
+          <li><strong>Envejecimiento: cada k unidades (0 = sin)</strong> en 0: el proceso de peor prioridad queda al final con la franja gris más larga.</li>
+          <li>Con k bajo (1 a 3) su prioridad mejora mientras espera y pasa a la CPU antes; su espera baja a costa de los más prioritarios.</li>
+          <li><strong>Algoritmo</strong> con apropiación: los tramos se cortan cuando llega alguien más prioritario.</li>
+          </ul>`, montar: (c) => VIZ.sor.figuraPlanificacion(c, { algs: ALGS, cargas: ['azar', 'larga', 'juntos'], n0: 6, envejecer: true, env0: 0 }) },
     ],
     teoria: String.raw`
       <h2>Reglas</h2>

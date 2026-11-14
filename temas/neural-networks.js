@@ -379,20 +379,48 @@
       aprende sus propios atributos intermedios y puede aproximar cualquier función continua; sus pesos se ajustan con
       <strong>retropropagación</strong> y descenso de gradiente. Las <strong>redes convolucionales</strong> (CNN) agregan una
       idea clave para imágenes: el mismo filtro pequeño se aplica en todas las posiciones.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`La forma de las clases. XOR, lunas y círculos no se separan con una recta.`],
+      ['Neuronas por capa oculta y Capas ocultas (Fig. 2)', String.raw`El tamaño de la red. Más neuronas permiten fronteras más complejas, con más parámetros que ajustar.`],
+      ['Activación (Fig. 2)', String.raw`La no linealidad de cada neurona oculta: tanh (curva suave) o ReLU (lineal por tramos).`],
+      ['Tasa de aprendizaje (Adam) (Fig. 2)', String.raw`El tamaño de los pasos del optimizador. Muy alta hace la pérdida inestable.`],
+      ['Imagen (Fig. 3)', String.raw`La imagen de entrada de 0 y 1; también se edita haciendo clic en los píxeles.`],
+      ['Filtro (kernel 3 × 3) (Fig. 3)', String.raw`Los nueve pesos que recorren la imagen: detectores de bordes verticales, horizontales, diagonales, contornos o desenfoque.`],
+      ['Aplicar ReLU (Fig. 3)', String.raw`Deja en cero las respuestas negativas del mapa, como hace una capa convolucional típica.`],
+      ['Reproductor y Nuevos datos', String.raw`Avanzan el entrenamiento o el recorrido del filtro, y sortean otros datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El perceptrón',
         descripcion: 'Con datos separables, el perceptrón termina tras un número finito de correcciones. Con XOR o con clases superpuestas nunca deja de corregir: una frontera recta no basta.',
+        ayuda: String.raw`<p>Los puntos son ejemplos de dos clases. La línea negra es la frontera del perceptrón (\(w \cdot x + b = 0\)) y la flecha violeta, el vector de pesos \(w\), perpendicular a ella. Cada paso revisa un ejemplo: si está mal clasificado, se suma \(y \cdot x\) a \(w\) y la frontera gira hacia él.</p>
+          <ul>
+          <li><strong>Separable linealmente</strong>: los «errores en la época» llegan a 0 y el algoritmo se detiene.</li>
+          <li><strong>Dos manchas con superposición</strong> o <strong>XOR</strong>: siempre queda algún punto mal clasificado y la frontera sigue moviéndose sin converger.</li>
+          </ul>`,
         montar: montarPerceptron,
       },
       {
         titulo: 'Perceptrón multicapa',
         descripcion: 'Entrene la red en XOR o en círculos: con una neurona oculta falla, con unas pocas basta. Pruebe ReLU (fronteras poligonales) frente a tanh (curvas suaves) y muchas neuronas con pocos datos.',
+        ayuda: String.raw`<p>A la izquierda, la salida de la red en cada punto del plano (fondo) y su frontera \(P = 0.5\). Arriba a la derecha, la red: cada línea es un peso, azul si es positivo y rojo si es negativo, con grosor proporcional a su valor. Abajo, la pérdida por época.</p>
+          <ul>
+          <li><strong>Neuronas</strong>: con una sola neurona oculta la red solo puede trazar una frontera simple y falla en XOR o círculos; con unas pocas, los separa.</li>
+          <li><strong>Activación</strong> ReLU produce fronteras poligonales (rectas unidas); tanh, curvas suaves.</li>
+          <li>Muchas neuronas o dos capas con pocos datos: la exactitud de entrenamiento llega a 100 % mientras la de validación queda atrás (sobreajuste).</li>
+          <li><strong>Tasa de aprendizaje</strong> alta: la curva de pérdida da saltos.</li>
+          </ul>`,
         montar: montarMLP,
       },
       {
         titulo: 'La convolución',
         descripcion: 'Un filtro de 3 × 3 recorre la imagen y produce un mapa que se enciende donde aparece el patrón. El max-pooling reduce el mapa conservando la respuesta más fuerte de cada bloque.',
+        ayuda: String.raw`<p>De izquierda a derecha: la imagen de entrada, el filtro de 3 × 3, el <em>mapa de características</em> y el mapa reducido con <em>max-pooling</em>. El filtro se superpone a cada ventana de la imagen (recuadro naranja), multiplica píxel a píxel y suma: ese número es un píxel del mapa (azul positivo, rojo negativo). El pooling conserva la respuesta más fuerte de cada bloque de 2 × 2.</p>
+          <ul>
+          <li><strong>Filtro</strong> «Borde vertical» sobre la letra L: el mapa se enciende solo en los bordes verticales del trazo. Cada filtro detecta un patrón distinto con solo 9 pesos.</li>
+          <li><strong>Aplicar ReLU</strong>: desaparecen las respuestas rojas.</li>
+          <li>La lectura «capa densa equivalente» muestra cuántos pesos haría falta sin compartirlos entre posiciones.</li>
+          </ul>`,
         montar: montarConvolucion,
       },
     ],

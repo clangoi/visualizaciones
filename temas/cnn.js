@@ -240,15 +240,37 @@
       <p>Una capa típica aplica muchos filtros (convolución), una no linealidad (ReLU) y un submuestreo (<em>max pooling</em>). Apilando
       capas, cada unidad «ve» una zona cada vez mayor de la imagen —su <strong>campo receptivo</strong>— y responde a patrones cada vez
       más complejos: bordes, después texturas, después partes de objetos.</p>`,
+    parametros: [
+      ['Imagen de entrada (Fig. 1)', String.raw`La imagen de 4 posibles (siete, cruz, anillo, escalera) sobre la que se aplica el filtro.`],
+      ['Filtro (núcleo 3×3) (Fig. 1)', String.raw`Los nueve pesos que se multiplican con cada ventana de la imagen. Cada filtro responde a un patrón distinto (bordes, líneas, etc.).`],
+      ['Sesgo b (Fig. 1)', String.raw`Valor sumado a cada salida antes de la ReLU. Subirlo deja pasar más respuestas; bajarlo anula más.`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Controla cuántas posiciones de la ventana se recorren por segundo y permite pausar, avanzar o reiniciar.`],
+      ['Capas convolucionales (Fig. 2)', String.raw`Cuántas convoluciones se encadenan. Cada una amplía la zona de la entrada de la que depende una unidad.`],
+      ['Tamaño del filtro (Fig. 2)', String.raw`Lado del núcleo de cada convolución: filtros mayores abarcan más píxeles por capa.`],
+      ['max pooling 2×2 después de cada 2 capas (Fig. 2)', String.raw`Agrega un resumen por bloques que reduce el mapa y hace crecer más rápido el campo receptivo.`],
+      ['convolución dilatada (×2 por capa) (Fig. 2)', String.raw`Separa los puntos del filtro con huecos que se duplican por capa, ampliando el campo sin más parámetros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Convolución, ReLU y max pooling',
         descripcion: 'Un filtro 3×3 recorre la imagen y produce un mapa de características; la ReLU se queda con la parte positiva y el pooling resume cada bloque 2×2 en su máximo.',
+        ayuda: String.raw`<p>Se ven la imagen, el mapa de características y el resultado tras ReLU y pooling. La ventana 3×3 y la salida que produce se marcan sobre la imagen y el mapa; las respuestas positivas y negativas (que la ReLU anula) tienen colores distintos, y el máximo elegido por el pooling se resalta.</p>
+          <ul>
+          <li><strong>Imagen de entrada</strong>: cambia el patrón que recorre el filtro y dónde aparecen respuestas.</li>
+          <li><strong>Filtro (núcleo 3×3)</strong>: un filtro responde fuerte donde la imagen coincide con su patrón y da respuestas negativas donde no.</li>
+          <li><strong>Sesgo b</strong>: desplaza todas las respuestas; con sesgo negativo la ReLU anula más posiciones.</li>
+          </ul>`,
         montar: montarCapa,
       },
       {
         titulo: 'El campo receptivo',
         descripcion: 'De qué píxeles de la entrada depende una unidad de cada capa, según el tamaño del filtro, el pooling y la dilatación.',
+        ayuda: String.raw`<p>Cortes de la entrada y de cada capa. Una unidad elegida se marca; sus píxeles de dependencia (campo receptivo) tienen otro color y el resto de unidades, el color de fondo.</p>
+          <ul>
+          <li><strong>Capas convolucionales</strong>: más capas, mayor zona marcada en la entrada.</li>
+          <li><strong>Tamaño del filtro</strong>: un filtro mayor agranda el campo receptivo en cada capa.</li>
+          <li><strong>max pooling</strong> y <strong>convolución dilatada</strong>: ambos hacen crecer el campo receptivo mucho más rápido que apilar capas.</li>
+          </ul>`,
         montar: montarCampo,
       },
     ],

@@ -376,20 +376,48 @@
       <p>Los <strong>ensambles</strong> combinan muchos árboles. <strong>Random forest</strong> promedia árboles profundos entrenados
       con versiones perturbadas de los datos para reducir la varianza; <strong>boosting</strong> suma árboles muy simples entrenados
       en secuencia, cada uno corrigiendo los errores de los anteriores, para reducir el sesgo.</p>`,
+    parametros: [
+      ['Datos (Fig. 1, 2 y 3)', String.raw`La forma de las clases: manchas, separables, lunas, círculos, XOR o tres clases.`],
+      ['Profundidad máxima (Fig. 1 y 2)', String.raw`Cuántas preguntas seguidas puede hacer un árbol. Más profundidad, fronteras más finas y más riesgo de sobreajuste.`],
+      ['Mínimo de ejemplos por hoja (Fig. 1)', String.raw`Un corte solo se acepta si cada lado conserva al menos esa cantidad de ejemplos. Es una forma de poda.`],
+      ['Criterio de impureza (Fig. 1)', String.raw`Cómo se mide qué tan mezclada está una hoja: índice de Gini o entropía. Suelen elegir cortes muy parecidos.`],
+      ['Árboles (Fig. 2)', String.raw`Cuántos árboles vota el bosque.`],
+      ['Mostrar solo el primer árbol (Fig. 2)', String.raw`Dibuja la frontera de un único árbol del bosque, para compararla con la del promedio.`],
+      ['Reproductor (Fig. 3)', String.raw`Cada paso agrega una ronda de boosting: un tocón (corte en un solo atributo) más.`],
+      ['Nuevos datos (Fig. 1, 2 y 3)', String.raw`Sortean otra muestra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un árbol de decisión',
         descripcion: 'Suba la profundidad máxima: el árbol agrega cortes hasta aislar cada punto y el error de validación vuelve a subir. Aumentar el mínimo de ejemplos por hoja es otra forma de podarlo.',
+        ayuda: String.raw`<p>A la izquierda, los datos y las regiones en que el árbol divide el plano: cada corte (línea negra) es horizontal o vertical porque pregunta por un solo atributo. A la derecha, el árbol: cada nodo interno es una pregunta «¿\(x_j \le\) umbral?» y cada hoja predice la clase mayoritaria de sus ejemplos.</p>
+          <ul>
+          <li><strong>Profundidad máxima</strong>: con 1 o 2 la frontera es tosca (subajuste); al subirla, el árbol aísla cada punto, la exactitud de entrenamiento llega a 100 % y la de validación vuelve a bajar.</li>
+          <li><strong>Mínimo por hoja</strong> mayor impide cortes que aíslan pocos puntos: menos hojas y frontera más simple.</li>
+          <li>Con <strong>Datos</strong> en diagonal o círculos, el árbol necesita muchos cortes en escalera para aproximar la frontera.</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'Random forest',
         descripcion: 'Un árbol profundo tiene fronteras dentadas y llenas de islas; el promedio de muchos las suaviza. Compare la frontera con un solo árbol y con 60, y observe cómo la exactitud se estabiliza.',
+        ayuda: String.raw`<p>A la izquierda, el fondo es el voto promedio de todos los árboles del bosque: los colores intermedios indican desacuerdo. A la derecha, la exactitud de validación según cuántos árboles se usan, comparada con la de un solo árbol (gris).</p>
+          <ul>
+          <li><strong>Mostrar solo el primer árbol</strong>: su frontera tiene dientes e islas. Con muchos árboles esos errores se cancelan y la frontera se suaviza.</li>
+          <li><strong>Árboles</strong>: la exactitud sube rápido con los primeros y luego se estabiliza; agregar más no causa sobreajuste.</li>
+          <li><strong>Profundidad máxima</strong> grande hace cada árbol más variable, que es justamente lo que el promedio corrige.</li>
+          </ul>`,
         montar: montarBosque,
       },
       {
         titulo: 'Boosting (AdaBoost)',
         descripcion: 'Cada ronda agrega un corte en un solo atributo, ponderado según su error. Con círculos concéntricos, ningún corte sirve por sí solo, pero su suma dibuja una frontera cerrada.',
+        ayuda: String.raw`<p>A la izquierda, la frontera del ensamble actual y los ejemplos dibujados con tamaño proporcional a su peso; la línea naranja es el tocón agregado en esta ronda. A la derecha, los errores de entrenamiento y validación por ronda y la cota teórica del error de entrenamiento.</p>
+          <ul>
+          <li>Avance con <strong>Un paso</strong>: los puntos mal clasificados crecen (ganan peso) y el siguiente tocón se concentra en ellos.</li>
+          <li>El «peso del voto» de cada tocón depende de su error ponderado: los mejores votan más.</li>
+          <li>Con <strong>Datos</strong> «Círculos», ningún corte sirve solo, pero la suma de muchos dibuja una frontera cerrada.</li>
+          </ul>`,
         montar: montarBoosting,
       },
     ],

@@ -151,10 +151,19 @@
       <p>El control fluye de arriba hacia abajo y los datos de abajo hacia arriba, <strong>de a una tupla</strong>. Así una consulta puede
       empezar a entregar resultados antes de haber leído toda la tabla, y la memoria que usa no depende del tamaño de los datos, salvo
       cuando un operador es <em>bloqueante</em>.</p>`,
+    parametros: [
+      ['Plan (Fig. 1)', String.raw`Segmentado: π sobre σ sobre Scan, donde cada tupla fluye de a una. Con ORDER BY aparece un Sort, operador bloqueante que debe leer toda la entrada antes de devolver la primera tupla.`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso ejecuta una llamada, y Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'open, next y close en un plan',
         descripcion: 'Siga cada llamada por el árbol de operadores. Compare el plan segmentado con uno que tiene un Sort: observe cuántas tuplas debe guardar el Sort y cuándo sale la primera tupla al cliente.',
+        ayuda: String.raw`<p>El árbol de operadores se recorre con llamadas open, next y close. Se resalta la llamada en curso (pila de llamadas), la tupla que sube al padre y la tupla descartada por σ; abajo se ven las tablas y el registro de eventos.</p>
+          <ul>
+          <li><strong>Plan</strong> segmentado: cada next del cliente produce una tupla y casi nada queda guardado.</li>
+          <li><strong>Plan</strong> con ORDER BY: el Sort primero consume toda su entrada y la guarda; solo después sale la primera tupla al cliente.</li>
+          </ul>`,
         montar: montarIterador,
       },
     ],

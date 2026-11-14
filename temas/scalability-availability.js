@@ -254,20 +254,45 @@
       <em>verticalmente</em>, comprando una máquina más grande, u <em>horizontalmente</em>, sumando más máquinas; y se puede ganar disponibilidad con réplicas que toman el relevo.</p>
       <p>Ambas ideas se calculan: la capacidad rinde cada vez menos por cada peso adicional, y la disponibilidad se mide en «nueves» que se traducen en minutos de caída al año. Con esos números, una frase como «necesitamos alta disponibilidad»
       se vuelve una decisión de ingeniería y de presupuesto. Para el reparto de solicitudes entre servidores, véase también <a href="tema.html?id=scalability-load-balancing">escalabilidad y balanceo de carga</a>.</p>`,
+    parametros: [
+      ['Demanda a atender (Fig. 1)', String.raw`Solicitudes por segundo que debe soportar el sistema; se compara con la capacidad de cada opción.`],
+      ['Contención α (parte que no se paraleliza) (Fig. 1)', String.raw`Fracción del trabajo que no se puede repartir. Limita lo que ganan más servidores.`],
+      ['Coordinación β entre servidores (Fig. 1)', String.raw`Costo de que los servidores se coordinen; a partir de cierto tamaño, más servidores reducen la capacidad.`],
+      ['Disponibilidad de cada servidor (Fig. 2)', String.raw`Probabilidad de que un servidor esté funcionando.`],
+      ['Al hacer clic (Fig. 2)', String.raw`Define si un clic cambia las réplicas de una capa o apaga y enciende un servidor.`],
+      ['Un servidor por capa y Todo duplicado (Fig. 2)', String.raw`Dejan cada capa con una o dos réplicas.`],
+      ['Objetivo de disponibilidad (Fig. 3)', String.raw`Número de nueves exigido, que fija la caída anual máxima tolerable.`],
+      ['Fallas de causa común (Fig. 3)', String.raw`Fallas que afectan a todas las réplicas a la vez, y por eso las réplicas adicionales no las evitan.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Escalar hacia arriba o hacia los lados',
         descripcion: 'Compare el costo de lograr una capacidad con una máquina grande o con muchas pequeñas. Suba la contención α y la coordinación β: llega un punto en que sumar servidores deja de ayudar.',
+        ayuda: String.raw`<p>Capacidad (solicitudes/s) frente al costo anual (miles de USD) de las opciones de escalar. Una línea marca la demanda.</p>
+          <ul>
+          <li><strong>Demanda a atender</strong>: sube la línea; se ve qué costo mínimo la alcanza.</li>
+          <li><strong>Contención α</strong> y <strong>Coordinación β</strong> más altas: las curvas de muchos servidores se aplanan o bajan, así que sumar servidores deja de ayudar.</li>
+          </ul>`,
         montar: montarEscalas,
       },
       {
         titulo: 'Disponibilidad en serie y en paralelo',
         descripcion: 'Agregue réplicas a cada capa y mire cómo cambia la disponibilidad del sistema; luego apague servidores para ver cuántos puede perder una capa antes de que todo caiga.',
+        ayuda: String.raw`<p>Capas en serie con sus servidores: en servicio, apagados o capa sin servidores (el sistema cae).</p>
+          <ul>
+          <li><strong>Disponibilidad de cada servidor</strong>: se refleja en la disponibilidad total del sistema.</li>
+          <li>Más réplicas por capa elevan la disponibilidad; apagar todos los servidores de una capa derriba el sistema.</li>
+          </ul>`,
         montar: montarSerieParalelo,
       },
       {
         titulo: 'Nueves y minutos de caída',
         descripcion: 'Elija cuántos nueves necesita y vea cuántas réplicas lo logran con servidores de distinta calidad. Active las fallas de causa común y observe que las curvas dejan de caer.',
+        ayuda: String.raw`<p>Minutos de caída al año según los servidores en paralelo (r), con una línea del máximo que admite el objetivo.</p>
+          <ul>
+          <li><strong>Objetivo de disponibilidad</strong> más exigente: baja la línea y se necesitan más réplicas para cruzarla.</li>
+          <li><strong>Fallas de causa común</strong>: las curvas dejan de caer y añadir réplicas no alcanza el objetivo.</li>
+          </ul>`,
         montar: montarNueves,
       },
     ],

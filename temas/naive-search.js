@@ -103,15 +103,31 @@
     intro: String.raw`
       <p>Buscar un <strong>patrón</strong> dentro de un <strong>texto</strong> es una de las tareas más frecuentes de la computación: un buscador, un editor, un antivirus, un análisis de ADN. El método más natural es el <em>ingenuo</em>: poner el patrón al principio del texto, comparar carácter a carácter y, si falla, correrlo una posición y empezar de nuevo.</p>
       <p>Es simple y suele ser rápido, pero tiene una debilidad: al fallar <strong>olvida</strong> todo lo que había emparejado, y en textos muy repetitivos vuelve a comparar los mismos caracteres una y otra vez.</p>`,
+    parametros: [
+      ['Ejemplos, Texto (hasta 40) y Patrón (Fig. 1)', String.raw`El texto donde se busca y el patrón que se desliza. Su parecido decide cuántas comparaciones se desperdician antes de descartar cada posición.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza comparación a comparación; cada fallo desliza el patrón una posición. Reiniciar vuelve al inicio.`],
+      ['Tipo de texto (Fig. 2)', String.raw`Qué clase de texto se usa para medir: peor caso (aaa…a con patrón aaa…ab), texto aleatorio o mejor caso.`],
+      ['Largo del patrón m (Fig. 2)', String.raw`El tamaño del patrón. Multiplica el costo en el peor caso, que sigue la cota \(n\cdot m\).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Deslizar el patrón sobre el texto',
         descripcion: 'Avance paso a paso: cada comparación se pinta verde o roja, y cada fallo desliza el patrón una posición. Pruebe el «peor caso» y cuente las comparaciones.',
+        ayuda: String.raw`<p>El patrón se coloca bajo el texto. Cada carácter comparado se pinta verde si coincide (o es ocurrencia) y rojo si no; los ya emparejados en la ventana actual se distinguen aparte.</p>
+          <ul>
+          <li><strong>Texto</strong> y <strong>Patrón</strong> del «peor caso»: casi toda la ventana coincide y falla al final, así que las comparaciones se acercan a \(n\cdot m\).</li>
+          <li><strong>Reproductor</strong>: tras cada fallo el patrón avanza solo una posición y vuelve a comparar desde su inicio.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Cuántas comparaciones hace',
         descripcion: 'Compare el costo en el peor caso, con texto aleatorio y en el mejor caso. El peor sigue la cota \\(n \\cdot m\\).',
+        ayuda: String.raw`<p>Eje horizontal: n, el largo del texto. Eje vertical: comparaciones. La curva es el costo de la búsqueda ingenua y se compara con la cota \(n\cdot m\) y la referencia \(n\).</p>
+          <ul>
+          <li><strong>Largo del patrón m</strong>: en el peor caso la curva sube en proporción a m.</li>
+          <li><strong>Tipo de texto</strong>: con texto aleatorio o mejor caso la curva queda cerca de n.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

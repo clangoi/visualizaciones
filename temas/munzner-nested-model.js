@@ -83,9 +83,24 @@
     intro: String.raw`
       <p>Diseñar una visualización no es elegir un gráfico: es tomar <strong>cuatro grupos de decisiones encadenadas</strong>. El <em>modelo anidado</em> de Tamara Munzner los ordena de lo más abstracto a lo más concreto: el problema del dominio, la abstracción de datos y tareas, el diseño visual y de interacción, y el algoritmo.</p>
       <p>«Anidado» significa que la salida de cada nivel es la entrada del siguiente. Si el nivel de arriba se equivoca, lo de abajo puede ser impecable y aun así inútil.</p>`,
+    parametros: [
+      ['Nivel (Fig. 1)', String.raw`El nivel del modelo cuyo detalle se muestra: dominio, abstracción, idioma visual o algoritmo. También se elige con un clic sobre la caja.`],
+      ['Caso (Fig. 2)', String.raw`El problema de ejemplo que se recorre: vigilancia epidemiológica, bicicletas compartidas o expresión genética.`],
+      ['Niveles completados (Fig. 2)', String.raw`Cuántos niveles, de arriba hacia abajo, están resueltos. Los que no lo están aparecen tachados porque dependen de las decisiones anteriores.`],
+    ],
     visualizaciones: [
-      { titulo: 'Los cuatro niveles del modelo', descripcion: 'Recorra los niveles y lea qué se decide en cada uno, qué produce y qué pregunta responde.', montar: montarNiveles },
-      { titulo: 'Un caso de principio a fin', descripcion: 'Elija un caso y reduzca los niveles completados para ver cómo cada decisión depende de la anterior.', montar: montarCaso },
+      { titulo: 'Los cuatro niveles del modelo', descripcion: 'Recorra los niveles y lea qué se decide en cada uno, qué produce y qué pregunta responde.',
+        ayuda: String.raw`<p>Cuatro cajas apiladas, una por nivel (Dominio azul, Abstracción aguamarina, Idioma visual violeta, Algoritmo naranja), con flechas que van de un nivel al siguiente. El panel de la derecha, y el registro inferior, indican qué se decide, qué se produce y qué pregunta responde el nivel elegido.</p>
+          <ul>
+          <li><strong>Nivel</strong>: cambia la caja resaltada y el texto del panel.</li>
+          <li>Las flechas muestran que la salida de un nivel es entrada del siguiente.</li>
+          </ul>`, montar: montarNiveles },
+      { titulo: 'Un caso de principio a fin', descripcion: 'Elija un caso y reduzca los niveles completados para ver cómo cada decisión depende de la anterior.',
+        ayuda: String.raw`<p>Tabla de cuatro filas, una por nivel, con la decisión tomada en ese nivel para el caso elegido.</p>
+          <ul>
+          <li><strong>Caso</strong>: cambia el texto de cada fila; el marco es el mismo, las respuestas no.</li>
+          <li><strong>Niveles completados</strong> menor que 4: las filas de abajo aparecen tachadas y «pendiente», porque no se pueden decidir sin las de arriba.</li>
+          </ul>`, montar: montarCaso },
     ],
     teoria: String.raw`
       <h2>Niveles</h2>

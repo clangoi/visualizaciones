@@ -93,9 +93,23 @@
       <p>En el <strong>desarrollo guiado por pruebas</strong> (<em>Test-Driven Development</em>, TDD) la prueba se escribe <em>antes</em> que el código. Se trabaja en ciclos muy cortos de tres fases:
       <strong>rojo</strong> (escribir una prueba que falla), <strong>verde</strong> (escribir el código más simple que la haga pasar) y <strong>refactorizar</strong> (mejorar el diseño con la red de seguridad de las pruebas).</p>
       <p>El resultado no es solo un conjunto de pruebas: el código queda diseñado para ser probado, con piezas pequeñas y bien definidas.</p>`,
+    parametros: [
+      ['Reproductor (Fig. 1)', String.raw`Avanza el ciclo rojo, verde, refactorizar un paso a la vez o de forma automática; Reiniciar vuelve al comienzo. Cada paso ejecuta las pruebas reales contra el código mostrado.`],
+      ['Tamaño de la funcionalidad (Fig. 2)', String.raw`Cuánto trabajo hay que desarrollar, en unidades. Un tamaño mayor acumula más posibles defectos.`],
+      ['Disciplina del equipo con TDD (Fig. 2)', String.raw`Qué porcentaje del tiempo el equipo escribe la prueba antes que el código. Una disciplina baja acerca TDD a probar al final.`],
+    ],
     visualizaciones: [
-      { titulo: 'Rojo, verde, refactorizar', descripcion: 'Avance un paso a la vez: cada paso ejecuta las pruebas reales contra el código que se muestra. Observe cuándo una prueba nueva detecta un error.', montar: montarCiclo },
-      { titulo: 'Defectos acumulados durante el desarrollo', descripcion: 'Compare pruebas después del código con TDD según el tamaño de la tarea y la disciplina del equipo.', montar: montarComparacion },
+      { titulo: 'Rojo, verde, refactorizar', descripcion: 'Avance un paso a la vez: cada paso ejecuta las pruebas reales contra el código que se muestra. Observe cuándo una prueba nueva detecta un error.',
+        ayuda: String.raw`<p>Se ven la fase actual (rojo, verde o refactorizar), el código de <code>fizzbuzz</code> en ese paso y la tabla de pruebas con su resultado, que pasa o falla.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: al agregarse una prueba nueva, la tabla muestra un fallo (rojo); tras el código mínimo vuelve a verde. La prueba del caso 15 detecta un error que las anteriores no veían.</li>
+          </ul>`, montar: montarCiclo },
+      { titulo: 'Defectos acumulados durante el desarrollo', descripcion: 'Compare pruebas después del código con TDD según el tamaño de la tarea y la disciplina del equipo.',
+        ayuda: String.raw`<p>Eje horizontal: avance del desarrollo (unidades). Eje vertical: defectos sin detectar. La curva naranja es probar después del código y la azul es TDD.</p>
+          <ul>
+          <li><strong>Tamaño de la funcionalidad</strong>: alarga el eje y aumenta los defectos sin detectar, más en la curva naranja que en TDD.</li>
+          <li><strong>Disciplina del equipo con TDD</strong>: al bajarla, la curva de TDD se acerca a la otra y se pierde su ventaja.</li>
+          </ul>`, montar: montarComparacion },
     ],
     teoria: String.raw`
       <h2>El ciclo</h2>

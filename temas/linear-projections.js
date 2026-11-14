@@ -164,15 +164,32 @@
       <p>¿Qué proyección elegir? <a href="tema.html?id=pca">PCA</a> busca la que retiene más <strong>varianza explicada</strong>.
       Las <strong>proyecciones aleatorias</strong>, sorprendentemente, preservan bien todas las distancias si \(k\) es del orden
       de \(\log n\), sin mirar los datos.</p>`,
+    parametros: [
+      ['Azimut θ y Elevación φ (Fig. 1)', String.raw`La dirección desde la que se mira la nube 3-D. Cada dirección define un plano de proyección distinto y, con él, cuánta varianza de los datos se conserva.`],
+      ['Vista PCA y Nuevos datos (Fig. 1)', String.raw`Vista PCA coloca la cámara perpendicular al plano de máxima varianza. Nuevos datos genera otra nube con la misma estructura.`],
+      ['Dimensión de destino k (Fig. 2)', String.raw`A cuántas dimensiones se proyectan los 300 puntos. Más dimensiones conservan mejor las distancias entre pares.`],
+      ['Otra proyección (Fig. 2)', String.raw`Sortea una nueva matriz aleatoria para ver cuánto depende el resultado del azar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Toda vista es una proyección',
         descripcion: 'Gire la nube y observe cuánta varianza retiene cada vista. Ninguna supera a la vista PCA.',
+        ayuda: String.raw`<p>Los puntos son la proyección ortogonal de la nube 3-D sobre el plano de la pantalla, coloreados por cúmulo. Las líneas grises son los ejes x, y, z originales vistos desde esa dirección.</p>
+          <ul>
+          <li><strong>Azimut θ</strong> y <strong>Elevación φ</strong>: giran la vista; los cúmulos se solapan o se separan según el ángulo, y la varianza retenida cambia con ello.</li>
+          <li><strong>Vista PCA</strong>: lleva la cámara al plano de máxima varianza; ninguna otra vista retiene más.</li>
+          </ul>`,
         montar: montarVistas,
       },
       {
         titulo: 'Proyecciones aleatorias',
         descripcion: 'Cuánto cambian las distancias entre pares al proyectar de 300 a k dimensiones. Mueva k y compare la forma de los dos histogramas.',
+        ayuda: String.raw`<p>Histogramas de la razón distancia proyectada ÷ distancia original para todos los pares: azul con proyección aleatoria gaussiana y naranja con PCA. Las líneas grises marcan la banda \(1\pm\varepsilon\) de Johnson–Lindenstrauss.</p>
+          <ul>
+          <li><strong>Dimensión de destino k</strong> mayor: el histograma azul se angosta alrededor de 1, es decir, las distancias se deforman menos.</li>
+          <li>El histograma naranja queda siempre por debajo de 1: PCA solo puede acortar distancias, y con datos sin estructura descarta mucha información.</li>
+          <li><strong>Otra proyección</strong>: la forma del histograma azul casi no cambia, señal de que el resultado no depende de la matriz concreta.</li>
+          </ul>`,
         montar: montarAleatorias,
       },
     ],

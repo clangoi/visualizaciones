@@ -102,9 +102,25 @@
     intro: String.raw`
       <p>Un <strong>hilo</strong> (<em>thread</em>) es un flujo de ejecución dentro de un proceso. Los hilos de un mismo proceso comparten memoria y archivos abiertos, pero cada uno tiene su propia pila y sus registros; por eso crearlos y cambiar entre ellos es mucho más barato que con procesos.</p>
       <p>Dos preguntas importan: <strong>quién</strong> administra los hilos (la biblioteca en espacio de usuario o el núcleo) y <strong>cuánto</strong> se puede ganar con varios núcleos. La respuesta a lo segundo la limita la parte del programa que no se puede paralelizar.</p>`,
+    parametros: [
+      ['Modelo (Fig. 1)', String.raw`Cómo se asignan los hilos de usuario a hilos del núcleo: muchos a uno (un solo hilo del núcleo para todos) o uno a uno (cada hilo tiene el suyo).`],
+      ['Hilos (Fig. 1)', String.raw`Cantidad de hilos del programa.`],
+      ['Núcleos (Fig. 1)', String.raw`Cuántos núcleos de CPU hay disponibles para ejecutar hilos del núcleo en paralelo.`],
+      ['Fracción secuencial (Fig. 2)', String.raw`Porcentaje del trabajo que no se puede paralelizar. Fija el techo de la aceleración sin importar cuántos núcleos se agreguen.`],
+    ],
     visualizaciones: [
-      { titulo: 'Hilos de usuario y del núcleo', descripcion: 'Con el modelo muchos-a-uno, una E/S bloqueante detiene a todos los hilos y los núcleos extra no sirven. Cambie al modelo uno-a-uno y suba los núcleos.', montar: montarModelos },
-      { titulo: 'Ley de Amdahl', descripcion: 'Aumente la fracción secuencial y vea cómo la curva se aplana lejos de la recta ideal.', montar: montarAmdahl },
+      { titulo: 'Hilos de usuario y del núcleo', descripcion: 'Con el modelo muchos-a-uno, una E/S bloqueante detiene a todos los hilos y los núcleos extra no sirven. Cambie al modelo uno-a-uno y suba los núcleos.',
+        ayuda: String.raw`<p>Una fila por hilo a lo largo del tiempo: azul cuando ejecuta en CPU, amarillo cuando está bloqueado en E/S y gris cuando está listo esperando CPU.</p>
+          <ul>
+          <li><strong>Modelo</strong> muchos a uno: una E/S bloqueante de un hilo bloquea a todos y solo uno corre a la vez.</li>
+          <li><strong>Modelo</strong> uno a uno: el bloqueo de un hilo no detiene a los demás y varios corren en paralelo.</li>
+          <li><strong>Hilos</strong> y <strong>Núcleos</strong>: más hilos añaden filas; más núcleos solo ayudan en uno a uno.</li>
+          </ul>`, montar: montarModelos },
+      { titulo: 'Ley de Amdahl', descripcion: 'Aumente la fracción secuencial y vea cómo la curva se aplana lejos de la recta ideal.',
+        ayuda: String.raw`<p>El eje horizontal son los núcleos p y el vertical la aceleración. La curva azul es la ley de Amdahl \(1/(s+(1-s)/p)\) y la gris, la aceleración ideal lineal.</p>
+          <ul>
+          <li><strong>Fracción secuencial</strong>: al subirla la curva azul se aplana antes y se aleja de la recta; con s = 0 coincide con la ideal y en el límite alcanza \(1/s\).</li>
+          </ul>`, montar: montarAmdahl },
     ],
     teoria: String.raw`
       <h2>Modelos de hilos</h2>

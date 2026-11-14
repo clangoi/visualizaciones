@@ -106,9 +106,27 @@
     intro: String.raw`
       <p>Un programa de calidad no es solo uno «sin errores»: es uno que hace lo que se necesita (<strong>requisitos funcionales</strong>) y lo hace <em>bien</em> —rápido, seguro, usable, mantenible— (<strong>requisitos no funcionales</strong>, o atributos de calidad).</p>
       <p>El <strong>aseguramiento de calidad</strong> (QA) es el conjunto de prácticas para lograrlo durante todo el desarrollo, no solo al final. Su idea central: cuanto antes se detecta un problema, más barato es corregirlo.</p>`,
+    parametros: [
+      ['Tipo de proyecto (Fig. 1)', String.raw`El tipo de sistema (por ejemplo, uno crítico o uno experimental) cuyo perfil de importancia por atributo se compara con su propio reparto.`],
+      ['Esfuerzo por atributo (Fig. 1)', String.raw`Un control por cada uno de los ocho atributos de calidad, de 0 a 5. Representa cuánto presupuesto dedica a ese atributo; subir uno obliga a pensar de dónde se quita.`],
+      ['Ajustar al perfil (Fig. 1)', String.raw`Copia en los controles el esfuerzo que el tipo de proyecto elegido pide.`],
+      ['Defectos introducidos (Fig. 2)', String.raw`Cuántos defectos se cometen durante el desarrollo; escala los hallazgos y los costos.`],
+      ['Estrategia de verificación (Fig. 2)', String.raw`En qué fases se buscan los defectos. Determina cuántos se encuentran temprano, cuántos llegan a producción y el costo total.`],
+    ],
     visualizaciones: [
-      { titulo: 'Atributos de calidad y compromisos', descripcion: 'Elija un tipo de proyecto, reparta su presupuesto de esfuerzo entre ocho atributos y compare con lo que ese proyecto realmente necesita.', montar: montarRadar },
-      { titulo: 'El costo de hallar un defecto tarde', descripcion: 'Compare dos estrategias de verificación y vea cuánto se paga en total y cuántos defectos llegan a producción.', montar: montarCosto },
+      { titulo: 'Atributos de calidad y compromisos', descripcion: 'Elija un tipo de proyecto, reparta su presupuesto de esfuerzo entre ocho atributos y compare con lo que ese proyecto realmente necesita.',
+        ayuda: String.raw`<p>Gráfico radial con un eje por atributo de calidad. Una forma muestra el esfuerzo que usted asigna y otra la importancia que pide el proyecto; los atributos con déficit se resaltan.</p>
+          <ul>
+          <li><strong>Tipo de proyecto</strong>: cambia la forma de la importancia requerida.</li>
+          <li><strong>Esfuerzo por atributo</strong>: acerca o aleja su forma del borde en ese eje; un atributo con esfuerzo menor que el pedido queda marcado como déficit.</li>
+          <li><strong>Ajustar al perfil</strong>: ambas formas coinciden y el déficit desaparece.</li>
+          </ul>`, montar: montarRadar },
+      { titulo: 'El costo de hallar un defecto tarde', descripcion: 'Compare dos estrategias de verificación y vea cuánto se paga en total y cuántos defectos llegan a producción.',
+        ayuda: String.raw`<p>Una columna por fase del desarrollo, con los defectos hallados en esa fase y el costo relativo de corregirlos, que crece cuanto más tarde se descubren.</p>
+          <ul>
+          <li><strong>Defectos introducidos</strong>: aumenta los hallazgos de cada fase y el costo total.</li>
+          <li><strong>Estrategia de verificación</strong>: si detecta más en las fases iniciales, baja el costo total y los defectos que llegan a producción.</li>
+          </ul>`, montar: montarCosto },
     ],
     teoria: String.raw`
       <h2>Requisitos funcionales y no funcionales</h2>

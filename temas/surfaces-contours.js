@@ -385,15 +385,32 @@
       <p>Como una superficie es incómoda de dibujar en papel, se la resume con un <strong>mapa de curvas de nivel</strong>: cada curva une
       los puntos con la misma altura, igual que en un mapa topográfico. Curvas muy juntas significan pendiente fuerte; curvas
       separadas, terreno casi plano. Las dos figuras muestran la misma idea desde ángulos distintos.</p>`,
+    parametros: [
+      ['Función (Fig. 1 y 2)', String.raw`La superficie \(z = f(x,y)\) que se estudia; cambia la forma del relieve y de sus curvas de nivel.`],
+      ['Giro (azimut) y Elevación (Fig. 1)', String.raw`Punto de vista de la proyección 3-D. No cambian la función, solo cómo se ve.`],
+      ['Nivel c de la curva (Fig. 1)', String.raw`Altura \(c\) del conjunto \(f = c\) que se resalta sobre la superficie y en la base.`],
+      ['Número de niveles (Fig. 2)', String.raw`Cuántas curvas de nivel se dibujan; más niveles dan más detalle del relieve.`],
+      ['Espaciado de niveles (Fig. 2)', String.raw`Si los niveles se reparten con igual diferencia de f u otro criterio; cambia qué indica la separación entre curvas.`],
+      ['Punto inicial (Fig. 2)', String.raw`Devuelve el punto elegido a su posición de partida.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Superficie en 3-D y su curva de nivel',
         descripcion: 'Una malla proyectada de \\(z = f(x,y)\\). La curva naranja es el conjunto \\(f = c\\): sobre la superficie y, punteada, su sombra en la base. Gire la superficie, cambie \\(c\\) y observe que en un cuenco la curva se encoge hasta un punto al bajar \\(c\\).',
+        ayuda: String.raw`<p>Malla de la superficie, coloreada de altura baja a alta. La curva naranja es \(f = c\) sobre la superficie y, punteada, su sombra en la base. El punto bajo el cursor también proyecta su sombra.</p>
+          <ul>
+          <li><strong>Nivel c</strong>: sube o baja el plano de corte; la curva naranja es la intersección con la superficie.</li>
+          <li><strong>Giro</strong> y <strong>Elevación</strong>: permiten ver que la curva de nivel es horizontal en la superficie.</li>
+          </ul>`,
         montar: montarSuperficie,
       },
       {
         titulo: 'Mapa de curvas de nivel y pendiente',
         descripcion: 'Elija un punto: la figura mide la distancia entre las curvas vecinas a lo largo del gradiente y la compara con \\(\\Delta f / \\|\\nabla f\\|\\). Pruebe la «meseta»: en el centro y lejos del muro las curvas casi desaparecen porque el gradiente es pequeño.',
+        ayuda: String.raw`<p>Mapa de curvas de nivel sobre un fondo más oscuro donde f es alta. Se resaltan las curvas inmediatas inferior y superior al punto elegido y la separación medida entre ellas.</p>
+          <ul>
+          <li><strong>Número de niveles</strong> y <strong>Espaciado</strong>: curvas muy juntas significan pendiente fuerte; separadas, pendiente suave.</li>
+          </ul>`,
         montar: montarMapa,
       },
     ],

@@ -82,9 +82,27 @@
     intro: String.raw`
       <p>El problema del <strong>productor–consumidor</strong> aparece en todas partes: un hilo genera datos (peticiones, mensajes) y otro los procesa, conectados por un buffer de tamaño limitado. Hay que garantizar que el productor espere cuando el buffer está lleno, que el consumidor espere cuando está vacío, y que nadie dañe el buffer al usarlo a la vez.</p>
       <p>Con <a href="tema.html?id=semaphores">semáforos</a> se resuelve con tres contadores; con un <em>mutex</em> y <strong>variables de condición</strong> se escribe de forma más natural: «espero hasta que haya datos» y «aviso que ya hay datos».</p>`,
+    parametros: [
+      ['Consumidor espera con (Fig. 1)', String.raw`Si el consumidor comprueba la condición con un if (espera una vez y sigue) o con un while (vuelve a comprobar tras despertar). Con if, otro consumidor puede haber vaciado el buffer.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza o retrocede por los pasos del diagrama de secuencia.`],
+      ['Capacidad del buffer N (Fig. 2)', String.raw`Cuántos ítems caben. Un buffer mayor absorbe rachas del productor o del consumidor antes de bloquear a alguno.`],
+      ['Tiempo medio de producir y Tiempo medio de consumir (Fig. 2)', String.raw`Cuánto tarda de media cada lado. El más lento fija el ritmo, y el más rápido pasa tiempo bloqueado.`],
+      ['Nueva simulación (Fig. 2)', String.raw`Repite la simulación con otros tiempos aleatorios.`],
+    ],
     visualizaciones: [
-      { titulo: 'Por qué la espera va en un while', descripcion: 'Compare las dos versiones del consumidor: con «if» un hilo puede encontrar el buffer vacío tras despertar; con «while» vuelve a comprobar.', montar: montarFlujo },
-      { titulo: 'Ocupación del buffer', descripcion: 'Varíe la capacidad y los tiempos de producir y consumir. Observe cuándo se bloquea cada lado y cómo un buffer mayor suaviza las rachas.', montar: montarOcupacion },
+      { titulo: 'Por qué la espera va en un while', descripcion: 'Compare las dos versiones del consumidor: con «if» un hilo puede encontrar el buffer vacío tras despertar; con «while» vuelve a comprobar.',
+        ayuda: String.raw`<p>Diagrama de secuencia con consumidor 1, productor y consumidor 2. Cada flecha es una operación sobre el lock o la variable de condición, y una nota de error aparece si alguien lee un dato inexistente.</p>
+          <ul>
+          <li><strong>Consumidor espera con</strong> if: el consumidor 1 despierta, pero el consumidor 2 ya tomó el dato y get() falla con un buffer vacío.</li>
+          <li><strong>Consumidor espera con</strong> while: al despertar vuelve a comprobar, ve el buffer vacío y espera de nuevo hasta el siguiente put.</li>
+          </ul>`, montar: montarFlujo },
+      { titulo: 'Ocupación del buffer', descripcion: 'Varíe la capacidad y los tiempos de producir y consumir. Observe cuándo se bloquea cada lado y cómo un buffer mayor suaviza las rachas.',
+        ayuda: String.raw`<p>El eje horizontal es el tiempo y el vertical, los ítems en el buffer (cuyo nivel traza la curva). Las franjas indican cuándo el productor está bloqueado (buffer lleno) o el consumidor bloqueado (buffer vacío), según la leyenda.</p>
+          <ul>
+          <li><strong>Capacidad del buffer N</strong>: un N pequeño se llena o vacía enseguida y hay más bloqueos; con N grande el nivel oscila con holgura.</li>
+          <li><strong>Tiempo medio de producir</strong> y <strong>de consumir</strong>: si producir es más lento, el buffer tiende a vaciarse y se bloquea el consumidor; si consumir es más lento, se llena y se bloquea el productor.</li>
+          <li><strong>Nueva simulación</strong>: otra muestra con los mismos parámetros.</li>
+          </ul>`, montar: montarOcupacion },
     ],
     teoria: String.raw`
       <h2>Variables de condición</h2>

@@ -246,15 +246,33 @@
       <p>En el <strong>anillo con lista</strong> cada mensaje de elección da la vuelta completa anotando los identificadores por los que pasa.
       <strong>Chang–Roberts</strong> (1979) es más económico: cada nodo deja pasar solo identificadores mayores que el suyo, así que los
       mensajes de los candidatos débiles mueren pronto y solo el del máximo completa la vuelta.</p>`,
+    parametros: [
+      ['Nodos (Fig. 1)', String.raw`Cantidad de nodos del anillo, cada uno con un identificador.`],
+      ['Algoritmo (Fig. 1)', String.raw`Chang–Roberts descarta mensajes con id menor que el del nodo que los recibe; el anillo con lista acumula todos los ids antes de decidir.`],
+      ['Todos inician (Fig. 1)', String.raw`Hace que todos los nodos lancen una elección. Pone a prueba cuántos mensajes sobreviven.`],
+      ['Nuevos ids y reproductor (Fig. 1)', String.raw`Nuevos ids reordena los identificadores; el reproductor avanza o reinicia.`],
+      ['Otras permutaciones al azar (Fig. 2)', String.raw`Sortea nuevos órdenes de ids para la serie al azar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Elección en el anillo',
         descripcion: 'Avance paso a paso: en cada paso todos los mensajes cruzan un enlace. Compare los dos algoritmos con «Todos inician» marcado y observe cuántos mensajes de Chang–Roberts mueren en el primer salto.',
+        ayuda: String.raw`<p>Los nodos forman un anillo. Las flechas naranja son mensajes de elección y las verdes, el anuncio del líder. Un nodo amarillo es participante y uno azul, iniciador.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: en Chang–Roberts muchos mensajes mueren al llegar a un nodo con id mayor; en el anillo con lista casi todos circulan la vuelta completa.</li>
+          <li><strong>Todos inician</strong>: con Chang–Roberts hay mensajes que mueren en el primer salto y gana el id mayor.</li>
+          <li><strong>Nuevos ids</strong>: el orden de los ids cambia el número de mensajes.</li>
+          </ul>`,
         montar: montarAnillo,
       },
       {
         titulo: 'Mensajes según el orden de los ids',
         descripcion: 'Con Chang–Roberts el costo depende de cómo están ordenados los identificadores: cuadrático en el peor caso y \\(O(n \\log n)\\) en promedio.',
+        ayuda: String.raw`<p>Eje horizontal: nodos n; vertical: mensajes. Cada curva es un caso: anillo con lista \(2n^2\) (azul), Chang–Roberts con ids decrecientes (naranja), al azar (aguamarina) y crecientes (amarillo).</p>
+          <ul>
+          <li><strong>Otras permutaciones al azar</strong>: mueve solo la curva aguamarina, que queda entre las dos extremas.</li>
+          <li>La naranja crece como \(n^2\) y la amarilla, linealmente.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

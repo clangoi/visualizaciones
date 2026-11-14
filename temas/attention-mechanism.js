@@ -104,9 +104,24 @@
     intro: String.raw`
       <p>Para traducir «la casa blanca», al escribir «white» uno no necesita recordar toda la frase: le basta mirar «blanca». El <strong>mecanismo de atención</strong> le da al decodificador esa capacidad: en cada paso, en vez de depender de un único vector de contexto, <em>consulta</em> todos los estados del codificador y se queda con una mezcla donde pesan más los relevantes.</p>
       <p>Esa mezcla es una suma ponderada: los pesos (los <em>attention scores</em>, tras un softmax) salen de comparar la consulta del decodificador con cada estado de origen. Todo es diferenciable, así que los pesos se aprenden junto con el resto de la red, y de paso muestran qué mira el modelo.</p>`,
+    parametros: [
+      ['Frase (Fig. 1 y 2)', String.raw`La pareja de frases origen y destino. Determina qué palabras se alinean y si hay cruces.`],
+      ['Agudeza β (Fig. 1 y 2)', String.raw`Equivale a 1/temperatura de la softmax. Con β bajo la atención se reparte pareja; con β alto se concentra en una sola palabra.`],
+      ['Palabra que se escribe (Fig. 2)', String.raw`La posición del destino para la que se calcula el contexto.`],
+    ],
     visualizaciones: [
-      { titulo: 'La matriz de alineamiento', descripcion: 'Mire cómo se alinean las palabras de origen y de destino, incluidos los cruces por el orden distinto de adjetivo y sustantivo. Baje β a 0 y vea cómo la atención se reparte pareja.', montar: montarAlineamiento },
-      { titulo: 'El contexto como suma ponderada', descripcion: 'Elija qué palabra se escribe y mueva β: el contexto se mueve entre el promedio y la palabra más relevante.', montar: montarContexto },
+      { titulo: 'La matriz de alineamiento', descripcion: 'Mire cómo se alinean las palabras de origen y de destino, incluidos los cruces por el orden distinto de adjetivo y sustantivo. Baje β a 0 y vea cómo la atención se reparte pareja.',
+        ayuda: String.raw`<p>Cada fila es una palabra de destino y cada columna, una de origen. Cada celda es el peso de atención: más oscuro significa más atención. Los pesos de cada fila suman 1.</p>
+          <ul>
+          <li><strong>Agudeza β</strong>: en 0 todas las celdas de una fila son iguales; al subir, queda una celda oscura por fila, que es el alineamiento.</li>
+          <li><strong>Frase</strong>: algunas frases tienen adjetivo y sustantivo en orden distinto, por lo que el alineamiento se cruza.</li>
+          </ul>`, montar: montarAlineamiento },
+      { titulo: 'El contexto como suma ponderada', descripcion: 'Elija qué palabra se escribe y mueva β: el contexto se mueve entre el promedio y la palabra más relevante.',
+        ayuda: String.raw`<p>Los puntos azules son las palabras de origen, con tamaño proporcional a su peso de atención. La línea naranja es la consulta del decodificador y el punto verde, el vector de contexto \(\sum \alpha_i h_i\), que es el promedio ponderado de los puntos azules.</p>
+          <ul>
+          <li><strong>Palabra que se escribe</strong>: cambia la consulta y, con ella, qué puntos reciben más peso.</li>
+          <li><strong>Agudeza β</strong>: con β bajo el contexto está en el centro de todos los puntos; con β alto se acerca al punto más relevante.</li>
+          </ul>`, montar: montarContexto },
     ],
     teoria: String.raw`
       <h2>Atención de Bahdanau y de Luong</h2>

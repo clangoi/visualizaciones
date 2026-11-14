@@ -144,10 +144,20 @@
       <p>El algoritmo de <strong>Dijkstra, Feijen y van Gasteren</strong> (1983) hace circular un <strong>token</strong> por un anillo. La idea
       ingenua, «si el token encuentra a todos pasivos, terminó», falla: una máquina ya visitada puede ser reactivada por otra que el token aún
       no visita. La solución es pintar de negro a quien envía trabajo, y ennegrecer el token al pasar por una máquina negra.</p>`,
+    parametros: [
+      ['Reglas (Fig. 1)', String.raw`Elige entre el protocolo DFG, donde las máquinas y el token tienen color, y la versión ingenua, donde el token solo verifica que cada máquina esté pasiva. La ingenua puede declarar terminación falsa.`],
+      ['Máquinas (Fig. 1)', String.raw`Cantidad de máquinas del anillo. Más máquinas alargan cada vuelta del token.`],
+      ['Otro cómputo y reproductor (Fig. 1)', String.raw`Otro cómputo sortea otros mensajes de trabajo. El reproductor avanza paso a paso, pausa o reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El token en el anillo',
         descripcion: 'Avance paso a paso. Con las reglas ingenuas, el ejemplo inicial declara la terminación mientras una máquina sigue activa. Cambie a DFG: el mismo cómputo vuelve negro el token y M0 lanza otro sondeo.',
+        ayuda: String.raw`<p>Las máquinas forman un anillo: azul las activas, con relleno claro las pasivas y negro las máquinas negras. Las flechas naranja son mensajes de trabajo y las violeta, los pasos del token (◇ blanco, ◆ negro).</p>
+          <ul>
+          <li><strong>Reglas</strong>: con «Ingenua», una máquina ya visitada puede recibir trabajo detrás del token y el sondeo declara terminación con alguien activo. Con «DFG», ese mensaje la vuelve negra, el token se ennegrece y se lanza otro sondeo.</li>
+          <li><strong>Máquinas</strong>: más nodos para recorrer en cada sondeo.</li>
+          </ul>`,
         montar,
       },
     ],

@@ -209,15 +209,35 @@
       revisa cada evento en cuanto llega y levanta una alerta mientras el caso todavía puede corregirse: se detiene un pago, se avisa al responsable, se repite un paso.</p>
       <p>La técnica es la reproducción de fichas hecha <em>incrementalmente</em>: se guarda el marcado de cada caso abierto y, con cada evento, se intenta disparar la transición
       correspondiente. Si no está habilitada, se registra la ficha que faltaba y se sigue. El umbral de alerta decide cuántas anomalías se toleran antes de molestar a alguien.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Traza predefinida que se envía al modelo, con o sin desviaciones (por ejemplo, omitir una actividad).`],
+      ['Traza (letras a–f) (Fig. 1)', String.raw`Secuencia de eventos propia, una letra por actividad. Permite probar órdenes que el modelo permite o no.`],
+      ['Reproductor (Fig. 1)', String.raw`Envía los eventos del caso de uno en uno y actualiza las fichas del modelo.`],
+      ['Casos de entrenamiento (Fig. 2)', String.raw`Cuántos casos usa el modelo para aprender los órdenes válidos. Con pocos, órdenes legítimos parecen desviaciones.`],
+      ['Casos realmente desviados (Fig. 2)', String.raw`Proporción de casos del flujo que de verdad se desvían. Define cuántas alertas serían correctas.`],
+      ['Umbral de alerta (fichas) (Fig. 2)', String.raw`Cuántas fichas faltantes o sobrantes se toleran antes de alertar. Más alto alerta menos y más tarde.`],
+      ['Nuevo flujo (Fig. 2)', String.raw`Genera otro flujo de casos con los mismos parámetros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Reproducción incremental con alertas',
         descripcion: 'Envíe los eventos de un caso uno a uno y vea la alerta aparecer. Pruebe «Se omite c»: nada en el flujo avisa que c no ocurrió; la alerta salta recién cuando llega d y su plaza de entrada está vacía. Luego pruebe el orden paralelo acbef, que es legítimo y no alerta.',
+        ayuda: String.raw`<p>Es una red de Petri: las plazas guardan fichas y cada transición representa una actividad. Se resalta la transición que acaba de disparar; si un evento llega con una transición no habilitada, se marca como alerta, junto con la plaza con ficha faltante.</p>
+          <ul>
+          <li><strong>Escenario</strong> o <strong>Traza</strong>: eligen los eventos que se envían; en las desviaciones la alerta aparece cuando falta una ficha de entrada.</li>
+          <li><strong>Reproductor</strong>: al omitir una actividad, el flujo no avisa de inmediato; la alerta salta cuando llega un evento cuya plaza de entrada está vacía.</li>
+          </ul>`,
         montar: montarEventos,
       },
       {
         titulo: 'Umbral, falsos positivos y retraso',
         descripcion: 'Con pocos casos de entrenamiento y umbral 1 verá falsos positivos. Suba los casos de entrenamiento para que el modelo conozca todos los órdenes válidos, o suba el umbral y observe cómo cae la cobertura.',
+        ayuda: String.raw`<p>Eje horizontal: umbral de alerta (fichas faltantes más sobrantes); eje vertical: proporción. Una curva es la precisión (alertas que eran desviaciones reales) y otra la cobertura (desviaciones reales que alertaron).</p>
+          <ul>
+          <li><strong>Umbral de alerta (fichas)</strong>: subirlo aumenta la precisión pero reduce la cobertura, porque se pasan por alto desviaciones leves.</li>
+          <li><strong>Casos de entrenamiento</strong>: con pocos, la precisión baja por falsos positivos; con más, el modelo conoce todos los órdenes válidos.</li>
+          <li><strong>Casos realmente desviados</strong>: cambia cuántas alertas verdaderas cabe esperar.</li>
+          </ul>`,
         montar: montarUmbral,
       },
     ],

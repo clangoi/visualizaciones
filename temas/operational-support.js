@@ -241,15 +241,32 @@
       <p>Se distinguen tres funciones: <strong>detectar</strong> que un caso se sale del modelo, <strong>predecir</strong> cómo terminará
       (cuánto falta, qué viene) y <strong>recomendar</strong> la próxima acción. Las tres comparten una idea: del caso solo se conoce un prefijo de su traza,
       y se lo contrasta con lo aprendido de los casos completos.</p>`,
+    parametros: [
+      ['Casos (Fig. 1)', String.raw`Cantidad de casos del flujo de eventos. Más casos significan más casos abiertos al mismo tiempo.`],
+      ['Nuevos casos y reproductor (Fig. 1)', String.raw`Nuevos casos genera otro flujo; el reproductor avanza el tiempo y llegan eventos.`],
+      ['Eventos ya ocurridos (Fig. 2)', String.raw`Prefijo observado del caso en vivo. Lo ya ocurrido es lo único que las funciones de apoyo ven.`],
+      ['Inyectar desviación (omitir «Clasificar») (Fig. 2)', String.raw`Hace que el caso se salte la actividad «Clasificar». El modelo no permite ese salto, así que debe dar una alerta.`],
+      ['Nuevo caso (Fig. 2)', String.raw`Elige otro caso para ver cómo cambia la recomendación según la actividad actual.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Casos abiertos en un flujo de eventos',
         descripcion: 'Reproduzca el flujo y observe cuántos casos están abiertos en cada momento: son invisibles para un análisis offline. Compare la duración media de los cerrados con el tiempo transcurrido de los abiertos.',
+        ayuda: String.raw`<p>Cada fila es un caso. Se distinguen los casos abiertos (eventos recibidos) y los cerrados (completos); el último evento de un caso abierto está marcado, con una barra del silencio desde ese evento hasta «ahora».</p>
+          <ul>
+          <li><strong>Casos</strong>: más filas abiertas a la vez; los abiertos no aparecen en un análisis offline.</li>
+          <li><strong>Reproductor</strong>: al avanzar el «ahora», cada caso abierto acumula silencio hasta el siguiente evento.</li>
+          </ul>`,
         montar: montarFlujo,
       },
       {
         titulo: 'Detectar, predecir y recomendar',
         descripcion: 'Avance el caso en vivo y vea qué dice cada función con solo el prefijo. Active la desviación: la alerta salta en el primer salto imposible. Cambie de caso y vea cómo la recomendación depende de la actividad actual.',
+        ayuda: String.raw`<p>Es el modelo del proceso con el recorrido del caso, la actividad actual y la recomendación (menor tiempo restante esperado). Cada transición muestra los casos de referencia; un salto no permitido se marca como alerta.</p>
+          <ul>
+          <li><strong>Eventos ya ocurridos</strong>: avanza el prefijo; cambian la actividad actual, el tiempo restante y la recomendación.</li>
+          <li><strong>Inyectar desviación</strong>: el primer salto imposible dispara la alerta.</li>
+          </ul>`,
         montar: montarFunciones,
       },
     ],

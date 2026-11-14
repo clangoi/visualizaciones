@@ -284,15 +284,35 @@
       se decide qué hacer: evitarlo, mitigarlo, transferirlo o aceptarlo. La suma de los valores esperados da una <strong>reserva</strong> para contingencias, que conviene contrastar con una simulación.</p>
       <p>Los <strong>interesados</strong> (<em>stakeholders</em>) son las personas y organizaciones que afectan o son afectadas por el proyecto. No todos requieren la misma atención: la matriz de <strong>poder e interés</strong> sugiere cuánto y cómo comunicarse con cada uno, para que el tiempo del gerente
       se concentre donde importa.</p>`,
+    parametros: [
+      ['Riesgo (Fig. 1)', String.raw`Cuál riesgo del registro se edita.`],
+      ['Probabilidad e Impacto si ocurre (Fig. 1)', String.raw`Qué tan probable es el riesgo y cuántos días o dinero cuesta si ocurre. Su producto es la pérdida esperada y ubica el riesgo en la matriz.`],
+      ['Mitigar (Fig. 1)', String.raw`Pagar un costo para reducir a la mitad la probabilidad. Conviene si el ahorro esperado supera el costo.`],
+      ['Nivel de confianza de la reserva (Fig. 1)', String.raw`Con qué seguridad la reserva cubre la duración. A mayor confianza, mayor reserva por percentil.`],
+      ['Nueva simulación y Restablecer (Fig. 1)', String.raw`Repiten la simulación con otros sorteos o devuelven los riesgos a sus valores originales.`],
+      ['Umbral de «alto» (Fig. 2)', String.raw`Desde qué valor de poder o interés un interesado se considera «alto» y cambia de cuadrante.`],
+      ['Restablecer posiciones (Fig. 2)', String.raw`Devuelve a los interesados a su posición inicial.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Registro de riesgos y reserva',
         descripcion: 'Elija un riesgo y cambie su probabilidad o impacto (o haga clic en una celda de la matriz). Mitigue el más costoso y compare el ahorro esperado con el costo de mitigar. Compare la reserva por valor esperado con la del percentil 80.',
+        ayuda: String.raw`<p>Arriba, la matriz de probabilidad por impacto con los riesgos coloreados según su nivel (bajo, medio, alto, crítico); un anillo marca los mitigados. Abajo, un histograma de la duración del proyecto en días en muchos proyectos simulados, con el plan sin riesgos y las reservas por valor esperado y por percentil.</p>
+          <ul>
+          <li><strong>Probabilidad</strong> e <strong>Impacto</strong>: mueven el riesgo a otra celda y desplazan el histograma hacia duraciones mayores.</li>
+          <li><strong>Mitigar</strong>: añade un anillo, baja la probabilidad y acorta la cola derecha del histograma.</li>
+          <li><strong>Nivel de confianza de la reserva</strong>: mueve la reserva por percentil, mayor que la del valor esperado cuando se exige más certeza.</li>
+          </ul>`,
         montar: montarRiesgos,
       },
       {
         titulo: 'Matriz de poder e interés',
         descripcion: 'Arrastre a los interesados entre los cuadrantes y observe cómo cambia la estrategia de comunicación y las horas semanales. Pruebe pasar al regulador a «alto interés» y mover el umbral a 30.',
+        ayuda: String.raw`<p>Eje horizontal: interés; eje vertical: poder. Cada interesado es un punto que cae en un cuadrante coloreado según su estrategia de comunicación.</p>
+          <ul>
+          <li><strong>Umbral de «alto»</strong>: al moverlo, los interesados cruzan los límites y cambian de estrategia y de horas semanales.</li>
+          <li>Arrastrar un punto muestra cómo cambiar poder o interés cambia la estrategia asignada.</li>
+          </ul>`,
         montar: montarInteresados,
       },
     ],

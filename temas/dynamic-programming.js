@@ -268,20 +268,45 @@
       <strong>una sola vez</strong> y se guarda su respuesta en una tabla.</p>
       <p>El resultado suele ser espectacular: algoritmos exponenciales se vuelven polinomiales. La dificultad está en encontrar la
       <strong>recurrencia</strong> correcta, es decir, cómo se expresa la solución de un problema en términos de soluciones de subproblemas.</p>`,
+    parametros: [
+      ['n (Fig. 1)', String.raw`Qué número de Fibonacci se calcula, \(\mathrm{fib}(n)\). Sin memoización el árbol de llamadas crece exponencialmente con \(n\).`],
+      ['usar memoización (Fig. 1)', String.raw`Guarda cada \(\mathrm{fib}(k)\) la primera vez que se calcula y lo reutiliza después, en vez de volver a llamar.`],
+      ['Palabra A y Palabra B (Fig. 2)', String.raw`Las dos palabras (hasta 14 letras) cuya distancia de edición se calcula.`],
+      ['Objetos (Fig. 3)', String.raw`Cuántos objetos hay para elegir; cada uno tiene un peso y un valor.`],
+      ['Capacidad W (Fig. 3)', String.raw`El peso máximo que admite la mochila; es el número de columnas de la tabla.`],
+      ['Nuevos objetos (Fig. 3)', String.raw`Genera otros pesos y valores al azar.`],
+      ['Velocidad y reproductor (Fig. 2 y 3)', String.raw`Reproducir llena la tabla celda por celda, Un paso calcula una celda, Hasta el final la completa y reconstruye la solución, Reiniciar la vacía.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Subproblemas superpuestos',
         descripcion: 'El árbol de llamadas de la definición recursiva de Fibonacci. Active la memoización para ver cuántas llamadas se evitan.',
+        ayuda: String.raw`<p>Cada nodo es una llamada recursiva \(\mathrm{fib}(k)\), coloreada según \(k\); sus hijos son las llamadas a \(\mathrm{fib}(k-1)\) y \(\mathrm{fib}(k-2)\). Los nodos del mismo color son el mismo subproblema calculado varias veces.</p>
+          <ul>
+          <li><strong>n</strong>: cada unidad más casi duplica el árbol; la lectura «llamadas» sigue a \(2F(n+1)-1\).</li>
+          <li><strong>usar memoización</strong>: los subproblemas repetidos se responden de inmediato desde la memoria y el árbol se reduce a una espina de \(2n-1\) llamadas. La lectura «sin memo para n = 40» muestra lo que se evita.</li>
+          </ul>`,
         montar: montarFibonacci,
       },
       {
         titulo: 'Distancia de edición',
         descripcion: 'Mínimo número de inserciones, borrados y reemplazos de caracteres para transformar A en B. Cada celda depende de tres vecinas ya calculadas.',
+        ayuda: String.raw`<p>La tabla tiene una fila por letra de A y una columna por letra de B. La celda \((i, j)\) es la distancia entre los primeros \(i\) caracteres de A y los primeros \(j\) de B. Se calcula (azul) a partir de tres vecinas ya conocidas (aguamarina): la de arriba (borrar), la de la izquierda (insertar) y la diagonal (reemplazar o copiar).</p>
+          <ul>
+          <li>La esquina inferior derecha es la respuesta. Al terminar, el camino naranja la reconstruye y arriba se muestra la alineación con cada operación.</li>
+          <li><strong>Palabras A y B</strong>: palabras parecidas dejan una diagonal de ceros o valores bajos; el número de celdas es \((|A|+1)(|B|+1)\).</li>
+          </ul>`,
         montar: montarEdicion,
       },
       {
         titulo: 'Mochila 0/1',
         descripcion: 'Elegir objetos que quepan en una mochila de capacidad W maximizando su valor total. Cada objeto se toma entero o no se toma.',
+        ayuda: String.raw`<p>La tabla tiene una fila por objeto (en orden) y una columna por capacidad de 0 a \(W\). La celda \((i, w)\) es el mejor valor usando solo los primeros \(i\) objetos con capacidad \(w\). Se calcula (azul) comparando dos opciones: no tomar el objeto (celda de arriba, aguamarina) o tomarlo (celda de arriba desplazada tantas columnas como pesa, violeta, más su valor).</p>
+          <ul>
+          <li>Al terminar, el camino naranja recorre la tabla hacia arriba para decidir qué objetos se tomaron.</li>
+          <li><strong>Capacidad W</strong> y <strong>Objetos</strong> agrandan la tabla: el costo es \(n \cdot W\) celdas, que la lectura muestra.</li>
+          <li><strong>Nuevos objetos</strong> cambia pesos y valores; observe que el óptimo no siempre usa toda la capacidad.</li>
+          </ul>`,
         montar: montarMochila,
       },
     ],

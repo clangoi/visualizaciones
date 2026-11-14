@@ -106,15 +106,29 @@
       Cualquiera de ellos se puede deducir de otro; lo que cambia es cuál resulta más cómodo para cada demostración.</p>
       <p>La inducción simple es lo mejor cuando el paso depende solo del caso anterior. La fuerte, cuando depende de varios o de casos lejanos. Y el buen orden es la herramienta natural
       para argumentar por «el menor contraejemplo».</p>`,
+    parametros: [
+      ['Paso de la demostración (Fig. 1)', String.raw`Qué casos anteriores necesita P(n): solo el inmediato o varios. Decide si la hipótesis simple alcanza.`],
+      ['Caso que se demuestra, n (Fig. 1)', String.raw`El caso objetivo; determina qué casos previos se requieren.`],
+      ['Enunciado P(n) (Fig. 2)', String.raw`La propiedad analizada, verdadera o falsa según el caso; cambia dónde está el menor contraejemplo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Qué hipótesis hay disponibles',
         descripcion: 'Elija cómo depende \\(P(n)\\) de los casos anteriores. La fila de arriba muestra lo que ofrece la inducción simple; la de abajo, la fuerte. Vea cuándo falta algo.',
+        ayuda: String.raw`<p>La fila de arriba muestra las hipótesis que ofrece la inducción simple y la de abajo las de la fuerte. Se resalta el caso que se demuestra y los casos necesarios, disponibles o faltantes.</p>
+          <ul>
+          <li><strong>Paso de la demostración</strong>: si necesita casos distintos de n − 1, aparecen casos faltantes en la fila simple pero disponibles en la fuerte.</li>
+          <li><strong>Caso n</strong>: al crecer, cambia cuántos casos se requieren y cuáles están a mano.</li>
+          </ul>`,
         montar: montarHipotesis,
       },
       {
         titulo: 'El menor contraejemplo',
         descripcion: 'Para enunciados verdaderos y falsos, ubique el menor contraejemplo \\(m\\). Observe que el paso falla justo ahí y cómo Q convierte la inducción fuerte en simple.',
+        ayuda: String.raw`<p>Cada n se marca con P(n) verdadera; si hay fallos se destaca el menor contraejemplo m, y Q(n) indica que P(0), …, P(n) son todas verdaderas.</p>
+          <ul>
+          <li><strong>Enunciado P(n)</strong>: en un enunciado falso aparece m y Q se detiene justo antes; en uno verdadero no hay contraejemplo.</li>
+          </ul>`,
         montar: montarContraejemplo,
       },
     ],

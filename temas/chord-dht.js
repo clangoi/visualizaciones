@@ -272,15 +272,31 @@
       <p>Para no recorrer el anillo nodo por nodo, cada nodo guarda \(m\) atajos, los <strong>dedos</strong>: el sucesor de \(n + 1\),
       de \(n + 2\), de \(n + 4\), …, de \(n + 2^{m-1}\). Cada salto por el dedo adecuado al menos reduce a la mitad la distancia que
       falta, así que una búsqueda toma \(O(\log N)\) saltos.</p>`,
+    parametros: [
+      ['Bits m (Fig. 1)', String.raw`Tamaño del espacio de identificadores: \(2^m\) posiciones del anillo. Con más bits hay más dedos por nodo y claves más lejanas.`],
+      ['Nodos N (Fig. 1)', String.raw`Cuántos nodos ocupan el anillo. Más nodos implican más saltos por búsqueda, pero solo logarítmicamente.`],
+      ['Clave buscada (Fig. 1)', String.raw`Identificador cuyo responsable (el sucesor de la clave) se busca desde el nodo de origen.`],
+      ['Nuevos nodos, Clave al azar y reproductor (Fig. 1)', String.raw`Nuevos nodos sortea otra ubicación en el anillo; Clave al azar elige otra búsqueda; el reproductor avanza salto a salto.`],
+      ['Repetir con otros nodos (Fig. 2)', String.raw`Repite la medición de saltos con otras ubicaciones de nodos para ver si la tendencia se mantiene.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Búsqueda en el anillo',
         descripcion: 'Avance paso a paso: en cada salto el nodo actual usa el dedo más lejano que no sobrepasa la clave. Pruebe con m = 8 y 32 nodos, y con claves cercanas y lejanas al origen.',
+        ayuda: String.raw`<p>Los nodos están en el anillo. La leyenda marca el nodo que tiene la consulta, los saltos hechos, los dedos del nodo actual, la clave buscada y el nodo responsable (sucesor de la clave).</p>
+          <ul>
+          <li><strong>Clave buscada</strong>: una clave lejana del origen exige más saltos que una cercana, porque en cada paso se usa el dedo más lejano que no la sobrepasa.</li>
+          <li><strong>Nodos N</strong>: con muchos nodos la búsqueda llega en pocos saltos respecto de N.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Saltos según el número de nodos',
         descripcion: 'Promedio y percentil 95 de saltos para N entre 2 y 2048. El promedio crece con la misma pendiente que \\(\\tfrac12 \\log_2 N\\): cada vez que N se duplica, medio salto más.',
+        ayuda: String.raw`<p>Eje horizontal: nodos N (escala log). Eje vertical: saltos por búsqueda. Se dibujan el promedio medido, el percentil 95 y la referencia teórica \(\tfrac12 \log_2 N\).</p>
+          <ul>
+          <li><strong>Repetir con otros nodos</strong>: las curvas varían poco y siguen la pendiente teórica; duplicar N suma medio salto en promedio.</li>
+          </ul>`,
         montar: montarSaltos,
       },
     ],

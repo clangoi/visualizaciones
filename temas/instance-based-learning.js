@@ -110,9 +110,26 @@
       <p>En el aprendizaje <strong>basado en instancias</strong> el modelo no es una fórmula: son los propios ejemplos. Para predecir, se busca en la memoria cuáles se parecen más al dato nuevo y se imita lo que les pasó a ellos.
       También se le llama aprendizaje <em>perezoso</em> (<em>lazy</em>): no hay fase de entrenamiento, el trabajo se aplaza hasta la consulta.</p>
       <p>Esto da una frontera muy flexible, pero tiene un precio: hay que guardar todos los datos y cada predicción cuesta tanto como recorrerlos. Un modelo <em>paramétrico</em>, como una red, hace lo contrario: gasta tiempo al entrenar y luego predice casi gratis.</p>`,
+    parametros: [
+      ['Datos (Fig. 1)', String.raw`La forma de las clases en el plano. Decide si una frontera casi recta (regresión logística) alcanza o si hace falta una forma flexible como k-NN.`],
+      ['Vecinos k (Fig. 1)', String.raw`Cuántos ejemplos votan para clasificar. Con k = 1 la frontera sigue cada punto (memoriza, incluso el ruido); con k grande se suaviza.`],
+      ['Ejemplos guardados (Fig. 1)', String.raw`Cuántos datos de entrenamiento memoriza k-NN. Con más ejemplos la frontera se afina, pero cada consulta cuesta más.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Sortea otra muestra con el mismo tipo de datos.`],
+      ['Dimensión d (Fig. 2)', String.raw`El número de características. Escala el costo de cada predicción: n·d para la fuerza bruta y d para un modelo ajustado.`],
+    ],
     visualizaciones: [
-      { titulo: 'Memorizar frente a resumir', descripcion: 'Compare la frontera de k-NN con la de una regresión logística. Pruebe «Dos lunas» con \\(k = 1\\) y con \\(k = 25\\), y haga clic para ver qué ejemplos votan.', montar: montarMemoria },
-      { titulo: 'El costo de cada predicción', descripcion: 'Mueva la dimensión y recorra la curva: la fuerza bruta cuesta \\(n\\cdot d\\) operaciones por consulta; un modelo ajustado, solo \\(d\\).', montar: montarCosto },
+      { titulo: 'Memorizar frente a resumir', descripcion: 'Compare la frontera de k-NN con la de una regresión logística. Pruebe «Dos lunas» con \\(k = 1\\) y con \\(k = 25\\), y haga clic para ver qué ejemplos votan.',
+        ayuda: String.raw`<p>Los puntos son los ejemplos de entrenamiento, coloreados por clase; los huecos son datos de validación. Se superponen la frontera de k-NN y la de la regresión logística. Al hacer clic se fija una consulta y se resaltan los vecinos de la consulta.</p>
+          <ul>
+          <li><strong>Vecinos k</strong>: en «Dos lunas» con k = 1 la frontera es irregular y se adapta al ruido; con k = 25 es suave y puede perder detalles.</li>
+          <li><strong>Ejemplos guardados</strong>: más ejemplos hacen la frontera de k-NN más estable; la de la regresión logística casi no cambia.</li>
+          <li><strong>Datos</strong>: si las clases no son separables por una recta, la logística falla y k-NN se adapta.</li>
+          </ul>`, montar: montarMemoria },
+      { titulo: 'El costo de cada predicción', descripcion: 'Mueva la dimensión y recorra la curva: la fuerza bruta cuesta \\(n\\cdot d\\) operaciones por consulta; un modelo ajustado, solo \\(d\\).',
+        ayuda: String.raw`<p>El eje horizontal es el número de ejemplos de entrenamiento n (escala log) y el vertical, las operaciones por predicción (escala log). Cada curva es una estrategia: k-NN por fuerza bruta (n·d), k-NN con árbol k-d (d·log₂ n, útil con d pequeña) y modelo paramétrico (d).</p>
+          <ul>
+          <li><strong>Dimensión d</strong>: sube las curvas que dependen de d; la fuerza bruta crece con n mientras que el modelo ajustado cuesta lo mismo con 100 ejemplos que con un millón.</li>
+          </ul>`, montar: montarCosto },
     ],
     teoria: String.raw`
       <h2>El predictor</h2>

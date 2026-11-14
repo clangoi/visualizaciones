@@ -109,15 +109,29 @@
       números enteros, cadenas de bits, grafos, conjuntos finitos.</p>
       <p>Un computador es una máquina discreta: guarda cantidades finitas de bits. Por eso todo lo continuo que calcula es una
       <em>aproximación discreta</em>, y por eso hace falta un lenguaje preciso —conjuntos, inducción, lógica— para razonar sobre lo que sí es exacto.</p>`,
+    parametros: [
+      ['Función (Fig. 1)', String.raw`Cuál de las tres funciones continuas se muestrea. Su forma decide cuánta información pierde un paso grande.`],
+      ['Paso h entre muestras (Fig. 1)', String.raw`Distancia entre muestras \(f(kh)\). Un h pequeño se parece más a la curva y a su área; uno grande pierde detalle.`],
+      ['Rondas de puntos medios (Fig. 2)', String.raw`Cuántas veces se inserta el punto medio entre cada par de puntos vecinos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Muestrear lo continuo',
         descripcion: 'Una curva se reemplaza por muestras a distancia \\(h\\) y su área por una suma. Reduzca \\(h\\) y observe cómo cambia el error; compare las tres funciones.',
+        ayuda: String.raw`<p>La curva es \(f(x)\) continua, los puntos son las muestras \(f(kh)\) y los rectángulos forman la suma que aproxima el área bajo la curva.</p>
+          <ul>
+          <li><strong>Paso h</strong>: al reducirlo hay más muestras y rectángulos más finos, y el error de la suma baja.</li>
+          <li><strong>Función</strong>: las curvas más ondulantes necesitan un h menor para el mismo error.</li>
+          </ul>`,
         montar: montarMuestreo,
       },
       {
         titulo: 'Entre dos vecinos',
         descripcion: 'En \\(\\mathbb{N}\\) no hay nada entre 3 y 4. En la recta real siempre se puede insertar un punto medio. Aumente las rondas y cuente.',
+        ayuda: String.raw`<p>Arriba están los elementos de \(\mathbb{N}\), separados; abajo, los puntos de la recta tras k rondas de puntos medios, con el tramo entre 3 y 4 resaltado.</p>
+          <ul>
+          <li><strong>Rondas de puntos medios</strong>: cada ronda duplica los espacios entre 3 y 4 con nuevos puntos, y nunca queda un hueco vacío; en \(\mathbb{N}\) entre 3 y 4 no hay nada.</li>
+          </ul>`,
         montar: montarDenso,
       },
     ],

@@ -91,9 +91,25 @@
       <p>Antes de que una petición llegue al código que responde, suele pasar por una cadena de pasos reutilizables: registrar la petición, comprobar la sesión, interpretar el cuerpo JSON, manejar los errores.
       Cada paso es un <strong>middleware</strong>: una función que recibe el contexto de la petición y una función <code>next</code> para ceder el control al siguiente.</p>
       <p>En <strong>Koa</strong> los middlewares forman una <em>cebolla</em>: la petición «baja» capa por capa hasta el handler y la respuesta «sube» por las mismas capas en orden inverso, de modo que cada middleware tiene código antes y después de <code>await next()</code>.</p>`,
+    parametros: [
+      ['La petición trae un token válido (Fig. 1)', String.raw`Si desmarca, el middleware auth no llama a <code>next()</code> y responde 401: el handler no se ejecuta.`],
+      ['El handler lanza un error (Fig. 1)', String.raw`El handler falla y la excepción sube por la cadena en sentido inverso al de la petición.`],
+      ['Hay un middleware de errores (Fig. 1)', String.raw`Si existe, captura la excepción y la convierte en una respuesta 500; si no, nadie la captura y no hay respuesta.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza el recorrido paso a paso o solo; Reiniciar vuelve al comienzo.`],
+      ['Trabajo propio de cada middleware (Fig. 2)', String.raw`Milisegundos que consume el propio código de cada middleware, sin contar lo que hay más adentro.`],
+    ],
     visualizaciones: [
-      { titulo: 'La cebolla de middlewares', descripcion: 'Active y desactive el token, el error del handler y el middleware de errores: observe quién corta el flujo y por dónde sube la excepción.', montar: montarCebolla },
-      { titulo: 'Tiempos anidados', descripcion: 'Cambie el trabajo propio de cada middleware y mire por qué el tiempo del logger incluye a todos los demás.', montar: montarTiempos },
+      { titulo: 'La cebolla de middlewares', descripcion: 'Active y desactive el token, el error del handler y el middleware de errores: observe quién corta el flujo y por dónde sube la excepción.',
+        ayuda: String.raw`<p>Diagrama de secuencia con Cliente, errores, logger, auth y handler. Azul es la petición que baja, aguamarina la llamada a <code>next()</code> o el trabajo del middleware, verde la respuesta que sube y rojo un rechazo o error.</p>
+          <ul>
+          <li><strong>token válido</strong> desmarcado: auth corta y el resultado es 401; la lectura indica que no llegó al handler.</li>
+          <li><strong>el handler lanza un error</strong> con <strong>middleware de errores</strong> marcado: la excepción sube hasta errores y sale un 500; sin él, queda sin respuesta.</li>
+          </ul>`, montar: montarCebolla },
+      { titulo: 'Tiempos anidados', descripcion: 'Cambie el trabajo propio de cada middleware y mire por qué el tiempo del logger incluye a todos los demás.',
+        ayuda: String.raw`<p>Barras anidadas, una por middleware, cada una coloreada según la leyenda; la barra exterior abarca a las interiores.</p>
+          <ul>
+          <li><strong>Trabajo propio de cada middleware</strong>: sumar tiempo a uno ensancha su barra y también la de todos los que lo envuelven, por eso el tiempo del logger incluye al de los demás.</li>
+          </ul>`, montar: montarTiempos },
     ],
     teoria: String.raw`
       <h2>Un middleware de Koa</h2>

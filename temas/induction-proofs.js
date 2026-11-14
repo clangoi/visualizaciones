@@ -128,15 +128,30 @@
       <strong>divisibilidad</strong>. En las tres el esquema es el mismo; lo que cambia es el truco algebraico del paso inductivo: escribir el caso \(k+1\)
       en términos del caso \(k\), usar la hipótesis y llegar al lado derecho que se quería.</p>
       <p>Hay un detalle sutil: en las desigualdades el caso base no siempre es 0 o 1, y el paso puede ser «cierto» incluso donde la propiedad es falsa. Por eso importa elegir bien el punto de partida.</p>`,
+    parametros: [
+      ['Enunciado P(n) (Fig. 1 y 2)', String.raw`La propiedad que se quiere demostrar para todo n. Cambiarla cambia qué fórmula o desigualdad se comprueba y dónde falla o funciona el paso.`],
+      ['k (hipótesis P(k) ⇒ P(k + 1)) (Fig. 1)', String.raw`El caso concreto sobre el que se arma el paso: se supone P(k) y se deduce P(k + 1).`],
+      ['Caso base elegido n₀ (Fig. 2)', String.raw`Desde dónde arranca la cadena. Solo importa si P(n₀) es verdadera y el paso se cumple a partir de ahí.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La propiedad, el caso k y el caso k + 1',
         descripcion: 'Elija un enunciado y un \\(k\\). Mire cómo el caso \\(k+1\\) se arma con el caso \\(k\\) más un término, y qué fichas P(n) son verdaderas.',
+        ayuda: String.raw`<p>Se muestra el caso k, el caso k + 1 armado a partir de él con un término más, y las fichas P(n) verdaderas o falsas.</p>
+          <ul>
+          <li><strong>Enunciado P(n)</strong>: cambia las expresiones de los lados del caso k y del caso k + 1.</li>
+          <li><strong>k</strong>: desplaza el caso en que se aplica la hipótesis; el término que se añade al pasar a k + 1 cambia con él.</li>
+          </ul>`,
         montar: montarEnunciados,
       },
       {
         titulo: '¿Desde dónde funciona el paso?',
         descripcion: 'Cambie el caso base para un enunciado de desigualdad: la cadena solo arranca donde \\(P(n_0)\\) es verdadera y no se rompe después.',
+        ayuda: String.raw`<p>Una fila de casos n con los colores de la leyenda: P(n) verdadera, paso P(n) ⇒ P(n + 1) verdadero o falso, y los casos demostrados por la cadena desde n₀.</p>
+          <ul>
+          <li><strong>Caso base elegido n₀</strong>: la cadena demostrada empieza en n₀; los casos anteriores no quedan demostrados.</li>
+          <li><strong>Enunciado P(n)</strong>: un paso falso corta la cadena en ese punto y deja sin demostrar los casos siguientes.</li>
+          </ul>`,
         montar: montarPaso,
       },
     ],

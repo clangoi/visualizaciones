@@ -129,15 +129,34 @@
     intro: String.raw`
       <p>Los <strong>cuantificadores</strong> dicen de cuántos elementos habla una fórmula. «\(\forall x\,P(x)\)» (para todo \(x\)) afirma que <em>todos</em> los objetos tienen la propiedad; «\(\exists x\,P(x)\)» (existe un \(x\)) afirma que <em>al menos uno</em> la tiene.</p>
       <p>En un dominio finito son conjunciones y disyunciones largas: \(\forall x\,P(x)\) equivale a \(P(a) \land P(b) \land \cdots\). Pero en un dominio infinito ya no se puede escribir así, y de ahí viene el poder expresivo de la lógica de predicados.</p>`,
+    parametros: [
+      ['Sentencia (Fig. 1)', String.raw`La sentencia cuantificada que se evalúa (∀ o ∃ sobre P). Cambiarla cambia qué ejemplo o contraejemplo es relevante.`],
+      ['Elementos del dominio (Fig. 1)', String.raw`Cuántos elementos tiene el dominio; con más, es más difícil que un \(\forall\) se cumpla y más fácil que un \(\exists\) lo haga.`],
+      ['Todos cumplen P y Ninguno cumple P (Fig. 1)', String.raw`Fijan P verdadero o falso en todo el dominio, para ver los casos extremos de \(\forall\) y \(\exists\).`],
+      ['Lectura a resaltar (Fig. 2)', String.raw`Qué orden de cuantificadores (por ejemplo \(\forall x \exists y\) o \(\exists y \forall x\)) se evalúa y se resalta en la matriz.`],
+      ['Tamaño del dominio (Fig. 2)', String.raw`Dimensión de la matriz de R(x, y).`],
+      ['Una sola fila llena, Una sola columna llena y Aleatoria (Fig. 2)', String.raw`Rellenan la matriz R con patrones fijos o al azar. Muestran que cambiar el orden de los cuantificadores cambia la verdad.`],
+    ],
     visualizaciones: [
       {
         titulo: '∀ y ∃ sobre un dominio finito',
         descripcion: 'Cambie qué elementos cumplen \\(P\\) y compare las seis sentencias. Busque el ejemplo que hace verdadero un \\(\\exists\\) y el contraejemplo que hace falso un \\(\\forall\\).',
+        ayuda: String.raw`<p>Cada punto es un elemento; los verdes cumplen P(x) según la leyenda. Se marcan el ejemplo que hace verdadero un \(\exists\) y el contraejemplo que hace falso un \(\forall\); el registro da el valor de la sentencia.</p>
+          <ul>
+          <li><strong>Sentencia</strong>: con \(\forall\), un solo punto sin P ya la hace falsa; con \(\exists\), un solo punto con P la hace verdadera.</li>
+          <li><strong>Todos cumplen P / Ninguno cumple P</strong>: \(\forall\) pasa a verdadera o falsa y \(\exists\) lo opuesto; son los casos límite.</li>
+          </ul>`,
         montar: montarDominio,
       },
       {
         titulo: 'Cuantificadores anidados',
         descripcion: 'En una matriz, compare \\(\\forall x \\exists y\\) con \\(\\exists y \\forall x\\). Con una sola columna llena la segunda es verdadera; con la diagonal, solo la primera.',
+        ayuda: String.raw`<p>Filas = x y columnas = y. Las celdas rellenas son R(x, y) verdadero; se resaltan los testigos o celdas que cumplen la lectura y los contraejemplos (celdas o filas donde falla).</p>
+          <ul>
+          <li><strong>Lectura a resaltar</strong>: \(\forall x \exists y\) pide una celda verdadera en cada fila; \(\exists y \forall x\) pide una columna entera llena.</li>
+          <li><strong>Una sola fila / columna llena</strong>: una columna llena hace verdaderas ambas lecturas; una sola fila llena hace falsa la primera.</li>
+          <li><strong>Tamaño del dominio</strong>: más filas y columnas, más lugares donde puede fallar la lectura.</li>
+          </ul>`,
         montar: montarAnidados,
       },
     ],

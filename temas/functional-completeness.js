@@ -119,15 +119,29 @@
       <p>Hay \(2^{2^n}\) funciones booleanas de \(n\) variables: 16 con dos variables, 256 con tres. Los conectivos \(\neg,\land,\lor,\to,\leftrightarrow\) son solo una elección entre muchas posibles.
       Un conjunto de conectivos es <strong>funcionalmente completo</strong> si con él se puede expresar <em>cualquier</em> función booleana.</p>
       <p>Sorprende cuán poco hace falta: \(\{\neg, \land\}\), \(\{\neg, \to\}\) e incluso un solo conectivo, NAND, bastan. En electrónica por eso todo circuito digital puede construirse con compuertas NAND.</p>`,
+    parametros: [
+      ['Conectivos disponibles (Fig. 1)', String.raw`El conjunto de conectivos permitidos. Define cuántas de las 16 funciones de dos variables se alcanzan.`],
+      ['Solo se permite usar (Fig. 2)', String.raw`Los únicos conectivos que puede usar la construcción.`],
+      ['Función que se quiere construir (Fig. 2)', String.raw`La función objetivo, dada por su tabla de verdad.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Qué funciones se pueden expresar',
         descripcion: 'Elija un conjunto de conectivos y mire cuántas de las 16 funciones de dos variables alcanza. Compare conjuntos completos con otros como \\(\\{\\land, \\lor\\}\\).',
+        ayuda: String.raw`<p>Cada función de dos variables se colorea según se pueda expresar con los conectivos elegidos o no; las filas de la tabla donde vale V se marcan aparte.</p>
+          <ul>
+          <li><strong>Conectivos disponibles</strong>: un conjunto completo (como \(\{\lnot, \land\}\)) alcanza las 16 funciones; otros, como \(\{\land, \lor\}\), alcanzan menos.</li>
+          </ul>`,
         montar: montarClausura,
       },
       {
         titulo: 'Construya un conectivo con otros',
         descripcion: 'Elija la función que quiere y los únicos conectivos permitidos. Vea el árbol de la construcción y compruebe en la tabla que coincide.',
+        ayuda: String.raw`<p>El árbol es la construcción de la función con los conectivos permitidos y la tabla confirma que coincide con la función buscada.</p>
+          <ul>
+          <li><strong>Solo se permite usar</strong>: restringe qué nodos puede tener el árbol.</li>
+          <li><strong>Función que se quiere construir</strong>: cambia la tabla objetivo y el tamaño del árbol necesario.</li>
+          </ul>`,
         montar: montarConstruccion,
       },
     ],

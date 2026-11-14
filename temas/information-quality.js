@@ -222,15 +222,38 @@
       que se toma.</p>
       <p>Aquí se degrada a propósito una tabla de ventas y se mide algo concreto: si la región que el sistema recomienda sigue siendo la
       correcta. Verá que la calidad no es un lujo contable, sino una condición de la decisión.</p>`,
+    parametros: [
+      ['Errores de captura (×10 o ÷10) (Fig. 1)', String.raw`Porcentaje de registros cuyo valor se multiplicó o dividió por diez al digitarlo. Distorsiona los totales por región y puede alterar el ranking.`],
+      ['Región vacía (Fig. 1)', String.raw`Porcentaje de registros sin región. Su ingreso no se puede asignar y aparece como ingreso sin región reconocible.`],
+      ['Retraso de carga (Fig. 1)', String.raw`Meses de ventas que aún no llegan al sistema. Los totales quedan por debajo del valor real.`],
+      ['Registros duplicados (Fig. 1)', String.raw`Porcentaje de registros cargados dos veces. Infla los totales de las regiones afectadas.`],
+      ['Región mal escrita («norte ») (Fig. 1)', String.raw`Porcentaje de registros con la región escrita con variantes. El sistema no los reconoce y esas ventas salen de su región.`],
+      ['Datos perfectos y Nuevos datos (Fig. 1)', String.raw`Datos perfectos quita todos los defectos; Nuevos datos genera otra base con los mismos defectos.`],
+      ['Defecto (Fig. 2)', String.raw`Qué problema de calidad se simula, o todos a la vez. Cada defecto daña la decisión de manera distinta.`],
+      ['Bases simuladas por nivel (Fig. 2)', String.raw`Cuántas bases se generan por cada intensidad del defecto. Más bases dan porcentajes más estables.`],
+      ['Nuevas pruebas (Fig. 2)', String.raw`Repite la simulación con otras bases aleatorias.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Degradar los datos',
         descripcion: 'Suba cada defecto y compare las barras del sistema con el valor real. Pruebe con 10 % de errores de captura y luego con 3 meses de retraso: el ranking de regiones puede cambiar con defectos pequeños.',
+        ayuda: String.raw`<p>Barras del ingreso total (&#36;) por región: el color indica el valor que calcula el sistema con los datos defectuosos y el tono claro con borde, el valor real. Una barra gris representa el ingreso sin región reconocible.</p>
+          <ul>
+          <li><strong>Errores de captura</strong>: las barras del sistema se separan del valor real y puede cambiar cuál región lidera.</li>
+          <li><strong>Región vacía</strong> y <strong>Región mal escrita</strong>: crece la barra gris y las regiones pierden ingreso respecto del valor real.</li>
+          <li><strong>Retraso de carga</strong>: todas las barras quedan por debajo del valor real.</li>
+          <li><strong>Registros duplicados</strong>: las barras suben por encima del valor real.</li>
+          </ul>`,
         montar: montarDegradar,
       },
       {
         titulo: 'Cuánto aguanta la decisión',
         descripcion: 'Para cada defecto e intensidad se simulan muchas bases y se cuenta cuántas veces la decisión sigue siendo correcta. Compare el retraso con los duplicados, o pruebe «Todos a la vez».',
+        ayuda: String.raw`<p>Eje horizontal: intensidad del defecto; eje vertical: porcentaje. Una curva muestra el porcentaje de bases en que la decisión sigue siendo correcta, otra el error medio del ingreso de la región líder y una línea de referencia marca el 33 % de elegir al azar.</p>
+          <ul>
+          <li><strong>Defecto</strong>: cada defecto produce una caída distinta de decisiones correctas; compare retraso con duplicados.</li>
+          <li><strong>Bases simuladas por nivel</strong>: con más bases las curvas se suavizan y reflejan mejor la probabilidad real de decidir bien.</li>
+          </ul>`,
         montar: montarAguante,
       },
     ],

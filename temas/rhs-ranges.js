@@ -375,15 +375,31 @@
       <p>A diferencia de cambiar un costo, mover un recurso desplaza una restricción: el vértice óptimo se arrastra por el polígono sin cambiar de base hasta que alguna
       variable básica llega a cero. Entonces el plan cambia de estructura y el precio sombra salta a otro valor, de modo que el valor óptimo, como función del recurso, es una
       curva lineal por tramos.</p>`,
+    parametros: [
+      ['Recurso que se modifica (Fig. 1)', String.raw`La restricción cuya disponibilidad se cambia; cada recurso tiene su propio rango de validez de la base.`],
+      ['Disponibilidad del recurso (Fig. 1)', String.raw`Cantidad disponible del recurso. Mientras se quede dentro del rango, el vértice óptimo sigue definido por las mismas restricciones y \(z^*\) cambia con pendiente igual al precio sombra.`],
+      ['Llevar al límite superior, Llevar al límite inferior y Restablecer (Fig. 1)', String.raw`Mueven la disponibilidad al borde del rango de la base actual, donde alguna variable básica llega a 0, o a su valor original.`],
+      ['Recurso y Disponibilidad bᵢ (Fig. 2)', String.raw`Qué recurso se estudia y cuánto hay disponible; marcan el punto sobre la curva \(z^*(b_i)\).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mover una restricción',
         descripcion: 'Elija un recurso y desplace su disponibilidad: el vértice óptimo (verde) se arrastra sin cambiar de base hasta el límite que señala la fila resaltada de la tabla. Pruebe «Llevar al límite superior» y luego avance un poco más: aparece otra variable básica.',
+        ayuda: String.raw`<p>Región factible; la restricción que se mueve se compara con su posición original y las demás se muestran aparte. La recta de nivel pasa por el vértice óptimo (verde). La tabla resalta la fila que fija el límite del rango.</p>
+          <ul>
+          <li><strong>Disponibilidad del recurso</strong>: el vértice se desliza sin cambiar de base hasta el límite.</li>
+          <li><strong>Llevar al límite superior</strong>: una variable básica vale 0 y más allá cambia la base.</li>
+          </ul>`,
         montar: montarMover,
       },
       {
         titulo: 'Valor óptimo según el recurso',
         descripcion: 'La curva \\(z^*(b_i)\\) es lineal por tramos y cóncava; su pendiente en cada tramo es el precio sombra. Pulse Reproducir para recorrerla y vea cómo cambia la base en cada punto negro, o haga clic para ver la extensión punteada del tramo y su intervalo de validez.',
+        ayuda: String.raw`<p>Eje horizontal: disponibilidad \(b_i\); vertical: valor óptimo \(z^*\). La curva es lineal por tramos y cóncava; los puntos negros son los cambios de base y la pendiente de cada tramo es el precio sombra.</p>
+          <ul>
+          <li><strong>Disponibilidad bᵢ</strong>: al cruzar un punto negro cambia la pendiente; en el último tramo suele llegar a 0 (recurso sobrante).</li>
+          <li><strong>Recurso</strong>: cada recurso tiene su curva y sus quiebres.</li>
+          </ul>`,
         montar: montarCurva,
       },
     ],

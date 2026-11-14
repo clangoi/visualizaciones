@@ -193,15 +193,31 @@
       <p>Es la base de las arquitecturas <strong>orientadas a eventos</strong> (Kafka, RabbitMQ, MQTT, Google Pub/Sub): un servicio anuncia
       «pedido creado» y otros reaccionan sin que el primero sepa cuántos ni cuáles son. La pregunta central es cuán expresivas son las
       suscripciones y cuánto cuesta evaluarlas.</p>`,
+    parametros: [
+      ['El broker filtra (Fig. 1)', String.raw`Qué mira el broker para decidir a quién entrega: solo la etiqueta del tópico o también el contenido del evento. Por contenido llegan menos eventos que el suscriptor luego descarta.`],
+      ['Publicar un evento, Publicar 100 y Reiniciar (Fig. 1)', String.raw`Publican uno o cien eventos aleatorios y acumulan las cuentas; Reiniciar las pone en cero.`],
+      ['Tópico del evento (Fig. 2)', String.raw`Tópico del evento que se publica en el broker marcado. Determina qué brokers tienen suscriptores interesados.`],
+      ['Enrutamiento (Fig. 2)', String.raw`Reenvío según las suscripciones, solo hacia donde hay interesados, o inundación a todos los brokers. La diferencia es el número de enlaces usados.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Filtros por tópico y por contenido',
         descripcion: 'Publique 100 eventos con cada tipo de filtro y compare la precisión. Por tópico, el broker solo mira la etiqueta del evento y los suscriptores reciben eventos que luego descartan.',
+        ayuda: String.raw`<p>Los publicadores envían eventos de tres tópicos (clima azul, bolsa naranja, tránsito aguamarina) al broker, que los entrega a suscriptores con filtros distintos. Cada entrega es un punto: verde si cumple el filtro fino del suscriptor, rojo si este la descarta. Debajo se acumulan las cuentas.</p>
+          <ul>
+          <li><strong>El broker filtra</strong>: por tópico, llegan eventos del tópico correcto pero que el filtro fino rechaza (puntos rojos). Por contenido, casi todas las entregas son útiles.</li>
+          <li><strong>Publicar 100</strong>: da cuentas suficientes para comparar la proporción de entregas útiles e inútiles entre ambos modos.</li>
+          </ul>`,
         montar: montarFiltros,
       },
       {
         titulo: 'Una red de brokers',
         descripcion: 'Con muchos brokers, las suscripciones se propagan por la red y cada broker reenvía un evento solo hacia donde hay interesados. Compare con la inundación.',
+        ayuda: String.raw`<p>Cada nodo es un broker y cada línea, un enlace. El broker azul es donde se publica; los verdes tienen suscriptores interesados en el tópico. Los enlaces naranja son los que recorre el evento.</p>
+          <ul>
+          <li><strong>Tópico del evento</strong>: cambia qué brokers se pintan de verde, es decir, el destino real del evento.</li>
+          <li><strong>Enrutamiento</strong>: con «según las suscripciones» solo se recorren caminos hacia los verdes; con inundación se pintan casi todos los enlaces, incluidos los que no llevan a nadie interesado.</li>
+          </ul>`,
         montar: montarRed,
       },
     ],

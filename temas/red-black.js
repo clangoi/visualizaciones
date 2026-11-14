@@ -160,10 +160,22 @@
       <p>La forma más clara de entenderlos es como una <strong>codificación binaria de un <a href="tema.html?id=arboles-2-3">árbol 2-3</a></strong>:
       un nodo rojo es una clave que «pertenece» al mismo nodo que su padre. Esta página usa la variante <em>inclinada a la izquierda</em>
       (LLRB) de Sedgewick, en la que esa correspondencia es exacta.</p>`,
+    parametros: [
+      ['Clave (Fig. 1)', String.raw`El número (1 a 99) sobre el que actúan Insertar y Buscar.`],
+      ['Insertar, Buscar (Fig. 1)', String.raw`Insertar agrega la clave como nodo rojo y luego corrige con rotaciones e inversiones de color; Buscar es la búsqueda de un ABB común.`],
+      ['Insertar aleatoria / 10 aleatorias / 1, 2, …, 15 (Fig. 1)', String.raw`Atajos para poblar el árbol y comparar con el ABB común y el árbol 2-3.`],
+      ['Vaciar (Fig. 1)', String.raw`Borra el árbol.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Árbol rojo-negro y su árbol 2-3',
         descripcion: 'Arriba, el árbol rojo-negro; abajo, el árbol 2-3 que representa. Inserte claves y siga en el registro las rotaciones e inversiones de color: cada una corresponde a una operación del árbol 2-3.',
+        ayuda: String.raw`<p>Arriba está el árbol rojo-negro inclinado a la izquierda: un ABB donde cada nodo es negro o rojo. Un nodo rojo (enlace rojo grueso) está «pegado» a su padre: juntos forman un nodo-3 del árbol 2-3 que se dibuja abajo, donde la clave roja corresponde a ese nodo.</p>
+          <ul>
+          <li><strong>Insertar</strong>: la clave nueva entra roja. Si queda un enlace rojo a la derecha se rota a la izquierda; si hay dos rojos seguidos se rota a la derecha; si un nodo tiene dos hijos rojos, se invierten los colores. Cada uno de esos pasos es una división o fusión del árbol 2-3 de abajo.</li>
+          <li>Todos los caminos desde la raíz a una hoja tienen la misma cantidad de nodos negros (la <em>altura negra</em>), que es la profundidad de las hojas del árbol 2-3.</li>
+          <li><strong>Insertar 1, 2, …, 15</strong>: el árbol se mantiene bajo; ningún camino es más del doble de largo que otro.</li>
+          </ul>`,
         montar,
       },
     ],

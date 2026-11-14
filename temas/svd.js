@@ -179,15 +179,30 @@
       <p>En minería de datos es la herramienta central para reducir dimensión: quedarse con los primeros \(k\) términos da la
       mejor aproximación de rango \(k\) de los datos, y es exactamente lo que calcula <a href="tema.html?id=pca">PCA</a>
       sobre la matriz centrada.</p>`,
+    parametros: [
+      ['a₁₁, a₁₂, a₂₁, a₂₂ (Fig. 1)', String.raw`Las cuatro entradas de la matriz 2 × 2 \(A\) que transforma el plano. Cambiarlas deforma el círculo en otra elipse y cambia los valores singulares.`],
+      ['Etapa y Animar (Fig. 1)', String.raw`Qué parte de la factorización \(A = U\Sigma V^T\) se ha aplicado: 0 es el círculo original, 1 tras \(V^T\), 2 tras \(\Sigma\) y 3 tras \(U\) (es decir, \(Ax\)). Animar recorre las etapas automáticamente.`],
+      ['Rango k (Fig. 2)', String.raw`Cuántos términos \(\sigma_i u_i v_i^T\) se usan para reconstruir la imagen. Más términos acercan la reconstrucción a la imagen original.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Girar, estirar, girar',
         descripcion: 'El círculo unitario bajo una matriz 2 × 2, en las tres etapas de la SVD. Los vectores v₁, v₂ terminan en σ₁u₁ y σ₂u₂: los ejes de la elipse.',
+        ayuda: String.raw`<p>La curva gris es el círculo unitario original y la violeta, su imagen transformada. Los segmentos azul y naranja son \(v_1\to\sigma_1u_1\) y \(v_2\to\sigma_2u_2\): los semiejes de la elipse final.</p>
+          <ul>
+          <li><strong>Etapa</strong> de 0 a 3: primero el círculo gira (\(V^T\)), luego se estira a una elipse con ejes alineados (\(\Sigma\)) y al final gira a su posición definitiva (\(U\)).</li>
+          <li><strong>a₁₁ … a₂₂</strong>: si hace \(a_{11}a_{22}=a_{12}a_{21}\) la matriz es singular, \(\sigma_2=0\) y el círculo se aplasta en un segmento.</li>
+          </ul>`,
         montar: montarGeometria,
       },
       {
         titulo: 'Aproximación de rango bajo',
         descripcion: 'Reconstruya una imagen con los k primeros términos σᵢuᵢvᵢᵀ y compare la energía retenida con el error.',
+        ayuda: String.raw`<p>Se muestra la imagen original y su reconstrucción de rango k, junto con las barras de los valores singulares: azules los usados (\(\sigma_1\ldots\sigma_k\)) y grises los descartados. El brillo del píxel es su intensidad.</p>
+          <ul>
+          <li><strong>Rango k</strong> pequeño: solo quedan las formas grandes, porque los primeros \(\sigma_i\) dominan. Al subirlo reaparecen detalles finos (diagonal, franjas) y el error baja.</li>
+          <li>Cuando las barras descartadas son pequeñas, la energía retenida ya es casi total: más términos casi no cambian la imagen.</li>
+          </ul>`,
         montar: montarRangoBajo,
       },
     ],

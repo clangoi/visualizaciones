@@ -138,15 +138,31 @@
     intro: String.raw`
       <p>Un generador como <code>lex</code> o <code>flex</code> recibe una lista de reglas «patrón → token» y fabrica un <strong>escáner</strong>: un único autómata determinista que reconoce el siguiente lexema carácter a carácter. Se obtiene uniendo los AFN de todas las reglas con un inicial común y determinizando; cada estado de aceptación recuerda a qué regla corresponde.</p>
       <p>Para respetar la regla del lexema más largo, el escáner no se detiene al aceptar: sigue leyendo mientras haya transiciones, anota la última posición aceptada y, cuando se atasca, <strong>retrocede</strong> hasta ella.</p>`,
+    parametros: [
+      ['Quitar la selección (Fig. 1)', String.raw`Deselecciona el estado marcado con clic y vuelve a la vista general del autómata.`],
+      ['Texto (alfabeto: i f x 0 1 < = espacio) (Fig. 2)', String.raw`El texto que escanea el AFD. Determina qué lexemas se forman y cuándo ocurre un retroceso.`],
+      ['Ejemplos (Fig. 2)', String.raw`Textos de muestra para cargar sin escribirlos.`],
+      ['Reproductor (Fig. 2)', String.raw`Cada paso lee un símbolo; Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El autómata combinado de las reglas',
         descripcion: 'Siete reglas se funden en un AFD. Los estados de aceptación llevan el color de su token; haga clic en uno para ver su significado.',
+        ayuda: String.raw`<p>Siete reglas se combinan en un AFD. Los estados de aceptación llevan el color del token que reconocen, y cada color de la leyenda corresponde a una regla.</p>
+          <ul>
+          <li><strong>Clic en un estado</strong>: muestra su significado, es decir, qué regla acepta ahí.</li>
+          <li><strong>Quitar la selección</strong>: retira ese resaltado.</li>
+          </ul>`,
         montar: montarAutomata,
       },
       {
         titulo: 'Escanear con retroceso',
         descripcion: 'Siga al escáner por el texto: marca el último punto de aceptación y, al atascarse, emite el token y retrocede. Pruebe «i&lt;f»: «i» es ID, «&lt;» es LT y «f» otro ID.',
+        ayuda: String.raw`<p>Se muestran el estado actual del AFD, el lexema en curso y el último punto de aceptación visto. Cuando el escáner se atasca, se retrocede hasta ese punto, se emite el token y se continúa desde ahí.</p>
+          <ul>
+          <li><strong>Texto</strong>: con «i&lt;f», «i» es ID, «&lt;» es LT y «f» otro ID.</li>
+          <li><strong>Reproductor</strong>: permite ver el retroceso exacto cuando el lexema en curso supera el último punto de aceptación.</li>
+          </ul>`,
         montar: montarEscaneo,
       },
     ],

@@ -234,15 +234,38 @@
       acumula errores.</p>
       <p>Un sistema integrado captura el dato una sola vez en el origen y lo deja disponible para todos. El beneficio no está en trabajar más rápido en cada área, sino en eliminar las esperas y
       el retrabajo <em>entre</em> áreas, que suelen ser la mayor parte del tiempo de ciclo del pedido.</p>`,
+    parametros: [
+      ['Espera por traspaso en silos (Fig. 1)', String.raw`Horas que espera el pedido cada vez que cambia de área. Se suman a la barra de silos como tramos grises.`],
+      ['Reingreso de datos (Fig. 1)', String.raw`Tiempo de volver a digitar el pedido en cada sistema. Aparece como tramos naranjas.`],
+      ['Probabilidad de error por captura (Fig. 1 y 2)', String.raw`Chance de que un reingreso introduzca un error. Cada error obliga a corregir.`],
+      ['Corregir un error (Fig. 1)', String.raw`Tiempo de corregir cada error, en tramos rojos.`],
+      ['El pedido requiere comprar (pasa por Compras) (Fig. 1)', String.raw`Incluye el área de Compras en el recorrido, con sus traspasos.`],
+      ['Otro pedido (Fig. 1)', String.raw`Genera otro pedido con nuevas esperas y errores aleatorios.`],
+      ['Espera por traspaso manual (Fig. 2)', String.raw`Horas de espera en cada interfaz manual entre áreas.`],
+      ['Meta de ciclo del pedido (Fig. 2)', String.raw`Horas máximas aceptables. Separa los pedidos dentro de la meta de los que quedan fuera.`],
+      ['Pedidos al mes (Fig. 2)', String.raw`Volumen mensual; escala el efecto total de los retrasos.`],
+      ['Integrar todo, Todo manual y Otros pedidos (Fig. 2)', String.raw`Dejan todas las interfaces integradas o todas manuales, o generan otra muestra de pedidos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un pedido a través de las áreas',
         descripcion: 'Avance un paso por área y compare las dos barras de tiempo: en silos aparecen esperas (gris), reingresos (naranja) y correcciones (rojo). Suba la espera por traspaso y la probabilidad de error y vea cuánto crece la barra de arriba mientras la de abajo casi no cambia.',
+        ayuda: String.raw`<p>Dos barras de tiempo tipo Gantt, silos y sistema integrado, con un tramo por área. En silos aparecen esperas (gris), reingresos (naranja) y correcciones (rojo).</p>
+          <ul>
+          <li><strong>Espera por traspaso</strong>, <strong>Reingreso</strong> y <strong>Corregir un error</strong> alargan sus tramos solo en silos, mientras que la barra integrada no cambia.</li>
+          <li><strong>Probabilidad de error</strong>: más pedidos con tramos rojos.</li>
+          </ul>`,
         montar: montarGantt,
       },
       {
         titulo: 'Qué interfaz integrar primero',
         descripcion: 'Haga clic en las flechas del diagrama para integrar de a una interfaz y observe la distribución del tiempo de ciclo de 400 pedidos. Busque la interfaz que más reduce el tiempo medio y los errores, y cuántas horas de reingreso al mes se ahorran.',
+        ayuda: String.raw`<p>Arriba, el diagrama de áreas con sus interfaces, integradas o manuales. Abajo, un histograma del tiempo de ciclo (horas) de los pedidos, con los que cumplen la meta distinguidos de los que no.</p>
+          <ul>
+          <li><strong>Integrar todo</strong>: el histograma se desplaza a la izquierda y más pedidos caen dentro de la meta.</li>
+          <li><strong>Todo manual</strong>: se desplaza a la derecha y se ensancha por los errores.</li>
+          <li><strong>Meta de ciclo</strong>: mueve el umbral y cambia la proporción de pedidos dentro de ella.</li>
+          </ul>`,
         montar: montarMuchos,
       },
     ],

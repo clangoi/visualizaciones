@@ -124,9 +124,25 @@
       <p>En una imagen, un píxel importa por el vecindario que lo rodea. La <strong>convolución</strong> aprovecha esto: un pequeño <em>kernel</em> (o <em>filtro</em>) de pesos se desliza por toda la imagen y, en cada posición, calcula una suma ponderada de los píxeles que cubre.
       El resultado es un <strong>mapa de características</strong> (<em>feature map</em>) que indica dónde aparece el patrón que el kernel detecta: un borde, una esquina, una textura.</p>
       <p>Dos ideas hacen eficientes a las redes convolucionales: el mismo kernel se reutiliza en todas las posiciones (<em>pesos compartidos</em>) y cada neurona solo mira un vecindario pequeño (<em>conexión local</em>). Y los pesos de los kernels no se diseñan: se aprenden.</p>`,
+    parametros: [
+      ['Imagen (Fig. 1 y 2)', String.raw`Imagen de entrada sobre la que se calcula la convolución. Determina qué bordes u orientaciones hay para detectar.`],
+      ['Kernel (Fig. 1)', String.raw`Matriz de pesos que se desliza por la imagen. Cada tipo (p. ej. borde vertical) responde a un patrón distinto; «propio» permite editar los pesos.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la ventana del kernel por la imagen, calculando una salida por posición.`],
+      ['Aplicar ReLU a cada mapa (Fig. 2)', String.raw`Si se activa, las respuestas negativas se anulan y solo quedan las positivas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un kernel recorre la imagen', descripcion: 'Avance con «Un paso» y siga la suma ponderada. Pruebe «borde vertical» sobre el cuadrado y edite el kernel haciendo clic en sus casillas.', montar: montarRecorrido },
-      { titulo: 'Un banco de filtros', descripcion: 'Seis filtros sobre la misma imagen. Cambie de imagen y compruebe qué filtro responde a qué orientación.', montar: montarBanco },
+      { titulo: 'Un kernel recorre la imagen', descripcion: 'Avance con «Un paso» y siga la suma ponderada. Pruebe «borde vertical» sobre el cuadrado y edite el kernel haciendo clic en sus casillas.',
+        ayuda: String.raw`<p>Se ven la imagen de entrada, el kernel y el mapa de salida. Un color marca los valores positivos y otro los negativos del kernel y de la salida; la ventana actual indica la zona de la imagen que se multiplica por el kernel para producir un píxel de salida.</p>
+          <ul>
+          <li><strong>Kernel</strong> de borde vertical sobre un cuadrado: la salida es fuerte solo en los lados verticales, con signo según el paso claro-oscuro.</li>
+          <li><strong>Imagen</strong> distinta: la misma matriz de pesos responde en otros lugares.</li>
+          </ul>`, montar: montarRecorrido },
+      { titulo: 'Un banco de filtros', descripcion: 'Seis filtros sobre la misma imagen. Cambie de imagen y compruebe qué filtro responde a qué orientación.',
+        ayuda: String.raw`<p>Seis filtros aplicados a la misma imagen; cada panel es el mapa de respuesta de un filtro. Un color indica respuesta positiva y otro la negativa (que ReLU anula).</p>
+          <ul>
+          <li><strong>Imagen</strong>: cada filtro se enciende en las orientaciones que le corresponden.</li>
+          <li><strong>Aplicar ReLU a cada mapa</strong>: desaparece la respuesta negativa y solo quedan los bordes del sentido que detecta cada filtro.</li>
+          </ul>`, montar: montarBanco },
     ],
     teoria: String.raw`
       <h2>Definición</h2>

@@ -178,15 +178,29 @@
       sabiendo que puede equivocarse.</p>
       <p>La técnica básica son los <strong>latidos</strong> (<em>heartbeats</em>): el proceso vigilado envía «estoy vivo» periódicamente y el monitor sospecha si pasa
       demasiado tiempo sin noticias. El tamaño de ese plazo es un compromiso inevitable entre detectar rápido y no acusar a procesos sanos.</p>`,
+    parametros: [
+      ['Timeout (Fig. 1)', String.raw`Cuánto tiempo sin latidos tolera el monitor antes de sospechar. Bajarlo detecta antes la caída real, pero hace que una demora normal de la red parezca una caída.`],
+      ['Variabilidad de la red (Fig. 1 y 2)', String.raw`Cuánto fluctúa la demora de los latidos. Subirla produce demoras largas más frecuentes y obliga a un timeout mayor para no equivocarse.`],
+      ['Otra red (Fig. 1)', String.raw`Genera otra secuencia aleatoria de demoras con los mismos parámetros, para ver si el resultado depende de la suerte.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Latidos y sospechas',
         descripcion: 'Baje el timeout: la caída se detecta antes, pero cada demora larga de la red produce una sospecha falsa (rojo). Aumente la variabilidad y observe cuánto hay que subirlo.',
+        ayuda: String.raw`<p>Cada marca es un latido: su posición horizontal es el instante de llegada (s) y su altura, la demora (s). Los latidos se distinguen por la leyenda; las sospechas falsas (en rojo) ocurren con el proceso vivo y las correctas, después de la caída real, marcada en t = 45 s.</p>
+          <ul>
+          <li><strong>Timeout</strong>: al bajarlo aparecen más sospechas falsas; al subirlo desaparecen, pero la sospecha correcta llega más tarde a partir de la caída.</li>
+          <li><strong>Variabilidad de la red</strong>: con valores altos las marcas se dispersan hacia arriba y un timeout pequeño se equivoca más.</li>
+          </ul>`,
         montar: montarLinea,
       },
       {
         titulo: 'Detectar rápido o equivocarse poco',
         descripcion: 'Cada punto es un detector. Abajo a la izquierda sería ideal y es imposible: cada segundo menos de detección se paga con más sospechas falsas. El timeout adaptativo se calibra solo con la variabilidad observada, pero las congestiones largas engañan a ambos.',
+        ayuda: String.raw`<p>Cada punto es un detector: horizontalmente, el tiempo que tarda en detectar una caída; verticalmente, las sospechas falsas por hora. La leyenda distingue los timeouts fijos de los adaptativos.</p>
+          <ul>
+          <li><strong>Variabilidad de la red</strong>: al aumentarla, los puntos suben (más sospechas falsas para el mismo tiempo de detección) y la curva de compromiso se aleja del origen.</li>
+          </ul>`,
         montar: montarCompromiso,
       },
     ],

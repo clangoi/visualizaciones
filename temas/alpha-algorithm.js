@@ -341,20 +341,43 @@
       todas las de \(A\) causen a todas las de \(B\), y cada par se vuelve una plaza que conecta unas con otras.</p>
       <p>De la forma de esas plazas sale el significado: dos actividades que comparten plaza de entrada son una elección; una transición que
       alimenta dos plazas arranca ramas paralelas; un arco que vuelve atrás forma un ciclo.</p>`,
+    parametros: [
+      ['Registro de ejemplo (Fig. 1, 2 y 3)', String.raw`El registro del que se descubre la red.`],
+      ['Trazas (Fig. 1, 2 y 3)', String.raw`Trazas editables con sus frecuencias. Cambian los conjuntos que calcula α y la red resultante.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza por los conjuntos T<sub>L</sub>, T<sub>I</sub>, T<sub>O</sub>, X<sub>L</sub>, Y<sub>L</sub> y las plazas.`],
+      ['Red descubierta de y Variante a reproducir (Fig. 2)', String.raw`La red y la variante que se prueba sobre ella.`],
+      ['Disparar al azar (Fig. 2)', String.raw`Dispara una transición habilitada elegida al azar.`],
+      ['Variante y Evento reproducido (Fig. 3)', String.raw`La variante del registro que se reproduce sobre la red y el punto de ella que se muestra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'α paso a paso',
         descripcion: 'Siga cada conjunto: T<sub>L</sub>, T<sub>I</sub>, T<sub>O</sub>, los candidatos X<sub>L</sub>, los maximales Y<sub>L</sub> y las plazas. Observe qué pares se descartan por estar contenidos en otro.',
+        ayuda: String.raw`<p>Se construye la red de Petri. Se destacan las actividades de inicio y fin, las plazas recién creadas y los conjuntos A y B del par examinado.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: muestra qué pares (A, B) se descartan por estar contenidos en otro, y los maximales dan las plazas.</li>
+          <li><strong>Trazas</strong>: otro registro da otros conjuntos y otras plazas.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Leer la red: elecciones, paralelos y ciclos',
         descripcion: 'Dispare las transiciones a mano y compruebe que una plaza con dos salidas obliga a escoger, mientras que una transición con dos salidas abre ramas concurrentes. Pruebe el registro con ciclo.',
+        ayuda: String.raw`<p>La red descubierta, con las transiciones habilitadas, las plazas de elección (XOR) con varias entradas o salidas y las transiciones que bifurcan o unen en paralelo (AND).</p>
+          <ul>
+          <li><strong>Disparar al azar</strong>: en una plaza con dos salidas hay que escoger una; en una transición con dos salidas se abren ramas concurrentes.</li>
+          <li><strong>Registro de ejemplo</strong>: el ejemplo con ciclo muestra cómo se leen los bucles.</li>
+          </ul>`,
         montar: montarJuego,
       },
       {
         titulo: 'Edite el registro, vea la red',
         descripcion: 'Cambie las trazas y compare la red con su reproducción: cada variante muestra fichas producidas, consumidas, faltantes y sobrantes. Agregue una traza «extraña» y mire cuál plaza falla.',
+        ayuda: String.raw`<p>Reproducción de las trazas sobre la red. Se marca la transición que se dispara, las fichas faltantes (creadas artificialmente) y las sobrantes al final del caso.</p>
+          <ul>
+          <li><strong>Evento reproducido</strong>: recorre la variante evento a evento y muestra en cuál plaza falla.</li>
+          <li><strong>Trazas</strong>: agregar una traza extraña produce fichas faltantes o sobrantes, o sea, la red no la explica.</li>
+          </ul>`,
         montar: montarEditar,
       },
     ],

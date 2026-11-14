@@ -141,15 +141,31 @@
       asignado al azar. El <strong>balance de covariables</strong> es la manera de comprobar si se logró.</p>
       <p>A diferencia del efecto estimado, el balance se puede revisar <em>sin mirar el resultado</em>, lo que permite ajustar el diseño
       (cambiar el modelo, el caliper, las covariables) sin la tentación de buscar el efecto que se quiere encontrar.</p>`,
+    parametros: [
+      ['Ajuste (Fig. 1 y 2)', String.raw`Método usado para equilibrar tratados y controles. El gráfico muestra cuánto mejora el balance con cada uno.`],
+      ['Confusión (Fig. 1)', String.raw`Intensidad con que las covariables determinan el tratamiento. A más confusión, más desbalance antes del ajuste.`],
+      ['Covariable (Fig. 2)', String.raw`Elige la covariable cuya distribución se compara entre grupos.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El gráfico de amor',
         descripcion: 'Diferencias de medias estandarizadas antes y después del ajuste para cada covariable (love plot). Compare los métodos.',
+        ayuda: String.raw`<p>Cada fila es una covariable y el eje horizontal, su diferencia de medias estandarizada (SMD) antes y después del ajuste. La línea marca el umbral |SMD| = 0,1.</p>
+          <ul>
+          <li><strong>Ajuste</strong>: los puntos «después» se acercan a 0 si el método equilibra bien.</li>
+          <li><strong>Confusión</strong> alta: los puntos «antes» se alejan más del 0.</li>
+          </ul>`,
         montar: montarLove,
       },
       {
         titulo: 'Distribuciones antes y después',
         descripcion: 'La distribución completa de una covariable en cada grupo, con los pesos del ajuste.',
+        ayuda: String.raw`<p>Densidad de la covariable elegida para tratados y controles, ponderadas con los pesos del ajuste.</p>
+          <ul>
+          <li><strong>Ajuste</strong>: con un buen método las dos densidades casi coinciden.</li>
+          <li><strong>Covariable</strong>: la media puede quedar equilibrada y la forma de la distribución no.</li>
+          </ul>`,
         montar: montarDistribuciones,
       },
     ],

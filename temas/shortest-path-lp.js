@@ -183,15 +183,32 @@
       y se minimiza el costo total de los arcos usados. La conservación de flujo obliga a que lo que sale del origen llegue al destino pasando por nodos intermedios.</p>
       <p>Lo sorprendente es que no hace falta exigir que las variables valgan 0 o 1: el Simplex siempre devuelve un vértice, y los vértices de este poliedro son enteros, de modo que la solución óptima es un camino de verdad.
       Esa es la mejor puerta de entrada a la idea de <em>unimodularidad</em>.</p>`,
+    parametros: [
+      ['Nuevos pesos y Origen A, destino G (Fig. 1)', String.raw`Nuevos pesos sortea otros costos de arco; Origen A, destino G vuelve a la elección por defecto.`],
+      ['Fracción por el camino S→A→T (Fig. 2)', String.raw`La fracción λ de la unidad que se envía por S→A→T; el resto va por el otro camino. Mide el reparto entre dos caminos.`],
+      ['Costo de S→A y Costo de S→B (Fig. 2)', String.raw`Costos de cada camino. Si se igualan, ambos caminos empatan y toda mezcla cuesta lo mismo.`],
+      ['Empate de caminos (Fig. 2)', String.raw`Ajusta los costos para que ambos caminos cuesten igual.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El camino más corto como programa lineal',
         descripcion: 'Cambie origen y destino con clics y genere nuevos pesos: el LP siempre devuelve valores 0 o 1 y coincide con Bellman–Ford. Mire la lista de ecuaciones: cada una es la conservación en un nodo.',
+        ayuda: String.raw`<p>El grafo marca el origen (b = +1) y el destino (b = −1). Los arcos con x = 1 forman el camino más corto y los con x = 0 no se usan; las ecuaciones listadas son la conservación en cada nodo.</p>
+          <ul>
+          <li><strong>Nuevos pesos</strong>: cambia el camino con x = 1 y el costo mínimo; la solución del LP sigue siendo de 0 y 1.</li>
+          <li>Un clic cambia origen y destino, y con ello el vector b.</li>
+          </ul>`,
         montar: montarLP,
       },
       {
         titulo: 'Empates, mezclas y vértices',
         descripcion: 'Reparta la unidad entre dos caminos con la fracción λ y vea el costo en la curva. Pulse «Empate de caminos»: toda mezcla es óptima, pero solo los extremos λ = 0 y λ = 1 son vértices.',
+        ayuda: String.raw`<p>El primer panel muestra el flujo de cada arco, con grosor proporcional a x. El segundo grafica el costo de la mezcla contra la fracción λ por S→A→T, con la mezcla elegida y el vértice que devuelve el Simplex.</p>
+          <ul>
+          <li><strong>Fracción</strong>: desplaza la mezcla elegida sobre la curva de costo.</li>
+          <li><strong>Costos</strong>: cambian la pendiente de la curva; el mínimo está en un extremo λ = 0 o λ = 1.</li>
+          <li><strong>Empate de caminos</strong>: la curva queda plana y todo λ es óptimo, aunque solo los extremos son vértices.</li>
+          </ul>`,
         montar: montarMezcla,
       },
     ],

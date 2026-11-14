@@ -86,15 +86,28 @@
       <p>En vez de recorrer tablas de verdad, el razonamiento formal avanza con <strong>reglas de inferencia</strong>: esquemas de argumento válidos que se aplican a líneas ya establecidas para obtener otras nuevas.
       Una <strong>demostración</strong> es una lista de líneas, cada una premisa o consecuencia de líneas anteriores por una regla.</p>
       <p>Otra estrategia es la <strong>reducción al absurdo</strong>: para probar una conclusión se supone su negación y se busca una contradicción. Si aparece, el supuesto era imposible.</p>`,
+    parametros: [
+      ['Problema (Fig. 1 y 2)', String.raw`El conjunto de premisas y la meta que se quiere derivar. Cambiarlo cambia qué reglas hacen falta y cuántas líneas tiene la derivación.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza la derivación línea por línea, la reinicia o la ejecuta hasta el final; cada línea nueva es una aplicación de una regla.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Derive la conclusión',
         descripcion: 'Elija un problema y avance paso a paso: el motor aplica modus ponens, tollens, silogismos y simplificación hasta llegar a la meta. Lea la justificación de cada línea.',
+        ayuda: String.raw`<p>Cada línea es una fórmula derivada con su justificación: las premisas y la regla aplicada (modus ponens, tollens, silogismo, simplificación) sobre líneas anteriores. La derivación termina cuando aparece la meta.</p>
+          <ul>
+          <li><strong>Problema</strong>: cada problema requiere una combinación distinta de reglas, visible en las justificaciones.</li>
+          <li><strong>Reproductor</strong>: cada paso agrega una línea que es consecuencia lógica de las anteriores.</li>
+          </ul>`,
         montar: (c) => montar(c, false),
       },
       {
         titulo: 'Reducción al absurdo',
         descripcion: 'Los mismos problemas, pero agregando la negación de la meta como supuesto. El éxito se reconoce cuando aparecen una línea y su negación.',
+        ayuda: String.raw`<p>Igual que en la figura 1, pero se agrega como supuesto la negación de la meta. La derivación gana cuando aparecen una línea y su negación.</p>
+          <ul>
+          <li><strong>Problema</strong>: si la meta es consecuencia de las premisas, siempre se llega a una contradicción; el supuesto negado es lo que la provoca.</li>
+          </ul>`,
         montar: (c) => montar(c, true),
       },
     ],

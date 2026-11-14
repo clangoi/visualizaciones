@@ -143,15 +143,30 @@
       <p>Una forma robusta de propagar es la <strong>anti-entropía epidémica</strong> o por <em>chismes</em> (<em>gossip</em>): periódicamente, cada réplica elige otra al azar e
       intercambian lo que saben. Sin coordinador ni topología fija, una actualización llega a todas en un número de rondas logarítmico en el número de réplicas, como una
       epidemia.</p>`,
+    parametros: [
+      ['Intercambio (Fig. 1)', String.raw`Cómo se contagian las réplicas: push (el que sabe envía), pull (el que no sabe pregunta) o push-pull (ambos). Cambia la velocidad con que se propaga la actualización.`],
+      ['Réplicas (Fig. 1)', String.raw`Cantidad de réplicas del sistema. Más réplicas necesitan algunas rondas más para converger.`],
+      ['Otra ejecución y reproductor (Fig. 1)', String.raw`Otra ejecución sortea otros contactos aleatorios; el reproductor avanza ronda a ronda y reinicia.`],
+      ['Repetir (Fig. 2)', String.raw`Vuelve a medir las rondas con nuevas ejecuciones aleatorias; promedia y suaviza el azar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Rondas de chismes',
         descripcion: 'Avance ronda a ronda. Con push el contagio es rápido al principio y lento al final (cuesta encontrar a los últimos); con pull es al revés; push-pull combina ambos.',
+        ayuda: String.raw`<p>Cada nodo es una réplica. La leyenda distingue las que tienen aún la versión vieja, las que ya tienen la actualización, las que la recibieron en esta ronda y los contactos de esta ronda.</p>
+          <ul>
+          <li><strong>Intercambio</strong>: con push el contagio es rápido al principio y lento al final; con pull ocurre lo contrario; push-pull combina ambos y termina antes.</li>
+          <li><strong>Réplicas</strong>: subirlas suma pocas rondas hasta que todas tienen la actualización.</li>
+          </ul>`,
         montar: montarChismes,
       },
       {
         titulo: 'Rondas según el número de réplicas',
         descripcion: 'Duplicar las réplicas agrega apenas una ronda o poco más: el crecimiento es logarítmico.',
+        ayuda: String.raw`<p>Eje horizontal: número de réplicas \(n\) en escala logarítmica; eje vertical: rondas hasta que todas tienen la actualización. Hay una curva para push, pull y push-pull, y una referencia de teoría \(\log_2 n + \ln n\) para push.</p>
+          <ul>
+          <li><strong>Repetir</strong>: las curvas varían poco entre mediciones; su crecimiento lento confirma que el costo es logarítmico en \(n\).</li>
+          </ul>`,
         montar: montarRondas,
       },
     ],

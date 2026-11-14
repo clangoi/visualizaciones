@@ -93,9 +93,23 @@
     intro: String.raw`
       <p>Toda visualización se construye con dos piezas. Las <strong>marcas</strong> son los objetos geométricos básicos —puntos, líneas, áreas— y representan los ítems o los vínculos entre ellos. Los <strong>canales</strong> son las propiedades que controlan su apariencia —posición, tamaño, color, forma— y representan los atributos.</p>
       <p>Cambiar de gráfico es, casi siempre, cambiar de marca o de canal. Elegir bien es decidir qué va a ser fácil de ver.</p>`,
+    parametros: [
+      ['Marca (Fig. 1)', String.raw`El objeto geométrico que representa a cada ítem de la misma serie: punto (0D), línea (1D), área (2D) o barra (línea usada como longitud).`],
+      ['Los ítems son (Fig. 1)', String.raw`Si lo que está en el eje horizontal son meses, con orden natural, o ciudades, sin orden. Decide si conectar los ítems tiene sentido.`],
+      ['Nuevos valores (Fig. 2)', String.raw`Genera otros seis valores (entre 10 y 100) para repetir la comparación entre canales.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un conjunto, cuatro marcas', descripcion: 'Represente la misma serie con puntos, línea, área y barras, y cambie los ítems entre meses y ciudades para ver cuándo conectar es engañoso.', montar: montarMarcas },
-      { titulo: 'Un valor, siete canales', descripcion: 'Compare cómo se percibe un mismo valor en posición, longitud, inclinación, área, luminancia, tono y forma.', montar: montarCanales },
+      { titulo: 'Un conjunto, cuatro marcas', descripcion: 'Represente la misma serie con puntos, línea, área y barras, y cambie los ítems entre meses y ciudades para ver cuándo conectar es engañoso.',
+        ayuda: String.raw`<p>Ocho valores de una misma serie (eje vertical de 0 a 80) dibujados en azul con la marca elegida. El texto inferior explica qué expresa esa marca. Al pasar el cursor sobre un ítem se lee su valor.</p>
+          <ul>
+          <li><strong>Marca</strong>: de «Punto» a «Línea», «Área» y «Barra» cambia lo que se comunica: ítems sueltos, tendencia, magnitud acumulada o longitud desde la base.</li>
+          <li><strong>Los ítems son</strong> «ciudades» con «Línea» o «Área»: el registro avisa que se sugiere una secuencia que no existe; con «Punto» o «Barra» no hay ese problema.</li>
+          </ul>`, montar: montarMarcas },
+      { titulo: 'Un valor, siete canales', descripcion: 'Compare cómo se percibe un mismo valor en posición, longitud, inclinación, área, luminancia, tono y forma.',
+        ayuda: String.raw`<p>Seis valores aparecen en siete filas, una por canal: posición, longitud, inclinación, área y luminancia (rotulados en negro, canales de magnitud) y tono y forma (en aguamarina, canales de identidad). La lectura da los valores, el mayor y el menor; al pasar el cursor sobre una celda se ve su valor.</p>
+          <ul>
+          <li><strong>Nuevos valores</strong>: cambia los datos; en los canales de magnitud el orden entre los seis sigue siendo legible, en tono y forma no.</li>
+          </ul>`, montar: montarCanales },
     ],
     teoria: String.raw`
       <h2>Marcas</h2>

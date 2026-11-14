@@ -104,9 +104,24 @@
       <strong>MVC</strong> (<em>Model-View-Controller</em>) propone dividir el servidor en tres responsabilidades:</p>
       <p>el <strong>Modelo</strong> guarda los datos y las reglas del dominio, la <strong>Vista</strong> decide cómo se presentan, y el <strong>Controlador</strong> recibe la petición, coordina a los otros dos y elige la respuesta.
       Un <strong>enrutador</strong> conecta cada URL con el controlador adecuado.</p>`,
+    parametros: [
+      ['Petición (Fig. 1)', String.raw`El caso que se recorre: listar, ver uno, crear uno o crear con datos inválidos. Cambia qué mensajes cruzan las capas y si el flujo termina en éxito o error.`],
+      ['Formato de la vista (Fig. 1)', String.raw`Si la respuesta se presenta como JSON (API) o HTML (página). Solo cambia el último paso, el de la vista.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza mensaje a mensaje o solo; Reiniciar vuelve al inicio.`],
+      ['Comprobar y Mezclar (Fig. 2)', String.raw`Comprobar corrige las respuestas elegidas para cada fragmento; Mezclar los reordena y borra las respuestas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Recorrido de una petición', descripcion: 'Avance paso a paso por cuatro peticiones y cambie el formato de la vista: vea qué capas participan y cuáles no se ven afectadas.', montar: montarRecorrido },
-      { titulo: '¿En qué capa va este código?', descripcion: 'Clasifique ocho fragmentos como modelo, vista o controlador y compruebe su criterio.', montar: montarClasificar },
+      { titulo: 'Recorrido de una petición', descripcion: 'Avance paso a paso por cuatro peticiones y cambie el formato de la vista: vea qué capas participan y cuáles no se ven afectadas.',
+        ayuda: String.raw`<p>Diagrama de secuencia con cinco actores: Cliente, Router, Controlador, Modelo y Vista. Las flechas se colorean por capa: petición, enrutamiento, datos (modelo), presentación (vista), respuesta y error en rojo.</p>
+          <ul>
+          <li><strong>Petición</strong>: «crear con datos inválidos» termina con una flecha de error del modelo que el controlador convierte en respuesta 422, sin escribir en la base de datos.</li>
+          <li><strong>Formato de la vista</strong>: al cambiar entre JSON y HTML solo se modifica la flecha de la vista; controlador y modelo no se enteran.</li>
+          </ul>`, montar: montarRecorrido },
+      { titulo: '¿En qué capa va este código?', descripcion: 'Clasifique ocho fragmentos como modelo, vista o controlador y compruebe su criterio.',
+        ayuda: String.raw`<p>Tabla de ocho fragmentos de código; para cada uno se elige la capa (modelo, vista o controlador) y luego se comprueba.</p>
+          <ul>
+          <li><strong>Comprobar</strong>: marca los aciertos y los errores para revisar el criterio: lógica y validación al modelo, presentación a la vista, coordinación al controlador.</li>
+          </ul>`, montar: montarClasificar },
     ],
     teoria: String.raw`
       <h2>Responsabilidades</h2>

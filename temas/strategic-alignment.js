@@ -233,20 +233,47 @@
     intro: String.raw`
       <p>El <strong>alineamiento estratégico</strong> mide qué tan bien lo que hace el área de TI (proyectos, sistemas, infraestructura) sirve a los objetivos de la empresa, y a la vez qué tan bien la estrategia del negocio aprovecha lo que la tecnología permite. No basta con tener buenos sistemas: un sistema excelente para una estrategia equivocada es dinero mal gastado.</p>
       <p>Alinear es una relación en dos sentidos entre cuatro dominios: la estrategia de negocio, la estrategia de TI, la infraestructura organizacional y la infraestructura de TI. Cuando alguno se desvía, aparecen proyectos que nadie usa, sistemas redundantes y una «deuda» de mantenimiento que se acumula año tras año.</p>`,
+    parametros: [
+      ['Perfil de cada dominio y Mejor cambio (Fig. 1)', String.raw`Cómo se define la estrategia y la TI en cada dominio. Mejor cambio propone el ajuste que más sube el alineamiento.`],
+      ['Pesos de objetivos y contribución de cada iniciativa (Fig. 2)', String.raw`Importancia de cada objetivo y cuánto aporta cada iniciativa a él. Determinan el alineamiento de cada iniciativa.`],
+      ['Presupuesto (Fig. 2)', String.raw`Dinero para financiar iniciativas. Limita cuántas caben.`],
+      ['Financiar por alineamiento, Financiar lo más barato y Vaciar (Fig. 2)', String.raw`Dos reglas de selección para comparar y un botón para dejar todo sin financiar.`],
+      ['Presupuesto anual de TI (Fig. 3)', String.raw`Gasto anual disponible. Escala el valor acumulado.`],
+      ['Parte del gasto alineada con la estrategia (Fig. 3)', String.raw`Qué fracción del gasto sirve a la estrategia. Por debajo de cerca del 45 % no se compensa el gasto.`],
+      ['Año del cambio estratégico (Fig. 3)', String.raw`Año en que la estrategia cambia (0 = ninguno).`],
+      ['Caída del alineamiento por el cambio (Fig. 3)', String.raw`Cuánto del alineamiento se pierde con el cambio.`],
+      ['Años en realinear (Fig. 3)', String.raw`Tiempo que tarda en recuperarse el alineamiento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los cuatro dominios y sus ajustes',
         descripcion: 'Cambie el perfil de cada dominio (clic en el recuadro) y vea qué enlaces se debilitan. El punto de partida combina liderazgo en costos con una TI que habilita productos nuevos: el enlace estratégico queda en rojo. Use «Mejor cambio» para ver qué ajuste recupera más alineamiento.',
+        ayuda: String.raw`<p>Cuatro dominios (estrategia y organización del negocio, estrategia y organización de TI) unidos por enlaces coloreados por ajuste: alto (80 % o más), medio o desajuste (menos de 50 %).</p>
+          <ul>
+          <li><strong>Perfil de cada dominio</strong>: debilita los enlaces que dejan de coincidir.</li>
+          <li><strong>Mejor cambio</strong>: aplica el que sube más el ajuste.</li>
+          </ul>`,
         montar: montarModelo,
       },
       {
         titulo: 'Iniciativas frente a objetivos',
         descripcion: 'Cambie los pesos de los objetivos y la contribución de cada iniciativa; luego compare financiar «por alineamiento» con financiar «lo más barato». Observe qué pasa con el gasto desalineado y con la pantalla gigante de gerencia.',
+        ayuda: String.raw`<p>Eje horizontal: costo (millones); vertical: alineamiento con la estrategia. Las iniciativas pueden estar financiadas, sin financiar o desalineadas (puntaje bajo el umbral).</p>
+          <ul>
+          <li><strong>Pesos y contribuciones</strong>: mueven cada iniciativa verticalmente.</li>
+          <li><strong>Presupuesto</strong>: fija cuántas se financian.</li>
+          <li><strong>Financiar lo más barato</strong>: puede financiar iniciativas desalineadas.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'El costo de desalinearse',
         descripcion: 'Mueva la parte alineada del gasto por encima y por debajo del 45 % de equilibrio y observe el valor acumulado a ocho años; luego agregue un cambio estratégico y vea cuánto tarda en recuperarse según los años de realineamiento.',
+        ayuda: String.raw`<p>Eje horizontal: año; vertical: valor neto acumulado (millones). Se compara su caso con alineamiento perfecto (100 %) y con su caso sin cambio estratégico.</p>
+          <ul>
+          <li><strong>Parte del gasto alineada</strong>: sube o baja la pendiente de la curva.</li>
+          <li><strong>Año del cambio</strong>, <strong>Caída</strong> y <strong>Años en realinear</strong>: crean un hueco respecto del caso sin cambio, más largo cuanto más años tarde.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

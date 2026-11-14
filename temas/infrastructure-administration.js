@@ -184,15 +184,40 @@
       y reemplazar lo que se desgasta. Su resultado visible es la <em>continuidad operacional</em>: que el negocio no se entere de que existe una infraestructura.</p>
       <p>Dos decisiones dominan el trabajo: <em>cuándo ampliar</em> (cuando la demanda alcanza a la capacidad, y con plazos de compra e instalación de por medio) y <em>cuándo intervenir</em> (arreglar al fallar o prevenir con ventanas de mantenimiento planificadas).
       Ambas son problemas de anticipación, y las dos pueden calcularse.</p>`,
+    parametros: [
+      ['Política de ampliación (Fig. 1)', String.raw`Reactiva pide capacidad al superar el umbral; la proactiva se anticipa a la demanda.`],
+      ['Crecimiento de la demanda (Fig. 1)', String.raw`Qué tan rápido crece la demanda mes a mes.`],
+      ['Estacionalidad (Fig. 1)', String.raw`Amplitud de las oscilaciones periódicas de la demanda.`],
+      ['Umbral de utilización (Fig. 1)', String.raw`Nivel de uso de la capacidad a partir del cual se pide ampliar.`],
+      ['Plazo de entrega (Fig. 1)', String.raw`Meses entre pedir y recibir la ampliación.`],
+      ['Tamaño de cada ampliación (Fig. 1)', String.raw`Capacidad que se agrega con cada pedido.`],
+      ['Nueva demanda (Fig. 1)', String.raw`Genera otra serie de demanda.`],
+      ['Desgaste (forma k) (Fig. 2)', String.raw`Con k = 1 las fallas son al azar; con k mayor, el equipo se desgasta y la falla se vuelve más probable con la edad.`],
+      ['Vida característica del equipo (Fig. 2)', String.raw`Tiempo típico hasta la falla; desplaza la curva de costo.`],
+      ['Costo de una falla / costo de un cambio planificado (Fig. 2)', String.raw`Cuánto más cuesta una falla que un cambio preventivo.`],
+      ['Cambiar cada (Fig. 2)', String.raw`Intervalo de cambio elegido, que se compara con el óptimo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Planificar la capacidad',
         descripcion: 'Avance mes a mes con una demanda que crece. Compare la política reactiva con la proactiva, alargue el plazo de entrega y suba la estacionalidad: mire cuántos meses la demanda supera la capacidad.',
+        ayuda: String.raw`<p>Demanda frente a capacidad instalada por mes (unidades de capacidad), con el umbral de pedido, las ampliaciones pedidas aún no entregadas y los meses en que la demanda supera la capacidad.</p>
+          <ul>
+          <li><strong>Plazo de entrega</strong> más largo con política reactiva: la capacidad llega tarde y aumentan los meses marcados con demanda sobre capacidad.</li>
+          <li><strong>Umbral de utilización</strong> más bajo: el pedido se hace antes y hay más holgura.</li>
+          <li><strong>Estacionalidad</strong>: los picos estacionales cruzan la capacidad aunque la tendencia no lo haga.</li>
+          </ul>`,
         montar: montarCapacidad,
       },
       {
         titulo: 'Mantenimiento preventivo o correctivo',
         descripcion: 'Mueva el intervalo de cambio y busque el mínimo de la curva de costo. Ponga k = 1 (fallas al azar) para ver que el preventivo deja de convenir, y suba el costo de una falla para ver que el óptimo se adelanta.',
+        ayuda: String.raw`<p>Costo por mes (cambio planificado = 1) según el intervalo de cambio T (meses): la curva con cambio planificado, la línea del solo correctivo, el intervalo óptimo y el elegido.</p>
+          <ul>
+          <li><strong>Desgaste (forma k)</strong> igual a 1: la curva no baja del correctivo y el preventivo no conviene.</li>
+          <li><strong>Costo de una falla</strong> más alto: el óptimo se desplaza hacia intervalos más cortos.</li>
+          <li><strong>Cambiar cada</strong>: compara el costo de su intervalo con el mínimo.</li>
+          </ul>`,
         montar: montarMantenimiento,
       },
     ],

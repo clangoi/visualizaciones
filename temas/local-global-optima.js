@@ -407,15 +407,36 @@
       mejor fondo posible.</p>
       <p>Los algoritmos de descenso solo ven lo que hay a su alrededor, así que terminan en el valle donde empezaron. Aquí lo comprobará lanzándolos
       desde distintos puntos de partida, y verá cuándo el problema es tan amable que local y global son lo mismo.</p>`,
+    parametros: [
+      ['Rugosidad del paisaje (Fig. 1)', String.raw`Cuántas ondulaciones tiene f(x). En 0 es una parábola con un solo mínimo; al subirla aparecen más valles locales.`],
+      ['Tamaño de paso η (Fig. 1 y 2)', String.raw`Cuánto avanza el descenso por iteración. Pasos chicos siguen la pendiente de cerca; pasos grandes pueden saltar de valle o no converger.`],
+      ['Radio de la vecindad ε (Fig. 1)', String.raw`El tamaño del entorno donde se compara el punto: un mínimo local es el mejor dentro de ese radio, no necesariamente en todo el dominio.`],
+      ['Inicios al azar y reproductor (Fig. 1)', String.raw`Inicios al azar elige otros cinco puntos de partida; el reproductor avanza el descenso desde cada uno.`],
+      ['Paisaje (Fig. 2)', String.raw`La función de dos variables: cuatro pozos, dos pozos o un cuenco convexo.`],
+      ['Colorear las cuencas de atracción (Fig. 2)', String.raw`Pinta cada punto del plano según el mínimo al que llegaría el descenso desde allí.`],
+      ['Multiarranque (16) y Nuevo paisaje (Fig. 2)', String.raw`Multiarranque lanza 16 descensos desde puntos al azar; Nuevo paisaje cambia la función. El reproductor avanza el descenso del punto elegido.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Valles en una dimensión',
         descripcion: 'Agregue puntos de partida con clic y pulse Reproducir: cada uno cae en el valle más cercano. Suba la rugosidad para crear más valles, baje a 0 y quedará una parábola con un solo mínimo; con η grande los saltos cambian de valle y la franja inferior se fragmenta.',
+        ayuda: String.raw`<p>Curva de f(x) contra x, con puntos de partida y los iterados del descenso (los que no convergen se distinguen). Cada punto cae en el valle más cercano, que puede ser local y no global.</p>
+          <ul>
+          <li><strong>Rugosidad del paisaje</strong>: más rugosidad, más valles y más posibilidad de terminar en un mínimo local peor.</li>
+          <li><strong>Tamaño de paso η</strong>: con η grande, el punto puede saltar un valle o quedar sin converger.</li>
+          <li><strong>Radio de la vecindad ε</strong>: cambia la zona en que un mínimo se declara local.</li>
+          </ul>`,
         montar: montarUno,
       },
       {
         titulo: 'Cuencas de atracción en el plano',
         descripcion: 'Elija el punto de partida (clic o arrastre) y observe el descenso por las curvas de nivel; las zonas coloreadas muestran a qué mínimo llega el descenso desde cada punto. Pruebe «Cuenco convexo»: ahí hay un solo mínimo y todos los caminos llegan a él.',
+        ayuda: String.raw`<p>Mapa de curvas de nivel en \(x_1\), \(x_2\). Las trayectorias muestran el descenso, y las que no llegan a un mínimo se señalan como sin converger. Con cuencas activadas, cada color agrupa los puntos que van al mismo mínimo.</p>
+          <ul>
+          <li><strong>Paisaje</strong> «Cuenco convexo»: todas las cuencas se unen y cualquier inicio llega al único mínimo.</li>
+          <li><strong>Colorear las cuencas</strong>: sus fronteras muestran dónde un pequeño cambio de inicio cambia el destino.</li>
+          <li><strong>Multiarranque (16)</strong>: la proporción de descensos que llegan al mejor pozo mide la dificultad global.</li>
+          </ul>`,
         montar: montarDos,
       },
     ],

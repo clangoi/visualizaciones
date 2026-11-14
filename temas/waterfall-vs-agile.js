@@ -390,20 +390,45 @@
       cada una produce un incremento utilizable, de modo que el negocio recibe valor pronto y puede corregir el rumbo.</p>
       <p>Ninguno es «mejor» en general. Cuando los requisitos son estables, el sistema solo sirve completo y el equipo conoce el problema, la cascada es eficiente. Cuando las necesidades se descubren
       sobre la marcha, cada cambio que llega tarde a una cascada es caro, mientras que en un proceso iterativo su costo es casi constante. Las figuras simulan el mismo proyecto con ambos enfoques.</p>`,
+    parametros: [
+      ['Requisitos que cambian (Fig. 1 a 2)', String.raw`Qué porcentaje de los requisitos cambia durante el proyecto. Más cambios castigan más a quien entrega todo al final.`],
+      ['Longitud de la iteración (Fig. 1)', String.raw`Cuántas semanas dura cada iteración ágil. Iteraciones cortas entregan valor antes y absorben cambios antes.`],
+      ['Solo sirve completo (todo o nada) (Fig. 1 y 3)', String.raw`Si el producto solo da valor cuando está terminado. En ese caso el valor parcial del ágil no cuenta hasta el final.`],
+      ['Nuevo proyecto y reproductor (Fig. 1 y 2)', String.raw`Genera otro proyecto con otros cambios aleatorios y avanza semana a semana.`],
+      ['Pendiente del costo de cambio (cascada) (Fig. 2 y 3)', String.raw`Cuánto más caro se vuelve incorporar un cambio en la cascada a medida que avanzan las fases.`],
+      ['Sobrecarga del ágil e Iteración (Fig. 3)', String.raw`Qué parte del tiempo del ágil se va en ceremonias y coordinación, y qué longitud de iteración se compara.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Dos calendarios para el mismo proyecto',
         descripcion: 'Reproduzca el proyecto semana a semana: la cascada entrega todo al final y el ágil va entregando; los rombos rojos son cambios de requisito. Suba el porcentaje de cambios y vea cómo se alarga la cascada; marque «todo o nada» y vea cuándo el ágil deja de ganar.',
+        ayuda: String.raw`<p>Dos calendarios del mismo proyecto. La cascada muestra fases y el valor entregado; el ágil, iteraciones y el valor entregado en cada una. Los rombos rojos son cambios de requisito.</p>
+          <ul>
+          <li><strong>Requisitos que cambian</strong> altos: más rombos rojos y una cascada más larga porque debe rehacer fases.</li>
+          <li><strong>Longitud de la iteración</strong> corta: el ágil entrega valor antes y absorbe los cambios en la siguiente iteración.</li>
+          <li><strong>Solo sirve completo</strong>: anula la ventaja de las entregas parciales del ágil.</li>
+          </ul>`,
         montar: montarCalendarios,
       },
       {
         titulo: 'Costo de cambiar un requisito',
         descripcion: 'Arrastre sobre el gráfico para elegir la semana en que se descubre un cambio: en la cascada el costo escala con la fase; en el ágil casi no depende del momento. Aumente la pendiente para ver cómo se separan las curvas.',
+        ayuda: String.raw`<p>Eje horizontal: semana en que se detecta el cambio; eje vertical: esfuerzo en puntos para incorporarlo. Una curva es la cascada, que depende de la fase, y otra el ágil, que depende de cuánto ya se entregó. Una marca indica el momento elegido.</p>
+          <ul>
+          <li><strong>Pendiente del costo de cambio (cascada)</strong>: al subirla, la curva de la cascada se empina y un cambio tardío cuesta mucho más.</li>
+          <li><strong>Requisitos que cambian</strong>: más cambios dan más esfuerzo total acumulado en cada enfoque.</li>
+          </ul>`,
         montar: montarCostoCambio,
       },
       {
         titulo: '¿Cuál entrega más valor?',
         descripcion: 'Cada punto promedia muchos proyectos con el mismo nivel de cambio. Busque el cruce de las curvas y vea cómo se desplaza al subir la sobrecarga del ágil, la pendiente del costo de cambio o al marcar «todo o nada».',
+        ayuda: String.raw`<p>Eje horizontal: porcentaje de requisitos que cambian; eje vertical: valor por semana acumulado. Cada punto promedia muchos proyectos, una curva para la cascada y otra para el ágil, con el cambio elegido marcado.</p>
+          <ul>
+          <li><strong>Sobrecarga del ágil</strong> mayor: la curva ágil baja y el cruce se desplaza a más cambios.</li>
+          <li><strong>Pendiente del costo de cambio</strong> mayor: la cascada se hunde antes y el ágil gana con menos cambios.</li>
+          <li><strong>Solo sirve completo</strong>: reduce el valor del ágil en la zona de pocos cambios.</li>
+          </ul>`,
         montar: montarBarrido,
       },
     ],

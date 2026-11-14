@@ -305,20 +305,41 @@
       se <em>inventa</em> la ficha que faltaba y se anota; al terminar, las fichas que sobran también se anotan.</p>
       <p>Cuatro contadores resumen la historia: fichas producidas, consumidas, faltantes y restantes. De ellos sale el <em>fitness</em>, un número entre 0 y 1
       que dice qué tanto del comportamiento observado cabe en el modelo, y además se puede ver <em>dónde</em> de la red se acumulan los problemas.</p>`,
+    parametros: [
+      ['Traza de ejemplo y O escriba una traza (Fig. 1)', String.raw`La secuencia de actividades que se reproduce sobre la red. Si no encaja con el modelo, se crean fichas faltantes y quedan sobrantes.`],
+      ['Casos con ruido y Casos en el registro (Fig. 2 y 3)', String.raw`Fracción de trazas alteradas y tamaño del registro. Más ruido produce más variantes con desviaciones.`],
+      ['Mostrar (Fig. 3)', String.raw`Elige si el mapa cuenta fichas faltantes, sobrantes o ambas.`],
+      ['Nuevos datos y reproductor (Fig. 1 a 3)', String.raw`Genera otro registro; los botones de paso avanzan la reproducción evento a evento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Reproducción de una traza',
         descripcion: 'Avance evento por evento sobre la red y vea cuándo se crea una ficha faltante (anillo rojo) y cuántas sobran al final. Pruebe «abdf» (falta c), «abcd» (falta f) y «abcdddf» (d repetida) y compare sus contadores m y r.',
+        ayuda: String.raw`<p>Red de Petri sobre la que se disparan las transiciones de la traza. Se señalan la transición que se dispara, la ficha faltante creada para poder disparar y la ficha sobrante que queda al terminar.</p>
+          <ul>
+          <li><strong>Traza de ejemplo</strong>: una traza sin una actividad (p. ej. «abdf») obliga a crear una ficha faltante; una con una actividad repetida deja fichas sobrantes.</li>
+          <li><strong>O escriba una traza</strong>: permite probar cualquier secuencia con letras a a f.</li>
+          </ul>`,
         montar: montarPasoAPaso,
       },
       {
         titulo: 'Fitness de un registro completo',
         descripcion: 'Un registro simulado con ruido: una columna por variante, de ancho proporcional a su frecuencia. Pruebe 0 % de ruido (todo ajusta) y luego 40 %: el fitness del registro cae poco porque las variantes desviadas son estrechas.',
+        ayuda: String.raw`<p>Una columna por variante, con ancho proporcional a su frecuencia (% de casos) y altura igual al fitness de la variante. Se distinguen las variantes con fitness 1, las que tienen desviaciones y la elegida con clic.</p>
+          <ul>
+          <li><strong>Casos con ruido</strong>: sube el número de variantes con desviaciones, aunque el fitness del registro cae poco porque son poco frecuentes.</li>
+          <li><strong>Casos en el registro</strong>: cambia el tamaño de la muestra y el ancho relativo de cada columna.</li>
+          </ul>`,
         montar: montarRegistro,
       },
       {
         titulo: 'Mapa de problemas sobre el modelo',
         descripcion: 'Las fichas faltantes y sobrantes de todo el registro, acumuladas por plaza. Cambie entre faltantes y sobrantes y haga clic en una plaza oscura: las variantes que la causan suelen ser omisiones o intercambios de actividades vecinas.',
+        ayuda: String.raw`<p>Cada plaza de la red se colorea según cuántas fichas problemáticas acumula todo el registro: pocas o muchas; la plaza elegida con clic muestra qué variantes la causan.</p>
+          <ul>
+          <li><strong>Mostrar</strong>: faltantes indica dónde el modelo exigía fichas que la traza no dejó; sobrantes, dónde se quedaron fichas sin consumir.</li>
+          <li><strong>Casos con ruido</strong>: más ruido oscurece más plazas.</li>
+          </ul>`,
         montar: montarMapa,
       },
     ],

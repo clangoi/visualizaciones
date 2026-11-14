@@ -230,20 +230,41 @@
       el orden en que sucedió cada caso; el resto de las columnas son atributos que enriquecen el análisis.</p>
       <p>Los datos llegan mezclados porque los sistemas atienden muchos casos a la vez. El primer trabajo de la minería de procesos es
       <strong>agrupar por caso y ordenar por tiempo</strong>: cada grupo resultante es una <a href="tema.html?id=traces-and-variants">traza</a>.</p>`,
+    parametros: [
+      ['Casos (Fig. 1, 2 y 3)', String.raw`Número de casos (instancias del proceso) del registro. Más casos significa más eventos entremezclados y más trazas por comparar.`],
+      ['Vista de la tabla (Fig. 1)', String.raw`Muestra los mismos eventos sin ordenar, ordenados por marca de tiempo o agrupados por caso. Solo cambia la presentación, no los datos.`],
+      ['Nuevos datos (Fig. 1, 2 y 3)', String.raw`Genera otro registro aleatorio con los mismos ajustes.`],
+      ['Color según atributo del evento (Fig. 3)', String.raw`Colorea las barras por actividad o por recurso (quién la ejecutó). Muestra cuál de los dos atributos distingue mejor los eventos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La tabla de eventos',
         descripcion: 'Cambie entre las tres vistas de la misma tabla y compare: sin ordenar, ordenada por tiempo y agrupada por caso. Haga clic en una fila para ver todos los eventos de su caso.',
+        ayuda: String.raw`<p>Cada fila es un evento con su caso, actividad, marca de tiempo y otros atributos. Al hacer clic en una fila se resaltan todos los eventos de su caso.</p>
+          <ul>
+          <li><strong>Vista de la tabla</strong>: «Como llegan» mezcla casos; «Ordenada por marca de tiempo» muestra el orden real de ocurrencia; «Agrupada por caso» deja cada traza contigua, que es la vista que usa la minería.</li>
+          <li><strong>Casos</strong>: más casos significa más filas intercaladas.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Cómo nacen las trazas',
         descripcion: 'Avance paso a paso: el evento leído se agrega a la traza de su caso. Observe cómo los casos crecen de forma intercalada pero cada uno conserva su orden.',
+        ayuda: String.raw`<p>A la izquierda se lee el flujo de eventos tal como llega; a la derecha, las trazas, una por caso, que crecen con cada evento leído.</p>
+          <ul>
+          <li><strong>Casos</strong>: más casos se intercalan más en el flujo, pero cada traza conserva su propio orden.</li>
+          <li>El avance paso a paso muestra que cada evento nuevo se añade al final de la traza de su caso.</li>
+          </ul>`,
         montar: montarTrazas,
       },
       {
         titulo: 'Línea de tiempo con atributos',
         descripcion: 'Cada barra es un evento. Pase el cursor para ver sus atributos y los de su caso, y cambie el color entre actividad y recurso para ver qué se reparte mejor.',
+        ayuda: String.raw`<p>Cada barra es un evento: el eje horizontal es el tiempo y cada fila corresponde a un caso. Al pasar el cursor se ven los atributos del evento y del caso.</p>
+          <ul>
+          <li><strong>Color según atributo del evento</strong>: con «Actividad» los colores siguen las etapas del proceso; con «Recurso» siguen a quién las ejecuta, y revela reparto de trabajo.</li>
+          <li><strong>Casos</strong>: más filas permiten comparar duraciones y solapamiento entre casos.</li>
+          </ul>`,
         montar: montarLinea,
       },
     ],

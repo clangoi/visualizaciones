@@ -397,15 +397,37 @@
       la función puede bajar indefinidamente, acercarse a un valor sin llegar nunca a él, o las restricciones pueden no dejar ningún punto.</p>
       <p>Y cuando existe, no siempre es única: un objetivo lineal puede quedar «plano» a lo largo de una arista de la región. Aquí cambiará la región
       factible y la función para ver cada caso, y comprobará que la convexidad estricta es lo que garantiza una sola solución.</p>`,
+    parametros: [
+      ['Función objetivo (Fig. 1)', String.raw`La función que se minimiza y maximiza sobre el intervalo; unas son continuas y otras tienen un salto o no están acotadas.`],
+      ['Extremos a y b (Fig. 1)', String.raw`Los límites del intervalo factible. Mueven el conjunto donde se busca el óptimo.`],
+      ['Casillas de extremos (Fig. 1)', String.raw`Incluir o no cada extremo (cerrado o abierto) y quitar la cota inferior o superior (región no acotada). Rompen las hipótesis de compacidad.`],
+      ['Botones de ejemplo (Fig. 1)', String.raw`Cargan configuraciones listas, como «Compacto y continua» o «Extremo abierto».`],
+      ['Problema (Fig. 2)', String.raw`Elige entre un LP y tres problemas cuadráticos o no convexos con distinto tipo de solución.`],
+      ['Dirección de c (LP) y Girar c 5° (Fig. 2)', String.raw`El ángulo del vector de costos del LP; cambia qué lado de la región se empuja.`],
+      ['Alinear c con una arista (Fig. 2)', String.raw`Pone c perpendicular a una arista, de modo que toda ella sea óptima.`],
+      ['Radio r (anillo) (Fig. 2)', String.raw`El radio de la circunferencia de óptimos en el problema no convexo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cuándo existe el óptimo',
         descripcion: 'Empiece con «Compacto y continua» y luego pruebe los otros tres botones: cada uno rompe una hipótesis del teorema de Weierstrass (extremo abierto, región no acotada, discontinuidad). Después cambie a, b y las casillas para fabricar una región vacía.',
+        ayuda: String.raw`<p>Curva de f(x) contra x. Se distingue la parte sobre la región factible de la parte fuera de ella, y se marcan el mínimo o ínfimo y el máximo o supremo.</p>
+          <ul>
+          <li><strong>Incluye a / incluye b</strong>: con extremo abierto el ínfimo o supremo no se alcanza y no hay óptimo.</li>
+          <li><strong>Sin cota</strong>: con la región no acotada, f puede crecer o decrecer sin alcanzar valor.</li>
+          <li>Con el intervalo cerrado, acotado y f continua siempre hay mínimo y máximo.</li>
+          </ul>`,
         montar: montarExistencia,
       },
       {
         titulo: 'Cuándo el óptimo es único',
         descripcion: 'En LP gire c con el deslizador o pulse «Alinear c con una arista»: el óptimo salta de un vértice a toda una arista. Luego compare los otros tres problemas arrastrando p: un punto único, un segmento y un anillo de soluciones.',
+        ayuda: String.raw`<p>Plano \(x_1\), \(x_2\) con la región factible, las curvas de nivel y las soluciones óptimas. El centro p y la dirección c pueden arrastrarse.</p>
+          <ul>
+          <li><strong>Dirección de c</strong>: gira y el óptimo pasa de un vértice a otro; al alinear c con una arista, toda la arista es óptima.</li>
+          <li><strong>Problema</strong> estrictamente convexo: un único óptimo; el convexo no estricto da un segmento; el anillo da infinitos óptimos.</li>
+          <li><strong>Radio r</strong>: ajusta el tamaño del anillo de óptimos.</li>
+          </ul>`,
         montar: montarUnicidad,
       },
     ],

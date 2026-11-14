@@ -340,20 +340,43 @@
       llega. La <strong>planificación multiperiodo</strong> equilibra ambas cosas con un balance de inventario que enlaza un periodo con el siguiente.</p>
       <p>El resultado es un patrón muy característico: el plan óptimo <em>anticipa</em> producción hacia los periodos con capacidad barata o sobrante para
       cubrir los picos, y lo hace solo hasta donde guardar es más barato que no hacerlo.</p>`,
+    parametros: [
+      ['Demanda (Fig. 1, 2 y 3)', String.raw`El patrón de demanda por periodo. Un pico obliga a producir antes de que se necesite.`],
+      ['Costo de producción (Fig. 1)', String.raw`Si el costo por unidad es igual o distinto en cada periodo. Con costos desiguales conviene adelantar producción hacia los periodos baratos.`],
+      ['Costo de mantener 1 unidad un periodo y Costo de mantener (Fig. 1, 2 y 3)', String.raw`El costo de tener inventario. Si es alto, conviene producir justo a tiempo; si es bajo, anticipar.`],
+      ['Capacidad por periodo (Fig. 1, 2 y 3)', String.raw`La producción máxima por periodo. Si la demanda la supera, hay que adelantar producción.`],
+      ['Periodo con más demanda y Demanda adicional (Fig. 3)', String.raw`El periodo en que se piden unidades extra y cuántas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El plan de producción e inventario',
         descripcion: 'Con capacidad 90 y un pico de 100 en el periodo 4, ya no se puede producir justo a tiempo: el plan adelanta producción. Suba el costo de mantener, cambie el patrón de demanda y baje la capacidad hasta que ya no exista plan.',
+        ayuda: String.raw`<p>Eje horizontal: periodos; vertical: unidades. Se muestran la producción del periodo, la demanda, el inventario al final del periodo, la capacidad y la producción del plan anterior.</p>
+          <ul>
+          <li><strong>Capacidad por periodo</strong>: al bajarla, la producción no puede seguir el pico de demanda y aparece inventario en periodos previos.</li>
+          <li><strong>Costo de mantener</strong>: al subirlo, el inventario se reduce y la producción se acerca a la demanda.</li>
+          <li><strong>Costo de producción</strong>: con costos desiguales, la producción se concentra en los periodos baratos.</li>
+          </ul>`,
         montar: montarPlan,
       },
       {
         titulo: 'Cuándo conviene anticipar',
         descripcion: 'Cada punto de la curva es un plan óptimo distinto. Con costos de producción desiguales conviene guardar mientras mantener sea barato; recorra el costo de mantener hasta que el ahorro desaparezca, y baje la capacidad para ver que anticipar a veces es obligatorio.',
+        ayuda: String.raw`<p>Arriba, el costo total según el costo de mantener, con el plan óptimo, el costo de producir justo lo que se demanda, el ahorro por anticipar y el costo elegido. Abajo, las unidades-periodo en inventario según ese costo.</p>
+          <ul>
+          <li><strong>Costo de mantener</strong>: recorre la curva; cuando el ahorro llega a cero ya no conviene anticipar y el inventario cae a cero.</li>
+          <li><strong>Capacidad por periodo</strong>: si es baja, se debe anticipar aunque mantener sea caro.</li>
+          </ul>`,
         montar: montarAnticipar,
       },
       {
         titulo: 'Costo marginal de la demanda',
         descripcion: 'Pida unidades adicionales en un periodo y compare con el plan en contorno: la producción extra sale de un periodo anterior más barato. Haga clic en las barras inferiores para ver el costo marginal de cada periodo y suba la capacidad o el costo de mantener.',
+        ayuda: String.raw`<p>Arriba, el plan con la demanda adicional. Abajo, el costo de atender una unidad más en cada periodo (USD por unidad), con el periodo elegido y los periodos que no se pueden atender por capacidad agotada.</p>
+          <ul>
+          <li><strong>Periodo con más demanda</strong> y <strong>Demanda adicional</strong>: la producción extra sale de un periodo anterior más barato, y el costo marginal incluye mantenerla.</li>
+          <li><strong>Capacidad por periodo</strong>: al bajarla, hay periodos cuya unidad adicional ya no se puede atender.</li>
+          </ul>`,
         montar: montarMarginal,
       },
     ],

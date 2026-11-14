@@ -174,15 +174,31 @@
       \(3 = S(S(S(0)))\).</p>
       <p>Las demás operaciones no se postulan: <em>se definen</em> repitiendo el sucesor. Sumar \(b\) es aplicar \(S\) \(b\) veces; multiplicar es sumar repetidamente.
       Esa definición recursiva es lo que permite después demostrar propiedades por inducción.</p>`,
+    parametros: [
+      ['Operación (Fig. 1)', String.raw`Elige la suma o el producto, definidos solo con el sucesor. Cada operación tiene su ecuación recursiva.`],
+      ['a y b (Fig. 1)', String.raw`Los operandos: a es fijo y b indica cuántas veces se aplica la ecuación recursiva.`],
+      ['Estructura candidata (Fig. 2)', String.raw`Una estructura con un elemento inicial y una función sucesor. Se comprueba cuáles axiomas de Peano cumple.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Un paso aplica una ecuación o un sucesor más; también reproduce solo o reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Sumar y multiplicar con el sucesor',
         descripcion: 'Cada paso aplica una ecuación recursiva más. Compruebe que la suma avanza de uno en uno y que el producto avanza a saltos de \\(a\\).',
+        ayuda: String.raw`<p>Sobre la recta, el valor actual, los valores ya calculados y el salto del paso. Cada paso aplica una ecuación recursiva más.</p>
+          <ul>
+          <li><strong>Operación</strong>: la suma avanza de uno en uno; el producto salta de a en a.</li>
+          <li><strong>a</strong> y <strong>b</strong>: a fija el tamaño del salto del producto y el punto de partida de la suma; b, cuántos pasos se necesitan.</li>
+          </ul>`,
         montar: montarOperacion,
       },
       {
         titulo: '¿Cumple los axiomas de Peano?',
         descripcion: 'Elija una estructura y vea qué axiomas fallan. Reproduzca la construcción desde 0: lo que no se alcanza es la señal de que falla la inducción.',
+        ayuda: String.raw`<p>Se parte de 0 y se aplica S. Los elementos alcanzados son una marca, el recién alcanzado otra, y los demás no alcanzados. Aparece cuáles axiomas se cumplen.</p>
+          <ul>
+          <li><strong>Estructura candidata</strong>: cada estructura incumple un axioma distinto (por ejemplo, ciclos o elementos repetidos).</li>
+          <li>Los elementos que nunca se alcanzan desde 0 son la señal de que falla la inducción.</li>
+          </ul>`,
         montar: montarAxiomas,
       },
     ],

@@ -105,15 +105,32 @@
       <p>Para CSS, todo elemento es una <strong>caja rectangular</strong> hecha de cuatro capas concéntricas: el <em>contenido</em>, el <em>padding</em> (aire interior),
       el <em>borde</em> y el <em>margin</em> (aire exterior). Casi todo el trabajo de maquetación consiste en decidir tamaños y espacios de esas cajas.</p>
       <p>Un detalle que sorprende a casi todos: ¿el <code>width</code> mide solo el contenido o la caja entera? Depende de <code>box-sizing</code>.</p>`,
+    parametros: [
+      ['width, margin, border y padding (Fig. 1)', String.raw`Los grosores de cada capa de la caja en píxeles y el ancho declarado. Cada capa suma al espacio que ocupa el elemento en la página.`],
+      ['box-sizing (Fig. 1)', String.raw`Define qué mide el <code>width</code>: solo el contenido (content-box) o el contenido más padding y borde (border-box).`],
+      ['margin-bottom de A y margin-top de B (Fig. 2)', String.raw`Los márgenes que se tocan entre dos cajas apiladas. Su combinación decide la separación real entre ellas.`],
+      ['Contenedor (Fig. 2)', String.raw`El contexto de diseño que contiene a las cajas: flujo normal o flex. Decide si los márgenes verticales se funden o se suman.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Las capas de la caja',
         descripcion: 'Cambie margin, borde, padding y ancho. Alterne <code>box-sizing</code> y observe qué mide realmente el <code>width</code>.',
+        ayuda: String.raw`<p>Se ven las capas concéntricas de la caja (contenido, padding, borde y margen) con los colores de la leyenda y las medidas resultantes.</p>
+          <ul>
+          <li><strong>margin</strong>, <strong>border</strong> y <strong>padding</strong>: ensanchan su capa y el espacio total que ocupa la caja.</li>
+          <li><strong>width</strong> con <strong>border-box</strong>: el tamaño total no cambia al añadir padding o borde, porque el contenido se encoge; con content-box la caja crece.</li>
+          </ul>`,
         montar: montarCaja,
       },
       {
         titulo: 'Colapso de márgenes',
         descripcion: 'Dos cajas apiladas con márgenes distintos: compare el flujo normal con un contenedor flex y mire la distancia entre ellas.',
+        ayuda: String.raw`<p>Se dibujan las cajas A y B con el margen de A y el margen de B; la distancia resultante entre ellas se marca aparte.</p>
+          <ul>
+          <li><strong>Contenedor</strong> en flujo normal: los márgenes verticales colapsan y la distancia es el mayor de los dos, no la suma.</li>
+          <li>En un contenedor <strong>flex</strong> no colapsan y la distancia es la suma.</li>
+          <li><strong>margin-bottom de A</strong> y <strong>margin-top de B</strong>: en flujo normal, subir el menor no cambia nada mientras siga siendo menor.</li>
+          </ul>`,
         montar: montarColapso,
       },
     ],

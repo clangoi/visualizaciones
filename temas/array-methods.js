@@ -104,9 +104,23 @@
       <p>En vez de escribir un bucle con contadores e índices, JavaScript permite describir <strong>qué</strong> se quiere con métodos como <code>map</code>, <code>filter</code> y <code>reduce</code>.
       Cada uno recibe una función y la aplica a todos los elementos de un arreglo.</p>
       <p>Encadenados forman una <em>tubería</em> de datos: filtrar lo relevante, transformarlo y resumirlo. Como no mutan el arreglo original, el código es más fácil de razonar, y es el estilo que usa React para manipular listas.</p>`,
+    parametros: [
+      ['filter: precio ≥, map: sumar IVA (19 %) y reduce (Fig. 1)', String.raw`El umbral que deja pasar elementos, el cálculo que transforma cada valor y la operación que los resume en uno solo (suma, máximo o cantidad). Cada paso de la tubería recibe lo que entregó el anterior.`],
+      ['Predicado y Nuevos datos (Fig. 2)', String.raw`La condición que se evalúa sobre cada elemento y un nuevo conjunto de datos. Varios métodos reciben la misma condición pero devuelven cosas distintas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Tubería filter → map → reduce', descripcion: 'Cambie el umbral del filtro, el IVA y la operación de <code>reduce</code>; avance paso a paso para ver cómo se acumula el resultado.', montar: montarCadena },
-      { titulo: 'Qué método usar', descripcion: 'Pruebe distintos predicados y compare lo que devuelven <code>map</code>, <code>filter</code>, <code>find</code>, <code>some</code>, <code>every</code>, <code>reduce</code> y <code>sort</code>.', montar: montarMetodos },
+      { titulo: 'Tubería filter → map → reduce', descripcion: 'Cambie el umbral del filtro, el IVA y la operación de <code>reduce</code>; avance paso a paso para ver cómo se acumula el resultado.',
+        ayuda: String.raw`<p>Cada elemento recorre la tubería <code>filter</code>, <code>map</code> y <code>reduce</code>: pasa el filtro o se descarta, se transforma con el IVA y se suma en el acumulador, según la leyenda.</p>
+          <ul>
+          <li><strong>filter: precio ≥</strong>: al subirlo se descartan más elementos y el resultado final cambia.</li>
+          <li><strong>map: sumar IVA</strong>: cambia los valores transformados y por tanto lo que acumula <code>reduce</code>.</li>
+          <li><strong>reduce</strong>: con suma, máximo o cantidad, el acumulador crece de forma distinta al avanzar.</li>
+          </ul>`, montar: montarCadena },
+      { titulo: 'Qué método usar', descripcion: 'Pruebe distintos predicados y compare lo que devuelven <code>map</code>, <code>filter</code>, <code>find</code>, <code>some</code>, <code>every</code>, <code>reduce</code> y <code>sort</code>.',
+        ayuda: String.raw`<p>Cada método de arreglo se aplica a los mismos datos con el predicado elegido, y se muestra lo que devuelve cada uno.</p>
+          <ul>
+          <li><strong>Predicado</strong>: cambia qué elementos cumplen; <code>filter</code> devuelve un arreglo, <code>find</code> un elemento y <code>some</code>/<code>every</code> un booleano.</li>
+          </ul>`, montar: montarMetodos },
     ],
     teoria: String.raw`
       <h2>Definición</h2>

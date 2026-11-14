@@ -73,9 +73,26 @@
     intro: String.raw`
       <p>Antes de entrenar, los pesos de una red tienen que partir de algún valor. Parece un detalle, pero decide si el entrenamiento arranca o no: ceros dejan a todas las neuronas iguales; valores demasiado pequeños apagan la señal en pocas capas; valores demasiado grandes la saturan o la hacen explotar.</p>
       <p>La regla de las inicializaciones modernas (<strong>Xavier</strong>, <strong>He</strong>) es elegir la varianza de los pesos según el número de entradas de la neurona, para que la <em>escala</em> de la señal se conserve de una capa a la siguiente.</p>`,
+    parametros: [
+      ['Activación (Fig. 1)', String.raw`Función no lineal de las capas. Con ReLU, Xavier se apaga lentamente y He se sostiene; con tanh o sigmoide, los resultados cambian.`],
+      ['Capas (Fig. 1)', String.raw`Profundidad de la pila. Más capas acumulan más veces el factor de escala y exageran las diferencias entre inicializaciones.`],
+      ['Otros pesos (Fig. 1)', String.raw`Sortea nuevos pesos aleatorios.`],
+      ['Datos, Capas ocultas, Neuronas por capa, Activación, Inicialización (Fig. 2)', String.raw`Problema y arquitectura de la red, e inicialización de sus pesos: ceros, pequeña, Xavier, He o grande. La inicialización decide si la red parte con señal útil.`],
+      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Generan otro conjunto y controlan el avance del entrenamiento.`],
+    ],
     visualizaciones: [
-      { titulo: 'La señal capa por capa', descripcion: 'Compare cinco inicializaciones. Cambie a ReLU y vea que Xavier se apaga lentamente mientras He se sostiene; con 30 capas la diferencia es enorme.', montar: montarSenal },
-      { titulo: 'Entrenar con ceros, pequeños o grandes', descripcion: 'Entrene una red de 4 capas con cada inicialización y compare la pérdida. Observe qué ocurre con ceros.', montar: montarEntrenamiento },
+      { titulo: 'La señal capa por capa', descripcion: 'Compare cinco inicializaciones. Cambie a ReLU y vea que Xavier se apaga lentamente mientras He se sostiene; con 30 capas la diferencia es enorme.',
+        ayuda: String.raw`<p>El eje horizontal es la capa y el vertical la desviación de las activaciones (escala logarítmica). Cada curva es una inicialización: ceros (azul), pequeña (naranja), Xavier (verde), He (violeta) y grande (rojo).</p>
+          <ul>
+          <li><strong>Capas</strong>: con muchas capas, las curvas pequeña y grande se separan mucho de las demás: la señal se apaga o explota.</li>
+          <li><strong>Activación</strong> en ReLU: Xavier decae lentamente mientras He se mantiene estable.</li>
+          </ul>`, montar: montarSenal },
+      { titulo: 'Entrenar con ceros, pequeños o grandes', descripcion: 'Entrene una red de 4 capas con cada inicialización y compare la pérdida. Observe qué ocurre con ceros.',
+        ayuda: String.raw`<p>A la izquierda, la frontera de decisión sobre los puntos de dos clases; a la derecha, pérdida de entrenamiento (azul) y de validación (naranja) por época.</p>
+          <ul>
+          <li><strong>Inicialización</strong> en ceros: las neuronas de una capa siguen idénticas y la pérdida no baja. Con σ pequeña la señal se apaga y con σ grande se satura.</li>
+          <li>Xavier o He: la pérdida baja con normalidad.</li>
+          </ul>`, montar: montarEntrenamiento },
     ],
     teoria: String.raw`
       <h2>Conservar la varianza</h2>

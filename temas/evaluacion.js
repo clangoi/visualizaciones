@@ -237,15 +237,35 @@
       <p>La <strong>matriz de confusión</strong> y la <strong>curva ROC</strong> responden lo primero; <em>hold-out</em> y la
       <strong>validación cruzada</strong>, lo segundo. Toda estimación es una variable aleatoria: con otro conjunto de datos daría otro
       número.</p>`,
+    parametros: [
+      ['Separación entre clases (d′) (Fig. 1)', String.raw`Qué tan lejos están las distribuciones de puntaje de positivos y negativos. Con d′ mayor el clasificador discrimina mejor.`],
+      ['Fracción de positivos (Fig. 1)', String.raw`La proporción de positivos en los datos. Cambia la matriz de confusión sin cambiar la curva ROC.`],
+      ['Umbral de decisión (Fig. 1)', String.raw`El puntaje desde el cual se predice positivo. Mueve el punto de operación sobre la curva ROC.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Regenera la muestra.`],
+      ['Datos y Clasificador (Fig. 2)', String.raw`El problema y el modelo (5 vecinos más cercanos o LDA) cuya exactitud se estima.`],
+      ['Muestras n (Fig. 2)', String.raw`Tamaño del conjunto. Con menos muestras, cada estimación varía más.`],
+      ['Repetir con otros datos (Fig. 2)', String.raw`Genera treinta conjuntos nuevos de la misma distribución.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Matriz de confusión y curva ROC',
         descripcion: 'Puntajes de un clasificador para positivos y negativos. Cada umbral da una matriz de confusión y un punto de la curva ROC.',
+        ayuda: String.raw`<p>Arriba, histogramas del puntaje del clasificador (eje X) para positivos y negativos, con el umbral: a su derecha se predice positivo. Abajo, la curva ROC (tasa de falsos positivos frente a tasa de verdaderos positivos) con el punto de operación.</p>
+          <ul>
+          <li><strong>Umbral de decisión</strong>: al bajarlo, más positivos se detectan, pero también más falsos positivos; el punto se mueve hacia arriba y a la derecha.</li>
+          <li><strong>Separación entre clases (d′)</strong>: con mayor separación, la curva se acerca a la esquina superior izquierda.</li>
+          <li><strong>Fracción de positivos</strong>: cambia las cuentas de la matriz de confusión.</li>
+          </ul>`,
         montar: montarROC,
       },
       {
         titulo: 'Cuánto varía la estimación',
         descripcion: 'Treinta conjuntos de n datos de la misma distribución, cada uno evaluado con cinco métodos. La línea negra es la exactitud real del clasificador.',
+        ayuda: String.raw`<p>Eje X: exactitud estimada. Cada punto es uno de treinta conjuntos de datos, evaluado con cinco métodos de estimación; la línea negra es la exactitud real medida con 1000 datos nuevos.</p>
+          <ul>
+          <li><strong>Muestras n</strong>: con n pequeño, los puntos se dispersan más alrededor de la línea; la medida en entrenamiento queda sesgada.</li>
+          <li><strong>Clasificador</strong>: cambia la exactitud real y qué métodos la sobreestiman.</li>
+          </ul>`,
         montar: montarVariabilidad,
       },
     ],

@@ -111,9 +111,27 @@
       <p>Durante el entrenamiento, los valores que recibe cada capa cambian a medida que cambian las capas anteriores. Si se descentran o se vuelven muy dispersos, las activaciones se saturan y el gradiente se pierde.</p>
       <p><strong>Batch Normalization</strong> corrige esto: antes de la activación, normaliza cada neurona usando la media y la desviación de su mini-lote, y luego deja que la red recupere la escala y el desplazamiento que necesite mediante dos parámetros aprendidos, \(\gamma\) y \(\beta\).
       Permite tasas de aprendizaje mayores, hace menos crítica la inicialización y suele regularizar levemente.</p>`,
+    parametros: [
+      ['Media de z antes de normalizar, Desviación de z (Fig. 1)', String.raw`Posición y dispersión de las sumas ponderadas de las neuronas en el mini-lote. Valores descentrados o muy dispersos saturan la activación.`],
+      ['γ (escala aprendida) y β (desplazamiento aprendido) (Fig. 1)', String.raw`Parámetros que la red aprende tras normalizar: γ reescala el lote normalizado y β lo desplaza. Permiten que la red recupere la distribución que le convenga.`],
+      ['Activación (Fig. 1 y 2)', String.raw`Función no lineal aplicada: sigmoide y tanh saturan en los extremos, ReLU no.`],
+      ['Otro mini-lote y Otros pesos (Fig. 1 y 2)', String.raw`Sortean nuevos valores aleatorios para comprobar que el efecto no es casual.`],
+      ['Escala de los pesos (× estándar) (Fig. 2)', String.raw`Qué tan grandes son los pesos iniciales respecto al valor recomendado. Pesos grandes o pequeños hacen crecer o apagar la señal capa a capa.`],
+    ],
     visualizaciones: [
-      { titulo: 'Normalizar un mini-lote', descripcion: 'Descentre \\(z\\), aumente su dispersión y vea cómo se satura la activación; luego mire cómo el lote normalizado vuelve a la zona útil. Mueva \\(\\gamma\\) y \\(\\beta\\).', montar: montarLote },
-      { titulo: 'Una red profunda con y sin normalización', descripcion: 'Mire la desviación de las activaciones capa a capa. Cambie la escala de los pesos y la activación y compare con la normalización por lotes.', montar: montarProfunda },
+      { titulo: 'Normalizar un mini-lote', descripcion: 'Descentre \\(z\\), aumente su dispersión y vea cómo se satura la activación; luego mire cómo el lote normalizado vuelve a la zona útil. Mueva \\(\\gamma\\) y \\(\\beta\\).',
+        ayuda: String.raw`<p>Tres histogramas: z, la suma ponderada (naranja); y, el lote tras normalizar y aplicar γ y β (azul); y f(y), la activación (verde).</p>
+          <ul>
+          <li><strong>Media</strong> y <strong>Desviación de z</strong> altas: z cae en la zona plana de sigmoide o tanh y f(y) se pega a los extremos.</li>
+          <li>y vuelve a media 0 y desviación 1 (por γ=1, β=0), de modo que la activación vuelve a la zona útil.</li>
+          <li><strong>γ</strong> ensancha y y <strong>β</strong> lo desplaza, y f(y) lo refleja.</li>
+          </ul>`, montar: montarLote },
+      { titulo: 'Una red profunda con y sin normalización', descripcion: 'Mire la desviación de las activaciones capa a capa. Cambie la escala de los pesos y la activación y compare con la normalización por lotes.',
+        ayuda: String.raw`<p>El eje horizontal es la capa y el vertical la desviación de las activaciones. La línea naranja es la red sin normalización por lotes y la azul, con ella.</p>
+          <ul>
+          <li><strong>Escala de los pesos</strong> lejos del valor estándar: la curva naranja se desploma o explota capa a capa, mientras la azul se mantiene estable.</li>
+          <li><strong>Activación</strong>: cambia cuánto se apaga o satura la señal sin normalizar.</li>
+          </ul>`, montar: montarProfunda },
     ],
     teoria: String.raw`
       <h2>La transformación</h2>

@@ -279,20 +279,48 @@
       <p><strong>Big data</strong> no es solo «muchos datos»: se caracteriza por el <em>volumen</em> (cuánto), la <em>velocidad</em> (con qué rapidez llegan) y la <em>variedad</em> (formatos distintos, muchos sin estructura). Cuando una de las tres supera lo que un servidor
       puede procesar, hace falta repartir el trabajo entre varios nodos. El <strong>análisis predictivo</strong> usa esos datos para estimar lo que vendrá, ajustando un modelo, como una regresión, a lo ocurrido.</p>
       <p>Las figuras muestran cuántos nodos exige una carga de datos, cómo un modelo simple pronostica ventas, y por qué más datos mejoran un modelo solo hasta cierto punto: lo decide también la forma del modelo.</p>`,
+    parametros: [
+      ['Velocidad: eventos por segundo (Fig. 1)', String.raw`Ritmo de llegada de datos; fija el volumen diario a procesar.`],
+      ['Tamaño de cada evento (Fig. 1)', String.raw`Bytes por evento, que multiplican el volumen.`],
+      ['Variedad: datos no estructurados (Fig. 1)', String.raw`Proporción de datos sin formato fijo, que cuestan más de procesar.`],
+      ['Rendimiento de un nodo (Fig. 1)', String.raw`Cuánto procesa cada nodo del clúster.`],
+      ['Plazo para procesar un día (Fig. 1)', String.raw`Horas límite para terminar de procesar un día de datos.`],
+      ['Meses de historia usados (Fig. 2)', String.raw`Cuántos meses ve el modelo al ajustarse. El resto de la serie queda como futuro.`],
+      ['Modelo (Fig. 2)', String.raw`Recta de tendencia o un modelo con estacionalidad.`],
+      ['Nuevos datos (Fig. 2 y 3)', String.raw`Genera otra serie aleatoria.`],
+      ['Ruido de las ventas (σ) (Fig. 3)', String.raw`Variación que ningún modelo explica; fija el piso del error.`],
+      ['Modelo mostrado a la izquierda (Fig. 3)', String.raw`Modelo cuyo ajuste se ve en el gráfico de datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Volumen, velocidad y variedad',
         descripcion: 'Suba los eventos por segundo y la fracción no estructurada, y mire cuántos nodos necesita para cumplir el plazo. Observe que duplicar nodos no siempre duplica la velocidad.',
+        ayuda: String.raw`<p>Horas para procesar un día de datos según los nodos, con el plazo exigido, el mínimo de nodos que lo cumple y una curva ideal sin coordinación.</p>
+          <ul>
+          <li><strong>Velocidad</strong> y <strong>Tamaño de cada evento</strong> más altos: sube la curva y hacen falta más nodos.</li>
+          <li>La curva real queda sobre la ideal por el costo de coordinar más nodos, así que duplicar nodos no duplica la velocidad.</li>
+          <li><strong>Plazo</strong> más corto: sube el mínimo de nodos requerido.</li>
+          </ul>`,
         montar: montarTresV,
       },
       {
         titulo: 'Pronóstico de ventas con regresión',
         descripcion: 'Mueva el corte de la historia y compare la recta con el modelo que agrega estacionalidad. Con 12 meses o menos el modelo estacional aún no conoce todas las estaciones.',
+        ayuda: String.raw`<p>Ventas observadas (historia), ventas posteriores no usadas, el modelo ajustado con su pronóstico y una banda de ±2 errores de ajuste, por mes.</p>
+          <ul>
+          <li><strong>Meses de historia</strong>: mueve el corte entre lo ajustado y lo que se pronostica; con 12 meses o menos, el modelo estacional no ha visto todas las estaciones.</li>
+          <li><strong>Modelo</strong>: compara la recta con el modelo que agrega estacionalidad.</li>
+          </ul>`,
         montar: montarPronostico,
       },
       {
         titulo: 'Más datos, menos error (hasta cierto punto)',
         descripcion: 'Avance por duplicaciones de datos y compare los tres modelos. Observe quién mejora más y quién se detiene en un piso por encima del ruido.',
+        ayuda: String.raw`<p>A la izquierda, ventas frente a gasto en publicidad, con la relación verdadera y el modelo elegido. A la derecha, error (RMSE) según los datos de entrenamiento, para tres modelos, con una referencia del ruido irreducible.</p>
+          <ul>
+          <li><strong>Ruido de las ventas</strong> más alto: sube el piso de error al que tienden todas las curvas.</li>
+          <li><strong>Modelo mostrado a la izquierda</strong>: muestra cómo se ajusta cada modelo a los mismos puntos.</li>
+          </ul>`,
         montar: montarCurva,
       },
     ],

@@ -201,15 +201,35 @@
       cliente puede ser un simple navegador.</p>
       <p>Cada decisión cambia dónde se acumula el trabajo y, con él, dónde se forma la fila de espera. Un sistema no se cuelga porque «tenga poca capacidad» en general, sino porque un tramo concreto se satura: ese es el cuello de botella,
       y mejorar cualquier otro tramo no cambia nada.</p>`,
+    parametros: [
+      ['Arquitectura (Fig. 1)', String.raw`Reparto del trabajo entre cliente, servidor de aplicaciones y de datos. Define qué tramos existen y quién los carga.`],
+      ['Clientes conectados (Fig. 1)', String.raw`Número de usuarios simultáneos.`],
+      ['Solicitudes por cliente (Fig. 1 y 2)', String.raw`Cuántas peticiones genera cada usuario; con los clientes, fija la carga total.`],
+      ['Servidores de aplicaciones (Fig. 1 y 2)', String.raw`Cuántos servidores atienden la lógica. Más servidores reparten esa carga.`],
+      ['Servidores de datos (Fig. 1)', String.raw`Cuántos servidores atienden los datos.`],
+      ['Clientes (marca vertical) (Fig. 2)', String.raw`Punto de la curva que se está leyendo.`],
+      ['Latencia de red por salto (Fig. 2)', String.raw`Demora de cada paso entre capas. Penaliza las arquitecturas con más saltos.`],
+      ['Respuesta aceptable (Fig. 2)', String.raw`Tiempo máximo tolerable; sirve de línea de referencia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tramos, roles y cuello de botella',
         descripcion: 'Elija una arquitectura y suba los clientes: el primer tramo en ponerse rojo es el cuello de botella. Agregue servidores solo a ese tramo y compare cuántos clientes más soporta el sistema.',
+        ayuda: String.raw`<p>Diagrama de tramos y roles. Cada tramo se colorea por su utilización: menor que 70 %, de 70 % a 100 %, o saturado, con una cola que crece sin límite. Otro color marca lo que corre en el equipo del usuario.</p>
+          <ul>
+          <li><strong>Clientes conectados</strong> y <strong>Solicitudes por cliente</strong> más altos: los tramos pasan a color de alerta y luego saturado; el primero es el cuello de botella.</li>
+          <li><strong>Servidores de aplicaciones</strong> o <strong>de datos</strong>: bajan la utilización solo del tramo al que se agregan.</li>
+          </ul>`,
         montar: montarCapas,
       },
       {
         titulo: 'Tiempo de respuesta con muchos clientes',
         descripcion: 'Compare las cuatro arquitecturas en una sola gráfica: con pocos clientes gana la más simple, y con muchos la que reparte mejor el trabajo. Suba la latencia de red y vea cuál sufre más.',
+        ayuda: String.raw`<p>Cuatro curvas, una por arquitectura: respuesta (ms) según clientes, con una línea de respuesta aceptable y una marca vertical en el número de clientes elegido.</p>
+          <ul>
+          <li><strong>Latencia de red por salto</strong> más alta: suben más las arquitecturas de más capas.</li>
+          <li><strong>Servidores de aplicaciones</strong>: desplazan hacia la derecha el punto donde la respuesta se dispara.</li>
+          </ul>`,
         montar: montarRespuesta,
       },
     ],

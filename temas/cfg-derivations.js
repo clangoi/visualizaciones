@@ -109,15 +109,34 @@
     intro: String.raw`
       <p>Los autómatas finitos no pueden contar ni anidar: no reconocen \(a^nb^n\) ni los paréntesis balanceados. Las <strong>gramáticas libres de contexto</strong> (GLC) sí. Una gramática es un conjunto de <em>reglas de reescritura</em> «variable → cadena de variables y terminales». Se parte del símbolo inicial y se reemplaza una variable tras otra hasta que solo queden terminales.</p>
       <p>Cada derivación dibuja un <strong>árbol de derivación</strong>: la raíz es el símbolo inicial, los hijos de un nodo son los símbolos del lado derecho de la regla usada, y las hojas, leídas de izquierda a derecha, forman la palabra.</p>`,
+    parametros: [
+      ['Gramática (Fig. 1 y 2)', String.raw`Las reglas que generan el lenguaje. Elegir otra cambia las palabras posibles y la forma de los árboles.`],
+      ['O escriba la suya (reglas separadas por ;) (Fig. 1)', String.raw`Una gramática propia en lugar de las de muestra.`],
+      ['Derivación (Fig. 1)', String.raw`Qué variable se expande en cada paso: la más a la izquierda o la más a la derecha. Cambia el orden de los pasos, no el árbol final.`],
+      ['Profundidad máxima (Fig. 1)', String.raw`Límite de profundidad de la derivación generada; menor profundidad da palabras más cortas.`],
+      ['Otra palabra y reproductor (Fig. 1)', String.raw`Otra palabra genera una derivación distinta; el reproductor avanza o reinicia la derivación.`],
+      ['Gramática (reglas separadas por ;) y Largo máximo al listar (Fig. 2)', String.raw`La gramática a analizar y hasta qué largo se listan sus palabras más cortas.`],
+      ['Palabra a reconocer (Fig. 2)', String.raw`La cadena cuya pertenencia se comprueba y de la que se muestra su árbol de derivación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Derivar y ver crecer el árbol',
         descripcion: 'Elija una gramática (o escriba la suya) y avance: se expande una variable por paso, por la izquierda o por la derecha, y el árbol de derivación aparece nodo a nodo.',
+        ayuda: String.raw`<p>El árbol de derivación que crece nodo a nodo. La variable que se expande en este paso, las pendientes de expandir y los terminales (hojas) tienen colores distintos.</p>
+          <ul>
+          <li><strong>Derivación</strong>: por la izquierda o por la derecha se expande una variable distinta en cada paso, pero el árbol resultante es el mismo.</li>
+          <li><strong>Profundidad máxima</strong>: limita cuántos niveles se permiten.</li>
+          </ul>`,
         montar: montarDerivacion,
       },
       {
         titulo: 'Palabras del lenguaje y reconocimiento',
         descripcion: 'Liste las palabras más cortas que genera la gramática y compruebe si una palabra pertenece, con su árbol de derivación y el número de árboles.',
+        ayuda: String.raw`<p>Lista de palabras más cortas que genera la gramática y, para la palabra a reconocer, su primer árbol de derivación y el número de árboles.</p>
+          <ul>
+          <li><strong>Palabra a reconocer</strong>: si no pertenece, no se muestra árbol; si pertenece con varios árboles, la gramática es ambigua para ella.</li>
+          <li><strong>Largo máximo al listar</strong>: lista más palabras, de mayor largo.</li>
+          </ul>`,
         montar: montarReconocer,
       },
     ],

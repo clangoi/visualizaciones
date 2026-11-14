@@ -242,15 +242,35 @@
     intro: String.raw`
       <p>Una tecnología nueva, un proceso rediseñado o un cambio de estructura solo generan valor cuando las personas los adoptan. La <strong>gestión del cambio</strong> es el conjunto de prácticas (comunicación, capacitación, patrocinio directivo, apoyo a quienes dudan) que acompañan a la organización desde el estado actual hasta el nuevo. La <strong>innovación organizacional</strong> es el cambio mismo: nuevas formas de trabajar, decidir o relacionarse con los clientes.</p>
       <p>Las personas no adoptan al mismo tiempo. Según Everett Rogers, hay innovadores, adoptantes tempranos, mayoría temprana, mayoría tardía y rezagados, cada uno con distinto <em>umbral</em> de exposición. Las figuras simulan una organización de 200 personas para ver cómo se propaga el cambio y qué intervención mueve a cada grupo.</p>`,
+    parametros: [
+      ['Patrocinio de la dirección (Fig. 1)', String.raw`Cuánta presión e impulso aplica la dirección. Más patrocinio hace que más personas adopten el cambio.`],
+      ['Capacitación (baja el umbral) (Fig. 1)', String.raw`Cuánta preparación reciben las personas. Reduce lo que cada una necesita ver en su entorno antes de adoptar.`],
+      ['Personas resistentes (Fig. 1 y 2)', String.raw`Cuántas personas se oponen al cambio. Frenan la curva y pueden dejarla detenida.`],
+      ['Peso del boca a boca global (Fig. 1)', String.raw`Cuánto influye lo que hace toda la organización frente a lo que hace el círculo cercano.`],
+      ['Nuevas personas (Fig. 1 y 2)', String.raw`Genera otra población con otra distribución de umbrales y resistentes.`],
+      ['Intensidad de la capacitación y del patrocinio (Fig. 2)', String.raw`Qué tan fuerte es cada intervención en los cuatro escenarios que se comparan.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La difusión del cambio en la organización',
         descripcion: 'Reproduzca las 52 semanas y observe en qué orden adopta cada grupo. Convierta a algunas personas en campeones con clic, o aumente la resistencia, y compruebe que la curva en S se retrasa o se detiene.',
+        ayuda: String.raw`<p>Cada círculo es una persona, coloreada por grupo (innovadores, adoptantes tempranos, mayoría temprana, mayoría tardía, rezagados). Vacío significa que aún no adopta y un anillo grueso, que es campeón del cambio. El segundo panel es la curva de adopción por semana, por grupo y para toda la organización.</p>
+          <ul>
+          <li><strong>Patrocinio de la dirección</strong> y <strong>Capacitación</strong> altos: más círculos se llenan y la curva en S se adelanta.</li>
+          <li><strong>Personas resistentes</strong> altas: quedan círculos vacíos y la curva se aplana sin llegar al 100 %.</li>
+          <li><strong>Peso del boca a boca global</strong>: define si el cambio se propaga por vecindad o por toda la organización.</li>
+          </ul>`,
         montar: montarDifusion,
       },
       {
         titulo: 'Qué intervención mueve a cada grupo',
         descripcion: 'Compare cuatro escenarios con las mismas personas: sin intervención, con capacitación, con patrocinio y con ambas. Fíjese en las barras por grupo: cada intervención alcanza a segmentos distintos.',
+        ayuda: String.raw`<p>Cuatro escenarios con las mismas personas: sin intervención, con capacitación, con patrocinio y con ambas. Un panel muestra la adopción total por semana y otro, la adopción por grupo.</p>
+          <ul>
+          <li><strong>Intensidad de la capacitación</strong>: mejora sobre todo a los grupos que necesitan preparación antes de adoptar.</li>
+          <li><strong>Intensidad del patrocinio</strong>: llega a grupos distintos; compare qué barras suben en cada escenario.</li>
+          <li><strong>Personas resistentes</strong> más numerosas: ninguna intervención llega a todos.</li>
+          </ul>`,
         montar: montarIntervenciones,
       },
     ],

@@ -138,10 +138,19 @@
       <p>Un <strong>multicast totalmente ordenado</strong> entrega todos los mensajes a todos los destinatarios en el mismo orden. Con
       <a href="tema.html?id=lamport-clocks">relojes de Lamport</a> se logra sin un coordinador: cada mensaje lleva una marca, cada réplica los encola ordenados por
       (marca, proceso) y solo entrega la cabeza de la cola cuando sabe, por los acuses, que ya no puede llegar ninguno con marca menor.</p>`,
+    parametros: [
+      ['Multicast totalmente ordenado (Lamport + acuses) (Fig. 1)', String.raw`Apagada, cada réplica aplica las operaciones según le llegan. Encendida, las retiene hasta que todos las acusan y las aplica en orden de marca de Lamport, igual en todas.`],
+      ['Otras demoras y reproductor (Fig. 1)', String.raw`Otras demoras sortea los tiempos de los mensajes, que cambian el orden de llegada a cada réplica. El reproductor avanza o reinicia la ejecución.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Réplicas de una cuenta',
         descripcion: 'Sin orden, cada réplica aplica las operaciones según le llegan y terminan distintas (rojo). Marque la casilla: las réplicas retienen cada operación hasta que todos la acusan y las aplican en el mismo orden (verde).',
+        ayuda: String.raw`<p>Cada fila es una réplica de la cuenta. Las flechas azules son el depósito +100 (de P1) y las naranja el interés ×1,01 (de P3); las grises, acuses. Al final cada réplica queda con un punto verde si coincide con las demás o rojo si difiere.</p>
+          <ul>
+          <li><strong>Multicast totalmente ordenado</strong>: apagado, \(100\cdot 1{,}01 + 100\) y \((100 + 100)\cdot 1{,}01\) dan saldos distintos según el orden y los puntos pueden ser rojos. Encendido aparecen acuses y todas aplican en el mismo orden, con puntos verdes.</li>
+          <li><strong>Otras demoras</strong>: cambia en qué réplicas las operaciones llegan invertidas.</li>
+          </ul>`,
         montar,
       },
     ],

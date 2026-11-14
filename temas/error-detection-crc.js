@@ -86,9 +86,26 @@
     intro: String.raw`
       <p>Un ruido eléctrico puede cambiar bits de una trama durante su paso por el enlace. La capa de enlace agrega <strong>bits de redundancia</strong> que permiten al receptor <em>detectar</em> (y a veces <em>corregir</em>) el daño. A más redundancia, mayor protección, pero también mayor sobrecosto.</p>
       <p>Tres técnicas de complejidad creciente: la <strong>paridad</strong> (un bit), la <strong>suma de verificación</strong> (Internet) y el <strong>CRC</strong> (<em>cyclic redundancy check</em>), que es el que usa Ethernet.</p>`,
+    parametros: [
+      ['Código (Fig. 1)', String.raw`Esquema de paridad: un bit por fila (detecta errores impares) o paridad bidimensional, que además ubica y corrige un bit alterado.`],
+      ['Datos nuevos y Restaurar (Fig. 1)', String.raw`Datos nuevos genera otra matriz de bits; Restaurar deshace las alteraciones hechas con clic.`],
+      ['Datos (bits) (Fig. 2)', String.raw`Mensaje D al que se le calcula el CRC. Su longitud y contenido determinan los bits de resto que se agregan.`],
+      ['Generador G (Fig. 2)', String.raw`Polinomio divisor. Su grado fija cuántos bits de CRC se agregan y qué ráfagas de error se detectan con seguridad.`],
+      ['Posiciones a invertir (Fig. 2)', String.raw`Bits de la trama transmitida que se alteran para simular errores; muestra si el receptor los detecta.`],
+    ],
     visualizaciones: [
-      { titulo: 'Paridad simple y bidimensional', descripcion: 'Invierta un bit: con paridad 2D se ubica y corrige. Invierta dos en la misma fila (con 1D no se detecta) o cuatro en un rectángulo.', montar: montarParidad },
-      { titulo: 'CRC: división módulo 2', descripcion: 'Calcule el CRC de unos datos, invierta bits de la trama e intente engañar al código. Pruebe ráfagas más largas que el grado del generador.', montar: montarCRC },
+      { titulo: 'Paridad simple y bidimensional', descripcion: 'Invierta un bit: con paridad 2D se ubica y corrige. Invierta dos en la misma fila (con 1D no se detecta) o cuatro en un rectángulo.',
+        ayuda: String.raw`<p>La matriz son los bits: azules los de dato, aguamarina los de paridad y rojos los alterados o las filas y columnas cuya paridad resulta incorrecta.</p>
+          <ul>
+          <li><strong>Código</strong> 1D: al alterar un bit solo se marca su fila; con dos bits en la misma fila la paridad coincide y el error pasa sin detectar.</li>
+          <li>Con paridad 2D se marcan una fila y una columna, cuya intersección es el bit erróneo que se puede corregir.</li>
+          </ul>`, montar: montarParidad },
+      { titulo: 'CRC: división módulo 2', descripcion: 'Calcule el CRC de unos datos, invierta bits de la trama e intente engañar al código. Pruebe ráfagas más largas que el grado del generador.',
+        ayuda: String.raw`<p>Se muestra el texto de bits del cálculo: los datos, el resto R que agrega el emisor, la trama enviada y el resto que obtiene el receptor al dividirla entre G.</p>
+          <ul>
+          <li><strong>Generador G</strong> de mayor grado: el CRC es más largo y detecta ráfagas más largas.</li>
+          <li><strong>Posiciones a invertir</strong>: con alguna posición el resto del receptor deja de ser 0 y se detecta el error; una ráfaga que sea múltiplo de G pasaría inadvertida.</li>
+          </ul>`, montar: montarCRC },
     ],
     teoria: String.raw`
       <h2>Paridad</h2>

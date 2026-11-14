@@ -203,15 +203,35 @@
       <p>Muchos costos no son proporcionales a la cantidad: comprar más sale más barato por unidad (descuentos por volumen), producir más exige horas extra (costo creciente) o la tarifa cambia por escalones. Un modelo lineal no los representa, pero se puede
       <strong>aproximar la curva por tramos rectos</strong> y dejar que el modelo elija en qué tramo está.</p>
       <p>Si la curva es convexa y se minimiza, basta con programación lineal. Si no (como con los descuentos por volumen), hacen falta variables binarias que indiquen el tramo activo; sin ellas, el modelo «hace trampa» y combina puntos de tramos distintos para obtener un costo menor que el real.</p>`,
+    parametros: [
+      ['Función (Fig. 1)', String.raw`La curva de costo que se aproxima. Algunas tienen esquinas o curvatura fuerte, donde los tramos largos fallan más.`],
+      ['Nodos (Fig. 1)', String.raw`Cómo se ubican los puntos de corte: equiespaciados o adaptativos. Los adaptativos concentran nodos donde la curva cambia más.`],
+      ['Tramos (Fig. 1)', String.raw`Cantidad de segmentos de la aproximación. Más tramos reducen el error máximo.`],
+      ['Demanda a cubrir (Fig. 2)', String.raw`Unidades que deben comprarse entre los proveedores. Fija el punto donde se lee el costo.`],
+      ['Descuento por tramo (Fig. 2)', String.raw`Magnitud de los descuentos por volumen. Con descuento 0 el costo es lineal; al subirlo aparecen codos cóncavos.`],
+      ['Exigir un solo tramo activo (binarias) (Fig. 2)', String.raw`Impone que la aproximación use un único tramo. Sin ello, la relajación puede mezclar tramos y dar un costo imposible.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Aproximar una curva por tramos',
         descripcion: 'Aumente el número de tramos y vea cómo baja el error máximo; cambie a nodos adaptativos y compare con los equiespaciados. En la curva en S los tramos largos fallan en las esquinas.',
+        ayuda: String.raw`<p>Se comparan la función real f(x), la aproximación lineal por tramos g(x) y los nodos xᵢ. El panel inferior dibuja el error |f − g| contra la cantidad x.</p>
+          <ul>
+          <li><strong>Tramos</strong>: más tramos acercan g a f y bajan el error máximo.</li>
+          <li><strong>Nodos</strong>: los adaptativos reducen el error frente a los equiespaciados con los mismos tramos.</li>
+          <li><strong>Función</strong>: cada una se aproxima con distinta dificultad; en la curva en S, los tramos largos fallan en las esquinas.</li>
+          </ul>`,
         montar: montarAproximacion,
       },
       {
         titulo: 'Descuentos por volumen y binarias',
         descripcion: 'Suba el descuento: la curva real tiene codos cóncavos y la relajación sin binarias (naranja) queda por debajo, con un óptimo distinto y un costo imposible. Con descuento 0 ambas coinciden.',
+        ayuda: String.raw`<p>El eje horizontal son las unidades compradas al proveedor 1 (x₁) y el vertical el costo total. Se dibujan el costo real (con binarias), la relajación sin binarias y el óptimo mostrado.</p>
+          <ul>
+          <li><strong>Descuento por tramo</strong>: con descuento alto, la relajación queda por debajo de la curva real y da un costo imposible; con 0 coinciden.</li>
+          <li><strong>Exigir un solo tramo activo</strong>: el óptimo se calcula sobre el costo real.</li>
+          <li><strong>Demanda a cubrir</strong>: desplaza la curva y el óptimo.</li>
+          </ul>`,
         montar: montarOptimizacion,
       },
     ],

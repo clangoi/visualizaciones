@@ -153,15 +153,30 @@
       <p>El <strong>block nested loop join</strong> usa \(B - 2\) marcos para cargar un <em>bloque</em> de páginas de la relación externa y
       recorre la interna una vez por bloque en vez de una vez por página. Si la relación externa cabe entera en el buffer, cada relación se
       lee exactamente una vez.</p>`,
+    parametros: [
+      ['Marcos de buffer B (Fig. 1)', String.raw`Páginas de memoria disponibles: B − 2 guardan un bloque de R, una recorre S y otra es la salida. Con más marcos, el bloque es mayor y S se recorre menos veces.`],
+      ['Páginas de R (M) y Páginas de S (N) (Fig. 2)', String.raw`Tamaños de las dos relaciones en páginas. Fijan el nivel de las curvas y cuál relación conviene dejar afuera.`],
+      ['Reproductor (Fig. 1)', String.raw`Reproducir, Un paso y Reiniciar controlan el recorrido.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Bloques en el buffer',
         descripcion: 'R tiene 6 páginas y S tiene 5. Cambie B y cuente cuántas veces se recorre S. Con B = 8 todo R cabe en un bloque.',
+        ayuda: String.raw`<p>R se carga por bloques en memoria (de B − 2 marcos) mientras se recorre S de a una página. Se señalan el bloque de R, la página de S, las tuplas con pareja en el bloque y el marco de salida.</p>
+          <ul>
+          <li><strong>Marcos de buffer B</strong>: cada aumento agranda el bloque, así que hacen falta menos pasadas sobre S.</li>
+          <li>Con B = 8 todo R cabe en un bloque y S se recorre una sola vez.</li>
+          </ul>`,
         montar: montarBloques,
       },
       {
         titulo: 'Costo según el tamaño del buffer',
         descripcion: 'Lecturas totales al crecer B. El costo baja como 1/(B − 2) hasta llegar a M + N, cuando la relación más chica cabe completa en memoria.',
+        ayuda: String.raw`<p>Eje horizontal: marcos de buffer B. Eje vertical: lecturas de páginas. Hay una curva con R afuera, otra con S afuera y una referencia de página a página (B = 3).</p>
+          <ul>
+          <li><strong>Páginas de R (M)</strong> y <strong>Páginas de S (N)</strong>: suben o bajan las curvas; la mejor es la que deja afuera la relación más chica.</li>
+          <li>Al crecer B el costo baja como 1/(B − 2) hasta M + N, cuando la relación menor cabe entera en memoria.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

@@ -245,15 +245,33 @@
     intro: String.raw`
       <p>Un registro de eventos se agrupa en <strong>variantes</strong>: casos que ejecutan exactamente la misma secuencia de actividades. Cada variante tiene su propio tiempo de ciclo. Comparar frecuencia y tiempo de ciclo por variante revela algo que el promedio general oculta: la lentitud rara vez está repartida de manera pareja.</p>
       <p>Las variantes más frecuentes son el camino “normal”; las lentas suelen ser reprocesos, excepciones o rutas con muchas esperas. Lo que importa para actuar es la <em>contribución al tiempo total</em>: una variante rara y muy lenta puede pesar menos que una moderadamente lenta pero común.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`Proceso cuyas variantes (secuencias distintas de actividades) se analizan.`],
+      ['Casos (Fig. 1)', String.raw`Tamaño de la muestra. Más casos aparecen más variantes, incluidas las raras.`],
+      ['Frecuencia en escala logarítmica (Fig. 1)', String.raw`Cambia el eje horizontal a escala logarítmica para ver juntas variantes muy frecuentes y muy raras.`],
+      ['Variante A y Variante B (Fig. 2)', String.raw`Las dos variantes que se comparan actividad por actividad. La diferencia B − A es lo que explica la brecha de ciclo.`],
+      ['Ordenar por (Fig. 2)', String.raw`Orden de las filas: según el flujo del proceso o según la diferencia entre variantes.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra de casos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Frecuencia frente a tiempo de ciclo',
         descripcion: 'Cada círculo es una variante: posición horizontal, su frecuencia; vertical, su ciclo medio; tamaño, su parte del tiempo total. Busque círculos naranjos y grandes, y cambie a escala lineal para ver cómo la frecuencia domina la imagen.',
+        ayuda: String.raw`<p>Cada círculo es una variante. Eje horizontal: casos de la variante (%); eje vertical: ciclo medio en minutos. El azul es una variante igual o más rápida que el promedio y el naranja una más lenta; el tamaño indica su parte del tiempo total y la línea marca el ciclo medio global.</p>
+          <ul>
+          <li><strong>Frecuencia en escala logarítmica</strong>: separa las variantes raras que en escala lineal quedan pegadas al eje.</li>
+          <li><strong>Casos</strong>: al aumentarlo aparecen más variantes y cambian los porcentajes.</li>
+          </ul>`,
         montar: montarDispersion,
       },
       {
         titulo: 'Dos variantes, actividad por actividad',
         descripcion: 'Elija dos variantes y compare cuánto tiempo pasa cada una en cada actividad. Ordene por diferencia para ver primero lo que explica la brecha, y compruebe que la suma de diferencias iguala la diferencia de ciclos.',
+        ayuda: String.raw`<p>Cada fila es una actividad, con el tiempo medio por caso (servicio más espera previa) de la variante A y de la B; a la derecha, la diferencia B − A.</p>
+          <ul>
+          <li><strong>Variante A y Variante B</strong>: cambian las barras comparadas; la suma de diferencias iguala la de ciclos medios.</li>
+          <li><strong>Ordenar por</strong> diferencia: pone arriba las actividades que más explican la brecha.</li>
+          </ul>`,
         montar: montarComparacion,
       },
     ],

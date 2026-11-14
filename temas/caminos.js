@@ -470,10 +470,26 @@
       pero aún no explorados, y en cada paso sacan uno de ella para <em>expandirlo</em>. Lo único que cambia es <strong>qué vértice
       sacan</strong>: el más antiguo (BFS), el más reciente (DFS), el más barato (Dijkstra), el que parece más cercano a la meta (voraz)
       o el que equilibra ambos criterios (A*).</p>`,
+    parametros: [
+      ['Algoritmo', String.raw`Cómo se elige la próxima celda a expandir: BFS (la más antigua), DFS (la más reciente), Dijkstra (menor costo acumulado \(g\)), voraz (menor heurística \(h\)) o A* (menor \(g + w\,h\)).`],
+      ['Heurística (voraz, A*)', String.raw`La estimación \(h\) de la distancia que falta hasta la meta: Manhattan (pasos en filas y columnas), euclídea (línea recta) o nula (\(h = 0\), que convierte A* en Dijkstra).`],
+      ['Peso w de la heurística (A*)', String.raw`Multiplica \(h\) en A*. Con \(w = 1\) el camino es óptimo; con \(w &gt; 1\) la búsqueda va más directo a la meta y expande menos, pero el costo puede llegar a ser \(w\) veces el óptimo.`],
+      ['Velocidad', String.raw`Celdas expandidas por cuadro durante la animación.`],
+      ['Pincel', String.raw`Qué se dibuja al arrastrar sobre la cuadrícula: muros (intransitables), barro (transitable pero cuesta 5 por celda) o borrar.`],
+      ['Buscar, Resultado inmediato, Limpiar búsqueda', String.raw`Animar la búsqueda, mostrar el resultado de inmediato o borrar lo calculado sin tocar el mapa.`],
+      ['Laberinto, Obstáculos aleatorios, Vaciar, Escenario inicial', String.raw`Generan o restablecen el mapa de muros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Búsqueda de caminos en una cuadrícula',
         descripcion: 'El color de las celdas expandidas indica su distancia acumulada desde el inicio. Compare cuántas celdas expande cada algoritmo antes de llegar a la meta y si el camino que encuentra es óptimo.',
+        ayuda: String.raw`<p>La cuadrícula es un mapa: el cuadro verde es el inicio, el rojo la meta, las celdas negras muros y las de color tierra, barro (cuesta 5 cruzarlas). Las celdas expandidas se pintan de azul, más oscuro cuanto mayor es su costo acumulado desde el inicio; las amarillas forman la frontera (descubiertas, pendientes). La línea naranja es el camino encontrado.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: BFS y Dijkstra se expanden como manchas en todas direcciones; A* y la voraz se estiran hacia la meta. DFS sigue un pasillo largo y suele dar caminos absurdos. Compare «expandidos» y «¿óptimo?».</li>
+          <li><strong>Barro</strong>: BFS lo ignora (cuenta pasos, no costo) y puede atravesarlo; Dijkstra y A* lo rodean si sale más barato.</li>
+          <li><strong>Heurística</strong> nula: A* expande lo mismo que Dijkstra. <strong>Peso w</strong> mayor que 1: A* expande menos y puede dejar de ser óptimo.</li>
+          <li>Al pasar el cursor por una celda se ven \(g\) (costo pagado), \(h\) (estimación restante) y \(f\).</li>
+          </ul>`,
         montar,
       },
     ],

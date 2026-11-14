@@ -258,15 +258,38 @@
       No es un reporte exhaustivo: cada nivel de la organización necesita un tablero distinto. La dirección mira resultados mensuales; una mesa de ayuda, la cola de hoy.</p>
       <p>Un buen tablero también dice <em>cuándo</em> actuar. Un valor en rojo puede ser ruido; una tendencia sostenida, aunque aún esté en verde, puede ser la señal. Las reglas de intervención
       convierten el seguimiento del tiempo en decisiones: cuántos periodos de caída son demasiados, o cuándo un punto está fuera de lo esperable.</p>`,
+    parametros: [
+      ['Nivel de la audiencia (Fig. 1)', String.raw`A quién se dirige el tablero (dirección, mesa de ayuda, etc.). Cambia qué indicadores y con qué periodicidad se muestran.`],
+      ['Indicadores en el tablero (Fig. 1)', String.raw`Cuántos indicadores se muestran. Más indicadores dan más detalle pero menos foco.`],
+      ['Periodo del corte (Fig. 1)', String.raw`Fecha hasta la cual se ve el tablero; permite verlo en un periodo anterior.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otras series; el reproductor de la Fig. 2 avanza el tiempo periodo a periodo.`],
+      ['Deriva por periodo (Fig. 2)', String.raw`Cuántas desviaciones estándar baja el indicador en cada periodo una vez que empieza a derivar. Mayor deriva se detecta antes.`],
+      ['La deriva empieza en el periodo (Fig. 2)', String.raw`Momento desde el cual el indicador deja de estar estable. Todo aviso anterior es una falsa alarma.`],
+      ['N de la regla de tendencia (Fig. 2)', String.raw`Cuántos puntos seguidos en la misma dirección disparan la regla. Con N pequeño avisa antes pero da más falsos avisos.`],
+      ['Reglas activas (Fig. 2)', String.raw`Casillas para encender o apagar cada regla y comparar cuál avisa primero.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tablero por nivel de la organización',
         descripcion: 'Cambie el nivel de la audiencia y la cantidad de indicadores; mueva el periodo del corte y vea cómo cambian colores y variaciones. Pase el cursor sobre una línea para ver cada periodo.',
+        ayuda: String.raw`<p>Cada cuadro es un indicador del tablero con su valor al corte y una línea con los 24 periodos. El color indica si cumple la meta (cumple), si está dentro de 5 % de la meta o fuera de tolerancia; la marca muestra la meta.</p>
+          <ul>
+          <li><strong>Nivel de la audiencia</strong>: cambia el conjunto de indicadores y su periodicidad.</li>
+          <li><strong>Indicadores en el tablero</strong>: agrega o quita cuadros.</li>
+          <li><strong>Periodo del corte</strong>: cambia colores y variaciones al mover la fecha.</li>
+          </ul>`,
         montar: montarTablero,
       },
       {
         titulo: 'Cuándo intervenir: reglas sobre la tendencia',
         descripcion: 'Reproduzca el tiempo con una deriva suave y compare cuál regla avisa primero. Suba la deriva para detectar antes; baje N y verá alertas falsas antes de que empiece la deriva.',
+        ayuda: String.raw`<p>Serie del indicador con la media de la línea base (20 periodos) y las bandas de ±2σ y ±3σ. Cada regla activa tiene su color y marca el periodo en que avisa.</p>
+          <ul>
+          <li><strong>Deriva por periodo</strong>: más pendiente hace cruzar las reglas antes.</li>
+          <li><strong>La deriva empieza en el periodo</strong>: los avisos anteriores a ese punto son falsos.</li>
+          <li><strong>N de la regla de tendencia</strong>: un N bajo avisa antes pero con más falsas alarmas.</li>
+          <li><strong>Reglas activas</strong>: permiten comparar cuál avisa primero.</li>
+          </ul>`,
         montar: montarReglas,
       },
     ],

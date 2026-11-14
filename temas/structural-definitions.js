@@ -115,15 +115,30 @@
       <p>Para describir objetos que tienen forma de árbol —expresiones aritméticas, fórmulas, listas, programas— se usa una <strong>definición estructural</strong>: se indican los
       <em>casos base</em> (los objetos más simples) y las <em>reglas de construcción</em> que arman objetos nuevos a partir de otros.</p>
       <p>Cada objeto se corresponde con un <strong>árbol de derivación</strong> que registra cómo se construyó. Ese árbol es lo que permite después definir funciones y demostrar propiedades siguiendo la estructura.</p>`,
+    parametros: [
+      ['Base: x, y, 2, 3 (Fig. 1)', String.raw`Agregan una hoja: un caso base de la gramática de expresiones.`],
+      ['Negar, Sumar, Multiplicar (Fig. 1)', String.raw`Aplican una regla recursiva a las expresiones ya construidas, formando un árbol más grande.`],
+      ['Ejemplo y Vaciar (Fig. 1)', String.raw`Cargan una expresión de muestra o descartan lo construido.`],
+      ['Expresión (Fig. 2)', String.raw`El texto a derivar con la gramática; su estructura determina el árbol de derivación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Construya una expresión con las reglas',
         descripcion: 'Use las bases y las reglas para armar expresiones. Observe que el árbol crece con la misma forma que la construcción, y que tamaño y profundidad se leen directamente de él.',
+        ayuda: String.raw`<p>Cada nodo es una expresión: las hojas (caso base) y los nodos construidos con una regla. El registro muestra la regla aplicada.</p>
+          <ul>
+          <li><strong>Base</strong>: agrega una hoja nueva.</li>
+          <li><strong>Negar, Sumar, Multiplicar</strong>: unen una o dos expresiones bajo un nodo nuevo; el tamaño y la profundidad se leen del árbol.</li>
+          </ul>`,
         montar: montarConstruccion,
       },
       {
         titulo: 'Derivación de una expresión',
         descripcion: 'Escriba una expresión y reproduzca su derivación por la izquierda. Pruebe agregar o quitar paréntesis y vea cómo cambia el árbol.',
+        ayuda: String.raw`<p>El árbol de derivación se expande desde el símbolo E: sin expandir, expansión de este paso y ya expandido.</p>
+          <ul>
+          <li><strong>Expresión</strong>: cada paréntesis o cambio de operador modifica la forma del árbol y la secuencia de pasos.</li>
+          </ul>`,
         montar: montarDerivacion,
       },
     ],

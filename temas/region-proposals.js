@@ -152,9 +152,25 @@
     intro: String.raw`
       <p>La forma más simple de detectar objetos es probar una ventana en todas las posiciones, tamaños y proporciones posibles y clasificar cada una. Es correcta, pero astronómicamente cara: una imagen pequeña genera cientos de miles de ventanas, cada una con una pasada por la red.</p>
       <p>Las <strong>propuestas de regiones</strong> (<em>region proposals</em>) resuelven esto con un primer filtro barato que sugiere unos pocos miles de cajas «con pinta de objeto». <em>Selective Search</em> las obtiene agrupando regiones parecidas; la <em>Region Proposal Network</em> de Faster R-CNN las aprende con la misma red.</p>`,
+    parametros: [
+      ['Escalas de ventana (Fig. 1)', String.raw`Cuántos tamaños de ventana se prueban. Más escalas cubren más tamaños de objeto pero multiplican las ventanas.`],
+      ['Proporciones (1, 2, 0,5) (Fig. 1)', String.raw`Formas de ventana (cuadrada, ancha, alta). Más formas ajustan mejor, a costa de más ventanas.`],
+      ['Paso (píxeles) (Fig. 1)', String.raw`Separación entre ventanas vecinas. Un paso pequeño genera muchísimas ventanas.`],
+      ['Escala que se dibuja (Fig. 1)', String.raw`Qué tamaño de ventanas se muestra; no cambia el conteo.`],
+      ['Nueva escena y reproductor (Fig. 2)', String.raw`Sortean otra escena y reproducen las fusiones de regiones.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cuántas ventanas hay', descripcion: 'Aumente escalas y proporciones y reduzca el paso: el conteo se dispara. Compare con las propuestas de los métodos de dos etapas.', montar: montarVentanas },
-      { titulo: 'Agrupar regiones para proponer cajas', descripcion: 'Reproduzca las fusiones y vea aparecer, en verde, cajas que cubren a los objetos sin haber probado ventanas al azar.', montar: montarAgrupacion },
+      { titulo: 'Cuántas ventanas hay', descripcion: 'Aumente escalas y proporciones y reduzca el paso: el conteo se dispara. Compare con las propuestas de los métodos de dos etapas.',
+        ayuda: String.raw`<p>Se dibujan las ventanas de la escala elegida (cada una es una pasada por la red), las que tienen IoU ≥ 0,5 con un objeto, y las propuestas de un método selectivo o las anclas de una RPN.</p>
+          <ul>
+          <li><strong>Escalas de ventana</strong>, <strong>Proporciones</strong> y <strong>Paso</strong>: el número total de ventanas crece al aumentar los primeros y al reducir el último.</li>
+          <li>Las propuestas de dos etapas son pocas frente a las ventanas deslizantes.</li>
+          </ul>`, montar: montarVentanas },
+      { titulo: 'Agrupar regiones para proponer cajas', descripcion: 'Reproduzca las fusiones y vea aparecer, en verde, cajas que cubren a los objetos sin haber probado ventanas al azar.',
+        ayuda: String.raw`<p>La escena segmentada: las líneas marcan la frontera entre regiones y las cajas son las propuestas de cada región. Las verdes tienen IoU ≥ 0,5 con un objeto.</p>
+          <ul>
+          <li>Al reproducir, las regiones vecinas se fusionan y aparecen cajas verdes que cubren objetos sin probar ventanas al azar.</li>
+          </ul>`, montar: montarAgrupacion },
     ],
     teoria: String.raw`
       <h2>Ventanas deslizantes</h2>

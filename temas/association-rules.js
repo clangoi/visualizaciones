@@ -134,15 +134,32 @@
       <p>Para decidir si una regla vale la pena se usan tres números: el <strong>soporte</strong> (qué tan común es),
       la <strong>confianza</strong> (qué tan seguido se cumple) y el <strong>lift</strong> (cuánto más probable es \(Y\) cuando hay \(X\)).
       La confianza sola engaña: si casi todos compran pan, cualquier regla \(X \to \{\text{pan}\}\) tiene confianza alta.</p>`,
+    parametros: [
+      ['Casillas de productos y Consecuente Y (Fig. 1)', String.raw`Las casillas forman el antecedente X y el selector fija el consecuente Y de la regla X → Y. Cambiarlos cambia la pregunta: ¿entre quienes compran X, qué fracción compra Y?`],
+      ['Nuevas canastas (Fig. 1 y 2)', String.raw`Nueva muestra de canastas; soporte, confianza y lift se recalculan y pueden cambiar.`],
+      ['Soporte mínimo (Fig. 2)', String.raw`Frecuencia mínima de X ∪ Y para considerar una regla. Subirlo descarta reglas poco respaldadas por los datos.`],
+      ['Confianza mínima (Fig. 2)', String.raw`Fracción mínima de canastas con X que también tienen Y. Subirlo deja solo reglas más fiables.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una regla y su tabla de contingencia',
         descripcion: 'Arme una regla y compare la fracción con Y entre quienes tienen X y entre todos. Pruebe {cerveza} → {pañales} y {fruta} → {pan}.',
+        ayuda: String.raw`<p>Se comparan dos fracciones: la de canastas con Y entre las que contienen X (confianza) y la de Y en todas las canastas (línea de referencia P(Y)). Los colores distinguen quienes contienen Y y quienes no.</p>
+          <ul>
+          <li><strong>Casillas</strong>: cambian el grupo X; si la fracción con Y supera a P(Y), la regla tiene lift mayor que 1.</li>
+          <li><strong>Consecuente Y</strong>: cambia la referencia P(Y) y la fracción que se compara.</li>
+          </ul>`,
         montar: montarRegla,
       },
       {
         titulo: 'Todas las reglas',
         descripcion: 'Soporte, confianza y lift de todas las reglas con consecuente de un producto. Mueva los umbrales y vea cuáles sobreviven.',
+        ayuda: String.raw`<p>Cada punto es una regla: soporte en el eje horizontal y confianza en el vertical. El color indica el lift (cerca de 1, independientes; alto; menor que 1, se evitan) y la zona sombreada no pasa los umbrales.</p>
+          <ul>
+          <li><strong>Soporte mínimo</strong>: desplaza el borde vertical; los puntos a su izquierda dejan de ser reglas válidas.</li>
+          <li><strong>Confianza mínima</strong>: desplaza el borde horizontal y descarta las reglas más bajas.</li>
+          <li>Una confianza alta con lift cercano a 1 solo refleja que Y es muy común.</li>
+          </ul>`,
         montar: montarTodas,
       },
     ],

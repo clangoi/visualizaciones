@@ -104,15 +104,28 @@
       <p>Decidir si \(\Gamma \models \varphi\) parece pedir mirar <em>todas</em> las valuaciones que satisfacen \(\Gamma\). Hay una manera más cómoda de verlo: \(\varphi\) se sigue de \(\Gamma\) exactamente cuando
       <strong>es imposible</strong> tener \(\Gamma\) verdadero y \(\varphi\) falso a la vez, es decir, cuando \(\Gamma \cup \{\neg\varphi\}\) no tiene modelos.</p>
       <p>Así, la consecuencia se reduce a un problema de <a href="tema.html?id=satisfiability">satisfacibilidad</a>, y cualquier solucionador SAT sirve como demostrador de teoremas.</p>`,
+    parametros: [
+      ['Problema (Fig. 1 y 2)', String.raw`El conjunto de premisas \(\Gamma\) y la conclusión \(\varphi\) con que se trabaja. Cambiarlo cambia qué valuaciones son modelos y si hay contraejemplos.`],
+      ['Premisas agregadas (Fig. 1)', String.raw`Cuántas premisas de \(\Gamma\) están activas. Cada premisa extra restringe los modelos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los modelos de Γ dentro de los de φ',
         descripcion: 'Agregue premisas una por una y vea cómo se reducen los modelos. Con todas, ¿alguno cae fuera del anillo verde? Si es así, es un contraejemplo.',
+        ayuda: String.raw`<p>Las 16 valuaciones se muestran como celdas: algunas son modelos de las premisas agregadas y otras no. Un anillo indica que la conclusión vale V ahí. Un contraejemplo es una celda de modelo sin anillo.</p>
+          <ul>
+          <li><strong>Premisas agregadas</strong>: al subir el valor se descartan modelos; la consecuencia es válida cuando todos los que quedan tienen anillo.</li>
+          <li><strong>Problema</strong>: cambia las fórmulas y por tanto las celdas con modelo y con anillo.</li>
+          </ul>`,
         montar: montarModelos,
       },
       {
         titulo: 'Refutar Γ ∪ {¬φ}',
         descripcion: 'Escribe la negación de la conclusión junto a las premisas y busca un modelo con DPLL. Todas las ramas en conflicto significan que la consecuencia es válida.',
+        ayuda: String.raw`<p>Se busca con DPLL un modelo de \(\Gamma \cup \{\neg\varphi\}\). Los nodos son decisiones y propagaciones; las ramas en conflicto terminan en cláusula vacía y un modelo, si aparece, se marca.</p>
+          <ul>
+          <li><strong>Problema</strong>: si todas las ramas acaban en conflicto, \(\Gamma \cup \{\neg\varphi\}\) es insatisfacible y \(\Gamma \models \varphi\); si aparece un modelo, es un contraejemplo.</li>
+          </ul>`,
         montar: montarRefutacion,
       },
     ],

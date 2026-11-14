@@ -57,9 +57,26 @@
     intro: String.raw`
       <p><strong>IPsec</strong> protege en la capa de red: cifra y autentica los propios datagramas IP, de modo que cualquier aplicación queda protegida sin cambiarla. Su protocolo principal para el tráfico es <strong>ESP</strong> (<em>Encapsulating Security Payload</em>): agrega una cabecera, una cola y una etiqueta de autenticación (un MAC).</p>
       <p>Con él se construye una <strong>VPN</strong> (red privada virtual): dos redes distantes se conectan por Internet mediante un <strong>túnel</strong>, donde cada datagrama privado viaja cifrado dentro de otro datagrama entre los gateways.</p>`,
+    parametros: [
+      ['Modo (Fig. 1)', String.raw`Cómo se encapsula el datagrama: sin IPsec, con ESP en modo transporte (protege solo TCP y datos) o en modo túnel (protege el datagrama IP completo bajo una cabecera nueva).`],
+      ['Datos de la aplicación (bytes) (Fig. 1)', String.raw`Tamaño de la carga útil. Permite ver cuántos bytes añade ESP respecto del total.`],
+      ['Conexión (Fig. 2)', String.raw`Si el datagrama viaja por un túnel IPsec entre gateways o sin VPN, expuesto en Internet.`],
+      ['Un paso y reproductor (Fig. 2)', String.raw`Avanzan o reinician los mensajes del recorrido.`],
+    ],
     visualizaciones: [
-      { titulo: 'Qué agrega ESP', descripcion: 'Compare un datagrama sin protección, con ESP en modo transporte y en modo túnel: qué se cifra, qué se autentica y cuánto crece.', montar: montarFormato },
-      { titulo: 'Un túnel VPN entre dos redes', descripcion: 'Siga un datagrama entre redes privadas con y sin VPN. Observe las direcciones que ve un espía en Internet.', montar: montarVPN },
+      { titulo: 'Qué agrega ESP', descripcion: 'Compare un datagrama sin protección, con ESP en modo transporte y en modo túnel: qué se cifra, qué se autentica y cuánto crece.',
+        ayuda: String.raw`<p>La barra es el datagrama a escala: cabecera IP aguamarina, ESP naranja, TCP azul y datos amarillos. La línea violeta marca la región cifrada.</p>
+          <ul>
+          <li><strong>Modo</strong> transporte: aparece ESP entre la cabecera IP y TCP, y se cifran TCP y datos.</li>
+          <li>En túnel se agrega otra cabecera IP y se cifra también la IP original; el datagrama crece más.</li>
+          <li><strong>Datos de la aplicación</strong>: el sobrecoste de ESP es fijo, así que pesa menos con más datos.</li>
+          </ul>`, montar: montarFormato },
+      { titulo: 'Un túnel VPN entre dos redes', descripcion: 'Siga un datagrama entre redes privadas con y sin VPN. Observe las direcciones que ve un espía en Internet.',
+        ayuda: String.raw`<p>Columnas: host A, gateway 1, Internet (espía), gateway 2 y host B. Las flechas azules son el datagrama original, las violetas el tramo cifrado por el túnel y el punto rojo, lo que queda expuesto.</p>
+          <ul>
+          <li><strong>Conexión</strong> con VPN: en Internet solo se ve gateway a gateway y el contenido va cifrado.</li>
+          <li>Sin VPN, el espía lee y puede modificar el datagrama; la lectura marca confidencialidad e integridad en «no».</li>
+          </ul>`, montar: montarVPN },
     ],
     teoria: String.raw`
       <h2>Asociación de seguridad</h2>

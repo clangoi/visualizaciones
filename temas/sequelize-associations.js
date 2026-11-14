@@ -96,9 +96,25 @@
       <p>En una base de datos relacional los datos viven en <strong>tablas</strong> relacionadas por <strong>claves foráneas</strong>. Un <strong>ORM</strong> como <strong>Sequelize</strong>
       permite trabajar con ellas como si fueran objetos de JavaScript: cada <em>modelo</em> representa una tabla y cada instancia, una fila.</p>
       <p>Las <em>asociaciones</em> (<code>hasMany</code>, <code>belongsTo</code>, <code>belongsToMany</code>) declaran cómo se relacionan los modelos, y Sequelize genera las claves foráneas y los <code>JOIN</code> necesarios.</p>`,
+    parametros: [
+      ['Asociación (Fig. 1)', String.raw`El tipo de relación entre modelos (uno a uno, uno a muchos, muchos a muchos). Determina dónde queda la clave foránea o si hace falta una tabla intermedia.`],
+      ['consulta con include (JOIN) (Fig. 1)', String.raw`Si la consulta pide también los registros relacionados. Activada, Sequelize genera un JOIN y el resultado trae los datos anidados.`],
+      ['Usuarios que se listan (Fig. 2)', String.raw`Cuántos usuarios se listan junto con sus datos relacionados (N).`],
+      ['Costo de cada consulta (Fig. 2)', String.raw`Tiempo de cada viaje a la base de datos. Escala el tiempo total, más para el método que hace más consultas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Asociaciones y consultas con include', descripcion: 'Cambie el tipo de relación y alterne <code>include</code>: observe las tablas con su clave foránea, el SQL generado y el resultado.', montar: montarModelos },
-      { titulo: 'El problema de las N+1 consultas', descripcion: 'Aumente el número de usuarios y compare cuántas consultas hace la carga perezosa y la ansiosa.', montar: montarNMasUno },
+      { titulo: 'Asociaciones y consultas con include', descripcion: 'Cambie el tipo de relación y alterne <code>include</code>: observe las tablas con su clave foránea, el SQL generado y el resultado.',
+        ayuda: String.raw`<p>Código de la asociación, las tablas resultantes con sus columnas (incluida la clave foránea), la consulta con su SQL y el resultado.</p>
+          <ul>
+          <li><strong>Asociación</strong>: cambia las tablas; en muchos a muchos aparece una tabla intermedia en lugar de una clave foránea.</li>
+          <li><strong>consulta con include</strong>: con ella el SQL incluye un JOIN y los registros relacionados aparecen dentro del resultado; sin ella solo se traen los del modelo principal.</li>
+          </ul>`, montar: montarModelos },
+      { titulo: 'El problema de las N+1 consultas', descripcion: 'Aumente el número de usuarios y compare cuántas consultas hace la carga perezosa y la ansiosa.',
+        ayuda: String.raw`<p>Eje horizontal: usuarios (N); eje vertical: tiempo en consultas (ms). La curva naranja es la carga perezosa (1 + N consultas) y la azul, la carga ansiosa con <code>include</code> (1 consulta).</p>
+          <ul>
+          <li><strong>Usuarios que se listan</strong>: la curva perezosa crece de forma lineal con N; la ansiosa se mantiene casi plana.</li>
+          <li><strong>Costo de cada consulta</strong>: aumenta la pendiente de la perezosa, así que la diferencia con la ansiosa se agranda.</li>
+          </ul>`, montar: montarNMasUno },
     ],
     teoria: String.raw`
       <h2>Modelos</h2>

@@ -118,9 +118,24 @@
   VIZ.registrarTema('routing-algorithms', {
     intro: String.raw`
       <p>Para construir las tablas de reenvío, los routers deben conocer los caminos de costo mínimo hacia todos los destinos. Hay dos grandes familias. En <strong>estado de enlaces</strong> (OSPF), cada router difunde a toda la red el estado de sus enlaces, todos tienen el mismo mapa completo y cada uno calcula sus caminos con el algoritmo de Dijkstra. En <strong>vector de distancias</strong> (RIP), cada router solo habla con sus vecinos y les cuenta lo que cree saber de todos los destinos; los caminos se construyen por consenso, con Bellman–Ford distribuido.</p>`,
+    parametros: [
+      ['Tabla del router (Fig. 1)', String.raw`Qué router se examina. Muestra la distancia y el siguiente salto que ese router conoce hacia cada destino.`],
+      ['Tras converger, el costo B–C sube de 1 a 20 (Fig. 1)', String.raw`Simula que el enlace B–C se encarece. Los routers deben corregir sus tablas, y en el camino pueden anunciar rutas viejas.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza ronda por ronda (vector de distancias) o paso por paso (Dijkstra), o reinicia.`],
+      ['Origen (Fig. 2)', String.raw`Nodo desde el que Dijkstra calcula los caminos más cortos al resto de la red.`],
+    ],
     visualizaciones: [
-      { titulo: 'Vector de distancias', descripcion: 'Avance ronda a ronda y observe cómo se propaga el conocimiento desde los vecinos. Luego suba el costo de B–C y vea la reconvergencia. Cambie de router para ver su tabla.', montar: montarDV },
-      { titulo: 'Estado de enlaces con Dijkstra', descripcion: 'Elija un origen y avance: se fija el nodo más cercano y se relajan sus aristas. Al final aparece el árbol de caminos y la tabla de reenvío.', montar: montarDijkstra },
+      { titulo: 'Vector de distancias', descripcion: 'Avance ronda a ronda y observe cómo se propaga el conocimiento desde los vecinos. Luego suba el costo de B–C y vea la reconvergencia. Cambie de router para ver su tabla.',
+        ayuda: String.raw`<p>El grafo muestra los routers y el costo de cada enlace; el punto verde marca el router cuya tabla se ve abajo. La tabla lista, por destino, el costo y el siguiente salto, que se actualizan con cada ronda de anuncios entre vecinos.</p>
+          <ul>
+          <li><strong>Tabla del router</strong>: cambia de vista, no el cálculo. Compare cómo cada router llega al mismo destino por distinto vecino.</li>
+          <li><strong>Costo B–C sube a 20</strong>: la tabla se recalcula en varias rondas; los costos que dependían de B–C aumentan de a poco hasta estabilizarse.</li>
+          </ul>`, montar: montarDV },
+      { titulo: 'Estado de enlaces con Dijkstra', descripcion: 'Elija un origen y avance: se fija el nodo más cercano y se relajan sus aristas. Al final aparece el árbol de caminos y la tabla de reenvío.',
+        ayuda: String.raw`<p>El nodo verde es el origen; los amarillos, la frontera con su distancia provisoria; los de tinta, los definitivos; las líneas naranjas forman el árbol de caminos más cortos. La tabla da distancias y estado.</p>
+          <ul>
+          <li><strong>Origen</strong>: otro origen produce otro árbol y otra tabla de reenvío, porque los caminos más cortos parten de ese nodo.</li>
+          </ul>`, montar: montarDijkstra },
     ],
     teoria: String.raw`
       <h2>Ecuación de Bellman–Ford</h2>

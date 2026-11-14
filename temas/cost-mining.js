@@ -330,20 +330,45 @@
     intro: String.raw`
       <p>La <strong>minería de procesos orientada a costos</strong> agrega a cada evento un valor monetario y lo suma por actividad, por caso y por variante. El costo de un evento tiene al menos tres partes: un <em>costo fijo</em> por ejecutarlo (materiales, licencias), un <em>costo por tiempo</em> (la tarifa de quien trabaja multiplicada por la duración) y el <em>costo de la espera</em> (capital inmovilizado, clientes insatisfechos).</p>
       <p>Con esa base se responden preguntas de decisión: ¿qué actividades concentran el dinero?, ¿qué casos se salen de lo esperado y por qué?, ¿dónde conviene intervenir primero? Casi siempre unas pocas actividades explican la mayor parte del costo, y la figura de Pareto lo hace visible.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1, 2 y 3)', String.raw`Proceso cuyos costos se analizan.`],
+      ['Tarifa de los roles (× base) (Fig. 1)', String.raw`Multiplicador del costo por hora de trabajo de todos los roles. Subirlo encarece las actividades largas.`],
+      ['Costo de la espera (&#36; por hora) (Fig. 1)', String.raw`Costo de que un caso espere entre actividades. Subirlo encarece las actividades que se hacen esperar sin cambiar el trabajo.`],
+      ['Casos (Fig. 2)', String.raw`Tamaño de la muestra de casos.`],
+      ['Umbral (σ sobre la media) (Fig. 2)', String.raw`Desviaciones estándar sobre la media a partir de las cuales un caso se considera costoso.`],
+      ['Cubrir el costo hasta (%) (Fig. 3)', String.raw`Fracción del costo total que deben cubrir las actividades elegidas. Más cobertura exige elegir más actividades.`],
+      ['Reducción lograda en cada una (%) (Fig. 3)', String.raw`Porcentaje de costo que se ahorra en cada actividad elegida; determina el ahorro por caso y por mil casos.`],
+      ['Nuevos datos y reproductor (Fig. 2 y 3)', String.raw`Nuevos datos genera otra muestra. El reproductor avanza paso a paso la selección voraz.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Costo por actividad',
         descripcion: 'Cada barra suma costo fijo, de tiempo y de espera por caso. Mueva la tarifa y el costo de la espera: la actividad más cara puede cambiar según qué componente pese más.',
+        ayuda: String.raw`<p>Cada barra es una actividad y suma tres componentes: costo fijo por ejecución, costo por tiempo de trabajo (tarifa × duración) y costo de la espera previa.</p>
+          <ul>
+          <li><strong>Tarifa de los roles (× base)</strong>: engrosa el componente de tiempo de trabajo; la actividad más cara puede cambiar.</li>
+          <li><strong>Costo de la espera (&#36; por hora)</strong>: engrosa el componente de espera, sobre todo en actividades antecedidas de colas largas.</li>
+          </ul>`,
         montar: montarActividades,
       },
       {
         titulo: 'Costo por caso y desviaciones',
         descripcion: 'Cada punto es un caso: tiempo de ciclo contra costo. Baje el umbral para marcar más casos caros y haga clic en uno para ver qué actividades lo encarecen frente a la media.',
+        ayuda: String.raw`<p>Cada punto es un caso: tiempo de ciclo en el eje horizontal y costo del caso en el vertical. Los puntos son de color normal si su costo está dentro de lo esperado y de otro color si superan el umbral; una línea marca la media y el umbral.</p>
+          <ul>
+          <li><strong>Umbral (σ sobre la media)</strong>: al bajarlo más casos quedan marcados como costosos.</li>
+          <li><strong>Casos</strong>: con más casos hay más puntos y el umbral se estima mejor.</li>
+          </ul>`,
         montar: montarCasos,
       },
       {
         titulo: 'Pareto de costos y optimización',
         descripcion: 'Reproduzca la selección voraz de las actividades más caras hasta cubrir el umbral, o elíjalas a mano con clic. Cambie la reducción lograda y vea el ahorro por caso y por mil casos.',
+        ayuda: String.raw`<p>Diagrama de Pareto: barras de costo por actividad, ordenadas de mayor a menor, y una curva de costo acumulado (% del total) con la línea del umbral de cobertura. Se distinguen las actividades elegidas para optimizar, la candidata del paso actual y las no elegidas.</p>
+          <ul>
+          <li><strong>Cubrir el costo hasta (%)</strong>: sube o baja el umbral y con él cuántas actividades se eligen.</li>
+          <li><strong>Reducción lograda en cada una (%)</strong>: no cambia qué actividades se eligen, solo el ahorro estimado.</li>
+          </ul>`,
         montar: montarPareto,
       },
     ],

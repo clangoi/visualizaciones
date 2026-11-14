@@ -169,15 +169,34 @@
       <p>Agrupar es invertir ese proceso: estimar las componentes y calcular, para cada punto, la <strong>probabilidad de que
       venga de cada una</strong>. A diferencia de <a href="tema.html?id=kmeans">k-means</a>, la pertenencia es blanda y los grupos
       pueden ser elipses de distinto tamaño y orientación.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`El conjunto de puntos al que se ajusta la mezcla; define qué estructura debe encontrar.`],
+      ['Componentes k (Fig. 1)', String.raw`Cuántas gaussianas tiene la mezcla. Más componentes explican más detalle, pero con k de más una gaussiana puede partir un grupo real.`],
+      ['Covarianza (Fig. 1 y 2)', String.raw`La forma permitida de cada gaussiana (por ejemplo esférica o completa). Limita si las elipses pueden alargarse e inclinarse.`],
+      ['Otro inicio y reproductor (Fig. 1)', String.raw`Otro inicio reinicia EM desde otra posición de las componentes. El reproductor avanza o repite los pasos E y M.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otra muestra y recalcula los criterios.`],
+    ],
     visualizaciones: [
       {
         titulo: 'EM paso a paso',
         descripcion: 'El algoritmo EM alterna asignar probabilidades (E) y reajustar las gaussianas (M). Pruebe covarianza esférica sobre manchas alargadas y compare.',
+        ayuda: String.raw`<p>Cada elipse es una componente de la mezcla; el color de un punto mezcla los de las componentes según su probabilidad de pertenencia, y los puntos entre dos elipses tienen un color intermedio. El registro muestra la log-verosimilitud en cada iteración.</p>
+          <ul>
+          <li><strong>Covarianza</strong> esférica sobre manchas alargadas: las elipses no pueden alargarse y el ajuste es peor.</li>
+          <li><strong>Componentes k</strong>: con k menor al real, una elipse abarca varios grupos; con k mayor, los parte.</li>
+          <li><strong>Otro inicio</strong>: EM puede terminar en otro máximo local.</li>
+          </ul>`,
         montar: montarEM,
       },
       {
         titulo: 'Elegir k con BIC',
         descripcion: 'Criterios de información para k = 1 … 8. Compare dónde se minimizan BIC y AIC.',
+        ayuda: String.raw`<p>El eje horizontal es k y el vertical, el criterio (menor es mejor). Se dibujan BIC = −2ℓ + p ln n, AIC = −2ℓ + 2p, la curva de −2ℓ y el mínimo del BIC. Al hacer clic en una k se muestra a la derecha el ajuste con ese k.</p>
+          <ul>
+          <li>−2ℓ siempre baja con k: más componentes siempre ajustan mejor, por eso hay que penalizar.</li>
+          <li>BIC y AIC suman una penalización por parámetro; compare dónde se minimiza cada uno (BIC tiende a elegir menos componentes).</li>
+          <li><strong>Covarianza</strong> más restrictiva: la curva cambia y hacen falta más componentes para ajustar.</li>
+          </ul>`,
         montar: montarBIC,
       },
     ],

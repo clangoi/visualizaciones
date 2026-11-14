@@ -373,15 +373,37 @@
       <p>Como hay muchas más claves posibles que cubetas, inevitablemente dos claves distintas caerán en la misma posición:
       una <strong>colisión</strong>. Las estrategias para resolverlas, y el grado de ocupación de la tabla, determinan cuán
       rápidas son las operaciones en la práctica.</p>`,
+    parametros: [
+      ['Resolución de colisiones (Fig. 1)', String.raw`Qué hacer cuando dos claves caen en la misma celda: <em>encadenamiento</em> guarda una lista por celda; <em>sondeo lineal</em> prueba la celda siguiente; <em>sondeo cuadrático</em> salta 1, 4, 9… celdas; <em>doble hash</em> salta según una segunda función de la clave.`],
+      ['Tamaño m (Fig. 1)', String.raw`Número de celdas (cubetas) de la tabla. Se usan primos para que los saltos de los sondeos recorran toda la tabla.`],
+      ['Clave k (Fig. 1)', String.raw`El entero que se inserta o busca. Su celda inicial es \(h(k) = k \bmod m\).`],
+      ['Insertar, Buscar, aleatorias, Vaciar (Fig. 1)', String.raw`Operaciones sobre la tabla. Insertar varias claves aleatorias es la forma rápida de subir el factor de carga.`],
+      ['Tipo de búsqueda (Fig. 2)', String.raw`Fallida (la clave no está, hay que llegar hasta una celda vacía o al final de la lista) o exitosa (se detiene al encontrarla).`],
+      ['Límite del eje vertical (Fig. 2)', String.raw`Hasta cuántos sondeos se muestra; súbalo para ver lo rápido que se disparan las curvas cerca de \(\alpha = 1\).`],
+      ['Casillas de estrategias (Fig. 2)', String.raw`Muestran u ocultan las curvas de encadenamiento, sondeo lineal y doble hash.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Inserción y búsqueda',
         descripcion: 'Cada celda muestra la clave guardada; su color indica cuántos sondeos costó insertarla. Las celdas con borde naranjo son las visitadas por la última operación, numeradas en orden.',
+        ayuda: String.raw`<p>Cada celda de la fila (o columna, en encadenamiento) es una cubeta de la tabla y muestra la clave guardada. El color indica cuántos sondeos costó insertar esa clave: claro, uno solo; oscuro, siete o más. Los bordes naranjos numerados son las celdas que visitó la última operación y el borde verde, su resultado.</p>
+          <ul>
+          <li>Inserte varias claves y mire la lectura <strong>factor de carga α</strong>: con \(\alpha\) bajo casi todas las celdas son claras; al acercarse a 1 aparecen celdas oscuras.</li>
+          <li><strong>Sondeo lineal</strong> forma <em>racimos</em>: bloques contiguos llenos que crecen y alargan todos los sondeos que caen en ellos. Cuadrático y doble hash dispersan los saltos y los racimos son menores.</li>
+          <li>Con <strong>encadenamiento</strong> no hay celdas «llenas»: las listas simplemente se alargan y \(\alpha\) puede superar 1.</li>
+          <li><strong>Tamaño m</strong> más grande con las mismas claves baja \(\alpha\) y el costo promedio.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Costo esperado según el factor de carga',
         descripcion: 'Número esperado de sondeos de una búsqueda en función de \\(\\alpha = n/m\\). Las tablas con direccionamiento abierto se degradan rápidamente cuando \\(\\alpha \\to 1\\).',
+        ayuda: String.raw`<p>El eje horizontal es el factor de carga \(\alpha = n/m\) (qué fracción de la tabla está ocupada) y el vertical, el número esperado de sondeos por búsqueda. Las curvas son las fórmulas teóricas y los puntos, mediciones en tablas reales.</p>
+          <ul>
+          <li><strong>Encadenamiento</strong> crece en línea recta (\(1 + \alpha\)): degrada suavemente.</li>
+          <li><strong>Sondeo lineal</strong> y <strong>doble hash</strong> se disparan cuando \(\alpha \to 1\): la tabla está casi llena y hay que recorrer mucho para hallar una celda vacía. El lineal sube antes por los racimos.</li>
+          <li><strong>Tipo de búsqueda</strong>: las fallidas cuestan más que las exitosas, porque deben llegar al final de la secuencia de sondeo.</li>
+          </ul>`,
         montar: montarCurvas,
       },
     ],

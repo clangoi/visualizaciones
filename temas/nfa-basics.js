@@ -120,15 +120,33 @@
       <p>En un AFD cada símbolo lleva a un único estado. Un <strong>autómata finito no determinista</strong> (AFN) relaja esa regla: desde un estado, un mismo símbolo puede llevar a varios estados, a ninguno, o la máquina puede partir de varios estados iniciales.
       Se puede imaginar que el autómata «adivina» el camino correcto, o que explora todos a la vez.</p>
       <p>Una palabra se acepta si <em>existe</em> al menos una ejecución que la lee completa y termina en un estado de aceptación. Esto no da más poder: todo AFN se puede simular con un AFD, aunque quizás con muchos más estados.</p>`,
+    parametros: [
+      ['Autómata y Palabra (Fig. 1)', String.raw`El AFN que se ejecuta y la cadena que lee. Cambiarlos reinicia la ejecución y muestra cómo el mismo autómata acepta o rechaza según la palabra.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza o retrocede símbolo a símbolo la lectura de la palabra; cada paso actualiza el conjunto de estados activos.`],
+      ['Autómata (Fig. 2)', String.raw`El AFN cuyas elecciones se despliegan en árbol. Un autómata con más no determinismo produce más ramas.`],
+      ['Palabra (hasta 9 símbolos) (Fig. 2)', String.raw`La entrada cuyas ejecuciones posibles se enumeran. Cada símbolo extra puede multiplicar las ramas.`],
+      ['Mostrar solo los caminos que aceptan (Fig. 2)', String.raw`Oculta las ramas que se bloquean o rechazan y deja las que llevan a aceptación; la palabra se acepta si queda al menos un camino.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Estados activos a la vez',
         descripcion: 'Avance sobre una palabra y vea cómo el conjunto de estados activos crece, se reparte o se vacía. Acepta si al final hay algún estado final en el conjunto.',
+        ayuda: String.raw`<p>Se dibuja el autómata con sus transiciones. Los estados con relleno azul son los activos en este momento y la transición recién usada se resalta. Al terminar la palabra, un conjunto con algún estado de aceptación se pinta de verde (acepta); si no, de rojo (rechaza).</p>
+          <ul>
+          <li><strong>Palabra</strong>: cada símbolo leído reemplaza el conjunto azul por los destinos de todas sus transiciones; si el conjunto queda vacío, la ejecución está muerta y rechaza.</li>
+          <li><strong>Autómata</strong>: un ejemplo con dos estados iniciales empieza ya con dos estados activos, es decir, varias ejecuciones paralelas.</li>
+          </ul>`,
         montar: montarConjuntos,
       },
       {
         titulo: 'Árbol de ejecuciones',
         descripcion: 'Cada ramificación es una elección no determinista. Pruebe palabras que aceptan por un solo camino y active «solo caminos que aceptan».',
+        ayuda: String.raw`<p>Cada nodo del árbol es un estado alcanzado tras leer cierto número de símbolos; cada ramificación es una elección no determinista. Las hojas terminan en aceptación, se bloquean sin transición o terminan rechazando, y los caminos que llevan a aceptar se resaltan.</p>
+          <ul>
+          <li><strong>Palabra (hasta 9 símbolos)</strong>: alargarla añade niveles; basta un camino resaltado para que la palabra pertenezca al lenguaje.</li>
+          <li><strong>Mostrar solo los caminos que aceptan</strong>: deja únicamente la ruta (o rutas) que justifican la aceptación; si no queda ninguna, la palabra se rechaza.</li>
+          <li><strong>Autómata</strong>: cambia la forma del árbol según cuántas transiciones comparten símbolo desde un mismo estado.</li>
+          </ul>`,
         montar: montarArbol,
       },
     ],

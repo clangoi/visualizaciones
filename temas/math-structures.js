@@ -124,15 +124,29 @@
       <p>En matemáticas casi todo se construye a partir de conjuntos. Los naturales son conjuntos (cada número es el conjunto de los anteriores), los enteros son parejas de naturales,
       los racionales son parejas de enteros, y así sucesivamente. No hace falta aceptar nada nuevo: solo se <em>define</em> cada estructura con las anteriores.</p>
       <p>Construir en vez de postular tiene una ventaja: cada propiedad de la nueva estructura se demuestra a partir de las anteriores, y la base de todo es el conjunto vacío.</p>`,
+    parametros: [
+      ['Hasta el número (Fig. 1)', String.raw`Hasta qué número natural (2 a 8) se construye la figura. Cada número es el conjunto de los anteriores.`],
+      ['Restablecer (Fig. 2)', String.raw`Devuelve las parejas P y Q a sus valores iniciales.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los naturales como conjuntos',
         descripcion: 'Elija un número y vea que sus elementos son exactamente los números menores. Observe cómo el sucesor agrega al propio número como elemento.',
+        ayuda: String.raw`<p>Cada número k es un conjunto cuyos elementos son los números menores que k. La leyenda distingue los elementos del número elegido (j ∈ k), el sucesor \(S(k) = k \cup \{k\}\) y el número elegido.</p>
+          <ul>
+          <li><strong>Hasta el número</strong>: al subirlo aparecen más números y el sucesor de cada uno agrega a k como elemento.</li>
+          <li>El número elegido tiene exactamente k elementos.</li>
+          </ul>`,
         montar: montarVonNeumann,
       },
       {
         titulo: 'Los enteros como parejas',
         descripcion: 'Marque dos parejas y sume sus componentes. Compruebe que parejas distintas de una misma diagonal producen el mismo resultado: la suma está bien definida.',
+        ayuda: String.raw`<p>Cada pareja (a, b) representa el entero a − b, y las parejas con la misma diferencia están en una misma diagonal (misma clase). Se muestran las parejas P y Q y su suma \(P + Q = (a + c, b + d)\).</p>
+          <ul>
+          <li>Al mover P o Q a otra pareja de su diagonal, la suma cambia de pareja pero cae en la misma clase: la suma está bien definida.</li>
+          <li><strong>Restablecer</strong>: vuelve a la configuración inicial.</li>
+          </ul>`,
         montar: montarEnteros,
       },
     ],

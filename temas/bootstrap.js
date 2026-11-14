@@ -143,15 +143,31 @@
       <p>El <strong>bootstrap</strong> (Efron, 1979) simula esas repeticiones <strong>remuestreando con reposición</strong> la muestra que se tiene,
       como si fuera la población. La variabilidad del estadístico entre remuestras aproxima su error estándar y da intervalos de confianza
       sin fórmulas analíticas.</p>`,
+    parametros: [
+      ['Estadístico (Fig. 1)', String.raw`La cantidad que se calcula en cada remuestra: media, mediana o desviación estándar. Cambia qué distribución bootstrap se obtiene y, con ella, cuán incierto resulta ese estadístico.`],
+      ['Tamaño de la muestra n (Fig. 1 y 2)', String.raw`Cuántos datos tiene la muestra original (y cada remuestra). Con n mayor la distribución bootstrap se estrecha; en la Fig. 2 también mejora la cobertura de los intervalos.`],
+      ['Otra muestra / Repetir 200 estudios y reproductor (Fig. 1 y 2)', String.raw`Otra muestra sortea datos nuevos de la población; Repetir 200 estudios simula 200 estudios independientes. Reproducir, Un paso, Hasta el final y Reiniciar controlan cuántas remuestras se han hecho.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Remuestrear',
         descripcion: 'Una muestra de 30 datos asimétricos, sus remuestras y la distribución bootstrap del estadístico. Compare la media con la mediana.',
+        ayuda: String.raw`<p>El panel superior muestra los datos de la muestra original; en la remuestra actual, cada dato indica cuántas veces apareció (los que no salieron quedan sin marca). El panel inferior es el histograma del estadístico de cada remuestra, con el intervalo percentil 95 % que deja fuera el 2,5 % de cada cola.</p>
+          <ul>
+          <li><strong>Estadístico</strong>: cambia el valor que se acumula en el histograma; con muestras asimétricas, media y mediana dan distribuciones y anchos de intervalo distintos.</li>
+          <li><strong>Tamaño de la muestra n</strong>: a mayor n el histograma se estrecha y el intervalo se acorta, porque hay menos incertidumbre sobre el estadístico.</li>
+          <li><strong>Otra muestra</strong>: cambia la muestra original y por tanto el centro del histograma, que siempre queda cerca del estadístico de esa muestra y no del valor real.</li>
+          </ul>`,
         montar: montarRemuestreo,
       },
       {
         titulo: '¿Cubre el intervalo al valor real?',
         descripcion: 'Doscientos estudios independientes con su intervalo bootstrap. Suba n y vea cómo la cobertura se acerca al 95 %.',
+        ayuda: String.raw`<p>Cada línea horizontal es un intervalo bootstrap de un estudio (se muestran los primeros 60); la línea vertical marca la media real de la población. Los intervalos que la contienen y los que no se distinguen por color, según la leyenda.</p>
+          <ul>
+          <li><strong>Tamaño de la muestra n</strong>: con n chico muchos intervalos fallan y la cobertura queda bajo el 95 % nominal; al subir n se acerca a 95 %.</li>
+          <li><strong>Repetir 200 estudios</strong>: genera nuevos estudios; la cobertura medida varía un poco de una repetición a otra.</li>
+          </ul>`,
         montar: montarCobertura,
       },
     ],

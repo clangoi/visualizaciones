@@ -90,9 +90,29 @@
     intro: String.raw`
       <p>Un <strong>histograma</strong> responde a la pregunta «¿cómo se reparten los valores?». Divide el rango en intervalos iguales y dibuja la cantidad de observaciones que cae en cada uno. Parece un gráfico de barras, pero no lo es: el eje horizontal es continuo y las barras se tocan.</p>
       <p>Su única decisión de diseño —cuántos intervalos— cambia la historia: con pocos se pierde la forma; con demasiados, solo se ve ruido.</p>`,
+    parametros: [
+      ['Distribución (Fig. 1)', String.raw`Forma de los datos generados: normal, bimodal (dos grupos) o asimétrica a la derecha. Determina qué estructura puede ocultar o revelar la elección de intervalos.`],
+      ['Observaciones n (Fig. 1)', String.raw`Tamaño de la muestra. Con más datos, el mismo número de intervalos produce una forma más estable.`],
+      ['Regla para los intervalos (Fig. 1)', String.raw`Manual, Sturges, Scott o Freedman–Diaconis. Cada regla calcula cuántos intervalos usar a partir de los datos.`],
+      ['Intervalos (modo manual) (Fig. 1)', String.raw`Número de intervalos usado solo cuando la regla es manual.`],
+      ['Nueva muestra (Fig. 1)', String.raw`Genera otra muestra de la misma distribución para ver cuánto cambia el histograma por azar.`],
+      ['Ancho de banda h (Fig. 2)', String.raw`Ancho de cada campana gaussiana: con h pequeño la curva sigue el ruido; con h grande suaviza y puede ocultar grupos.`],
+      ['Regla de Silverman (Fig. 2)', String.raw`Fija h en el valor que propone esa regla a partir de la desviación estándar y el tamaño de la muestra.`],
+    ],
     visualizaciones: [
-      { titulo: 'El número de intervalos', descripcion: 'Cambie la distribución, el tamaño de la muestra y la regla para elegir intervalos; con la bimodal busque cuándo los dos grupos se funden.', montar: montarHistograma },
-      { titulo: 'Densidad con núcleo gaussiano', descripcion: 'Varíe el ancho de banda y compare con la regla de Silverman; la curva reemplaza los intervalos por una suma de campanas.', montar: montarDensidad },
+      { titulo: 'El número de intervalos', descripcion: 'Cambie la distribución, el tamaño de la muestra y la regla para elegir intervalos; con la bimodal busque cuándo los dos grupos se funden.',
+        ayuda: String.raw`<p>Cada barra es un intervalo de valores (eje horizontal) y su altura, el número de observaciones que caen en él (eje vertical). Es una sola serie; la lectura indica cuántos intervalos se usan.</p>
+          <ul>
+          <li><strong>Distribución</strong> «bimodal» con pocos <strong>Intervalos</strong>: los dos grupos se funden en una sola barra alta.</li>
+          <li><strong>Regla para los intervalos</strong>: cambia el número de barras sin tocar los datos; compare las tres reglas.</li>
+          <li><strong>Observaciones n</strong> y <strong>Nueva muestra</strong>: muestran cuánto del dibujo es ruido de muestreo.</li>
+          </ul>`, montar: montarHistograma },
+      { titulo: 'Densidad con núcleo gaussiano', descripcion: 'Varíe el ancho de banda y compare con la regla de Silverman; la curva reemplaza los intervalos por una suma de campanas.',
+        ayuda: String.raw`<p>La curva naranja es la densidad estimada (suma de campanas, una por observación). Las marcas grises en el eje son las observaciones (alfombra).</p>
+          <ul>
+          <li><strong>Ancho de banda h</strong>: con h pequeño la curva presenta muchos picos de ruido; con h grande, los dos grupos se funden.</li>
+          <li><strong>Regla de Silverman</strong>: lleva h a un valor intermedio.</li>
+          </ul>`, montar: montarDensidad },
     ],
     teoria: String.raw`
       <h2>Definición</h2>

@@ -96,9 +96,29 @@
       <p>Leer un archivo o consultar una base de datos es <em>miles de veces más lento</em> que ejecutar una instrucción. Un programa puede manejar esa espera de dos maneras:
       <strong>bloqueando</strong> (el hilo se queda parado hasta recibir la respuesta) o <strong>sin bloquear</strong> (pide la operación, sigue con otro trabajo y es avisado al terminar).</p>
       <p>Node.js se basa en la segunda: un solo hilo atiende a miles de clientes porque casi todo lo que hacen es esperar.</p>`,
+    parametros: [
+      ['Manejo de la E/S (Fig. 1)', String.raw`Modelo con que se atienden las peticiones: lectura bloqueante, asíncrona no bloqueante o un hilo por petición. Cambia si el hilo queda ocupado o libre durante la espera de disco o red.`],
+      ['Peticiones simultáneas (Fig. 1)', String.raw`Cuántas peticiones llegan a la vez. Más peticiones amplían la cola en el modelo bloqueante.`],
+      ['Espera de E/S por petición (Fig. 1)', String.raw`Cuánto tarda el disco o la red en responder a cada petición, sin usar CPU.`],
+      ['Hilos del modelo bloqueante (Fig. 2)', String.raw`Cuántos hilos tiene el modelo clásico; fija cuántas peticiones puede esperar en paralelo antes de saturarse.`],
+      ['Espera de E/S (Fig. 2)', String.raw`Tiempo de espera por petición. Alargarlo reduce la capacidad del modelo con hilos, que los mantiene ocupados.`],
+      ['CPU por petición (Fig. 2)', String.raw`Trabajo real de procesador por petición. Fija el límite de capacidad del modelo de un solo hilo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Varias peticiones en un hilo', descripcion: 'Compare E/S bloqueante, no bloqueante y un hilo por petición: observe cuándo el hilo está ocupado de verdad y cuándo solo espera.', montar: montarLineaTiempo },
-      { titulo: 'Capacidad frente a carga', descripcion: 'Aumente la espera de E/S o la CPU por petición y mire dónde se satura cada modelo; ajuste el número de hilos del modelo clásico.', montar: montarCarga },
+      { titulo: 'Varias peticiones en un hilo', descripcion: 'Compare E/S bloqueante, no bloqueante y un hilo por petición: observe cuándo el hilo está ocupado de verdad y cuándo solo espera.',
+        ayuda: String.raw`<p>Una fila por petición sobre el eje del tiempo. Azul (CPU) es trabajo en JavaScript; naranja es espera de E/S con el hilo ocupado; gris es espera con el hilo libre; rojo es tiempo en cola sin atender.</p>
+          <ul>
+          <li><strong>Manejo de la E/S</strong> «bloqueante»: la espera aparece en naranja y las demás peticiones quedan en cola en rojo; en «no bloqueante» la espera es gris y el hilo atiende a otras.</li>
+          <li><strong>Peticiones simultáneas</strong>: más filas; en el modo bloqueante la cola crece, en el no bloqueante apenas cambia.</li>
+          <li><strong>Espera de E/S por petición</strong>: alarga los tramos de espera y el tiempo total de los modelos que la dejan ocupar el hilo.</li>
+          </ul>`, montar: montarLineaTiempo },
+      { titulo: 'Capacidad frente a carga', descripcion: 'Aumente la espera de E/S o la CPU por petición y mire dónde se satura cada modelo; ajuste el número de hilos del modelo clásico.',
+        ayuda: String.raw`<p>Eje horizontal: peticiones por segundo; eje vertical: tiempo de respuesta en ms. Cada curva es un modelo: bloqueante con hilos y un hilo con E/S no bloqueante. El tiempo de respuesta se dispara al acercarse a la capacidad de cada modelo.</p>
+          <ul>
+          <li><strong>Hilos del modelo bloqueante</strong>: más hilos desplazan a la derecha el punto de saturación de esa curva.</li>
+          <li><strong>Espera de E/S</strong>: la alarga hacia arriba y reduce la capacidad del modelo con hilos; el de un solo hilo casi no la nota.</li>
+          <li><strong>CPU por petición</strong>: reduce la capacidad del modelo de un hilo, que tiene un tope marcado por la CPU.</li>
+          </ul>`, montar: montarCarga },
     ],
     teoria: String.raw`
       <h2>Dos maneras de esperar</h2>

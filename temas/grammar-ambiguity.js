@@ -91,15 +91,31 @@
     intro: String.raw`
       <p>Una gramática es <strong>ambigua</strong> si alguna palabra tiene dos o más árboles de derivación distintos. Para un lenguaje de programación es un defecto grave: cada árbol es una interpretación distinta, y el compilador no sabría si \(2+2\cdot 2\) vale 6 o 8.</p>
       <p>La ambigüedad es una propiedad de la <em>gramática</em>, no del lenguaje: casi siempre se puede reescribir la gramática de modo que cada palabra tenga un único árbol (por ejemplo, codificando la precedencia de los operadores). Hay, sin embargo, lenguajes <em>inherentemente ambiguos</em>.</p>`,
+    parametros: [
+      ['Gramática (Fig. 1)', String.raw`Cuál de las dos gramáticas (ambigua o con precedencia) analiza la expresión.`],
+      ['Expresión (a, +, *, paréntesis) (Fig. 1)', String.raw`La cadena cuyos árboles de derivación se cuentan. Más operadores pueden dar más estructuras.`],
+      ['Ejemplos (Fig. 1)', String.raw`Expresiones de muestra para cargar sin escribirlas.`],
+      ['Árbol número (Fig. 1)', String.raw`Cuál de los árboles posibles de la expresión se dibuja.`],
+      ['Expresiones (Fig. 2)', String.raw`Qué tipo de expresión se cuenta (solo sumas, etc.) al aumentar los operandos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los árboles de una misma expresión',
         descripcion: 'Escriba una expresión y recorra sus árboles de derivación con el deslizador: con la gramática ambigua a+a*a tiene dos, con valores 6 y 8; con la de precedencia, uno.',
+        ayuda: String.raw`<p>El árbol de derivación de la expresión; cada uno corresponde a una forma distinta de agrupar los operadores y puede dar un valor distinto.</p>
+          <ul>
+          <li><strong>Gramática</strong> ambigua con a+a*a: dos árboles, con valores 6 y 8 si a = 2; con la gramática de precedencia, uno solo.</li>
+          <li><strong>Árbol número</strong>: recorre las agrupaciones posibles y muestra cómo cambia el resultado.</li>
+          </ul>`,
         montar: montarArboles,
       },
       {
         titulo: 'Cuántos árboles hay',
         descripcion: 'Para n operandos la gramática ambigua tiene tantos árboles como números de Catalan, que crecen exponencialmente; la gramática con precedencia, uno solo.',
+        ayuda: String.raw`<p>Eje horizontal: n, los operandos. Eje vertical: árboles de derivación. Una curva es la gramática ambigua E → E+E | E*E | (E) | a y otra la gramática con precedencia (E → E+T …).</p>
+          <ul>
+          <li><strong>Expresiones</strong>: para solo sumas la curva ambigua sigue los números de Catalan, que crecen exponencialmente; la de precedencia queda en un árbol.</li>
+          </ul>`,
         montar: montarCatalan,
       },
     ],

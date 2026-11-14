@@ -78,15 +78,27 @@
       <p>Los argumentos de la vida diaria no vienen con letras ni con símbolos. Analizarlos tiene tres pasos: <strong>formalizar</strong> (asignar letras a las oraciones simples y escribir las premisas y la conclusión como fórmulas),
       <strong>decidir</strong> si la conclusión se sigue, y, si no se sigue, <strong>explicar el fallo</strong> con un contraejemplo.</p>
       <p>Los acertijos de caballeros y bribones muestran la misma idea al revés: en lugar de decidir una conclusión, se buscan todas las valuaciones que son consistentes con las frases, es decir, los <em>modelos</em>.</p>`,
+    parametros: [
+      ['Argumento (Fig. 1)', String.raw`Cuál de los siete argumentos cotidianos se formaliza. Cambia las premisas, la conclusión y la tabla que decide si es válido.`],
+      ['Acertijo (Fig. 2)', String.raw`Cuál acertijo de caballeros (siempre dicen verdad) y bribones (siempre mienten) se analiza. Cambia las frases y las asignaciones posibles.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Del lenguaje natural a la lógica',
         descripcion: 'Siete argumentos de la vida diaria con su formalización. Ubique los inválidos y lea el contraejemplo que los refuta en lenguaje común.',
+        ayuda: String.raw`<p>Se muestra la formalización del argumento y su tabla de verdad. Las filas verdes son modelos de las premisas; una fila roja es un contraejemplo (premisas V, conclusión F) y se traduce al lenguaje común.</p>
+          <ul>
+          <li><strong>Argumento</strong>: los válidos no tienen fila roja; en los inválidos, la fila roja describe la situación que lo refuta.</li>
+          </ul>`,
         montar: montarLenguaje,
       },
       {
         titulo: 'Caballeros y bribones',
         descripcion: 'En esta isla los caballeros siempre dicen la verdad y los bribones siempre mienten. Las filas verdes son las asignaciones consistentes con lo que dicen.',
+        ayuda: String.raw`<p>Cada fila de la tabla es una asignación de quién es caballero o bribón. Las filas verdes son las consistentes con lo que dicen todos; la lectura resume cuántas hay.</p>
+          <ul>
+          <li><strong>Acertijo</strong>: si queda una sola fila verde, la solución es única; con varias o ninguna, el acertijo está mal planteado.</li>
+          </ul>`,
         montar: montarAcertijo,
       },
     ],

@@ -114,9 +114,27 @@
     intro: String.raw`
       <p>La <strong>tasa de aprendizaje</strong> \(\eta\) es el tamaño del paso. Si es muy pequeña, el entrenamiento tarda una eternidad; si es muy grande, los pasos se pasan del mínimo y la pérdida oscila o crece sin parar. Es el hiperparámetro más importante de una red.</p>
       <p>Aun con una tasa razonable, el descenso de gradiente sufre en valles estrechos: el gradiente apunta casi perpendicular al fondo y el avance rebota entre las paredes. El <strong>momentum</strong> le añade <em>inercia</em>: cada paso recuerda la dirección de los anteriores, de modo que los rebotes se cancelan y el avance a lo largo del valle se acumula.</p>`,
+    parametros: [
+      ['Curvatura κ (Fig. 1 y 2)', String.raw`Cuán estrecho es el valle de la pérdida: con κ grande, la superficie es muy empinada en una dirección y plana en otra, y el umbral de estabilidad 2/κ baja.`],
+      ['Tasa de aprendizaje η (Fig. 1)', String.raw`El tamaño del paso. Si supera 2/κ, el descenso simple diverge.`],
+      ['Momentum β (Fig. 1)', String.raw`Cuánta velocidad previa se conserva. Con 0 no hay inercia; con valores altos el avance se acumula, pero se sobrepasa el mínimo.`],
+      ['Reducir η a la mitad cada 15 pasos (Fig. 2)', String.raw`Activa una tasa que decae a lo largo del tiempo: se empieza rápido y se termina con pasos más finos.`],
+      ['Reproductor (Fig. 1)', String.raw`Reproducir, Un paso, Hasta el final y Reiniciar controlan los pasos del descenso.`],
+    ],
     visualizaciones: [
-      { titulo: 'Zigzag e inercia en un valle', descripcion: 'Estreche el valle (\\(\\kappa\\)) y compare los dos caminos. Suba \\(\\beta\\) a 0,95 y observe el sobreimpulso y el amortiguamiento.', montar: montarMomentum },
-      { titulo: 'La tasa de aprendizaje y la estabilidad', descripcion: 'Cuatro tasas medidas respecto del umbral \\(2/\\kappa\\). Active la reducción periódica para ver cómo se suaviza la oscilación.', montar: montarTasa },
+      { titulo: 'Zigzag e inercia en un valle', descripcion: 'Estreche el valle (\\(\\kappa\\)) y compare los dos caminos. Suba \\(\\beta\\) a 0,95 y observe el sobreimpulso y el amortiguamiento.',
+        ayuda: String.raw`<p>Los ejes son los dos parámetros θ₁ y θ₂ y las curvas de nivel son la pérdida (un valle alargado). Se muestran dos caminos desde el mismo punto: el descenso de gradiente simple y el de momentum, que terminan en el mínimo.</p>
+          <ul>
+          <li><strong>Curvatura κ</strong>: con un valle estrecho el descenso simple rebota entre las paredes y avanza despacio por el fondo.</li>
+          <li><strong>Tasa de aprendizaje η</strong>: si η supera 2/κ el descenso simple diverge.</li>
+          <li><strong>Momentum β</strong>: acumula velocidad a lo largo del fondo y amortigua los rebotes; con 0,95 hay sobreimpulso antes de asentarse.</li>
+          </ul>`, montar: montarMomentum },
+      { titulo: 'La tasa de aprendizaje y la estabilidad', descripcion: 'Cuatro tasas medidas respecto del umbral \\(2/\\kappa\\). Active la reducción periódica para ver cómo se suaviza la oscilación.',
+        ayuda: String.raw`<p>El eje horizontal es el paso y el vertical, la pérdida (escala log). Cada curva es una tasa de aprendizaje medida respecto del umbral crítico 2/κ (por ejemplo, 0,5 × (2/κ)).</p>
+          <ul>
+          <li><strong>Curvatura κ</strong>: cambia el valor absoluto de cada tasa, que siempre se compara con 2/κ.</li>
+          <li><strong>Reducir η a la mitad cada 15 pasos</strong>: las curvas que oscilaban se suavizan y la pérdida baja más.</li>
+          </ul>`, montar: montarTasa },
     ],
     teoria: String.raw`
       <h2>Tasa de aprendizaje en una cuadrática</h2>

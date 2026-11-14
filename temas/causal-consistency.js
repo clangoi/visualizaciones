@@ -299,15 +299,32 @@
       pueden aparecer en órdenes distintos en distintas réplicas.</p>
       <p>Es el modelo que evita las anomalías que notan las personas: ver una respuesta antes de la pregunta, o un comentario en una foto
       que todavía no aparece. Y, a diferencia de la consistencia fuerte, se puede implementar sin bloquear aunque la red se particione.</p>`,
+    parametros: [
+      ['Historia (Fig. 1)', String.raw`Qué ejemplo se analiza. Cada uno muestra un caso distinto: orden causal respetado, escrituras concurrentes o una violación.`],
+      ['Otra al azar (Fig. 1)', String.raw`Genera una historia aleatoria para comprobar si es causalmente consistente.`],
+      ['Escenario (Fig. 2)', String.raw`Elige entre «Publicación y respuesta» y seis mensajes al azar entre réplicas. Determina qué mensajes dependen causalmente de otros.`],
+      ['Entrega causal (relojes vectoriales) (Fig. 2)', String.raw`Si está activa, cada réplica retiene un mensaje hasta recibir sus causas. Si no, entrega en el orden de llegada y puede mostrar un efecto antes que su causa.`],
+      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Nuevos datos sortea otra ejecución; el reproductor avanza y reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Historias causales',
         descripcion: 'Las flechas aguamarina dicen de qué escritura leyó cada lectura; junto con el orden de programa forman el orden causal. Bajo el diagrama, la vista de cada proceso.',
+        ayuda: String.raw`<p>Cada fila es un proceso con escrituras y lecturas; las flechas aguamarina unen cada lectura con la escritura de la que lee y, con el orden de programa, forman el orden causal. Los procesos sin vista causal válida se marcan, y debajo se ve la vista de cada uno.</p>
+          <ul>
+          <li><strong>Historia</strong> con escrituras concurrentes: cada proceso puede verlas en orden distinto y sigue siendo causal.</li>
+          <li>Cambiar una lectura (clic) puede crear una dependencia que ningún proceso cumple y marcar una violación.</li>
+          </ul>`,
         montar: montarHistoria,
       },
       {
         titulo: 'Entrega causal en réplicas',
         descripcion: 'En «Publicación y respuesta», C recibe la respuesta de B antes que la publicación de A. Active la entrega causal: C la retiene (tramo amarillo) hasta tener la publicación.',
+        ayuda: String.raw`<p>Cada réplica recibe mensajes por la red. Los mensajes en tránsito, los retenidos hasta tener sus causas, las entregas y las entregas anómalas (antes que una causa) se distinguen por la leyenda.</p>
+          <ul>
+          <li><strong>Entrega causal</strong> desactivada en «Publicación y respuesta»: C recibe la respuesta antes que la publicación y aparece una anomalía.</li>
+          <li><strong>Entrega causal</strong> activada: C retiene la respuesta (tramo amarillo) hasta tener la publicación, y la anomalía desaparece.</li>
+          </ul>`,
         montar: montarReplicas,
       },
     ],

@@ -504,20 +504,42 @@
       <p>El resultado es un <a href="tema.html?id=process-trees">árbol de procesos</a>, y por construcción todo árbol se traduce a una red de Petri con
       <a href="tema.html?id=soundness">soundness</a>: sin bloqueos ni fichas sobrantes. A cambio, es más sensible al ruido que el
       <a href="tema.html?id=heuristic-miner">Heuristic Miner</a>, y por eso existe la variante con filtro de frecuencias (IMf).</p>`,
+    parametros: [
+      ['Ejemplo, Trazas y Aplicar trazas (Fig. 1)', String.raw`Ejemplo elige un registro predefinido; Trazas (letras:veces) permite escribir uno propio y Aplicar trazas lo carga. Determina qué corte es posible.`],
+      ['Filtro de ruido η (Fig. 1 a 3)', String.raw`Proporción de las relaciones del DFG que se descartan por infrecuentes. Con η = 0 todo cuenta; subirlo ignora trazas raras pero puede simplificar de más.`],
+      ['Casos y Ruido (Fig. 2 y 3)', String.raw`Tamaño del registro y fracción de trazas alteradas. El ruido rompe cortes que de otro modo serían exactos.`],
+      ['Nuevo registro y reproductor (Fig. 2 y 3)', String.raw`Genera otro registro y avanza la construcción del árbol paso a paso.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los cuatro cortes sobre el DFG',
         descripcion: 'Elija un ejemplo y vea qué corte detecta el algoritmo y por qué los otros fallan. Pruebe «Paralelo con una traza ruidosa»: una sola traza rompe el corte hasta que sube η.',
+        ayuda: String.raw`<p>DFG del registro con sus nodos coloreados por grupo del corte (grupo 1 a 4); las aristas entre grupos se señalan aparte. Muestra qué corte (secuencia, exclusivo, paralelo o bucle) encuentra el algoritmo.</p>
+          <ul>
+          <li><strong>Ejemplo</strong>: cada uno cumple un corte distinto; los demás cortes fallan por aristas que lo contradicen.</li>
+          <li><strong>Filtro de ruido η</strong>: en el ejemplo ruidoso, subirlo elimina la arista que rompía el corte y este reaparece.</li>
+          </ul>`,
         montar: montarCortes,
       },
       {
         titulo: 'Construcción recursiva del árbol',
         descripcion: 'Avance paso a paso: cada sublog pendiente se reemplaza por un operador y sublogs más pequeños. Haga clic en un nodo para ver las pruebas de corte de ese sublog.',
+        ayuda: String.raw`<p>Árbol de proceso en construcción: los operadores son → secuencia, × exclusivo, + paralelo y ↺ bucle; los nodos pendientes muestran las letras de su sublog y τ es una acción silenciosa.</p>
+          <ul>
+          <li><strong>Ruido</strong>: con ruido, los cortes limpios fallan y aparecen operadores opcionales (τ) o modelos flor.</li>
+          <li><strong>Filtro η</strong>: subirlo recupera cortes que el ruido había roto, con un árbol más simple.</li>
+          <li><strong>Casos</strong>: más casos dan un registro más representativo para decidir los cortes.</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'Ruido, filtro η y calidad del árbol',
         descripcion: 'Con ruido, η = 0 hace opcional casi todo o produce modelos flor (fitness alto, precisión baja). Suba η o haga clic sobre la curva para ver cómo sube la precisión a costa de algo de fitness.',
+        ayuda: String.raw`<p>Arriba, el árbol descubierto; abajo, curvas de calidad según el filtro η: fitness (casos que el árbol reproduce) y precisión estimada con 150 trazas muestreadas, más la referencia del modelo flor.</p>
+          <ul>
+          <li><strong>Filtro η</strong>: con η bajo y ruido alto el modelo tiende a flor (fitness alto, precisión baja); al subir η la precisión sube y el fitness baja algo.</li>
+          <li><strong>Ruido</strong>: desplaza las curvas; más ruido empeora la precisión con η bajo.</li>
+          </ul>`,
         montar: montarCalidad,
       },
     ],

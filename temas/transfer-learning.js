@@ -140,9 +140,27 @@
     intro: String.raw`
       <p>Entrenar una red desde cero exige muchos datos etiquetados. Pero las primeras capas de una CNN aprenden características generales (bordes, texturas) que sirven para muchas tareas. El <strong>aprendizaje por transferencia</strong> (<em>transfer learning</em>) reutiliza una red ya entrenada en una tarea grande y la adapta a otra con pocos datos.</p>
       <p>Hay dos estrategias principales. <strong>Extracción de características</strong>: se congelan las capas convolucionales y solo se entrena una cabeza nueva. <strong>Ajuste fino</strong> (<em>fine-tuning</em>): se entrena toda la red, o parte de ella, con una tasa de aprendizaje baja, para no destruir lo aprendido. Cuando el dominio nuevo difiere del de origen (<em>cambio de dominio</em>), hay que adaptar también las capas convolucionales, y se ajusta más de la red.</p>`,
+    parametros: [
+      ['Dominio nuevo (Fig. 1 y 2)', String.raw`Tipo de imágenes distintas de las del preentrenamiento (ruido, contraste invertido, desplazamientos). Define cuánto sirve lo ya aprendido.`],
+      ['Ejemplos por clase en el dominio nuevo (Fig. 1)', String.raw`Cantidad de ejemplos etiquetados disponibles. Con pocos, entrenar desde cero rinde mal y reutilizar pesos ayuda más.`],
+      ['Otros datos y reproductor (Fig. 1)', String.raw`Sortean otros ejemplos y controlan el entrenamiento.`],
+      ['Congelar capa convolucional 1 y 2 (Fig. 2)', String.raw`Fija los pesos de esa capa para que no cambien al entrenar. Congelar mantiene lo aprendido, pero limita la adaptación.`],
+      ['Tasa de aprendizaje (Fig. 2)', String.raw`Tamaño del paso en el ajuste. Alta puede destruir lo preentrenado.`],
+      ['Borrar corridas anteriores y reproductor (Fig. 2)', String.raw`Limpia las corridas superpuestas; el reproductor las entrena.`],
+    ],
     visualizaciones: [
-      { titulo: 'Desde cero, extracción o ajuste fino', descripcion: 'Con pocos ejemplos, compare las tres estrategias en un dominio con ruido, con contraste invertido o con desplazamientos. Mire la línea punteada: la red sin adaptar puede fallar por completo. Pruebe con 1 y con 10 ejemplos por clase.', montar: montarEstrategias },
-      { titulo: 'Congelar y descongelar capas', descripcion: 'Elija qué capas se entrenan y con qué tasa; compare corridas superpuestas.', montar: montarCongelar },
+      { titulo: 'Desde cero, extracción o ajuste fino', descripcion: 'Con pocos ejemplos, compare las tres estrategias en un dominio con ruido, con contraste invertido o con desplazamientos. Mire la línea punteada: la red sin adaptar puede fallar por completo. Pruebe con 1 y con 10 ejemplos por clase.',
+        ayuda: String.raw`<p>Exactitud en el dominio nuevo por época. Las líneas son tres estrategias: desde cero (naranja), extracción de características con convoluciones congeladas (azul) y ajuste fino (verde). La línea gris es la red preentrenada sin adaptar.</p>
+          <ul>
+          <li><strong>Ejemplos por clase</strong> bajos: desde cero queda por debajo de las otras dos.</li>
+          <li><strong>Dominio nuevo</strong> muy distinto: la línea gris puede quedar muy baja, es decir, la red sin adaptar falla.</li>
+          </ul>`, montar: montarEstrategias },
+      { titulo: 'Congelar y descongelar capas', descripcion: 'Elija qué capas se entrenan y con qué tasa; compare corridas superpuestas.',
+        ayuda: String.raw`<p>Exactitud por época de cada corrida, superpuestas con su configuración.</p>
+          <ul>
+          <li><strong>Congelar capa convolucional</strong> 1 y 2: menos parámetros se entrenan; compare con la corrida que entrena todo.</li>
+          <li><strong>Tasa de aprendizaje</strong>: valores altos con todo descongelado pueden bajar la exactitud.</li>
+          </ul>`, montar: montarCongelar },
     ],
     teoria: String.raw`
       <h2>Cuándo conviene cada estrategia</h2>

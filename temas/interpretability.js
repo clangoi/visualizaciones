@@ -100,9 +100,26 @@
     intro: String.raw`
       <p>Una red entrega una respuesta, pero no una razón. Cuando decide sobre un crédito, un diagnóstico o una condena, quien la usa necesita poder entender —y quien resulta afectado, poder discutir— por qué se decidió así. La <strong>interpretabilidad</strong> busca modelos que se entiendan por construcción; la <strong>explicabilidad</strong>, métodos que explican a posteriori modelos complejos.</p>
       <p>Hay dos preguntas distintas: <em>global</em> («¿qué variables usa el modelo en general?») y <em>local</em> («¿por qué decidió esto para este caso?»). Y una advertencia: una explicación bonita no es lo mismo que una explicación fiel.</p>`,
+    parametros: [
+      ['Imagen (Fig. 1)', String.raw`La imagen que clasifica la red. Cada figura tiene una forma distinta y por tanto otra zona decisiva.`],
+      ['Tamaño del parche que se tapa (Fig. 1)', String.raw`Lado de la región que el método de oclusión borra para medir su efecto. Un parche grande da mapas gruesos; uno pequeño, mapas detallados pero más débiles.`],
+      ['Solicitante (Fig. 2)', String.raw`La persona cuya decisión se explica. Cambia el aporte de cada variable porque cambian sus valores.`],
+      ['Otros datos (Fig. 2)', String.raw`Genera otro conjunto de solicitantes y de modelo para comprobar que la explicación no depende de un caso.`],
+    ],
     visualizaciones: [
-      { titulo: 'Dónde mira una CNN', descripcion: 'Compare los mapas de oclusión y de gradiente para cada figura. Cambie el tamaño del parche y vea cómo cambia el mapa.', montar: montarSaliencia },
-      { titulo: 'Explicar un modelo de crédito', descripcion: 'Elija solicitantes y mire cuánto aporta cada variable a su decisión; compare con la importancia global. El dato irrelevante debe pesar casi nada.', montar: montarTabular },
+      { titulo: 'Dónde mira una CNN', descripcion: 'Compare los mapas de oclusión y de gradiente para cada figura. Cambie el tamaño del parche y vea cómo cambia el mapa.',
+        ayuda: String.raw`<p>Cada mapa marca qué píxeles pesan en la clase predicha: el azul es importante a favor de la clase predicha y el naranja, en contra. Se comparan los mapas de oclusión y de gradiente.</p>
+          <ul>
+          <li><strong>Imagen</strong>: la zona azul se ubica sobre los trazos que distinguen esa figura.</li>
+          <li><strong>Tamaño del parche</strong>: afecta el mapa de oclusión; con parches mayores, las manchas son más grandes y menos precisas.</li>
+          </ul>`, montar: montarSaliencia },
+      { titulo: 'Explicar un modelo de crédito', descripcion: 'Elija solicitantes y mire cuánto aporta cada variable a su decisión; compare con la importancia global. El dato irrelevante debe pesar casi nada.',
+        ayuda: String.raw`<p>A la izquierda, barras con el aporte \(w\cdot x\) de cada variable al solicitante: las azules empujan hacia «aprobar» y las naranjas hacia «rechazar». A la derecha, la importancia global es la caída de exactitud al barajar la columna.</p>
+          <ul>
+          <li><strong>Solicitante</strong>: cambian las barras locales, no las globales.</li>
+          <li>La cuarta variable es ruido: su aporte y su importancia global son casi nulos.</li>
+          <li><strong>Otros datos</strong>: renueva ambos paneles.</li>
+          </ul>`, montar: montarTabular },
     ],
     teoria: String.raw`
       <h2>Familias de métodos</h2>

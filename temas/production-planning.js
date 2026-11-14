@@ -372,20 +372,45 @@
       máximo sin pasarse de ningún recurso.</p>
       <p>Con dos productos el problema se resuelve a ojo: cada recurso limita una región del plano, el plan óptimo está en una esquina y
       cada recurso agotado tiene un <em>precio sombra</em> que dice cuánto valdría tener una unidad más.</p>`,
+    parametros: [
+      ['Capacidades de los recursos (Fig. 1)', String.raw`La cantidad disponible de cada recurso (como la madera). Bajarla estrecha la región de planes posibles.`],
+      ['Margen de cada producto (Fig. 1)', String.raw`El beneficio por unidad de mesas y de sillas. Define la inclinación de la recta de igual beneficio.`],
+      ['Beneficio Z de la recta (Fig. 1)', String.raw`El beneficio al que corresponde la recta punteada. Deslizarlo muestra qué planes lo alcanzan.`],
+      ['Z = beneficio óptimo y Restablecer datos (Fig. 1)', String.raw`El primero coloca la recta en el óptimo; el segundo devuelve capacidades y márgenes a su valor inicial.`],
+      ['Recurso que cambia y Capacidad del recurso (Fig. 2)', String.raw`Qué recurso se modifica y cuánto hay de él. Muestra cómo responde el beneficio máximo.`],
+      ['Volver al valor inicial (Fig. 2 y 3)', String.raw`Restablece la capacidad o el margen original.`],
+      ['Margen que cambia y Margen por unidad (Fig. 3)', String.raw`El producto que se modifica y su beneficio unitario. Girar la recta cambia qué vértice es óptimo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Solución gráfica',
         descripcion: 'La recta punteada une todos los planes con el mismo beneficio Z. Deslice Z hacia arriba hasta que toque la región solo en un vértice, o haga clic para probar un plan propio. Baje la madera hasta que deje de sobrar.',
+        ayuda: String.raw`<p>Ejes: mesas y sillas producidas. La región es la de planes factibles, la recta punteada une los de igual beneficio Z y se marcan el plan óptimo y el plan elegido con clic.</p>
+          <ul>
+          <li><strong>Beneficio Z</strong>: al subirlo, la recta se aleja hasta tocar la región solo en el vértice óptimo.</li>
+          <li><strong>Capacidades</strong>: al bajar la madera, la región se achica y el óptimo se mueve.</li>
+          <li><strong>Márgenes</strong>: cambian la pendiente de la recta.</li>
+          </ul>`,
         montar: montarGrafica,
       },
       {
         titulo: 'Precios sombra de los recursos',
         descripcion: 'Elija un recurso y mueva su capacidad: la curva muestra el beneficio máximo y la recta naranja su pendiente, el precio sombra. Compare el precio con el aumento real por +1 unidad y busque dónde cambia.',
+        ayuda: String.raw`<p>Curva del beneficio máximo (USD) según la capacidad del recurso, con una recta cuya pendiente es el precio sombra y el tramo donde ese precio no cambia.</p>
+          <ul>
+          <li><strong>Capacidad del recurso</strong>: la pendiente de la curva es lo que vale una unidad más; fuera del tramo, el precio sombra cambia.</li>
+          <li><strong>Recurso que cambia</strong>: cada recurso tiene su propio precio y su propio tramo.</li>
+          </ul>`,
         montar: montarPrecios,
       },
       {
         titulo: 'Efecto de cambiar un margen',
         descripcion: 'Mueva el margen de un producto y vea girar la recta de igual beneficio. Busque los márgenes donde el plan óptimo salta de un vértice a otro, y haga clic sobre la curva para fijar el margen.',
+        ayuda: String.raw`<p>Arriba, la región factible con la recta de igual beneficio y su dirección de mejora, y el vértice óptimo. Abajo, las unidades óptimas de mesas y sillas según el margen, con una marca en el margen actual.</p>
+          <ul>
+          <li><strong>Margen por unidad</strong>: al moverlo, la recta gira y, en ciertos valores, el óptimo salta de vértice y la producción cambia de golpe.</li>
+          <li><strong>Margen que cambia</strong>: elige si se estudia mesas o sillas.</li>
+          </ul>`,
         montar: montarMargen,
       },
     ],

@@ -158,10 +158,19 @@
       deciden valores distintos. Una de <strong>vivacidad</strong> (<em>liveness</em>) dice que <em>algo bueno termina pasando</em>: todo pedido es atendido, el algoritmo termina.</p>
       <p>La diferencia importa porque se demuestran distinto: la seguridad con <strong>invariantes</strong> (una propiedad de cada estado alcanzable), la vivacidad con argumentos de
       progreso. Y para sistemas pequeños se pueden verificar las dos explorando <em>todos</em> los estados posibles, que es lo que hacen los verificadores de modelos como TLA+ o SPIN.</p>`,
+    parametros: [
+      ['Protocolo (Fig. 1)', String.raw`Qué algoritmo de exclusión mutua para dos procesos se analiza. Cada uno tiene su propio grafo de estados, con distintos fallos de seguridad o vivacidad.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Explorar todos los estados',
         descripcion: 'Elija un protocolo de exclusión mutua para dos procesos y observe su grafo de estados completo. Los dos intentos ingenuos fallan de formas distintas: uno viola la seguridad (rojo) y el otro, la vivacidad (amarillo). Peterson no tiene ninguno de los dos.',
+        ayuda: String.raw`<p>Cada nodo es un estado global del protocolo (dónde está cada proceso) y cada flecha, un paso de un proceso. La leyenda marca el estado inicial, los estados que violan la seguridad (ambos en la sección crítica), los que no tienen salida (interbloqueo) y el camino hasta el problema (contraejemplo).</p>
+          <ul>
+          <li><strong>Protocolo</strong> ingenuo que viola la seguridad: aparece un estado rojo alcanzable con ambos procesos dentro de la sección crítica.</li>
+          <li><strong>Protocolo</strong> que falla en vivacidad: hay estados sin salida o ciclos en que nadie avanza, aunque nunca entren los dos.</li>
+          <li>Un protocolo correcto no tiene estados marcados.</li>
+          </ul>`,
         montar,
       },
     ],

@@ -346,15 +346,34 @@
       Esto no se resuelve con intervalos uno por uno, porque en la práctica <strong>todo cambia a la vez</strong>.</p>
       <p>Una forma sencilla de medir esa fragilidad es simular: perturbar todos los datos al azar, resolver cada versión y mirar qué tan dispersa es la solución, cuántas veces cambia la base y qué ocurre con el valor óptimo.
       Al comparar el <em>promedio</em> con el <em>peor caso</em> se ve el precio de protegerse: una decisión conservadora rinde menos en promedio, pero falla menos.</p>`,
+    parametros: [
+      ['Perturbación σ (relativa) (Fig. 1)', String.raw`Tamaño relativo del ruido aplicado a los datos del problema. Mayor σ dispersa los óptimos y los reparte entre más vértices.`],
+      ['Escenarios N (Fig. 1)', String.raw`Cantidad de versiones perturbadas que se resuelven.`],
+      ['costos c, consumos A y recursos b (Fig. 1)', String.raw`Casillas para elegir qué datos se perturban; permiten ver cuál inestabiliza más la solución.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Nuevos datos sortea otro conjunto de perturbaciones; el reproductor agrega los escenarios de a poco.`],
+      ['Perturbación σ y Escenarios N (Fig. 2)', String.raw`Ruido relativo de los datos y número de escenarios simulados.`],
+      ['Colchón ρ en los recursos (Fig. 2)', String.raw`Fracción que se reserva de cada recurso al planificar. Un ρ alto reduce las veces que la decisión es infactible, a costa de menos utilidad.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra muestra de escenarios.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Nube de soluciones bajo perturbaciones',
         descripcion: 'Cada punto es el óptimo de una versión perturbada del problema, coloreado según su base. Suba σ y vea cómo la nube se reparte entre vértices; apague las casillas para perturbar solo costos, solo consumos o solo recursos, y compare cuál desestabiliza más la solución.',
+        ayuda: String.raw`<p>Cada punto es el óptimo de una versión perturbada del problema, coloreado según su base. Se dibujan también la solución nominal y la región factible nominal.</p>
+          <ul>
+          <li><strong>Perturbación σ</strong>: al subir, la nube se ensancha y se reparte entre más vértices.</li>
+          <li><strong>costos c, consumos A, recursos b</strong>: perturbar solo los costos cambia el vértice ganador; perturbar recursos o consumos mueve los puntos.</li>
+          </ul>`,
         montar: montarNube,
       },
       {
         titulo: 'Promedio frente a peor caso',
         descripcion: 'Compare reoptimizar con los datos reales frente a mantener una decisión planificada con un colchón ρ en los recursos. Con ρ = 0 la decisión nominal falla con frecuencia; al subir ρ cae la infactibilidad, pero también la utilidad media. Mueva σ para ver cómo cambia el equilibrio.',
+        ayuda: String.raw`<p>Histograma de utilidad: eje horizontal, utilidad; vertical, fracción de escenarios. Se compara reoptimizar con los datos reales (\(z^*\)) con mantener la decisión planificada con colchón; la leyenda marca los casos en que la decisión fija resulta infactible.</p>
+          <ul>
+          <li><strong>Colchón ρ</strong>: con ρ = 0 la decisión nominal falla con frecuencia; al subir ρ cae la infactibilidad pero baja la utilidad realizada.</li>
+          <li><strong>Perturbación σ</strong>: más ruido amplía la dispersión y exige un colchón mayor.</li>
+          </ul>`,
         montar: montarColchon,
       },
     ],

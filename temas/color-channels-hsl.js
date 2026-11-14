@@ -105,9 +105,26 @@
     intro: String.raw`
       <p>El color no es un solo canal sino tres: el <strong>tono</strong> (si es azul, naranjo, verde…), la <strong>saturación</strong> (cuán vivo o apagado) y la <strong>luminancia</strong> (cuán claro u oscuro). Cada uno comunica algo distinto.</p>
       <p>El tono identifica categorías pero no ordena; la luminancia y la saturación sí ordenan, aunque con poca precisión. Escoger mal entre ellos produce gráficos que parecen coloridos y no dicen nada.</p>`,
+    parametros: [
+      ['Tono (H) (Fig. 1)', String.raw`El ángulo en la rueda de colores (0–359°): qué color es. Cambiarlo recorre colores distintos de igual saturación y luminosidad.`],
+      ['Saturación (S) (Fig. 1)', String.raw`Cuán vivo es el color, del gris (0 %) al color puro (100 %).`],
+      ['Luminosidad (L) (Fig. 1)', String.raw`Cuán claro u oscuro es el color, de casi negro a casi blanco. Es el atributo que más ordena.`],
+      ['Visión (Fig. 2)', String.raw`Qué tipo de visión se simula: normal, deuteranopia, protanopia, tritanopia o escala de grises.`],
+    ],
     visualizaciones: [
-      { titulo: 'Tono, saturación y luminosidad', descripcion: 'Mueva cada atributo y compare las franjas; el cuadro gris muestra cuánta luminancia tiene el color elegido.', montar: montarHSL },
-      { titulo: 'Paletas bajo daltonismo y en grises', descripcion: 'Aplique tres tipos de daltonismo y la escala de grises a tres paletas y lea la diferencia mínima entre colores.', montar: montarSimulacion },
+      { titulo: 'Tono, saturación y luminosidad', descripcion: 'Mueva cada atributo y compare las franjas; el cuadro gris muestra cuánta luminancia tiene el color elegido.',
+        ayuda: String.raw`<p>Tres franjas varían un solo atributo (tono, saturación y luminosidad) y mantienen los otros dos con los valores elegidos; un marcador negro señala el valor actual en cada una. Abajo, el color elegido y, a su derecha, el gris con su misma luminancia. La lectura da el RGB, la luminancia relativa y el contraste con blanco.</p>
+          <ul>
+          <li><strong>Tono</strong>: cambia el color de las franjas de saturación y luminosidad y del cuadro, sin cambiar su gradiente.</li>
+          <li><strong>Saturación</strong> en 0 %: el color elegido pasa a gris y las franjas pierden el tono.</li>
+          <li><strong>Luminosidad</strong>: cambia la luminancia relativa y el contraste con blanco, y el gris equivalente se aclara u oscurece.</li>
+          </ul>`, montar: montarHSL },
+      { titulo: 'Paletas bajo daltonismo y en grises', descripcion: 'Aplique tres tipos de daltonismo y la escala de grises a tres paletas y lea la diferencia mínima entre colores.',
+        ayuda: String.raw`<p>Tres paletas (la categórica del sitio con ocho colores, un arcoíris por tono y una rampa secuencial azul), cada una con su ΔE mínimo, que mide la diferencia entre sus colores más parecidos. Un ΔE rojo, menor que 10, indica colores difíciles de distinguir. La lectura resume las tres cifras.</p>
+          <ul>
+          <li><strong>Visión</strong> «deuteranopia» o «protanopia»: el arcoíris pierde diferencia entre colores (su ΔE baja), mientras la paleta categórica la conserva mejor.</li>
+          <li><strong>Visión</strong> «escala de grises»: se ve cuánto depende cada paleta de la luminancia; la rampa se mantiene ordenada.</li>
+          </ul>`, montar: montarSimulacion },
     ],
     teoria: String.raw`
       <h2>Los tres atributos</h2>

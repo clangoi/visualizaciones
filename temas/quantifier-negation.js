@@ -97,15 +97,29 @@
     intro: String.raw`
       <p>Negar «todos los cisnes son blancos» no es decir «ningún cisne es blanco», sino «<strong>existe</strong> un cisne que no es blanco». Un solo contraejemplo basta. Esa es la regla central: <strong>negar un cuantificador lo cambia de tipo</strong> y empuja la negación hacia dentro.</p>
       <p>Con estas leyes cualquier negación se puede llevar hasta los átomos, y se puede decidir cuándo dos fórmulas con cuantificadores dicen lo mismo —o cuándo una creencia popular, como que \(\exists\) distribuye sobre \(\land\), es falsa.</p>`,
+    parametros: [
+      ['Fórmula y Reproductor (Fig. 1)', String.raw`La fórmula a la que se empuja la negación y el avance paso a paso. Cada paso cruza un cuantificador (\(\forall\) pasa a \(\exists\) y viceversa) o un conectivo.`],
+      ['Fórmula A, Fórmula B, Pares conocidos y Tamaño máximo del dominio (Fig. 2)', String.raw`Las dos fórmulas a comparar, los pares precargados y el tamaño máximo de las interpretaciones donde se prueban. Si difieren en alguna, se muestra un contramodelo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Empuje la negación hacia los átomos',
         descripcion: 'Reproduzca cómo una negación atraviesa cuantificadores y conectivos paso a paso. Cada paso se verifica en interpretaciones aleatorias.',
+        ayuda: String.raw`<p>La lista muestra la fórmula en cada paso del empuje, con cada paso verificado en interpretaciones aleatorias; al final la negación queda sólo sobre átomos.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: cambia el número y la clase de pasos (cuantificadores, De Morgan, implicaciones).</li>
+          <li><strong>Reproductor</strong>: avanza un paso cada vez; cada paso conserva la equivalencia.</li>
+          </ul>`,
         montar: montarEmpuje,
       },
       {
         titulo: '¿Son equivalentes?',
         descripcion: 'Compare dos fórmulas con cuantificadores en todas las interpretaciones pequeñas. Si difieren, verá el contramodelo; pruebe cómo falla \\(\\exists x\\,(P \\land Q) \\equiv \\exists x\\,P \\land \\exists x\\,Q\\).',
+        ayuda: String.raw`<p>Si A y B no son equivalentes, se dibuja una interpretación pequeña donde difieren; los elementos que cumplen el predicado o R se marcan según la leyenda.</p>
+          <ul>
+          <li><strong>Pares conocidos</strong>: cargan equivalencias clásicas y fallas típicas, como distribuir \(\exists\) sobre \(\land\).</li>
+          <li><strong>Tamaño máximo del dominio</strong>: más grande encuentra contramodelos que no caben en dominios chicos; si no hay ninguno, no se prueba la equivalencia.</li>
+          </ul>`,
         montar: montarEquivalencia,
       },
     ],

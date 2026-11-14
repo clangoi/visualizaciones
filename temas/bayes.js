@@ -185,15 +185,33 @@
       <p>El resultado es una regla óptima: ningún otro clasificador que use la misma información tiene menor riesgo esperado.
       Por eso sirve de referencia para todos los demás, y los clasificadores gaussianos, como <a href="tema.html?id=lda-qda">LDA y QDA</a>,
       son esta regla con las densidades estimadas a partir de los datos.</p>`,
+    parametros: [
+      ['A priori P(ω₁) (Fig. 1)', String.raw`La probabilidad previa de la clase ω₁ (la de ω₂ es su complemento). Subirla ensancha la región donde se decide ω₁.`],
+      ['Media de ω₂ (Fig. 1)', String.raw`Dónde está centrada la clase ω₂ respecto de ω₁. Alejarla separa las clases y reduce el área de error.`],
+      ['σ de ω₁ y σ de ω₂ (Fig. 1)', String.raw`La dispersión de cada verosimilitud. Mayor σ significa una campana más ancha y más solape con la otra clase.`],
+      ['Costo de decidir ω₂ si es ω₁ (c₁₂) y Costo de decidir ω₁ si es ω₂ (c₂₁) (Fig. 1)', String.raw`Cuánto pesa cada tipo de error. Subir un costo empuja la decisión a evitar ese error aunque aumente el otro.`],
+      ['Umbral t y Ir al mínimo (Fig. 2)', String.raw`El punto de corte de la regla (se decide ω₂ si x &gt; t) y el salto al umbral de menor riesgo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La regla de decisión de Bayes',
         descripcion: 'Dos clases con verosimilitud gaussiana. Cambie la probabilidad a priori y los costos y observe cómo se mueve el umbral y cambia el área de error.',
+        ayuda: String.raw`<p>Arriba, \(P(\omega_i)\,p(x\mid\omega_i)\) de cada clase (eje X: x); abajo, las probabilidades a posteriori \(P(\omega_i\mid x)\), con el umbral de decisión y el área de la probabilidad de error.</p>
+          <ul>
+          <li><strong>A priori P(ω₁)</strong>: la curva de ω₁ sube, el umbral se corre hacia ω₂ y cambia el área de error.</li>
+          <li><strong>σ de ω₁</strong> y <strong>σ de ω₂</strong>: campanas más anchas se solapan más y el área de error crece.</li>
+          <li><strong>Costo c₁₂</strong> y <strong>c₂₁</strong>: desplazan el umbral de decisión alejándolo de la clase cuyo error es más caro.</li>
+          </ul>`,
         montar: montarRegla,
       },
       {
         titulo: 'El riesgo de cada umbral',
         descripcion: 'Para una regla de un solo umbral, el riesgo es la suma de dos curvas que se cruzan; el mínimo es el umbral de Bayes. Haga clic para elegir t.',
+        ayuda: String.raw`<p>Eje X: umbral t; eje Y: riesgo. Las dos curvas son los costos de cada tipo de error (\(c_{12}\) para ω₁ tomados por ω₂, \(c_{21}\) para el inverso) y la suma es el riesgo total R(t), con su mínimo marcado.</p>
+          <ul>
+          <li><strong>Umbral t</strong>: moverlo a la derecha reduce un error y aumenta el otro; R(t) es mínimo en el umbral de Bayes.</li>
+          <li><strong>Ir al mínimo</strong>: coloca t en el mínimo del riesgo total.</li>
+          </ul>`,
         montar: montarRiesgo,
       },
     ],

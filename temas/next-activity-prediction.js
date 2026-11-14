@@ -207,15 +207,33 @@
       <p>El modelo más simple es una cadena de Markov de orden \(n\): la probabilidad de la próxima actividad depende solo de las últimas \(n\) actividades. No hace falta conocer el modelo del
       proceso; basta contar. Su límite es doble: un contexto corto confunde situaciones distintas, y uno largo se ve pocas veces. Además, cuando hay actividades en paralelo o decisiones
       aleatorias, ni el mejor predictor puede acertar siempre.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`Proceso cuyos casos se predicen. Cada uno tiene órdenes y paralelismos distintos.`],
+      ['Orden n del modelo (Fig. 1)', String.raw`Cuántas actividades previas usa el modelo para predecir. Más orden recuerda más historia pero ve menos ejemplos de cada contexto.`],
+      ['Largo del prefijo k (Fig. 1)', String.raw`Cuántos eventos del caso se conocen al predecir.`],
+      ['Otro caso (Fig. 1)', String.raw`Cambia el caso observado.`],
+      ['Acierto (Fig. 2)', String.raw`Criterio de acierto: top-1, la primera opción, o top-3, entre las tres primeras.`],
+      ['Casos de entrenamiento (Fig. 2)', String.raw`Cuántos casos aprenden los modelos. Con pocos, los órdenes altos sufren primero porque ven pocos ejemplos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Probabilidades de la próxima actividad',
         descripcion: 'Elija un caso y avance el prefijo: el modelo reparte probabilidad sobre lo que viene. En pedidos, lleve k justo después de «Preparar envío» (use «Otro caso» hasta que aparezca) y compare n = 1 con n = 2: con n = 2 el modelo sabe si la factura ya se emitió y la duda desaparece.',
+        ayuda: String.raw`<p>Se muestra el prefijo del caso y, para cada actividad posible, una barra con la probabilidad estimada de que sea la próxima. Se destaca la actividad que ocurrió realmente.</p>
+          <ul>
+          <li><strong>Orden n del modelo</strong>: con n mayor las probabilidades se concentran si el contexto es suficiente, y con n = 1 se reparten entre las opciones.</li>
+          <li><strong>Largo del prefijo k</strong>: cambia el punto del caso en que se predice y las actividades posibles.</li>
+          </ul>`,
         montar: montarDistribucion,
       },
       {
         titulo: 'Precisión según el largo del prefijo',
         descripcion: 'Compare los órdenes 1, 2 y 3 con la línea de referencia. Pase de top-1 a top-3 para ver cuánto cubre el paralelismo, y reduzca los casos de entrenamiento: los órdenes altos sufren primero porque ven pocos contextos.',
+        ayuda: String.raw`<p>Eje horizontal: largo del prefijo k; eje vertical: acierto. Hay una curva por orden n y una línea de referencia con la historia completa (3000 casos).</p>
+          <ul>
+          <li><strong>Acierto</strong> en top-3: sube la curva, porque basta que la actividad real esté entre las tres primeras; cubre el paralelismo.</li>
+          <li><strong>Casos de entrenamiento</strong>: al reducirlos caen primero las curvas de orden alto.</li>
+          </ul>`,
         montar: montarPrecision,
       },
     ],

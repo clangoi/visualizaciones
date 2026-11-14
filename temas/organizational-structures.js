@@ -243,15 +243,35 @@
     intro: String.raw`
       <p>La <strong>estructura organizacional</strong> define quién reporta a quién, cuántas personas supervisa cada jefe (el <em>tramo de control</em>) y por cuántos niveles debe pasar una decisión. Una empresa <em>funcional</em> agrupa por especialidad (ventas, finanzas, operaciones); una <em>divisional</em>, por producto o región; una <em>matricial</em> cruza ambas con jefes de proyecto; una <em>plana o en red</em> reduce los niveles y reparte la coordinación entre equipos.</p>
       <p>Cada estructura es un compromiso entre control, velocidad y costo de coordinación. Las tecnologías de información cambian ese compromiso: si un tablero, un flujo de trabajo o un canal de mensajería entrega la información sin intermediarios, un jefe puede coordinar a más personas y sobran niveles.</p>`,
+    parametros: [
+      ['Estructura (Fig. 1)', String.raw`Forma de organizarse (jerárquica, matricial, red…). Define quién se comunica con quién y cuántos intermediarios hay.`],
+      ['Personas (Fig. 1)', String.raw`Tamaño de la organización. Más personas suelen alargar las rutas.`],
+      ['Tramo de control (vínculos por persona en red) (Fig. 1)', String.raw`Cuántos vínculos tiene cada persona en la red.`],
+      ['Demora por intermediario (Fig. 1)', String.raw`Días que añade cada persona por la que pasa una decisión.`],
+      ['Dos personas al azar (Fig. 1)', String.raw`Elige dos extremos; también se eligen con clic.`],
+      ['Personas operativas (Fig. 2)', String.raw`Número de personas en la base. Fija cuántos niveles necesita la pirámide.`],
+      ['Apoyo de TI a la supervisión (Fig. 2)', String.raw`Qué tanto la tecnología reemplaza supervisión directa. Más apoyo permite un tramo de control mayor.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Estructuras como redes de comunicación',
         descripcion: 'Elija dos personas con clic y compare cuántos intermediarios y cuántos días separan una decisión entre ellas. Pruebe cambiar de jerárquica a matricial (aparecen atajos entre áreas) y a red, y suba el tramo de control para ver cómo baja el número de niveles.',
+        ayuda: String.raw`<p>Grafo de la organización: la dirección (nodo 0), las personas y el coordinador de proyecto. Dos extremos elegidos están resaltados y la ruta de la decisión los une.</p>
+          <ul>
+          <li><strong>Estructura</strong>: cambia los vínculos y la longitud de la ruta; la matricial agrega atajos entre áreas.</li>
+          <li><strong>Personas</strong> y <strong>Tramo de control</strong>: alteran el número de intermediarios.</li>
+          <li><strong>Demora por intermediario</strong>: convierte intermediarios en días de espera.</li>
+          </ul>`,
         montar: montarComunicacion,
       },
       {
         titulo: 'Cómo las TI aplanan la pirámide',
         descripcion: 'Aumente el apoyo de TI y observe que el tramo de control óptimo crece, la pirámide pierde niveles y el costo de supervisión por persona baja. Compare organizaciones de 50 y de 2000 personas.',
+        ayuda: String.raw`<p>Arriba, la pirámide de supervisión; abajo, el eje horizontal es el tramo de control y el vertical el costo respecto del sueldo operativo, con curvas sin TI y con TI y el tramo óptimo marcado.</p>
+          <ul>
+          <li><strong>Apoyo de TI</strong>: el tramo óptimo crece, la pirámide pierde niveles y el costo baja.</li>
+          <li><strong>Personas operativas</strong>: cambia la cantidad de niveles necesarios.</li>
+          </ul>`,
         montar: montarAplanar,
       },
     ],

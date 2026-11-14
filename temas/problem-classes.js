@@ -330,15 +330,34 @@
       <strong>NLP</strong> (alguna función no lineal). Cambia mucho la forma del conjunto factible, y con ella la dificultad de resolver el problema.</p>
       <p>Lo más importante no es el nombre sino la consecuencia práctica: qué método usar, qué garantía se obtiene y cuánto puede tardar. Aquí verá el mismo
       modelo en las cuatro clases y luego podrá clasificar modelos mezclando sus ingredientes.</p>`,
+    parametros: [
+      ['Clase del modelo (Fig. 1)', String.raw`La clase de problema (LP, ILP, MILP o NLP) con que se resuelve el mismo modelo; cambia el conjunto factible y el valor óptimo.`],
+      ['Coeficiente c₁ y c₂ (Fig. 1)', String.raw`Los coeficientes del objetivo. Definen la dirección en que se mejora y qué punto resulta óptimo en cada clase.`],
+      ['Radio R (restricción x₁² + x₂² ≤ R², solo NLP) (Fig. 1)', String.raw`El tamaño de la región circular del caso no lineal. No tiene efecto en las demás clases.`],
+      ['Variables, Función objetivo y Restricciones (Fig. 2)', String.raw`Las tres características que determinan la clase de un modelo: si las variables son continuas o enteras, y la forma del objetivo y de las restricciones.`],
+      ['Modelo al azar (Fig. 2)', String.raw`Elige una combinación cualquiera para clasificarla.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un mismo modelo en cuatro clases',
         descripcion: 'Cambie de clase con el selector y compare la forma del conjunto factible y el valor óptimo: el LP da la cota más alta, el MILP queda por debajo y el ILP más aún. Coloque puntos de prueba con clic para ver en qué clases son factibles.',
+        ayuda: String.raw`<p>Plano \(x_1\), \(x_2\). Se dibuja el conjunto factible de la clase elegida (región, puntos o segmentos), su óptimo, el óptimo de la relajación lineal y el nivel del objetivo que pasa por el óptimo.</p>
+          <ul>
+          <li><strong>Clase del modelo</strong>: en un LP el conjunto es una región; en ILP son puntos enteros y en MILP, segmentos. El óptimo de la relajación lineal es una cota mejor o igual que el del entero.</li>
+          <li><strong>Coeficiente c₁</strong> y <strong>c₂</strong>: giran la dirección del objetivo y pueden mover el óptimo a otro punto.</li>
+          <li><strong>Radio R</strong>: en NLP agranda o reduce la región circular.</li>
+          </ul>`,
         montar: montarClases,
       },
       {
         titulo: 'Clasificador de modelos',
         descripcion: 'Combine el tipo de variables, la función objetivo y las restricciones: se ilumina la clase en la cuadrícula y la lectura indica convexidad, garantía y método típico. Pruebe «x² − y²» o «x·y» para perder la convexidad y «todas enteras» para pasar a ramificación.',
+        ayuda: String.raw`<p>Cuadrícula de clases de modelos: se ilumina la que corresponde a la combinación elegida, con su forma típica de conjunto factible. La lectura indica convexidad, garantía y método típico.</p>
+          <ul>
+          <li><strong>Variables</strong>: pasar de continuas a enteras mueve el modelo de LP a ILP o MILP.</li>
+          <li><strong>Función objetivo</strong>: un término como «x·y» vuelve el modelo no convexo y se pierde la garantía de óptimo global.</li>
+          <li><strong>Restricciones</strong>: lineales o no lineales cambian la forma del conjunto factible.</li>
+          </ul>`,
         montar: montarClasificador,
       },
     ],

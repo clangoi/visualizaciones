@@ -6,9 +6,27 @@
       <p>El <strong>planificador de CPU</strong> decide cuál de los procesos listos usa el procesador. La política más simple es <strong>FCFS</strong> (<em>First Come, First Served</em>): atender en el orden de llegada, sin quitar la CPU a nadie.
       Es justa en el orden, pero un proceso largo que llega primero retrasa a todos los cortos: el <strong>efecto convoy</strong>.</p>
       <p><strong>SJF</strong> (<em>Shortest Job First</em>) elige siempre el trabajo más corto de los listos. Minimiza el tiempo de espera medio, pero necesita conocer o estimar la duración y puede dejar a los largos esperando indefinidamente (<em>inanición</em>).</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Política que decide qué proceso listo usa la CPU: FCFS por orden de llegada o SJF por ráfaga más corta, sin quitar la CPU.`],
+      ['Carga de trabajo (Fig. 1 y 2)', String.raw`El patrón de llegadas y ráfagas: al azar, con un proceso largo primero (convoy) o con todos llegando en t = 0. Determina cuánto se nota la diferencia entre políticas.`],
+      ['Procesos (Fig. 1 y 2)', String.raw`Cantidad de procesos que compiten por la CPU.`],
+      ['Nuevos datos, reproductor (Fig. 1) y Nuevos datos (Fig. 2)', String.raw`Generan otra muestra de la misma carga; el reproductor avanza el diagrama una unidad de tiempo por paso.`],
+      ['Métrica (Fig. 2)', String.raw`Qué se compara: espera media, retorno medio o respuesta media. Menor es mejor.`],
+    ],
     visualizaciones: [
-      { titulo: 'FCFS y SJF en un diagrama de Gantt', descripcion: 'Elija la carga «un proceso largo llega primero» y compare FCFS con SJF: observe cuánto esperan los procesos cortos detrás del largo.', montar: (c) => VIZ.sor.figuraPlanificacion(c, { algs: ALGS, cargas: ['convoy', 'azar', 'juntos'], n0: 5 }) },
-      { titulo: 'Comparación sobre la misma carga', descripcion: 'Cambie la métrica: SJF gana en espera y retorno medios; observe si cambia la respuesta.', montar: (c) => VIZ.sor.figuraComparacion(c, { algs: ALGS, cargas: ['convoy', 'azar', 'juntos'], n0: 6 }) },
+      { titulo: 'FCFS y SJF en un diagrama de Gantt', descripcion: 'Elija la carga «un proceso largo llega primero» y compare FCFS con SJF: observe cuánto esperan los procesos cortos detrás del largo.',
+        ayuda: String.raw`<p>Diagrama de Gantt: cada fila es un proceso con su color; la franja gris va desde su llegada y el tramo coloreado es cuando usa la CPU. Debajo, la tabla con llegada, ráfaga, fin, espera, retorno y respuesta, y al terminar, las medias.</p>
+          <ul>
+          <li><strong>Algoritmo</strong> FCFS con la carga <strong>Un proceso largo llega primero</strong>: los cortos tienen largas franjas grises detrás del largo (efecto convoy).</li>
+          <li><strong>Algoritmo</strong> SJF sobre los mismos datos: los cortos pasan antes y la espera media baja.</li>
+          <li><strong>Procesos</strong>: más procesos hacen más larga la cola y más visible la diferencia.</li>
+          </ul>`, montar: (c) => VIZ.sor.figuraPlanificacion(c, { algs: ALGS, cargas: ['convoy', 'azar', 'juntos'], n0: 5 }) },
+      { titulo: 'Comparación sobre la misma carga', descripcion: 'Cambie la métrica: SJF gana en espera y retorno medios; observe si cambia la respuesta.',
+        ayuda: String.raw`<p>Una barra por algoritmo con el valor de la métrica elegida sobre la misma carga; la mejor (menor) va en negrita.</p>
+          <ul>
+          <li><strong>Métrica</strong>: SJF gana en espera y retorno medios; en respuesta las barras pueden quedar parecidas.</li>
+          <li><strong>Carga de trabajo</strong>: con «Todos llegan en t = 0» o convoy la ventaja de SJF cambia de tamaño.</li>
+          </ul>`, montar: (c) => VIZ.sor.figuraComparacion(c, { algs: ALGS, cargas: ['convoy', 'azar', 'juntos'], n0: 6 }) },
     ],
     teoria: String.raw`
       <h2>Métricas</h2>

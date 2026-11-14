@@ -163,15 +163,34 @@
       <p>Sincronizar por la red tiene un problema de fondo: el mensaje que trae la hora tarda un tiempo desconocido. Los algoritmos de
       <strong>Cristian</strong> y <strong>NTP</strong> estiman esa demora con la ida y vuelta; el de <strong>Berkeley</strong> no busca la hora exacta sino que todos
       coincidan entre sí. Cuando basta el orden de los eventos, los <a href="tema.html?id=lamport-clocks">relojes lógicos</a> evitan el problema.</p>`,
+    parametros: [
+      ['Deriva máxima ρ (Fig. 1)', String.raw`Cuánto se adelanta o atrasa como máximo cada reloj, en partes por millón. Define la pendiente con que se separan de UTC.`],
+      ['Resincronizar cada (Fig. 1)', String.raw`Tiempo entre correcciones. Mientras más largo, más se acumula el desfase antes de corregirlo.`],
+      ['Ida y vuelta al servidor (Fig. 1)', String.raw`Demora del viaje al servidor de tiempo. Introduce una incertidumbre en cada corrección, así que el desfase no baja de cierto piso.`],
+      ['Otros relojes (Fig. 1)', String.raw`Sortea nuevas derivas para los tres relojes.`],
+      ['Algoritmo (Fig. 2)', String.raw`Cristian corrige a un cliente con la hora de un servidor; Berkeley promedia las horas de todos con un maestro.`],
+      ['Otras demoras (Fig. 2)', String.raw`Sortea nuevas demoras de red y relojes iniciales.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Deriva y resincronización',
         descripcion: 'Cada reloj se desvía a su propio ritmo y se corrige en cada sincronización. Alargue el intervalo o aumente la deriva y observe cómo crece la banda; aumente la ida y vuelta y verá que no se puede bajar de ±RTT/2.',
+        ayuda: String.raw`<p>Eje horizontal: tiempo real en minutos; vertical: desfase respecto de UTC en ms. Cada curva (reloj A azul, B naranja, C aguamarina) crece a su ritmo y cae a cero en cada resincronización. Las líneas grises son el desfase máximo ±ρ·Δ.</p>
+          <ul>
+          <li><strong>Deriva máxima ρ</strong>: más pendiente en las curvas y banda gris más ancha.</li>
+          <li><strong>Resincronizar cada</strong>: dientes de sierra más largos y mayor desfase máximo antes de cada corrección.</li>
+          <li><strong>Ida y vuelta al servidor</strong>: las correcciones dejan un error residual; con ida y vuelta alta no se llega a desfase cero.</li>
+          </ul>`,
         montar: montarDeriva,
       },
       {
         titulo: 'Cristian y Berkeley',
         descripcion: 'Con Cristian, el cliente corrige su hora con la del servidor más la mitad del viaje. Con Berkeley, un maestro promedia las diferencias de todos, ignorando los relojes muy desviados.',
+        ayuda: String.raw`<p>Cada línea horizontal es un reloj. Las flechas azules son pedidos o consultas y las naranja, respuestas o ajustes; los puntos negros marcan la lectura del reloj local en ese evento.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: Cristian muestra un cliente y un servidor de tiempo; Berkeley, un maestro que consulta a todos, promedia y envía a cada uno su ajuste.</li>
+          <li><strong>Otras demoras</strong>: cambia la asimetría de los viajes de ida y vuelta, que limita la precisión del ajuste.</li>
+          </ul>`,
         montar: montarAlgoritmos,
       },
     ],

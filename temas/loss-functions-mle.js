@@ -109,9 +109,25 @@
     intro: String.raw`
       <p>Entrenar una red es minimizar un número: la <strong>función de pérdida</strong>, que mide qué tan mal predice la red sobre los ejemplos. Para regresión se usa el <em>error cuadrático medio</em> (MSE); para clasificación, la <em>entropía cruzada</em>.</p>
       <p>No son elecciones arbitrarias. Ambas salen de un mismo principio, la <strong>máxima verosimilitud</strong>: escoger los parámetros que hacen más probables los datos observados. Con ruido gaussiano la verosimilitud conduce al MSE; con etiquetas categóricas, a la entropía cruzada.</p>`,
+    parametros: [
+      ['Etiqueta verdadera y (Fig. 1)', String.raw`El valor correcto que la red debería predecir (y = 1 o y = 0). Al cambiarlo se espeja el panel: lo que antes era un error grave pasa a ser un acierto.`],
+      ['Lanzamientos n (Fig. 2)', String.raw`Cuántas veces se lanza la moneda. Con más datos la verosimilitud se concentra más alrededor de su máximo.`],
+      ['Probabilidad real de cara θ (Fig. 2)', String.raw`La probabilidad con que se generan los lanzamientos. Fija dónde debería caer el máximo.`],
+      ['Lanzar de nuevo (Fig. 2)', String.raw`Repite los n lanzamientos; la proporción de caras observada y el estimador cambian por azar.`],
+    ],
     visualizaciones: [
-      { titulo: 'Entropía cruzada frente a error cuadrático', descripcion: 'Con \\(y=1\\), recorra los logits negativos (la red se equivoca con seguridad): compare cuánto gradiente da cada pérdida para corregirse.', montar: montarPerdidas },
-      { titulo: 'La verosimilitud de una moneda', descripcion: 'Lance la moneda y vea dónde está el máximo de la verosimilitud y el mínimo de la entropía cruzada. Suba \\(n\\) para ver cómo se estrecha.', montar: montarMLE },
+      { titulo: 'Entropía cruzada frente a error cuadrático', descripcion: 'Con \\(y=1\\), recorra los logits negativos (la red se equivoca con seguridad): compare cuánto gradiente da cada pérdida para corregirse.',
+        ayuda: String.raw`<p>El eje horizontal es el logit z (la predicción es p = σ(z)). A la izquierda, el valor de las pérdidas entropía cruzada y error cuadrático (MSE); a la derecha, su gradiente, que mide cuánto empuja cada pérdida a corregir.</p>
+          <ul>
+          <li><strong>Etiqueta verdadera y</strong>: con y = 1, los z muy negativos son errores seguros; allí la entropía cruzada mantiene un gradiente grande y el MSE casi nulo, así que corrige más lento.</li>
+          </ul>`, montar: montarPerdidas },
+      { titulo: 'La verosimilitud de una moneda', descripcion: 'Lance la moneda y vea dónde está el máximo de la verosimilitud y el mínimo de la entropía cruzada. Suba \\(n\\) para ver cómo se estrecha.',
+        ayuda: String.raw`<p>El eje horizontal es el θ candidato. Una curva es la verosimilitud L(θ) dividida por su máximo y la otra, la pérdida −(1/n)·log L(θ) (entropía cruzada). Una marca señala el estimador de máxima verosimilitud y otra, el θ real.</p>
+          <ul>
+          <li><strong>Lanzamientos n</strong>: con más lanzamientos la curva se estrecha y el estimador se acerca al θ real.</li>
+          <li><strong>Probabilidad real de cara θ</strong>: mueve el θ real; el estimador lo sigue de forma aproximada.</li>
+          <li><strong>Lanzar de nuevo</strong>: el máximo de la verosimilitud y el mínimo de la pérdida coinciden siempre en la proporción de caras observada.</li>
+          </ul>`, montar: montarMLE },
     ],
     teoria: String.raw`
       <h2>Pérdidas habituales</h2>

@@ -174,15 +174,31 @@
       última versión, y la reconoce por su número.</p>
       <p>La condición es \(R + W &gt; N\). Ajustando \(R\) y \(W\) se elige el equilibrio entre latencia de lectura, latencia de escritura y cuántas réplicas pueden estar caídas.
       Si se permite \(R + W \le N\), las operaciones son más rápidas pero se puede leer un valor viejo: es la consistencia eventual configurable de Dynamo, Cassandra y Riak.</p>`,
+    parametros: [
+      ['Réplicas N (Fig. 1 y 2)', String.raw`Cantidad de copias del dato. Más réplicas permiten tolerar más caídas, pero cada quórum exige contactar a más.`],
+      ['Quórum de lectura R (Fig. 1)', String.raw`Cuántas réplicas consulta una lectura. Con R mayor es más probable ver el valor más reciente, a costa de más mensajes y menos tolerancia a caídas.`],
+      ['Quórum de escritura W (Fig. 1)', String.raw`En cuántas réplicas debe quedar escrito un valor para darlo por hecho. Con W mayor, más réplicas están al día.`],
+      ['Escribir, Leer, Propagar en segundo plano, 100 operaciones al azar y Reiniciar (Fig. 1)', String.raw`Escribir y Leer ejecutan una operación con los quórums actuales; Propagar en segundo plano actualiza las demás réplicas; 100 operaciones al azar mide cuántas lecturas son viejas; Reiniciar vuelve al estado inicial.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Lecturas y escrituras con quórums',
         descripcion: 'Con N = 5, R = 2 y W = 2, pulse «100 operaciones al azar» y vea cuántas lecturas son viejas. Suba R a 4 (R + W = 6 > 5): ninguna lo es. Haga caer réplicas hasta que no quede un quórum.',
+        ayuda: String.raw`<p>Cada círculo es una réplica. La leyenda indica cuáles formaron el quórum de la última escritura, cuáles el de la última lectura, cuáles están en ambos (la intersección) y cuáles están caídas.</p>
+          <ul>
+          <li><strong>Quórum de lectura R</strong> y <strong>Quórum de escritura W</strong>: si \(R + W &gt; N\), los dos quórums siempre comparten al menos una réplica y la lectura ve la última escritura.</li>
+          <li><strong>100 operaciones al azar</strong>: con \(R + W \le N\) aparecen lecturas viejas; con \(R + W &gt; N\) no aparece ninguna.</li>
+          <li>Con réplicas caídas puede no quedar un quórum y la operación falla.</li>
+          </ul>`,
         montar: montarQuorums,
       },
       {
         titulo: 'El mapa de (R, W)',
         descripcion: 'Sobre la frontera verde (R + W > N) la probabilidad de leer algo viejo es exactamente 0. Bajo ella crece rápidamente.',
+        ayuda: String.raw`<p>Cada celda corresponde a un par (R, W); su color es la probabilidad de leer un valor viejo, de 0 a cercana a 1. La frontera \(R + W = N + 1\) separa la zona segura.</p>
+          <ul>
+          <li><strong>Réplicas N</strong>: al cambiarlo se mueve la frontera y cambia el tamaño del mapa; la zona de probabilidad 0 siempre queda del lado \(R + W &gt; N\).</li>
+          </ul>`,
         montar: montarMapa,
       },
     ],

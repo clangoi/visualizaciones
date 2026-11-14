@@ -110,10 +110,21 @@
       <p>El problema del <strong>productor–consumidor</strong> con buffer acotado usa los dos papeles a la vez: <code>mutex</code> protege el buffer, y
       <code>vacíos</code> y <code>llenos</code> cuentan espacios e ítems, de modo que el productor espera cuando el buffer está lleno y el consumidor cuando está
       vacío, sin consumir CPU mientras espera.</p>`,
+    parametros: [
+      ['Capacidad del buffer (Fig. 1)', String.raw`Número de casillas del buffer compartido, que es el valor inicial del semáforo de vacíos. Con buffer pequeño los productores se bloquean antes.`],
+      ['Productor con P(mutex) antes de P(vacíos) (Fig. 1)', String.raw`Invierte el orden de los dos P() del productor. Es el error clásico: puede dormirse con el mutex tomado y bloquear a todos.`],
+      ['Avanza, 10 pasos al azar y Reiniciar (Fig. 1)', String.raw`Avanza ejecuta una instrucción del proceso elegido; los pasos al azar eligen procesos no bloqueados; Reiniciar vuelve al estado inicial.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Productores y consumidores',
         descripcion: 'Avance los procesos a mano o al azar y observe los valores de los semáforos y sus colas. Marque la casilla: con P(mutex) antes de P(vacíos), un productor puede quedarse dormido con el buffer tomado y todos se bloquean.',
+        ayuda: String.raw`<p>Se ven los productores (azul), los consumidores (naranja), el buffer con sus casillas, los valores de los semáforos y sus colas de espera. Un punto amarillo marca un proceso bloqueado en un P(); un punto rojo indica que todos están bloqueados: interbloqueo.</p>
+          <ul>
+          <li><strong>Capacidad del buffer</strong>: cambia cuántos ítems caben y el valor inicial de vacíos; con 1 casilla los productores se bloquean casi siempre.</li>
+          <li><strong>Productor con P(mutex) antes de P(vacíos)</strong>: con el buffer lleno, un productor retiene el mutex mientras espera un hueco y el consumidor no puede entrar a liberarlo: aparece el interbloqueo.</li>
+          <li><strong>Avanza</strong>: un proceso bloqueado no avanza hasta que otro hace el V() correspondiente.</li>
+          </ul>`,
         montar,
       },
     ],

@@ -118,15 +118,33 @@
       gaussiana</strong>; para DBSCAN, una <strong>región densa</strong> separada de otras por zonas vacías.</p>
       <p>De esa diferencia salen todas las demás: forma de los grupos, tratamiento del ruido, si hay que fijar \(k\), y si la
       pertenencia es una probabilidad o una etiqueta.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`La forma de los datos (manchas, lunas, anillos, densidades distintas…) sobre la que se comparan ambos métodos.`],
+      ['GMM: componentes k (Fig. 1 y 2)', String.raw`Número de gaussianas de la mezcla. GMM siempre asigna cada punto a alguna de las k componentes.`],
+      ['DBSCAN: ε y MinPts (Fig. 1)', String.raw`Radio de vecindad y número mínimo de puntos para que un punto sea núcleo. Deciden qué es grupo y qué es ruido en DBSCAN.`],
+      ['Ruido de fondo (Fig. 1)', String.raw`Cantidad de puntos sueltos añadidos. Pone a prueba cómo trata cada método los puntos fuera de los grupos.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Sortea otra muestra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Lado a lado',
         descripcion: 'Los dos métodos sobre los mismos datos. Busque un conjunto donde cada uno gane claramente al otro.',
+        ayuda: String.raw`<p>Dos paneles con los mismos puntos: GMM, con una elipse 2σ por componente, y DBSCAN, con el ruido marcado con cruz. Cada color es un grupo.</p>
+          <ul>
+          <li><strong>Datos</strong> lunas o anillos: las elipses de GMM no siguen la forma; DBSCAN sí.</li>
+          <li><strong>Ruido de fondo</strong>: GMM asigna todo punto a una componente; DBSCAN lo deja como ruido.</li>
+          <li><strong>ε</strong> y <strong>MinPts</strong>: con ε chico DBSCAN deja más ruido; con densidades distintas no hay un ε que sirva para todos los grupos.</li>
+          </ul>`,
         montar: montarLados,
       },
       {
         titulo: 'Pertenencia blanda frente a dura',
         descripcion: 'El fondo muestra dónde GMM duda entre componentes; los colores, la respuesta de DBSCAN. Observe los puntos con anillo rojo.',
+        ayuda: String.raw`<p>El fondo oscuro marca dónde GMM duda entre componentes (entropía alta). Los colores son los grupos de DBSCAN (relleno núcleo, hueco borde) y las cruces su ruido; los puntos con anillo rojo son ruido para DBSCAN pero GMM está seguro de ellos (p &gt; 0,95).</p>
+          <ul>
+          <li><strong>GMM: componentes k</strong>: cambia dónde se solapan las componentes y, con ello, las zonas de duda.</li>
+          <li>GMM puede estar muy seguro de un punto lejano a todo: su probabilidad posterior es relativa a las componentes, no a la densidad.</li>
+          </ul>`,
         montar: montarBlanda,
       },
     ],

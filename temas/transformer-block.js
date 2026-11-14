@@ -101,9 +101,27 @@
     intro: String.raw`
       <p>Un <strong>Transformer</strong> es una pila de bloques idénticos. Cada bloque tiene dos subcapas: la <strong>atención multi-cabeza</strong>, que mezcla información <em>entre</em> palabras, y una <strong>red por posición</strong> (dos capas densas), que procesa cada palabra por separado. Alrededor de cada subcapa hay una <strong>conexión residual</strong> (se suma la entrada a la salida) y una <strong>normalización de capa</strong> (<em>Layer Norm</em>).</p>
       <p>Esos dos ingredientes alrededor son los que permiten apilar decenas de bloques: sin ellos, la señal y el gradiente se pierden o explotan, igual que en cualquier red profunda.</p>`,
+    parametros: [
+      ['Capas apiladas (Fig. 1)', String.raw`Cuántos bloques se apilan. Cada capa transforma las activaciones; en una pila profunda los efectos se acumulan.`],
+      ['Escala de los pesos (Fig. 1)', String.raw`Magnitud de los pesos aleatorios. Si es grande, las activaciones crecen en cada capa; si es pequeña, se achican.`],
+      ['Otros pesos (Fig. 1)', String.raw`Sortea otros pesos aleatorios para comprobar que el resultado no es casual.`],
+      ['Configuración conocida (Fig. 2)', String.raw`Carga las dimensiones de un modelo publicado, como GPT-2 pequeño, o permite elegir a medida.`],
+      ['Dimensión d, Capas y Dimensión de la red por posición (Fig. 2)', String.raw`Tamaño del vector de cada palabra, número de bloques y ancho de la red densa de cada bloque. Determinan cuántos parámetros tiene cada parte.`],
+    ],
     visualizaciones: [
-      { titulo: 'Qué mantiene estable una pila profunda', descripcion: 'Apile 24 o 48 capas con pesos aleatorios y compare las tres variantes. Cambie la escala de los pesos y vea cuál resiste.', montar: montarPila },
-      { titulo: 'De qué está hecho un Transformer', descripcion: 'Cambie la dimensión, las capas y el tamaño de la red por posición, o cargue la configuración de GPT-2 pequeño.', montar: montarCuenta },
+      { titulo: 'Qué mantiene estable una pila profunda', descripcion: 'Apile 24 o 48 capas con pesos aleatorios y compare las tres variantes. Cambie la escala de los pesos y vea cuál resiste.',
+        ayuda: String.raw`<p>Eje horizontal: capa. Eje vertical: desviación de las activaciones. Cada curva es una variante de la pila: sin atajos ni normalización (naranja), con conexiones residuales (azul) y con residuales y Layer Norm (verde).</p>
+          <ul>
+          <li><strong>Capas apiladas</strong>: al subirlas, la variante sin atajos tiende a crecer o a desvanecerse; con residuales y Layer Norm se mantiene estable.</li>
+          <li><strong>Escala de los pesos</strong>: moverla desestabiliza antes la variante sin atajos; la que lleva Layer Norm apenas cambia.</li>
+          </ul>`, montar: montarPila },
+      { titulo: 'De qué está hecho un Transformer', descripcion: 'Cambie la dimensión, las capas y el tamaño de la red por posición, o cargue la configuración de GPT-2 pequeño.',
+        ayuda: String.raw`<p>Cada barra es la cantidad de parámetros de una parte del modelo, según la leyenda: atención (\(W_Q, W_K, W_V, W_O\)), red por posición de dos capas densas, Layer Norm y embeddings de palabras y posiciones.</p>
+          <ul>
+          <li><strong>Dimensión d</strong>: la atención y la red por posición crecen aproximadamente con \(d^2\).</li>
+          <li><strong>Capas</strong>: multiplican los parámetros de atención, red y Layer Norm, pero no los embeddings.</li>
+          <li><strong>Dimensión de la red por posición</strong>: solo cambia la parte de la red densa.</li>
+          </ul>`, montar: montarCuenta },
     ],
     teoria: String.raw`
       <h2>Un bloque (pre-norm)</h2>

@@ -88,9 +88,29 @@
     intro: String.raw`
       <p>Cuando hay más ítems de los que caben o interesan, la persona necesita <strong>reducir y reordenar</strong>. <em>Filtrar</em> quita lo que no importa, <em>ordenar</em> lleva lo relevante al principio y <em>buscar</em> encuentra un ítem por nombre. Son las interacciones más simples y las que más se usan.</p>
       <p>Una cuarta familia cambia <em>cómo</em> se dibuja: el tipo de escala del eje y su origen. Parece un detalle técnico, pero cambia el mensaje del gráfico.</p>`,
+    parametros: [
+      ['Ordenar por (Fig. 1)', String.raw`Criterio de posición de los veinte ríos: nombre, valor o el orden original. Cambia el orden de las barras, no su valor.`],
+      ['Valor mínimo (filtro) (Fig. 1)', String.raw`Umbral bajo el cual los ítems se quitan. Filtrar reduce el conjunto visible.`],
+      ['Zona (Fig. 1)', String.raw`Restringe a los ríos del Norte, Centro o Sur.`],
+      ['Buscar por nombre (Fig. 1)', String.raw`Texto que se busca dentro de los nombres; los que coinciden se marcan.`],
+      ['Conjunto (Fig. 2)', String.raw`Datos de cinco valores en varios órdenes de magnitud o cuatro valores muy cercanos entre sí.`],
+      ['Escala del eje (Fig. 2)', String.raw`Lineal o logarítmica. La logarítmica reparte la altura según órdenes de magnitud.`],
+      ['Origen del eje (Fig. 2)', String.raw`Si el eje comienza en cero o en el mínimo de los datos. Truncarlo exagera las diferencias entre barras.`],
+    ],
     visualizaciones: [
-      { titulo: 'Filtrar, ordenar y buscar', descripcion: 'Combine un filtro por valor y zona, tres órdenes y una búsqueda por texto sobre veinte ríos.', montar: montarControles },
-      { titulo: 'Escala y origen del eje', descripcion: 'Cambie entre escala lineal y logarítmica, y entre eje desde cero o truncado, y compare las razones reales con las dibujadas.', montar: montarEscala },
+      { titulo: 'Filtrar, ordenar y buscar', descripcion: 'Combine un filtro por valor y zona, tres órdenes y una búsqueda por texto sobre veinte ríos.',
+        ayuda: String.raw`<p>Barras horizontales azules son los ríos que cumplen el filtro; las naranjas son los que coinciden con la búsqueda. La lectura indica cuántos quedan.</p>
+          <ul>
+          <li><strong>Valor mínimo</strong> y <strong>Zona</strong>: quitan barras; la lectura baja en el mismo número.</li>
+          <li><strong>Ordenar por</strong> «valor»: las barras quedan de mayor a menor, lo que facilita comparar.</li>
+          <li><strong>Buscar por nombre</strong>: marca en naranja los nombres que contienen el texto.</li>
+          </ul>`, montar: montarControles },
+      { titulo: 'Escala y origen del eje', descripcion: 'Cambie entre escala lineal y logarítmica, y entre eje desde cero o truncado, y compare las razones reales con las dibujadas.',
+        ayuda: String.raw`<p>Barras de un solo color; el cambio relevante es el eje. La lectura compara la razón real entre valores con la razón entre alturas dibujadas (el «factor de mentira»).</p>
+          <ul>
+          <li><strong>Escala del eje</strong> logarítmica con el primer conjunto: las barras pequeñas dejan de aplastarse.</li>
+          <li><strong>Origen del eje</strong> truncado con el segundo conjunto: una diferencia pequeña parece grande y el factor de mentira sube.</li>
+          </ul>`, montar: montarEscala },
     ],
     teoria: String.raw`
       <h2>Filtrar</h2>

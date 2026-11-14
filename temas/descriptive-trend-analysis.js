@@ -228,15 +228,38 @@
       <p>El <strong>análisis descriptivo</strong> responde «¿qué pasó?» antes de preguntar «¿por qué?» o «¿qué pasará?». Con una serie mensual de ventas, lo primero es separar lo que se repite de lo que cambia:
       una <em>tendencia</em> (hacia dónde va), una <em>estacionalidad</em> (el ciclo que se repite cada año) y un <em>ruido</em> que no se explica. Lo que sobra al quitar los dos primeros revela las anomalías.</p>
       <p>Las dos figuras trabajan con series simuladas reproducibles: en la primera descompone y ve cómo la ventana de la media móvil decide qué se considera tendencia; en la segunda detecta meses fuera de lo esperado y los compara con la variación interanual.</p>`,
+    parametros: [
+      ['Tendencia verdadera (Fig. 1)', String.raw`Crecimiento real de la serie simulada. La media móvil debe recuperarlo.`],
+      ['Amplitud estacional (Fig. 1)', String.raw`Magnitud de la oscilación anual. Se separa como estacionalidad estimada.`],
+      ['Ruido (Fig. 1)', String.raw`Variación aleatoria de cada mes. Lo que no explican tendencia ni estación queda en el residuo.`],
+      ['Ventana de la media móvil (Fig. 1)', String.raw`Meses que se promedian para estimar la tendencia. Con 12 meses la estacionalidad se cancela; con menos, queda en la tendencia.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra serie aleatoria.`],
+      ['Umbral de anomalía (Fig. 2)', String.raw`Ancho de la banda esperada. Más bajo, más alarmas, incluidas falsas.`],
+      ['Tamaño del choque que se agrega (Fig. 2)', String.raw`Magnitud de los choques inyectados con clic en la serie.`],
+      ['Cambio de nivel permanente desde el mes 36 (+20) (Fig. 2)', String.raw`Agrega un salto permanente de +20 desde el mes 36, que no es un choque puntual.`],
+      ['Quitar choques (Fig. 2)', String.raw`Elimina los choques agregados.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tendencia, estacionalidad y ruido',
         descripcion: 'Suba el ruido y observe cómo se ensucia el residuo pero la tendencia se mantiene. Cambie la ventana de 12 a 5 meses y vea reaparecer ondas en la «tendencia».',
+        ayuda: String.raw`<p>Paneles: serie observada con su tendencia (media móvil), estacionalidad estimada contra la verdadera, y el residuo.</p>
+          <ul>
+          <li><strong>Ruido</strong> más alto: el residuo se vuelve más desordenado pero la tendencia sigue su curso.</li>
+          <li><strong>Ventana de la media móvil</strong> corta (5 meses): reaparecen ondas en la tendencia.</li>
+          <li><strong>Amplitud estacional</strong>: aumenta la onda que se estima como estacionalidad.</li>
+          </ul>`,
         montar: montarDescomposicion,
       },
       {
         titulo: 'Anomalías y variación interanual',
         descripcion: 'Haga clic en la serie para inyectar choques y baje el umbral hasta que aparezcan falsas alarmas. Active el cambio de nivel y compare lo que ven el detector y la variación interanual.',
+        ayuda: String.raw`<p>Arriba, la serie mensual con el rango esperado (tendencia + estación ± umbral), las anomalías detectadas y los choques inyectados no detectados. Abajo, la variación interanual.</p>
+          <ul>
+          <li><strong>Umbral de anomalía</strong> bajo: la banda se estrecha y aparecen anomalías en puntos normales.</li>
+          <li><strong>Cambio de nivel permanente</strong>: el detector marca el salto solo un tiempo, y la variación interanual sube durante un año.</li>
+          <li><strong>Tamaño del choque</strong>: choques chicos pueden quedar sin detectar.</li>
+          </ul>`,
         montar: montarAnomalias,
       },
     ],

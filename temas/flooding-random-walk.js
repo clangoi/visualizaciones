@@ -239,15 +239,35 @@
       Encuentra el recurso por el camino más corto, pero el número de mensajes crece como el número de nodos a distancia TTL, con muchos
       duplicados. Las <strong>caminatas aleatorias</strong> envían en cambio unos pocos mensajes que saltan a un vecino al azar: tardan más,
       pero cuestan mucho menos.</p>`,
+    parametros: [
+      ['Método (Fig. 1)', String.raw`Inundación (cada nodo reenvía a todos sus vecinos) o caminatas aleatorias (cada caminante pasa a un vecino al azar). La primera es rápida pero gasta muchos mensajes.`],
+      ['TTL (saltos máximos) (Fig. 1)', String.raw`Cuántos saltos puede dar la consulta antes de descartarse. Más TTL alcanza más nodos y cuesta más mensajes.`],
+      ['Caminantes k (Fig. 1)', String.raw`Cuántas caminatas parten en paralelo. Más caminantes encuentran antes el recurso, con más mensajes por paso.`],
+      ['Copias del recurso (Fig. 1)', String.raw`Cuántos nodos tienen el recurso. Con más copias es más probable encontrarlo pronto.`],
+      ['Nueva red y reproductor (Fig. 1)', String.raw`Nueva red genera otro grafo; el reproductor avanza la búsqueda paso a paso.`],
+      ['Nodos con copia (Fig. 2)', String.raw`Fracción de la red que tiene el recurso: de 0,5 % a 5 %. Cuanto más raro, más cuesta encontrarlo.`],
+      ['Repetir (Fig. 2)', String.raw`Repite las mediciones con otras redes aleatorias.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Inundación y caminatas paso a paso',
         descripcion: 'Avance paso a paso y compare el contador de mensajes. Con inundación, observe cuántos mensajes llegan a nodos que ya habían recibido la consulta.',
+        ayuda: String.raw`<p>Cada nodo es un participante de la red. La leyenda distingue los nodos que ya recibieron la consulta, la frontera o posición de los caminantes, los mensajes de este paso y los nodos con una copia del recurso. Un contador cuenta los mensajes.</p>
+          <ul>
+          <li><strong>TTL</strong>: un valor bajo detiene la consulta antes de encontrar el recurso; uno alto alcanza más nodos y gasta más mensajes.</li>
+          <li><strong>Método</strong> inundación: muchos mensajes llegan a nodos que ya habían recibido la consulta.</li>
+          <li><strong>Caminantes k</strong>: más caminantes acortan el tiempo de búsqueda.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Éxito frente a costo',
         descripcion: 'Cada punto es un TTL. Para la misma tasa de éxito, las caminatas aleatorias usan del orden de diez veces menos mensajes que la inundación, sobre todo cuando el recurso es raro.',
+        ayuda: String.raw`<p>Eje horizontal: mensajes por consulta (escala log). Eje vertical: tasa de éxito. Cada punto es un valor de TTL, para la inundación y para 16 caminantes.</p>
+          <ul>
+          <li><strong>Nodos con copia</strong>: con recursos más raros ambas curvas se desplazan a la derecha (más mensajes para el mismo éxito).</li>
+          <li>Para igual tasa de éxito, las caminatas necesitan menos mensajes que la inundación.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

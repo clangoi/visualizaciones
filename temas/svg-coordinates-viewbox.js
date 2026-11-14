@@ -81,9 +81,26 @@
     intro: String.raw`
       <p><strong>SVG</strong> (<em>Scalable Vector Graphics</em>) dibuja con coordenadas matemáticas, no con píxeles: un círculo es «centro y radio», y por eso se ve nítido a cualquier tamaño.</p>
       <p>Dos ideas lo gobiernan: el <strong>sistema de coordenadas</strong> (el origen está arriba a la izquierda y la <em>y</em> crece hacia abajo) y el <strong>viewBox</strong>, la ventana que dice qué porción del plano se muestra y con qué escala.</p>`,
+    parametros: [
+      ['min-x, min-y, width, height (Fig. 1)', String.raw`Son las cuatro cifras del viewBox: la esquina superior izquierda y el tamaño de la porción del plano que se muestra. Reducir width y height acerca la escena (menos unidades en los mismos píxeles); cambiar min-x y min-y la desplaza.`],
+      ['preserveAspectRatio (Fig. 1)', String.raw`Qué hace el navegador cuando la proporción del viewBox no coincide con la del lienzo: meet muestra todo con bordes vacíos, slice llena el lienzo y recorta, none estira y deforma.`],
+      ['Restablecer (Fig. 1)', String.raw`Vuelve al viewBox 0 0 100 100 con meet.`],
+      ['Corregir el eje y (y = alto − valor) (Fig. 2)', String.raw`Con la casilla apagada las barras se dibujan tal cual desde y = valor, y como el eje y crece hacia abajo cuelgan desde arriba. Encendida, la coordenada se calcula como alto menos valor y las barras crecen hacia arriba desde la base.`],
+    ],
     visualizaciones: [
-      { titulo: 'viewBox: la ventana sobre el plano', descripcion: 'Cambie el rectángulo del viewBox para acercar o desplazar la escena, y pruebe los tres modos de preserveAspectRatio con un viewBox de otra proporción.', montar: montarViewBox },
-      { titulo: 'El eje y apunta hacia abajo', descripcion: 'Dibuje las barras sin corregir y luego con y = alto − valor; pase el cursor para leer coordenadas.', montar: montarEjeY },
+      { titulo: 'viewBox: la ventana sobre el plano', descripcion: 'Cambie el rectángulo del viewBox para acercar o desplazar la escena, y pruebe los tres modos de preserveAspectRatio con un viewBox de otra proporción.',
+        ayuda: String.raw`<p>El marco gris es el plano completo (0–100) con su rejilla y las figuras de la escena; lo que ocupa el lienzo es lo que el viewBox deja ver. Debajo se muestra el código del <code>&lt;svg&gt;</code> y una lectura con las unidades visibles, la escala en x e y (píxeles por unidad) y si el aspecto se conserva.</p>
+          <ul>
+          <li><strong>width</strong> y <strong>height</strong> menores: la escena se agranda y la escala en px por unidad sube.</li>
+          <li><strong>min-x</strong> y <strong>min-y</strong>: desplazan la ventana; valores negativos muestran el espacio fuera del plano.</li>
+          <li><strong>preserveAspectRatio</strong> «none» con width y height distintos: las escalas x e y difieren y la lectura marca «deformado».</li>
+          </ul>`, montar: montarViewBox },
+      { titulo: 'El eje y apunta hacia abajo', descripcion: 'Dibuje las barras sin corregir y luego con y = alto − valor; pase el cursor para leer coordenadas.',
+        ayuda: String.raw`<p>Cinco barras con una línea base en y = 170 y rótulos de coordenadas. El código inferior y la lectura muestran las coordenadas de usuario bajo el cursor.</p>
+          <ul>
+          <li><strong>Corregir el eje y</strong> apagado: la barra de valor 80 parte de y = 20 hacia abajo, es decir, parece la más corta y colgante.</li>
+          <li><strong>Corregir el eje y</strong> encendido: cada barra sube desde la base con altura proporcional a su valor, como se espera en un gráfico.</li>
+          </ul>`, montar: montarEjeY },
     ],
     teoria: String.raw`
       <h2>Tres sistemas de coordenadas</h2>

@@ -177,15 +177,33 @@
       <p>Para buscar vecinos basta la desigualdad triangular: si la consulta está a distancia \(D\) del centro de una bola de
       radio \(r\), ningún punto de esa bola está a menos de \(D - r\). A diferencia del <a href="tema.html?id=kd-tree">árbol k-d</a>,
       las regiones no están alineadas con los ejes y se adaptan a la forma de los datos, lo que lo hace más robusto en dimensiones moderadas.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`La distribución de los puntos. Determina cómo se agrupan y, por tanto, qué tan bien funcionan las bolas para podar.`],
+      ['Profundidad mostrada (Fig. 1)', String.raw`Qué nivel del árbol se dibuja. Niveles mayores muestran bolas más pequeñas y numerosas, anidadas dentro de las anteriores.`],
+      ['Puntos n (Fig. 2)', String.raw`Cuántos puntos tiene el conjunto en cada medición del costo por consulta.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Sortea otro conjunto de puntos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Bolas anidadas',
         descripcion: 'Los nodos del árbol por profundidad. Haga clic para buscar el vecino más cercano y ver qué bolas se descartan enteras.',
+        ayuda: String.raw`<p>Cada círculo es una bola que contiene un grupo de puntos: las de la profundidad elegida se destacan y las menos profundas quedan atenuadas. Al hacer clic se marca el vecino más cercano de ese punto y las bolas podadas, descartadas enteras.</p>
+          <ul>
+          <li><strong>Profundidad mostrada</strong> mayor: las bolas se subdividen en otras más ajustadas a los grupos.</li>
+          <li>Una bola se poda cuando la distancia al centro menos el radio ya supera al mejor vecino hallado: no hace falta mirar sus puntos.</li>
+          <li><strong>Datos</strong>: la forma del conjunto cambia cuán ajustadas son las bolas.</li>
+          </ul>`,
         montar: montarBolas,
       },
       {
         titulo: 'Costo según la dimensión',
         descripcion: 'Distancias calculadas por consulta (escala logarítmica) para fuerza bruta, árbol k-d y ball tree al crecer la dimensión.',
+        ayuda: String.raw`<p>El eje horizontal es la dimensión d y el vertical, las distancias calculadas por consulta (escala logarítmica). Tres curvas: fuerza bruta en gris, árbol k-d en azul y ball tree en naranja.</p>
+          <ul>
+          <li><strong>Datos</strong> uniformes: ambos árboles se acercan a la fuerza bruta al subir d (la poda deja de funcionar).</li>
+          <li><strong>Datos</strong> cúmulos: ambos siguen podando incluso en d = 32, porque importa la dimensión intrínseca y no la ambiente.</li>
+          <li><strong>Puntos n</strong> mayor: sube la fuerza bruta, mientras los árboles crecen más despacio donde podan bien.</li>
+          </ul>`,
         montar: montarDimension,
       },
     ],

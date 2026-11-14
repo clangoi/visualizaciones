@@ -94,9 +94,25 @@
     intro: String.raw`
       <p>En la <strong>autoatención</strong> (<em>self-attention</em>) cada palabra de una frase decide a cuáles de las demás mirar, y combina lo que encuentra. Para eso cada palabra se transforma de tres maneras: en una <strong>consulta</strong> (<em>query</em>, «qué busco»), una <strong>clave</strong> (<em>key</em>, «qué ofrezco») y un <strong>valor</strong> (<em>value</em>, «qué aporto si me eligen»).</p>
       <p>Una palabra compara su consulta con las claves de todas (producto punto), convierte esos puntajes en pesos con un softmax y suma los valores ponderados. Es un acceso a memoria «blando»: consulta una base de datos clave–valor cuyas filas son las propias palabras.</p>`,
+    parametros: [
+      ['Frase (Fig. 1)', String.raw`La frase cuyas palabras se comparan entre sí.`],
+      ['Dimensión de q y k (d_k) (Fig. 1)', String.raw`Tamaño de los vectores de consulta y clave. Al crecer, los productos punto tienen mayor magnitud.`],
+      ['Dividir los puntajes por √d_k (Fig. 1)', String.raw`Mantiene los puntajes en una escala estable. Sin ella, con d_k grande, la softmax se satura y casi todo el peso va a una palabra.`],
+      ['Otros pesos (Fig. 1)', String.raw`Sortea otras matrices de proyección para q, k y v.`],
+      ['Escala del puntaje (1/√d_k) (Fig. 2)', String.raw`Factor por el que se multiplica el producto punto. En 0 los puntajes son iguales y la atención es uniforme.`],
+    ],
     visualizaciones: [
-      { titulo: 'Consulta, clave y valor', descripcion: 'Elija la palabra que consulta y recorra puntajes, pesos y salida. Suba \\(d_k\\) a 128 con y sin la división por \\(\\sqrt{d_k}\\).', montar: montarMecanica },
-      { titulo: 'La geometría del producto punto', descripcion: 'Mueva la consulta por el plano y vea cómo la atención se concentra en las claves que apuntan hacia ella. Baje la escala a 0 para ver una mezcla uniforme.', montar: montarGeometria },
+      { titulo: 'Consulta, clave y valor', descripcion: 'Elija la palabra que consulta y recorra puntajes, pesos y salida. Suba \\(d_k\\) a 128 con y sin la división por \\(\\sqrt{d_k}\\).',
+        ayuda: String.raw`<p>Las celdas azules son los puntajes \(q\cdot k\) y, tras la softmax, los pesos de atención de la palabra que consulta (naranja). La salida (verde) es la suma de los valores \(v\) ponderada por esos pesos.</p>
+          <ul>
+          <li><strong>Dimensión d_k</strong> sin la división: los puntajes crecen y un peso se acerca a 1, el resto a 0.</li>
+          <li><strong>Dividir por √d_k</strong>: los pesos vuelven a repartirse, aun con \(d_k\) grande.</li>
+          </ul>`, montar: montarMecanica },
+      { titulo: 'La geometría del producto punto', descripcion: 'Mueva la consulta por el plano y vea cómo la atención se concentra en las claves que apuntan hacia ella. Baje la escala a 0 para ver una mezcla uniforme.',
+        ayuda: String.raw`<p>Cada punto es una clave \(k_i\) y su color identifica su valor \(v_i\). La consulta \(q\) es una flecha negra que se puede mover. El punto negro de salida mezcla los colores según los pesos de atención.</p>
+          <ul>
+          <li><strong>Escala del puntaje</strong>: con valores altos la salida toma el color de la clave más alineada con \(q\); con 0 es una mezcla uniforme de todos los colores.</li>
+          </ul>`, montar: montarGeometria },
     ],
     teoria: String.raw`
       <h2>Atención de producto punto escalado</h2>

@@ -249,15 +249,33 @@
       nodo de inicio y uno de fin, y cada flecha lleva el número de veces que se observó.</p>
       <p>Es lo que dibujan por defecto casi todas las herramientas comerciales, porque se calcula en una sola pasada y es fácil de leer. Su límite es
       igual de importante: solo ve pares consecutivos, así que no distingue un paralelismo de una elección repetida ni de un bucle.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1)', String.raw`Qué proceso genera el registro. Cambia las actividades del grafo y qué tan ramificado es.`],
+      ['Casos (Fig. 1)', String.raw`Tamaño del registro. Con más casos las frecuencias son más estables y el grafo muestra más aristas poco frecuentes.`],
+      ['Frecuencia mínima de arista (Fig. 1)', String.raw`Umbral para conservar una arista. Subirlo limpia el grafo, pero deja fuera casos que ya no se pueden reproducir.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otro registro aleatorio con los mismos ajustes.`],
+      ['Registro A y Registro B (Fig. 2)', String.raw`Dos registros cuyos grafos se comparan. Pueden tener el mismo grafo con comportamientos distintos.`],
+      ['Longitud máxima de camino (Fig. 2)', String.raw`Largo máximo de los caminos del grafo que se cuentan. Muestra cuántos caminos permite el grafo frente a los que realmente ocurrieron.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Del registro al grafo y su filtro',
         descripcion: 'Genere un registro, haga clic en una actividad para ver sus salidas y suba el filtro de frecuencia: el modelo se limpia, pero reproduce cada vez menos casos.',
+        ayuda: String.raw`<p>Los nodos son actividades, con una insignia que indica cuántas veces ocurren, y las flechas indican que una actividad sigue directamente a otra; su grosor es la frecuencia. Las aristas filtradas se distinguen de las conservadas, y al hacer clic en un nodo se resaltan sus salidas.</p>
+          <ul>
+          <li><strong>Frecuencia mínima de arista</strong>: al subirla se filtran más aristas y el grafo se simplifica; significa que menos casos siguen siendo reproducibles.</li>
+          <li><strong>Casos</strong>: con pocos casos, las frecuencias son ruidosas y el filtro decide con poca evidencia.</li>
+          </ul>`,
         montar: montarDFG,
       },
       {
         titulo: 'Lo que el DFG no distingue',
         descripcion: 'Compare dos registros con el mismo grafo y comportamientos distintos. Mire la tabla: el grafo permite caminos que nunca ocurrieron.',
+        ayuda: String.raw`<p>Dos grafos, uno por registro. Las aristas presentes en ambos se pintan de un color y las que solo están en ese grafo, de otro. Debajo, una tabla compara lo que cada registro hizo con lo que el grafo permite.</p>
+          <ul>
+          <li><strong>Registro A</strong> y <strong>Registro B</strong>: si los grafos coinciden y los comportamientos difieren, el DFG no distingue entre ellos.</li>
+          <li><strong>Longitud máxima de camino</strong>: al subirla, el grafo permite más caminos que los que ocurrieron; indica sobreajuste hacia lo permisivo.</li>
+          </ul>`,
         montar: montarComparacion,
       },
     ],

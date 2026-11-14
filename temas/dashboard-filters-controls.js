@@ -117,9 +117,28 @@
     intro: String.raw`
       <p>Un <strong>dashboard</strong> deja de ser una lámina cuando tiene <em>controles</em>: casillas, listas y rangos de fechas que <strong>filtran</strong> toda la información a la vez. Segmentar (por región, por categoría, por período) es la forma más rápida de pasar del resumen al detalle.</p>
       <p>El otro uso típico es <strong>comparar</strong>: el mismo indicador frente a un período anterior, para saber si un valor es bueno o malo.</p>`,
+    parametros: [
+      ['Casillas de región (Fig. 1)', String.raw`Incluyen o excluyen cada región (Norte, Centro, Sur y Austral) de todas las tarjetas y gráficos. Cada una conserva su color.`],
+      ['Categoría (Fig. 1)', String.raw`Restringe todas las cifras a una categoría de producto, o a todas.`],
+      ['Desde y Hasta (Fig. 1)', String.raw`Los meses inicial y final del rango que se considera. Acortarlo recorta las líneas y recalcula las tarjetas.`],
+      ['Quitar filtro por clic (Fig. 1)', String.raw`Anula la región seleccionada con un clic en una barra, pero conserva los demás filtros.`],
+      ['Mes de inicio y Duración (meses) (Fig. 2)', String.raw`Fijan el período que se analiza: dónde empieza y cuántos meses abarca. Al cambiarlo cambian el total y la comparación.`],
+      ['Comparar con (Fig. 2)', String.raw`El período de referencia: los meses inmediatamente anteriores o los mismos meses del año previo. Define contra qué se mide la variación.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un tablero con filtros y filtro cruzado', descripcion: 'Filtre por región, categoría y rango de meses; haga clic en una barra para filtrar el resto de las tarjetas y gráficos.', montar: montarTablero },
-      { titulo: 'Comparación con un período anterior', descripcion: 'Elija un período y compárelo con el anterior o con el mismo del año previo; lea la variación porcentual.', montar: montarComparacion },
+      { titulo: 'Un tablero con filtros y filtro cruzado', descripcion: 'Filtre por región, categoría y rango de meses; haga clic en una barra para filtrar el resto de las tarjetas y gráficos.',
+        ayuda: String.raw`<p>Arriba cuatro tarjetas (Ventas, Pedidos, Ticket y Margen) calculadas con el filtro actual. Abajo, a la izquierda, las barras de ventas por región (azul, naranja, aguamarina y violeta) y, a la derecha, las líneas de ventas por mes de cada región. Al pasar el cursor se leen los valores; el registro lista la selección activa.</p>
+          <ul>
+          <li><strong>Casillas de región</strong> y <strong>Categoría</strong>: quitan filas y cambian las tarjetas, las barras y las líneas a la vez.</li>
+          <li><strong>Desde</strong> y <strong>Hasta</strong>: recortan el eje de meses de las líneas y los totales.</li>
+          <li>Clic en una barra: las demás regiones se atenúan y las tarjetas muestran solo esa; <strong>Quitar filtro por clic</strong> lo deshace.</li>
+          </ul>`, montar: montarTablero },
+      { titulo: 'Comparación con un período anterior', descripcion: 'Elija un período y compárelo con el anterior o con el mismo del año previo; lea la variación porcentual.',
+        ayuda: String.raw`<p>La línea azul con puntos es el período elegido y la gris discontinua es el período de comparación, con ventas en M&#36; en el eje vertical y la posición dentro del período en el horizontal. La lectura da el total del período, el de la comparación y la variación porcentual.</p>
+          <ul>
+          <li><strong>Mes de inicio</strong> y <strong>Duración</strong>: cambian los puntos de la línea azul y el total.</li>
+          <li><strong>Comparar con</strong> «mismo período del año anterior»: la línea gris pasa a ser la de los mismos meses del año previo, lo que modifica la variación.</li>
+          </ul>`, montar: montarComparacion },
     ],
     teoria: String.raw`
       <h2>Filtros</h2>

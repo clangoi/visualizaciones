@@ -132,10 +132,23 @@
       social o estados de un juego. Muchos problemas de computación se resuelven traduciéndolos a una pregunta sobre un grafo.</p>
       <p>Para trabajar con un grafo en un programa hay que decidir cómo representarlo. Las dos representaciones clásicas, la
       <strong>matriz</strong> y las <strong>listas de adyacencia</strong>, ofrecen costos muy distintos según la operación y la densidad del grafo.</p>`,
+    parametros: [
+      ['Nodos', String.raw`Cantidad de vértices del grafo generado al azar.`],
+      ['Densidad (grado medio)', String.raw`Cuántas aristas toca, en promedio, cada vértice. Con densidad alta el grafo se acerca a uno completo y la matriz se llena.`],
+      ['dirigido', String.raw`Si las aristas tienen sentido (de \(u\) a \(v\)) o se recorren en ambos sentidos. En un grafo no dirigido la matriz es simétrica y cada arista aparece en dos listas.`],
+      ['con pesos', String.raw`Asigna a cada arista un número (costo, distancia), que se guarda en la matriz en lugar de un 1.`],
+      ['Nuevo grafo y Quitar todas las aristas', String.raw`Generan otro grafo al azar o dejan solo los vértices, para construir uno a mano con clics.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un grafo y sus dos representaciones',
         descripcion: 'El mismo grafo dibujado, como matriz de adyacencia y como listas de adyacencia. Edítelo y observe cómo cambian ambas.',
+        ayuda: String.raw`<p>Se ve el mismo grafo de tres formas. A la izquierda, dibujado: círculos (vértices) unidos por líneas (aristas). A la derecha, la <em>matriz de adyacencia</em>: la celda de la fila \(u\) y columna \(v\) indica si hay arista de \(u\) a \(v\). Abajo, las <em>listas de adyacencia</em>: para cada vértice, sus vecinos.</p>
+          <ul>
+          <li>Al pasar el cursor por un vértice se resaltan en azul sus aristas, su fila de la matriz y su lista: son tres formas de leer la misma información.</li>
+          <li><strong>dirigido</strong>: la matriz deja de ser simétrica y cada arista aparece en una sola lista.</li>
+          <li><strong>Densidad</strong> y <strong>Nodos</strong>: la matriz siempre ocupa \(|V|^2\) celdas aunque haya pocas aristas, mientras las listas crecen con \(|E|\). Compare «celdas de la matriz» con «entradas de las listas»: en grafos dispersos las listas ahorran mucho.</li>
+          </ul>`,
         montar,
       },
     ],

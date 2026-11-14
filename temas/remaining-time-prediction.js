@@ -214,15 +214,35 @@
       se tiene un <strong>prefijo</strong> (las actividades ya ocurridas y sus tiempos), y se busca estimar cuánto falta para que termine, el <em>tiempo restante</em>.</p>
       <p>La idea es convertir cada prefijo histórico en una fila de datos (qué actividad fue la última, cuánto tiempo pasó, cuántos eventos van) con su tiempo restante
       conocido, y ajustar un regresor. Lo interesante es cómo mejora la predicción a medida que el caso avanza y cuánta incertidumbre queda, que se expresa con un intervalo.</p>`,
+    parametros: [
+      ['Modelo con intervalo (Fig. 1)', String.raw`Qué predictor muestra su intervalo del 10 al 90 %. Las curvas de todos los modelos siguen visibles.`],
+      ['Eventos ya vistos (prefijo) (Fig. 1)', String.raw`Hasta qué evento del caso se conoce el prefijo. Fija k, el momento en que se hace la predicción.`],
+      ['Otro caso (Fig. 1)', String.raw`Cambia el caso que se observa.`],
+      ['Métrica (Fig. 2)', String.raw`Qué se mide en cada modelo: el error absoluto medio en minutos, o la cobertura del intervalo 10–90 %.`],
+      ['Casos de entrenamiento (Fig. 2)', String.raw`Cuántos casos usan los modelos para aprender. Con pocos, los modelos más finos son menos fiables.`],
+      ['Espera media entre actividades (Fig. 2)', String.raw`Espera media del proceso simulado. Más espera hace más variable el tiempo restante y más difícil de predecir.`],
+      ['Casillas de modelos (Fig. 2)', String.raw`Muestran u ocultan la curva de cada modelo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un caso visto prefijo a prefijo',
         descripcion: 'Compare los tres predictores contra el tiempo restante real, evento a evento. Cambie de modelo (la banda es su intervalo 10–90 %) y haga clic en distintos k: las predicciones se ajustan a medida que el caso avanza.',
+        ayuda: String.raw`<p>Eje horizontal: eventos vistos k; eje vertical: minutos restantes. La línea negra es el tiempo restante real y cada color es la predicción de un modelo; la banda es el intervalo 10–90 % del modelo elegido.</p>
+          <ul>
+          <li><strong>Modelo con intervalo</strong>: cambia la banda sombreada; un intervalo ancho indica incertidumbre.</li>
+          <li><strong>Eventos ya vistos (prefijo)</strong>: al avanzar k, los modelos que usan el prefijo se acercan a la línea negra.</li>
+          </ul>`,
         montar: montarCaso,
       },
       {
         titulo: 'Error frente al avance del caso',
         descripcion: 'Los modelos que usan el prefijo ven caer su error al avanzar el caso; la media global no, porque ignora el avance. Reduzca los casos de entrenamiento o suba la espera entre actividades y vea qué modelo se degrada más; cambie a cobertura para ver si el intervalo cumple su 80 % nominal.',
+        ayuda: String.raw`<p>Eje horizontal: avance del caso k / n; eje vertical: la métrica elegida. Cada curva es un modelo.</p>
+          <ul>
+          <li><strong>Métrica</strong>: con el error absoluto medio, menor es mejor; con la cobertura, lo esperado es que se acerque al 80 % del intervalo.</li>
+          <li><strong>Casos de entrenamiento</strong> y <strong>Espera media entre actividades</strong>: ver cuándo cada modelo se degrada.</li>
+          <li>La media global no mejora al avanzar el caso porque ignora el prefijo.</li>
+          </ul>`,
         montar: montarError,
       },
     ],

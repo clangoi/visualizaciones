@@ -168,10 +168,18 @@
       consultas declarativas, acceso concurrente seguro, recuperación ante fallas, control de acceso e independencia de los datos.</p>
       <p>Por dentro es una pila de capas. Cada una resuelve un problema distinto y le habla solo a la de abajo: el optimizador no sabe de
       sectores del disco, y el gestor de disco no sabe qué es una junta.</p>`,
+    parametros: [
+      ['Consulta (Fig. 1)', String.raw`Qué se ejecuta: una búsqueda por clave que encuentra su página en el buffer, un recorrido secuencial que va al disco o una actualización con bitácora. Define qué capas y componentes se consultan.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza el viaje de la consulta capa a capa; Reiniciar vuelve a la capa superior.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El viaje de una consulta',
         descripcion: 'Siga tres consultas por las capas del motor. Compare la búsqueda que encuentra su página en memoria con la que debe ir al disco, y vea cuándo interviene la bitácora.',
+        ayuda: String.raw`<p>Capas del motor de la base de datos, de la superior a la inferior. Se destacan la capa que trabaja ahora, las capas ya recorridas y los componentes consultados; el registro y la lectura describen cada paso.</p>
+          <ul>
+          <li><strong>Consulta</strong>: la búsqueda en buffer se resuelve sin tocar el disco; el recorrido secuencial baja hasta el disco; la actualización con bitácora además escribe en el registro de transacciones.</li>
+          </ul>`,
         montar: montarCapas,
       },
     ],

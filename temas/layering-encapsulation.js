@@ -67,9 +67,23 @@
     intro: String.raw`
       <p>Una red es demasiado compleja para diseñarse de una pieza, así que se organiza en <strong>capas</strong>: cada una ofrece un servicio a la de arriba apoyándose en la de abajo, y se comunica con su homóloga en el otro extremo mediante un <strong>protocolo</strong>. En el modelo de Internet son cinco: aplicación, transporte, red, enlace y física.</p>
       <p>Para pasar el mensaje hacia abajo, cada capa lo <strong>encapsula</strong>: le agrega su cabecera con la información que necesita su protocolo. Al otro lado, cada capa quita su cabecera y entrega lo que queda.</p>`,
+    parametros: [
+      ['Datos de la aplicación (bytes) (Fig. 1)', String.raw`El tamaño del mensaje original. Las cabeceras tienen tamaño fijo, así que pesan mucho en mensajes pequeños y poco en los grandes.`],
+      ['Capas que ya agregaron su cabecera (Fig. 1)', String.raw`Cuántas capas, de arriba hacia abajo, han encapsulado el mensaje. Cada una lo convierte en una unidad mayor: segmento, datagrama, trama.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza el mensaje paso a paso por las capas del emisor, del router y del receptor.`],
+    ],
     visualizaciones: [
-      { titulo: 'Encapsulación', descripcion: 'Agregue capas una a una y vea cómo crece la unidad de datos. Pruebe un mensaje de 10 bytes: casi todo es cabecera.', montar: montarEncap },
-      { titulo: 'Un mensaje a través de un router', descripcion: 'Siga el recorrido por las capas del emisor, del router y del receptor. Observe hasta qué capa llega el router.', montar: montarCamino },
+      { titulo: 'Encapsulación', descripcion: 'Agregue capas una a una y vea cómo crece la unidad de datos. Pruebe un mensaje de 10 bytes: casi todo es cabecera.',
+        ayuda: String.raw`<p>Cada fila es la unidad de datos en una capa (Mensaje, Segmento, Datagrama, Trama). El bloque azul son los datos; las cabeceras se agregan en TCP (naranja), IP (aguamarina) y Ethernet (violeta), con ancho proporcional a su tamaño en bytes.</p>
+          <ul>
+          <li><strong>Datos de la aplicación</strong>: con 10 bytes los bloques de cabecera superan al azul; con miles de bytes casi desaparecen.</li>
+          <li><strong>Capas que ya agregaron su cabecera</strong>: aumenta las filas y por tanto los bloques de cabecera que rodean al azul.</li>
+          </ul>`, montar: montarEncap },
+      { titulo: 'Un mensaje a través de un router', descripcion: 'Siga el recorrido por las capas del emisor, del router y del receptor. Observe hasta qué capa llega el router.',
+        ayuda: String.raw`<p>Se dibujan las pilas de capas de los tres equipos: host emisor (azul), router (naranja) y host receptor (aguamarina). El mensaje sube o baja por las capas según el paso.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: muestra que el router solo desencapsula hasta la capa de red para decidir la ruta, y no llega a transporte ni aplicación.</li>
+          </ul>`, montar: montarCamino },
     ],
     teoria: String.raw`
       <h2>Las cinco capas</h2>

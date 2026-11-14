@@ -103,9 +103,30 @@
     intro: String.raw`
       <p>La <strong>LSTM</strong> (<em>Long Short-Term Memory</em>) separa dos cosas que la RNN simple mezcla en un solo vector: lo que <em>recuerda</em> (la <strong>celda de memoria</strong> \(c_t\)) y lo que <em>muestra</em> (el estado \(h_t\)). Tres <strong>puertas</strong>, números entre 0 y 1 que se calculan a partir de la entrada y del estado anterior, controlan qué se olvida, qué se escribe y qué se muestra.</p>
       <p>Lo importante es que la memoria se actualiza <em>sumando</em>, no multiplicando por una matriz: así el gradiente puede atravesar muchos pasos sin desvanecerse.</p>`,
+    parametros: [
+      ['Primer símbolo de la secuencia (Fig. 1)', String.raw`La señal que la LSTM debe recordar: +1 (clase 1) o −1 (clase 0). Cambiarla muestra qué cambia en las puertas y la memoria según el dato.`],
+      ['Pasos de ruido (Fig. 1)', String.raw`Cuántos pasos de entrada irrelevantes siguen a la señal.`],
+      ['Otra semilla y reproductor (Fig. 1)', String.raw`Otra semilla reinicia el entrenamiento con otros pesos; el reproductor entrena la red.`],
+      ['Memoria anterior c(t−1) (Fig. 2)', String.raw`Valor que traía la celda de memoria del paso previo.`],
+      ['Puerta de olvido f (Fig. 2)', String.raw`Fracción de la memoria anterior que se conserva: 0 la borra, 1 la mantiene.`],
+      ['Puerta de entrada i (Fig. 2)', String.raw`Cuánto del candidato nuevo se escribe en la memoria.`],
+      ['Candidato g (Fig. 2)', String.raw`Contenido nuevo que se propone guardar.`],
+      ['Puerta de salida o (Fig. 2)', String.raw`Cuánto de la memoria se expone como salida de la celda.`],
+    ],
     visualizaciones: [
-      { titulo: 'Las puertas a lo largo de una secuencia', descripcion: 'Entrene la LSTM y compare las puertas con el primer símbolo +1 y −1. Observe cuándo se abre la de entrada y cómo se mantiene la memoria durante el ruido.', montar: montarPuertas },
-      { titulo: 'Por dentro de una celda', descripcion: 'Mueva las puertas y vea cómo se combinan la memoria anterior y el candidato nuevo para dar la memoria actual y la salida.', montar: montarCelda },
+      { titulo: 'Las puertas a lo largo de una secuencia', descripcion: 'Entrene la LSTM y compare las puertas con el primer símbolo +1 y −1. Observe cuándo se abre la de entrada y cómo se mantiene la memoria durante el ruido.',
+        ayuda: String.raw`<p>Cada columna es un paso de tiempo. La primera fila es la entrada x y las siguientes son las puertas y estados de las 6 celdas. Azul indica valor positivo y naranja negativo; en las puertas, el tono oscuro significa abierta (cerca de 1) y el claro, cerrada (cerca de 0).</p>
+          <ul>
+          <li><strong>Primer símbolo</strong>: al pasar de +1 a −1 cambia el signo de la celda de memoria c; es la huella del recuerdo.</li>
+          <li><strong>Pasos de ruido</strong>: alarga la secuencia; si la puerta de olvido sigue abierta, c mantiene su signo.</li>
+          </ul>`, montar: montarPuertas },
+      { titulo: 'Por dentro de una celda', descripcion: 'Mueva las puertas y vea cómo se combinan la memoria anterior y el candidato nuevo para dar la memoria actual y la salida.',
+        ayuda: String.raw`<p>Muestra la celda como \(c_t = f\cdot c_{t-1} + i\cdot g\) y la salida \(h = o\cdot\tanh(c_t)\), con la magnitud de cada término en azul si es positiva y naranja si es negativa.</p>
+          <ul>
+          <li><strong>Puerta de olvido f</strong>: cerca de 0 la memoria anterior desaparece; cerca de 1 pasa intacta.</li>
+          <li><strong>Puerta de entrada i</strong> y <strong>Candidato g</strong>: su producto es lo que se suma a la memoria.</li>
+          <li><strong>Puerta de salida o</strong>: escala cuánto de \(\tanh(c_t)\) sale como \(h\), sin cambiar la memoria guardada.</li>
+          </ul>`, montar: montarCelda },
     ],
     teoria: String.raw`
       <h2>Ecuaciones</h2>

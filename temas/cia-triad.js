@@ -243,15 +243,33 @@
       están cuando se necesitan). Un incidente siempre puede describirse como la violación de una o varias de ellas.</p>
       <p>Lo difícil es que reforzar una propiedad suele debilitar otra: bloquear una cuenta tras tres intentos protege contra adivinadores, pero también permite
       que un atacante deje a un usuario legítimo sin acceso. Elegir controles es repartir el esfuerzo según lo que la organización más necesita proteger.</p>`,
+    parametros: [
+      ['Perfil de la organización (Fig. 1)', String.raw`Define la meta de cada propiedad (confidencialidad, integridad, disponibilidad) según el tipo de organización. Cambiarlo no altera los controles, solo qué tan lejos se está de lo que ese negocio necesita.`],
+      ['Controles y Quitar todos (Fig. 1)', String.raw`Cada casilla es un control de seguridad que suma o resta puntos a C, I y D. Activarlo muestra qué propiedades refuerza; Quitar todos devuelve al nivel base.`],
+      ['Resaltar propiedad (Fig. 2)', String.raw`Elige la columna (confidencialidad, integridad o disponibilidad) que se destaca en la tabla de incidentes para ver cuáles la violan.`],
+      ['Modo práctica y Revisar respuestas (Fig. 2)', String.raw`Oculta la clasificación para que usted marque qué propiedades viola cada incidente. Revisar respuestas compara su juicio con el de la tabla.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Balance de la tríada con controles',
         descripcion: 'Active controles y observe cómo se mueve el triángulo frente a la meta del perfil. Pruebe «Banco» con solo respaldos y redundancia: la disponibilidad sube pero la confidencialidad queda baja.',
+        ayuda: String.raw`<p>El triángulo tiene un vértice por propiedad: confidencialidad, integridad y disponibilidad. El nivel alcanzado con los controles activos se compara con la meta del perfil; una propiedad bajo su meta se marca aparte en la leyenda.</p>
+          <ul>
+          <li><strong>Perfil de la organización</strong>: cambia la meta de cada vértice; el mismo conjunto de controles puede bastar para un perfil y quedarse corto para otro.</li>
+          <li><strong>Casillas de controles</strong>: cada control sube (o baja) los vértices que protege; por ejemplo, solo respaldos y redundancia elevan la disponibilidad pero dejan baja la confidencialidad.</li>
+          <li><strong>Quitar todos</strong>: todas las propiedades vuelven al nivel base, útil para medir cuánto aporta cada control.</li>
+          </ul>`,
         montar: montarBalance,
       },
       {
         titulo: 'Incidentes según la propiedad violada',
         descripcion: 'Cada incidente real viola una o varias propiedades. Resalte una columna, haga clic en las filas para leer el control que habría ayudado, o active la práctica y clasifique usted.',
+        ayuda: String.raw`<p>Cada fila es un incidente y cada columna una propiedad de la tríada. El color de la celda indica si la violación es principal, importante, secundaria o no afecta esa propiedad. En práctica, las celdas marcadas por usted se pintan como respuesta correcta o errónea.</p>
+          <ul>
+          <li><strong>Resaltar propiedad</strong>: destaca una columna y atenúa las otras; muestra qué incidentes atacan esa propiedad.</li>
+          <li><strong>Modo práctica</strong>: oculta la clasificación; usted decide qué propiedad es la violación principal de cada incidente.</li>
+          <li><strong>Revisar respuestas</strong>: revela los aciertos y errores de sus marcas frente a la clasificación.</li>
+          </ul>`,
         montar: montarIncidentes,
       },
     ],

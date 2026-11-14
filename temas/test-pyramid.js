@@ -101,9 +101,25 @@
       <p>Las pruebas automáticas no son todas iguales. Una <strong>prueba unitaria</strong> ejecuta una función aislada en milisegundos; una <strong>prueba de integración</strong> comprueba que varias piezas colaboran
       (por ejemplo la API con la base de datos); una prueba <strong>end-to-end</strong> maneja la aplicación completa en un navegador como lo haría una persona.</p>
       <p>Cuanto más arriba, más realista pero también más lenta, cara y frágil. La <strong>pirámide de pruebas</strong> aconseja muchas pruebas unitarias, algunas de integración y pocas end-to-end.</p>`,
+    parametros: [
+      ['Forma predefinida (Fig. 1)', String.raw`Una distribución típica de pruebas (pirámide, cono de helado, trofeo) que fija de una vez las tres cantidades.`],
+      ['Pruebas end-to-end, de integración y unitarias (Fig. 1)', String.raw`Cuántas pruebas hay de cada nivel. Los niveles se distinguen por lo que recorren y por su velocidad y fragilidad.`],
+      ['Esfuerzo en cada nivel (Fig. 2)', String.raw`Porcentaje del esfuerzo de pruebas dedicado a cada nivel. Define cuánta cobertura de defectos aporta cada uno.`],
+    ],
     visualizaciones: [
-      { titulo: 'La mezcla de pruebas', descripcion: 'Cambie la cantidad de cada tipo o elija una forma predefinida y compare el tiempo de la suite y la probabilidad de fallos espurios.', montar: montarMezcla },
-      { titulo: 'Qué prueba atrapa qué defecto', descripcion: 'Reparta el esfuerzo entre los tres niveles y mire cuántos defectos típicos quedan cubiertos; ninguna capa sola basta.', montar: montarDeteccion },
+      { titulo: 'La mezcla de pruebas', descripcion: 'Cambie la cantidad de cada tipo o elija una forma predefinida y compare el tiempo de la suite y la probabilidad de fallos espurios.',
+        ayuda: String.raw`<p>Una capa por nivel: violeta end-to-end, aguamarina integración y azul unitarias. Su tamaño es la cantidad de pruebas, y la lectura da el tiempo total de la suite y la probabilidad de fallos espurios.</p>
+          <ul>
+          <li><strong>Forma predefinida</strong>: la pirámide da una suite rápida y estable; el cono de helado, lenta y con más fallos espurios.</li>
+          <li><strong>Pruebas end-to-end</strong>: cada una suma segundos de ejecución y es la que más contribuye a los fallos espurios.</li>
+          <li><strong>Pruebas unitarias</strong>: añadirlas casi no cambia el tiempo ni la fragilidad.</li>
+          </ul>`, montar: montarMezcla },
+      { titulo: 'Qué prueba atrapa qué defecto', descripcion: 'Reparta el esfuerzo entre los tres niveles y mire cuántos defectos típicos quedan cubiertos; ninguna capa sola basta.',
+        ayuda: String.raw`<p>Una fila por defecto típico y una columna por nivel de prueba; el tono más oscuro indica mayor probabilidad de que ese nivel lo detecte. Una marca muestra la detección con su mezcla de esfuerzo.</p>
+          <ul>
+          <li><strong>Esfuerzo en cada nivel</strong>: mover el esfuerzo a un nivel eleva la detección de los defectos que ese nivel atrapa bien y baja la de los demás.</li>
+          <li>Ninguna combinación extrema cubre todas las filas: hace falta repartir entre los tres niveles.</li>
+          </ul>`, montar: montarDeteccion },
     ],
     teoria: String.raw`
       <h2>Los tres niveles</h2>

@@ -383,15 +383,31 @@
       <p>Por eso resolver \(\nabla f(x)=0\) es el primer paso para optimizar, y clasificar lo que se encuentra es el segundo. Las funciones polinomiales
       permiten ver varios puntos de cada tipo en un mismo mapa; la primera figura los busca con el método de Newton y la segunda los examina desde
       todas las direcciones.</p>`,
+    parametros: [
+      ['Función (Fig. 1 y 2)', String.raw`La función cuyos puntos con gradiente cero se buscan.`],
+      ['Mostrar todos los puntos estacionarios (Fig. 1)', String.raw`Marca todos los puntos con \(\nabla f = 0\) y su tipo, para compararlos con los hallados.`],
+      ['Punto inicial al azar y Borrar hallazgos (Fig. 1)', String.raw`Eligen otro punto de partida para Newton o limpian los puntos ya hallados.`],
+      ['Punto estacionario (Fig. 2)', String.raw`Punto por el que se hacen los cortes.`],
+      ['Dirección del corte (ángulo) y Animar (Fig. 2)', String.raw`Dirección de la recta de corte; Animar la gira sola.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Búsqueda de puntos con gradiente cero',
         descripcion: 'Haga clic en un punto inicial y ejecute Newton: converge a un punto con \\(\\nabla f = 0\\) y lo clasifica según los valores propios de la Hessiana. Marque «Mostrar todos» para comprobar cuántos hay (Himmelblau tiene nueve).',
+        ayuda: String.raw`<p>Curvas de nivel con las iteraciones de Newton y el punto inicial. Los puntos estacionarios se colorean como mínimo local, máximo local, silla o degenerado (Hessiana singular).</p>
+          <ul>
+          <li><strong>Mostrar todos</strong>: revela a qué tipo llega Newton según el inicio.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Cortes por un punto estacionario',
         descripcion: 'Elija un punto y gire la dirección del corte. En un mínimo todas las curvas suben; en un punto de silla algunas suben y otras bajan, y todas son planas en \\(t = 0\\). Pruebe la silla del mono, donde la curvatura es nula en todas las direcciones.',
+        ayuda: String.raw`<p>Arriba, el punto y la recta del corte elegido. Abajo, \(f(p + t u) - f(p)\) en función de t.</p>
+          <ul>
+          <li><strong>Dirección del corte</strong>: en un mínimo todas las curvas suben; en una silla algunas suben y otras bajan.</li>
+          <li><strong>Punto estacionario</strong>: cambia el tipo de punto, y con él la forma de las curvas.</li>
+          </ul>`,
         montar: montarCortes,
       },
     ],

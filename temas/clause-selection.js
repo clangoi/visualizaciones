@@ -119,15 +119,28 @@
       <p>La resolución dice <em>qué</em> se puede hacer pero no <em>en qué orden</em>. Resolver todos los pares posibles genera una cantidad enorme de cláusulas, la mayoría inútiles. Las <strong>estrategias de selección</strong>
       deciden qué par resolver primero y qué pares ignorar.</p>
       <p>Una estrategia buena llega a la cláusula vacía con pocas resolventes. Pero hay una disyuntiva: restringir la búsqueda ahorra trabajo, a costa de perder <em>completitud</em> —la garantía de encontrar \(\Box\) siempre que exista—.</p>`,
+    parametros: [
+      ['Problema (Fig. 1 y 2)', String.raw`Qué conjunto de cláusulas se refuta. Cada problema favorece a una estrategia distinta.`],
+      ['Medida (Fig. 1)', String.raw`Qué se cuenta como trabajo en las barras, por ejemplo los pares de cláusulas resueltos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cuánto trabaja cada estrategia',
         descripcion: 'Compare cuatro estrategias en cuatro problemas, con distintas medidas de trabajo. Busque dónde una estrategia restringida no llega a \\(\\Box\\).',
+        ayuda: String.raw`<p>Cada barra es el trabajo de una estrategia (ancho, cláusulas cortas, conjunto de apoyo, entrada), con el color de la leyenda.</p>
+          <ul>
+          <li><strong>Problema</strong>: cambia qué estrategia resulta más barata y cuáles no llegan a □.</li>
+          <li><strong>Medida</strong>: cambia la magnitud contada; permite ver si el orden entre estrategias depende de lo que se mida.</li>
+          </ul>`,
         montar: montarBarras,
       },
       {
         titulo: 'Cómo crece el conjunto de cláusulas',
         descripcion: 'Siga el tamaño del conjunto paso a paso. Apague estrategias para ver las demás y cotejar sus finales.',
+        ayuda: String.raw`<p>El eje horizontal son los pasos (pares resueltos) y el vertical, las cláusulas en el conjunto. Cada curva es una estrategia; un círculo lleno marca que llegó a □.</p>
+          <ul>
+          <li><strong>Problema</strong>: cambia la rapidez de crecimiento de cada curva y cuáles terminan en círculo lleno.</li>
+          </ul>`,
         montar: montarCurvas,
       },
     ],

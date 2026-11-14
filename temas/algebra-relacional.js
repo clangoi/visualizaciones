@@ -238,15 +238,28 @@
       toman relaciones y devuelven relaciones, de modo que se pueden anidar: el resultado de una consulta es la entrada de otra.</p>
       <p>Su importancia es práctica. Todo motor traduce SQL a un árbol de operadores del álgebra, y el optimizador lo reescribe en otro
       árbol <em>equivalente</em> que produce el mismo resultado con mucho menos trabajo.</p>`,
+    parametros: [
+      ['Operador (Fig. 1)', String.raw`Elige la operación del álgebra (σ, π, ×, ⋈, ∪, ∩, −, ÷, ρ) que se aplica a las tablas de entrada; cambia la expresión y la tabla de resultado.`],
+      ['Plan (Fig. 2)', String.raw`Dos formas equivalentes de evaluar la misma consulta: juntar todo y luego filtrar, o empujar las selecciones hacia las hojas. Dan el mismo resultado con distinto número de filas intermedias.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza la evaluación nodo por nodo del árbol; Reiniciar la vuelve al comienzo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los operadores sobre tablas',
         descripcion: 'Cada operador aplicado a Alumnos, Cursos e Inscripciones. Compare el tamaño del producto con el de la junta, y mire cómo la división responde una pregunta de «todos».',
+        ayuda: String.raw`<p>Arriba, las tablas de entrada; abajo, la tabla resultado. Se destacan las filas que llegan al resultado, las filas sin pareja y las columnas proyectadas.</p>
+          <ul>
+          <li><strong>Operador</strong>: la junta natural pierde a Elena (105), sin inscripciones; el producto da 6 · 4 = 24 filas y la proyección elimina duplicados.</li>
+          </ul>`,
         montar: montarOperadores,
       },
       {
         titulo: 'Evaluar un árbol de consulta',
         descripcion: 'Nombres de alumnos con nota ≥ 6 en Bases de Datos, con dos planes equivalentes. Empujar las selecciones hacia las hojas reduce las filas intermedias.',
+        ayuda: String.raw`<p>Árbol de la consulta con nodos sin evaluar, el nodo que se evalúa y los ya evaluados. Junto a él se ven las tablas intermedias de cada nodo y el número de filas.</p>
+          <ul>
+          <li><strong>Plan</strong>: con las selecciones empujadas hacia las hojas las tablas intermedias son más pequeñas que al juntar todo primero, aunque el resultado es el mismo.</li>
+          </ul>`,
         montar: montarArbol,
       },
     ],

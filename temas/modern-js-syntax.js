@@ -129,10 +129,30 @@
       <p>Desde ES2015 (<em>ECMAScript 6</em>), JavaScript incorporó una sintaxis que dice más con menos: <strong>funciones flecha</strong>, <strong>destructuring</strong> para extraer valores de objetos y arreglos,
       el operador <strong>spread/rest</strong> (<code>...</code>) y <strong>módulos</strong> con <code>import</code> y <code>export</code>.</p>
       <p>Aprenderlas es necesario para leer código actual, pero también conviene saber qué ocurre debajo: por ejemplo, copiar un objeto con <code>...</code> <em>no</em> copia lo que hay dentro de sus propiedades.</p>`,
+    parametros: [
+      ['Sintaxis (Fig. 1)', String.raw`Qué característica se muestra: destructuring, rest o spread. Cada una produce un código y variables resultantes distintos.`],
+      ['Tipo de copia (Fig. 2)', String.raw`Si el objeto se copia con spread (superficial) o con una copia profunda. Define si los objetos anidados se comparten o se duplican.`],
+      ['copia.a = 99, copia.dir.ciudad = "Lima" y Reiniciar (Fig. 2)', String.raw`Modifican, respectivamente, una propiedad simple y una anidada de la copia, y devuelven el estado inicial.`],
+      ['Tree shaking (Fig. 3)', String.raw`Si el empaquetador elimina el código que nadie importa.`],
+    ],
     visualizaciones: [
-      { titulo: 'Destructuring, rest y spread', descripcion: 'Recorra los distintos usos de la sintaxis moderna y compare el código con las variables que quedan definidas.', montar: montarSintaxis },
-      { titulo: 'Copia superficial frente a profunda', descripcion: 'Copie un objeto con spread y modifique su objeto anidado: observe qué pasa con el original. Luego pruebe con una copia profunda.', montar: montarCopia },
-      { titulo: 'Módulos y tree shaking', descripcion: 'Una aplicación importa solo parte de tres módulos; active el tree shaking y compare el tamaño del paquete.', montar: montarModulos },
+      { titulo: 'Destructuring, rest y spread', descripcion: 'Recorra los distintos usos de la sintaxis moderna y compare el código con las variables que quedan definidas.',
+        ayuda: String.raw`<p>Se muestra el código con la sintaxis elegida y la tabla de las variables que quedan definidas, con su valor.</p>
+          <ul>
+          <li><strong>Sintaxis</strong>: cada opción cambia el código y las variables resultantes, lo que muestra qué toma y qué agrupa cada operador.</li>
+          </ul>`, montar: montarSintaxis },
+      { titulo: 'Copia superficial frente a profunda', descripcion: 'Copie un objeto con spread y modifique su objeto anidado: observe qué pasa con el original. Luego pruebe con una copia profunda.',
+        ayuda: String.raw`<p>Se dibujan el objeto original, su copia y el objeto anidado, que puede ser compartido o duplicado.</p>
+          <ul>
+          <li><strong>copia.a = 99</strong>: no altera el original en ninguno de los dos tipos de copia.</li>
+          <li><strong>copia.dir.ciudad = "Lima"</strong> con copia superficial: también cambia el original porque el objeto anidado es compartido.</li>
+          <li>Con <strong>copia profunda</strong>, el anidado se duplica y el original no cambia.</li>
+          </ul>`, montar: montarCopia },
+      { titulo: 'Módulos y tree shaking', descripcion: 'Una aplicación importa solo parte de tres módulos; active el tree shaking y compare el tamaño del paquete.',
+        ayuda: String.raw`<p>Cada módulo aporta código importado, código que nadie usa y lo que se incluye en el paquete final, según la leyenda.</p>
+          <ul>
+          <li><strong>tree shaking</strong>: al activarlo, el código sin usar sale del paquete y su tamaño baja.</li>
+          </ul>`, montar: montarModulos },
     ],
     teoria: String.raw`
       <h2>Valores y referencias</h2>

@@ -111,9 +111,22 @@
       <p>Una aplicación web real no la hace una sola persona ni una sola tecnología: reúne interfaz, servidor, datos, infraestructura y pruebas. Alrededor de esas capas se organizan los <strong>roles profesionales</strong>
       —frontend, backend, full stack, DevOps, QA, arquitectura— cuyos límites cambian según el equipo.</p>
       <p>Además, el ecosistema evoluciona muy rápido: lenguajes, protocolos y herramientas aparecen, se consolidan y reemplazan a otras. Entender de dónde viene cada pieza ayuda a decidir qué aprender y qué descartar.</p>`,
+    parametros: [
+      ['Roles del equipo (Fig. 1)', String.raw`Las casillas son los perfiles que se incorporan al equipo. Cada rol cubre ciertas capas de la aplicación.`],
+      ['Año (Fig. 2)', String.raw`Un año de la línea de tiempo entre 1991 y 2024; distingue las tecnologías que ya existían de las posteriores.`],
+    ],
     visualizaciones: [
-      { titulo: 'Roles y capas de una aplicación', descripcion: 'Arme un equipo eligiendo roles y vea qué capas quedan cubiertas y cuáles sin responsable; pase el cursor por una capa para ver qué incluye.', montar: montarCapas },
-      { titulo: 'Evolución del ecosistema web', descripcion: 'Mueva el año por la línea de tiempo de 1991 a 2024 y haga clic en los hitos para leer qué aportó cada uno.', montar: montarEvolucion },
+      { titulo: 'Roles y capas de una aplicación', descripcion: 'Arme un equipo eligiendo roles y vea qué capas quedan cubiertas y cuáles sin responsable; pase el cursor por una capa para ver qué incluye.',
+        ayuda: String.raw`<p>Cada fila es una capa de la aplicación. Las marcas de colores indican qué roles la cubren (el color es el de la leyenda del rol) y un borde rojo señala una capa sin ningún responsable.</p>
+          <ul>
+          <li>Al <strong>marcar un rol</strong> aparecen sus marcas en las capas que cubre.</li>
+          <li>Al <strong>desmarcar</strong> un rol, las capas que solo él cubría quedan con borde rojo: sin responsable.</li>
+          </ul>`, montar: montarCapas },
+      { titulo: 'Evolución del ecosistema web', descripcion: 'Mueva el año por la línea de tiempo de 1991 a 2024 y haga clic en los hitos para leer qué aportó cada uno.',
+        ayuda: String.raw`<p>Línea de tiempo de 1991 a 2024 con hitos coloreados por tipo (según la leyenda). Los alcanzados aparecen rellenos y los posteriores, vacíos.</p>
+          <ul>
+          <li><strong>Año</strong>: al avanzar se van rellenando hitos; el cursor sobre un hito o un clic muestra qué aportó.</li>
+          </ul>`, montar: montarEvolucion },
     ],
     teoria: String.raw`
       <h2>Roles</h2>

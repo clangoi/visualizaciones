@@ -74,9 +74,26 @@
       <p><strong>WebAssembly</strong> (Wasm) es un formato binario compacto que los navegadores ejecutan a velocidad cercana a la nativa. No se escribe a mano: se obtiene <em>compilando</em> código de otros lenguajes (Rust, C, C++, Go)
       y se carga desde JavaScript como un módulo.</p>
       <p>No reemplaza a JavaScript: lo complementa. JavaScript sigue manejando la página y el DOM; Wasm se usa para el trabajo pesado de cálculo (edición de imágenes y vídeo, criptografía, juegos, simulaciones) y para reutilizar bibliotecas ya escritas en otros lenguajes.</p>`,
+    parametros: [
+      ['Iteraciones del bucle y botones de medición (Fig. 1)', String.raw`Cuántos millones de iteraciones ejecuta el mismo bucle en JavaScript y en el módulo Wasm. Medir ejecuta ambos y Borrar mediciones limpia la tabla.`],
+      ['Elementos que hay que procesar (Fig. 2)', String.raw`El total de elementos que se envían a Wasm; a más elementos, más trabajo y más cruces si se llama uno por uno.`],
+      ['Costo de cada cruce JS ↔ Wasm (Fig. 2)', String.raw`El tiempo fijo de cada llamada entre JavaScript y Wasm, que se paga por llamada.`],
+      ['Trabajo por elemento dentro de Wasm (Fig. 2)', String.raw`El tiempo útil de procesar cada elemento; es el piso que ningún lote puede bajar.`],
+    ],
     visualizaciones: [
-      { titulo: 'Medición real: JavaScript frente a WebAssembly', descripcion: 'Un módulo Wasm de 70 bytes, escrito a mano, y su equivalente en JavaScript ejecutan el mismo bucle en su navegador. Mida varias veces con distintos tamaños.', montar: montarMedicion },
-      { titulo: 'El costo de cruzar la frontera', descripcion: 'Cambie el tamaño del lote con que se llama a Wasm: llamar elemento por elemento puede anular toda la ventaja.', montar: montarFrontera },
+      { titulo: 'Medición real: JavaScript frente a WebAssembly', descripcion: 'Un módulo Wasm de 70 bytes, escrito a mano, y su equivalente en JavaScript ejecutan el mismo bucle en su navegador. Mida varias veces con distintos tamaños.',
+        ayuda: String.raw`<p>Arriba se ve el módulo Wasm y debajo una tabla con los tiempos medidos de cada ejecución en su navegador.</p>
+          <ul>
+          <li><strong>Iteraciones del bucle</strong>: más iteraciones aumentan ambos tiempos y la comparación se vuelve más estable frente al ruido.</li>
+          <li>Repetir <strong>Medir</strong> agrega filas: los resultados varían con el motor y el calentamiento del compilador JIT.</li>
+          </ul>`, montar: montarMedicion },
+      { titulo: 'El costo de cruzar la frontera', descripcion: 'Cambie el tamaño del lote con que se llama a Wasm: llamar elemento por elemento puede anular toda la ventaja.',
+        ayuda: String.raw`<p>Eje horizontal: tamaño del lote (elementos por llamada, escala logarítmica). Eje vertical: tiempo total en ms. La curva azul es el tiempo total y la naranja el trabajo útil, el mínimo posible.</p>
+          <ul>
+          <li>Con lote 1 la curva azul está muy por encima de la naranja: se paga un cruce por elemento.</li>
+          <li><strong>Costo de cada cruce</strong> más alto sube el extremo izquierdo; <strong>Trabajo por elemento</strong> más alto sube la línea naranja y reduce la ventaja relativa de agrupar.</li>
+          <li>Con lotes grandes la azul se acerca a la naranja: el cruce se amortigua.</li>
+          </ul>`, montar: montarFrontera },
     ],
     teoria: String.raw`
       <h2>Cómo funciona</h2>

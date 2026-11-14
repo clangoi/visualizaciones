@@ -269,20 +269,44 @@
       <p>El procesamiento analítico en línea (<strong>OLAP</strong>) consulta los datos como un <em>cubo</em>: una medida (ingreso, unidades) repartida a lo largo de dimensiones (tiempo, región, producto, canal).
       Sus operaciones básicas son agregar o desagregar siguiendo una jerarquía (<em>roll-up</em> y <em>drill-down</em>), recortar el cubo (<em>slice</em> y <em>dice</em>) y rotarlo para mirarlo desde otro eje (<em>pivot</em>).</p>
       <p>Las tres figuras usan el mismo cubo de ventas simuladas, con 24 meses, 3 regiones, 3 productos y 2 canales. Todos los totales se calculan de verdad desde las 336 filas de hechos, de modo que los subtotales siempre suman.</p>`,
+    parametros: [
+      ['Medida (Fig. 1 y 3)', String.raw`Magnitud que se agrega, p. ej. ingreso o unidades.`],
+      ['Subtotales por (Fig. 1)', String.raw`Dimensión por la que se divide cada barra, para comprobar que las partes suman el total.`],
+      ['Roll-up y Nuevos datos (Fig. 1)', String.raw`Roll-up sube un nivel de la jerarquía (de mes a trimestre, de trimestre a año); Nuevos datos genera otras cifras.`],
+      ['Filtros de dimensión y Cubo completo (Fig. 2)', String.raw`Fijan una dimensión en uno o dos valores (slice y dice); Cubo completo quita los filtros.`],
+      ['Filas y Columnas (Fig. 3)', String.raw`Dimensiones que forman las filas y las columnas de la tabla dinámica.`],
+      ['Mostrar como % del total (Fig. 3)', String.raw`Cambia los valores absolutos por su peso en el total.`],
+      ['Intercambiar ejes (pivot) (Fig. 3)', String.raw`Cambia filas por columnas sin alterar los datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Roll-up y drill-down',
         descripcion: 'Haga clic en un año para bajar a sus trimestres y en un trimestre para bajar a sus meses; con «Roll-up» regresa. Agregue subtotales por región y compruebe que las partes suman la barra.',
+        ayuda: String.raw`<p>Barras de la medida por nivel de la jerarquía de tiempo (año, trimestre, mes). Con subtotales, cada barra se divide por región.</p>
+          <ul>
+          <li><strong>Roll-up</strong>: agrupa las barras en el nivel superior sin perder el total.</li>
+          <li><strong>Subtotales por</strong>: segmentos cuya suma es la barra completa.</li>
+          </ul>`,
         montar: montarJerarquia,
       },
       {
         titulo: 'Slice y dice',
         descripcion: 'Fije una dimensión en un solo valor (slice) y luego deje dos valores en otra (dice). Haga clic en una región o producto del dibujo para incluirlo o excluirlo y mire cuánto del ingreso total queda.',
+        ayuda: String.raw`<p>Cubo de celdas por dimensión. Las celdas del corte son más oscuras mientras más ingreso tienen; las que quedan fuera del corte se ven aparte.</p>
+          <ul>
+          <li><strong>Filtros de dimensión</strong>: dejan menos celdas dentro del corte y el ingreso total del corte baja.</li>
+          <li><strong>Cubo completo</strong>: todas las celdas vuelven a estar dentro y se ve el ingreso total.</li>
+          </ul>`,
         montar: montarCorte,
       },
       {
         titulo: 'Tabla dinámica (pivot)',
         descripcion: 'Cambie las dimensiones de filas y columnas, o intercambie los ejes. Pruebe año contra trimestre y active el porcentaje del total: los totales de fila y columna no cambian de lugar, sino de lectura.',
+        ayuda: String.raw`<p>Tabla con una dimensión en filas, otra en columnas, y totales de fila y columna.</p>
+          <ul>
+          <li><strong>Filas</strong> y <strong>Columnas</strong>: eligen qué dimensiones se cruzan.</li>
+          <li><strong>Mostrar como % del total</strong>: las celdas cambian de unidades a proporción; los totales se leen como pesos relativos.</li>
+          </ul>`,
         montar: montarPivot,
       },
     ],

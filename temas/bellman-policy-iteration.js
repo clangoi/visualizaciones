@@ -93,9 +93,28 @@
     intro: String.raw`
       <p>El valor de un estado tiene una propiedad recursiva: es la recompensa que se espera al dar un paso más el valor (descontado) del estado al que se llega. Esa recursión es la <strong>ecuación de Bellman</strong>, y es la herramienta central del aprendizaje por refuerzo.</p>
       <p>Si se conoce el modelo del entorno, la ecuación se puede convertir en un algoritmo: <strong>evaluar</strong> una política repitiendo la ecuación hasta que los valores se estabilicen, y <strong>mejorarla</strong> escogiendo en cada estado la mejor acción según esos valores. Alternar ambas (<strong>iteración de políticas</strong>) converge a la política óptima.</p>`,
+    parametros: [
+      ['Entorno (Fig. 1 y 2)', String.raw`El mapa sobre el que se calculan los valores. Define dónde están la meta y las trampas y, por tanto, hacia dónde fluye el valor.`],
+      ['Política que se evalúa (Fig. 1)', String.raw`La política cuyo valor \(V(s)\) se calcula: al azar, la óptima u otras. Cada una produce un campo de valores distinto.`],
+      ['Descuento γ (Fig. 1 y 2)', String.raw`Cuánto se atenúa el valor al alejarse de la recompensa. Con γ cercano a 1 el valor llega lejos; con γ bajo queda confinado junto a la meta.`],
+      ['Probabilidad de resbalar (Fig. 1 y 2)', String.raw`Incertidumbre de las transiciones. Al subirla, los valores cercanos a las trampas bajan porque es más fácil caer en ellas.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza un barrido (o una ronda de iteración), lo reproduce solo o reinicia el cálculo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Evaluación de una política', descripcion: 'Vea cómo la información de la recompensa se propaga hacia atrás, un paso por barrido. Compare la política al azar con la óptima y cambie γ.', montar: montarEvaluacion },
-      { titulo: 'Iteración de políticas', descripcion: 'Alterne evaluación y mejora y vea cómo cambian las flechas hasta que la política deja de moverse.', montar: montarIteracion },
+      { titulo: 'Evaluación de una política', descripcion: 'Vea cómo la información de la recompensa se propaga hacia atrás, un paso por barrido. Compare la política al azar con la óptima y cambie γ.',
+        ayuda: String.raw`<p>Cada casilla muestra su valor \(V(s)\): azul/positivo si es favorable y de signo contrario si es negativo; la meta y la trampa están marcadas. La curva de abajo sigue el cambio de los valores por barrido.</p>
+          <ul>
+          <li><strong>Política que se evalúa</strong>: con «Al azar» los valores son bajos y la trampa los arrastra; con la óptima suben cerca de la meta.</li>
+          <li><strong>Descuento γ</strong>: al subirlo, el valor positivo se propaga más lejos de la meta en cada barrido.</li>
+          <li><strong>Probabilidad de resbalar</strong>: reduce los valores de las casillas junto a la trampa.</li>
+          </ul>`, montar: montarEvaluacion },
+      { titulo: 'Iteración de políticas', descripcion: 'Alterne evaluación y mejora y vea cómo cambian las flechas hasta que la política deja de moverse.',
+        ayuda: String.raw`<p>Cada casilla muestra su valor y una flecha con la acción de la política actual. Alternar evaluación y mejora cambia las flechas hasta que dejan de moverse.</p>
+          <ul>
+          <li><strong>Entorno</strong>: cambia el mapa y por tanto el camino que terminan señalando las flechas.</li>
+          <li><strong>Descuento γ</strong>: con γ bajo las flechas pueden ignorar metas lejanas.</li>
+          <li><strong>Probabilidad de resbalar</strong>: puede hacer que las flechas se alejen de la trampa aunque el camino sea más largo.</li>
+          </ul>`, montar: montarIteracion },
     ],
     teoria: String.raw`
       <h2>Ecuaciones de Bellman</h2>

@@ -72,8 +72,19 @@
     intro: String.raw`
       <p>Muchas estructuras (una base de datos, una caché, una tabla de configuración) se leen mucho más de lo que se escriben. Dejar que <strong>varios lectores</strong> accedan a la vez es seguro porque no modifican nada; en cambio un <strong>escritor</strong> necesita acceso exclusivo. Es el problema de <strong>lectores y escritores</strong>.</p>
       <p>La dificultad no es la exclusión, sino la política: si siempre se favorece a los lectores, los escritores pueden esperar para siempre; si se favorece a los escritores, pueden hacerlo los lectores.</p>`,
+    parametros: [
+      ['Política (Fig. 1)', String.raw`Quién tiene preferencia cuando hay lectores y escritores esperando: lectores, escritores o orden de llegada. Cambia quién espera de más y quién puede sufrir inanición.`],
+      ['Carga (Fig. 1)', String.raw`El patrón de llegadas: lectores continuos con dos escritores, o llegadas al azar.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otras llegadas al azar.`],
+    ],
     visualizaciones: [
-      { titulo: 'Tres políticas de acceso', descripcion: 'Con lectores continuos, compare la espera de los escritores en cada política. Cambie a la carga al azar para ver un caso menos extremo.', montar },
+      { titulo: 'Tres políticas de acceso', descripcion: 'Con lectores continuos, compare la espera de los escritores en cada política. Cambie a la carga al azar para ver un caso menos extremo.',
+        ayuda: String.raw`<p>Una fila por hilo a lo largo del tiempo. Los tramos de lector (acceso compartido) y de escritor (acceso exclusivo) se distinguen por color y los tramos de espera aparecen aparte, como en la leyenda.</p>
+          <ul>
+          <li><strong>Política</strong> «Prioridad a lectores» con lectores continuos: los lectores se solapan y los escritores esperan largo rato.</li>
+          <li><strong>Política</strong> «Prioridad a escritores»: los lectores nuevos esperan a que escriba el escritor y la espera de este baja.</li>
+          <li><strong>Política</strong> «Justa»: se atiende por orden de llegada y ninguno pasa hambre.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>Solución con semáforos (prioridad a lectores)</h2>

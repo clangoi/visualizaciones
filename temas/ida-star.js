@@ -254,15 +254,33 @@
       la meta, sube el umbral al menor \(f\) que lo superó.</p>
       <p>Solo guarda el camino actual, así que su memoria es lineal en la profundidad de la solución. A cambio, repite trabajo
       entre iteraciones y, al no recordar estados, puede revisitar el mismo estado por caminos distintos.</p>`,
+    parametros: [
+      ['Nuevo árbol y reproductor (Fig. 1)', String.raw`Generan otro árbol con costos y heurísticas al azar y controlan la animación (Reproducir, Un paso, Hasta el final, Reiniciar).`],
+      ['Longitud óptima de la instancia (Fig. 2)', String.raw`A cuántos movimientos de la meta está el puzzle que se resuelve. Más longitud, más iteraciones y nodos.`],
+      ['Heurística (Fig. 2)', String.raw`Fichas fuera de lugar, Manhattan o Manhattan con conflictos lineales. Una mejor heurística empieza con un umbral más alto y necesita menos iteraciones.`],
+      ['Nueva instancia (Fig. 2)', String.raw`Sortea otro puzzle con la misma longitud óptima.`],
+    ],
     visualizaciones: [
       {
         titulo: 'IDA* paso a paso',
         descripcion: 'Cada iteración es una DFS limitada por f. Observe cómo el umbral sube exactamente al menor f podado y cómo los nodos de arriba se vuelven a generar en cada iteración.',
+        ayuda: String.raw`<p>Es un árbol con costos en las aristas. Cada iteración de IDA* es una búsqueda en profundidad que poda todo nodo con \(f = g + h\) mayor que el umbral (anillo rojo). Amarillo: la pila actual; azul: expandidos en esta iteración. La tira de abajo registra el umbral de cada iteración.</p>
+          <ul>
+          <li>El umbral siguiente es exactamente el menor \(f\) que se podó (lectura «menor f podado»): así nunca se salta la solución óptima.</li>
+          <li>Los nodos cercanos a la raíz se vuelven a generar en cada iteración; compare «generados en la iteración» con «generados en total».</li>
+          <li>Pase el cursor sobre un nodo para ver \(g\), \(h\) y la distancia real \(h^*\).</li>
+          </ul>`,
         montar: montarPasoAPaso,
       },
       {
         titulo: 'Iteraciones en el 8-puzzle',
         descripcion: 'Con una buena heurística cada iteración genera varias veces más nodos que la anterior, de modo que la última domina el total. Compare con A*: IDA* genera algo más, pero con memoria mínima.',
+        ayuda: String.raw`<p>Cada barra es una iteración de IDA* en el 8-puzzle, y su altura (escala logarítmica), los nodos generados en ella; bajo cada barra está su umbral. La barra verde es la que encuentra la meta. La línea punteada marca los nodos que generaría A* en la misma instancia.</p>
+          <ul>
+          <li>Cada iteración genera varias veces más que la anterior, así que la última domina el total y repetir las primeras cuesta poco.</li>
+          <li><strong>Heurística</strong>: con una mejor, el primer umbral está más cerca de la solución y hay menos barras.</li>
+          <li>Compare las lecturas de memoria: A* guarda miles de estados; IDA*, solo la pila.</li>
+          </ul>`,
         montar: montarPuzzle,
       },
     ],

@@ -145,15 +145,29 @@
       elemento <em>más pequeño</em>. Basta con bajar de uno en uno hasta que no se pueda más.</p>
       <p>Es obvio solo para los naturales. En los enteros hay subconjuntos que bajan para siempre, y en los racionales positivos también. Esa propiedad especial es la que
       garantiza que los algoritmos con una «medida que decrece» terminan, y es equivalente a la inducción.</p>`,
+    parametros: [
+      ['Subconjunto (Fig. 1)', String.raw`Qué subconjunto de un universo (ℕ, ℤ o racionales) se examina, incluido el vacío. De él depende si existe un mínimo.`],
+      ['Proceso (Fig. 2)', String.raw`Cuál proceso se ejecuta (por ejemplo Euclides o Collatz) y, con él, qué medida se vigila.`],
+      ['n (o a) y b (solo Euclides) (Fig. 2)', String.raw`Valores iniciales del proceso. b solo se usa en el algoritmo de Euclides.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El mínimo de un subconjunto',
         descripcion: 'Cambie de subconjunto y de universo: en ℕ siempre aparece un mínimo (salvo en el vacío); en ℤ y en los racionales hay subconjuntos que no lo tienen.',
+        ayuda: String.raw`<p>Cada punto es un elemento del subconjunto; el mínimo se marca aparte y una cadena descendente sin fin aparece como señal de que no hay mínimo.</p>
+          <ul>
+          <li><strong>Subconjunto</strong>: en ℕ todo subconjunto no vacío muestra un mínimo; en ℤ o en los racionales algunos tienen una cadena que baja sin fin.</li>
+          </ul>`,
         montar: montarMinimo,
       },
       {
         titulo: 'Cadenas descendentes y terminación',
         descripcion: 'Si una medida natural baja en cada paso, el proceso termina. Pruebe Euclides con distintos \\(a, b\\) y compare con Collatz, que no garantiza descenso.',
+        ayuda: String.raw`<p>Eje horizontal: paso; eje vertical: medida del proceso. Cada tramo se colorea según la medida baje o suba respecto del paso anterior.</p>
+          <ul>
+          <li><strong>Proceso</strong>: Euclides baja siempre y por eso termina; Collatz puede subir, así que la medida no garantiza el fin.</li>
+          <li><strong>n (o a)</strong> y <strong>b</strong>: cambian la longitud y la forma de la trayectoria.</li>
+          </ul>`,
         montar: montarDescenso,
       },
     ],

@@ -240,15 +240,34 @@
       <p>El algoritmo de <strong>Chandy y Lamport</strong> (1985) obtiene un estado <em>consistente</em> sin detener el sistema, usando
       mensajes especiales, los <strong>marcadores</strong>, que separan en cada canal lo que pasó antes de la instantánea de lo que pasó después.
       Solo requiere canales FIFO.</p>`,
+    parametros: [
+      ['Momento en que empieza (Fig. 1)', String.raw`Instante en que el proceso iniciador registra su estado y envía marcadores. Cambia qué transferencias están ya hechas o en vuelo.`],
+      ['Inicia (Fig. 1)', String.raw`Qué proceso (P1, P2 o P3) lanza la instantánea.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Nuevos datos sortea otras transferencias. El reproductor avanza la ejecución evento por evento.`],
+      ['Procesos (Fig. 2)', String.raw`Cantidad de procesos del diagrama.`],
+      ['Nuevos datos y Corte vertical (Fig. 2)', String.raw`Nuevos datos sortea otra ejecución. Corte vertical alinea el corte al mismo instante en todos los procesos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Instantánea con marcadores',
         descripcion: 'Avance evento por evento. Los marcadores (violeta) se propagan por todos los canales; las transferencias que llegan a un proceso que ya registró su saldo, por un canal del que aún no llega el marcador, quedan en el estado del canal (naranjo).',
+        ayuda: String.raw`<p>Los procesos intercambian transferencias de dinero (azul). Los marcadores (violeta) se propagan por todos los canales; un punto verde indica el estado ya registrado de un proceso y una línea naranja, una transferencia en tránsito (estado de canal).</p>
+          <ul>
+          <li><strong>Momento en que empieza</strong>: según el instante, más o menos transferencias quedan en tránsito.</li>
+          <li><strong>Inicia</strong>: cambia el orden en que los procesos registran su saldo.</li>
+          <li>La suma de saldos registrados más las transferencias en tránsito conserva el dinero total.</li>
+          </ul>`,
         montar: montarInstantanea,
       },
       {
         titulo: 'Cortes consistentes',
         descripcion: 'Un corte elige un instante en cada proceso. Mueva sus puntos hasta producir un mensaje huérfano (rojo): el corte deja de ser consistente.',
+        ayuda: String.raw`<p>Un corte marca un instante en cada proceso: los eventos antes del corte son negros y los posteriores, grises. Una línea amarilla es un mensaje en tránsito y una roja, uno huérfano (recibido sin haber sido enviado).</p>
+          <ul>
+          <li><strong>Procesos</strong>: más filas, más maneras de cruzar el corte.</li>
+          <li><strong>Corte vertical</strong>: alinea el corte en un mismo instante, que nunca deja mensajes huérfanos.</li>
+          <li>Un mensaje rojo indica un corte inconsistente: no puede ser un estado global real.</li>
+          </ul>`,
         montar: montarCortes,
       },
     ],

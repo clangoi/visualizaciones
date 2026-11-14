@@ -114,15 +114,35 @@
       calcular \(P(\text{enfermedad} \mid \text{prueba})\). Es la regla para <strong>actualizar una creencia con evidencia</strong>.</p>
       <p>Su consecuencia más contraintuitiva: una prueba muy precisa puede dar casi siempre falsos positivos si la condición es rara.
       La razón es que la respuesta depende de la <strong>probabilidad a priori</strong> tanto como de la calidad de la prueba.</p>`,
+    parametros: [
+      ['Prevalencia P(E) (Fig. 1)', String.raw`Fracción de la población que realmente tiene la condición. Si es baja, aparecen pocos enfermos y los positivos son en su mayoría falsos.`],
+      ['Sensibilidad P(+ | E) (Fig. 1)', String.raw`Fracción de enfermos que dan positivo. Subirla reduce los falsos negativos.`],
+      ['Especificidad P(− | no E) (Fig. 1)', String.raw`Fracción de sanos que dan negativo. Subirla reduce los falsos positivos.`],
+      ['agrupar por resultado (Fig. 1)', String.raw`Reordena las personas según el resultado de la prueba para ver, entre los positivos, cuántos están enfermos.`],
+      ['Prior P(E), Sensibilidad y Especificidad (Fig. 2)', String.raw`Probabilidad inicial de estar enfermo y la calidad de la prueba. El posterior después de cada resultado parte de ellos.`],
+      ['Prueba positiva, Prueba negativa y Borrar pruebas (Fig. 2)', String.raw`Añaden un resultado a la secuencia o la vacían. Cada resultado actualiza la probabilidad de E.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mil personas',
         descripcion: 'Una prueba diagnóstica aplicada a mil personas. Baje la prevalencia y observe cómo cae la probabilidad de estar enfermo dado un positivo.',
+        ayuda: String.raw`<p>Cada punto es una persona: enfermo positivo (verdadero positivo), enfermo negativo (falso negativo), sano positivo (falso positivo) y sano negativo. P(E | +) es la fracción de enfermos entre los positivos.</p>
+          <ul>
+          <li><strong>Prevalencia</strong> baja: los falsos positivos superan a los verdaderos y P(E | +) cae.</li>
+          <li><strong>Especificidad</strong> más alta: se reducen los falsos positivos y P(E | +) sube.</li>
+          <li><strong>agrupar por resultado</strong>: permite contar visualmente el grupo de positivos.</li>
+          </ul>`,
         montar: montarPoblacion,
       },
       {
         titulo: 'Actualizar con varias pruebas',
         descripcion: 'El posterior tras cada resultado se usa como prior del siguiente. Pruebe dos positivos seguidos con prevalencia 2 %.',
+        ayuda: String.raw`<p>La curva muestra P(enfermo) tras cada prueba realizada (eje horizontal). Los tramos se distinguen según el resultado: tras un positivo o tras un negativo.</p>
+          <ul>
+          <li><strong>Prueba positiva</strong>: la probabilidad sube; el posterior anterior hace de prior del siguiente.</li>
+          <li><strong>Prueba negativa</strong>: la probabilidad baja.</li>
+          <li><strong>Borrar pruebas</strong>: vuelve al prior.</li>
+          </ul>`,
         montar: montarSecuencia,
       },
     ],

@@ -81,15 +81,30 @@
       <p>Un <strong>autómata finito determinista</strong> (AFD) es la máquina más sencilla que lee una palabra: tiene un número finito de <em>estados</em>, parte de uno inicial y, por cada símbolo de la entrada,
       salta a exactamente un estado siguiente. Al terminar la palabra, la acepta si quedó en un estado de aceptación. No tiene más memoria que su estado actual.</p>
       <p>Se dibuja como un grafo (diagrama de transición) o se escribe como una tabla. Ejecutarlo es seguir un único camino: por eso se llama <em>determinista</em>.</p>`,
+    parametros: [
+      ['Autómata (Fig. 1 y 2)', String.raw`Cuál de los AFD de ejemplo se usa. Cambia el lenguaje que acepta y, por tanto, qué palabras aceptan o rechazan.`],
+      ['Palabra y reproductor (Fig. 1)', String.raw`La entrada que lee el autómata, y los botones que avanzan, retroceden o reinician la lectura símbolo por símbolo.`],
+      ['Longitud n (Fig. 2)', String.raw`Largo de las palabras que se enumeran; hay |Σ|ⁿ palabras en total. Al subirlo la cuadrícula crece exponencialmente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un AFD leyendo una palabra',
         descripcion: 'Elija un autómata, escriba una palabra y avance paso a paso: la cinta marca el símbolo leído, el diagrama el estado actual y la tabla la fila usada.',
+        ayuda: String.raw`<p>Arriba se ve la cinta con el símbolo leído; el diagrama marca en azul el estado actual y en naranja la transición recién usada; la tabla de transición resalta la fila empleada. Al terminar, verde significa que acepta y rojo, que rechaza.</p>
+          <ul>
+          <li><strong>Autómata</strong>: cambia el diagrama y la tabla, y con ellos las palabras que llevan a un estado final.</li>
+          <li><strong>Palabra</strong>: con otra entrada cambia el recorrido y el veredicto final.</li>
+          </ul>`,
         montar: montarEjecucion,
       },
       {
         titulo: 'Todas las palabras de longitud n',
         descripcion: 'El autómata clasifica cada palabra como aceptada o rechazada. Haga clic en una para ver su secuencia de configuraciones.',
+        ayuda: String.raw`<p>Cada celda es una palabra de longitud n: verde si el autómata la acepta y roja si la rechaza. Un clic en una celda muestra su secuencia de configuraciones (estado y resto de la entrada).</p>
+          <ul>
+          <li><strong>Autómata</strong>: la proporción de celdas verdes y rojas es el lenguaje del autómata en esa longitud.</li>
+          <li><strong>Longitud n</strong>: el número de celdas se multiplica por |Σ| con cada unidad.</li>
+          </ul>`,
         montar: montarMapa,
       },
     ],

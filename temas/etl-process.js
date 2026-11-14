@@ -334,20 +334,46 @@
       el sitio web y el ERP describen la misma venta de maneras distintas.</p>
       <p>La parte delicada no es mover datos, sino decidir qué hacer con los que no sirven. Un buen ETL rechaza lo inválido, deja registro de por qué y concilia los totales; uno descuidado
       carga errores silenciosos que luego contaminan todos los informes.</p>`,
+    parametros: [
+      ['Defectos en las fuentes (Fig. 1 y 3)', String.raw`Proporción de registros con problemas. Con más defectos aparecen más rechazos y más riesgo de errores silenciosos.`],
+      ['Reglas de transformación (Fig. 1)', String.raw`Cada regla (convertir fechas, mapear regiones, normalizar montos, rechazar nulos, eliminar duplicados) se activa o apaga. Sin ellas, algunos defectos se cargan sin aviso.`],
+      ['Nuevos datos (Fig. 1 y 3)', String.raw`Genera otros registros de origen.`],
+      ['Filas nuevas por día (Fig. 2)', String.raw`Altas diarias; engordan tanto la carga completa como la incremental.`],
+      ['Filas antiguas modificadas por día (Fig. 2)', String.raw`Cambios en filas ya cargadas; la carga incremental debe procesarlos.`],
+      ['Borrados en el origen por día (Fig. 2)', String.raw`Filas eliminadas en el origen; la carga incremental no las ve y deja filas fantasma en el almacén.`],
+      ['Velocidad de carga (Fig. 2)', String.raw`Filas por minuto que procesa el ETL.`],
+      ['Ventana nocturna disponible (Fig. 2)', String.raw`Minutos disponibles cada noche; es el límite que la carga no debe superar.`],
+      ['Rechazo tolerado antes de detener la carga (Fig. 3)', String.raw`Porcentaje de rechazos a partir del cual se detiene la carga para revisar las fuentes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'ETL registro a registro',
         descripcion: 'Ejecute el ETL y observe cuáles registros se cargan o se rechazan. Apague «Normalizar montos y unidades» o «Eliminar claves duplicadas» y vuelva a mirar: aparecen cargas equivocadas sin aviso.',
+        ayuda: String.raw`<p>Registros por etapa: pendientes, cargados correctos, cargados con error silencioso, rechazados y el registro que se procesa ahora.</p>
+          <ul>
+          <li><strong>Defectos en las fuentes</strong> más altos: aumentan los registros rechazados y los cargados con error.</li>
+          <li>Apagar <strong>Normalizar montos y unidades</strong> o <strong>Eliminar claves duplicadas</strong>: quedan registros con error silencioso en vez de rechazados o corregidos.</li>
+          </ul>`,
         montar: montarEtl,
       },
       {
         titulo: 'Carga completa frente a incremental',
         descripcion: 'Reproduzca 30 noches y suba las filas nuevas hasta que la carga completa se salga de la ventana; luego aumente los borrados en el origen y vea crecer las filas fantasma del incremental.',
+        ayuda: String.raw`<p>Minutos de carga por noche según el día, para la carga completa y la incremental, con una línea del límite de la ventana nocturna.</p>
+          <ul>
+          <li><strong>Filas nuevas por día</strong> más altas: la carga completa crece hasta salirse de la ventana.</li>
+          <li><strong>Borrados en el origen</strong>: la incremental sigue en la ventana, pero acumula filas fantasma.</li>
+          </ul>`,
         montar: montarCarga,
       },
       {
         titulo: 'Rechazos y auditoría',
         descripcion: 'Suba los defectos de las fuentes y mire qué motivo de rechazo domina y de qué fuente viene. Baje la tolerancia hasta que la carga se detenga y haga clic en una barra para ver ejemplos.',
+        ayuda: String.raw`<p>Barras de rechazos por fuente y por motivo de rechazo; un clic en una barra muestra ejemplos.</p>
+          <ul>
+          <li><strong>Defectos en las fuentes</strong> más altos: crecen las barras y domina un motivo concreto.</li>
+          <li><strong>Rechazo tolerado</strong> bajo: la carga se detiene cuando el rechazo supera el límite.</li>
+          </ul>`,
         montar: montarAuditoria,
       },
     ],

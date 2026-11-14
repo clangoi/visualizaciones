@@ -328,20 +328,42 @@
       (<em>movimiento de registro</em>); cuando el modelo exigía algo que no ocurrió, solo avanza el modelo (<em>movimiento de modelo</em>).</p>
       <p>Entre todos los alineamientos posibles interesa el de menor costo: es la desviación mínima que explica el caso. A diferencia de la
       <a href="tema.html?id=token-based-replay">reproducción de fichas</a>, no depende de heurísticas y localiza cada desviación en una actividad concreta.</p>`,
+    parametros: [
+      ['Traza de ejemplo y O escriba una traza (Fig. 1 y 2)', String.raw`La traza del registro que se alinea con una ejecución del modelo.`],
+      ['Ejecución del modelo (Fig. 1)', String.raw`Con qué ejecución del modelo se compara la traza: la mejor automática o una concreta. Cambia contra qué se mide la distancia.`],
+      ['Costo mov. de registro y Costo mov. de modelo (Fig. 2 y 3)', String.raw`Penalización de cada evento de más (registro) o actividad omitida (modelo). Subirlos hace que el alineamiento óptimo prefiera el otro tipo de movimiento.`],
+      ['Casos con ruido y Casos en el registro (Fig. 3)', String.raw`Fracción de trazas alteradas y tamaño del registro.`],
+      ['Nuevos datos y reproductor (Fig. 1 a 3)', String.raw`Genera otro registro; los botones de paso avanzan el cálculo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La tabla de programación dinámica',
         descripcion: 'Alinear dos secuencias es una distancia de edición. Avance paso a paso y observe cómo cada celda toma el mínimo de tres vecinas; luego el retroceso dibuja el alineamiento. Pruebe «abdf» con la ejecución «abcef» frente a «abcdf».',
+        ayuda: String.raw`<p>Tabla de programación dinámica entre la traza y la ejecución del modelo: celdas ya calculadas, la celda que se calcula ahora y el camino del alineamiento óptimo.</p>
+          <ul>
+          <li><strong>Traza de ejemplo</strong>: cada traza produce una tabla distinta; el valor de la esquina final es el costo del alineamiento.</li>
+          <li><strong>Ejecución del modelo</strong>: otra ejecución cambia las columnas y puede aumentar el costo.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Movimientos del alineamiento óptimo',
         descripcion: 'Una traza frente a la ejecución más cercana del modelo. Con costos iguales, «abdf» (una omisión) cuesta 1 y «adbcf» cuesta 2; suba el costo de modelo a 3 y solo la primera lo nota, mientras «abcdef» (un evento de más) no cambia.',
+        ayuda: String.raw`<p>Dos filas alineadas: arriba la traza y abajo el modelo. Los movimientos son síncronos (costo 0), de registro (evento de más) o de modelo (actividad omitida).</p>
+          <ul>
+          <li><strong>Costo mov. de modelo</strong>: al subirlo a 3, las trazas con omisiones cuestan más que las que tienen eventos de más.</li>
+          <li><strong>Costo mov. de registro</strong>: al subirlo, el alineamiento prefiere omitir actividades del modelo antes que dejar eventos de más.</li>
+          </ul>`,
         montar: montarAlineamiento,
       },
       {
         titulo: 'Actividades de más y omitidas',
         descripcion: 'Alinee todas las variantes de un registro con ruido y cuente por actividad cuántas veces sobra o falta. Con 0 % de ruido no hay barras; súbalo y vea qué actividades sobran o faltan más, y cómo cambia el costo promedio si omitir cuesta más.',
+        ayuda: String.raw`<p>Barras por actividad con el número de casos con la desviación: de más (movimientos de registro) y omitida (movimientos de modelo).</p>
+          <ul>
+          <li><strong>Casos con ruido</strong>: con 0 % no hay barras; al subirlo crecen en las actividades más afectadas.</li>
+          <li><strong>Costo mov. de modelo</strong>: cuando es alto, los alineamientos cambian omisiones por eventos de más y varían las barras.</li>
+          </ul>`,
         montar: montarAgregado,
       },
     ],

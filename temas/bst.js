@@ -160,15 +160,34 @@
       Así, buscar una clave es como una búsqueda binaria: en cada nodo se decide ir a la izquierda o a la derecha.</p>
       <p>A diferencia de un arreglo ordenado, el árbol permite insertar y eliminar sin desplazar elementos. Su punto débil es
       que la forma del árbol depende del orden de inserción: puede quedar balanceado o degenerar en una lista.</p>`,
+    parametros: [
+      ['Clave (Fig. 1)', String.raw`El número (1 a 99) sobre el que actúan Insertar, Eliminar y Buscar. También se puede pulsar Enter para insertarla.`],
+      ['Insertar, Eliminar, Buscar (Fig. 1)', String.raw`Las tres operaciones básicas. Todas recorren un camino desde la raíz, comparando la clave con cada nodo para ir a la izquierda (menor) o a la derecha (mayor).`],
+      ['Insertar aleatoria / 10 aleatorias / 1, 2, …, 15 (Fig. 1)', String.raw`Atajos para poblar el árbol. Las claves al azar dan árboles razonablemente bajos; la secuencia creciente produce el peor caso, una lista.`],
+      ['Recorrido y Recorrer (Fig. 1)', String.raw`El orden en que se visitan los nodos: inorden, preorden, postorden o por niveles. Recorrer anima la visita.`],
+      ['Vaciar (Fig. 1)', String.raw`Borra el árbol para empezar de nuevo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Insertar, eliminar, buscar y recorrer',
         descripcion: 'Use «Insertar 1, 2, …, 15» para ver cómo un orden desfavorable produce un árbol degenerado. Al eliminar un nodo con dos hijos, se reemplaza por su sucesor. El recorrido inorden entrega las claves ordenadas.',
+        ayuda: String.raw`<p>Cada círculo es un nodo con su clave; a la izquierda de un nodo están solo claves menores y a la derecha, mayores. Los anillos de color resaltan el resultado de la última operación: azul, el camino recorrido desde la raíz; violeta, los nodos que cambiaron de lugar; verde, el nodo encontrado o insertado.</p>
+          <ul>
+          <li>El costo de buscar, insertar o eliminar es el largo del camino azul, que como mucho es la altura del árbol.</li>
+          <li><strong>Insertar 1, 2, …, 15</strong>: cada clave va a la derecha de la anterior y el árbol degenera en una lista de altura 14. Con <strong>10 aleatorias</strong> la altura queda cerca de \(2\log_2 n\).</li>
+          <li><strong>Eliminar</strong> un nodo con dos hijos: se reemplaza por su sucesor (el mínimo del subárbol derecho), que se resalta en violeta.</li>
+          <li><strong>Recorrer</strong> en inorden entrega las claves ordenadas de menor a mayor.</li>
+          </ul>`,
         montar: montarEditor,
       },
       {
         titulo: 'Altura según el orden de inserción',
         descripcion: 'Altura promedio de ABB construidos insertando \\(n\\) claves en orden aleatorio, comparada con la mínima posible y con la fórmula asintótica de Devroye.',
+        ayuda: String.raw`<p>El eje horizontal es el número de claves \(n\) y el vertical, la altura del árbol. La curva azul es la altura promedio medida al insertar claves en orden aleatorio; la naranja, la fórmula asintótica de Devroye; la aguamarina, la mínima altura posible \(\lfloor \log_2 n \rfloor\).</p>
+          <ul>
+          <li>La altura aleatoria crece de forma logarítmica, pero con una constante mayor que la del árbol perfecto: un ABB al azar es más o menos el doble de alto que el óptimo.</li>
+          <li>Esta figura no tiene controles: pase el cursor para leer los valores exactos. El peor caso (inserción ordenada, altura \(n-1\)) quedaría muy por encima del borde.</li>
+          </ul>`,
         montar: montarAlturas,
       },
     ],

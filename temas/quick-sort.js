@@ -10,10 +10,23 @@
       El pivote queda en su posición definitiva y basta ordenar recursivamente ambos lados; no hay que mezclar nada.</p>
       <p>Es el algoritmo de ordenamiento más usado en la práctica porque ordena en el lugar y tiene constantes muy pequeñas,
       pero su eficiencia depende de que los pivotes dividan el arreglo en partes de tamaño parecido.</p>`,
+    parametros: [
+      ['Datos iniciales (Fig. 1)', String.raw`El orden de partida. Combinado con la elección del pivote, decide si las particiones salen equilibradas o vacías.`],
+      ['Tamaño n (Fig. 1)', String.raw`Cantidad de elementos.`],
+      ['Elección del pivote (Fig. 1 y 2)', String.raw`Qué elemento se usa para particionar: el último del subarreglo, uno al azar o la mediana entre el primero, el del medio y el último. Las dos últimas evitan el peor caso con datos ordenados.`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso muestra una comparación o intercambio, Hasta el final termina y Reiniciar vuelve al inicio.`],
+      ['Medida, escala y casillas (Fig. 2)', String.raw`Elija comparaciones o escrituras, escala lineal o logarítmica, y qué distribuciones mostrar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Quicksort paso a paso',
         descripcion: 'La barra violeta es el pivote, que se ubica al final del subarreglo sombreado. Las barras que lo superan se quedan atrás; las menores se intercambian hacia la izquierda. Pruebe datos <em>ya ordenados</em> con pivote «último elemento» y luego con «aleatorio».',
+        ayuda: String.raw`<p>Las barras son los elementos. El tramo sombreado es el subarreglo que se está particionando y la barra violeta, su pivote. Las barras azules se comparan con el pivote; las naranjas se intercambian para dejar a la izquierda las menores. Al terminar, el pivote queda negro: ya está en su posición final.</p>
+          <ul>
+          <li><strong>Datos iniciales</strong> «Ya ordenada» con pivote <strong>último elemento</strong>: el pivote es siempre el máximo, cada partición deja un lado vacío y las comparaciones se acercan a «n²/2».</li>
+          <li>Con pivote <strong>aleatorio</strong> o <strong>mediana de tres</strong> sobre los mismos datos, las particiones se equilibran y las comparaciones bajan a la zona de «n log₂ n».</li>
+          <li><strong>Tamaño n</strong>: cuanto mayor, más se nota la diferencia entre un buen y un mal pivote.</li>
+          </ul>`,
         montar: (c) => VIZ.orden.animacion(c, {
           alg: 'rapido', n: 40,
           extras: (ctl, api) => ctl.selector({ etiqueta: 'Elección del pivote', opciones: PIVOTES, valor: 'ultimo',
@@ -23,6 +36,12 @@
       {
         titulo: 'El efecto del pivote',
         descripcion: 'Comparaciones para cada distribución inicial. Con el último elemento como pivote, los datos ordenados o invertidos producen particiones vacías y costo cuadrático; elegir el pivote al azar o por mediana de tres lo evita.',
+        ayuda: String.raw`<p>Cada curva es el número de comparaciones medido para una distribución inicial, con las referencias \(n^2/2\) y \(n\log_2 n\).</p>
+          <ul>
+          <li>Con pivote <strong>último elemento</strong>, las curvas «Ya ordenada» e «Invertida» suben hasta \(n^2/2\): es el peor caso.</li>
+          <li>Cambie a <strong>aleatorio</strong> o <strong>mediana de tres</strong>: todas las curvas bajan juntas cerca de \(n\log_2 n\).</li>
+          <li>«Pocos valores distintos» puede seguir siendo costosa con la partición de Lomuto, porque los elementos iguales se van todos a un lado.</li>
+          </ul>`,
         montar: (c) => VIZ.orden.curvas(c, {
           series: 'distribuciones', alg: 'rapido',
           extras: (ctl, api) => ctl.selector({ etiqueta: 'Elección del pivote', opciones: PIVOTES, valor: 'ultimo',

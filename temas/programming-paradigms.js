@@ -87,9 +87,22 @@
       <p>Un <strong>paradigma</strong> es una manera de organizar un programa. Los tres más usados en la web conviven en JavaScript y TypeScript: el <strong>imperativo</strong> (instrucciones que cambian el estado),
       el <strong>orientado a objetos</strong> (objetos que encapsulan datos y comportamiento) y el <strong>funcional</strong> (funciones puras que transforman valores sin modificarlos).</p>
       <p>Ninguno es «el mejor»: cada uno hace más fácil razonar sobre cierto tipo de problemas. Conocerlos ayuda a leer código ajeno y a elegir bien.</p>`,
+    parametros: [
+      ['Paradigma (Fig. 1)', String.raw`Una forma de resolver el mismo problema (sumar los cuadrados de los pares del 1 al 10): se compara el código, las variables que cambian de valor y el resultado.`],
+      ['Estilo (Fig. 2)', String.raw`Imperativo (bucle con acumulador) o funcional (tubería de arreglos). Reproductor: Reproducir avanza solo, Un paso un cambio y Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un problema, tres paradigmas', descripcion: 'Cambie de paradigma y compare el código de cada uno, cuántas variables cambian de valor y que el resultado es el mismo.', montar: montarComparacion },
-      { titulo: 'La traza de la ejecución', descripcion: 'Avance paso a paso en el estilo imperativo y en el funcional: observe qué se reasigna y qué se crea de nuevo.', montar: montarTraza },
+      { titulo: 'Un problema, tres paradigmas', descripcion: 'Cambie de paradigma y compare el código de cada uno, cuántas variables cambian de valor y que el resultado es el mismo.',
+        ayuda: String.raw`<p>Se muestra el código del paradigma elegido y una tabla de las variables con cuántas veces cambia su valor. El resultado es siempre 220.</p>
+          <ul>
+          <li><strong>Paradigma</strong>: al cambiarlo cambia el código, no el resultado; la tabla muestra cuántas variables se reasignan en cada estilo.</li>
+          </ul>`, montar: montarComparacion },
+      { titulo: 'La traza de la ejecución', descripcion: 'Avance paso a paso en el estilo imperativo y en el funcional: observe qué se reasigna y qué se crea de nuevo.',
+        ayuda: String.raw`<p>La tabla va mostrando, paso a paso, el estado de las variables o los arreglos creados.</p>
+          <ul>
+          <li><strong>Estilo</strong> imperativo: la misma variable suma se reasigna en cada vuelta del bucle.</li>
+          <li>Estilo funcional: filter, map y reduce crean arreglos nuevos sin modificar el original y ninguna variable se reasigna.</li>
+          </ul>`, montar: montarTraza },
     ],
     teoria: String.raw`
       <h2>Comparación</h2>

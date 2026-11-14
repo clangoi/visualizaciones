@@ -268,15 +268,35 @@
       no puede operar por debajo de un <em>mínimo técnico</em>. Por eso la pregunta es doble: <strong>qué generadores encender cada hora</strong> y <strong>cuánto debe producir cada uno</strong>.
       La primera es una decisión binaria; la segunda, continua. A este problema se le llama <em>unit commitment</em>.</p>
       <p>El generador más barato por MWh no siempre se enciende, ni el más caro se deja siempre apagado: los costos fijos, los arranques y los mínimos técnicos hacen que la mejor combinación cambie con la demanda y entre una hora y la siguiente.</p>`,
+    parametros: [
+      ['Escala de la demanda (Fig. 1)', String.raw`Multiplica la demanda de las 12 horas. Al subirla se exige más capacidad encendida y algunas horas pueden quedar infactibles.`],
+      ['Reserva requerida (Fig. 1 y 2)', String.raw`Margen de capacidad que debe sobrar sobre la demanda. Subirlo obliga a encender más unidades y encarece la hora.`],
+      ['Calendario: Óptimo (PD), Encender todo, Apagar todo y Nueva demanda (Fig. 1)', String.raw`Óptimo (PD) fija el calendario más barato, Encender todo y Apagar todo son los extremos, y Nueva demanda sortea otro perfil.`],
+      ['Demanda de la hora (Fig. 2)', String.raw`La demanda en MW de una hora. Decide qué combinaciones de unidades son factibles y cuál cuesta menos.`],
+      ['Contar el costo fijo de estar encendido (Fig. 2)', String.raw`Incluye o no el costo de mantener cada unidad encendida. Puede cambiar cuál es la combinación más barata.`],
+      ['Ver la mejor combinación (Fig. 2)', String.raw`Resalta la combinación de menor costo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Calendario de encendido de 12 horas',
         descripcion: 'El calendario inicial es el óptimo. Pulse «Encender todo» y vea cómo los mínimos técnicos vuelven infactibles las horas de poca demanda; luego suba la demanda o la reserva hasta que falte capacidad.',
+        ayuda: String.raw`<p>El eje vertical está en MW. Se dibujan la demanda y la capacidad encendida de cada hora; las horas infactibles se señalan según la leyenda.</p>
+          <ul>
+          <li><strong>Escala de la demanda</strong>: sube la curva de demanda; cuando supera la capacidad encendida más reserva, la hora es infactible.</li>
+          <li><strong>Reserva requerida</strong>: exige más capacidad sobre la demanda.</li>
+          <li><strong>Encender todo</strong>: la capacidad cubre, pero los mínimos técnicos vuelven infactibles las horas de baja demanda.</li>
+          </ul>`,
         montar: montarCalendario,
       },
       {
         titulo: 'Las 16 combinaciones de una hora',
         descripcion: 'Mueva la demanda y observe cómo cambia la combinación más barata y cuántas son factibles. Con 100 MW, alterne el costo fijo: gana otra combinación (el carbón es barato por MWh pero caro de mantener encendido). Pruebe también 60 MW y 180 MW.',
+        ayuda: String.raw`<p>Cada barra es una de las 16 combinaciones de unidades; su altura es el costo de la hora (&#36;). Se distinguen la de menor costo, las factibles y las infactibles (marcadas en la base).</p>
+          <ul>
+          <li><strong>Demanda de la hora</strong>: cambia cuáles son factibles y cuál es la más barata.</li>
+          <li><strong>Reserva requerida</strong>: vuelve infactibles las combinaciones con poca capacidad.</li>
+          <li><strong>Contar el costo fijo</strong>: modifica la altura de las barras y puede cambiar a la ganadora.</li>
+          </ul>`,
         montar: montarCombinaciones,
       },
     ],

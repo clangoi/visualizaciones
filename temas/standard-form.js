@@ -349,15 +349,32 @@
       mínimo. Así, todas las restricciones se vuelven igualdades y las únicas desigualdades que quedan son los signos de las variables.</p>
       <p>Esa es la <strong>forma estándar</strong>. Lo valioso es que no cambia el problema: cada punto del poliedro corresponde a una solución
       del sistema, y los vértices del plano son exactamente las soluciones en que varias variables valen cero.</p>`,
+    parametros: [
+      ['Modelo (Fig. 1)', String.raw`Es el problema de programación lineal que se convierte: con desigualdades ≤ o ≥, o con una variable libre. Cada tipo exige una pieza distinta (holgura, exceso o partir la variable).`],
+      ['Reproductor (Fig. 1)', String.raw`Un paso aplica una conversión y rellena una fila de la tabla estándar; Reiniciar vuelve al modelo original.`],
+      ['b₁ de R₁, b₂ de R₂ y b₃ de R₃ (Fig. 2)', String.raw`Son los lados derechos de las tres restricciones. Cambiarlos desplaza cada recta y agranda o achica la región factible.`],
+      ['Ir al óptimo e Ir al origen (Fig. 2)', String.raw`Colocan el punto en el vértice óptimo o en el origen, para comparar las cinco variables en ambos casos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Convertir un modelo a forma estándar',
         descripcion: 'Elija un modelo y avance paso a paso: observe cómo una desigualdad ≤ gana una holgura, una ≥ un exceso, y cómo una variable libre se parte en dos. Pruebe el último modelo: tiene una variable libre y un lado derecho negativo.',
+        ayuda: String.raw`<p>A la izquierda se lee el modelo original y a la derecha su forma estándar \(\max c^Tx,\ Ax=b,\ x\ge 0\), con una fila resaltada por cada paso. Cada restricción convertida muestra su variable nueva (holgura o exceso) y las variables libres aparecen como diferencia de dos no negativas.</p>
+          <ul>
+          <li><strong>Modelo</strong>: cambia las restricciones que se convierten; los modelos con ≥ muestran excesos y el de variable libre añade una columna extra.</li>
+          <li><strong>Un paso</strong>: cada pulsación convierte una pieza; al final el sistema estándar se resuelve y se traduce a las variables originales.</li>
+          </ul>`,
         montar: montarConversion,
       },
       {
         titulo: 'El plano frente al sistema de ecuaciones',
         descripcion: 'Arrastre el punto por el plano y mire las cinco variables \\((x_1, x_2, s_1, s_2, s_3)\\): una holgura vale cero justo sobre su recta y es negativa al cruzarla. Lleve el punto a un vértice y cuente los ceros.',
+        ayuda: String.raw`<p>El plano \((x_1,x_2)\) muestra la región factible, las rectas R₁ a R₃ y el punto que usted arrastra. Su color indica si es interior, está sobre una frontera, es un vértice o es infactible. La lectura da el valor de las cinco variables \((x_1,x_2,s_1,s_2,s_3)\).</p>
+          <ul>
+          <li><strong>b₁ de R₁</strong> (y b₂, b₃): mueve la recta correspondiente; la holgura \(s_i\) del punto cambia porque es la distancia que le falta a esa recta.</li>
+          <li><strong>Ir al óptimo</strong>: el punto cae en un vértice, donde dos holguras valen cero (tantas como variables de decisión).</li>
+          <li><strong>Ir al origen</strong>: \(x_1=x_2=0\) y cada holgura iguala su \(b_i\).</li>
+          </ul>`,
         montar: montarPlano,
       },
     ],

@@ -84,9 +84,27 @@
       <p>HTTP es un protocolo <em>sin memoria</em>: cada petición es independiente y el servidor no sabe que la anterior vino de la misma persona. Para «recordar» a alguien se usa una <strong>sesión</strong>:
       tras iniciar sesión, el servidor guarda los datos del usuario y entrega al navegador una <strong>cookie</strong> con un identificador que este reenvía en cada petición.</p>
       <p>La cookie es solo el «ticket del guardarropa»: el abrigo (los datos) queda en el servidor.</p>`,
+    parametros: [
+      ['Segunda petición (Fig. 1)', String.raw`Qué trae la petición posterior al login: la cookie correcta, ninguna, una inventada o una sesión expirada. Decide si el servidor reconoce al usuario.`],
+      ['Terminar con cierre de sesión (Fig. 1)', String.raw`Agrega un <code>POST /logout</code> que borra la sesión del servidor y ordena al navegador eliminar la cookie.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza mensaje a mensaje o solo; Reiniciar vuelve al inicio.`],
+      ['Duración de la sesión (Fig. 2)', String.raw`Minutos que dura una sesión antes de expirar.`],
+      ['Expiración (Fig. 2)', String.raw`Si el plazo se renueva con cada petición (por inactividad) o cuenta desde el inicio de sesión (absoluta).`],
+      ['Otra actividad (Fig. 2)', String.raw`Genera otra secuencia de peticiones para probar la misma configuración.`],
+    ],
     visualizaciones: [
-      { titulo: 'Inicio de sesión con cookie', descripcion: 'Recorra el login y la segunda petición; pruebe una cookie inventada, una sesión expirada o la ausencia de cookie.', montar: montarLogin },
-      { titulo: 'Expiración de la sesión', descripcion: 'Cambie la duración y compare la expiración por inactividad con la absoluta frente a una misma secuencia de peticiones.', montar: montarExpiracion },
+      { titulo: 'Inicio de sesión con cookie', descripcion: 'Recorra el login y la segunda petición; pruebe una cookie inventada, una sesión expirada o la ausencia de cookie.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre navegador y servidor. Los colores separan la petición del navegador, el trabajo del servidor, la cookie, el éxito, el rechazo y el cierre.</p>
+          <ul>
+          <li><strong>Segunda petición</strong>: con cookie válida el servidor encuentra el <code>sid</code> y responde 200; sin cookie, con una inventada o expirada responde 401.</li>
+          <li><strong>terminar con cierre de sesión</strong>: añade el borrado del <code>sid</code> y de la cookie, de modo que una cookie robada deja de servir.</li>
+          </ul>`, montar: montarLogin },
+      { titulo: 'Expiración de la sesión', descripcion: 'Cambie la duración y compare la expiración por inactividad con la absoluta frente a una misma secuencia de peticiones.',
+        ayuda: String.raw`<p>Línea de tiempo con tramos de sesión vigente y expirada y las peticiones sobre ella: atendidas o rechazadas por tener que iniciar sesión.</p>
+          <ul>
+          <li><strong>Duración de la sesión</strong>: acorta o alarga los tramos vigentes; con valores bajos más peticiones se rechazan.</li>
+          <li><strong>Expiración</strong> por inactividad: cada petición atendida renueva el plazo; en la absoluta, la sesión termina en el mismo punto aunque haya actividad.</li>
+          </ul>`, montar: montarExpiracion },
     ],
     teoria: String.raw`
       <h2>Cookies</h2>

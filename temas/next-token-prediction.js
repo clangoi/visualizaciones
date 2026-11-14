@@ -117,9 +117,25 @@
     intro: String.raw`
       <p>Un <strong>GPT</strong> (<em>Generative Pre-trained Transformer</em>) es, en el fondo, un solo mecanismo: dado el texto hasta ahora, producir una distribución de probabilidad sobre el <strong>siguiente token</strong>. Para generar, se elige uno, se agrega al texto y se repite (<a href="tema.html?id=autoregressive-generation">generación autorregresiva</a>).</p>
       <p>Su preentrenamiento es <strong>autosupervisado</strong>: no necesita etiquetas humanas, porque la respuesta correcta en cada posición es el token que de hecho viene en el texto. Eso permite aprender de billones de palabras. Y cómo se elige el token a partir de las probabilidades —temperatura, top-k, top-p— determina cuánto se parece a un resumen predecible o a una improvisación.</p>`,
+    parametros: [
+      ['Temperatura (Fig. 1)', String.raw`Ajusta qué tan afilada es la distribución. Baja concentra la probabilidad en la palabra más probable; alta la reparte.`],
+      ['top-k (Fig. 1)', String.raw`Conserva solo las k palabras más probables; 0 no descarta ninguna.`],
+      ['top-p (Fig. 1)', String.raw`Conserva el menor conjunto de palabras cuya probabilidad acumulada llega a ese valor.`],
+      ['Muestrear una palabra, Generar la frase y Reiniciar (Fig. 1)', String.raw`Muestrear elige una palabra con las probabilidades vigentes; Generar la frase repite hasta el final; Reiniciar vuelve a empezar.`],
+      ['Otro corpus (Fig. 2)', String.raw`Genera otro texto de entrenamiento y recalcula la pérdida.`],
+    ],
     visualizaciones: [
-      { titulo: 'De las probabilidades a la palabra elegida', descripcion: 'Cambie la temperatura, top-k y top-p y genere varias frases. Con temperatura 0,1 casi siempre sale la misma; con 2,5, cosas raras.', montar: montarMuestreo },
-      { titulo: 'El texto crudo es su propio profesor', descripcion: 'Vea cómo una frase genera ejemplos de entrenamiento y cómo mejora la pérdida con más datos y más contexto.', montar: montarPreentrenamiento },
+      { titulo: 'De las probabilidades a la palabra elegida', descripcion: 'Cambie la temperatura, top-k y top-p y genere varias frases. Con temperatura 0,1 casi siempre sale la misma; con 2,5, cosas raras.',
+        ayuda: String.raw`<p>Cada barra es la probabilidad de una palabra candidata. Azul es la probabilidad con la temperatura elegida; gris, la que top-k o top-p descartaron; naranja, la palabra muestreada.</p>
+          <ul>
+          <li><strong>Temperatura</strong>: con 0,1 una barra domina; con 2,5 las barras se igualan.</li>
+          <li><strong>top-k</strong> y <strong>top-p</strong>: marcan como descartadas las palabras menos probables, que dejan de poder elegirse.</li>
+          </ul>`, montar: montarMuestreo },
+      { titulo: 'El texto crudo es su propio profesor', descripcion: 'Vea cómo una frase genera ejemplos de entrenamiento y cómo mejora la pérdida con más datos y más contexto.',
+        ayuda: String.raw`<p>Eje horizontal: frases de entrenamiento (escala log). Eje vertical: pérdida en frases nuevas, en bits por palabra. Hay una curva por tamaño de contexto: 0, 1 y 2 palabras. Arriba se ve cómo una frase genera ejemplos de entrenamiento.</p>
+          <ul>
+          <li><strong>Otro corpus</strong>: las curvas cambian algo por el azar; un contexto mayor suele tener menor pérdida con suficientes datos, pero con pocas frases puede ir peor.</li>
+          </ul>`, montar: montarPreentrenamiento },
     ],
     teoria: String.raw`
       <h2>Entrenamiento</h2>

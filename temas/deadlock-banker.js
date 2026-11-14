@@ -100,9 +100,24 @@
     intro: String.raw`
       <p>Un <strong>interbloqueo</strong> (<em>deadlock</em>) ocurre cuando varios procesos esperan recursos que otros del grupo retienen, de modo que ninguno puede avanzar. Cada uno tiene lo que el siguiente necesita: un círculo de esperas.</p>
       <p>Se puede <em>prevenir</em> negando una de sus condiciones (por ejemplo, ordenando los recursos), <em>evitar</em> negando solicitudes que llevarían a un estado inseguro (algoritmo del banquero), o <em>detectar</em> y recuperarse después.</p>`,
+    parametros: [
+      ['Estado y reproductor (Fig. 1)', String.raw`Elige entre un estado seguro y uno inseguro (distinta asignación y recursos disponibles). El reproductor avanza el algoritmo de seguridad un proceso por paso.`],
+      ['Procesos y recursos (Fig. 2)', String.raw`Cuántos procesos y recursos forman el sistema; cada proceso retiene uno y pide el siguiente. Con más procesos el ciclo es más largo.`],
+      ['Pedir los recursos en orden global (Fig. 2)', String.raw`Obliga a pedir siempre el recurso de menor número primero. Elimina la espera circular, una de las cuatro condiciones del interbloqueo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Algoritmo del banquero: ¿es seguro el estado?', descripcion: 'Recorra el algoritmo de seguridad en un estado seguro y en uno inseguro. Observe qué ocurre cuando ningún proceso pendiente cabe en lo disponible.', montar: montarBanquero },
-      { titulo: 'Espera circular y orden de recursos', descripcion: 'Con cada proceso reteniendo un recurso y pidiendo el siguiente se forma un ciclo. Active el orden global de adquisición y vea desaparecer el interbloqueo.', montar: montarCiclo },
+      { titulo: 'Algoritmo del banquero: ¿es seguro el estado?', descripcion: 'Recorra el algoritmo de seguridad en un estado seguro y en uno inseguro. Observe qué ocurre cuando ningún proceso pendiente cabe en lo disponible.',
+        ayuda: String.raw`<p>Una tabla con, para cada proceso, su máximo, su asignación y su necesidad (máximo menos asignación), junto con el vector de recursos disponibles y el vector de trabajo del algoritmo de seguridad. Cada paso marca qué proceso cabe en el trabajo actual y termina devolviendo su asignación.</p>
+          <ul>
+          <li><strong>Estado</strong> seguro: se encuentra una secuencia en la que todos terminan, y el estado es seguro.</li>
+          <li><strong>Estado</strong> inseguro: llega un punto en que ningún proceso pendiente cabe en lo disponible; el estado es inseguro y podría haber interbloqueo.</li>
+          </ul>`, montar: montarBanquero },
+      { titulo: 'Espera circular y orden de recursos', descripcion: 'Con cada proceso reteniendo un recurso y pidiendo el siguiente se forma un ciclo. Active el orden global de adquisición y vea desaparecer el interbloqueo.',
+        ayuda: String.raw`<p>Procesos y recursos son nodos; una arista de retención va del recurso al proceso que lo tiene y una de solicitud, del proceso al recurso que pide. Los procesos que avanzan se distinguen de los bloqueados dentro de un ciclo.</p>
+          <ul>
+          <li><strong>Procesos y recursos</strong>: cada proceso retiene uno y pide el siguiente, así que se forma un ciclo y todos quedan bloqueados.</li>
+          <li><strong>Pedir los recursos en orden global</strong> marcado: el último proceso pide primero el recurso menor, el ciclo se rompe y los procesos avanzan.</li>
+          </ul>`, montar: montarCiclo },
     ],
     teoria: String.raw`
       <h2>Condiciones de Coffman</h2>

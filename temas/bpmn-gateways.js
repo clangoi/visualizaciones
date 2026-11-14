@@ -345,15 +345,35 @@
       <p>Una compuerta <strong>XOR</strong> elige exactamente un camino, una <strong>AND</strong> los recorre todos a la vez y una <strong>OR</strong> elige
       un subconjunto no vacío. El comportamiento de un diagrama se entiende moviendo una ficha por él, y el conjunto de ejecuciones posibles es
       justamente lo que la minería de procesos intenta recuperar a partir de un registro de eventos.</p>`,
+    parametros: [
+      ['Modelo (Fig. 1)', String.raw`El diagrama BPMN por el que se mueve la ficha. Cada modelo usa compuertas distintas, como el de verificaciones con OR.`],
+      ['Un paso al azar, Terminar el caso al azar y Nuevo caso (Fig. 1)', String.raw`Eligen al azar un movimiento posible, completan el caso o lo reinician. También se puede hacer clic en un paso posible.`],
+      ['Compuerta (Fig. 2)', String.raw`Tipo de compuerta del fragmento: XOR (una sola rama), AND (todas) u OR (una o más). Define qué trazas son válidas.`],
+      ['Ramas (Fig. 2)', String.raw`Número de ramas entre la compuerta de apertura y la de cierre.`],
+      ['Máx. actividades por traza (Fig. 2)', String.raw`Longitud máxima de las trazas que se listan. Solo importa con ciclo.`],
+      ['Repetir el bloque (ciclo) (Fig. 2)', String.raw`Permite repetir el bloque, lo que hace crecer el lenguaje sin límite.`],
+      ['Compruebe una traza (Fig. 2)', String.raw`Una secuencia de letras que se verifica contra el modelo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Recorrido de un caso por el diagrama',
         descripcion: 'Mueva fichas por un diagrama BPMN y vea cada compuerta en acción. Pruebe el modelo de verificaciones: la compuerta o de cierre espera solo a las ramas que se activaron.',
+        ayuda: String.raw`<p>Se ve el diagrama con la ficha del caso en curso. Los pasos posibles se marcan para hacer clic y, en las compuertas OR, se señala la rama elegida.</p>
+          <ul>
+          <li><strong>Modelo</strong>: cambia el diagrama y con él el tipo de compuerta que se encuentra la ficha.</li>
+          <li>Una compuerta OR de cierre espera solo a las ramas que se activaron, no a todas.</li>
+          </ul>`,
         montar: montarJuego,
       },
       {
         titulo: 'Qué trazas permite cada compuerta',
         descripcion: 'Cambie XOR, AND y OR sobre el mismo fragmento y compare la lista de trazas. Active el ciclo y suba el límite de actividades para ver cómo crece el lenguaje.',
+        ayuda: String.raw`<p>Se muestra el fragmento con la compuerta elegida y la lista de trazas que permite, con el resultado de la traza comprobada.</p>
+          <ul>
+          <li><strong>Compuerta</strong>: XOR da una traza por rama; AND, todos los órdenes de las ramas; OR, todos los subconjuntos no vacíos en todos los órdenes.</li>
+          <li><strong>Ramas</strong>: más ramas multiplican las trazas.</li>
+          <li><strong>Repetir el bloque</strong> y <strong>Máx. actividades por traza</strong>: el ciclo hace infinito el lenguaje; el límite recorta la lista.</li>
+          </ul>`,
         montar: montarTrazas,
       },
     ],

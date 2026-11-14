@@ -145,15 +145,31 @@
       covariables que lo determinan.</p>
       <p>Así, un problema de ajuste en muchas dimensiones se vuelve unidimensional: se puede estratificar, emparejar o ponderar por \(e(x)\),
       que se estima con una <a href="tema.html?id=logistic-regression">regresión logística</a> u otro clasificador.</p>`,
+    parametros: [
+      ['Confusión (Fig. 1 y 2)', String.raw`Cuánto depende la asignación del tratamiento de las covariables. Al subirla, tratados y controles se separan y el solapamiento disminuye.`],
+      ['Recortar e(x) fuera de [a, 1 − a] (Fig. 1)', String.raw`Descarta pacientes con propensity score extremo, donde casi no hay comparables.`],
+      ['Estratos (Fig. 2)', String.raw`Número de grupos por propensity score para el estimador por estratos.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Estimar e(x) y revisar el solapamiento',
         descripcion: 'El propensity score estimado y sus distribuciones por grupo. Donde no se solapan, no hay con quién comparar.',
+        ayuda: String.raw`<p>A la izquierda, tratados y controles en edad y gravedad con curvas de nivel e(x) = 0,2, 0,5 y 0,8. A la derecha, histogramas del propensity score por grupo; la zona recortada no tiene solapamiento.</p>
+          <ul>
+          <li><strong>Confusión</strong> alta: los histogramas se separan y hay poco solapamiento.</li>
+          <li><strong>Recortar</strong>: quita los extremos donde un grupo no tiene contrapartida.</li>
+          </ul>`,
         montar: montarPS,
       },
       {
         titulo: 'Tres estimadores con el propensity score',
         descripcion: 'Estratificación, ponderación por probabilidad inversa (IPW) y matching por e(x), frente al efecto verdadero.',
+        ayuda: String.raw`<p>Estimaciones del efecto (vertical): diferencia ingenua, estimadores del ATE, estimador del ATT y las referencias del ATE y ATT verdaderos.</p>
+          <ul>
+          <li><strong>Confusión</strong> alta: la ingenua se aleja del efecto verdadero y los estimadores con propensity score se mantienen más cerca.</li>
+          <li><strong>Estratos</strong>: más estratos reducen el sesgo residual del estimador por estratos.</li>
+          </ul>`,
         montar: montarEstimadores,
       },
     ],

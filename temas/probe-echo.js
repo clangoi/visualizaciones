@@ -129,10 +129,20 @@
       el árbol que las sondas dejaron formado.</p>
       <p>Cuando el iniciador recibe respuesta de todos sus vecinos, sabe que todos los nodos fueron alcanzados, y si los ecos llevan información
       (por ejemplo, las aristas que cada subárbol conoce), la tiene completa.</p>`,
+    parametros: [
+      ['Entrega de mensajes (Fig. 1)', String.raw`Asíncrona entrega un mensaje al azar por paso; síncrona entrega todos los del paso. Cambia la forma del árbol, no el número de mensajes.`],
+      ['Nodos (Fig. 1)', String.raw`Cantidad de nodos de la red.`],
+      ['Nueva red y reproductor (Fig. 1)', String.raw`Nueva red sortea otra topología. El reproductor avanza o reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Sondas y ecos',
         descripcion: 'Avance paso a paso. Las aristas azules forman el árbol de expansión (cada nodo apunta a quien le envió la primera sonda). Con entrega asíncrona el árbol cambia de forma; el número de mensajes, no.',
+        ayuda: String.raw`<p>Arriba, la red: naranja las sondas en vuelo, aguamarina los ecos (que llevan aristas), azul las aristas del árbol (hijo → padre). Un nodo amarillo está activo esperando respuestas y uno verde ya envió su eco. Debajo se muestra la topología que el iniciador reconstruye.</p>
+          <ul>
+          <li><strong>Entrega de mensajes</strong>: cambia el orden de llegada de las primeras sondas, y con él qué aristas forman el árbol.</li>
+          <li><strong>Nodos</strong>: más nodos, más aristas y más sondas y ecos.</li>
+          </ul>`,
         montar,
       },
     ],

@@ -245,20 +245,38 @@
       <strong>registros de eventos centrados en objetos</strong> (OCEL, de <em>object-centric event logs</em>) guardan esa verdad: cada evento se relaciona con <em>todos</em> los objetos que involucra, y cada objeto tiene un tipo.</p>
       <p>Si se insiste en la vista clásica hay que elegir un tipo de objeto como «caso» y <em>aplanar</em> el registro. Ahí aparecen dos distorsiones: la <strong>convergencia</strong>, donde un evento se copia en
       varios casos, y la <strong>divergencia</strong>, donde actividades que ocurren una vez por objeto parecen repetirse dentro de un caso. Las figuras muestran ambas sobre el mismo registro de dieciséis eventos.</p>`,
+    parametros: [
+      ['Casillas de tipos de objeto (Fig. 1 y 3)', String.raw`Muestran u ocultan las filas de cada tipo de objeto. Permiten ver qué eventos quedan al quitar un tipo.`],
+      ['Objeto que hace de «caso» (Fig. 2)', String.raw`Qué tipo de objeto se usa para aplanar el registro. Cada elección da un registro distinto del mismo proceso.`],
+      ['Reproductor (Fig. 3)', String.raw`Avanza los dieciséis eventos y va trazando el recorrido de cada tipo de objeto.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un evento, varios objetos',
         descripcion: 'Cada columna es un evento y cada fila un objeto. Haga clic en el evento 13 («Enviar paquete»): toca dos pedidos y dos ítems. Haga clic en el objeto o2 para ver su vida, y oculte tipos para ver qué quedaría en una vista clásica.',
+        ayuda: String.raw`<p>Cada columna es un evento y cada fila un objeto, agrupados por tipo y con el color de su tipo. Un evento toca todos los objetos en los que está marcado.</p>
+          <ul>
+          <li><strong>Casillas de tipos</strong>: al ocultar un tipo desaparecen sus filas, y se ve qué eventos dependían de él.</li>
+          </ul>`,
         montar: montarLinea,
       },
       {
         titulo: 'Aplanar: convergencia y divergencia',
         descripcion: 'Elija qué objeto hace de caso. Con «pedido», «Recoger ítem» parece un bucle aunque nada se repita; con «ítem», «Enviar paquete» y «Crear pedido» se copian y la factura desaparece; con «factura», la mayoría de los eventos no existe.',
+        ayuda: String.raw`<p>Es el modelo aplanado, con las actividades y sus sucesiones directas (etiqueta: casos). Se distinguen las actividades con más ocurrencias (×n) que eventos reales (convergencia), las de frecuencia igual a la real y las repeticiones dentro de un caso (divergencia).</p>
+          <ul>
+          <li><strong>Objeto que hace de «caso»</strong>: con «pedido», «Recoger ítem» parece un bucle aunque nada se repita; con «ítem», actividades de pedido se copian y la factura desaparece.</li>
+          </ul>`,
         montar: montarAplanar,
       },
       {
         titulo: 'Grafo con un camino por tipo de objeto',
         descripcion: 'Reproduzca los dieciséis eventos y observe cómo cada tipo de objeto traza su propia ruta por las mismas actividades. Fíjese en «Enviar paquete»: es el punto donde se cruzan los pedidos y los ítems.',
+        ayuda: String.raw`<p>Cada tipo de objeto traza su propia ruta por las mismas actividades, en el color de su tipo; se marca la actividad del evento actual.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: cada paso suma una arista al camino de los objetos del evento; «Enviar paquete» es donde se cruzan pedidos e ítems.</li>
+          <li><strong>Casillas de tipos</strong>: dejan solo los caminos de los tipos elegidos.</li>
+          </ul>`,
         montar: montarGrafo,
       },
     ],

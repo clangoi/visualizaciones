@@ -292,15 +292,33 @@
       otros (<em>intermediación</em>) y quién llega más rápido a todos (<em>cercanía</em>).</p>
       <p>Las tres no coinciden. Una persona con pocas conexiones puede ser el único puente entre dos equipos, y por eso es un riesgo organizacional:
       si se va, la red se parte.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`El proceso que genera la red de traspasos.`],
+      ['Polivalencia (Fig. 1 y 2)', String.raw`Probabilidad de que una persona haga tareas fuera de su rol; hace la red más densa y reparte la centralidad.`],
+      ['Peso mínimo de la arista (Fig. 1 y 2)', String.raw`Traspasos con menos veces que este valor se eliminan de la red; con ello cambian los caminos y las medidas.`],
+      ['Colorear por (Fig. 1)', String.raw`Qué medida de centralidad pinta los nodos: grado, intermediación o cercanía.`],
+      ['Quién se va primero (Fig. 2)', String.raw`Criterio para retirar personas: mayor intermediación o al azar.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Genera otro registro y avanza la retirada de personas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Grado, intermediación y cercanía',
         descripcion: 'Cambie la medida con la que se colorea la red y compare el orden de las personas en la tabla. Suba el peso mínimo para quedarse con los traspasos principales y observe quién conserva su posición.',
+        ayuda: String.raw`<p>Red de personas con color según centralidad (baja, media o alta; la mayor de la red es la más oscura) y flechas de traspaso con grosor proporcional al peso. La tabla ordena a las personas por la medida.</p>
+          <ul>
+          <li><strong>Colorear por</strong>: cambia quién destaca; la intermediación resalta a quienes conectan grupos.</li>
+          <li><strong>Peso mínimo de la arista</strong>: al subirlo queda solo el núcleo y varía el orden de las personas.</li>
+          </ul>`,
         montar: montarMedidas,
       },
       {
         titulo: 'Si una persona sale de la red',
         descripcion: 'Retire personas una a una, en orden de intermediación o al azar, o haga clic en las que quiera quitar. Compare cuántos pares quedan incomunicados al sacar al más central frente a sacar a alguien al azar.',
+        ayuda: String.raw`<p>La misma red al retirar personas: la persona que se fue se señala, y los pares que quedan incomunicados indican cuánto dependía la red de ella.</p>
+          <ul>
+          <li><strong>Quién se va primero</strong>: con mayor intermediación se pierden más conexiones que al azar.</li>
+          <li><strong>Peso mínimo de la arista</strong>: una red más escasa se fragmenta antes.</li>
+          </ul>`,
         montar: montarSalida,
       },
     ],

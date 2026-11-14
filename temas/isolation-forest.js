@@ -162,15 +162,33 @@
       <strong>aislar</strong> cada punto con cortes al azar. Los atípicos son pocos y distintos, así que quedan solos tras muy pocos cortes.</p>
       <p>Repetirlo con muchos árboles y promediar la profundidad a la que se aísla cada punto da un puntaje de anomalía rápido,
       que no calcula ninguna distancia y escala bien a muchos datos.</p>`,
+    parametros: [
+      ['Otro árbol y Nuevos datos (Fig. 1)', String.raw`Otro árbol repite los cortes al azar para el mismo punto; Nuevos datos sortea otro conjunto.`],
+      ['Árboles t (Fig. 2)', String.raw`Cuántos árboles de aislamiento se promedian. Con pocos el puntaje es ruidoso; con muchos es estable.`],
+      ['Submuestra ψ (Fig. 2)', String.raw`Cuántos puntos usa cada árbol. Es la muestra sobre la que se construye cada árbol y limita su profundidad.`],
+      ['Contaminación (Fig. 2)', String.raw`Fracción de puntos que se marca como atípica: fija el umbral sobre el puntaje.`],
+      ['Nuevo bosque (Fig. 2)', String.raw`Reconstruye el bosque con otras muestras y cortes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Aislar un punto',
         descripcion: 'Cortes aleatorios hasta que el punto elegido queda solo en su región. Pulse «Otro árbol» varias veces para ver cómo varía la profundidad.',
+        ayuda: String.raw`<p>Se ve el punto que se quiere aislar, los puntos que siguen en su región, los ya separados y los cortes al azar. El registro cuenta los cortes hasta dejarlo solo.</p>
+          <ul>
+          <li><strong>Otro árbol</strong>: los cortes cambian y la profundidad varía de un árbol a otro; un solo árbol es ruidoso.</li>
+          <li>Un punto suelto queda solo con pocos cortes; uno del centro de una mancha necesita muchos: la profundidad media mide cuán anómalo es.</li>
+          </ul>`,
         montar: montarAislar,
       },
       {
         titulo: 'El mapa de puntajes',
         descripcion: 'El puntaje de anomalía del bosque en todo el plano. Pruebe t = 1 y t = 200, y una submuestra ψ pequeña.',
+        ayuda: String.raw`<p>El fondo muestra el puntaje s que el bosque asignaría a un punto en cada lugar: s ≈ 0,4 es normal y s cercano a 1 es anómalo. Los puntos marcados como atípicos se distinguen del resto de los datos.</p>
+          <ul>
+          <li><strong>Árboles t</strong> = 1: el mapa es de bloques; con t = 200 se suaviza.</li>
+          <li><strong>Submuestra ψ</strong> pequeña: el mapa se vuelve más grueso y menos preciso.</li>
+          <li><strong>Contaminación</strong> mayor: se marcan más puntos como atípicos, incluidos otros de puntaje menos alto.</li>
+          </ul>`,
         montar: montarMapa,
       },
     ],

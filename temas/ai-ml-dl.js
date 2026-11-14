@@ -139,9 +139,24 @@
       automático que usa redes neuronales de muchas capas para <strong>aprender también las características</strong> que antes se diseñaban a mano.</p>
       <p>La diferencia práctica es quién hace el trabajo difícil: en la IA clásica, la persona escribe las reglas; en el aprendizaje automático clásico, la persona elige las características y el algoritmo aprende
       los pesos; en el aprendizaje profundo, el algoritmo aprende ambas cosas.</p>`,
+    parametros: [
+      ['Técnicas del diagrama (Fig. 1)', String.raw`La figura no tiene controles de ajuste: haga clic en una técnica para ver en qué conjunto vive y qué parte del trabajo aprende por sí sola.`],
+      ['Datos (Fig. 2)', String.raw`La forma de las clases: manchas, lunas, círculos concéntricos o XOR. Decide si una sola recta puede separarlas.`],
+      ['Regla manual: ángulo y desplazamiento (Fig. 2)', String.raw`Giran y desplazan la recta escrita a mano, que es una regla con dos números que usted fija. Cambian qué puntos quedan de cada lado.`],
+      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Nuevos datos sortea otra muestra; Reproducir, Un paso, Hasta el final y Reiniciar entrenan la red de 8 neuronas ocultas con esos datos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Tres conjuntos anidados', descripcion: 'Explore dónde cae cada técnica y qué parte del trabajo —reglas, características, pesos— queda en manos de una persona o del algoritmo.', montar: montarConjuntos },
-      { titulo: 'Reglas escritas a mano frente a reglas aprendidas', descripcion: 'Intente separar las clases con una sola recta y compárela con una red entrenada. Pruebe «Círculos concéntricos» y «XOR», donde ninguna recta basta.', montar: montarReglas },
+      { titulo: 'Tres conjuntos anidados', descripcion: 'Explore dónde cae cada técnica y qué parte del trabajo —reglas, características, pesos— queda en manos de una persona o del algoritmo.',
+        ayuda: String.raw`<p>Los conjuntos son anidados: la inteligencia artificial contiene al aprendizaje automático y este al aprendizaje profundo (cada nombre aparece en la leyenda). Las técnicas están colocadas dentro del conjunto al que pertenecen.</p>
+          <ul>
+          <li><strong>Clic en una técnica</strong>: indica si sus reglas, sus características o sus pesos los define una persona o el algoritmo; cuanto más adentro, más aprende el algoritmo por sí solo.</li>
+          </ul>`, montar: montarConjuntos },
+      { titulo: 'Reglas escritas a mano frente a reglas aprendidas', descripcion: 'Intente separar las clases con una sola recta y compárela con una red entrenada. Pruebe «Círculos concéntricos» y «XOR», donde ninguna recta basta.',
+        ayuda: String.raw`<p>Los puntos son los datos, coloreados por clase. La recta roja es la regla escrita a mano y la frontera de la red (aprendida) es la que dibuja la red; las zonas coloreadas muestran qué clase predice cada una.</p>
+          <ul>
+          <li><strong>Regla manual: ángulo / desplazamiento</strong>: mueven la recta; en «Manchas» se puede acertar a mano, en «Círculos concéntricos» o «XOR» ninguna recta separa las clases.</li>
+          <li><strong>Reproducir</strong>: la frontera de la red se curva hasta separar las clases que la recta no pudo; la lectura compara la exactitud de ambas.</li>
+          </ul>`, montar: montarReglas },
     ],
     teoria: String.raw`
       <h2>Definiciones</h2>

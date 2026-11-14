@@ -113,9 +113,27 @@
     intro: String.raw`
       <p>Cuando los datos tienen una ubicación, el mapa es la codificación natural. Hay dos grandes familias: el mapa <strong>coroplético</strong> pinta cada región con un color según su valor, y el mapa de <strong>símbolos proporcionales</strong> coloca sobre cada región una marca (un círculo) cuyo tamaño codifica el valor.</p>
       <p>Cada uno tiene su trampa. El coroplético da más peso visual a las regiones grandes; los símbolos pueden taparse entre sí y se leen mal si el tamaño no está bien escalado.</p>`,
+    parametros: [
+      ['Variable pintada (Fig. 1)', String.raw`Si el color representa el conteo de casos o la tasa por 100 000 habitantes. El conteo sigue a la población; la tasa mide el riesgo relativo.`],
+      ['Corte de clases (Fig. 1)', String.raw`Cómo se reparten los valores en clases de color: intervalos de igual ancho o cuantiles con igual número de regiones. Cambia qué regiones parecen «altas» sin cambiar los datos.`],
+      ['Clases (Fig. 1)', String.raw`Número de tramos de color, de 3 a 7. Más clases dan más detalle pero más colores por distinguir.`],
+      ['Tamaño del círculo (Fig. 2)', String.raw`Si el valor se codifica en el área (correcto) o en el radio (exagera). Con radio, la razón entre círculos es el cuadrado de la razón entre valores.`],
+      ['Mostrar las regiones y Dibujar los grandes primero (Fig. 2)', String.raw`La primera muestra u oculta el fondo de regiones. La segunda ordena el dibujo para que los círculos pequeños no queden tapados por los grandes.`],
+    ],
     visualizaciones: [
-      { titulo: 'Mapa coroplético: conteo frente a tasa', descripcion: 'Pinte las regiones por número de casos y por tasa, y cambie el método y el número de clases.', montar: montarCoropletico },
-      { titulo: 'Símbolos proporcionales', descripcion: 'Cambie el escalado del círculo y el orden de dibujo; compare la razón de valores con la razón de áreas.', montar: montarSimbolos },
+      { titulo: 'Mapa coroplético: conteo frente a tasa', descripcion: 'Pinte las regiones por número de casos y por tasa, y cambie el método y el número de clases.',
+        ayuda: String.raw`<p>Mapa de regiones pintadas con una rampa de color según la clase de su valor; la leyenda lista los rangos de cada clase y la lectura indica el método y el número de clases.</p>
+          <ul>
+          <li><strong>Variable pintada</strong>: con «conteo» se oscurecen las regiones más pobladas; con «tasa» aparece el gradiente de riesgo, más alto al norte.</li>
+          <li><strong>Corte de clases</strong> y <strong>Clases</strong>: los rangos de la leyenda y las regiones que caen en cada clase cambian, a pesar de ser los mismos datos.</li>
+          </ul>`, montar: montarCoropletico },
+      { titulo: 'Símbolos proporcionales', descripcion: 'Cambie el escalado del círculo y el orden de dibujo; compare la razón de valores con la razón de áreas.',
+        ayuda: String.raw`<p>Un círculo azul por región, cuyo tamaño representa los casos (leyenda); las regiones se ven como fondo gris con borde. La lectura compara la razón de valores con la razón de áreas dibujadas.</p>
+          <ul>
+          <li><strong>Tamaño del círculo</strong> «radio»: los círculos grandes crecen de más y la razón de áreas deja de coincidir con la razón de valores.</li>
+          <li><strong>Dibujar los grandes primero</strong>: desactivado, los grandes pueden cubrir a los pequeños.</li>
+          <li><strong>Mostrar las regiones</strong> quita el fondo y deja solo los círculos.</li>
+          </ul>`, montar: montarSimbolos },
     ],
     teoria: String.raw`
       <h2>Coroplético</h2>

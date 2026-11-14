@@ -59,9 +59,26 @@
     intro: String.raw`
       <p>Proteger una comunicación significa garantizar tres cosas: <strong>confidencialidad</strong> (solo los autorizados leen el contenido), <strong>integridad</strong> (nadie lo altera sin que se note) y <strong>autenticación</strong> (se sabe quién lo envió). Se obtienen con herramientas distintas, y es un error común creer que el cifrado las da todas.</p>
       <p>El <strong>cifrado simétrico</strong> usa una misma clave en ambos extremos y da confidencialidad. Para integridad y autenticación se añade un <strong>código de autenticación de mensaje</strong> (MAC): una etiqueta que solo puede calcular quien conoce la clave.</p>`,
+    parametros: [
+      ['Mensaje (Fig. 1)', String.raw`Texto en claro que se cifra y envía.`],
+      ['Clave compartida (Fig. 1)', String.raw`Secreto que conocen emisor y receptor. Con otra clave el descifrado ya no recupera el mensaje.`],
+      ['Byte que altera el atacante (Fig. 1)', String.raw`Posición del byte del mensaje cifrado que el atacante modifica en tránsito; 0 significa que no lo toca.`],
+      ['Agregar código de autenticación (MAC) (Fig. 1)', String.raw`Añade una etiqueta calculada con la clave. Con ella el receptor detecta cualquier modificación; sin ella, el cambio pasa inadvertido.`],
+      ['Texto y Carácter que cambia (Fig. 2)', String.raw`El texto que se resume con hash y la posición del carácter al que se le invierte un bit, para comparar ambos resúmenes.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cifrar y autenticar', descripcion: 'Altere un byte del mensaje cifrado, primero sin MAC y luego con MAC. Cambie la clave: el descifrado ya no coincide.', montar: montarCifrado },
-      { titulo: 'Efecto avalancha de un hash', descripcion: 'Cambie un único bit del texto y compare los bits del resumen: cerca de la mitad cambian.', montar: montarAvalancha },
+      { titulo: 'Cifrar y autenticar', descripcion: 'Altere un byte del mensaje cifrado, primero sin MAC y luego con MAC. Cambie la clave: el descifrado ya no coincide.',
+        ayuda: String.raw`<p>La tabla muestra, paso a paso, el mensaje, su cifrado, lo que llega al receptor y el resultado del descifrado y de la verificación del MAC.</p>
+          <ul>
+          <li><strong>Byte que altera el atacante</strong> sin MAC: se descifra un texto distinto, sin aviso.</li>
+          <li>Con <strong>MAC</strong> activado, el mismo cambio hace fallar la verificación y se rechaza el mensaje.</li>
+          <li>Otra <strong>clave compartida</strong> en el descifrado produce texto ilegible.</li>
+          </ul>`, montar: montarCifrado },
+      { titulo: 'Efecto avalancha de un hash', descripcion: 'Cambie un único bit del texto y compare los bits del resumen: cerca de la mitad cambian.',
+        ayuda: String.raw`<p>Cada celda es un bit del resumen (hash): azul si es igual en ambos resúmenes y rojo si es distinto. La lectura cuenta cuántos bits cambiaron.</p>
+          <ul>
+          <li><strong>Carácter que cambia</strong>: aunque se invierta solo un bit de entrada, cambia cerca de la mitad de los bits del resumen (efecto avalancha), sea cual sea la posición.</li>
+          </ul>`, montar: montarAvalancha },
     ],
     teoria: String.raw`
       <h2>Cifrado simétrico</h2>

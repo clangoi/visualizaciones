@@ -83,20 +83,44 @@
       basta comparar sus primeros elementos y sacar el menor, repitiendo hasta agotarlas.</p>
       <p>Su costo es \(\Theta(n \log n)\) siempre, sin importar los datos, y es estable. A cambio, necesita memoria auxiliar
       proporcional a \(n\).</p>`,
+    parametros: [
+      ['Datos iniciales (Fig. 1 y 2)', String.raw`El orden de partida. En merge sort cambia poco el costo: el trabajo de dividir es siempre el mismo.`],
+      ['Tamaño n (Fig. 1 y 2)', String.raw`Cantidad de elementos. El número de niveles de mezcla es \(\lceil \log_2 n \rceil\).`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso muestra una comparación o escritura, Hasta el final termina y Reiniciar vuelve al inicio.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otro arreglo con la misma distribución.`],
+      ['Medida, escala y casillas (Fig. 3)', String.raw`Elija comparaciones o escrituras, escala lineal o logarítmica, y qué distribuciones mostrar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Merge sort paso a paso',
         descripcion: 'La zona sombreada es el subarreglo que se está mezclando. Las barras azules son los dos elementos que se comparan (uno de cada mitad); la naranja, la posición donde se escribe el menor.',
+        ayuda: String.raw`<p>Las barras son los elementos. La zona sombreada es el subarreglo cuyas dos mitades ya ordenadas se están mezclando: las barras azules son los dos primeros de cada mitad que se comparan, y la naranja es la posición donde se escribe el menor.</p>
+          <ul>
+          <li>Observe que las mezclas empiezan con bloques pequeños y van creciendo: es la recursión volviendo hacia arriba.</li>
+          <li><strong>Tamaño n</strong>: las comparaciones quedan cerca de la lectura «n log₂ n», muy por debajo de «n²/2».</li>
+          <li><strong>Datos iniciales</strong>: con datos ordenados cada mezcla termina antes, pero el costo sigue siendo \(\Theta(n\log n)\). Las escrituras no cambian, porque cada nivel copia todo el arreglo.</li>
+          </ul>`,
         montar: (c) => VIZ.orden.animacion(c, { alg: 'mezcla', n: 32 }),
       },
       {
         titulo: 'Las pasadas de la versión ascendente',
         descripcion: 'La variante <em>bottom-up</em> mezcla primero bloques de tamaño 1, luego 2, 4, 8… Cada fila muestra el arreglo tras una pasada; los bloques sombreados ya están ordenados. Cada pasada hace a lo más \\(n\\) comparaciones y hay \\(\\lceil \\log_2 n \\rceil\\) pasadas.',
+        ayuda: String.raw`<p>Cada fila es el arreglo después de una pasada de la versión ascendente (de arriba hacia abajo). Los bloques sombreados alternados son los tramos ya ordenados: en la primera fila miden 1, luego 2, 4, 8… hasta abarcar todo el arreglo.</p>
+          <ul>
+          <li><strong>Tamaño n</strong>: el número de filas es \(\lceil \log_2 n \rceil + 1\); duplicar \(n\) agrega una sola pasada.</li>
+          <li><strong>Datos iniciales</strong>: la cantidad de pasadas no cambia; lo que cambia es cuántas comparaciones hace cada mezcla (lectura «comparaciones totales» frente a «n log₂ n»).</li>
+          </ul>`,
         montar: montarPasadas,
       },
       {
         titulo: 'El costo casi no depende de los datos',
         descripcion: 'Comparaciones para distintas distribuciones. Todas quedan entre \\(\\tfrac12 n\\log_2 n\\) y \\(n \\log_2 n\\): con datos ya ordenados cada mezcla termina en cuanto se agota la mitad izquierda.',
+        ayuda: String.raw`<p>Una curva por distribución inicial, con el costo medido en ejecuciones reales y las referencias punteadas \(n^2/2\) y \(n\log_2 n\).</p>
+          <ul>
+          <li>Todas las curvas de <strong>comparaciones</strong> quedan pegadas a \(n\log_2 n\), lejos de la referencia cuadrática: el costo casi no depende de los datos.</li>
+          <li>«Ya ordenada» queda más abajo (cerca de \(\tfrac12 n\log_2 n\)) porque cada mezcla se detiene al agotar la mitad izquierda.</li>
+          <li>Con <strong>escrituras</strong> todas coinciden: merge sort copia los \(n\) elementos en cada nivel, sin importar el orden.</li>
+          </ul>`,
         montar: (c) => VIZ.orden.curvas(c, { series: 'distribuciones', alg: 'mezcla' }),
       },
     ],

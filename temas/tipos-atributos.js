@@ -88,10 +88,20 @@
       (CId), <strong>atributos sensibles</strong> (AS) y <strong>atributos no sensibles</strong> (AnS).</p>
       <p>La clasificación depende del contexto, no solo del nombre de la columna: la profesión es inocua en una encuesta nacional, pero
       «astronauta» identifica a una persona. Por eso se razona pensando en qué sabe un posible atacante.</p>`,
+    parametros: [
+      ['Selector de tipo de cada columna (Fig. 1)', String.raw`El tipo que usted asigna a cada columna de la tabla clínica. Cada tipo exige un tratamiento distinto antes de publicar o analizar los datos.`],
+      ['Revisar, Aplicar tratamiento y Mostrar respuesta (Fig. 1)', String.raw`Revisar compara su clasificación con la correcta; Aplicar tratamiento muestra la tabla ya tratada según el tipo asignado; Mostrar respuesta coloca los tipos correctos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Clasificar las columnas',
         descripcion: 'Una tabla clínica de doce pacientes. Asigne un tipo a cada columna, revise su clasificación y aplique el tratamiento correspondiente.',
+        ayuda: String.raw`<p>La tabla son doce pacientes y cada columna lleva el tipo que usted eligió. La leyenda explica cada tipo y el registro indica qué columnas quedaron bien o mal clasificadas tras revisar.</p>
+          <ul>
+          <li><strong>Selector de tipo</strong>: cambiarlo anula la revisión previa, porque el tipo decide qué tratamiento corresponde a la columna.</li>
+          <li><strong>Revisar</strong>: marca qué columnas coinciden con el tipo correcto y cuáles no.</li>
+          <li><strong>Aplicar tratamiento</strong>: muestra qué le ocurre a cada columna según su tipo; un tipo mal elegido deja datos sensibles sin proteger o información útil destruida.</li>
+          </ul>`,
         montar: montarClasificar,
       },
     ],

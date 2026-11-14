@@ -92,9 +92,25 @@
     intro: String.raw`
       <p>Una red no entiende palabras, solo números. Un <strong>embedding</strong> asigna a cada palabra (o a cada dato) un vector de pocos cientos de números, aprendido de modo que lo parecido quede cerca. Es una <strong>representación latente</strong>: una descripción comprimida donde las direcciones del espacio capturan rasgos del significado.</p>
       <p>La idea que lo hace posible viene de la lingüística: <em>una palabra se conoce por las que la acompañan</em>. Dos palabras que aparecen en contextos parecidos reciben vectores parecidos, sin que nadie les diga qué significan.</p>`,
+    parametros: [
+      ['Ejes mostrados (Fig. 1)', String.raw`Qué dos direcciones del espacio de incrustaciones se proyectan al plano. Una misma palabra queda en puntos distintos según la vista, pues se ven distintas partes de su vector.`],
+      ['Otro corpus (Fig. 1)', String.raw`Genera otro conjunto de frases de entrenamiento; muestra si los grupos aparecen de forma estable.`],
+      ['Datos (Fig. 2)', String.raw`La forma de los puntos que se comprimen: lunas, círculos, manchas o XOR.`],
+      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Nuevos datos sortea otra muestra; el reproductor entrena la red y la reinicia al cambiar de datos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un mapa de palabras desde sus contextos', descripcion: 'Mire cómo se agrupan animales, comidas y ciudades solo por sus compañeras de frase. Haga clic en una palabra y compare con sus vecinas.', montar: montarMapa },
-      { titulo: 'Un autocodificador comprime un dato', descripcion: 'Entrene una red que pasa cada punto por un solo número y vea la curva que aprende a describir los datos.', montar: montarAuto },
+      { titulo: 'Un mapa de palabras desde sus contextos', descripcion: 'Mire cómo se agrupan animales, comidas y ciudades solo por sus compañeras de frase. Haga clic en una palabra y compare con sus vecinas.',
+        ayuda: String.raw`<p>Cada punto es una palabra, ubicada según el contexto en que aparece; el color es el grupo de la leyenda. Las que comparten compañeras de frase quedan cerca.</p>
+          <ul>
+          <li><strong>Ejes mostrados</strong>: cambiar a otras direcciones puede separar grupos que se superponían o juntarlos.</li>
+          <li><strong>Otro corpus</strong>: las posiciones cambian, pero las palabras del mismo grupo siguen próximas.</li>
+          </ul>`, montar: montarMapa },
+      { titulo: 'Un autocodificador comprime un dato', descripcion: 'Entrene una red que pasa cada punto por un solo número y vea la curva que aprende a describir los datos.',
+        ayuda: String.raw`<p>Los puntos azules son los datos originales y los naranjas, su reconstrucción a partir de un solo número z. La curva negra es lo que dibuja el decodificador al recorrer z.</p>
+          <ul>
+          <li><strong>Datos</strong>: con formas simples como lunas la curva sigue bien los puntos; con formas más complejas (círculos, XOR) una sola dimensión no alcanza y la reconstrucción se aleja.</li>
+          <li><strong>Nuevos datos</strong>: la curva aprendida cambia con la muestra.</li>
+          </ul>`, montar: montarAuto },
     ],
     teoria: String.raw`
       <h2>De los contextos a los vectores</h2>

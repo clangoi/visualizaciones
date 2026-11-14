@@ -323,20 +323,45 @@
       eficientes. El problema es que muchas veces <em>no</em> funciona: lo localmente mejor no siempre conduce a lo globalmente óptimo.</p>
       <p>Por eso, lo importante de un algoritmo codicioso no es el algoritmo, sino la <strong>demostración</strong> de que es correcto, o
       el contraejemplo que muestra que no lo es.</p>`,
+    parametros: [
+      ['Actividades (Fig. 1)', String.raw`Cuántas actividades (intervalos de tiempo) se generan.`],
+      ['Criterio codicioso (Fig. 1)', String.raw`El orden en que se consideran: la que termina antes (óptimo), la que empieza antes, la más corta o la que choca con menos. Cada una se acepta si no se superpone con las ya elegidas.`],
+      ['Nuevas actividades (Fig. 1)', String.raw`Genera otro conjunto de intervalos al azar.`],
+      ['Sistema de monedas (Fig. 2)', String.raw`Los valores de moneda disponibles. Algunos son <em>canónicos</em> (el codicioso siempre es óptimo) y otros no.`],
+      ['Monto (Fig. 2)', String.raw`La cantidad que hay que dar de vuelto; también se elige haciendo clic en el gráfico.`],
+      ['Texto a codificar (Fig. 3)', String.raw`El texto cuyas frecuencias de símbolos se usan para construir el código de Huffman. Textos con símbolos muy desiguales se comprimen más.`],
+      ['Velocidad y reproductor (Fig. 1 y 3)', String.raw`Reproducir avanza solo, Un paso hace una decisión o fusión, Hasta el final termina y Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Selección de actividades',
         descripcion: 'Elegir el máximo número de actividades que no se superpongan. Pruebe distintos criterios: solo «termina antes» es óptimo siempre; los demás fallan con algunas entradas.',
+        ayuda: String.raw`<p>Cada barra horizontal es una actividad, ubicada según su hora de inicio y término (eje superior). El algoritmo las considera en el orden del criterio elegido y acepta cada una que no se superpone con las ya elegidas (azul); las descartadas se atenúan.</p>
+          <ul>
+          <li><strong>Criterio</strong> «Termina antes» siempre alcanza la lectura «óptimo»: elegir la que libera el recurso primero nunca cierra opciones.</li>
+          <li>Con «Empieza antes», una actividad larga temprana puede bloquear varias cortas; con «Más corta», una corta puede cruzar dos largas compatibles entre sí. Use <strong>Nuevas actividades</strong> hasta ver que «elegidas» queda bajo «óptimo».</li>
+          </ul>`,
         montar: montarActividades,
       },
       {
         titulo: 'Dar vuelto con la menor cantidad de monedas',
         descripcion: 'El algoritmo codicioso entrega siempre la moneda más grande posible. Es óptimo para algunos sistemas de monedas (llamados <em>canónicos</em>) y falla para otros: con monedas 1, 10 y 25, el vuelto de 30 se da con 25+1+1+1+1+1 en vez de 10+10+10.',
+        ayuda: String.raw`<p>El eje horizontal es el monto (1 a 100) y el vertical, cuántas monedas se usan. La curva naranja es lo que entrega el algoritmo codicioso (siempre la moneda más grande que cabe) y la azul, el mínimo real calculado con programación dinámica. Los puntos rojos marcan montos donde el codicioso usa más monedas de las necesarias.</p>
+          <ul>
+          <li><strong>Sistema de monedas</strong> canónico (pesos chilenos, centavos de dólar): las dos curvas coinciden y no hay puntos rojos.</li>
+          <li>Con 1, 10, 25 o 1, 3, 4, aparecen fallas: por ejemplo, 30 = 25+1+1+1+1+1 (6 monedas) frente a 10+10+10 (3).</li>
+          <li><strong>Monto</strong> mueve la línea vertical y muestra el desglose de monedas de ambas soluciones.</li>
+          </ul>`,
         montar: montarVuelto,
       },
       {
         titulo: 'Códigos de Huffman',
         descripcion: 'Para comprimir un texto se asignan códigos binarios más cortos a los símbolos más frecuentes. Huffman construye el código óptimo fusionando siempre los dos árboles de menor frecuencia.',
+        ayuda: String.raw`<p>Cada hoja es un símbolo del texto con su frecuencia; cada nodo interno suma las frecuencias de sus hijos. En cada paso se fusionan los dos árboles de menor frecuencia (resaltados en naranja). El código de un símbolo es el camino desde la raíz: 0 a la izquierda, 1 a la derecha.</p>
+          <ul>
+          <li>Los símbolos frecuentes quedan cerca de la raíz (códigos cortos) y los raros, abajo (códigos largos).</li>
+          <li><strong>Texto a codificar</strong>: compare «bits por símbolo» con la «entropía H», el mínimo teórico. Con un texto de símbolos igual de frecuentes, Huffman no gana nada frente al largo fijo; con uno muy repetitivo, gana mucho.</li>
+          </ul>`,
         montar: montarHuffman,
       },
     ],

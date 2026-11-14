@@ -106,9 +106,26 @@
     intro: String.raw`
       <p>Una red que acierta el 99 % de las imágenes de prueba puede equivocarse con total seguridad ante una imagen casi idéntica, modificada de forma imperceptible. Un <strong>ejemplo adversarial</strong> es una entrada con una perturbación pequeña, elegida a propósito para engañar al modelo: la perturbación no es ruido al azar, sino que va en la dirección en que más sube la pérdida.</p>
       <p>Esto importa en la práctica: un letrero de «pare» con unas pegatinas, un archivo de malware con unos bytes extra o un texto con una palabra cambiada pueden saltarse un clasificador. La <strong>robustez</strong> es una propiedad distinta de la exactitud, y mide cuánto aguanta el modelo ante perturbaciones deliberadas y ante cambios naturales de los datos.</p>`,
+    parametros: [
+      ['Tamaño máximo de la perturbación ε (por coordenada) (Fig. 1)', String.raw`Cuánto se puede mover cada coordenada del punto para engañar a la red. Con ε = 0 no hay ataque; más ε da más libertad al atacante.`],
+      ['Elegir otro punto (Fig. 1)', String.raw`Sortea otro punto de prueba para atacar.`],
+      ['Imagen (Fig. 2)', String.raw`La imagen que clasifica la CNN y sobre la que se calcula el ataque.`],
+      ['Perturbación máxima por píxel ε (Fig. 2)', String.raw`Cuánto puede cambiar cada píxel. Es el presupuesto del atacante: más ε vuelve la perturbación más visible y el error más probable.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un empujón que cruza la frontera', descripcion: 'Elija un punto bien clasificado y suba ε hasta que la red cambie de opinión. Compare la exactitud limpia con la exactitud bajo ataque.', montar: montarPlano },
-      { titulo: 'El mismo ataque sobre una imagen', descripcion: 'Suba ε y observe la perturbación, la imagen atacada y cuándo la CNN se equivoca; la curva muestra la exactitud sobre 60 imágenes.', montar: montarImagen },
+      { titulo: 'Un empujón que cruza la frontera', descripcion: 'Elija un punto bien clasificado y suba ε hasta que la red cambie de opinión. Compare la exactitud limpia con la exactitud bajo ataque.',
+        ayuda: String.raw`<p>Se ven las regiones de cada clase, la frontera de la red y el punto atacado; la flecha es la perturbación que lo empuja. La exactitud limpia y la exactitud bajo ataque aparecen en la lectura.</p>
+          <ul>
+          <li><strong>ε</strong>: al crecer, la flecha se alarga y, pasado cierto valor, el punto cruza la frontera y cambia de clase.</li>
+          <li><strong>Elegir otro punto</strong>: los puntos cercanos a la frontera cambian con ε pequeño; los alejados resisten más.</li>
+          <li>La exactitud bajo ataque cae al subir ε aunque la limpia no cambie.</li>
+          </ul>`, montar: montarPlano },
+      { titulo: 'El mismo ataque sobre una imagen', descripcion: 'Suba ε y observe la perturbación, la imagen atacada y cuándo la CNN se equivoca; la curva muestra la exactitud sobre 60 imágenes.',
+        ayuda: String.raw`<p>Se muestran la imagen original, la perturbación (más intensidad o positiva y negativa, según la leyenda) y la imagen atacada. La curva es la exactitud de la red bajo ataque sobre 60 imágenes, según ε.</p>
+          <ul>
+          <li><strong>Perturbación máxima por píxel ε</strong>: al subirla, la perturbación se intensifica y, desde cierto punto, la CNN se equivoca con esta imagen.</li>
+          <li><strong>Imagen</strong>: cambia el ejemplo mostrado, no la curva global de exactitud.</li>
+          </ul>`, montar: montarImagen },
     ],
     teoria: String.raw`
       <h2>El ataque FGSM</h2>

@@ -130,10 +130,21 @@
       <p>Las dos herramientas clásicas son la <strong>generalización</strong> (reemplazar un valor por uno menos preciso: 28 → 20–29) y la
       <strong>supresión</strong> (borrar las filas atípicas que obligarían a generalizar demasiado). Elegir cuánto generalizar cada atributo
       es un problema de búsqueda: hay muchas combinaciones y se quiere la que pierde menos información y aun así cumple la garantía.</p>`,
+    parametros: [
+      ['k (Fig. 1)', String.raw`El tamaño mínimo que debe tener cada grupo de filas indistinguibles. Un k mayor exige más generalización.`],
+      ['Filas que se pueden suprimir (Fig. 1)', String.raw`Cuántas filas se pueden eliminar en vez de seguir generalizando. Permite que un nodo cumpla k a menor costo en generalización.`],
+      ['Reproductor (Fig. 1)', String.raw`Ejecuta la búsqueda paso a paso, de abajo hacia arriba, sobre el retículo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El retículo de generalizaciones',
         descripcion: 'Todas las combinaciones de niveles para código postal, edad y sexo. Ejecute la búsqueda de abajo hacia arriba y observe que, por monotonía, todo lo que está sobre un nodo que cumple también cumple.',
+        ayuda: String.raw`<p>Cada nodo es una combinación de niveles de generalización de código postal, edad y sexo; los niveles más bajos están abajo. Los colores indican nodos sin evaluar, que cumplen k-anonimato, que no cumplen, el mínimo (cumple y ningún nodo de abajo cumple) y el nodo elegido, cuya tabla se muestra debajo.</p>
+          <ul>
+          <li><strong>k</strong>: al subirlo, menos nodos cumplen y el mínimo se desplaza hacia arriba.</li>
+          <li><strong>Filas que se pueden suprimir</strong>: al permitir suprimir más filas, cumplen nodos más bajos y se pierde menos detalle en los datos.</li>
+          <li>Al cambiar cualquiera de los dos, la búsqueda se reinicia.</li>
+          </ul>`,
         montar: montarReticulo,
       },
     ],

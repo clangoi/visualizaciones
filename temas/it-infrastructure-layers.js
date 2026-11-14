@@ -253,15 +253,31 @@
       donde cada una presta un servicio a la de arriba.</p>
       <p>Esa pila tiene una consecuencia práctica: lo que usted ve fallar (una aplicación lenta o caída) casi nunca es lo que realmente se rompió. Saber qué capa depende de cuál
       permite estimar el alcance de una falla y encontrar su origen sin probar a ciegas.</p>`,
+    parametros: [
+      ['Capa que falla (Fig. 1)', String.raw`La capa de la pila de TI donde se origina la falla. Cuanto más abajo, más capas dependen de ella.`],
+      ['La capa tiene respaldo redundante (Fig. 1)', String.raw`Si hay un respaldo en la capa que falla, la falla se absorbe y no se propaga hacia arriba.`],
+      ['Estrategia (Fig. 2)', String.raw`Orden en que se sondean las capas para hallar la causa: de abajo hacia arriba o de arriba hacia abajo. Cambia cuántos sondeos hacen falta.`],
+      ['Nuevo incidente (Fig. 2)', String.raw`Sortea otra capa culpable para repetir el diagnóstico.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cómo sube una falla por las capas',
         descripcion: 'Elija una capa que falla y avance onda por onda: las que dependen de ella caen en cadena. Pruebe la energía (cae todo) y luego una capa alta (casi nada), y active el respaldo redundante.',
+        ayuda: String.raw`<p>Pila de capas. Las operativas se ven en un color, la falla de origen en otro, las que caen por depender de una capa caída en un tercero y las absorbidas por el respaldo en uno cuarto, según la leyenda.</p>
+          <ul>
+          <li><strong>Capa que falla</strong> baja (p. ej. energía): cae casi toda la pila; en una capa alta casi nada más cae.</li>
+          <li><strong>Respaldo redundante</strong> activado: la falla queda absorbida y las capas superiores siguen operativas.</li>
+          </ul>`,
         montar: montarPropagacion,
       },
       {
         titulo: 'Encontrar la capa culpable',
         descripcion: 'Solo se ve que las aplicaciones no responden. Sondee capas a mano o compare las estrategias «de abajo hacia arriba» y «de arriba hacia abajo»; la lectura muestra cuántos sondeos necesita cada una en promedio.',
+        ayuda: String.raw`<p>La pila de capas con el estado de cada sondeo: sin sondear, sondeada que responde, sondeada que no responde y, al final, la causa raíz identificada.</p>
+          <ul>
+          <li><strong>Estrategia</strong>: cambia el orden de sondeo y con él el número de capas marcadas antes de hallar la causa raíz.</li>
+          <li><strong>Nuevo incidente</strong>: la mejor estrategia depende de dónde esté la falla.</li>
+          </ul>`,
         montar: montarDiagnostico,
       },
     ],

@@ -98,15 +98,29 @@
       <p>La <strong>regla de resolución</strong> es una única regla de inferencia que trabaja sobre <a href="tema.html?id=literals-clauses">cláusulas</a>. Si una cláusula contiene un literal \(l\) y otra contiene su complemento \(\neg l\),
       se pueden juntar los literales restantes de ambas: la <strong>resolvente</strong>.</p>
       <p>Piénsela como un caso general de dos reglas conocidas: de \(p \lor q\) y \(\neg p \lor r\) se concluye \(q \lor r\), lo que incluye el modus ponens (\(\neg p \lor q\) es \(p \to q\)) y el silogismo disyuntivo.</p>`,
+    parametros: [
+      ['Primera cláusula y Segunda cláusula (Fig. 1)', String.raw`Las dos cláusulas padre. Según tengan o no literales complementarios, hay resolvente; si son \(\{p\}\) y \(\{\neg p\}\), se obtiene la cláusula vacía.`],
+      ['Cláusulas padre (Fig. 2)', String.raw`El par de cláusulas cuya resolvente se contrasta con la tabla de verdad.`],
+      ['Regla incorrecta: eliminar dos pares complementarios a la vez (Fig. 2)', String.raw`Activa una regla falsa que quita dos pares de literales opuestos de una vez. Muestra que la resolvente deja de ser consecuencia de los padres.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Resuelva dos cláusulas',
         descripcion: 'Elija dos cláusulas y observe el pivote y la resolvente. Pruebe pares sin literales complementarios y el par \\(\\{p\\}\\), \\(\\{\\neg p\\}\\), que da la cláusula vacía.',
+        ayuda: String.raw`<p>Se dibujan las dos cláusulas padre, los literales complementarios (pivote) y la resolvente, que reúne los demás literales de ambas.</p>
+          <ul>
+          <li><strong>Primera cláusula / Segunda cláusula</strong>: sin literales complementarios no hay pivote ni resolvente; con pivote, ese literal desaparece de la resolvente.</li>
+          </ul>`,
         montar: montarResolver,
       },
       {
         titulo: 'La resolvente es consecuencia de los padres',
         descripcion: 'Compruebe en la tabla de verdad que la resolvente se sigue de las dos cláusulas padre. Active la regla incorrecta y busque la fila que la refuta.',
+        ayuda: String.raw`<p>La tabla de verdad compara los padres con la resolvente. En la regla correcta, toda fila que satisface ambos padres satisface la resolvente.</p>
+          <ul>
+          <li><strong>Regla incorrecta</strong>: al activarla aparece una fila roja donde los padres valen V y el resultado F; es decir, la regla no es sólida.</li>
+          <li><strong>Cláusulas padre</strong>: cambia la tabla y las variables involucradas.</li>
+          </ul>`,
         montar: montarSolidez,
       },
     ],

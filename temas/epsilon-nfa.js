@@ -113,15 +113,29 @@
     intro: String.raw`
       <p>Un <strong>ε-AFN</strong> permite además transiciones que <em>no leen ningún símbolo</em>: el autómata puede cambiar de estado «gratis». Es cómodo para construir autómatas por piezas (unir dos autómatas, repetir uno) sin preocuparse de las conexiones símbolo a símbolo.</p>
       <p>No añade poder: la <strong>ε-clausura</strong> de un estado —todos los estados a los que se llega por transiciones ε— permite absorber esos saltos y obtener un AFN ordinario con el mismo lenguaje.</p>`,
+    parametros: [
+      ['ε-AFN (Fig. 1 y 2)', String.raw`El autómata con transiciones ε que se estudia. Determina qué estados pueden alcanzarse sin leer símbolos.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso incorpora a la ε-clausura los estados alcanzables por una ε-transición más.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Calcular la ε-clausura',
         descripcion: 'Elija un estado con un clic y avance: una búsqueda en anchura sigue solo las transiciones ε y reúne todos los estados alcanzables.',
+        ayuda: String.raw`<p>El autómata con sus transiciones, incluidas las ε. Los estados que ya están en la ε-clausura se resaltan, los de la frontera (por explorar) se marcan aparte y la ε-transición que se sigue se destaca.</p>
+          <ul>
+          <li><strong>ε-AFN</strong>: con cadenas más largas de ε-transiciones, la clausura necesita más pasos hasta estabilizarse.</li>
+          <li><strong>Un paso</strong>: explora la frontera y añade sus vecinos por ε; la clausura termina cuando la frontera queda vacía.</li>
+          </ul>`,
         montar: montarClausura,
       },
       {
         titulo: 'Eliminar las ε-transiciones',
         descripcion: 'Compare el autómata con ε y su equivalente sin ε. Haga clic en un estado para ver su clausura y las transiciones nuevas que adquiere.',
+        ayuda: String.raw`<p>Se compara el ε-AFN original con su equivalente sin ε. El estado elegido y su ε-clausura en el original se resaltan, y las transiciones nuevas que adquiere ese estado se muestran en otro color.</p>
+          <ul>
+          <li><strong>ε-AFN</strong>: cada ejemplo da distintas transiciones nuevas, que son las que «saltan» por las ε.</li>
+          <li><strong>Estado elegido</strong> (clic): sus nuevas transiciones son las que salen de los estados de su ε-clausura.</li>
+          </ul>`,
         montar: montarEliminar,
       },
     ],

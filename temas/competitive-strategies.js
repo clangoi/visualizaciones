@@ -157,15 +157,33 @@
     intro: String.raw`
       <p>Según Michael Porter, una empresa obtiene ventaja competitiva de dos maneras genéricas: ofreciendo lo mismo a menor <strong>costo</strong> (liderazgo en costos) o ofreciendo algo <strong>distinto</strong> por lo que el cliente paga más (diferenciación). Ambas pueden aplicarse a todo el mercado o a un segmento acotado, lo que se llama <em>enfoque</em>. La empresa que no logra ninguna queda «atascada en el medio»: sin la eficiencia del primero ni la prima del segundo.</p>
       <p>Los sistemas de información sostienen cada estrategia de manera distinta: los de eficiencia (ERP, automatización, compras electrónicas) abaratan; los de conocimiento del cliente (CRM, datos, personalización) permiten diferenciar y cobrar más. Elegir mal el sistema para la estrategia es una forma de desalinearse.</p>`,
+    parametros: [
+      ['La empresa elegida atiende un segmento acotado (enfoque) (Fig. 1)', String.raw`Si la empresa se concentra en un nicho. Se marca con un anillo y redefine su estrategia.`],
+      ['Mover al polo más cercano (Fig. 1)', String.raw`Lleva la empresa elegida al extremo de costo o de diferenciación, para salir del medio.`],
+      ['Guerra de precios (Fig. 2)', String.raw`Intensidad de la baja de precios en el mercado. Reduce márgenes, en especial de quien no tiene bajo costo.`],
+      ['TI de eficiencia (ERP, automatización) (Fig. 2)', String.raw`Reduce costos, y favorece al líder en costos.`],
+      ['TI de clientes y datos (CRM, personalización) (Fig. 2)', String.raw`Mejora la diferenciación y favorece a quien se diferencia.`],
+      ['Nueva simulación (Fig. 2)', String.raw`Repite los 24 meses con otra aleatoriedad.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ubique empresas en el plano costo–diferenciación',
         descripcion: 'Arrastre las empresas y observe cómo cambia su estrategia efectiva y los sistemas que la sostienen. Saque a «Cadena Intermedia» del medio hacia cada polo y active el enfoque para ver cómo se redefine la etiqueta.',
+        ayuda: String.raw`<p>Eje horizontal: costo unitario relativo (menor = mejor); vertical: diferenciación percibida. Zonas de liderazgo en costos y de diferenciación, y las empresas atascadas en el medio; un anillo marca el enfoque.</p>
+          <ul>
+          <li><strong>Enfoque</strong>: añade el anillo y cambia la estrategia efectiva.</li>
+          <li><strong>Mover al polo más cercano</strong>: saca la empresa del medio.</li>
+          </ul>`,
         montar: montarPlano,
       },
       {
         titulo: 'Simulación de márgenes por estrategia',
         descripcion: 'Suba la guerra de precios y compare el margen de las tres estrategias en 24 meses; luego active la TI de eficiencia y la de datos por separado para ver a quién favorece cada una.',
+        ayuda: String.raw`<p>Eje horizontal: mes; vertical: utilidad acumulada (miles). Una línea por estrategia.</p>
+          <ul>
+          <li><strong>Guerra de precios</strong>: baja sobre todo la de quien está atascado.</li>
+          <li><strong>TI de eficiencia</strong> y <strong>TI de clientes y datos</strong>: elevan cada una la curva de la estrategia a la que favorecen.</li>
+          </ul>`,
         montar: montarMargenes,
       },
     ],

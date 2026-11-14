@@ -116,15 +116,29 @@
       <p>En lógica de predicados, \(\Gamma \models \varphi\) significa que <em>toda interpretación</em> que haga verdaderas las premisas hace verdadera la conclusión. Ahora las interpretaciones son estructuras, no filas de una tabla, y hay infinitas.
       Aun así, el método para refutar un argumento es el mismo: encontrar un <strong>contramodelo</strong>, una interpretación que cumple las premisas y viola la conclusión.</p>
       <p>Los contramodelos suelen ser pequeñísimos. Para razonamientos que parecen razonables —como los silogismos de Aristóteles— permiten separar con claridad los válidos de los falaces.</p>`,
+    parametros: [
+      ['Premisas, Conclusión y Ejemplos (Fig. 1)', String.raw`El argumento con cuantificadores que se pone a prueba; los ejemplos cargan casos como \(\forall\exists\) frente a \(\exists\forall\).`],
+      ['Tamaño máximo del dominio (Fig. 1)', String.raw`Hasta qué tamaño se buscan interpretaciones. Un contramodelo puede requerir más elementos de los que hay disponibles.`],
+      ['Silogismo (Fig. 2)', String.raw`Cuál de las cuatro formas válidas o tres falacias de Aristóteles se examina.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Busque un contramodelo',
         descripcion: 'Escriba premisas y una conclusión con cuantificadores y busque una interpretación pequeña que los refute. Contraste \\(\\forall\\exists\\) con \\(\\exists\\forall\\) y \\(\\forall x\\,P \\to \\exists x\\,P\\).',
+        ayuda: String.raw`<p>Se dibuja la primera interpretación pequeña que cumple las premisas y falsifica la conclusión (contramodelo): los elementos que cumplen el predicado o R se marcan según la leyenda.</p>
+          <ul>
+          <li><strong>Premisas / Conclusión</strong>: si hay contramodelo, el argumento no es válido; si no se halla ninguno hasta el tamaño máximo, no hay evidencia en contra.</li>
+          <li><strong>Tamaño máximo del dominio</strong>: ampliarlo puede revelar contramodelos que antes no cabían.</li>
+          </ul>`,
         montar: montarContramodelo,
       },
       {
         titulo: 'Silogismos de Aristóteles',
         descripcion: 'Cuatro formas válidas y tres falacias clásicas. En las falacias aparece el contramodelo que las refuta; en las válidas, un modelo de las premisas.',
+        ayuda: String.raw`<p>Diagrama de conjuntos A, B y C con los elementos de cada uno. En una forma válida se muestra un modelo de las premisas; en una falacia, el contramodelo.</p>
+          <ul>
+          <li><strong>Silogismo</strong>: las formas válidas no admiten contramodelo; las falacias sí, y aparece como elementos en regiones que las premisas permiten pero la conclusión prohíbe.</li>
+          </ul>`,
         montar: montarSilogismos,
       },
     ],

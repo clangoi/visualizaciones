@@ -151,9 +151,28 @@
     intro: String.raw`
       <p>Un <strong>generador</strong> de D3 es una función que recibe datos y devuelve la cadena <code>d</code> de un <code>&lt;path&gt;</code>. El de <em>línea</em> une los puntos; el de <em>área</em> rellena entre dos líneas; el de <em>apilado</em> calcula las alturas de varias series una sobre otra.</p>
       <p>La decisión de diseño está en la <strong>curva</strong> que une los puntos: una curva suave se ve elegante, pero puede inventar valores que los datos nunca tuvieron.</p>`,
+    parametros: [
+      ['Curva (d3.curve…) (Fig. 1)', String.raw`Cómo se unen los puntos de datos: con rectas, escalones o distintas suavizaciones. Algunas pasan por los datos y otras solo se acercan a ellos.`],
+      ['tension (solo cardinal) (Fig. 1)', String.raw`Cuánto se tensa la curva cardinal: con 0 es la más curvada y con 1 se aproxima a rectas.`],
+      ['Datos (Fig. 1)', String.raw`Una serie con un salto brusco o una de cambios graduales. El salto pone a prueba qué curvas se pasan de los datos.`],
+      ['Mostrar los datos (Fig. 1)', String.raw`Muestra u oculta los puntos originales para comparar la curva con los datos.`],
+      ['Generador de área (Fig. 1)', String.raw`Rellena la zona entre la curva y el valor 0, es decir, pasa de line a area.`],
+      ['Desplazamiento (stackOffset) (Fig. 2)', String.raw`Cómo se apilan las series: valores absolutos, proporciones que suman 100 % o capas centradas en el eje.`],
+    ],
     visualizaciones: [
-      { titulo: 'Generador de líneas y tipos de curva', descripcion: 'Cambie el tipo de curva y los datos; con el salto brusco observe el sobreimpulso en rojo de las curvas que no son monótonas.', montar: montarLinea },
-      { titulo: 'Áreas apiladas', descripcion: 'Alterne entre apilado, normalizado y centrado, y pase el cursor sobre un mes para leer cada serie.', montar: montarApilado },
+      { titulo: 'Generador de líneas y tipos de curva', descripcion: 'Cambie el tipo de curva y los datos; con el salto brusco observe el sobreimpulso en rojo de las curvas que no son monótonas.',
+        ayuda: String.raw`<p>El eje horizontal son los meses y el vertical el valor. La curva azul la genera el generador de líneas, los puntos naranjas son los datos y la línea gris discontinua marca el 0. Un tramo rojo indica que la curva baja de 0, es decir, un sobreimpulso. La lectura indica el nombre de la curva y si pasa por los datos.</p>
+          <ul>
+          <li><strong>Curva</strong> «curveCardinal» o «curveBasis» con <strong>Datos</strong> «con un salto brusco»: aparece el tramo rojo bajo 0; «curveMonotoneX» no lo produce.</li>
+          <li><strong>tension</strong>: cambia la curvatura de cardinal.</li>
+          <li><strong>Generador de área</strong>: añade un relleno azul tenue hasta la línea de 0.</li>
+          </ul>`, montar: montarLinea },
+      { titulo: 'Áreas apiladas', descripcion: 'Alterne entre apilado, normalizado y centrado, y pase el cursor sobre un mes para leer cada serie.',
+        ayuda: String.raw`<p>Tres capas apiladas por mes: azul Web, naranja Móvil y aguamarina Tienda. Cada capa es el área entre dos líneas; al pasar el cursor las demás se atenúan y aparecen las cifras y porcentajes de ese mes.</p>
+          <ul>
+          <li><strong>Desplazamiento</strong> «normalizado»: el eje pasa a 0–1 y cada mes llena toda la altura, de modo que se comparan proporciones y no totales.</li>
+          <li>«centrado (silueta)» reparte las capas simétricamente alrededor del eje y desaparece la base común en 0.</li>
+          </ul>`, montar: montarApilado },
     ],
     teoria: String.raw`
       <h2>Generador de línea</h2>

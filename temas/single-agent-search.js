@@ -169,15 +169,32 @@
       movimiento desliza una ficha vecina al hueco. Es lo bastante pequeño para conocer la distancia exacta de cada uno de sus
       estados, y lo bastante grande para que buscar a ciegas sea costoso. Sus parientes mayores, el 15-puzzle y el 24-puzzle, se
       resuelven óptimamente solo con las técnicas de esta sección.</p>`,
+    parametros: [
+      ['Movimientos al mezclar (Fig. 1)', String.raw`Cuántos movimientos al azar se aplican desde la meta al pulsar «Mezclar». Más movimientos suelen dar estados más lejanos, aunque los movimientos que se deshacen no suman.`],
+      ['Mezclar, Estado más difícil, Meta (Fig. 1)', String.raw`Fijan la posición: mezclada al azar, uno de los dos estados a 31 movimientos de la meta, o resuelta.`],
+      ['Reproductor (Fig. 1)', String.raw`Reproducir resuelve el puzzle desde la posición actual con A* y anima la solución óptima; Reiniciar vuelve a esa posición.`],
+      ['Escala logarítmica (Fig. 2)', String.raw`Muestra el eje vertical en escala logarítmica para ver los niveles con muy pocos estados.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El 8-puzzle',
         descripcion: 'Intente resolverlo y compare su número de movimientos con la distancia óptima h*. Pruebe «Estado más difícil»: ningún estado está más lejos de la meta.',
+        ayuda: String.raw`<p>Es el tablero del 8-puzzle: ocho fichas y un hueco. Una ficha vecina al hueco puede deslizarse hacia él. Las fichas en verde ya están en su casilla final; la naranja es la que se acaba de mover.</p>
+          <ul>
+          <li>Juegue con clics y compare «sus movimientos» con la «distancia óptima h*»: casi siempre la solución humana es más larga.</li>
+          <li>«Manhattan h» es una estimación de \(h^*\) que nunca la sobrepasa; es la que usa A* al pulsar Reproducir.</li>
+          <li><strong>Movimientos al mezclar</strong> mayor da posiciones más difíciles y A* expande muchos más nodos («A*: expandidos»).</li>
+          </ul>`,
         montar: montarJugar,
       },
       {
         titulo: 'Estados según su distancia a la meta',
         descripcion: 'Una búsqueda en anchura hacia atrás desde la meta da la distancia exacta de los 181 440 estados alcanzables. Observe que la mayoría está a más de 18 movimientos.',
+        ayuda: String.raw`<p>Cada barra es una distancia a la meta (eje horizontal, de 0 a 31 movimientos) y su altura, cuántos estados necesitan exactamente esa cantidad. Las barras suman los 181 440 estados alcanzables, la mitad de las \(9!\) permutaciones. La línea punteada es la distancia media.</p>
+          <ul>
+          <li>La forma de campana muestra que casi todos los estados están lejos de la meta (más de 18 movimientos) y muy pocos en los extremos.</li>
+          <li><strong>Escala logarítmica</strong> revela las barras diminutas de los extremos, como los dos únicos estados a distancia 31.</li>
+          </ul>`,
         montar: montarEspacio,
       },
     ],

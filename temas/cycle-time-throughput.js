@@ -319,20 +319,43 @@
     intro: String.raw`
       <p>El <strong>análisis de desempeño</strong> parte de las marcas de tiempo del registro de eventos. El <em>tiempo de ciclo</em> (<em>cycle time</em>) de un caso es el tiempo que transcurre entre su primer y su último evento; el <em>throughput</em> es cuántos casos se terminan por unidad de tiempo; el <em>WIP</em> (<em>work in progress</em>) es cuántos casos hay abiertos en un instante.</p>
       <p>Las tres magnitudes no son independientes: la <strong>ley de Little</strong> las liga con una igualdad. Las figuras miden primero el ciclo de cada caso, luego muestran WIP y throughput en el tiempo y, por último, reproducen las marcas de tiempo evento por evento para ver de dónde sale esa igualdad.</p>`,
+    parametros: [
+      ['Casos (Fig. 1, 2 y 3)', String.raw`Cantidad de casos simulados. Con más casos hay más trabajo simultáneo y los promedios se estabilizan.`],
+      ['Llegada media (min) (Fig. 1, 2 y 3)', String.raw`Tiempo medio entre llegadas de casos. Menos minutos significa más carga: los casos se solapan más y el WIP sube.`],
+      ['Espera media (min) (Fig. 1)', String.raw`Espera media entre actividades de un caso. Subirla alarga el tiempo de ciclo sin cambiar el trabajo real.`],
+      ['Ventana de throughput (h) (Fig. 2)', String.raw`Ancho de la ventana en que se cuentan los casos terminados. Ventanas cortas dan una curva irregular; largas, una más suave.`],
+      ['Nuevos datos y reproductor (Fig. 1, 2 y 3)', String.raw`Nuevos datos genera otra muestra con los mismos parámetros. En la figura 3 el reproductor avanza evento por evento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tiempo de ciclo de cada caso',
         descripcion: 'Cada fila es un caso: azul es trabajo en una actividad, naranjo es espera. Suba la espera media y vea crecer el naranjo y el ciclo; luego aumente los casos y observe cómo se solapan.',
+        ayuda: String.raw`<p>Cada fila es un caso a lo largo del tiempo. Los tramos azules son servicio (actividad en ejecución) y los naranjas, espera entre actividades; la longitud total de la fila es su tiempo de ciclo. El caso seleccionado se resalta.</p>
+          <ul>
+          <li><strong>Espera media (min)</strong>: al subirla crecen los tramos naranjas y con ellos el tiempo de ciclo de cada caso.</li>
+          <li><strong>Llegada media (min)</strong>: al bajarla las filas empiezan más seguidas y se solapan más, es decir, hay más casos abiertos a la vez.</li>
+          <li><strong>Casos</strong>: cambia cuántas filas se comparan.</li>
+          </ul>`,
         montar: montarCasos,
       },
       {
         titulo: 'Throughput y WIP en el tiempo',
         descripcion: 'Arriba, casos abiertos en cada instante; abajo, casos terminados por hora. Cambie la llegada media y la ventana, y compare \\(\\lambda\\cdot T\\) con el WIP medio en la lectura.',
+        ayuda: String.raw`<p>El panel superior muestra el WIP (casos iniciados y no terminados) en el tiempo; el inferior, el throughput de la ventana en casos/h, con una referencia del promedio global.</p>
+          <ul>
+          <li><strong>Llegada media (min)</strong>: si llegan más casos por hora, suben el WIP y el throughput; la lectura compara \(\lambda\cdot T\) con el WIP medio.</li>
+          <li><strong>Ventana de throughput (h)</strong>: ensancharla suaviza la curva inferior, pero oculta variaciones cortas.</li>
+          </ul>`,
         montar: montarRendimiento,
       },
       {
         titulo: 'Reproducción de marcas de tiempo',
         descripcion: 'Avance paso a paso: cada evento sube o baja el WIP y suma un rectángulo de área \\(\\text{WIP}\\cdot\\Delta t\\). Al terminar, el área acumulada coincide con la suma de los tiempos de ciclo.',
+        ayuda: String.raw`<p>Curva de WIP en el tiempo ya reproducida. Se destaca el evento que se procesa ahora y los eventos pendientes aparecen aparte; cada paso suma un rectángulo de área \(\text{WIP}\cdot\Delta t\).</p>
+          <ul>
+          <li><strong>Llegada media (min)</strong>: con llegadas más seguidas el WIP alcanza valores más altos.</li>
+          <li><strong>Reproductor</strong>: cada paso sube o baja el WIP en una unidad; al final el área acumulada es la suma de los tiempos de ciclo.</li>
+          </ul>`,
         montar: montarReplay,
       },
     ],

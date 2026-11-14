@@ -252,20 +252,46 @@
       <p>Los modelos clásicos puntúan con estadísticas de los términos: un término cuenta más si aparece mucho en el documento (TF) y poco
       en la colección (IDF). Los modelos modernos representan consultas y documentos como <strong>vectores</strong> (embeddings) y buscan
       los más parecidos. En ambos casos, hay que medir la calidad del ranking con métricas como precisión y exhaustividad.</p>`,
+    parametros: [
+      ['Modelo (Fig. 1)', String.raw`Función de puntaje: BM25 o TF-IDF con logaritmo.`],
+      ['k₁ (saturación) (Fig. 1)', String.raw`Cuánto sigue ayudando repetir un término. Con k₁ bajo la frecuencia satura pronto.`],
+      ['b (normalización por largo) (Fig. 1)', String.raw`Cuánto se penaliza a los documentos largos. Con b = 0 no hay penalización y con b = 1 es total.`],
+      ['Términos de la consulta (Fig. 1)', String.raw`Casillas que activan o desactivan cada término del puntaje.`],
+      ['Ranking perfecto y Ejemplo (Fig. 2)', String.raw`Ponen un ranking de relevantes de ejemplo para observar el mejor caso o uno típico.`],
+      ['Relevantes en la colección (Fig. 2)', String.raw`Total de documentos relevantes que existen, incluidos los que el ranking no muestra. Fija la exhaustividad.`],
+      ['k vecinos (Fig. 3)', String.raw`Cantidad de documentos más cercanos que se recuperan.`],
+      ['Similitud y Nuevos datos (Fig. 3)', String.raw`Medida de cercanía (coseno o distancia euclídea) y generación de otra nube de documentos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'TF-IDF y BM25',
         descripcion: 'Puntaje de ocho documentos para la consulta elegida. BM25 satura la frecuencia del término (k₁) y penaliza los documentos largos (b).',
+        ayuda: String.raw`<p>Cada barra es el puntaje de un documento para la consulta; los colores de los términos aportan a cada barra su contribución.</p>
+          <ul>
+          <li><strong>Modelo</strong>: BM25 satura la frecuencia; TF-IDF con logaritmo crece más despacio pero sin tope.</li>
+          <li><strong>k₁</strong>: al subirlo, repetir un término aumenta el puntaje durante más tiempo.</li>
+          <li><strong>b</strong>: al subirlo, los documentos largos pierden puntaje y el orden puede cambiar.</li>
+          </ul>`,
         montar: montarRanking,
       },
       {
         titulo: 'Precisión y exhaustividad',
         descripcion: 'Marque qué resultados del ranking son relevantes y vea la curva de precisión–exhaustividad, la precisión media y el nDCG.',
+        ayuda: String.raw`<p>Eje horizontal: exhaustividad (recall). Eje vertical: precisión. Se dibuja la curva precisión-exhaustividad y su versión interpolada; cada resultado marcado como relevante o no se acumula al ranking.</p>
+          <ul>
+          <li><strong>Relevantes en la colección</strong>: si hay más relevantes de los que el ranking encuentra, la curva no llega a exhaustividad 1.</li>
+          <li><strong>Ranking perfecto</strong>: los relevantes quedan primeros y la precisión se mantiene en 1 al inicio.</li>
+          </ul>`,
         montar: montarPR,
       },
       {
         titulo: 'Búsqueda vectorial',
         descripcion: 'Documentos como vectores de embedding en dos dimensiones. Mueva la consulta y compare los k vecinos por coseno y por distancia euclídea.',
+        ayuda: String.raw`<p>Cada punto es un documento en un espacio de embedding de dos dimensiones; un marcador distinto representa el vector de la consulta y se resaltan sus k vecinos.</p>
+          <ul>
+          <li><strong>k vecinos</strong>: más vecinos amplían el conjunto recuperado.</li>
+          <li><strong>Similitud</strong>: coseno mide el ángulo y euclídea la distancia; los vecinos pueden cambiar, sobre todo si los vectores tienen distinta longitud.</li>
+          </ul>`,
         montar: montarVectores,
       },
     ],

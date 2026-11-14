@@ -380,20 +380,45 @@
       óptimo el gradiente de la función objetivo queda equilibrado por los gradientes de las restricciones que están activas, cada uno con un peso (multiplicador) que no puede ser negativo.</p>
       <p>Son cuatro comprobaciones sencillas: que el equilibrio de gradientes se cumpla, que el punto sea factible, que los multiplicadores de desigualdad sean no negativos y que una restricción
       inactiva tenga multiplicador cero. Si las cuatro se cumplen, el punto es un <em>candidato</em> a óptimo; en problemas convexos, además, es un óptimo global.</p>`,
+    parametros: [
+      ['Problema (Fig. 1)', String.raw`Problema con restricciones g y h cuyos candidatos se verifican.`],
+      ['Tolerancia ε (Fig. 1)', String.raw`Margen numérico para aceptar cada condición KKT; mayor ε acepta candidatos menos exactos.`],
+      ['Resolver (Lagrangiano aumentado), Candidato incorrecto (Fig. 1)', String.raw`Colocan el candidato en un punto KKT o en uno que falla alguna condición.`],
+      ['Exponente p de la cúspide (Fig. 2)', String.raw`Forma de la cúspide \((1 - x)^p\) en la región factible.`],
+      ['Candidato: abscisa x sobre y = 0 (Fig. 2)', String.raw`Punto candidato sobre el eje y = 0.`],
+      ['Cúspide / Esquina (Fig. 2)', String.raw`Usan una región con LICQ fallida o válida.`],
+      ['Centro a (Fig. 3)', String.raw`Mínimo de \(f(x) = (x - a)^2\); decide si la cota b está activa.`],
+      ['Cota b (Fig. 3)', String.raw`Límite de \(g(x) = x - b \le 0\).`],
+      ['Quitar candidato (Fig. 3)', String.raw`Borra el candidato elegido en el plano.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Calculadora KKT',
         descripcion: 'Haga clic para elegir un candidato y lea la tabla con las cuatro condiciones. Pruebe «Resolver (Lagrangiano aumentado)» para ver un punto KKT y «Candidato incorrecto» para ver cuál condición falla; luego reduzca la tolerancia ε.',
+        ayuda: String.raw`<p>Región \(g \le 0\), fronteras, \(-\nabla f\), \(\nabla g\) activo y \(\nabla h\). El candidato se marca según cumpla o falle KKT.</p>
+          <ul>
+          <li><strong>Tolerancia ε</strong>: define cuándo cada condición se considera satisfecha.</li>
+          <li><strong>Candidato incorrecto</strong>: muestra qué condición de la tabla falla.</li>
+          </ul>`,
         montar: montarCalculadora,
       },
       {
         titulo: 'Calificación de restricciones (LICQ)',
         descripcion: 'En una cúspide los gradientes activos quedan alineados y KKT falla aunque el punto sea óptimo. Compare «Cúspide» y «Esquina» y mueva el candidato por la región.',
+        ayuda: String.raw`<p>Región factible con \(\nabla g_1\), \(\nabla g_2\), \(-\nabla f\) y el cono de gradientes activos.</p>
+          <ul>
+          <li><strong>Cúspide</strong>: los gradientes activos quedan alineados, \(-\nabla f\) no está en su cono y KKT falla aunque sea óptimo.</li>
+          <li><strong>Esquina</strong>: los gradientes son independientes y KKT se cumple.</li>
+          </ul>`,
         montar: montarLICQ,
       },
       {
         titulo: 'Holgura complementaria',
         descripcion: 'Cambie a y b (o pulse «Reproducir» para barrer a) y vea que el par \\((g,\\mu)\\) de la solución siempre queda sobre la «L». Haga clic en el plano inferior para probar candidatos fuera de ella.',
+        ayuda: String.raw`<p>Arriba, \(f(x)\) con el candidato. Abajo, el plano \((g, \mu)\) con el conjunto \(g \le 0\), \(\mu \ge 0\), \(\mu g = 0\), el punto KKT y los candidatos.</p>
+          <ul>
+          <li><strong>Centro a</strong> y <strong>Cota b</strong>: el punto KKT queda sobre la «L»: \(\mu = 0\) si g es inactiva, \(g = 0\) si activa.</li>
+          </ul>`,
         montar: montarHolgura,
       },
     ],

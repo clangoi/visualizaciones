@@ -278,15 +278,32 @@
       problema: el óptimo puede estar en el interior (y entonces la restricción «no se entera») o pegado al borde (y entonces actúa como una pared).</p>
       <p>Una restricción es <strong>activa</strong> en un punto si se cumple con igualdad, \(g(x)=0\), e <strong>inactiva</strong> si se cumple con holgura, \(g(x)<0\). Distinguir ambos casos es
       la idea central detrás de las condiciones de Karush–Kuhn–Tucker.</p>`,
+    parametros: [
+      ['Región factible (Fig. 1 y 2)', String.raw`Forma de la región permitida por las desigualdades.`],
+      ['Tamaño de la región (Fig. 1)', String.raw`Escala de la región; si se reduce, el mínimo libre queda fuera y la restricción se activa.`],
+      ['Óptimo libre dentro / fuera (Fig. 1)', String.raw`Colocan el mínimo sin restricciones dentro o fuera de la región.`],
+      ['Centro de f (Fig. 2)', String.raw`Posición del mínimo sin restricciones respecto a la región.`],
+      ['Dirección d (ángulo) (Fig. 2)', String.raw`Dirección de prueba en el punto elegido.`],
+      ['Dar un paso factible de descenso, Ir al óptimo, Reiniciar (Fig. 2)', String.raw`Avanzan hacia el óptimo, saltan a él o vuelven al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Restricción activa o inactiva',
         descripcion: 'Arrastre el centro de las curvas de nivel (el mínimo sin restricciones) dentro y fuera de la región, y cambie la forma de la región. Observe cuándo el óptimo se pega al borde y aparece un multiplicador positivo.',
+        ayuda: String.raw`<p>Región factible, mínimo sin restricciones (centro de f), óptimo restringido, \(-\nabla f\) y \(\nabla g\) de la restricción activa en el óptimo.</p>
+          <ul>
+          <li><strong>Óptimo libre dentro</strong>: el óptimo coincide con el centro y no hay restricción activa.</li>
+          <li><strong>Óptimo libre fuera</strong>: el óptimo sube al borde y \(-\nabla f\) se alinea con \(\nabla g\).</li>
+          </ul>`,
         montar: montarActivaInactiva,
       },
       {
         titulo: 'Direcciones factibles de descenso',
         descripcion: 'En el punto elegido, las líneas verdes son las direcciones que bajan f sin salir de la región. Pulse «Dar un paso factible de descenso» hasta que no queden: ese es el óptimo.',
+        ayuda: String.raw`<p>Región factible; las direcciones factibles que bajan f aparecen aparte de las demás. Se muestran la dirección d, \(-\nabla f\) y \(\nabla g\) activo.</p>
+          <ul>
+          <li><strong>Dirección d</strong>: debe ser factible y bajar f; si no queda ninguna, el punto es óptimo.</li>
+          </ul>`,
         montar: montarDirecciones,
       },
     ],

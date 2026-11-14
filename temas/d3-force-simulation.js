@@ -100,9 +100,29 @@
     intro: String.raw`
       <p>Una <strong>simulación de fuerzas</strong> ubica nodos sin que nadie diga dónde: cada nodo se trata como una partícula, y fuerzas simples —repulsión entre todos, resortes en los enlaces, una atracción al centro— la empujan hasta que el conjunto se aquieta.</p>
       <p>Sirve para grafos (los nodos conectados quedan cerca) y también para burbujas, agrupamientos y evitar solapes: lo que importa es qué fuerzas se combinan.</p>`,
+    parametros: [
+      ['Carga (forceManyBody) (Fig. 1)', String.raw`La repulsión entre nodos: con valores muy negativos se empujan con fuerza y el grafo se expande; cerca de 0 se amontonan.`],
+      ['Distancia del enlace (Fig. 1)', String.raw`El largo ideal de cada arista: mayor distancia separa más los nodos conectados.`],
+      ['Atracción al centro (Fig. 1)', String.raw`Cuánto tira cada nodo hacia el centro del lienzo. Contrarresta la repulsión: con valores altos el grafo se compacta.`],
+      ['Nuevo grafo y Reavivar (Fig. 1)', String.raw`Nuevo grafo genera otro grafo aleatorio; Reavivar reinicia la temperatura de la simulación para que vuelva a moverse.`],
+      ['Agrupar por categoría (forceX) (Fig. 2)', String.raw`Si está activado, cada categoría se atrae a su propia columna; si no, todas van al centro.`],
+      ['Evitar solapes (forceCollide) (Fig. 2)', String.raw`Si está activado, los círculos se empujan para no superponerse; si no, se encima según su valor.`],
+      ['Dispersar (Fig. 2)', String.raw`Reubica los círculos al azar y reactiva la simulación para ver cómo se reacomodan.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un grafo que se acomoda solo', descripcion: 'Cambie carga, distancia y atracción al centro, y arrastre nodos para perturbar el equilibrio.', montar: montarGrafo },
-      { titulo: 'Colisión y agrupamiento', descripcion: 'Active las fuerzas de colisión y de agrupamiento por categoría sobre círculos de distinto tamaño.', montar: montarBurbujas },
+      { titulo: 'Un grafo que se acomoda solo', descripcion: 'Cambie carga, distancia y atracción al centro, y arrastre nodos para perturbar el equilibrio.',
+        ayuda: String.raw`<p>Los nodos son círculos (azul, naranja y aguamarina según su grupo) unidos por aristas grises. La lectura muestra alpha (la temperatura de la simulación), las iteraciones y la energía cinética; cuando alpha baja del umbral, el grafo está estable. Al pasar el cursor sobre un nodo se ve su grupo y grado.</p>
+          <ul>
+          <li><strong>Carga</strong> más negativa: los nodos se alejan entre sí y el grafo ocupa más espacio.</li>
+          <li><strong>Distancia del enlace</strong>: alarga o acorta las aristas.</li>
+          <li><strong>Atracción al centro</strong> alta: el grafo se contrae hacia el centro del lienzo.</li>
+          </ul>`, montar: montarGrafo },
+      { titulo: 'Colisión y agrupamiento', descripcion: 'Active las fuerzas de colisión y de agrupamiento por categoría sobre círculos de distinto tamaño.',
+        ayuda: String.raw`<p>Cada círculo es un ítem; su área es proporcional a su valor y su color indica la categoría (Norte azul, Centro naranja, Sur aguamarina). La lectura cuenta los pares de círculos que se solapan y la temperatura alpha.</p>
+          <ul>
+          <li><strong>Evitar solapes</strong> desactivado: los círculos se encima y los pares solapados suben; activado, bajan a 0 o casi.</li>
+          <li><strong>Agrupar por categoría</strong>: los colores se separan en tres grupos, cada uno en su zona horizontal.</li>
+          </ul>`, montar: montarBurbujas },
     ],
     teoria: String.raw`
       <h2>Modelo físico</h2>

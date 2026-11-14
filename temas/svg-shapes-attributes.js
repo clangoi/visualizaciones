@@ -73,9 +73,33 @@
       <p>SVG ofrece un puñado de formas básicas —<code>rect</code>, <code>circle</code>, <code>ellipse</code>, <code>line</code>, <code>polygon</code> y <code>text</code>— y cada una se describe con
       <strong>atributos</strong>: posición, tamaño, relleno, borde, transparencia. Un gráfico es una colección de estas formas colocadas según los datos.</p>
       <p>A diferencia de CSS no hay capas con <code>z-index</code>: el <strong>orden en el documento</strong> es el orden de pintado.</p>`,
+    parametros: [
+      ['Elemento (Fig. 1)', String.raw`Qué forma SVG se dibuja (rect, circle, ellipse, line, polygon o text). Cada una usa los tamaños de otra manera, por eso cambian los atributos del código.`],
+      ['Tamaño principal (width / r / rx) (Fig. 1)', String.raw`Controla la dimensión horizontal de la forma: la mitad del ancho en rect, el radio en circle, rx en ellipse, el largo de line o el tamaño de letra en text.`],
+      ['Tamaño secundario (height / ry) (Fig. 1)', String.raw`Controla la dimensión vertical: la mitad del alto en rect, ry en ellipse, la inclinación de line y el tamaño del triángulo en polygon. No afecta a circle.`],
+      ['fill (Fig. 1)', String.raw`El color de relleno; «none» deja la forma sin relleno y solo se ve el borde.`],
+      ['stroke-width (Fig. 1)', String.raw`El grosor del borde. Con 0 y fill «none» la figura desaparece.`],
+      ['opacity (Fig. 1)', String.raw`Transparencia de todo el elemento (relleno y borde): permite ver la rejilla a través de la forma.`],
+      ['Círculo (Fig. 2)', String.raw`El círculo seleccionado (A, B o C), al que se aplican la transparencia y los botones de orden. También se elige con un clic sobre él.`],
+      ['Atributo de transparencia (Fig. 2)', String.raw`fill-opacity afecta solo al relleno; opacity afecta al elemento completo, incluido el borde.`],
+      ['Valor (Fig. 2)', String.raw`Cuánta opacidad se aplica al círculo seleccionado: menor valor, más se ve lo que hay debajo.`],
+      ['Traer al frente y Enviar al fondo (Fig. 2)', String.raw`Cambian el orden de pintado del círculo seleccionado: en SVG lo último que se escribe queda encima.`],
+    ],
     visualizaciones: [
-      { titulo: 'Formas y sus atributos', descripcion: 'Elija una forma y modifique tamaño, relleno, grosor y opacidad; el código muestra el elemento equivalente.', montar: montarFormas },
-      { titulo: 'Capas y transparencia', descripcion: 'Reordene tres círculos superpuestos y compare fill-opacity con opacity.', montar: montarCapas },
+      { titulo: 'Formas y sus atributos', descripcion: 'Elija una forma y modifique tamaño, relleno, grosor y opacidad; el código muestra el elemento equivalente.',
+        ayuda: String.raw`<p>Una sola forma centrada sobre una rejilla de 50 unidades; debajo, el código del elemento SVG con los mismos valores que el dibujo.</p>
+          <ul>
+          <li><strong>Elemento</strong>: cambia la etiqueta SVG; los dos tamaños se reinterpretan según la forma.</li>
+          <li><strong>Tamaño principal</strong> y <strong>Tamaño secundario</strong>: modifican los atributos geométricos que aparecen en el código (width, height, r, rx, ry o points).</li>
+          <li><strong>fill</strong>, <strong>stroke-width</strong> y <strong>opacity</strong>: cambian el color interior, el borde negro y la transparencia, y se reflejan en el código.</li>
+          </ul>`, montar: montarFormas },
+      { titulo: 'Capas y transparencia', descripcion: 'Reordene tres círculos superpuestos y compare fill-opacity con opacity.',
+        ayuda: String.raw`<p>Tres círculos superpuestos: A azul, B naranja y C aguamarina. El seleccionado tiene borde más grueso; el texto inferior indica el orden de pintado de atrás hacia adelante.</p>
+          <ul>
+          <li><strong>Traer al frente</strong> / <strong>Enviar al fondo</strong>: cambian qué círculo tapa a cuáles; el orden escrito se actualiza.</li>
+          <li><strong>fill-opacity</strong> con <strong>Valor</strong> bajo: solo se aclara el relleno y el borde sigue nítido.</li>
+          <li><strong>opacity</strong>: se aclara también el borde, así que el círculo entero se funde con los de atrás.</li>
+          </ul>`, montar: montarCapas },
     ],
     teoria: String.raw`
       <h2>Formas y atributos geométricos</h2>

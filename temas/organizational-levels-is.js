@@ -276,20 +276,41 @@
       <em>apoyo a decisiones</em> (DSS) y de <em>apoyo a ejecutivos</em> (ESS).</p>
       <p>Lo que cambia al subir no es solo la pantalla: los datos se resumen, el horizonte se alarga y las decisiones dejan de tener una regla
       escrita. Las tres figuras muestran esa pirámide desde la clasificación, desde el volumen de datos y desde el tipo de decisión.</p>`,
+    parametros: [
+      ['Situación (Fig. 1)', String.raw`Caso de ejemplo que debe ubicarse en un peldaño de la pirámide. Elegir otro cambia qué sistema es el correcto.`],
+      ['Otra situación y Reiniciar puntaje (Fig. 1)', String.raw`Cambia a otro caso o pone en cero los aciertos.`],
+      ['Periodo cubierto (Fig. 2)', String.raw`Meses de datos que cada sistema debe manejar. Más periodo implica más datos para los niveles bajos.`],
+      ['Ventas por mes (Fig. 2)', String.raw`Volumen de transacciones. Sube en proporción lo que maneja el sistema transaccional.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra muestra con las mismas condiciones.`],
+      ['Estructura de la decisión (Fig. 3)', String.raw`Qué tan estructurada es la decisión, de rutinaria a no estructurada. Cambia el tipo de sistema que la apoya.`],
+      ['Alcance de la decisión (Fig. 3)', String.raw`Nivel de la decisión, de operativo a estratégico. Cambia el nivel organizacional que la toma.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La pirámide de sistemas',
         descripcion: 'Lea cada situación y haga clic en el peldaño que corresponde; la lectura muestra entradas, procesamiento y salidas del sistema que toque. Pruebe equivocarse a propósito para ver la explicación.',
+        ayuda: String.raw`<p>Pirámide con un peldaño por tipo de sistema. El verde marca la respuesta correcta y otro color, la respuesta elegida si fue errónea.</p>
+          <ul>
+          <li><strong>Situación</strong>: cada caso corresponde a un peldaño distinto; compare su respuesta con la correcta.</li>
+          </ul>`,
         montar: montarPiramide,
       },
       {
         titulo: 'Cuántos datos mira cada nivel',
         descripcion: 'Con los mismos datos simulados, cuente qué maneja cada sistema. Aumente las ventas por mes: el TPS crece en proporción, el tablero ejecutivo casi no cambia.',
+        ayuda: String.raw`<p>Barras por tipo de sistema (color de la leyenda). El eje vertical es la cantidad de datos que el sistema debe manejar para decidir.</p>
+          <ul>
+          <li><strong>Periodo cubierto</strong> y <strong>Ventas por mes</strong>: el sistema transaccional crece en proporción; los sistemas de niveles superiores, que resumen, casi no cambian.</li>
+          </ul>`,
         montar: montarVolumen,
       },
       {
         titulo: 'El plano de las decisiones',
         descripcion: 'Ubique una decisión según su grado de estructura y su alcance, y vea qué sistema la apoya. Arrastre desde «cobrar una venta» hasta «entrar a un nuevo país» y observe cómo cambia la zona.',
+        ayuda: String.raw`<p>Plano con la estructura de la decisión en el eje horizontal y su alcance (operativo a estratégico) en el vertical. Las zonas se colorean por sistema y las decisiones de ejemplo llevan una marca según el sistema que las apoya.</p>
+          <ul>
+          <li><strong>Estructura de la decisión</strong> y <strong>Alcance de la decisión</strong>: mueven su decisión (también arrastrable) por el plano y cambia la zona y el sistema que la apoya.</li>
+          </ul>`,
         montar: montarPlano,
       },
     ],

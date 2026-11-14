@@ -78,9 +78,25 @@
     intro: String.raw`
       <p>En un disco magnético lo más caro es <strong>mover el brazo</strong> hasta el cilindro correcto (<em>seek</em>, milisegundos), más que leer los datos. Si hay varias solicitudes pendientes, el orden en que se atienden cambia cuánto se mueve el brazo en total.</p>
       <p>Cuatro políticas clásicas: <strong>FCFS</strong> (en orden de llegada), <strong>SSTF</strong> (la más cercana primero), <strong>SCAN</strong> (barrer en un sentido y volver, como un ascensor) y <strong>C-SCAN</strong> (barrer solo en un sentido).</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Orden en que el cabezal atiende las solicitudes pendientes (FCFS, SSTF, SCAN, etc.). Cambia el recorrido total en cilindros.`],
+      ['Solicitudes (Fig. 1)', String.raw`Cuántas peticiones hay en la cola. Más solicitudes dan más oportunidades de ordenar el recorrido.`],
+      ['Cabezal inicial (cilindro) y Nuevas solicitudes (Fig. 1)', String.raw`El punto de partida del cabezal y otra cola aleatoria de cilindros.`],
+      ['Otro muestreo (Fig. 2)', String.raw`Repite el promedio con otras colas aleatorias.`],
+    ],
     visualizaciones: [
-      { titulo: 'Recorrido del cabezal', descripcion: 'Compare el movimiento total de cada algoritmo con las mismas solicitudes. Mueva el cabezal inicial y la cantidad de solicitudes.', montar: montarRuta },
-      { titulo: 'Qué algoritmo gana según la carga', descripcion: 'Promedie muchas colas aleatorias: cuanto más larga la cola, más ayuda ordenar las solicitudes.', montar: montarCurva },
+      { titulo: 'Recorrido del cabezal', descripcion: 'Compare el movimiento total de cada algoritmo con las mismas solicitudes. Mueva el cabezal inicial y la cantidad de solicitudes.',
+        ayuda: String.raw`<p>El eje horizontal es el cilindro y el vertical, el orden en el tiempo. La línea azul es el recorrido del cabezal; los puntos naranjas son solicitudes atendidas y el punto gris, el cabezal inicial.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: con las mismas solicitudes la línea azul cambia de zigzag a barridos ordenados, y el movimiento total baja.</li>
+          <li><strong>Solicitudes</strong>: con más puntos naranjas el FCFS recorre mucho más que los algoritmos que ordenan.</li>
+          <li><strong>Cabezal inicial</strong>: cambia el primer tramo y qué solicitudes quedan cerca.</li>
+          </ul>`, montar: montarRuta },
+      { titulo: 'Qué algoritmo gana según la carga', descripcion: 'Promedie muchas colas aleatorias: cuanto más larga la cola, más ayuda ordenar las solicitudes.',
+        ayuda: String.raw`<p>Eje horizontal, solicitudes en cola; vertical, cilindros recorridos por solicitud (promedio). Cada línea es un algoritmo con el color de la leyenda.</p>
+          <ul>
+          <li><strong>Otro muestreo</strong>: las líneas cambian ligeramente, pero FCFS queda por encima y las que ordenan bajan al crecer la cola.</li>
+          </ul>`, montar: montarCurva },
     ],
     teoria: String.raw`
       <h2>Costo de un acceso</h2>

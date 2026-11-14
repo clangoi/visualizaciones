@@ -107,10 +107,20 @@
       <p>El <strong>algoritmo de Kruskal</strong> es <a href="tema.html?id=greedy">codicioso</a>: recorre las aristas de la más liviana a la más
       pesada y acepta cada una salvo que cierre un ciclo con las ya elegidas. Para detectar ciclos rápidamente usa una estructura
       <strong>union-find</strong>.</p>`,
+    parametros: [
+      ['Nodos y Densidad', String.raw`Tamaño del grafo y número medio de aristas por vértice. Con más aristas hay más candidatas que rechazar.`],
+      ['Nuevo grafo', String.raw`Genera otro grafo no dirigido con pesos al azar.`],
+      ['Velocidad y reproductor', String.raw`Reproducir avanza solo, Un paso examina una arista, Hasta el final termina y Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Kruskal paso a paso',
         descripcion: 'Los vértices del mismo color pertenecen a la misma componente del bosque que se va formando (los blancos aún están solos). Una arista se acepta si une dos componentes distintas.',
+        ayuda: String.raw`<p>Las aristas se examinan de la más liviana a la más pesada (la tira de abajo muestra ese orden). Los vértices del mismo color pertenecen a la misma componente del bosque que se va formando. Una arista se acepta (azul) si une dos componentes distintas y se rechaza (roja discontinua) si sus extremos ya estaban conectados, porque formaría un ciclo.</p>
+          <ul>
+          <li>Cada arista aceptada fusiona dos componentes: los colores se unifican. El árbol está completo cuando queda un solo color (\(|V| - 1\) aristas).</li>
+          <li><strong>Densidad</strong> alta: hay muchas más aristas rechazadas, pero el árbol final sigue teniendo \(|V| - 1\) aristas.</li>
+          </ul>`,
         montar,
       },
     ],

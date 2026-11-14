@@ -175,15 +175,31 @@
       <p>El control de acceso de SQL es <em>discrecional</em>: el dueño de un objeto otorga privilegios con <code>GRANT</code> y los quita con
       <code>REVOKE</code>, y quien recibe un privilegio con <code>WITH GRANT OPTION</code> puede volver a otorgarlo. Eso forma un grafo cuyas
       consecuencias no siempre son obvias.</p>`,
+    parametros: [
+      ['REVOKE (Fig. 1)', String.raw`Cómo se revoca un privilegio: CASCADE también retira lo que otorgó quien lo perdió; RESTRICT se rechaza si hay dependientes.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza por los GRANT y el REVOKE final; al cambiar REVOKE se reinicia.`],
+      ['Usuario (Fig. 2)', String.raw`El rol del usuario que hace la consulta.`],
+      ['Acción (Fig. 2)', String.raw`La operación que ese usuario intenta realizar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'GRANT y REVOKE en cascada',
         descripcion: 'Cinco usuarios se pasan el privilegio SELECT sobre Notas. Avance hasta el REVOKE final y compare CASCADE con RESTRICT.',
+        ayuda: String.raw`<p>Cada nodo es un usuario y cada flecha un GRANT. La línea gruesa es GRANT … WITH GRANT OPTION (puede reotorgar) y la delgada, GRANT sin opción. Los otorgamientos revocados o abandonados se distinguen en la leyenda, y cada usuario se marca según tenga o no SELECT.</p>
+          <ul>
+          <li><strong>REVOKE</strong> con CASCADE: se pierden los privilegios de toda la cadena que dependía del usuario revocado.</li>
+          <li><strong>REVOKE</strong> con RESTRICT: la revocación se rechaza mientras haya otorgamientos que dependen de ella.</li>
+          </ul>`,
         montar: montarGrant,
       },
       {
         titulo: 'Roles y seguridad por filas',
         descripcion: 'Control de acceso basado en roles, con políticas que filtran filas según quién pregunta. Pruebe la misma acción con un alumno, un ayudante y la auditora.',
+        ayuda: String.raw`<p>La matriz de permisos relaciona roles (filas) con acciones (columnas). La celda del rol y la acción elegidos queda verde si está permitida y roja si se deniega; la fila y la columna correspondientes se resaltan. Debajo se ven la sentencia y las filas visibles para ese usuario.</p>
+          <ul>
+          <li><strong>Usuario</strong>: cambia el rol y, con él, qué acciones se permiten y qué filas se ven según las políticas.</li>
+          <li><strong>Acción</strong>: cambia la columna evaluada; la misma acción puede estar permitida para un rol y denegada para otro.</li>
+          </ul>`,
         montar: montarRoles,
       },
     ],

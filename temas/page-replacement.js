@@ -97,9 +97,26 @@
     intro: String.raw`
       <p>La memoria virtual permite que los procesos usen más memoria que la física: las páginas que no caben viven en disco y se traen cuando se necesitan. Cuando un acceso encuentra su página ausente ocurre una <strong>falla de página</strong>; si todos los marcos están ocupados, el sistema debe elegir una <strong>página víctima</strong> y expulsarla.</p>
       <p>Cada falla cuesta milisegundos (un acceso a disco) frente a nanosegundos de un acceso normal, así que elegir bien la víctima importa muchísimo.</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Criterio para elegir qué página expulsar cuando no hay marcos libres (FIFO, LRU, óptimo, etc.). Cambia qué páginas permanecen y cuántas fallas se producen.`],
+      ['Cadena de referencias (Fig. 1 y 2)', String.raw`La secuencia de páginas que pide el proceso. Con localidad favorece a LRU; la cíclica castiga a LRU y FIFO; la de Belady muestra una anomalía de FIFO.`],
+      ['Marcos (Fig. 1)', String.raw`Cuántas páginas caben a la vez en memoria. Con más marcos suelen bajar las fallas.`],
+      ['Velocidad, reproductor y Nuevos datos (Fig. 1 y 2)', String.raw`Los botones avanzan o reinician la simulación; Nuevos datos genera otra cadena aleatoria.`],
+    ],
     visualizaciones: [
-      { titulo: 'Reemplazo paso a paso', descripcion: 'Elija un algoritmo y una cadena de referencias y siga el contenido de los marcos. Compare con la cadena cíclica, donde LRU y FIFO fallan siempre.', montar: montarPasos },
-      { titulo: 'Fallas según el número de marcos', descripcion: 'Compare los cinco algoritmos. Con la cadena de Belady observe cómo FIFO empeora al agregar un marco.', montar: montarCurva },
+      { titulo: 'Reemplazo paso a paso', descripcion: 'Elija un algoritmo y una cadena de referencias y siga el contenido de los marcos. Compare con la cadena cíclica, donde LRU y FIFO fallan siempre.',
+        ayuda: String.raw`<p>Cada columna es una referencia y cada fila un marco. Las columnas rojas son fallas de página, las verdes aciertos, y el punto naranja indica la página que se expulsa en esa falla.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: con la misma cadena cambia qué punto naranja aparece y, por tanto, el número de columnas rojas.</li>
+          <li><strong>Marcos</strong>: agrega filas; más filas suelen convertir fallas en aciertos.</li>
+          <li><strong>Cadena de referencias</strong>: la cíclica produce columnas casi todas rojas con LRU y FIFO.</li>
+          </ul>`, montar: montarPasos },
+      { titulo: 'Fallas según el número de marcos', descripcion: 'Compare los cinco algoritmos. Con la cadena de Belady observe cómo FIFO empeora al agregar un marco.',
+        ayuda: String.raw`<p>Eje horizontal, número de marcos; vertical, fallas de página. Cada línea es un algoritmo, con el color de la leyenda.</p>
+          <ul>
+          <li><strong>Cadena</strong>: con la de Belady la línea de FIFO sube al pasar de un marco al siguiente, algo que no ocurre con LRU ni con óptimo.</li>
+          <li><strong>Nuevos datos</strong>: regenera la cadena aleatoria y muestra si el orden entre algoritmos se mantiene.</li>
+          </ul>`, montar: montarCurva },
     ],
     teoria: String.raw`
       <h2>Algoritmos</h2>

@@ -245,15 +245,31 @@
       (<em>lot sizing</em>) busca el punto medio: decidir <em>cuándo</em> preparar y <em>cuánto</em> producir en cada preparación.</p>
       <p>La decisión «¿preparo este periodo?» es una variable binaria, y la cantidad es una variable continua que solo puede ser positiva si esa binaria vale 1. Ese enlace es el corazón de
       los modelos de planificación con costos fijos.</p>`,
+    parametros: [
+      ['Costo de preparación K (Fig. 1) y Preparación K (Fig. 2)', String.raw`Costo fijo de cada vez que se produce. Si sube, conviene producir menos veces y en lotes mayores.`],
+      ['Mantención h por unidad y periodo (Fig. 1) y Mantención h (Fig. 2)', String.raw`Costo de guardar una unidad un periodo. Si sube, conviene producir más seguido y mantener menos inventario.`],
+      ['Políticas y Nueva demanda (Fig. 1 y 2)', String.raw`Lote por lote produce cada periodo lo que se demanda, Un solo lote produce todo al inicio, Óptimo (PD) aplica el mejor plan y Nueva demanda sortea otra demanda.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Comparar políticas de producción',
         descripcion: 'Parta con «Lote por lote» y luego con «Un solo lote»; después active y apague preparaciones a mano. Suba K y verá que conviene producir menos veces; suba h y conviene lo contrario. «Óptimo (PD)» nunca pierde contra su plan.',
+        ayuda: String.raw`<p>El eje horizontal es el periodo t y el vertical, las unidades. Se dibujan la demanda, la producción, el inventario final y las preparaciones (yₜ = 1) según la leyenda; la lectura da el costo total.</p>
+          <ul>
+          <li><strong>Costo de preparación K</strong>: al subirlo, «Lote por lote» se encarece y el óptimo agrupa la producción.</li>
+          <li><strong>Mantención h</strong>: al subirla, «Un solo lote» se encarece por el inventario acumulado.</li>
+          <li><strong>Óptimo (PD)</strong> nunca cuesta más que las otras dos políticas.</li>
+          </ul>`,
         montar: montarPoliticas,
       },
       {
         titulo: 'Programación dinámica de Wagner–Whitin',
         descripcion: 'Avance paso a paso: cada fila t prueba todas las últimas preparaciones j y guarda el mínimo. Cambie K y h y observe cómo cambia la columna del mínimo en cada fila y el plan recuperado.',
+        ayuda: String.raw`<p>Cada fila t evalúa los candidatos j (última preparación en j) y guarda el mínimo, f(t). Se destacan el candidato evaluado, el f(j−1) reutilizado, el mínimo de la fila y el plan óptimo recuperado.</p>
+          <ul>
+          <li><strong>Preparación K</strong>: con K alta, el mínimo de cada fila tiende a un j más antiguo (menos preparaciones).</li>
+          <li><strong>Mantención h</strong>: con h alta, el mínimo tiende a un j reciente (más preparaciones).</li>
+          </ul>`,
         montar: montarPD,
       },
     ],

@@ -100,9 +100,27 @@
     intro: String.raw`
       <p>Las personas no leemos todas las propiedades visuales con la misma precisión. Comparar la posición de dos puntos sobre una misma línea base es fácil y exacto; comparar el área de dos círculos o el ángulo de dos sectores es difícil y sesgado.</p>
       <p>Esa diferencia se midió con experimentos: Cleveland y McGill (1984) pidieron estimar razones entre marcas con distintas codificaciones, y ordenaron los canales por el error cometido. Aquí puede repetir una versión del experimento.</p>`,
+    parametros: [
+      ['Codificación (Fig. 1)', String.raw`Cómo se dibuja la magnitud de cada marca: posición en escala común, longitud sin base común, ángulo de sectores o área de círculos. Cambiarla cambia la dificultad de estimar la razón.`],
+      ['Estimación (% de la mayor) (Fig. 1)', String.raw`Su respuesta: qué porcentaje de la marca mayor cree que mide la menor.`],
+      ['Responder, Nueva pregunta y Borrar resultados (Fig. 1)', String.raw`Responder revela los valores reales y registra su error; Nueva pregunta genera otro par; Borrar resultados reinicia los promedios.`],
+      ['Magnitud física (Fig. 2)', String.raw`El tipo de estímulo (longitud, área, volumen o brillo), cada uno con su exponente β de la ley de Stevens.`],
+      ['Razón física entre la mayor y la menor (Fig. 2)', String.raw`Cuántas veces es mayor la figura grande que la referencia en lo físico. Aumentarla agranda también la subestimación.`],
+    ],
     visualizaciones: [
-      { titulo: 'Estime razones con cuatro codificaciones', descripcion: 'Estime el porcentaje de la marca menor respecto de la mayor y compare su error medio entre codificaciones; responda al menos cinco veces cada una.', montar: montarExperimento },
-      { titulo: 'La ley de potencia de Stevens', descripcion: 'Elija una magnitud y una razón física; vea cuánto se subestima la diferencia percibida.', montar: montarStevens },
+      { titulo: 'Estime razones con cuatro codificaciones', descripcion: 'Estime el porcentaje de la marca menor respecto de la mayor y compare su error medio entre codificaciones; responda al menos cinco veces cada una.',
+        ayuda: String.raw`<p>Cinco marcas con la codificación elegida; las dos naranjas son las que debe comparar y las grises son de relleno. Tras responder se rotulan los valores de las naranjas. La lectura muestra el error medio (en bits) de cada codificación y cuántas respuestas lleva.</p>
+          <ul>
+          <li><strong>Codificación</strong> «Posición» frente a «Área» o «Ángulo»: con posición el error medio suele ser menor; con las otras es mayor.</li>
+          <li><strong>Estimación</strong>: se compara con la razón real; la diferencia es el error del registro.</li>
+          <li>Se necesitan varias respuestas por codificación para que su promedio sea comparable.</li>
+          </ul>`, montar: montarExperimento },
+      { titulo: 'La ley de potencia de Stevens', descripcion: 'Elija una magnitud y una razón física; vea cuánto se subestima la diferencia percibida.',
+        ayuda: String.raw`<p>A la izquierda, dos figuras: la de referencia y la mayor (azul). A la derecha, la curva azul de percepción ψ = φ^β frente a la razón física y la diagonal gris discontinua de percepción exacta (β = 1); el punto azul marca la razón elegida. La lectura da β, la razón física, la percibida y el porcentaje de subestimación.</p>
+          <ul>
+          <li><strong>Magnitud física</strong> «Longitud» (β ≈ 1): la curva coincide con la diagonal y no hay subestimación; con «Brillo» o «Volumen» se aleja más.</li>
+          <li><strong>Razón física</strong>: desplaza el punto sobre la curva; cuanto mayor es la razón, mayor es la subestimación para β menor que 1.</li>
+          </ul>`, montar: montarStevens },
     ],
     teoria: String.raw`
       <h2>Jerarquía de precisión</h2>

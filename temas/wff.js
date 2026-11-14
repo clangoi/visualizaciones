@@ -88,15 +88,29 @@
       <p>No toda sucesión de símbolos es una fórmula: «\(p \land \lor q\)» no significa nada. Una <strong>fórmula bien formada</strong> (fbf) es una cadena que se puede construir con las reglas de una <em>gramática</em>:
       las variables son fórmulas, y si \(A\) y \(B\) lo son, también lo son \(\neg A\), \((A \land B)\), \((A \lor B)\), \((A \to B)\) y \((A \leftrightarrow B)\).</p>
       <p>Esta definición es una <a href="tema.html?id=structural-definitions">definición estructural</a>. Que cada fórmula se pueda leer de una única manera —sin ambigüedad— es lo que permite después asignarle un significado.</p>`,
+    parametros: [
+      ['Fórmula y Ejemplos (Fig. 1)', String.raw`La cadena que se analiza; los ejemplos cargan cadenas bien y mal formadas.`],
+      ['Presupuesto de conectivos (Fig. 2)', String.raw`Cuántos conectivos como máximo puede usar la fórmula generada: limita su tamaño.`],
+      ['Nueva fórmula y reproductor (Fig. 2)', String.raw`Genera otra fórmula al azar y avanza su derivación paso a paso.`],
+    ],
     visualizaciones: [
       {
         titulo: '¿Es una fórmula bien formada?',
         descripcion: 'Escriba o elija una cadena. Si está mal formada, se marca el primer símbolo que no encaja; si está bien, se muestra su forma estricta.',
+        ayuda: String.raw`<p>La lectura indica si la cadena es una fórmula bien formada; si no lo es, marca el primer símbolo que no encaja según la gramática, y si lo es muestra su forma estricta.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: cada símbolo que se agregue o quite cambia si la cadena sigue la gramática.</li>
+          </ul>`,
         montar: montarReconocedor,
       },
       {
         titulo: 'Derivación con la gramática',
         descripcion: 'Genere una fórmula al azar y reproduzca su derivación: cada paso aplica una regla de la gramática al símbolo φ más a la izquierda.',
+        ayuda: String.raw`<p>Se deriva la fórmula desde φ: φ sin expandir, expansión de este paso y ya expandido.</p>
+          <ul>
+          <li><strong>Presupuesto de conectivos</strong>: más presupuesto da derivaciones más largas y árboles más grandes.</li>
+          <li><strong>Nueva fórmula</strong>: otra derivación, otra secuencia de reglas aplicadas al φ más a la izquierda.</li>
+          </ul>`,
         montar: montarGramatica,
       },
     ],

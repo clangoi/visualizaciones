@@ -155,15 +155,29 @@
       <p>El <strong>hashing consistente</strong> (Karger et al., 1997) ubica claves <em>y servidores</em> en un mismo anillo con la función de hash; cada clave pertenece al primer servidor
       que la sigue. Al agregar un servidor solo se mueven las claves del arco que le toca, en promedio \(K/n\). Es la idea detrás de <a href="tema.html?id=chord-dht">Chord</a>, Dynamo,
       Cassandra y los balanceadores de carga de las CDN.</p>`,
+    parametros: [
+      ['Nodos virtuales por servidor (Fig. 1)', String.raw`Cuántos puntos del anillo ocupa cada servidor. Con más puntos los arcos son más parejos y la carga se reparte mejor.`],
+      ['Agregar servidor, Quitar un servidor y Reiniciar (Fig. 1)', String.raw`Cambian el conjunto de servidores del anillo para ver qué claves se mueven. Reiniciar vuelve a la configuración inicial.`],
+      ['Servidores (Fig. 2)', String.raw`Cantidad de servidores usada en la medición. Más servidores aumentan el desequilibrio con pocos nodos virtuales.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Agregar y quitar servidores',
         descripcion: 'Agregue un servidor y cuente las claves con anillo: solo las del arco que tomó. Compare con hash mod n. Con un nodo virtual los arcos son muy desiguales; súbalos y la carga se empareja.',
+        ayuda: String.raw`<p>Los servidores ocupan puntos del anillo y cada clave pertenece al servidor que la sigue. Los arcos de cada servidor, y las claves que cambian de dueño tras un cambio, se marcan sobre el anillo; abajo se compara con «hash mod n».</p>
+          <ul>
+          <li><strong>Agregar servidor</strong>: solo se mueven las claves del arco que toma el nuevo, no casi todas como con hash mod n.</li>
+          <li><strong>Nodos virtuales por servidor</strong>: con 1 los arcos son muy desiguales; al subirlo se emparejan.</li>
+          </ul>`,
         montar: montarAnillo,
       },
       {
         titulo: 'Desequilibrio según los nodos virtuales',
         descripcion: 'Con un solo punto por servidor, el más cargado recibe varias veces el promedio. Con cientos de nodos virtuales por servidor, el reparto se acerca al ideal.',
+        ayuda: String.raw`<p>Eje horizontal: nodos virtuales por servidor (escala log). Eje vertical: máximo sobre promedio, donde 1 es un reparto perfecto. Una curva mide la carga del servidor más cargado y otra la fracción del anillo que posee.</p>
+          <ul>
+          <li><strong>Servidores</strong>: con más servidores la curva parte más alto; todas bajan hacia 1 al aumentar los nodos virtuales.</li>
+          </ul>`,
         montar: montarEquilibrio,
       },
     ],

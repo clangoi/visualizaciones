@@ -101,9 +101,24 @@
     intro: String.raw`
       <p>Muchos problemas transforman una secuencia en <em>otra</em> de largo distinto: traducir una frase, resumir un texto, responder una pregunta. La arquitectura <strong>Sequence-to-Sequence</strong> (<em>Seq2Seq</em>) lo resuelve con dos redes: un <strong>codificador</strong> (<em>encoder</em>) lee la entrada y la resume en una representación latente; un <strong>decodificador</strong> (<em>decoder</em>) genera la salida, una palabra por vez, a partir de ella.</p>
       <p>La versión original resume toda la frase en <em>un solo vector</em>. Es elegante, pero crea un cuello de botella: cuanto más larga la frase, más información hay que comprimir en el mismo espacio. Esa limitación motivó el mecanismo de <a href="tema.html?id=attention-mechanism">atención</a>.</p>`,
+    parametros: [
+      ['Palabras posibles (vocabulario) (Fig. 1)', String.raw`Cuántas palabras distintas puede contener cada frase. Un vocabulario mayor exige más información para identificar cada palabra con el mismo vector.`],
+      ['Repetir con otros vectores (Fig. 1)', String.raw`Repite el experimento con otros vectores aleatorios, para ver cuánto varía el resultado.`],
+      ['Frase (Fig. 2)', String.raw`La frase que se traduce paso a paso.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza por la lectura del codificador y la escritura del decodificador.`],
+    ],
     visualizaciones: [
-      { titulo: 'El cuello de botella del vector de contexto', descripcion: 'Aumente el largo de la frase: la fracción de palabras recuperables cae más pronto con un contexto pequeño. Suba el vocabulario y compare.', montar: montarCuello },
-      { titulo: 'Leer, resumir y escribir', descripcion: 'Avance paso a paso por la lectura del codificador y la escritura del decodificador en una traducción de ejemplo.', montar: montarFlujo },
+      { titulo: 'El cuello de botella del vector de contexto', descripcion: 'Aumente el largo de la frase: la fracción de palabras recuperables cae más pronto con un contexto pequeño. Suba el vocabulario y compare.',
+        ayuda: String.raw`<p>Eje horizontal: palabras en la frase (n). Eje vertical: palabras recuperadas a partir de un único vector de contexto. Cada curva corresponde a un tamaño de contexto (en números) indicado en la leyenda.</p>
+          <ul>
+          <li><strong>Palabras posibles</strong>: al subirlo, cada curva cae antes, porque hay más opciones por palabra y el vector debe guardar más información.</li>
+          <li><strong>Repetir con otros vectores</strong>: las curvas cambian algo por el azar; la tendencia general se mantiene.</li>
+          </ul>`, montar: montarCuello },
+      { titulo: 'Leer, resumir y escribir', descripcion: 'Avance paso a paso por la lectura del codificador y la escritura del decodificador en una traducción de ejemplo.',
+        ayuda: String.raw`<p>Las palabras azules son las que lee el codificador; el vector de contexto (aguamarina) las resume y las naranjas son las que escribe el decodificador. Las grises aún no se han procesado.</p>
+          <ul>
+          <li><strong>Frase</strong>: cambia el texto de origen y su traducción; una frase más larga obliga al mismo vector a resumir más.</li>
+          </ul>`, montar: montarFlujo },
     ],
     teoria: String.raw`
       <h2>Modelo</h2>

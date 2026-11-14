@@ -120,9 +120,28 @@
     intro: String.raw`
       <p>Los modelos de lenguaje grandes pueden hacer tareas nuevas <em>sin cambiar sus pesos</em>: basta describirlas en el texto de entrada, el <strong>prompt</strong>. Si el prompt solo explica la tarea, se habla de <strong>zero-shot</strong>; si incluye un ejemplo resuelto, <strong>one-shot</strong>; si incluye varios, <strong>few-shot</strong>.</p>
       <p>No hay entrenamiento en el sentido habitual: el modelo ya aprendió, durante el preentrenamiento, a continuar textos de todo tipo, y un prompt con ejemplos es un texto cuya continuación natural es la respuesta. A esa capacidad se le llama <strong>aprendizaje en contexto</strong> (<em>in-context learning</em>).</p>`,
+    parametros: [
+      ['Ejemplos por etiqueta en el prompt (k) (Fig. 1)', String.raw`Cuántos ejemplos de cada etiqueta contiene el prompt. Con 0 el modelo solo ve la consulta.`],
+      ['Nombres de las etiquetas (Fig. 1 y 2)', String.raw`Si las etiquetas son arbitrarias (X, Y, Z) el modelo solo las puede aprender de los ejemplos; si son significativas (animal, comida, ciudad), ya tienen sentido por sí mismas.`],
+      ['Ejemplos con la etiqueta equivocada (Fig. 1 y 2)', String.raw`Porcentaje de ejemplos del prompt con la etiqueta incorrecta. Mide qué tanto resiste el modelo a información contradictoria.`],
+      ['Otro prompt (Fig. 1)', String.raw`Sortea otros ejemplos y otra consulta.`],
+      ['Ruido de las representaciones (Fig. 2)', String.raw`Cuánto se confunden las palabras entre sí. A más ruido, más difícil clasificar aun con buenos ejemplos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un prompt con ejemplos', descripcion: 'Cambie k y los nombres de las etiquetas. Con etiquetas arbitrarias, k = 0 no tiene respuesta posible; con k ≥ 1 el prompt define la tarea.', montar: montarPrompt },
-      { titulo: 'Más ejemplos, mejor respuesta', descripcion: 'Compare zero-shot, one-shot y few-shot. Suba el ruido y la fracción de ejemplos equivocados y vea cuánto los resiente cada nivel.', montar: montarCurva },
+      { titulo: 'Un prompt con ejemplos', descripcion: 'Cambie k y los nombres de las etiquetas. Con etiquetas arbitrarias, k = 0 no tiene respuesta posible; con k ≥ 1 el prompt define la tarea.',
+        ayuda: String.raw`<p>Cada palabra del prompt aparece coloreada según su etiqueta (1, 2 o 3); la consulta está marcada al final. Al pasar el cursor o hacer clic en una palabra se ven sus detalles.</p>
+          <ul>
+          <li><strong>Ejemplos por etiqueta (k)</strong>: con k = 0 y etiquetas arbitrarias no hay respuesta posible; con k ≥ 1 los ejemplos definen la tarea.</li>
+          <li><strong>Nombres de las etiquetas</strong>: con nombres significativos, se puede acertar aun con k = 0.</li>
+          <li><strong>Ejemplos con la etiqueta equivocada</strong>: algunos colores del prompt se invierten y el modelo puede equivocarse.</li>
+          </ul>`, montar: montarPrompt },
+      { titulo: 'Más ejemplos, mejor respuesta', descripcion: 'Compare zero-shot, one-shot y few-shot. Suba el ruido y la fracción de ejemplos equivocados y vea cuánto los resiente cada nivel.',
+        ayuda: String.raw`<p>Eje horizontal: ejemplos por etiqueta (k). Eje vertical: exactitud promedio de muchos prompts, con la línea gris en el azar (33 %).</p>
+          <ul>
+          <li><strong>Ruido de las representaciones</strong>: sube la curva con menos aciertos para todo k.</li>
+          <li><strong>Ejemplos con la etiqueta equivocada</strong>: baja la exactitud, y más para k pequeño, donde cada ejemplo pesa más.</li>
+          <li><strong>Nombres de las etiquetas</strong>: con nombres significativos, el punto k = 0 parte por encima del azar.</li>
+          </ul>`, montar: montarCurva },
     ],
     teoria: String.raw`
       <h2>Qué es y qué no es</h2>

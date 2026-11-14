@@ -150,10 +150,22 @@
       <p>La idea es turnarse un líder, el <strong>rey</strong>. En cada fase todos votan, y quien ve una mayoría abrumadora la conserva; quien
       duda adopta lo que dice el rey. Con \(f + 1\) fases, al menos un rey es honesto, y basta un rey honesto para que todos los leales queden de
       acuerdo para siempre.</p>`,
+    parametros: [
+      ['Traidores tolerados f (Fig. 1)', String.raw`Cuántos procesos traidores debe soportar el algoritmo. Fija el número de fases (\(f+1\), cada una con un rey distinto) y exige \(n &gt; 4f\) procesos.`],
+      ['Procesos n (Fig. 1)', String.raw`Cantidad de procesos. Se ajusta hacia arriba si no cumple \(n &gt; 4f\), porque con menos no hay garantía de acuerdo.`],
+      ['Clic en un proceso (Fig. 1)', String.raw`Elige qué hace un clic sobre un proceso: cambiar su valor inicial (0 o 1) o volverlo traidor o leal. Permite probar si el acuerdo resiste distintos traidores y entradas.`],
+      ['Valores al azar y reproductor (Fig. 1)', String.raw`Valores al azar sortea nuevos valores iniciales; el reproductor avanza ronda a ronda y reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Fases y reyes',
         descripcion: 'Avance ronda a ronda. Con el rey traidor de la primera fase, los leales pueden quedar divididos; observe la primera fase con rey leal: después de ella todos coinciden.',
+        ayuda: String.raw`<p>Cada nodo es un proceso: su color indica el valor que sostiene (0 o 1), los traidores se marcan como tales y el rey de la fase tiene su propia marca, según la leyenda. El registro y la lectura describen lo que cada proceso recibe y decide en la ronda.</p>
+          <ul>
+          <li><strong>Traidores tolerados f</strong>: subirlo agrega fases y obliga a tener más procesos.</li>
+          <li><strong>Clic en un proceso</strong> en «lo vuelve traidor o leal»: si el rey de una fase es traidor, los leales pueden quedar divididos; en la primera fase con rey leal todos coinciden y ya no cambian.</li>
+          <li><strong>Clic en un proceso</strong> en «cambia su valor inicial»: si todos los leales parten con el mismo valor, lo conservan.</li>
+          </ul>`,
         montar,
       },
     ],

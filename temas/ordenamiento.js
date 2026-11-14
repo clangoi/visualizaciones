@@ -10,15 +10,35 @@
       un mismo problema pueden tener costos radicalmente diferentes.</p>
       <p>Los algoritmos que se muestran son <em>por comparación</em>: la única forma que tienen de obtener información
       sobre los datos es preguntar si \(a_i &lt; a_j\). Contar cuántas veces hacen esa pregunta es la medida natural de su costo.</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Cuál algoritmo se anima: burbuja, selección, inserción, mezcla, rápido o montículo.`],
+      ['Datos iniciales (Fig. 1 y 2)', String.raw`Cómo vienen los datos: aleatorios, casi ordenados, invertidos, con pocos valores distintos o ya ordenados. Cada algoritmo reacciona de forma distinta.`],
+      ['Tamaño n (Fig. 1)', String.raw`Cantidad de elementos. Con \(n\) grande se aprecia la diferencia entre algoritmos cuadráticos y \(n\log n\).`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso muestra una comparación o escritura, Hasta el final termina y Reiniciar vuelve al inicio.`],
+      ['Medida (Fig. 2)', String.raw`Comparaciones entre elementos o escrituras al arreglo.`],
+      ['Escala vertical y casillas (Fig. 2)', String.raw`La escala logarítmica separa algoritmos de órdenes distintos; las casillas ocultan o muestran cada algoritmo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ordenamiento paso a paso',
         descripcion: 'Cada barra es un elemento y su altura es su valor. Elija un algoritmo y una distribución inicial; observe qué pares compara y cuándo escribe. Pruebe quicksort con datos <em>ya ordenados</em> para ver su peor caso.',
+        ayuda: String.raw`<p>Cada barra es un elemento y su altura es su valor. Azul: los elementos que se comparan; naranja: los que se escriben o intercambian; violeta: el pivote o la posición que se está llenando; negro: ya en su posición final.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: cada uno deja un patrón reconocible. Burbuja y selección van fijando el final o el inicio; mezcla trabaja por bloques; quicksort particiona alrededor de un pivote; heapsort arma un montículo y extrae máximos.</li>
+          <li><strong>Datos iniciales</strong>: inserción y burbuja terminan casi de inmediato con datos ordenados; quicksort (pivote último) cae en su peor caso con esos mismos datos.</li>
+          <li>Compare las lecturas «comparaciones» con «n²/2» y «n log₂ n» para ver a qué familia pertenece cada algoritmo.</li>
+          </ul>`,
         montar: (c) => VIZ.orden.animacion(c, { selector: true, alg: 'rapido', n: 48 }),
       },
       {
         titulo: 'Costo frente al tamaño de la entrada',
         descripcion: 'Número de comparaciones (o escrituras) medido al ejecutar cada algoritmo para n = 10, 20, …, 200. Pase el cursor sobre el gráfico para leer los valores.',
+        ayuda: String.raw`<p>Una curva por algoritmo, con el costo medido en ejecuciones reales para \(n = 10, 20, …, 200\) y las referencias punteadas \(n^2/2\) y \(n\log_2 n\).</p>
+          <ul>
+          <li>Burbuja, selección e inserción se pegan a la referencia cuadrática; mezcla, quicksort y montículo, a \(n\log_2 n\).</li>
+          <li><strong>Datos iniciales</strong> cambia la distribución de todas las ejecuciones: con «Ya ordenada», inserción y burbuja bajan a costo lineal y quicksort sube a cuadrático.</li>
+          <li>Con <strong>escala logarítmica</strong> se distinguen los algoritmos \(n\log n\) entre sí; con <strong>Escrituras</strong> se ve que selección casi no mueve datos.</li>
+          </ul>`,
         montar: (c) => VIZ.orden.curvas(c, { series: 'algoritmos' }),
       },
     ],

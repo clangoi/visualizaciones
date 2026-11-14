@@ -98,15 +98,30 @@
       (\(\lor\) de \(\land\) de literales).</p>
       <p>La transformación es mecánica: eliminar los conectivos derivados, llevar las negaciones hasta las variables con De Morgan y distribuir. Es el primer paso de casi todos los demostradores automáticos,
       aunque tiene un costo: puede hacer crecer la fórmula exponencialmente.</p>`,
+    parametros: [
+      ['Fórmula y Forma normal (Fig. 1)', String.raw`La fórmula a transformar y el destino: CNF (conjunción de cláusulas) o DNF (disyunción de términos). Cambiar el destino cambia la secuencia de pasos y el resultado final.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza, retrocede o reinicia la conversión paso a paso.`],
+      ['Familia de fórmulas y n (pares de variables) (Fig. 2)', String.raw`Qué familia de fórmulas se transforma y su tamaño. En una familia, una de las dos formas normales crece como \(2^n\) mientras la otra sigue lineal.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Transforme paso a paso',
         descripcion: 'Escriba una fórmula y reproduzca la conversión. Cada paso se verifica con una tabla de verdad. Pruebe la DNF y compare.',
+        ayuda: String.raw`<p>Se ve la fórmula tras cada paso de la conversión (eliminar implicaciones, empujar negaciones, distribuir), con un registro que avisa errores de sintaxis y confirma la equivalencia con la tabla de verdad.</p>
+          <ul>
+          <li><strong>Forma normal</strong>: CNF distribuye \(\vee\) sobre \(\wedge\); DNF distribuye \(\wedge\) sobre \(\vee\).</li>
+          <li><strong>Fórmula</strong>: al editarla se reinicia la conversión con los nuevos pasos.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'La explosión de tamaño',
         descripcion: 'Con \\(n\\) pares de variables, una fórmula de tamaño lineal necesita \\(2^n\\) cláusulas en una de las dos formas. Cambie la familia y vea la asimetría.',
+        ayuda: String.raw`<p>El eje horizontal es \(n\) y el vertical, el tamaño. Cada curva cuenta el tamaño de la fórmula original, las cláusulas de su CNF y los términos de su DNF; la referencia es \(2^n\).</p>
+          <ul>
+          <li><strong>Familia de fórmulas</strong>: según la familia, la CNF o la DNF sigue a \(2^n\) mientras la otra permanece pequeña.</li>
+          <li><strong>n</strong>: al subirlo, la forma que explota se separa de la original de modo exponencial.</li>
+          </ul>`,
         montar: montarExplosion,
       },
     ],

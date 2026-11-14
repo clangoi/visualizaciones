@@ -165,15 +165,31 @@
       <p>Por eso los datos viven en disco divididos en <strong>páginas</strong> de tamaño fijo, se traen a memoria de a una página completa
       y los algoritmos se diseñan para minimizar cuántas páginas se leen, no cuántas instrucciones se ejecutan. El sistema operativo ayuda,
       pero a veces estorba: los motores serios administran su propia memoria.</p>`,
+    parametros: [
+      ['Escala humana: 1 ns = 1 segundo (Fig. 1)', String.raw`Reexpresa cada latencia como si un nanosegundo durara un segundo, para que las diferencias entre niveles se sientan en tiempos cotidianos (segundos, días, meses).`],
+      ['Búsqueda media (Fig. 2)', String.raw`Tiempo medio que tarda el brazo del disco duro en llegar a la pista. Subirlo encarece cada acceso aleatorio del disco duro.`],
+      ['Velocidad de giro (Fig. 2)', String.raw`Las revoluciones por minuto fijan el tiempo de latencia rotacional (media vuelta). Más rpm, menos espera por acceso.`],
+      ['Transferencia (Fig. 2)', String.raw`Ancho de banda sostenido al leer datos ya posicionados. Pesa sobre todo en la lectura contigua.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La jerarquía de memoria',
         descripcion: 'Latencias típicas de cada nivel, en escala logarítmica. Active la escala humana: si leer la caché L1 tomara un segundo, un acceso al disco duro tomaría más de tres meses.',
+        ayuda: String.raw`<p>Cada barra es la latencia típica de un nivel de la jerarquía, en escala logarítmica; el color distingue memoria volátil, almacenamiento persistente y red según la leyenda.</p>
+          <ul>
+          <li><strong>Escala humana</strong>: reescribe las latencias en tiempos humanos y muestra cuánto más lento es cada nivel respecto de la caché L1.</li>
+          </ul>`,
         montar: montarJerarquia,
       },
       {
         titulo: 'Leer en secuencia o al azar',
         descripcion: 'En un disco duro cada acceso aleatorio paga búsqueda y giro. Compare leer 1 000 páginas contiguas con 1 000 páginas dispersas, y cambie los parámetros del disco.',
+        ayuda: String.raw`<p>El eje horizontal son las páginas leídas (8 KiB) y el vertical, el tiempo en ms. Hay una curva para el disco duro con páginas al azar, otra con páginas contiguas y otra para el SSD con páginas al azar.</p>
+          <ul>
+          <li><strong>Búsqueda media</strong>: desplaza hacia arriba la curva del disco duro al azar, porque cada página paga una búsqueda.</li>
+          <li><strong>Velocidad de giro</strong>: a más rpm baja la espera rotacional y también la curva al azar.</li>
+          <li><strong>Transferencia</strong>: cambia sobre todo la pendiente de las páginas contiguas, que casi no pagan búsqueda.</li>
+          </ul>`,
         montar: montarDisco,
       },
     ],

@@ -86,9 +86,27 @@
     intro: String.raw`
       <p>El <strong>dropout</strong> apaga al azar una fracción de las neuronas en cada paso de entrenamiento. Ninguna neurona puede apoyarse en que otra «esté ahí» para corregir sus errores, y la red aprende representaciones redundantes y más robustas.</p>
       <p>Otra manera de verlo: cada paso entrena una <em>subred</em> distinta, y la red completa que se usa al evaluar es una especie de promedio (<em>ensemble</em>) de un número astronómico de subredes que comparten pesos.</p>`,
+    parametros: [
+      ['Probabilidad de apagar p (Fig. 1)', String.raw`Fracción de neuronas que se apagan en cada paso. Más p implica subredes más distintas entre sí y salidas más dispersas.`],
+      ['Nueva máscara (Fig. 1)', String.raw`Sortea otro patrón de neuronas apagadas para ver que cada paso entrena una subred distinta.`],
+      ['Datos, Ruido, Neuronas por capa, Capas ocultas (Fig. 2)', String.raw`Problema, mezcla de clases y tamaño de la red. Una red grande con pocos datos es la que sobreajusta y más se beneficia del dropout.`],
+      ['Dropout (p de apagar) (Fig. 2)', String.raw`Probabilidad de apagar neuronas al entrenar. Frena el sobreajuste, pero un valor muy alto deja a la red sin capacidad suficiente.`],
+      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Generan otro conjunto y controlan el avance del entrenamiento.`],
+    ],
     visualizaciones: [
-      { titulo: 'Subredes aleatorias', descripcion: 'Genere máscaras nuevas y compare la salida de cientos de subredes con la red completa. Suba \\(p\\) para aumentar la dispersión.', montar: montarMascaras },
-      { titulo: 'Dropout al entrenar', descripcion: 'Entrene una red grande con pocos datos y compare las curvas de validación con \\(p=0\\), \\(p=0{,}4\\) y \\(p=0{,}8\\).', montar: montarEntrenamiento },
+      { titulo: 'Subredes aleatorias', descripcion: 'Genere máscaras nuevas y compare la salida de cientos de subredes con la red completa. Suba \\(p\\) para aumentar la dispersión.',
+        ayuda: String.raw`<p>Las neuronas rojas son las apagadas en este paso. El histograma azul es la salida de 400 subredes; la línea naranja, su promedio; y la marca restante, la salida de la red completa con pesos reescalados.</p>
+          <ul>
+          <li><strong>Probabilidad de apagar p</strong>: al subirla, el histograma se ensancha (más dispersión entre subredes).</li>
+          <li>La red completa reescalada cae cerca del promedio de las subredes: por eso se usa en inferencia.</li>
+          <li><strong>Nueva máscara</strong> cambia las neuronas rojas pero no el promedio.</li>
+          </ul>`, montar: montarMascaras },
+      { titulo: 'Dropout al entrenar', descripcion: 'Entrene una red grande con pocos datos y compare las curvas de validación con \\(p=0\\), \\(p=0{,}4\\) y \\(p=0{,}8\\).',
+        ayuda: String.raw`<p>A la izquierda, la frontera sobre los datos de las dos clases (huecos: validación). A la derecha, pérdida de entrenamiento (azul) y de validación (naranja) por época.</p>
+          <ul>
+          <li><strong>Dropout (p de apagar)</strong> en 0: la validación se separa de la de entrenamiento. Con p entre 0,3 y 0,5 la validación queda más baja y la de entrenamiento sube un poco.</li>
+          <li>Con p muy alto ambas curvas quedan altas: la red subajusta.</li>
+          </ul>`, montar: montarEntrenamiento },
     ],
     teoria: String.raw`
       <h2>Definición</h2>

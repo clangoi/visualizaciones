@@ -129,15 +129,24 @@
     intro: String.raw`
       <p>La <strong>búsqueda lineal</strong> revisa los elementos uno por uno hasta encontrar el buscado. Es el método más simple y el
       único posible cuando los datos no tienen orden.</p>`,
+    // Parámetros: un par [nombre, explicación] por control; qué representa y qué significa cambiarlo.
+    parametros: [
+      ['Tamaño n (Fig. 1)', String.raw`Cantidad de elementos del arreglo. En el peor caso se revisan los \(n\).`],
+      ['Nuevos datos (Fig. 1)', String.raw`Sortea otro arreglo y otro valor buscado.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Búsqueda lineal paso a paso',
-        descripcion: 'Qué mirar y qué probar, en una o dos frases. Las fórmulas en descripciones llevan doble barra: \\(O(n)\\).',
+        descripcion: 'Qué se muestra, qué mirar y qué probar, en una o dos frases. Las fórmulas en descripciones llevan doble barra: \\(O(n)\\).',
+        // Ayuda: qué representa cada elemento del gráfico y cómo cada control cambia lo que se ve.
+        ayuda: String.raw`<p>Cada barra es un elemento y su altura, su valor. La azul es la que se compara ahora; las negras ya se revisaron.</p>
+          <ul><li><strong>Tamaño n</strong>: más barras; la lectura «peor caso» crece igual que \(n\).</li></ul>`,
         montar: montarPasoAPaso,
       },
       {
         titulo: 'Costo según n',
         descripcion: 'Comparaciones en el peor caso y en promedio.',
+        ayuda: String.raw`<p>El eje horizontal es \(n\) y el vertical, las comparaciones. Ambas rectas son lineales; el promedio es la mitad del peor caso.</p>`,
         montar: montarCosto,
       },
     ],

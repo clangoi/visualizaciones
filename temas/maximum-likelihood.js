@@ -118,15 +118,33 @@
       observados</strong>.</p>
       <p>Es el principio de estimación más usado en estadística y aprendizaje automático: está detrás de mínimos cuadrados, de la
       regresión logística y del algoritmo EM de las <a href="tema.html?id=gaussian-mixture-models">mezclas gaussianas</a>.</p>`,
+    parametros: [
+      ['Datos n (Fig. 1 y 2)', String.raw`Cuántos datos hay. Con más datos, la verosimilitud distingue mejor unos parámetros de otros y el estimador se acerca al valor real.`],
+      ['μ y σ (Fig. 1)', String.raw`Media y desviación de la campana propuesta \(N(\mu,\sigma^2)\). Son los parámetros que se ajustan para explicar los datos.`],
+      ['Ir al máximo y Nuevos datos (Fig. 1)', String.raw`Ir al máximo coloca μ y σ en el estimador de máxima verosimilitud (media y desviación muestrales). Nuevos datos sortea otra muestra.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otra muestra y recalcula la superficie.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ajustar a mano',
         descripcion: 'Cada dato «vota» con la altura de la densidad en su posición. Busque μ y σ que maximicen el producto y luego compare con «Ir al máximo».',
+        ayuda: String.raw`<p>Los puntos son los datos sobre el eje x; la curva es la densidad propuesta. La altura de la curva sobre cada dato es su verosimilitud \(p(x_i\mid\mu,\sigma)\), que se dibuja como barra y cuyo producto es la verosimilitud total.</p>
+          <ul>
+          <li><strong>μ</strong>: desplaza la campana; el producto sube cuando se centra donde están los datos.</li>
+          <li><strong>σ</strong>: una campana muy angosta deja datos sin altura; una muy ancha deja a todos bajos.</li>
+          <li><strong>Ir al máximo</strong>: muestra el par que hace el producto más grande.</li>
+          </ul>`,
         montar: montarAjuste,
       },
       {
         titulo: 'La superficie de log-verosimilitud',
         descripcion: 'ℓ(μ, σ) sobre todo el plano de parámetros. Observe cómo se angosta el pico al crecer n.',
+        ayuda: String.raw`<p>El plano tiene μ en el eje horizontal y σ en el vertical; el color mide la log-verosimilitud ℓ (más intenso cerca del máximo). Las curvas de nivel están en ℓ = máx − 0,5, 2 y 4,5. Se marcan el estimador de máxima verosimilitud y los parámetros reales (μ = 2, σ = 1,2).</p>
+          <ul>
+          <li><strong>Datos n</strong> mayor: el pico se angosta y el estimador se acerca al valor real.</li>
+          <li>La curva interior encierra aproximadamente una región de confianza del 39 %; la de −2, del 86 %.</li>
+          <li>Un clic muestra ℓ en otro punto del plano.</li>
+          </ul>`,
         montar: montarSuperficie,
       },
     ],

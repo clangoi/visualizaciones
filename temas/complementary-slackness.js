@@ -312,15 +312,31 @@
       variable del primal que se usa (es positiva) obliga a que su restricción dual se cumpla con igualdad.</p>
       <p>Lo más útil es que funcionan en los dos sentidos. Si usted conoce la solución del primal, las holguras le dicen
       qué ecuaciones debe cumplir la del dual y, resolviéndolas, la reconstruye sin ejecutar ningún algoritmo.</p>`,
+    parametros: [
+      ['c₁ (beneficio de A) y c₂ (beneficio de B) (Fig. 1)', String.raw`Beneficio unitario de cada producto; inclinan la curva de nivel y deciden en qué vértice queda el óptimo.`],
+      ['b₁ (horno), b₂ (mano de obra) y b₃ (demanda de B) (Fig. 1)', String.raw`Disponibilidad de cada recurso. Al crecer, una restricción puede dejar de estar activa y su variable dual pasa a valer cero.`],
+      ['c₁ y c₂ (Fig. 2)', String.raw`Beneficios del objetivo; cambian qué vértice es óptimo y el sistema para \(y\).`],
+      ['Siguiente vértice e Ir al óptimo (Fig. 2)', String.raw`Recorren los vértices, o saltan al óptimo, para elegir uno a probar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Holguras y productos en el óptimo',
         descripcion: 'La tabla multiplica cada holgura del primal por su variable dual, y cada variable por su holgura dual; todos los productos son 0. Cambie los recursos hasta que una restricción deje de ser activa: su variable dual desaparece.',
+        ayuda: String.raw`<p>Región factible con sus restricciones: las activas (holgura 0) y las con holgura, cuya variable dual vale 0. La curva de nivel pasa por el óptimo. Debajo, la tabla multiplica cada holgura por su variable dual.</p>
+          <ul>
+          <li><strong>b₁, b₂, b₃</strong>: cuando una restricción se afloja, su holgura sube y su \(y\) cae a 0; el producto sigue en 0.</li>
+          <li><strong>c₁, c₂</strong>: al mover el óptimo a otro vértice cambian qué restricciones son activas.</li>
+          </ul>`,
         montar: montarOptimo,
       },
       {
         titulo: 'Reconstruir el dual desde un vértice',
         descripcion: 'Elija un vértice: las holguras complementarias generan un sistema lineal para y. Si la solución es no negativa y cumple Aᵀy ≥ c, el vértice es óptimo; pruebe el vértice (6, 4), que parece bueno pero no pasa la prueba.',
+        ayuda: String.raw`<p>Los vértices de la región se pueden elegir: el elegido se colorea según si las holguras complementarias dan un \(y\) factible (certificado de óptimo) o inválido (no es óptimo).</p>
+          <ul>
+          <li><strong>c₁, c₂</strong>: cambian cuál vértice se certifica; el \((6,4)\) puede parecer bueno y fallar.</li>
+          <li><strong>Siguiente vértice</strong>: recorre candidatos para ver cuáles dan \(y\ge 0\).</li>
+          </ul>`,
         montar: montarReconstruir,
       },
     ],

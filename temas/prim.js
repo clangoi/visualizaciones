@@ -108,10 +108,21 @@
       <a href="tema.html?id=bfs-dijkstra">Dijkstra</a>, pero la prioridad de cada vértice es el peso de <em>una</em> arista, no la longitud de un camino.</p>
       <p>Compare con <a href="tema.html?id=kruskal">Kruskal</a>, que hace crecer un bosque y lo va uniendo: con el mismo grafo ambos obtienen
       el mismo peso total.</p>`,
+    parametros: [
+      ['Nodos y Densidad', String.raw`Tamaño del grafo y número medio de aristas por vértice.`],
+      ['Nuevo grafo', String.raw`Genera otro grafo no dirigido con pesos al azar.`],
+      ['Velocidad y reproductor', String.raw`Reproducir avanza solo, Un paso agrega un vértice o examina una arista, Hasta el final termina y Reiniciar vuelve al vértice inicial.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Prim paso a paso',
         descripcion: 'Las aristas grises más oscuras cruzan el corte entre el árbol (negro) y el resto. La línea amarilla discontinua es, para cada vértice de la frontera, su arista más barata hacia el árbol.',
+        ayuda: String.raw`<p>El árbol (negro) crece desde un vértice. Los vértices amarillos son la frontera: tocan el árbol por alguna arista. Bajo cada uno está su <em>clave</em>, el peso de la arista más liviana que lo conecta al árbol, dibujada en amarillo discontinuo.</p>
+          <ul>
+          <li>En cada paso se agrega el vértice de la frontera con menor clave (el primero de la cola de prioridad) y su arista pasa a ser azul.</li>
+          <li>Luego se examinan sus aristas (naranja) y se actualizan las claves de los vecinos si encuentran una conexión más barata.</li>
+          <li>Haga clic en otro vértice para empezar desde él: el árbol final pesa lo mismo (si los pesos son distintos, es el mismo árbol).</li>
+          </ul>`,
         montar,
       },
     ],

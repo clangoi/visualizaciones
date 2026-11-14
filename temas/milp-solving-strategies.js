@@ -319,15 +319,32 @@
       <p>La ramificación y acotamiento deja varias decisiones abiertas: <strong>qué nodo</strong> abierto procesar a continuación, <strong>qué variable</strong> fraccionaria ramificar, si conviene buscar una solución entera con una <strong>heurística</strong> antes de empezar y si vale la pena agregar <strong>cortes</strong>.
       Todas las combinaciones son correctas (llegan al mismo óptimo), pero el tamaño del árbol puede cambiar varias veces según la elección.</p>
       <p>Los resolvedores comerciales combinan estas piezas: preprocesamiento, cortes en la raíz, heurísticas de buceo y redondeo, y reglas de ramificación aprendidas de las decisiones anteriores. Aquí se compara lo esencial sobre un problema pequeño que cualquiera puede seguir paso a paso.</p>`,
+    parametros: [
+      ['Selección de nodo y Variable de ramificación (Fig. 1)', String.raw`Regla para escoger el siguiente nodo y la variable que se divide. Cambian la forma del árbol y el número de nodos.`],
+      ['Cortes de cobertura en la raíz (Fig. 1 y 2)', String.raw`Agrega desigualdades válidas antes de ramificar; endurece la cota y puede reducir nodos.`],
+      ['Incumbente inicial por heurística (Fig. 1 y 2)', String.raw`Parte con una solución entera hallada por heurística, lo que permite podar desde el inicio.`],
+      ['Nuevos datos y reproductor (Fig. 1) / Nuevas instancias (Fig. 2)', String.raw`Generan otra instancia y controlan la ejecución del árbol.`],
+      ['Medida (Fig. 2)', String.raw`Nodos hasta terminar o hasta hallar el mejor incumbente: separa probar optimalidad de encontrar buenas soluciones.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una ejecución con sus opciones',
         descripcion: 'Elija la selección de nodo y la variable de ramificación y reproduzca el árbol. Active los cortes de cobertura o la heurística inicial y compare el contador de nodos al llegar al final con la misma instancia.',
+        ayuda: String.raw`<p>Árbol de ramificación con nodos abiertos, ramificados, enteros, infactibles y podados por cota; el anillo marca el nodo en proceso. Un contador muestra los nodos.</p>
+          <ul>
+          <li><strong>Selección de nodo</strong>: profundidad halla incumbentes pronto; mejor cota suele terminar con menos nodos.</li>
+          <li><strong>Cortes de cobertura</strong> e <strong>incumbente inicial</strong>: compare el número de nodos al final con la misma instancia.</li>
+          </ul>`,
         montar: montarEjecucion,
       },
       {
         titulo: 'Comparar estrategias en 10 instancias',
         descripcion: 'Nueve combinaciones de selección y variable sobre 10 mochilas de dos recursos: la barra es el promedio de nodos. Cambie la medida a «hasta el mejor incumbente» y active cortes o heurística para ver cuánto baja cada barra.',
+        ayuda: String.raw`<p>Barras con el promedio de nodos en 10 instancias para cada combinación de selección (profundidad, mejor cota, anchura) y variable.</p>
+          <ul>
+          <li><strong>Medida</strong>: «hasta el mejor incumbente» mide cuándo se halla la solución, no cuándo se prueba.</li>
+          <li><strong>Cortes de cobertura</strong> / <strong>heurística inicial</strong>: muestran cuánto bajan las barras al activarlas.</li>
+          </ul>`,
         montar: montarComparacion,
       },
     ],

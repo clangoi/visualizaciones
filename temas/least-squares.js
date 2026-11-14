@@ -201,15 +201,34 @@
       <p>Si el modelo es <em>lineal en los parámetros</em> (aunque no lo sea en \(x\), como una parábola o un círculo escrito en forma
       algebraica), el óptimo tiene una fórmula cerrada: las ecuaciones normales o, en general, la pseudoinversa. Su punto débil son los
       valores atípicos, porque el cuadrado les da un peso enorme.</p>`,
+    parametros: [
+      ['Modelo (Fig. 1)', String.raw`La familia de curvas que se ajusta: recta, parábola o círculo. Cambia qué parámetros se estiman y qué tan flexible es el ajuste.`],
+      ['Residuo de la recta (Fig. 1)', String.raw`Cómo se mide el error de cada punto: distancia vertical (mínimos cuadrados ordinarios) o perpendicular a la recta (totales).`],
+      ['Ruido σ y Puntos (Fig. 1)', String.raw`Cuánto se dispersan los datos y cuántos hay. Con más ruido y menos puntos, el ajuste es menos fiable.`],
+      ['Nuevos datos y Borrar puntos (Fig. 1)', String.raw`Regenerar los datos o vaciar el lienzo para colocar puntos propios.`],
+      ['x del valor atípico e y del valor atípico (Fig. 2)', String.raw`La posición del punto fuera de lugar. Lejos de la recta verdadera tiene mucha influencia sobre el ajuste.`],
+      ['Ajuste robusto (Fig. 2)', String.raw`La pérdida usada para reducir la influencia de atípicos: Huber, L1 o bicuadrada de Tukey.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ajuste de rectas, parábolas y círculos',
         descripcion: 'Los segmentos rojos son los residuos que se minimizan. Agregue puntos con un clic y compare el residuo vertical con el perpendicular.',
+        ayuda: String.raw`<p>Los puntos son los datos, la curva es el modelo ajustado y los segmentos rojos son los residuos cuya suma de cuadrados se minimiza.</p>
+          <ul>
+          <li><strong>Residuo de la recta</strong>: con el perpendicular, los segmentos cambian de vertical a perpendicular a la recta y la recta ajustada también.</li>
+          <li><strong>Modelo</strong>: la parábola y el círculo se curvan para acercarse a los puntos.</li>
+          <li><strong>Ruido σ</strong>: los residuos se alargan.</li>
+          </ul>`,
         montar: montarAjuste,
       },
       {
         titulo: 'Un valor atípico',
         descripcion: 'Veinticinco puntos sobre una recta y uno fuera de lugar. Mínimos cuadrados frente a ajustes robustos por mínimos cuadrados reponderados.',
+        ayuda: String.raw`<p>Los puntos tienen un área proporcional a su peso en el ajuste robusto; hay un valor atípico, la recta de mínimos cuadrados, el ajuste robusto (IRLS) y la recta verdadera.</p>
+          <ul>
+          <li><strong>x del valor atípico</strong> e <strong>y del valor atípico</strong>: la recta de mínimos cuadrados se desplaza hacia el atípico, mientras el ajuste robusto se mantiene cerca de la verdadera.</li>
+          <li><strong>Ajuste robusto</strong>: con Tukey, el atípico lejano casi pierde su peso (su punto se hace muy pequeño).</li>
+          </ul>`,
         montar: montarAtipico,
       },
     ],

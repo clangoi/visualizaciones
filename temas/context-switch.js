@@ -98,9 +98,23 @@
       <p>Un <strong>cambio de contexto</strong> es el acto de quitarle la CPU a un proceso y dársela a otro. Para que el primero pueda retomarse después exactamente donde estaba,
       el núcleo guarda su estado (contador de programa, puntero de pila, registros) en su <em>bloque de control de proceso</em> (PCB) y carga el del siguiente.</p>
       <p>Es trabajo puro de administración: mientras dura, ningún programa avanza. Por eso importa cuánto cuesta y cada cuánto se hace.</p>`,
+    parametros: [
+      ['Reproductor (Fig. 1)', String.raw`Un paso recorre cada etapa del cambio de contexto: guardar los registros de A en su PCB, elegir a B y cargar sus registros.`],
+      ['Costo del cambio c (µs) (Fig. 2)', String.raw`Tiempo que el núcleo gasta en guardar, elegir y cargar. Es trabajo que no avanza a ningún proceso.`],
+      ['Penalización de caché fría (µs) (Fig. 2)', String.raw`Tiempo extra que el proceso entrante pierde hasta recalentar la caché y el TLB. Es un costo indirecto del cambio.`],
+    ],
     visualizaciones: [
-      { titulo: 'Guardar uno, cargar otro', descripcion: 'Avance paso a paso y observe cómo los registros de A se copian a su PCB y los de B pasan a la CPU.', montar: montarCambio },
-      { titulo: 'Costo frente al quantum', descripcion: 'Mueva el costo del cambio y la penalización por caché fría y vea cómo el quantum corto reduce la fracción de CPU útil.', montar: montarSobrecosto },
+      { titulo: 'Guardar uno, cargar otro', descripcion: 'Avance paso a paso y observe cómo los registros de A se copian a su PCB y los de B pasan a la CPU.',
+        ayuda: String.raw`<p>En el centro está la CPU y a los lados el PCB del proceso A (azul) y el del proceso B (naranja), con PC, SP y un registro. El registro de abajo describe cada etapa.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: observe cómo los valores de A pasan de la CPU a su PCB y luego los de B pasan de su PCB a la CPU; así B retoma donde estaba.</li>
+          </ul>`, montar: montarCambio },
+      { titulo: 'Costo frente al quantum', descripcion: 'Mueva el costo del cambio y la penalización por caché fría y vea cómo el quantum corto reduce la fracción de CPU útil.',
+        ayuda: String.raw`<p>El eje horizontal es el quantum q (µs) y el vertical la fracción de CPU útil. La curva azul considera solo el cambio, q / (q + c); la naranja agrega la caché fría, q / (q + c + f).</p>
+          <ul>
+          <li><strong>Costo del cambio c (µs)</strong>: al subirlo ambas curvas bajan, sobre todo con quantums cortos.</li>
+          <li><strong>Penalización de caché fría (µs)</strong>: solo mueve la curva naranja; la brecha con la azul es el costo oculto de cambiar con demasiada frecuencia.</li>
+          </ul>`, montar: montarSobrecosto },
     ],
     teoria: String.raw`
       <h2>Qué se guarda</h2>

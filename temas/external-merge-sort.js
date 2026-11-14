@@ -160,15 +160,29 @@
       <p>El <strong>ordenamiento externo por mezcla</strong> lo resuelve en dos etapas. Primero lee trozos de \(B\) páginas, los ordena en
       memoria y los escribe como <em>corridas</em> ordenadas. Después mezcla \(B - 1\) corridas a la vez, usando un marco por corrida de
       entrada y uno para la salida, hasta que queda una sola. Con memoria razonable, dos o tres pasadas ordenan terabytes.</p>`,
+    parametros: [
+      ['Páginas N (Fig. 1)', String.raw`Tamaño del archivo a ordenar. Más páginas generan más corridas iniciales y pueden exigir más pasadas.`],
+      ['Marcos de buffer B (Fig. 1)', String.raw`Memoria disponible. Fija el largo de las corridas iniciales y cuántas se mezclan a la vez (B − 1).`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Genera otros datos; Reproducir, Un paso y Reiniciar controlan la secuencia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Corridas y mezclas',
         descripcion: 'Cada fila es una pasada. Con B = 3 las mezclas son de 2 vías y hacen falta varias pasadas; con B = 6, la primera mezcla ya junta 5 corridas.',
+        ayuda: String.raw`<p>Cada fila es una pasada. Se distinguen los datos sin ordenar, las corridas que se leen, la corrida que se escribe y las corridas ya terminadas.</p>
+          <ul>
+          <li><strong>Marcos de buffer B</strong>: con B = 3 las mezclas son de 2 vías y hay más pasadas; con B mayor se juntan más corridas por mezcla.</li>
+          <li><strong>Páginas N</strong>: más páginas agregan corridas y pueden sumar una pasada.</li>
+          </ul>`,
         montar: montarOrden,
       },
       {
         titulo: 'Número de pasadas',
         descripcion: 'Pasadas necesarias según el tamaño del archivo y del buffer. Crecen como un logaritmo de base B − 1: con B = 1 000, hasta mil millones de páginas se ordenan en 3 pasadas.',
+        ayuda: String.raw`<p>Eje horizontal: páginas N en escala logarítmica. Eje vertical: número de pasadas. Cada curva corresponde a un valor de B: 3, 10, 100 y 1 000.</p>
+          <ul>
+          <li>Las pasadas crecen como un logaritmo de base B − 1: con B grande la curva queda casi plana.</li>
+          </ul>`,
         montar: montarPasadas,
       },
     ],

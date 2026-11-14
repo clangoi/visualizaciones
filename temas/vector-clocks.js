@@ -203,15 +203,30 @@
       indirectamente, quien tiene el vector.</p>
       <p>Al recibir un mensaje, el proceso toma el máximo componente a componente entre su vector y el que trae el mensaje: aprende todo
       lo que el emisor sabía. Comparar dos vectores dice exactamente si un evento ocurrió antes que otro o si son concurrentes.</p>`,
+    parametros: [
+      ['Procesos (Fig. 1 y 2)', String.raw`Cantidad de procesos, y con ella el largo de cada vector (una componente por proceso).`],
+      ['Eventos (Fig. 1 y 2)', String.raw`Cantidad de eventos de la ejecución.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otra ejecución. En la figura 1 el reproductor avanza evento por evento. En la figura 2, Intercambiar a y b invierte los dos eventos comparados.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Relojes vectoriales paso a paso',
         descripcion: 'Observe la recepción: primero el máximo componente a componente y después el incremento de la componente propia. Las componentes ajenas solo cambian al recibir.',
+        ayuda: String.raw`<p>Cada fila es un proceso y cada punto un evento: gris sin vector, negro con su vector encima y naranja el evento actual y el mensaje que recibe. Cada componente del vector cuenta los eventos conocidos de un proceso.</p>
+          <ul>
+          <li><strong>Procesos</strong>: agrega una componente a cada vector.</li>
+          <li>Al recibir, cada componente toma el máximo entre el vector local y el del mensaje, y luego sube la propia. Las ajenas solo cambian al recibir.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Comparar dos eventos',
         descripcion: 'Elija dos eventos y compare sus vectores fila por fila. Si una cadena causal los une, se dibuja en aguamarina; si no, hay componentes que se contradicen.',
+        ayuda: String.raw`<p>Se comparan el evento a (azul) y el evento b (naranja) fila por fila. Una línea aguamarina marca una cadena de mensajes entre ellos.</p>
+          <ul>
+          <li><strong>Intercambiar a y b</strong>: invierte la relación mostrada, de «a → b» a «b → a».</li>
+          <li>Si una de las componentes es mayor en un evento y otra en el otro, no hay cadena y los eventos son concurrentes.</li>
+          </ul>`,
         montar: montarComparar,
       },
     ],

@@ -195,15 +195,35 @@
       vectores están cerca.</p>
       <p>Así, verificar es comparar una distancia con un umbral, y reconocer es buscar el vecino más cercano en una base de vectores:
       se puede agregar una persona nueva sin volver a entrenar la red.</p>`,
+    parametros: [
+      ['Variación entre fotos de una persona (Fig. 1)', String.raw`Cuánto se dispersan los vectores de las fotos de una misma persona. Con más variación se solapan las distancias de pares genuinos e impostores.`],
+      ['Umbral de distancia τ (Fig. 1)', String.raw`Distancia por debajo de la cual el sistema decide «misma persona». Subirlo acepta más pares: menos rechazos de genuinos, pero más impostores aceptados.`],
+      ['Umbral de igual error y Otras personas (Fig. 1)', String.raw`Umbral de igual error coloca τ donde coinciden los dos tipos de error; Otras personas sortea otro conjunto de vectores.`],
+      ['Margen α (Fig. 2)', String.raw`Separación mínima exigida entre la distancia al negativo y la distancia al positivo. Con un margen mayor se piden identidades más separadas.`],
+      ['Tasa de aprendizaje (Fig. 2)', String.raw`Tamaño del paso con que se mueven los vectores en cada actualización.`],
+      ['Otra inicialización y reproductor (Fig. 2)', String.raw`Otra inicialización sortea posiciones iniciales; el reproductor avanza el entrenamiento por pasos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Verificación con un umbral',
         descripcion: 'Vectores de identidad simulados de 8 personas con 10 fotos cada una. Abajo, las distancias de todos los pares de fotos: el umbral decide «misma persona» o «distinta».',
+        ayuda: String.raw`<p>Arriba, los vectores proyectados en dos componentes principales (PC1 y PC2): un color y una forma por persona. Abajo, el histograma de distancias entre pares (eje horizontal: distancia euclidiana entre vectores normalizados; vertical: fracción de pares), con pares de la misma persona (genuinos), de personas distintas (impostores) y la línea del umbral \(d&lt;\tau\).</p>
+          <ul>
+          <li><strong>Variación entre fotos de una persona</strong>: ensancha y desplaza a la derecha los genuinos hasta solaparlos con los impostores.</li>
+          <li><strong>Umbral de distancia τ</strong>: mueve la línea; lo que queda a su izquierda se declara «misma persona».</li>
+          <li><strong>Umbral de igual error</strong>: sitúa la línea donde se igualan falsos rechazos y falsas aceptaciones.</li>
+          </ul>`,
         montar: montarVerificacion,
       },
       {
         titulo: 'La pérdida triplete',
         descripcion: 'Cómo se entrena el espacio de vectores: cada triplete acerca un ancla a otra foto de la misma persona y la aleja de una foto de otra, hasta que la diferencia supera un margen.',
+        ayuda: String.raw`<p>Fotos como puntos (color y forma = persona). Las flechas ancla → positivo (se acercan) y ancla → negativo (se alejan) muestran el efecto del triplete actual; el registro y la lectura dan los valores.</p>
+          <ul>
+          <li><strong>Margen α</strong>: con un margen mayor quedan más tripletes sin satisfacer y los puntos se siguen moviendo.</li>
+          <li><strong>Tasa de aprendizaje</strong>: pasos más grandes mueven más los puntos por actualización.</li>
+          <li><strong>Otra inicialización</strong>: parte de otras posiciones para ver si el entrenamiento converge igual.</li>
+          </ul>`,
         montar: montarTriplete,
       },
     ],

@@ -322,20 +322,50 @@
       Sin amenaza o sin vulnerabilidad no hay riesgo, y si el daño es insignificante tampoco importa.</p>
       <p>Las organizaciones no pueden eliminar todos los riesgos, así que los ordenan en una matriz de probabilidad e impacto, estiman cuánto cuesta cada uno al año y
       eligen controles donde cada peso invertido reduce más pérdida esperada.</p>`,
+    parametros: [
+      ['Riesgo seleccionado (Fig. 1)', String.raw`El riesgo (de los ocho) cuyos valores se editan con los deslizadores; también se elige con clic en su círculo.`],
+      ['Probabilidad e Impacto (Fig. 1)', String.raw`Posición del riesgo en la matriz 5×5: cuán frecuente y cuán grave es. Su producto da el nivel (bajo a crítico).`],
+      ['Restablecer valores (Fig. 1)', String.raw`Devuelve los ocho riesgos a sus valores originales de probabilidad e impacto.`],
+      ['Escenario (Fig. 2)', String.raw`Carga un caso con valores típicos de intentos por año, vulnerabilidad e impacto.`],
+      ['Amenaza: intentos por año (Fig. 2)', String.raw`Cuántas veces al año se intenta el ataque. Duplicarlo duplica la pérdida esperada.`],
+      ['Vulnerabilidad: éxito por intento (Fig. 2)', String.raw`Probabilidad de que cada intento tenga éxito; refleja cuán débil es la defensa. Con 0 % no hay pérdida.`],
+      ['Impacto por éxito (Fig. 2)', String.raw`Costo de cada ataque exitoso. Cambia la pérdida esperada y, con ella, la curva de pérdida tolerable.`],
+      ['Pérdida anual tolerable (Fig. 2)', String.raw`Cuánto está dispuesta a perder la organización por año. Define la curva negra que separa lo aceptable de lo que no lo es.`],
+      ['Presupuesto anual (Fig. 3)', String.raw`Dinero disponible para controles. Limita qué combinaciones buscan los botones de optimización.`],
+      ['Pérdida tolerable por riesgo (Fig. 3)', String.raw`Umbral por riesgo: el residual que lo supere se marca como no tolerable.`],
+      ['Controles y botones de selección (Fig. 3)', String.raw`Marcar un control reduce los riesgos que cubre (se combinan multiplicando lo que dejan pasar). «Mejor combinación dentro del presupuesto» revisa todas las opciones; «Voraz por beneficio / costo» elige por razón reducción/costo y puede no ser óptima; Quitar todos los desactiva.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Matriz de riesgo 5×5',
         descripcion: 'Mueva los ocho riesgos por la matriz con clic o con los deslizadores y mire cómo cambia su nivel. Pruebe llevar el ransomware a probabilidad 1 y compare cuántos riesgos críticos quedan.',
+        ayuda: String.raw`<p>Matriz de probabilidad (horizontal) por impacto (vertical). El color de la celda es su nivel: bajo, medio, alto o crítico; el número es probabilidad × impacto. Cada círculo es un riesgo ubicado en su celda.</p>
+          <ul>
+          <li><strong>Riesgo seleccionado</strong>, <strong>Probabilidad</strong> e <strong>Impacto</strong>: mueven el círculo elegido; al cruzar a otra zona de color, el riesgo cambia de nivel.</li>
+          <li><strong>Restablecer valores</strong>: reubica todos los riesgos y permite recontar cuántos son críticos.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Amenaza × vulnerabilidad × impacto',
         descripcion: 'Cambie el escenario y mueva el punto sobre el plano: la pérdida esperada es el producto de los tres factores. Pruebe bajar la vulnerabilidad a 0 % o ponga el punto bajo la curva negra para cumplir el umbral.',
+        ayuda: String.raw`<p>Plano de vulnerabilidad (x) contra intentos por año (y, escala logarítmica). El color de fondo es la pérdida esperada (baja, media, alta); el punto es el escenario actual y la curva negra marca donde la pérdida iguala a la tolerable.</p>
+          <ul>
+          <li><strong>Vulnerabilidad</strong> e <strong>Amenaza</strong>: desplazan el punto horizontal y verticalmente; por encima de la curva la pérdida supera lo tolerable.</li>
+          <li><strong>Impacto por éxito</strong>: cambia el color del fondo y la posición de la curva.</li>
+          <li><strong>Pérdida anual tolerable</strong>: mueve la curva; más tolerancia deja más zona aceptable.</li>
+          </ul>`,
         montar: montarFactores,
       },
       {
         titulo: 'Priorizar controles con un presupuesto',
         descripcion: 'Marque controles y compare el riesgo inherente con el residual. Pruebe presupuestos de 60 y de 150 mil USD y observe si «Mejor combinación» coincide con el método voraz.',
+        ayuda: String.raw`<p>Cada riesgo tiene una barra de riesgo inherente (sin controles), otra de riesgo residual (verde o rojo según se compare con lo tolerable) y una marca de pérdida tolerable.</p>
+          <ul>
+          <li><strong>Controles marcados</strong>: la barra residual baja en los riesgos que cubren; el costo suma contra el presupuesto.</li>
+          <li><strong>Pérdida tolerable por riesgo</strong>: mueve la marca y cambia qué residuales quedan sobre lo tolerable.</li>
+          <li><strong>Mejor combinación</strong> frente a <strong>Voraz</strong>: comparan el óptimo con una elección rápida; con presupuestos ajustados pueden diferir.</li>
+          </ul>`,
         montar: montarPriorizar,
       },
     ],

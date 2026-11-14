@@ -173,15 +173,32 @@
       buscar, los grupos pueden tener cualquier forma y los puntos aislados quedan marcados como <strong>ruido</strong>.</p>
       <p>Todo depende de dos parámetros: el radio \(\varepsilon\) de la vecindad y el mínimo de puntos <em>MinPts</em> que debe
       haber en ella para que la zona cuente como densa.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`La forma de los datos (manchas, lunas, densidades distintas…) que DBSCAN debe agrupar.`],
+      ['Radio ε (Fig. 1)', String.raw`El radio de la vecindad de cada punto. Con ε chico se reúnen pocos vecinos y aparece más ruido; con ε grande los grupos se funden.`],
+      ['MinPts (Fig. 1)', String.raw`Cuántos puntos (contándose a sí mismo) deben caer dentro de ε para que un punto sea núcleo. Más MinPts exige mayor densidad.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otra muestra. El reproductor (Fig. 1) avanza o reinicia la expansión de los grupos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'DBSCAN paso a paso',
         descripcion: 'Los puntos núcleo expanden su grupo a todo lo alcanzable por densidad. Con las lunas, el resultado separa bien las dos formas; achique ε y aparecerá más ruido.',
+        ayuda: String.raw`<p>Los puntos núcleo van rellenos, los de borde huecos y el ruido con una cruz; los todavía no visitados aparecen aparte. El círculo naranja es la vecindad ε del punto que se está expandiendo y el color indica el grupo.</p>
+          <ul>
+          <li><strong>Radio ε</strong> menor: menos puntos son núcleo y aparece más ruido (cruces).</li>
+          <li><strong>MinPts</strong> mayor: se exige más densidad, así que los bordes pasan a ser ruido.</li>
+          <li><strong>Datos</strong> lunas: el resultado separa bien las dos formas porque la expansión sigue la densidad.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Mapa de parámetros',
         descripcion: 'El resultado para 140 combinaciones de ε y MinPts. Compare el tamaño de la zona buena en «Tres manchas» y en «Densidades distintas».',
+        ayuda: String.raw`<p>Cada celda es una corrida de DBSCAN para una combinación de ε (una dirección) y MinPts (la otra): el número es la cantidad de grupos y el color, el acuerdo (ARI) con los grupos reales, desde ARI ≈ 0 hasta ARI = 1. A la derecha se muestra el resultado de la celda elegida, con el ruido como cruz.</p>
+          <ul>
+          <li><strong>Datos</strong> tres manchas: la zona buena (ARI alto) es amplia.</li>
+          <li><strong>Datos</strong> densidades distintas: la zona buena se angosta, porque un ε que respeta la mancha compacta deja como ruido el borde de la dispersa.</li>
+          </ul>`,
         montar: montarParametros,
       },
     ],

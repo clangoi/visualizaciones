@@ -117,9 +117,29 @@
       <p>Tres decisiones controlan cuánto se reduce un mapa de características al atravesar una capa. El <strong>paso</strong> (<em>stride</em>) es cuántos píxeles avanza el kernel entre una posición y la siguiente. El <strong>relleno</strong> (<em>padding</em>) añade un marco de ceros alrededor de la imagen, para que el kernel pueda centrarse en los bordes.
       El <strong>pooling</strong> resume cada ventana en un solo número: el máximo (<em>Max Pooling</em>) o el promedio (<em>Average Pooling</em>).</p>
       <p>Las tres reducen el tamaño de la representación, y con él, el cálculo; y el pooling añade cierta tolerancia a pequeños desplazamientos del objeto.</p>`,
+    parametros: [
+      ['Tamaño de la entrada n, Tamaño del kernel k (Fig. 1)', String.raw`Ancho de la imagen y del kernel. La salida solo puede ser menor o igual que la entrada si k cabe en ella.`],
+      ['Paso (stride) s (Fig. 1)', String.raw`Cuántos píxeles avanza el kernel cada vez. Un paso mayor da menos posiciones y una salida más pequeña.`],
+      ['Relleno (padding) p (Fig. 1)', String.raw`Ceros agregados en el borde. Permiten que el kernel cubra los bordes y conservar tamaño.`],
+      ['Imagen y Tipo de pooling (Fig. 2)', String.raw`Imagen de entrada y resumen por ventana: el máximo o el promedio.`],
+      ['Ventana (= paso) (Fig. 2)', String.raw`Tamaño de la ventana de pooling, que también es su paso. Más grande implica un mapa más reducido.`],
+      ['Desplazar la imagen (píxeles) (Fig. 2)', String.raw`Mueve la imagen para medir cuánto cambia el mapa tras el pooling: es la invarianza a pequeños desplazamientos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Tamaño de la salida', descripcion: 'Cambie \\(n\\), \\(k\\), \\(s\\) y \\(p\\) y compruebe la fórmula. Busque el relleno que deja la salida del mismo tamaño que la entrada.', montar: montarTamano },
-      { titulo: 'Max pooling y average pooling', descripcion: 'Desplace la imagen y compare cuánto cambia el mapa antes y después del pooling. Alterne entre máximo y promedio.', montar: montarPooling },
+      { titulo: 'Tamaño de la salida', descripcion: 'Cambie \\(n\\), \\(k\\), \\(s\\) y \\(p\\) y compruebe la fórmula. Busque el relleno que deja la salida del mismo tamaño que la entrada.',
+        ayuda: String.raw`<p>Fila de píxeles de la imagen, con los ceros de relleno aparte. Se marcan las posiciones del kernel en la fila resaltada y la posición señalada. La salida es \(\lfloor (n+2p-k)/s \rfloor + 1\).</p>
+          <ul>
+          <li><strong>Paso (stride) s</strong>: al subirlo hay menos posiciones del kernel y la salida se encoge.</li>
+          <li><strong>Relleno (padding) p</strong>: con \(p=(k-1)/2\) y \(s=1\) la salida iguala a la entrada.</li>
+          <li><strong>Tamaño del kernel k</strong>: un kernel mayor reduce la salida si no hay relleno.</li>
+          </ul>`, montar: montarTamano },
+      { titulo: 'Max pooling y average pooling', descripcion: 'Desplace la imagen y compare cuánto cambia el mapa antes y después del pooling. Alterne entre máximo y promedio.',
+        ayuda: String.raw`<p>Se comparan el mapa de activación original y el desplazado, antes y después del pooling. Un color marca activaciones positivas y otro, los cambios entre la versión original y la desplazada.</p>
+          <ul>
+          <li><strong>Desplazar la imagen</strong>: tras el pooling hay menos celdas con cambio que antes de él, lo que muestra cierta invarianza.</li>
+          <li><strong>Tipo de pooling</strong>: máximo conserva el pico más fuerte; promedio lo diluye.</li>
+          <li><strong>Ventana</strong> mayor: más invarianza, pero menos resolución.</li>
+          </ul>`, montar: montarPooling },
     ],
     teoria: String.raw`
       <h2>Tamaño de la salida</h2>

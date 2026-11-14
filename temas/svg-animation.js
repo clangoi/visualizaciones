@@ -73,9 +73,26 @@
     intro: String.raw`
       <p>Animar un gráfico es cambiar un atributo —posición, radio, opacidad, longitud— de manera gradual en el tiempo. Sirve para <strong>explicar un cambio</strong>: que la persona vea de dónde viene cada marca y no solo dónde termina.</p>
       <p>En SVG se puede animar con CSS, con el elemento <code>&lt;animate&gt;</code> o programáticamente: JavaScript calcula, en cada cuadro, el valor intermedio entre el inicio y el fin.</p>`,
+    parametros: [
+      ['Curva de aceleración (Fig. 1)', String.raw`La función que convierte el tiempo transcurrido en posición: lineal, aceleración (t²), suave (entrada y salida) o rebote. Todas recorren la misma distancia en el mismo tiempo, con distinto ritmo.`],
+      ['Duración (Fig. 1)', String.raw`Cuántos segundos tarda la marca en ir de un extremo al otro.`],
+      ['Animar (Fig. 1 y 2)', String.raw`Reinicia y reproduce la animación desde el principio.`],
+      ['Retardo entre barras (Fig. 2)', String.raw`Segundos de espera entre el arranque de una barra y la siguiente (efecto escalonado). Con 0 todas crecen a la vez.`],
+      ['Curva (Fig. 2)', String.raw`La curva de aceleración con que crece cada barra.`],
+    ],
     visualizaciones: [
-      { titulo: 'Curvas de aceleración', descripcion: 'Anime una marca con cuatro curvas distintas y compare con el gráfico de posición frente a tiempo.', montar: montarEasing },
-      { titulo: 'Barras en cascada', descripcion: 'Aumente el retardo entre barras y cambie la curva para ver cómo se guía la atención.', montar: montarCascada },
+      { titulo: 'Curvas de aceleración', descripcion: 'Anime una marca con cuatro curvas distintas y compare con el gráfico de posición frente a tiempo.',
+        ayuda: String.raw`<p>La marca naranja se mueve sobre un riel entre dos puntos. El gráfico inferior muestra la posición f(t) (curva naranja) frente a t / duración; la línea vertical gris discontinua es el tiempo transcurrido y la lectura da t, f(t) y la posición en píxeles.</p>
+          <ul>
+          <li><strong>Curva de aceleración</strong> «lineal»: la curva es una recta y la marca avanza a velocidad constante; «rebote» sobrepasa y vuelve a subir, y la gráfica lo refleja.</li>
+          <li><strong>Duración</strong>: estira o acorta el tiempo; la forma de la curva no cambia.</li>
+          </ul>`, montar: montarEasing },
+      { titulo: 'Barras en cascada', descripcion: 'Aumente el retardo entre barras y cambie la curva para ver cómo se guía la atención.',
+        ayuda: String.raw`<p>Ocho barras azules con su valor rotulado cuando terminan de crecer. Cada una sigue la curva elegida, con el comienzo desplazado según su posición.</p>
+          <ul>
+          <li><strong>Retardo entre barras</strong> mayor: las barras arrancan de a una, de izquierda a derecha; en 0 todas crecen juntas.</li>
+          <li><strong>Curva</strong>: cambia el ritmo de crecimiento de cada barra (por ejemplo, «rebote» las hace pasar de su valor y volver).</li>
+          </ul>`, montar: montarCascada },
     ],
     teoria: String.raw`
       <h2>Interpolación en el tiempo</h2>

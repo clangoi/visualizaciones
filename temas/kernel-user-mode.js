@@ -84,9 +84,23 @@
       <em>modo núcleo</em> también las <em>privilegiadas</em> (acceder a dispositivos, cambiar la tabla de páginas, deshabilitar interrupciones).</p>
       <p>Un programa de usuario solo cruza la frontera de forma controlada: pidiendo un servicio mediante una trampa, o cuando el hardware lo interrumpe. Así el núcleo
       mantiene siempre el control del sistema.</p>`,
+    parametros: [
+      ['Situación y reproductor (Fig. 1)', String.raw`Elige el caso a recorrer: un read legítimo o una instrucción privilegiada ejecutada desde modo usuario. Los botones del reproductor avanzan, retroceden o reinician la secuencia.`],
+      ['La CPU está en modo núcleo (Fig. 2)', String.raw`Representa el bit de modo de la CPU. Marcado, las instrucciones privilegiadas se ejecutan; desmarcado, provocan una excepción y el núcleo toma el control.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cruzar la frontera entre usuario y núcleo', descripcion: 'Siga paso a paso un read legítimo y, luego, una instrucción privilegiada ejecutada desde modo usuario. Observe en qué banda está cada paso y cuántas veces se cruza la frontera.', montar: montarFlujo },
-      { titulo: 'Instrucciones privilegiadas', descripcion: 'Alterne el modo de la CPU y compare qué instrucciones se ejecutan y cuáles provocan una excepción.', montar: montarInstrucciones },
+      { titulo: 'Cruzar la frontera entre usuario y núcleo', descripcion: 'Siga paso a paso un read legítimo y, luego, una instrucción privilegiada ejecutada desde modo usuario. Observe en qué banda está cada paso y cuántas veces se cruza la frontera.',
+        ayuda: String.raw`<p>Hay tres bandas: programa de usuario (azul), núcleo (naranja) y hardware (aguamarina). Cada paso aparece en la banda donde ocurre y las flechas entre bandas son los cruces de la frontera; el registro describe el paso actual.</p>
+          <ul>
+          <li><strong>Situación</strong> «Programa pide leer un archivo (read)»: la trampa entra al núcleo, este usa el hardware del disco y vuelve a modo usuario; son dos cruces legítimos.</li>
+          <li><strong>Situación</strong> «Programa intenta una instrucción privilegiada»: la CPU se niega a ejecutarla, entra al núcleo por una excepción y el programa culpable se termina.</li>
+          </ul>`, montar: montarFlujo },
+      { titulo: 'Instrucciones privilegiadas', descripcion: 'Alterne el modo de la CPU y compare qué instrucciones se ejecutan y cuáles provocan una excepción.',
+        ayuda: String.raw`<p>La tabla lista instrucciones, si son normales o privilegiadas y el resultado en el modo elegido.</p>
+          <ul>
+          <li><strong>La CPU está en modo núcleo</strong> desmarcado: las instrucciones normales se ejecutan y las privilegiadas (in/out, cli, cargar tabla de páginas…) producen excepción.</li>
+          <li><strong>La CPU está en modo núcleo</strong> marcado: todas se ejecutan; por eso solo el sistema operativo debe correr en ese modo.</li>
+          </ul>`, montar: montarInstrucciones },
     ],
     teoria: String.raw`
       <h2>Modos de ejecución</h2>

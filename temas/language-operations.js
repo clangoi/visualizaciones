@@ -141,15 +141,33 @@
       <p>Un lenguaje es un conjunto de palabras, y los conjuntos se pueden combinar. Además de la unión, la intersección y el complemento, hay dos operaciones
       propias de las palabras: la <strong>concatenación</strong> de lenguajes (pegar una palabra de cada uno) y la <strong>estrella de Kleene</strong> (pegar cualquier cantidad de palabras del mismo lenguaje).</p>
       <p>Estas operaciones son los ladrillos de las expresiones regulares: un lenguaje regular es el que se obtiene de lenguajes finitos usando solo unión, concatenación y estrella.</p>`,
+    parametros: [
+      ['Lenguaje A y Lenguaje B (Fig. 1)', String.raw`Los dos lenguajes sobre {a, b} que se combinan. Cada uno es el conjunto de palabras que cumple cierta propiedad.`],
+      ['Operación (Fig. 1)', String.raw`Unión, intersección, complemento, diferencia o concatenación aplicada a A y B. Define qué palabras entran en el resultado.`],
+      ['Lenguaje base L (Fig. 2)', String.raw`Conjunto finito de palabras separadas por comas, sobre el que se calculan las potencias.`],
+      ['Potencias hasta Lᵏ (Fig. 2)', String.raw`Cuántos niveles se muestran; el nivel k pega k palabras de L.`],
+      ['Clausura positiva L⁺ (Fig. 2)', String.raw`Excluye L⁰ (la palabra vacía por sí sola) de la unión de niveles.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Operaciones entre dos lenguajes',
         descripcion: 'Elija dos lenguajes y una operación: la fila inferior pinta las palabras (hasta longitud 4) que pertenecen al resultado. Pase el cursor sobre una celda.',
+        ayuda: String.raw`<p>Cada columna es una longitud (0 a 4) y cada celda una palabra sobre {a, b}. Tres filas: A (azul si pertenece), B (naranja) y el resultado (verde si pertenece); las celdas grises no pertenecen.</p>
+          <ul>
+          <li><strong>Operación</strong>: la fila del resultado se vuelve verde en las palabras que cumplen la operación; con «concatenación» solo se ven las de longitud ≤ 4.</li>
+          <li><strong>Lenguaje A / B</strong>: cambian las celdas azules y naranjas y, con ellas, el resultado.</li>
+          </ul>`,
         montar: montarOperaciones,
       },
       {
         titulo: 'La estrella de Kleene nivel a nivel',
         descripcion: 'Escriba un lenguaje base y suba k: cada nivel \\(L^k\\) pega k palabras; la estrella es la unión de todos los niveles.',
+        ayuda: String.raw`<p>Texto con una línea por nivel Lᵏ, donde cada palabra se asigna a la potencia a la que pertenece. La lectura resume el lenguaje acumulado.</p>
+          <ul>
+          <li><strong>Lenguaje base L</strong>: otro conjunto de palabras genera otros niveles; «a, b» da todo Σ*.</li>
+          <li><strong>Potencias hasta Lᵏ</strong>: al subir k aparece un nivel más; la estrella es la unión de todos.</li>
+          <li><strong>Clausura positiva</strong>: quita la palabra vacía del nivel 0 salvo que L ya la contenga.</li>
+          </ul>`,
         montar: montarEstrella,
       },
     ],

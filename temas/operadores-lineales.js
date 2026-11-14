@@ -188,15 +188,30 @@
       vez, así que cuestan \(N\) lecturas: son <em>lineales</em>.</p>
       <p>Lo interesante es cuándo se puede hacer <em>menos</em> que una pasada. Si hay un índice sobre la columna del predicado, la
       selección puede saltar directo a las tuplas que cumplen, pero solo conviene si son pocas.</p>`,
+    parametros: [
+      ['Operador (Fig. 1)', String.raw`El operador que recorre las seis páginas: selección, DISTINCT o GROUP BY con AVG. Selección emite mientras lee; los otros mantienen una tabla hash.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Genera otro archivo de ejemplo; Reproducir, Un paso y Reiniciar controlan la pasada.`],
+      ['Páginas N (Fig. 2)', String.raw`Tamaño del archivo en páginas. Escala el costo de todas las alternativas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una pasada sobre el archivo',
         descripcion: 'Selección, DISTINCT y GROUP BY sobre las mismas seis páginas. La selección emite tuplas mientras lee; DISTINCT y AVG necesitan una tabla hash, y AVG solo emite al final.',
+        ayuda: String.raw`<p>Cada página pasa de sin leer a en el buffer y luego a ya procesada. Las tuplas pueden pasar o ser descartadas según el operador, y se muestran las tablas de resultado o hash.</p>
+          <ul>
+          <li><strong>Operador</strong> Selección: las tuplas que cumplen se emiten de inmediato.</li>
+          <li><strong>Operador</strong> DISTINCT o AVG: las tuplas alimentan una tabla hash; AVG emite solo al final.</li>
+          </ul>`,
         montar: montarPasada,
       },
       {
         titulo: '¿Recorrido o índice?',
         descripcion: 'Costo de una selección según la fracción de tuplas que cumple. El índice no agrupado paga una lectura por tupla y pierde contra el recorrido cuando s supera ~1 %.',
+        ayuda: String.raw`<p>Eje horizontal: selectividad s, la fracción de tuplas que cumple. Eje vertical: páginas leídas. Hay una curva para el recorrido completo (N), el índice agrupado (altura + s·N) y el no agrupado (altura + s·R·N).</p>
+          <ul>
+          <li><strong>Páginas N</strong>: desplaza las curvas; el recorrido completo es una recta horizontal en N.</li>
+          <li>El índice no agrupado cruza el recorrido cuando s es de alrededor de 1 %: más allá conviene leer todo.</li>
+          </ul>`,
         montar: montarSelectividad,
       },
     ],

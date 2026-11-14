@@ -96,9 +96,26 @@
     intro: String.raw`
       <p>Los dispositivos de entrada/salida (discos, redes, teclados) son lentos y de ritmo irregular comparados con la CPU. El sistema operativo los oculta tras <strong>controladores</strong> (<em>drivers</em>) y usa <strong>búferes</strong>: zonas de memoria donde los datos esperan mientras el otro lado se pone al día.</p>
       <p>Con un solo búfer, productor y consumidor se turnan; con <strong>doble búfer</strong> uno llena mientras el otro vacía, y ambos trabajan a la vez. Además, la CPU puede dejar que el dispositivo copie datos solo, por <strong>DMA</strong>.</p>`,
+    parametros: [
+      ['Búferes (1 = sin solapamiento) (Fig. 1)', String.raw`Cuántos bloques puede tener el sistema en memoria a la vez entre el dispositivo y la CPU. Con uno, leer y procesar no pueden solaparse; con más, sí.`],
+      ['Tiempo de leer un bloque y Tiempo de procesar un bloque (Fig. 1)', String.raw`Duración de la lectura del dispositivo y del procesamiento por la CPU. El total queda fijado por el más lento cuando hay solapamiento.`],
+      ['Tiempos de lectura variables (Fig. 1)', String.raw`Hace que cada lectura tarde distinto. Un búfer mayor absorbe las rachas lentas.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otra secuencia de tiempos variables.`],
+      ['Datos a transferir (KB) (Fig. 2)', String.raw`El volumen de la transferencia. Determina cuánto tiempo de CPU consume cada método.`],
+    ],
     visualizaciones: [
-      { titulo: 'Uno, dos o más búferes', descripcion: 'Con un búfer los tiempos se suman; con dos se solapan y el total baja al del lado más lento. Active tiempos variables para ver cómo un búfer mayor absorbe las rachas.', montar: montarBufer },
-      { titulo: 'Quién copia los datos', descripcion: 'Compare qué fracción de la transferencia mantiene ocupada a la CPU con espera activa, con interrupciones y con DMA.', montar: montarTransferencia },
+      { titulo: 'Uno, dos o más búferes', descripcion: 'Con un búfer los tiempos se suman; con dos se solapan y el total baja al del lado más lento. Active tiempos variables para ver cómo un búfer mayor absorbe las rachas.',
+        ayuda: String.raw`<p>Eje horizontal, el tiempo. Una fila muestra al dispositivo (azul, leyendo el bloque i) y otra a la CPU (naranja, procesándolo). Los cuadros amarillos son tiempo en que uno espera por un búfer libre o por un dato.</p>
+          <ul>
+          <li><strong>Búferes</strong>: con 1 los tramos azul y naranja se alternan sin cruzarse; con 2 o más se solapan y el total baja.</li>
+          <li><strong>Tiempo de leer</strong> y <strong>Tiempo de procesar</strong>: el más largo domina el tiempo total y el otro acumula esperas.</li>
+          <li><strong>Tiempos de lectura variables</strong>: aparecen esperas irregulares que más búferes reducen.</li>
+          </ul>`, montar: montarBufer },
+      { titulo: 'Quién copia los datos', descripcion: 'Compare qué fracción de la transferencia mantiene ocupada a la CPU con espera activa, con interrupciones y con DMA.',
+        ayuda: String.raw`<p>Cada fila es un método (espera activa, interrupciones, DMA); la parte roja de la barra es la fracción de la duración de la transferencia en que la CPU está ocupada, con el porcentaje a la derecha. El cursor da el detalle en µs.</p>
+          <ul>
+          <li><strong>Datos a transferir</strong>: cambia la fracción de CPU ocupada de cada método; con DMA es la menor porque la CPU solo prepara la transferencia.</li>
+          </ul>`, montar: montarTransferencia },
     ],
     teoria: String.raw`
       <h2>Tres formas de hacer E/S</h2>

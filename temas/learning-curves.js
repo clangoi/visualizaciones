@@ -70,9 +70,28 @@
     intro: String.raw`
       <p>Una <strong>curva de aprendizaje</strong> grafica cómo evoluciona la pérdida de entrenamiento y la de validación. Es la herramienta de diagnóstico más usada: dice si el modelo necesita más datos, más capacidad, menos capacidad, otra tasa de aprendizaje o parar antes.</p>
       <p>Hay dos formas de leerlas: contra las <em>épocas</em> (¿cuándo detener el entrenamiento?) y contra el <em>tamaño del conjunto</em> (¿conviene conseguir más datos?).</p>`,
+    parametros: [
+      ['Datos, Ruido, Datos disponibles, Neuronas por capa (Fig. 1)', String.raw`Problema, mezcla de clases, cantidad de ejemplos de entrenamiento y capacidad de la red. Definen cuánto se puede memorizar.`],
+      ['Tasa de aprendizaje (Fig. 1)', String.raw`Tamaño del paso de cada actualización. Muy baja, las curvas bajan lentas; muy alta, oscilan.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Generan otro conjunto y controlan el avance del entrenamiento.`],
+      ['Datos (Fig. 2)', String.raw`Qué problema se aprende; cambia la dificultad y el nivel de ruido irreducible.`],
+      ['Capacidad (neuronas ocultas) (Fig. 2)', String.raw`Tamaño de la red. Más neuronas ajustan mejor el entrenamiento pero abren una brecha con la validación si hay pocos datos.`],
+      ['Otros datos (Fig. 2)', String.raw`Sortea otro conjunto.`],
+    ],
     visualizaciones: [
-      { titulo: 'Curvas por época', descripcion: 'Entrene y observe las dos curvas. Con 16 neuronas, pocos datos y mucho ruido, verá la validación subir tras un mínimo: es donde convendría detenerse.', montar: montarEpocas },
-      { titulo: 'Curvas según el tamaño de los datos', descripcion: 'Con pocas neuronas, las curvas se juntan arriba; con muchas, la brecha es grande al principio y se cierra con datos.', montar: montarTamano },
+      { titulo: 'Curvas por época', descripcion: 'Entrene y observe las dos curvas. Con 16 neuronas, pocos datos y mucho ruido, verá la validación subir tras un mínimo: es donde convendría detenerse.',
+        ayuda: String.raw`<p>Izquierda: frontera de decisión sobre los puntos de dos clases (huecos: validación). Derecha: pérdida de entrenamiento (azul) y de validación (naranja) por época.</p>
+          <ul>
+          <li>Ambas bajan y se juntan: bien. Entrenamiento baja y validación sube: sobreajuste; conviene detenerse en el mínimo de validación.</li>
+          <li><strong>Datos disponibles</strong> bajos con <strong>Neuronas por capa</strong> altas y <strong>Ruido</strong> alto exageran esa brecha.</li>
+          <li><strong>Tasa de aprendizaje</strong> alta hace oscilar ambas curvas.</li>
+          </ul>`, montar: montarEpocas },
+      { titulo: 'Curvas según el tamaño de los datos', descripcion: 'Con pocas neuronas, las curvas se juntan arriba; con muchas, la brecha es grande al principio y se cierra con datos.',
+        ayuda: String.raw`<p>El eje horizontal es el número de ejemplos de entrenamiento (escala log) y el vertical la pérdida. Entrenamiento en azul, validación en naranja, y el ruido irreducible aproximado como línea gris.</p>
+          <ul>
+          <li><strong>Capacidad</strong> baja: las curvas se juntan arriba, lejos del ruido irreducible. Con capacidad alta la brecha es grande con pocos datos y se cierra al aumentarlos.</li>
+          <li><strong>Datos</strong>: cambian el nivel del ruido irreducible al que se acercan.</li>
+          </ul>`, montar: montarTamano },
     ],
     teoria: String.raw`
       <h2>Patrones típicos</h2>

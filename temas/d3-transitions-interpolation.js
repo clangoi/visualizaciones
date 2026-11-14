@@ -120,9 +120,26 @@
     intro: String.raw`
       <p>Una <strong>transición</strong> lleva un atributo desde su valor actual hasta uno nuevo a lo largo del tiempo. Lo que hace posible ese camino es un <strong>interpolador</strong>: una función que, dado un parámetro \(t\) entre 0 y 1, devuelve el valor intermedio.</p>
       <p>Hay interpoladores de números, de colores, de listas, de cadenas y de formas. Con ellos un gráfico puede pasar de un estado a otro sin saltos, y la persona sigue el cambio.</p>`,
+    parametros: [
+      ['t (Fig. 1 y 2)', String.raw`El avance de la transición, de 0 (estado inicial) a 1 (estado final). Todo lo que se dibuja es una función de este único número.`],
+      ['Aceleración (Fig. 1)', String.raw`La curva con la que t se convierte en avance real: lineal, easeCubicInOut (arranca y frena suave) o easeCubicOut (arranca rápido). Cambia el ritmo, no el inicio ni el final.`],
+      ['Animar (Fig. 1 y 2)', String.raw`Recorre t de 0 a 1 automáticamente.`],
+      ['Emparejar por (Fig. 2)', String.raw`Cómo se asocian los puntos del conjunto inicial con los del final: por identificador (clave) o por posición (índice).`],
+    ],
     visualizaciones: [
-      { titulo: 'Un parámetro, cuatro tipos de dato', descripcion: 'Mueva t y observe cómo se interpola un número, un color, una lista de valores y una forma.', montar: montarInterpoladores },
-      { titulo: 'Constancia del objeto', descripcion: 'Anime el paso entre dos conjuntos de puntos, emparejando por clave o por índice, y compare las trayectorias.', montar: montarConstancia },
+      { titulo: 'Un parámetro, cuatro tipos de dato', descripcion: 'Mueva t y observe cómo se interpola un número, un color, una lista de valores y una forma.',
+        ayuda: String.raw`<p>Cuatro paneles que usan el mismo t: un número entre 0 y 100, un color que va de azul a naranja, seis barras (azul claro al inicio y naranja claro al final; la barra negra es el valor intermedio) y un polígono que se transforma de triángulo (azul) a octágono (naranja). Los estados intermedios van en negro o en el color mezclado.</p>
+          <ul>
+          <li><strong>t</strong>: desliza todos los paneles a la vez entre el estado inicial y el final.</li>
+          <li><strong>Aceleración</strong>: la lectura muestra «t con aceleración», que difiere de t salvo en «lineal»; los paneles usan este valor.</li>
+          </ul>`, montar: montarInterpoladores },
+      { titulo: 'Constancia del objeto', descripcion: 'Anime el paso entre dos conjuntos de puntos, emparejando por clave o por índice, y compare las trayectorias.',
+        ayuda: String.raw`<p>Puntos en un recuadro. Azul son los que permanecen (update) y viajan a su nueva posición por una trayectoria gris; verde, los que aparecen (enter); rojo, los que desaparecen (exit). El registro cuenta cuántos hay de cada tipo y cuántas trayectorias se cruzan.</p>
+          <ul>
+          <li><strong>Emparejar por</strong> «clave»: cada punto viaja a su nueva posición, con pocos cruces.</li>
+          <li><strong>Emparejar por</strong> «índice»: un punto «se convierte» en otro, las trayectorias se cruzan más y cambia la cantidad que entra o sale.</li>
+          <li><strong>t</strong>: sitúa la transición entre el estado inicial y el final.</li>
+          </ul>`, montar: montarConstancia },
     ],
     teoria: String.raw`
       <h2>Interpoladores</h2>

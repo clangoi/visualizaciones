@@ -82,15 +82,29 @@
       <p>La <strong>semántica</strong> de la lógica proposicional dice qué significa una fórmula. Su significado depende de una <em>valuación</em>: una asignación de verdadero (V) o falso (F) a cada variable.
       Dada la valuación, el valor de cualquier fórmula queda determinado, calculándolo de las hojas hacia la raíz con las tablas de los conectivos.</p>
       <p>Como con \(n\) variables hay \(2^n\) valuaciones, se pueden listar todas: eso es la <strong>tabla de verdad</strong>. Es el método más directo para decidir qué es verdad siempre, a veces o nunca.</p>`,
+    parametros: [
+      ['Fórmula (Fig. 1 y 2)', String.raw`La expresión que se evalúa; sus variables determinan las filas y sus subfórmulas las columnas.`],
+      ['Valuación (Fig. 1 y 2)', String.raw`Una fila de la tabla o los valores fijados en las variables: asigna V o F a cada variable.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La tabla de verdad',
         descripcion: 'Escriba una fórmula y lea su tabla con una columna por cada subfórmula. Haga clic en una fila para fijar una valuación.',
+        ayuda: String.raw`<p>Una columna por cada subfórmula, desde las variables hasta la fórmula completa; cada fila es una valuación posible.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: añade o quita variables y subfórmulas; con n variables hay \(2^n\) filas.</li>
+          <li><strong>Clic en una fila</strong>: fija esa valuación y muestra el valor de la fórmula en ella.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Evaluación recursiva sobre el árbol',
         descripcion: 'Fije una valuación haciendo clic en las variables y reproduzca la evaluación: cada nodo se calcula cuando ya se conocen sus hijos.',
+        ayuda: String.raw`<p>El árbol se colorea: verdadero (V), falso (F), sin evaluar y el nodo que se evalúa ahora.</p>
+          <ul>
+          <li><strong>Valuación</strong>: al cambiar el valor de una variable cambian los nodos que dependen de ella.</li>
+          <li><strong>Reproductor</strong>: cada nodo se calcula cuando ya se conocen sus hijos.</li>
+          </ul>`,
         montar: montarEvaluacion,
       },
     ],

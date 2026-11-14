@@ -320,15 +320,31 @@
       <p>Esa interpretación es local: el precio vale mientras el recurso varíe dentro de un rango en el que la base óptima
       no cambia. Más allá, otras restricciones pasan a ser las que limitan, y el precio cambia. Las figuras muestran ambas
       caras: el efecto de una unidad más y la función completa \(z^*(b_i)\), cuya pendiente es el precio.</p>`,
+    parametros: [
+      ['Recurso que cambia (Fig. 1)', String.raw`El recurso cuyo lado derecho se modifica; su precio sombra \(y_i\) dice cuánto sube \(z^*\) por unidad.`],
+      ['Cambio Δ del lado derecho (Fig. 1)', String.raw`Cuántas unidades se suman o restan al recurso. El cambio real de \(z^*\) coincide con \(y_i\Delta\) solo mientras \(\Delta\) no pase el límite de validez.`],
+      ['Δ = +1 unidad y Δ = 0 (Fig. 1)', String.raw`Fijan Δ en 1 o en 0 (la figura original).`],
+      ['Recurso y Disponibilidad bᵢ (Fig. 2)', String.raw`Qué recurso se estudia y qué cantidad hay disponible; ubican el punto elegido sobre la curva \(z^*(b_i)\).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una unidad más de un recurso',
         descripcion: 'Elija un recurso y mueva Δ: la región cambia y el nuevo óptimo se desplaza. Compare el cambio real de z* con yᵢ·Δ; coinciden para Δ pequeño y se separan al pasar el límite de validez. Pruebe el recurso 3, que sobra.',
+        ayuda: String.raw`<p>Se superponen la región original y la modificada. La restricción que cambia está destacada, y se marcan el óptimo original y el nuevo.</p>
+          <ul>
+          <li><strong>Recurso</strong>: con uno de precio sombra 0 la región cambia pero \(z^*\) no.</li>
+          <li><strong>Δ</strong>: el nuevo óptimo se desliza por la frontera; más allá del límite aparece un cambio de vértice y \(\Delta z\ne y_i\Delta\).</li>
+          </ul>`,
         montar: montarDelta,
       },
       {
         titulo: 'El óptimo como función del recurso',
         descripcion: 'La curva z*(bᵢ) es lineal por tramos y cóncava; su pendiente en cada punto es el precio sombra. Arrastre sobre la curva y observe cómo el precio baja en los quiebres hasta llegar a 0.',
+        ayuda: String.raw`<p>El primer gráfico muestra \(z^*(b_i)\) (lineal por tramos y cóncava) con su recta tangente, de pendiente \(y_i\), en el punto elegido. El segundo, el precio sombra en cada tramo.</p>
+          <ul>
+          <li><strong>Disponibilidad bᵢ</strong>: en cada quiebre cambia la base y el precio baja; al final llega a 0 porque ya sobra recurso.</li>
+          <li><strong>Recurso</strong>: cada uno tiene su propia curva y sus tramos.</li>
+          </ul>`,
         montar: montarCurva,
       },
     ],

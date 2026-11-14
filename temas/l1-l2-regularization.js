@@ -82,9 +82,29 @@
     intro: String.raw`
       <p>Una red con muchos parámetros puede ajustar el ruido de los datos de entrenamiento. La <strong>regularización</strong> añade a la pérdida un término que castiga los pesos grandes, de modo que la red solo los use cuando valga la pena.</p>
       <p>La penalización <strong>L2</strong> (<em>weight decay</em>) suma el cuadrado de los pesos y los encoge de forma pareja; la <strong>L1</strong> suma sus valores absolutos y tiende a dejar muchos pesos <em>exactamente</em> en cero.</p>`,
+    parametros: [
+      ['Datos, Ruido, Neuronas por capa (Fig. 1)', String.raw`Qué problema se aprende, cuánto se mezclan las clases y qué capacidad tiene la red. Pocos datos ruidosos y muchas neuronas favorecen que la red memorice.`],
+      ['Regularización L2 (λ) y L1 (λ) (Fig. 1)', String.raw`Fuerza de cada penalización sobre los pesos. L2 los encoge todos; L1 empuja a cero los poco útiles. Subirlas simplifica la frontera a costa de ajustar menos los datos de entrenamiento.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Generan otro conjunto y controlan el avance del entrenamiento época a época.`],
+      ['Penalización (Fig. 2)', String.raw`Elige la forma de la región permitida: rombo para L1 (valor absoluto) o círculo para L2.`],
+      ['Fuerza λ (Fig. 2)', String.raw`Cuánto pesa la penalización frente al error de los datos. Al subirla, la región permitida se encoge y la solución se acerca al origen.`],
+      ['Correlación entre parámetros (Fig. 2)', String.raw`Inclinación y estiramiento de las elipses de la pérdida. Cambia dónde la elipse toca la región permitida y, con ello, qué pesos se anulan.`],
+    ],
     visualizaciones: [
-      { titulo: 'Una red que memoriza', descripcion: 'Entrene con \\(\\lambda=0\\) y observe cómo diverge la pérdida de validación; luego active L2 o L1 y compare. Mire cuántos parámetros quedan cerca de cero.', montar: montarRed },
-      { titulo: 'Por qué L1 produce ceros', descripcion: 'Mueva \\(\\lambda\\) y la correlación y vea dónde toca la elipse al rombo o al círculo. El rombo suele tocar en un vértice, sobre un eje.', montar: montarGeometria },
+      { titulo: 'Una red que memoriza', descripcion: 'Entrene con \\(\\lambda=0\\) y observe cómo diverge la pérdida de validación; luego active L2 o L1 y compare. Mire cuántos parámetros quedan cerca de cero.',
+        ayuda: String.raw`<p>A la izquierda, la frontera de decisión de la red sobre los puntos de las dos clases (los huecos son datos de validación). A la derecha, la pérdida de entrenamiento (azul) y la de validación (naranja) por época.</p>
+          <ul>
+          <li><strong>Regularización L2 (λ)</strong> en 0: la pérdida de entrenamiento cae y la de validación sube, señal de memorización. Con λ entre 0,02 y 0,05 la frontera se suaviza y la brecha se reduce.</li>
+          <li><strong>Regularización L1 (λ)</strong>: igual que L2 en el efecto sobre la brecha, pero deja más pesos casi nulos.</li>
+          <li><strong>Datos</strong> y <strong>Ruido</strong>: con más ruido la red tiene más que memorizar y la brecha crece.</li>
+          </ul>`, montar: montarRed },
+      { titulo: 'Por qué L1 produce ceros', descripcion: 'Mueva \\(\\lambda\\) y la correlación y vea dónde toca la elipse al rombo o al círculo. El rombo suele tocar en un vértice, sobre un eje.',
+        ayuda: String.raw`<p>Los ejes son los dos pesos \(w_1\) y \(w_2\). Las curvas de nivel grises son la pérdida de los datos, la línea naranja es la región permitida por la penalización, el camino azul muestra las soluciones al subir λ, y los puntos marcan la solución sin penalizar y la penalizada.</p>
+          <ul>
+          <li><strong>Penalización</strong> L1: la elipse suele tocar el rombo en un vértice, sobre un eje, y un peso queda exactamente en cero. Con L2 toca el círculo en un punto sin ceros.</li>
+          <li><strong>Fuerza λ</strong>: al subirla, la región se encoge y la solución penalizada se aleja del mínimo de los datos hacia el origen.</li>
+          <li><strong>Correlación entre parámetros</strong>: elipses más inclinadas cambian el punto de contacto y pueden quitar el cero que L1 daba.</li>
+          </ul>`, montar: montarGeometria },
     ],
     teoria: String.raw`
       <h2>La pérdida regularizada</h2>

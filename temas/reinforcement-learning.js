@@ -279,15 +279,37 @@
       <em>calcular</em> con <strong>iteración de valores</strong>. Si no se conoce, hay que aprenderla probando:
       <strong>Q-learning</strong> estima el valor de cada acción a partir de la experiencia, equilibrando explorar y aprovechar
       lo aprendido.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1 y 2)', String.raw`El mundo de celdas: el clásico 4 × 3, un puente angosto entre castigos, o un acantilado junto al camino corto.`],
+      ['Descuento γ (Fig. 1)', String.raw`Cuánto vale una recompensa futura frente a una inmediata. Con γ cercano a 1 el agente planifica a largo plazo; el horizonte efectivo es \(1/(1-\gamma)\).`],
+      ['Ruido de las acciones (Fig. 1 y 2)', String.raw`Probabilidad de que el agente se desvíe hacia un lado en vez de ir adonde eligió.`],
+      ['Recompensa por paso (Fig. 1 y 2)', String.raw`Lo que recibe el agente por cada movimiento. Negativa lo apura a salir; positiva lo invita a quedarse.`],
+      ['Exploración ε (Fig. 2)', String.raw`Probabilidad de elegir una acción al azar en vez de la mejor conocida.`],
+      ['Tasa de aprendizaje α (Fig. 2)', String.raw`Cuánto se mueve \(Q(s, a)\) hacia cada nueva estimación.`],
+      ['Reproductor y Nueva semilla', String.raw`Avanzan las iteraciones o los pasos del agente, y cambian la secuencia aleatoria.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Iteración de valores',
         descripcion: 'Con el modelo conocido, los valores se propagan desde las salidas. En el puente, pruebe ruido 0 frente a 0.2: con acciones inciertas, cruzar deja de valer la pena. Una recompensa por paso negativa apura al agente.',
+        ayuda: String.raw`<p>Cada celda es un estado; las de borde verde y rojo son salidas con premio o castigo, y las negras, muros. El color de fondo es el valor \(V(s)\) (verde positivo, rojo negativo) y las flechas, la política: la mejor acción según los valores actuales. Cada iteración actualiza todas las celdas con la ecuación de Bellman.</p>
+          <ul>
+          <li>Avance paso a paso: los valores se propagan desde las salidas hacia el resto, una celda más lejos por iteración.</li>
+          <li><strong>Ruido</strong> en el puente: con 0 conviene cruzar hacia el premio grande; con 0.2, el riesgo de caer hace que la política prefiera la salida pequeña.</li>
+          <li><strong>Recompensa por paso</strong> muy negativa: el agente prefiere salir rápido, aunque sea por el castigo. <strong>γ</strong> bajo: solo le importan las salidas cercanas.</li>
+          </ul>`,
         montar: montarIteracion,
       },
       {
         titulo: 'Q-learning',
         descripcion: 'Sin conocer el modelo, el agente aprende de sus propias transiciones. Con ε = 0 puede quedar atrapado en la primera salida que encuentre; con ε alto explora mucho pero rinde peor. En el acantilado aprende a alejarse del borde.',
+        ayuda: String.raw`<p>Cada celda se divide en cuatro triángulos, uno por acción, coloreados según \(Q(s, a)\): lo que el agente cree que gana si hace esa acción ahí. El punto naranja es el agente moviéndose. Abajo, el retorno de cada episodio y su promedio móvil.</p>
+          <ul>
+          <li>El agente no conoce el mapa: aprende solo de lo que le pasa. Al principio los triángulos son neutros y se van coloreando por donde pasa.</li>
+          <li><strong>ε = 0</strong>: puede quedarse para siempre con la primera salida que encontró. <strong>ε</strong> alto: explora todo pero su retorno medio es peor, porque actúa al azar a menudo.</li>
+          <li>En el <strong>acantilado</strong>, con ε &gt; 0 aprende un camino alejado del borde: sabe que a veces tropezará.</li>
+          <li><strong>α</strong> grande aprende rápido pero los valores oscilan; pequeño, lento pero estable.</li>
+          </ul>`,
         montar: montarQ,
       },
     ],

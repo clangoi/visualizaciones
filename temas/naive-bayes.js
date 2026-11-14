@@ -212,15 +212,35 @@
       <strong>independientes</strong>, así que \(P(x \mid c) = \prod_j P(x_j \mid c)\) y basta estimar una distribución por
       atributo. El supuesto casi nunca es cierto, pero el clasificador resulta rápido, necesita pocos datos y funciona
       sorprendentemente bien, en especial con textos.</p>`,
+    parametros: [
+      ['Clases (Fig. 1)', String.raw`Cuántos grupos de datos hay (2 o 3).`],
+      ['Correlación ρ dentro de cada clase (Fig. 1)', String.raw`Qué tan relacionados están los dos atributos dentro de una clase. Naive Bayes supone que es 0 (atributos independientes).`],
+      ['Separación entre clases (Fig. 1)', String.raw`Qué tan lejos están los centros de las clases. Con poca separación hay más ejemplos ambiguos.`],
+      ['Comparar con QDA (Fig. 1)', String.raw`Dibuja también la frontera de un modelo que estima la covarianza completa y sí puede representar la correlación.`],
+      ['Mensaje (Fig. 2)', String.raw`El texto que se clasifica como spam o normal.`],
+      ['Suavizado de Laplace α (Fig. 2)', String.raw`Cuenta ficticia que se suma a cada palabra para que ninguna tenga probabilidad cero. Un α mayor hace las evidencias más moderadas.`],
+      ['Ejemplo de spam / Ejemplo normal (Fig. 2)', String.raw`Cargan un mensaje típico de cada clase.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Naive Bayes gaussiano',
         descripcion: 'Cada clase se modela con una gaussiana por atributo. Aumente la correlación ρ: las elipses de Naive Bayes no pueden inclinarse, pero la exactitud casi no cae. Active QDA para ver la frontera con covarianza completa.',
+        ayuda: String.raw`<p>Cada color es una clase. Las elipses son las gaussianas que Naive Bayes estima para cada una (a 1 y 2 desviaciones): como supone atributos independientes, siempre están alineadas con los ejes. El fondo indica la clase más probable en cada lugar.</p>
+          <ul>
+          <li><strong>Correlación ρ</strong>: los datos se inclinan en diagonal pero las elipses no pueden inclinarse. Aun así, la exactitud casi no cae: para clasificar basta con que el orden de las probabilidades sea correcto.</li>
+          <li><strong>QDA</strong>: su frontera sí sigue la inclinación; compare exactitudes y el número de parámetros que estima cada modelo.</li>
+          <li><strong>Separación</strong> baja: las clases se superponen y la exactitud de ambos modelos baja por igual.</li>
+          </ul>`,
         montar: montarGaussiano,
       },
       {
         titulo: 'Un filtro de spam',
         descripcion: 'Naive Bayes multinomial sobre palabras: la decisión es una suma de evidencias. Escriba una palabra que no esté en el vocabulario o suba α para ver el efecto del suavizado.',
+        ayuda: String.raw`<p>Cada barra es una palabra del mensaje y su largo, la evidencia que aporta: \(\log P(\text{palabra} \mid \text{spam}) - \log P(\text{palabra} \mid \text{normal})\). Las naranjas empujan hacia spam y las azules hacia normal; las grises no están en el vocabulario y se ignoran. La decisión es la suma de todas las barras más la proporción previa de cada clase.</p>
+          <ul>
+          <li>Escriba palabras como «gratis» u «oferta» y vea cómo crece «P(spam | mensaje)»; agregue «clase» o «apuntes» y vea cómo baja.</li>
+          <li><strong>α</strong> grande acorta todas las barras: las palabras vistas pocas veces dejan de ser decisivas.</li>
+          </ul>`,
         montar: montarSpam,
       },
     ],

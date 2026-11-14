@@ -238,15 +238,29 @@
       <p><strong>Gauss-Newton</strong> converge muy rápido cerca de la solución pero puede divergir lejos de ella. El
       <a href="tema.html?id=descenso-gradiente">descenso de gradiente</a> siempre baja, pero lento. <strong>Levenberg-Marquardt</strong>
       interpola entre ambos y es el método estándar.</p>`,
+    parametros: [
+      ['Modelo (Fig. 1)', String.raw`La función que se ajusta a los datos y sus parámetros. Cambia la superficie de costo \(S(\theta)\).`],
+      ['Método (Fig. 1)', String.raw`El algoritmo de optimización: Gauss-Newton, Levenberg-Marquardt o descenso de gradiente. Determina cómo avanza el recorrido de θ.`],
+      ['Ruido σ y Nuevos datos (Fig. 1 y 2)', String.raw`Cuánto se dispersan los datos y su regeneración. Con más ruido, el mínimo se desplaza de los parámetros verdaderos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Iteraciones sobre la superficie de costo',
         descripcion: 'A la izquierda, los datos y el modelo actual; a la derecha, el costo para cada par de parámetros y el recorrido del método. Ejecute paso a paso con cada método.',
+        ayuda: String.raw`<p>A la izquierda, los datos, el modelo en la iteración actual y el modelo verdadero. A la derecha, el costo \(S(\theta)\) para cada par de parámetros (más oscuro es mayor, escala logarítmica), el recorrido de θ y los parámetros verdaderos.</p>
+          <ul>
+          <li><strong>Método</strong>: cambia la trayectoria: Gauss-Newton y Levenberg-Marquardt dan pasos grandes; el gradiente sigue la pendiente con pasos pequeños.</li>
+          <li><strong>Ruido σ</strong>: el mínimo del costo se separa del punto de parámetros verdaderos.</li>
+          </ul>`,
         montar: montarIteraciones,
       },
       {
         titulo: 'Velocidad de convergencia',
         descripcion: 'Cuánto falta para el mínimo en cada iteración. Gauss-Newton y Levenberg-Marquardt convergen casi cuadráticamente cerca de la solución; el gradiente, linealmente.',
+        ayuda: String.raw`<p>Eje X: iteración; eje Y: \(S(\theta)-S_{\min}\), lo que falta para el mínimo, una curva por método.</p>
+          <ul>
+          <li>Las curvas usan el modelo y datos de la figura 1: cambiarlos allí modifica la rapidez con que cada método baja.</li>
+          </ul>`,
         montar: montarConvergencia,
       },
     ],

@@ -237,15 +237,34 @@
       <p>En casi todos los procesos reales las frecuencias de variantes tienen <strong>cola larga</strong>: unas pocas variantes cubren la mayoría de los casos y una
       multitud de variantes raras cubre el resto. Esa cola mezcla comportamiento legítimo, excepciones y ruido, y decide cuánto tendrá que simplificar un
       <a href="tema.html?id=process-discovery">algoritmo de descubrimiento</a>.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1)', String.raw`Elige el proceso que genera los casos (por ejemplo, con paralelismo o con bucle). Determina cuántas variantes posibles hay y con qué frecuencia aparecen.`],
+      ['Casos (Fig. 1)', String.raw`Tamaño de la muestra. Con más casos se descubren más variantes raras, pero las más frecuentes se mantienen.`],
+      ['Desvíos (ruido) (Fig. 1)', String.raw`Porcentaje de casos con comportamientos anómalos. Alarga la cola de variantes casi únicas sin cambiar mucho las primeras.`],
+      ['Cobertura buscada (Fig. 1)', String.raw`Porcentaje de casos que se quiere cubrir. Indica cuántas variantes, de las más frecuentes a las menos, hacen falta para llegar a él.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otra muestra aleatoria con los mismos ajustes.`],
+      ['Traza A (filas) y Traza B (columnas) (Fig. 2)', String.raw`Las dos variantes que se comparan. Su distancia de edición es el mínimo de inserciones, borrados y sustituciones para pasar de una a otra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Frecuencia de variantes y cobertura',
         descripcion: 'Fije la cobertura buscada y vea cuántas variantes hacen falta. Compare el proceso con paralelismo con el de bucle, y suba el ruido: la cola larga crece pero las primeras variantes casi no cambian.',
+        ayuda: String.raw`<p>Cada barra es una variante (secuencia de actividades distinta) y su altura es el porcentaje de casos que la siguen. La línea es la cobertura acumulada. Las barras de las variantes necesarias para alcanzar la cobertura buscada se distinguen de las de la cola; una variante puede seleccionarse.</p>
+          <ul>
+          <li><strong>Cobertura buscada</strong>: al subirla, el número de variantes necesarias crece, rápido al final por la cola larga.</li>
+          <li><strong>Desvíos (ruido)</strong>: aumenta la cola de variantes sueltas y reduce la cobertura de las principales.</li>
+          <li><strong>Proceso</strong>: el paralelismo y los bucles generan muchas más variantes que una secuencia simple.</li>
+          </ul>`,
         montar: montarFrecuencias,
       },
       {
         titulo: 'Comparar dos trazas',
         descripcion: 'Elija dos variantes del proceso de pedidos y ejecute el algoritmo de distancia de edición. Pruebe con variantes que solo cambian el orden de dos actividades y con otras que omiten un paso.',
+        ayuda: String.raw`<p>Es la tabla de programación dinámica de la distancia de edición: filas con la traza A, columnas con la traza B. Se destaca la celda que se calcula, las celdas de las que depende y, al final, el camino óptimo (alineación); las actividades distintas o sin pareja se marcan.</p>
+          <ul>
+          <li><strong>Traza A</strong> y <strong>Traza B</strong>: si solo difieren en el orden de dos actividades, el camino óptimo tiene dos desajustes; si una omite un paso, aparece una inserción o borrado.</li>
+          <li>Una distancia baja indica variantes casi iguales; una alta, comportamientos muy distintos.</li>
+          </ul>`,
         montar: montarComparar,
       },
     ],

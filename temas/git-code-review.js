@@ -94,9 +94,26 @@
       <p>El <strong>control de versiones</strong> guarda la historia completa de un proyecto como una cadena de <em>commits</em>: instantáneas con autor, fecha y mensaje. Permite volver atrás, ver quién cambió qué y,
       sobre todo, que varias personas trabajen a la vez en <strong>ramas</strong> separadas que luego se <strong>fusionan</strong>.</p>
       <p>Para que lo que entra a la rama principal sea bueno, los equipos añaden una <strong>revisión de código</strong>: otra persona lee el cambio (en un <em>pull request</em>) antes de aprobarlo.</p>`,
+    parametros: [
+      ['Rama actual (HEAD) (Fig. 1)', String.raw`La rama en la que se hacen los siguientes commits. Cambiarla mueve HEAD a otra rama.`],
+      ['git commit, git switch -c feature, git merge feature → main y Reiniciar (Fig. 1)', String.raw`Cada botón ejecuta esa orden sobre el repositorio dibujado: agregar un commit a la rama actual, crear <code>feature</code>, fusionarla en <code>main</code> o volver al estado inicial.`],
+      ['Las pruebas pasan a la primera (Fig. 2)', String.raw`Si el CI aprueba el primer push o si falla y exige una corrección.`],
+      ['El revisor pide cambios (Fig. 2)', String.raw`Si la revisión humana aprueba de inmediato o solicita ajustes, lo que agrega otra ronda.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza el recorrido paso a paso o solo; Reiniciar vuelve al comienzo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Commits, ramas y fusiones', descripcion: 'Haga commits, cree <code>feature</code> y fusione. Compare lo que ocurre cuando main no avanzó (avance rápido) y cuando las ramas divergieron (commit de fusión).', montar: montarGit },
-      { titulo: 'Pull request y revisión', descripcion: 'Recorra el ciclo de un PR; haga fallar el CI o pida cambios en la revisión y vea cuántas rondas se agregan.', montar: montarRevision },
+      { titulo: 'Commits, ramas y fusiones', descripcion: 'Haga commits, cree <code>feature</code> y fusione. Compare lo que ocurre cuando main no avanzó (avance rápido) y cuando las ramas divergieron (commit de fusión).',
+        ayuda: String.raw`<p>Grafo de commits. Las ramas <code>main</code> y <code>feature</code> tienen colores propios; el commit de fusión tiene dos padres y un marcador señala HEAD, la rama actual.</p>
+          <ul>
+          <li><strong>git commit</strong>: agrega un commit a la rama donde está HEAD.</li>
+          <li><strong>git merge</strong> con <code>main</code> sin cambios: la rama solo avanza (avance rápido). Si <code>main</code> avanzó, aparece un commit de fusión con dos padres.</li>
+          </ul>`, montar: montarGit },
+      { titulo: 'Pull request y revisión', descripcion: 'Recorra el ciclo de un PR; haga fallar el CI o pida cambios en la revisión y vea cuántas rondas se agregan.',
+        ayuda: String.raw`<p>Diagrama de secuencia de un pull request: acciones de la autora, automatización (CI), revisión humana, aprobación, fallo y fusión, cada una con su color.</p>
+          <ul>
+          <li><strong>las pruebas pasan a la primera</strong> desmarcada: el CI marca fallo y se añade una ronda de corrección y nueva ejecución.</li>
+          <li><strong>el revisor pide cambios</strong> marcada: se agregan comentarios, nuevos commits y otra pasada del CI antes de aprobar y fusionar.</li>
+          </ul>`, montar: montarRevision },
     ],
     teoria: String.raw`
       <h2>El grafo de commits</h2>

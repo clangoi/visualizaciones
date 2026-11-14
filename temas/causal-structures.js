@@ -116,15 +116,31 @@
       (\(X \leftarrow Z \to Y\)) y <strong>colliders</strong> o efectos comunes (\(X \to Z \leftarrow Y\)).</p>
       <p>Cada pieza transmite o bloquea la dependencia de una manera distinta según si se condiciona en \(Z\). Con eso se leen del grafo
       todas las independencias que deben verse en los datos: la <strong>condición causal de Markov</strong>.</p>`,
+    parametros: [
+      ['Estructura (Fig. 1)', String.raw`Cadena, fork o collider: cómo se relacionan causalmente X, Z e Y. Define cuándo X e Y están asociadas.`],
+      ['condicionar en Z (franja) y Z ≈ (Fig. 1)', String.raw`Activa la franja y fija su posición para mirar solo los datos con Z cerca de ese valor.`],
+      ['Nuevos datos y Nuevos datos (Fig. 1 y 2)', String.raw`Generan una nueva muestra simulada.`],
+      ['Grafo y Muestra n (Fig. 2)', String.raw`Elige el grafo causal que genera los datos y cuántos datos hay. Más datos hacen más fiables las correlaciones parciales.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cadenas, forks y colliders',
         descripcion: 'Datos generados por cada estructura. Active y desactive la franja de Z y compare la correlación de X e Y.',
+        ayuda: String.raw`<p>Dispersión de X frente a Y. Los puntos destacados son los que tienen Z en la franja y el resto, los demás; el nodo Z condicionado se marca en el grafo.</p>
+          <ul>
+          <li><strong>Cadena</strong> o <strong>fork</strong>: condicionar en Z elimina la asociación entre X e Y.</li>
+          <li><strong>Collider</strong>: sin condicionar, X e Y son independientes; condicionar en Z las asocia.</li>
+          </ul>`,
         montar: montarEstructuras,
       },
       {
         titulo: 'La condición causal de Markov',
         descripcion: 'Las independencias que impone el grafo, comprobadas en datos simulados con correlaciones parciales.',
+        ayuda: String.raw`<p>La tabla compara las afirmaciones de independencia que impone el grafo (Markov local) con las correlaciones parciales medidas en los datos simulados.</p>
+          <ul>
+          <li><strong>Grafo</strong>: cambia las afirmaciones de independencia esperadas.</li>
+          <li><strong>Muestra n</strong>: con n grande, las correlaciones parciales de pares independientes se acercan a 0.</li>
+          </ul>`,
         montar: montarMarkov,
       },
     ],

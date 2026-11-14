@@ -292,15 +292,31 @@
       <a href="tema.html?id=petri-nets">red de Petri</a>, que describa cómo parece funcionar el proceso. Nadie dibuja el modelo: sale de las trazas.</p>
       <p>Siempre hay muchos modelos posibles para un mismo registro. Uno acepta todo, otro memoriza las trazas vistas, y entre ambos hay una
       gama de compromisos. Medirlos con cuatro criterios (ajuste, precisión, generalización y simplicidad) es lo que permite decir cuál es mejor.</p>`,
+    parametros: [
+      ['Registro de ejemplo (Fig. 1 y 2)', String.raw`El registro de partida. Cambia las trazas y, con ellas, la red que descubre el algoritmo α.`],
+      ['Trazas (Fig. 1 y 2)', String.raw`Las trazas editables, con el número de veces que ocurre cada una. Agregar o quitar variantes cambia el modelo descubierto.`],
+      ['Reiniciar fichas y Disparar al azar (Fig. 1)', String.raw`Vuelven al marcado inicial o disparan una transición habilitada elegida al azar.`],
+      ['Modelo dibujado y Ver el siguiente modelo (Fig. 2)', String.raw`Elige cuál de los tres modelos de las mismas trazas se muestra (flower, de trazas o descubierto por α) y avanza al siguiente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Del registro a la red',
         descripcion: 'La red nace del registro con el algoritmo α. Dispare sus transiciones y vea si la traza que arma estaba en el registro; edite las trazas y observe cómo cambia el modelo.',
+        ayuda: String.raw`<p>Es la red de Petri descubierta del registro. Las transiciones habilitadas se marcan para hacer clic y las fichas son los puntos en las plazas. La lectura indica si la traza armada con los disparos estaba en el registro.</p>
+          <ul>
+          <li><strong>Trazas</strong>: añadir una variante nueva puede crear plazas o bifurcaciones nuevas; quitarla simplifica la red.</li>
+          <li><strong>Registro de ejemplo</strong>: cambia el comportamiento que la red debe reproducir.</li>
+          </ul>`,
         montar: montarPlayIn,
       },
       {
         titulo: 'Tres modelos para las mismas trazas',
         descripcion: 'Compare el modelo flower, el modelo de trazas y el que descubre α. Fíjese en cuántas trazas acepta cada uno frente a las variantes del registro; agregue un caso raro y vea quién lo absorbe.',
+        ayuda: String.raw`<p>Se dibuja uno de tres modelos de las mismas trazas, junto con una lectura de cuántas trazas acepta frente a las variantes del registro.</p>
+          <ul>
+          <li><strong>Modelo dibujado</strong>: el flower acepta casi todo, el de trazas solo lo visto y α un punto intermedio; significa distinta generalización y precisión.</li>
+          <li><strong>Trazas</strong>: agregar un caso raro muestra qué modelo lo absorbe.</li>
+          </ul>`,
         montar: montarCandidatos,
       },
     ],

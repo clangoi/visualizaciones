@@ -137,15 +137,29 @@
       con uno que crece cuanto más se parecen.</p>
       <p>No hay una medida correcta en general. La euclidiana mide «en línea recta», la Manhattan suma diferencias por coordenada,
       y el coseno ignora la magnitud y mira solo la dirección, lo que la hace preferida para texto.</p>`,
+    parametros: [
+      ['Exponente p (Fig. 1)', String.raw`El exponente de la distancia de Minkowski. Con p = 1 se suman las diferencias por coordenada; con p = 2 es la distancia usual; cuando p crece domina la mayor diferencia.`],
+      ['Manhattan, Euclidiana y Chebyshev (Fig. 1)', String.raw`Atajos para fijar p = 1, p = 2 o p = ∞.`],
+      ['Multiplicar b por (Fig. 2)', String.raw`Cuántas veces se repite el documento 2, lo que multiplica sus conteos por ese factor. El contenido es el mismo y solo cambia la longitud del texto.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La familia de Minkowski',
         descripcion: 'Mueva p y observe la forma de la bola: de rombo (p = 1) a círculo (p = 2) a cuadrado (p = ∞). Las tres distancias se dibujan entre A y B.',
+        ayuda: String.raw`<p>Los puntos A y B están en el plano. La región sombreada es la bola de radio d_p(A, B) centrada en A. Se dibujan el recorrido Manhattan, el segmento euclidiano y la mayor diferencia por coordenada (L∞).</p>
+          <ul>
+          <li><strong>Exponente p</strong>: la bola pasa de rombo (p = 1) a círculo (p = 2) y a cuadrado (p = ∞); la forma indica qué puntos están a igual distancia de A.</li>
+          <li>Los atajos <strong>Manhattan</strong>, <strong>Euclidiana</strong> y <strong>Chebyshev</strong> permiten comparar las tres distancias entre los mismos puntos.</li>
+          </ul>`,
         montar: montarMinkowski,
       },
       {
         titulo: 'Coseno frente a euclidiana',
         descripcion: 'Dos documentos como vectores de conteos. Multiplique b y compare qué medida cambia.',
+        ayuda: String.raw`<p>Los ejes son los conteos de «gato» y de «perro». Se dibujan el documento 1 (a) y el documento 2 repetido c veces (c · b), el ángulo θ entre ambos y la distancia euclidiana.</p>
+          <ul>
+          <li><strong>Multiplicar b por</strong>: el vector alarga su flecha y la distancia euclidiana crece, mientras el ángulo θ y su coseno no cambian, pues la dirección es la misma.</li>
+          </ul>`,
         montar: montarCoseno,
       },
     ],

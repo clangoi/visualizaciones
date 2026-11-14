@@ -94,15 +94,27 @@
       <p>La resolución se usa para <strong>refutar</strong>: se parte de un conjunto de cláusulas y se aplica la regla una y otra vez agregando resolventes. Si en algún momento aparece la <strong>cláusula vacía</strong> \(\Box\),
       que no tiene ningún literal y por tanto es falsa siempre, el conjunto de partida era insatisfacible.</p>
       <p>Para probar que \(\Gamma \models \varphi\) se resuelve \(\Gamma \cup \{\neg\varphi\}\): si se llega a \(\Box\), la conclusión se sigue. Es el motor de muchos demostradores automáticos.</p>`,
+    parametros: [
+      ['Problema (Fig. 1 y 2)', String.raw`El conjunto de cláusulas a refutar. Los válidos terminan en □; el inválido se satura sin llegar a □.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza, reinicia o ejecuta la saturación; cada paso resuelve un par y agrega la resolvente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Saturación por resolución',
         descripcion: 'Avance paso a paso: cada paso resuelve un par y agrega la nueva cláusula. Compare los problemas válidos, que terminan en □, con el inválido, que se satura sin □.',
+        ayuda: String.raw`<p>La lista muestra las cláusulas iniciales y cada resolvente agregada, con el par de que proviene. Si aparece □, la cláusula vacía, el conjunto es insatisfacible.</p>
+          <ul>
+          <li><strong>Problema</strong>: en los válidos el proceso termina en □; en el inválido la lista deja de crecer sin contradicción.</li>
+          </ul>`,
         montar: montarSaturacion,
       },
       {
         titulo: 'Árbol de la refutación',
         descripcion: 'Cuando hay refutación, se dibuja el árbol de las cláusulas necesarias: hojas son datos y la raíz es \\(\\Box\\). Mire su altura y cuántas cláusulas intervienen.',
+        ayuda: String.raw`<p>Árbol de la refutación: las hojas son cláusulas iniciales (según la leyenda), los nodos internos son resolventes y la raíz es □. Sólo incluye las cláusulas necesarias.</p>
+          <ul>
+          <li><strong>Problema</strong>: su altura y número de hojas muestran cuántas cláusulas intervienen en la refutación.</li>
+          </ul>`,
         montar: montarArbol,
       },
     ],

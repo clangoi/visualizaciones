@@ -129,15 +129,28 @@
       <p>Un <strong>verificador automático</strong> de consecuencias convierte la pregunta «¿se sigue \(\varphi\) de \(\Gamma\)?» en una cadena de pasos mecánicos: negar la conclusión, pasar todo a cláusulas, aplicar resolución
       y mirar si aparece \(\Box\). Toda la lógica de las secciones anteriores se junta en esta tubería.</p>
       <p>Para comprobar que el resultado es de fiar se puede contrastar con una tabla de verdad. La comparación también muestra cuándo la resolución <em>gana</em> a la tabla, y cuándo no.</p>`,
+    parametros: [
+      ['Premisas, Conclusión, Ejemplos y Verificar (Fig. 1)', String.raw`El argumento a comprobar: premisas separadas por «;» y la conclusión. Verificar corre la tubería (negación, cláusulas, resolución, veredicto) y la contrasta con la tabla de verdad.`],
+      ['Familia de problemas (Fig. 2)', String.raw`Qué familia se compara: cuánto trabajo exige la resolución frente a la tabla de verdad al crecer \(n\).`],
+    ],
     visualizaciones: [
       {
         titulo: 'De las premisas al veredicto',
         descripcion: 'Escriba premisas y conclusión. Siga la tubería completa: negación, cláusulas, resolución y veredicto, contrastado con la tabla de verdad.',
+        ayuda: String.raw`<p>Se muestran las etapas de la tubería con su resultado: la conclusión negada, las cláusulas, los pasos de resolución y el veredicto (válido o no), junto con el control por tabla de verdad.</p>
+          <ul>
+          <li><strong>Premisas / Conclusión</strong>: al cambiarlas cambia el conjunto de cláusulas y si se llega a □.</li>
+          <li><strong>Verificar</strong>: ejecuta la tubería; el veredicto de la resolución debe coincidir con la tabla.</li>
+          </ul>`,
         montar: montarTuberia,
       },
       {
         titulo: 'Resolución frente a tabla de verdad',
         descripcion: 'En una cadena de implicaciones la resolución es muy superior a la tabla. En el principio del palomar la ventaja se pierde: allí toda refutación crece exponencialmente.',
+        ayuda: String.raw`<p>El eje horizontal es \(n\) y el vertical, el trabajo. Una curva cuenta las filas de la tabla de verdad (\(2^n\)) y otra los pares resueltos hasta derivar □; un círculo vacío indica que se alcanzó el tope sin □.</p>
+          <ul>
+          <li><strong>Familia de problemas</strong>: en una cadena de implicaciones la resolución crece mucho menos que la tabla; en el palomar ambas explotan.</li>
+          </ul>`,
         montar: montarComparacion,
       },
     ],

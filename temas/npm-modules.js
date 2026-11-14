@@ -92,9 +92,25 @@
       <p>Un proyecto de Node.js rara vez está solo: usa decenas de bibliotecas que a su vez usan otras. <strong>npm</strong> (y alternativas como <strong>Yarn</strong>) las descarga e instala,
       y el archivo <code>package.json</code> declara cuáles se necesitan y en qué versiones.</p>
       <p>Para que el código pueda dividirse en archivos, Node ofrece dos sistemas de <strong>módulos</strong>: CommonJS (<code>require</code>) y ES Modules (<code>import</code>).</p>`,
+    parametros: [
+      ['Operador en package.json (Fig. 1)', String.raw`El prefijo del rango de versiones: <code>^</code> acepta cambios compatibles, <code>~</code> solo parches, exacta una única versión y <code>&gt;=</code> cualquiera posterior. Define cuánta libertad se da a npm para actualizar.`],
+      ['Versión base (Fig. 1)', String.raw`La versión escrita en <code>package.json</code> a la que se aplica el operador.`],
+      ['package-lock.json fija 1.2.3 (Fig. 1)', String.raw`Simula un archivo de bloqueo que fija la versión exacta instalada, de modo que el rango deja de decidir qué se instala.`],
+      ['Casillas de paquetes (Fig. 2)', String.raw`Qué paquetes se agregan como dependencias directas de la aplicación; cada uno trae sus propias dependencias transitivas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Versionado semántico y rangos', descripcion: 'Cambie el operador (<code>^</code>, <code>~</code>, exacto) y la versión base: vea qué versiones acepta el rango y cuál instala npm.', montar: montarSemver },
-      { titulo: 'Árbol de dependencias', descripcion: 'Combine paquetes y observe cuántos se instalan en total y cuándo una biblioteca queda duplicada por versiones incompatibles.', montar: montarArbol },
+      { titulo: 'Versionado semántico y rangos', descripcion: 'Cambie el operador (<code>^</code>, <code>~</code>, exacto) y la versión base: vea qué versiones acepta el rango y cuál instala npm.',
+        ayuda: String.raw`<p>Una fila de versiones disponibles. Las azules cumplen el rango, las grises quedan fuera de él y la marcada en aguamarina es la que npm instala.</p>
+          <ul>
+          <li><strong>Operador</strong>: <code>^</code> acepta más versiones azules que <code>~</code>; «exacta» deja una sola; <code>&gt;=</code> las acepta todas las posteriores.</li>
+          <li><strong>Versión base</strong>: desplaza el rango; solo cuentan las versiones iguales o superiores que el operador permita.</li>
+          <li><strong>package-lock.json fija 1.2.3</strong>: la versión instalada pasa a ser 1.2.3 aunque el rango admitiría otra más reciente.</li>
+          </ul>`, montar: montarSemver },
+      { titulo: 'Árbol de dependencias', descripcion: 'Combine paquetes y observe cuántos se instalan en total y cuándo una biblioteca queda duplicada por versiones incompatibles.',
+        ayuda: String.raw`<p>Árbol que parte de «mi-app». Los nodos azules son dependencias directas, los verdes transitivas y los naranjas una misma biblioteca requerida en versiones incompatibles, que se instala dos veces.</p>
+          <ul>
+          <li><strong>Casillas de paquetes</strong>: cada paquete marcado agrega su subárbol y sube el total de instalaciones; si dos piden versiones incompatibles de la misma biblioteca aparecen nodos naranjas.</li>
+          </ul>`, montar: montarArbol },
     ],
     teoria: String.raw`
       <h2>package.json</h2>

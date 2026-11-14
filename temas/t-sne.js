@@ -130,15 +130,31 @@
       convierte las distancias en probabilidades de ser vecinos y busca una disposición en el plano con probabilidades parecidas.</p>
       <p>Es excelente para revelar grupos, pero hay que leerlo con cuidado: el tamaño de los grupos y las distancias entre
       ellos en el dibujo no significan mucho, y el resultado depende de la <strong>perplejidad</strong>.</p>`,
+    parametros: [
+      ['Datos (Fig. 1)', String.raw`El conjunto de alta dimensión que se incrusta en 2-D. Define qué estructura (cúmulos, rollo, anillos) debe conservar el mapa.`],
+      ['Perplejidad (Fig. 1 y 2)', String.raw`El número efectivo de vecinos que cada punto considera. Valores chicos enfatizan estructura muy local; valores grandes, estructura más global.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otra muestra. Reproducir, paso y reinicio controlan las iteraciones del descenso de gradiente (en la Fig. 1).`],
+    ],
     visualizaciones: [
       {
         titulo: 't-SNE en movimiento',
         descripcion: 'El descenso de gradiente que acomoda los puntos en 2-D. Pruebe perplejidad 3 y 50 sobre los seis cúmulos: con valores chicos aparecen subgrupos falsos; con grandes se ve mejor la estructura de familias.',
+        ayuda: String.raw`<p>Cada punto es una observación colocada en el plano por t-SNE; el color y la forma indican su grupo o su posición en la rampa. Al pasar el cursor se marcan sus 10 vecinos en el espacio original. El registro muestra el avance de las iteraciones.</p>
+          <ul>
+          <li><strong>Perplejidad</strong> 3: aparecen subgrupos falsos dentro de cada cúmulo; con 50 se ve mejor la estructura de familias.</li>
+          <li><strong>Datos</strong>: con el rollo suizo, compare si el mapa lo desenrolla o lo rompe en trozos.</li>
+          <li>Las primeras 100 iteraciones usan exageración temprana: los grupos se forman compactos y luego se relajan.</li>
+          </ul>`,
         montar: montarOptimizacion,
       },
       {
         titulo: 'Perplejidad y σ',
         descripcion: 'La distribución de vecinos de un punto en el espacio original. Haga clic en puntos de zonas densas y dispersas y compare σᵢ.',
+        ayuda: String.raw`<p>Cada punto se dibuja con área proporcional a \(p(j\mid i)\) (naranja) respecto del punto i seleccionado; los círculos violeta tienen radio \(\sigma_i\) y \(2\sigma_i\). Los demás puntos son grises.</p>
+          <ul>
+          <li><strong>Perplejidad</strong> mayor: \(\sigma_i\) crece para incluir más vecinos efectivos, y más puntos tienen área apreciable.</li>
+          <li>En una zona densa \(\sigma_i\) resulta chico y en una dispersa, grande: el ancho se adapta a la densidad local.</li>
+          </ul>`,
         montar: montarPerplejidad,
       },
     ],

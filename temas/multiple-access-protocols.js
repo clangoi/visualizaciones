@@ -63,9 +63,23 @@
     intro: String.raw`
       <p>En un enlace <strong>de difusión</strong> (cable compartido, Wi-Fi) todos los nodos escuchan el mismo medio. Si dos transmiten a la vez, sus señales se mezclan y ambas se pierden: una <strong>colisión</strong>. Los <strong>protocolos de acceso múltiple</strong> (MAC) fijan las reglas para repartirse el canal.</p>
       <p>Hay tres familias: <em>por reparto</em> del canal (TDMA, FDMA), <em>por turnos</em> (paso de testigo) y <em>de acceso aleatorio</em> (ALOHA, CSMA/CD de Ethernet clásico, CSMA/CA de Wi-Fi), donde se transmite cuando se quiere y se resuelven las colisiones después.</p>`,
+    parametros: [
+      ['Nodos N (Fig. 1)', String.raw`Cantidad de estaciones que compiten por el canal. Con más nodos hay más posibilidades de que dos transmitan a la vez.`],
+      ['Probabilidad de transmitir por ranura (Fig. 1)', String.raw`Chance de que cada nodo intente enviar en una ranura. Muy baja deja ranuras vacías; muy alta provoca colisiones.`],
+      ['Nueva simulación (Fig. 1)', String.raw`Repite la simulación con otro sorteo.`],
+    ],
     visualizaciones: [
-      { titulo: 'ALOHA ranurado', descripcion: 'Varíe nodos y probabilidad de transmitir: busque la combinación (p ≈ 1/N) que maximiza las ranuras exitosas. Más allá, domina la colisión.', montar: montarRanuras },
-      { titulo: 'Eficiencia frente a carga', descripcion: 'Recorra las curvas del ALOHA puro y del ranurado con el cursor y ubique sus máximos.', montar: montarCurvas },
+      { titulo: 'ALOHA ranurado', descripcion: 'Varíe nodos y probabilidad de transmitir: busque la combinación (p ≈ 1/N) que maximiza las ranuras exitosas. Más allá, domina la colisión.',
+        ayuda: String.raw`<p>Cada celda es una ranura de tiempo: verde si un solo nodo transmitió (éxito), roja si hubo dos o más (colisión) y gris si nadie transmitió. La lectura resume la fracción de cada tipo.</p>
+          <ul>
+          <li><strong>Probabilidad de transmitir</strong> cerca de \(1/N\): hay más celdas verdes; por encima dominan las rojas, por debajo las grises.</li>
+          <li><strong>Nodos N</strong> mayor con la misma probabilidad: aumentan las colisiones.</li>
+          </ul>`, montar: montarRanuras },
+      { titulo: 'Eficiencia frente a carga', descripcion: 'Recorra las curvas del ALOHA puro y del ranurado con el cursor y ubique sus máximos.',
+        ayuda: String.raw`<p>El eje horizontal es la carga ofrecida \(G\) y el vertical, la eficiencia. La curva azul es el ALOHA ranurado \(G e^{-G}\) y la naranja el ALOHA puro \(G e^{-2G}\).</p>
+          <ul>
+          <li>Los máximos son \(1/e\approx 0{,}37\) para el ranurado (en \(G=1\)) y \(1/(2e)\approx 0{,}18\) para el puro (en \(G=0{,}5\)). Más carga que eso reduce el rendimiento por colisiones.</li>
+          </ul>`, montar: montarCurvas },
     ],
     teoria: String.raw`
       <h2>ALOHA ranurado</h2>

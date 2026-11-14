@@ -238,10 +238,22 @@
       y cada uno, antes de responder sí, deja todo asegurado en disco. En la segunda fase el coordinador decide commit solo si todos dijeron
       sí, y comunica la decisión. Su debilidad es conocida: si el coordinador cae en el momento equivocado, los participantes quedan
       <strong>bloqueados</strong>.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Qué falla durante la transacción: nada, un voto negativo, la caída de un participante o la del coordinador (antes de decidir o a mitad del envío). Determina si el resultado es COMMIT, ABORT o bloqueo.`],
+      ['Participantes (Fig. 1)', String.raw`Cantidad de participantes que votan. Con más participantes hay más mensajes y más oportunidades de que alguien vote no o caiga.`],
+      ['Preguntar a otros participantes (Fig. 1)', String.raw`Activa el protocolo de consulta entre participantes cuando falta el coordinador. Si alguno conoce la decisión, los demás pueden salir del bloqueo.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza el protocolo evento por evento y lo reinicia al cambiar de escenario.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Commit en dos fases con fallas',
         descripcion: 'Recorra cada escenario evento por evento. En «El coordinador cae a mitad del envío», marque «Preguntar a otros participantes»: P1 conoce la decisión y desbloquea al resto. En «El coordinador cae antes de decidir», ni eso alcanza.',
+        ayuda: String.raw`<p>El coordinador y los participantes se conectan con flechas que son mensajes: PREPARE, voto sí, voto no, COMMIT o ABORT y la consulta entre participantes, según la leyenda. Un participante marcado como esperando o bloqueado no puede decidir por sí solo. Debajo se muestra la máquina de estados del coordinador y la del participante.</p>
+          <ul>
+          <li><strong>Escenario</strong> «El coordinador cae antes de decidir»: los participantes que votaron sí quedan esperando, es decir, bloqueados.</li>
+          <li><strong>Preguntar a otros participantes</strong> con «El coordinador cae a mitad del envío»: quien ya recibió la decisión se la comunica a los demás y se desbloquean.</li>
+          <li><strong>Participantes</strong>: cambia cuántos mensajes de cada tipo se envían.</li>
+          </ul>`,
         montar,
       },
     ],

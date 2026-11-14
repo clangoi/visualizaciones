@@ -127,15 +127,27 @@
       <div class="recuadro">Esta página resume la ley con fines de estudio y no es asesoría legal. Su entrada en vigencia está fijada para
       el 1 de diciembre de 2026, pero a octubre de 2026 se tramita en el Senado un proyecto para postergarla un año. Verifique siempre el
       texto vigente en la Biblioteca del Congreso Nacional (bcn.cl) y las instrucciones de la Agencia.</div>`,
+    parametros: [
+      ['Caso (Fig. 1)', String.raw`La situación que se analiza. Cada caso pone en juego distintos principios de la ley, una base de licitud y, a veces, datos sensibles.`],
+      ['Valor de la UTM (ajústelo al mes vigente) (Fig. 2)', String.raw`El valor en pesos de una UTM. Convierte los topes de las multas de UTM a pesos; no cambia los topes en UTM.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Casos y principios',
         descripcion: 'Seis situaciones típicas. Para cada una, qué base de licitud aplica, qué principios están en juego y dónde está el riesgo.',
+        ayuda: String.raw`<p>Las fichas describen el caso elegido: qué base de licitud aplica, qué principios están en juego y dónde está el riesgo. La leyenda señala los principios y si hay datos sensibles.</p>
+          <ul>
+          <li><strong>Caso</strong>: cada caso resalta principios distintos y cambia el riesgo principal.</li>
+          </ul>`,
         montar: montarCasos,
       },
       {
         titulo: 'Escala de infracciones',
         descripcion: 'Topes de las multas por categoría de infracción, en UTM y en pesos según el valor de la UTM que elija.',
+        ayuda: String.raw`<p>Cada barra es el tope de la multa de una categoría de infracción: leve (5 000 UTM), grave (10 000 UTM) y gravísima (20 000 UTM), con su equivalente en pesos.</p>
+          <ul>
+          <li><strong>Valor de la UTM</strong>: cambia el monto en pesos de cada barra de forma proporcional; los topes en UTM siguen iguales.</li>
+          </ul>`,
         montar: montarMultas,
       },
     ],

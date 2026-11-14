@@ -74,8 +74,17 @@
     intro: String.raw`
       <p>No existe «el mejor gráfico»: existe el más adecuado para una <strong>estructura de datos</strong> y una <strong>tarea</strong>. Las preguntas que ordenan la decisión son tres: ¿qué tipo de datos tengo?, ¿qué quiere hacer la persona con ellos?, ¿qué canal visual es el más preciso para eso?</p>
       <p>Esta guía junta lo visto en el resto del bloque: marcas y canales, percepción, tipos de datos y tareas.</p>`,
+    parametros: [
+      ['Estructura de los datos (Fig. 1)', String.raw`Tipo de datos de partida (categorías, series, relaciones, etc.). Es la primera de las dos preguntas que fijan el gráfico adecuado.`],
+      ['Tarea principal (Fig. 1)', String.raw`Lo que la persona quiere hacer con los datos, por ejemplo comparar. La misma estructura recomienda gráficos distintos según la tarea.`],
+    ],
     visualizaciones: [
-      { titulo: 'Guía de selección', descripcion: 'Elija la estructura de los datos y la tarea, y compare la recomendación con sus alternativas y con lo que conviene evitar.', montar: montarGuia },
+      { titulo: 'Guía de selección', descripcion: 'Elija la estructura de los datos y la tarea, y compare la recomendación con sus alternativas y con lo que conviene evitar.',
+        ayuda: String.raw`<p>A la izquierda hay una vista previa esquemática, con datos ficticios, del gráfico recomendado. A la derecha, tres bloques de texto: RECOMENDADO (con su razón), ALTERNATIVAS y EVITAR. La lectura inferior repite datos, tarea y recomendación.</p>
+          <ul>
+          <li><strong>Estructura de los datos</strong>: cambia la vista previa y el texto completo, porque cada estructura admite otras marcas.</li>
+          <li><strong>Tarea principal</strong>: con los mismos datos puede cambiar la recomendación; si la combinación no tiene una específica, se muestra la recomendada por omisión para esos datos.</li>
+          </ul>`, montar: montarGuia },
     ],
     teoria: String.raw`
       <h2>Procedimiento</h2>

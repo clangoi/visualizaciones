@@ -95,9 +95,26 @@
       <p>React construye una interfaz como un <strong>árbol de componentes</strong>: funciones que reciben datos (<em>props</em>) y devuelven una descripción de lo que debe verse (JSX).
       Un componente pequeño se reutiliza, se compone dentro de otros y se prueba por separado.</p>
       <p>Lo que cambia con el tiempo es el <strong>estado</strong>. La regla central es el flujo <em>unidireccional</em>: los datos bajan por las props y los eventos suben por callbacks hasta el componente que posee el estado. React vuelve a renderizar lo afectado: la interfaz es una función del estado.</p>`,
+    parametros: [
+      ['Elemento que se marca (Fig. 1)', String.raw`Qué elemento de la lista se marca con un clic. Fija qué estado cambia y qué componentes dependen de él.`],
+      ['React.memo en los componentes (Fig. 1)', String.raw`Si cada componente omite renderizarse cuando sus props no cambian. Reduce renderizados innecesarios.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza paso a paso desde el clic hasta el nuevo render.`],
+      ['input value={nombre} onChange (Fig. 2)', String.raw`El campo controlado: su valor viene siempre del estado y cada tecla lo actualiza.`],
+      ['El manejador convierte a mayúsculas y Borrar estado (Fig. 2)', String.raw`Transforma el texto antes de guardarlo en el estado y restablece el estado.`],
+    ],
     visualizaciones: [
-      { titulo: 'Datos que bajan, eventos que suben', descripcion: 'Avance paso a paso desde el clic en un elemento hasta el nuevo renderizado. Active <code>React.memo</code> y cuente qué componentes se evitan.', montar: montarFlujo },
-      { titulo: 'Formulario controlado y renderizado condicional', descripcion: 'Escriba en el campo: el valor sale del estado y una expresión condicional decide qué mostrar. Active la conversión a mayúsculas.', montar: montarControlado },
+      { titulo: 'Datos que bajan, eventos que suben', descripcion: 'Avance paso a paso desde el clic en un elemento hasta el nuevo renderizado. Active <code>React.memo</code> y cuente qué componentes se evitan.',
+        ayuda: String.raw`<p>Es el árbol App, Header, Lista y Resumen. Los datos bajan como props y el evento sube por callbacks. Los colores de la leyenda indican quién se vuelve a renderizar, quién actualiza el estado y quién no se renderiza.</p>
+          <ul>
+          <li><strong>Elemento que se marca</strong>: cambia qué ítem dispara el evento y qué datos nuevos bajan.</li>
+          <li><strong>React.memo</strong>: los componentes cuyas props no cambiaron pasan a «no se renderiza», lo que se refleja en la cuenta de renderizados.</li>
+          </ul>`, montar: montarFlujo },
+      { titulo: 'Formulario controlado y renderizado condicional', descripcion: 'Escriba en el campo: el valor sale del estado y una expresión condicional decide qué mostrar. Active la conversión a mayúsculas.',
+        ayuda: String.raw`<p>El campo muestra lo que está en el estado y una expresión condicional decide qué texto o mensaje se presenta.</p>
+          <ul>
+          <li><strong>Escribir en el campo</strong>: cada tecla actualiza el estado y la vista se renderiza con ese valor.</li>
+          <li><strong>convierte a mayúsculas</strong>: el estado guarda el texto transformado, no el que se teclea.</li>
+          </ul>`, montar: montarControlado },
     ],
     teoria: String.raw`
       <h2>La interfaz como función</h2>

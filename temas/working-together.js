@@ -261,15 +261,33 @@
       <strong>Trabajo conjunto</strong> (<em>working together</em>) conecta a dos personas si participan en los mismos casos, sin importar el orden: mide
       colaboración. <strong>Subcontratación</strong> (<em>subcontracting</em>) busca el patrón \(a, b, a\): la persona \(a\) pasa un trabajo a \(b\) y retoma el caso después.</p>
       <p>La primera revela equipos y personas que nunca coinciden; la segunda, relaciones de dependencia, como un analista que consulta siempre a un mismo especialista.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`El proceso que genera el registro y reparte a las personas por rol.`],
+      ['Casos (Fig. 1 y 2)', String.raw`Tamaño del registro.`],
+      ['Polivalencia (Fig. 1 y 2)', String.raw`Probabilidad de que alguien actúe fuera de su rol; hace que más parejas coincidan en un mismo caso.`],
+      ['Medida (Fig. 1)', String.raw`Casos compartidos cuenta cuántos casos comparten dos personas; Jaccard lo normaliza por los casos totales de ambas y revela las parejas más cercanas.`],
+      ['Solo si «b» es de otro rol (Fig. 2)', String.raw`Filtra las subcontrataciones a, b, a para quedarse con las que cruzan áreas.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Genera otro registro; los pasos mueven la ventana de eventos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Quién trabaja con quién',
         descripcion: 'Matriz de casos compartidos. En reclamos casi nadie coincide con Jaime (solo aparece al aprobar); cambie a Jaccard para ver qué parejas son realmente cercanas, y haga clic en una celda para ver ejemplos.',
+        ayuda: String.raw`<p>Matriz simétrica de pares de personas: cada celda indica en cuántos casos participan juntas (pocos, muchos o nunca coinciden).</p>
+          <ul>
+          <li><strong>Medida</strong>: con Jaccard las personas con pocos casos pesan igual que las de muchos, y destacan las parejas realmente cercanas.</li>
+          <li><strong>Polivalencia</strong>: al subirla, se llenan celdas de personas de roles distintos.</li>
+          </ul>`,
         montar: montarConjunto,
       },
       {
         titulo: 'Detectar subcontrataciones a, b, a',
         descripcion: 'Una ventana de tres eventos recorre los casos. Pruebe «Solo si b es de otro rol» para quedarse con las subcontrataciones entre áreas, y suba la polivalencia para ver más relaciones cruzadas.',
+        ayuda: String.raw`<p>Grafo de subcontrataciones: una ventana de tres eventos busca el patrón a, b, a (alguien deriva y recupera el trabajo). Se señala la subcontratación recién detectada y las acumuladas (grosor = veces).</p>
+          <ul>
+          <li><strong>Solo si «b» es de otro rol</strong>: quita las que ocurren dentro de un mismo rol.</li>
+          <li><strong>Polivalencia</strong>: al subirla, aparecen más relaciones cruzadas.</li>
+          </ul>`,
         montar: montarSubcontratacion,
       },
     ],

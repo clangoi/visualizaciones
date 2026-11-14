@@ -190,15 +190,29 @@
       <p>Su poder está en la <strong>poda</strong>: al descartar una solución parcial se descartan de una vez todas las soluciones completas
       que la extienden. El ejemplo clásico es el problema de las \(n\) reinas: ubicar \(n\) reinas en un tablero de \(n \times n\) sin que dos
       se ataquen.</p>`,
+    parametros: [
+      ['Tamaño del tablero n (Fig. 1)', String.raw`Número de filas, columnas y reinas. El número de soluciones y el trabajo crecen muy rápido con \(n\).`],
+      ['Objetivo (Fig. 1)', String.raw`Detenerse en la primera solución o seguir hasta encontrarlas todas.`],
+      ['sombrear casillas atacadas (Fig. 1)', String.raw`Pinta las casillas que ya están amenazadas por alguna reina colocada.`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso prueba una casilla, Hasta el final termina y Reiniciar vacía el tablero.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El problema de las n reinas',
         descripcion: 'Una reina por fila, probando columnas de izquierda a derecha. Cuando una casilla está atacada, la línea roja muestra qué reina la ataca. Si ninguna columna sirve, se retrocede a la fila anterior.',
+        ayuda: String.raw`<p>El tablero de \(n \times n\) se llena fila por fila. En cada fila se prueba una columna (azul); si una reina ya colocada la ataca, una línea roja muestra el conflicto y se pasa a la siguiente columna. Si ninguna columna sirve, se <em>retrocede</em>: se quita la reina de la fila anterior y se prueba su siguiente columna.</p>
+          <ul>
+          <li><strong>Casillas atacadas</strong> muestra por qué la búsqueda poda tanto: tras pocas reinas, casi todo el tablero está bloqueado.</li>
+          <li><strong>Objetivo</strong> «todas»: la búsqueda sigue tras cada solución (en verde) y al final «soluciones» coincide con «total de soluciones para n».</li>
+          <li><strong>Tamaño n</strong>: compare «casillas probadas» y «retrocesos» al pasar de 6 a 8: el trabajo crece rápido, pero muchísimo menos que el total de tableros posibles.</li>
+          </ul>`,
         montar: montarReinas,
       },
       {
         titulo: 'Cuánto poda la poda',
         descripcion: 'Número de configuraciones que se examinarían con distintas estrategias para encontrar todas las soluciones.',
+        ayuda: String.raw`<p>Para cada tamaño \(n\) (eje horizontal), el número de configuraciones que se examinan al buscar todas las soluciones, en escala logarítmica. Rojo: todas las formas de poner una reina por fila (\(n^n\)); naranja: solo permutaciones, una por fila y columna (\(n!\)); azul: reinas que coloca realmente el backtracking.</p>
+          <p>La distancia vertical entre curvas es cuántas veces menos trabajo hace cada estrategia. No hay controles: pase el cursor para leer los valores exactos.</p>`,
         montar: montarEspacio,
       },
     ],

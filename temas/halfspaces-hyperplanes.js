@@ -351,15 +351,35 @@
       <p>Toda restricción de un problema de <a href="tema.html?id=problem-classes">programación lineal</a> es un semiespacio, y la región factible es su
       intersección. Entender esa intersección es el primer paso para ver por qué el óptimo vive en un
       <a href="tema.html?id=polyhedra-vertices">vértice</a>.</p>`,
+    parametros: [
+      ['a₁ y a₂ (Fig. 1)', String.raw`Componentes del vector normal a de la recta a·x = b. Cambiarlas gira y escala la recta; la flecha normal sigue perpendicular a ella.`],
+      ['b (Fig. 1)', String.raw`El valor de la recta a·x = b. Cambiarlo la desplaza paralelamente, sin girarla.`],
+      ['Semiespacio a·x ≥ b (Fig. 1)', String.raw`Muestra u oculta el lado donde se cumple la desigualdad.`],
+      ['Curvas de nivel de a·x (Fig. 1)', String.raw`Muestra rectas paralelas a·x = b ± k‖a‖, a distancias iguales de la original.`],
+      ['Semiplanos R1, R2… y x₁, x₂ ≥ 0 (Fig. 2)', String.raw`Activan o desactivan cada restricción. La región factible es la intersección de las activas.`],
+      ['b de R1 (Fig. 2)', String.raw`El lado derecho de la restricción R1. Moverlo desplaza su frontera: la región crece, se achica o queda vacía.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Hiperplano, semiespacio y normal',
         descripcion: 'Mueva a₁, a₂ y b y observe que la flecha naranja sigue siendo perpendicular a la recta; arrastre P y compare su distancia con signo con la holgura \\(b - a\\cdot P\\).',
+        ayuda: String.raw`<p>El eje horizontal es x₁ y el vertical x₂. Se dibujan el hiperplano a·x = b, el semiespacio, el vector normal a (unitario), el punto P y su distancia al hiperplano; las curvas de nivel se muestran si están activas.</p>
+          <ul>
+          <li><strong>a₁ y a₂</strong>: giran la recta y la flecha normal, siempre perpendicular a ella.</li>
+          <li><strong>b</strong>: desplaza la recta; la holgura \(b - a\cdot P\) de P cambia.</li>
+          <li><strong>Semiespacio</strong>: muestra qué lado cumple a·x ≥ b.</li>
+          </ul>`,
         montar: montarSemiplano,
       },
       {
         titulo: 'La región factible como intersección',
         descripcion: 'Active y desactive semiplanos, cambie el b de R1 y coloque puntos de prueba: pruebe b de R1 menor que 2 para ver una intersección vacía, o quite \\(x_1, x_2 \\ge 0\\) para obtener una región no acotada.',
+        ayuda: String.raw`<p>La región factible (intersección) se rellena y sus vértices se marcan; los puntos de prueba P se distinguen como factibles o infactibles.</p>
+          <ul>
+          <li><strong>Casillas R1, R2…</strong>: quitar una restricción agranda la región.</li>
+          <li><strong>x₁, x₂ ≥ 0</strong>: si se quita, la región puede quedar no acotada.</li>
+          <li><strong>b de R1</strong>: con b menor que 2, la intersección queda vacía.</li>
+          </ul>`,
         montar: montarInterseccion,
       },
     ],

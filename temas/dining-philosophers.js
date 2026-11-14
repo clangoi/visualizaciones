@@ -221,15 +221,32 @@
       distribuidas.</p>
       <p>Si todos toman primero el tenedor de su izquierda, puede pasar que todos tengan uno y esperen el otro para siempre: un
       <strong>interbloqueo</strong> (<em>deadlock</em>). Las soluciones rompen alguna de las condiciones necesarias para que ocurra.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`Regla para tomar los tenedores: ingenua, con jerarquía de tenedores o con camarero. Decide si puede cerrarse un ciclo de esperas.`],
+      ['Filósofos (Fig. 1 y 2)', String.raw`Cantidad de filósofos y de tenedores en la mesa. Cambia cuántos pueden comer a la vez.`],
+      ['Todos con hambre a la vez (Fig. 1)', String.raw`Hace que todos pidan juntos. Es la condición que forma la espera circular con la estrategia ingenua.`],
+      ['Otra ejecución y reproductor (Fig. 1)', String.raw`Otra ejecución sortea nuevos tiempos de pensar y comer. El reproductor avanza o reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La mesa',
         descripcion: 'Con la estrategia ingenua y «Todos con hambre a la vez», cada uno toma su tenedor izquierdo y se forma la espera circular en rojo. Cambie a jerarquía o camarero: el ciclo ya no puede cerrarse.',
+        ayuda: String.raw`<p>Los filósofos están alrededor de la mesa: con relleno claro pensando, amarillo con hambre y verde comiendo. Una línea negra marca un tenedor tomado; una roja, la espera circular que es el interbloqueo.</p>
+          <ul>
+          <li><strong>Estrategia</strong> «ingenua» con <strong>Todos con hambre a la vez</strong>: cada uno toma su tenedor izquierdo y se cierra el ciclo rojo.</li>
+          <li>Con jerarquía o camarero el ciclo no puede cerrarse y siempre hay alguien comiendo.</li>
+          <li><strong>Filósofos</strong>: más filósofos, más tenedores y más comensales simultáneos.</li>
+          </ul>`,
         montar: montarMesa,
       },
       {
         titulo: 'Rendimiento de las estrategias',
         descripcion: 'Comidas totales por estrategia y cuántas ejecuciones terminan bloqueadas. La ingenua se bloquea en algunas ejecuciones y, aun sin bloquearse, come menos porque retiene un tenedor mientras espera el otro. Las otras dos nunca se bloquean.',
+        ayuda: String.raw`<p>Cada barra es el número de comidas totales en 300 pasos por estrategia: ingenua azul, jerarquía naranja, camarero aguamarina. El texto indica cuántas de las 50 ejecuciones terminan bloqueadas.</p>
+          <ul>
+          <li><strong>Filósofos</strong>: muestra cómo cambian las comidas y los bloqueos con el tamaño de la mesa.</li>
+          <li>La ingenua come menos porque retiene un tenedor mientras espera el otro.</li>
+          </ul>`,
         montar: montarComparar,
       },
     ],

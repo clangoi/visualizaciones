@@ -235,15 +235,37 @@
     intro: String.raw`
       <p>La <strong>inteligencia artificial</strong> es el conjunto de técnicas que hacen que un sistema realice tareas que antes exigían criterio humano. En las organizaciones, casi siempre significa <strong>aprendizaje automático</strong> (<em>machine learning</em>): en vez de programar reglas a mano, se entrena un modelo con datos históricos (qué clientes se fueron, qué facturas resultaron fraudulentas) para que prediga casos nuevos. Su combustible es el análisis masivo de datos que la empresa ya genera.</p>
       <p>Pero una predicción no es todavía una decisión. Un modelo que dice «este cliente tiene 40 % de probabilidad de irse» solo crea valor si alguien actúa, y actuar cuesta. Lo que se decide en la práctica es un <strong>umbral</strong>, y se elige comparando el costo de cada tipo de error con el beneficio de cada acierto.</p>`,
+    parametros: [
+      ['Clientes y Ruido en los datos (Fig. 1)', String.raw`Cuántos clientes tiene la muestra y cuánto se mezclan los que abandonan con los que permanecen. Más ruido implica que ningún modelo puede clasificar todo bien.`],
+      ['Tasa de aprendizaje (Fig. 1)', String.raw`Qué tan grande es cada ajuste de la frontera del modelo en el entrenamiento. Muy baja avanza lento; muy alta hace que la frontera oscile.`],
+      ['Clase al hacer clic y Nuevos clientes (Fig. 1)', String.raw`La clase decide qué tipo de cliente se agrega al hacer clic en el gráfico; Nuevos clientes genera otra muestra. Sirve para ver cómo cambia la frontera con datos distintos.`],
+      ['Reproductor (Fig. 1)', String.raw`Controla el entrenamiento paso a paso: el modelo ajusta su frontera y se actualizan los registros de error.`],
+      ['Umbral para contactar (Fig. 2)', String.raw`Probabilidad estimada de abandono a partir de la cual se ofrece retención al cliente. Un umbral bajo contacta a muchos; uno alto, a pocos.`],
+      ['Calidad del modelo (separación) (Fig. 2)', String.raw`Qué tan bien separa el modelo a quienes abandonan de quienes no. Más separación hace posible un beneficio mayor.`],
+      ['Valor de un cliente retenido, Costo de la oferta por cliente y Éxito de la oferta (Fig. 2)', String.raw`Son la economía de la decisión: lo que se gana al retener, lo que cuesta cada oferta y la fracción de ofertas que funcionan. Determinan dónde queda el umbral óptimo.`],
+      ['Nuevos clientes (Fig. 2)', String.raw`Genera otra muestra de clientes con la que se recalcula la curva de beneficio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Entrenar un clasificador de abandono de clientes',
         descripcion: 'Pulse «Reproducir» y observe cómo la frontera del modelo gira hasta separar a los clientes que abandonan. Suba el ruido para ver que ningún modelo llega al 100 % de exactitud, y agregue clientes con clic para comprobar que la frontera se mueve.',
+        ayuda: String.raw`<p>Cada punto es un cliente: eje horizontal, meses sin comprar; eje vertical, reclamos en el trimestre. Los cuadrados son clientes que abandonaron y los círculos, los que permanecieron. La línea es la frontera del modelo (p = 0,5) y el fondo más oscuro marca mayor probabilidad estimada de abandono; un anillo señala un cliente mal clasificado.</p>
+          <ul>
+          <li><strong>Ruido en los datos</strong> alto: los grupos se superponen y aparecen más anillos aunque la frontera sea la mejor posible.</li>
+          <li><strong>Tasa de aprendizaje</strong> alta: la frontera salta entre pasos en lugar de asentarse; baja, tarda más en ubicarse.</li>
+          <li><strong>Clase al hacer clic</strong>: un cliente nuevo en la zona del otro grupo muestra cómo un solo caso mueve la frontera.</li>
+          </ul>`,
         montar: montarEntrenar,
       },
       {
         titulo: 'De la predicción a la decisión',
         descripcion: 'Mueva el umbral y observe cómo cambia el beneficio y la matriz de confusión con costos. Pruebe encarecer la oferta y baje la calidad del modelo: el umbral óptimo y el beneficio posible cambian aunque el modelo sea el mismo.',
+        ayuda: String.raw`<p>La curva es el beneficio neto (eje vertical) según el umbral de contacto (eje horizontal). Se marcan el umbral elegido, el óptimo y la línea de beneficio 0, que equivale a no contactar a nadie.</p>
+          <ul>
+          <li><strong>Umbral para contactar</strong>: mover el umbral elegido sobre la curva muestra si se contacta a demasiados (se gasta en ofertas inútiles) o a pocos (se pierden clientes salvables).</li>
+          <li><strong>Costo de la oferta por cliente</strong> más alto: la curva baja y el umbral óptimo sube, porque solo conviene contactar a quienes tienen mucha probabilidad de irse.</li>
+          <li><strong>Calidad del modelo (separación)</strong> baja: el beneficio máximo se reduce aunque el costo y el valor no hayan cambiado.</li>
+          </ul>`,
         montar: montarDecision,
       },
     ],

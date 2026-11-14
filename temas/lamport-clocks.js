@@ -215,15 +215,30 @@
       <p>Un <strong>reloj de Lamport</strong> es un contador entero por proceso que avanza en cada evento y que, al recibir un mensaje,
       salta por delante de la marca que trae el mensaje. Así, si un evento causó otro, su marca es menor. Lo contrario, en cambio,
       no vale: una marca menor no prueba causalidad.</p>`,
+    parametros: [
+      ['Procesos (Fig. 1 y 2)', String.raw`Cantidad de procesos (filas) de la ejecución. Más procesos, más mensajes cruzados y más eventos independientes.`],
+      ['Eventos (Fig. 1 y 2)', String.raw`Cantidad de eventos de la ejecución. Más eventos alargan los diagramas y las marcas crecen.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otra ejecución. En la figura 1 el reproductor asigna las marcas evento por evento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Marcas de Lamport paso a paso',
         descripcion: 'Cada fila es un proceso y el tiempo avanza hacia la derecha. Observe cómo una recepción toma el máximo entre el reloj local y la marca del mensaje, y cómo crece el orden total (L, i) bajo el diagrama.',
+        ayuda: String.raw`<p>Cada fila es un proceso y el tiempo avanza hacia la derecha. Los puntos son eventos: gris aún sin marca, negro con su marca L encima, naranja el evento actual y el mensaje que recibe. Las líneas son mensajes entregados. Abajo, el orden total \((L, i)\).</p>
+          <ul>
+          <li><strong>Procesos</strong> y <strong>Eventos</strong>: más mensajes cruzados hacen que una recepción tome el máximo \(\max(L_{local}, L_{mensaje})\) y salte la marca.</li>
+          <li>Al avanzar, la marca de una recepción es siempre mayor que la del envío: las causas tienen marca menor.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Causalidad frente a marcas',
         descripcion: 'Elija un evento: se colorean su pasado y su futuro causal, y el resto es concurrente. Busque eventos concurrentes con marca menor: existen casi siempre.',
+        ayuda: String.raw`<p>Al elegir un evento (naranja) se colorean los demás: azul su pasado causal, aguamarina su futuro causal y amarillo los concurrentes.</p>
+          <ul>
+          <li><strong>Procesos</strong> y <strong>Eventos</strong>: más procesos producen más eventos amarillos, es decir, sin relación causal.</li>
+          <li>Entre los amarillos hay eventos con marca menor que la del elegido: la marca no basta para decidir causalidad.</li>
+          </ul>`,
         montar: montarCausalidad,
       },
     ],

@@ -135,15 +135,32 @@
       <p>Las dos nociones no se implican mutuamente: condicionar puede hacer desaparecer una dependencia (cuando \(Z\) es causa común)
       o hacerla aparecer donde no había (cuando \(Z\) es efecto común). Esa asimetría es la base de las
       <a href="tema.html?id=bayesian-networks">redes bayesianas</a> y del razonamiento <a href="tema.html?id=causal-structures">causal</a>.</p>`,
+    parametros: [
+      ['Dependencia real (Fig. 1)', String.raw`Cuánto se aparta la verdadera distribución de X e Y de la independencia. En 0 las variables son independientes aunque la muestra nunca lo muestre exactamente.`],
+      ['Muestra n (Fig. 1)', String.raw`Cantidad de observaciones usadas para estimar las probabilidades. Con n chico las diferencias son ruido; con n grande reflejan la dependencia real.`],
+      ['Nueva muestra y Nuevos datos (Fig. 1 y 2)', String.raw`Generan otros datos con los mismos ajustes, para ver cuánto varía el resultado.`],
+      ['Cómo se generan X, Y, Z (Fig. 2)', String.raw`Estructura causal: Z causa común (X ← Z → Y) o Z efecto común (X → Z ← Y). Determina si condicionar en Z quita o crea dependencia.`],
+      ['condicionar en Z (mirar dentro de cada estrato) (Fig. 2)', String.raw`Pasa de la relación global entre X e Y a la relación dentro de cada valor de Z.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Conjunta frente a producto de marginales',
         descripcion: 'Independencia significa que la tabla conjunta es el producto de sus marginales. Mire la diferencia con dependencia 0 y n chico: los datos nunca son exactamente independientes.',
+        ayuda: String.raw`<p>Cada celda es un par (x, y). Se compara la probabilidad conjunta estimada P̂(x, y) con el producto de marginales P̂(x)P̂(y): un color indica que la conjunta es mayor y otro que es menor; la intensidad indica la probabilidad.</p>
+          <ul>
+          <li><strong>Dependencia real</strong> en 0 con <strong>Muestra n</strong> grande: casi no hay celdas de color, es decir, conjunta igual al producto.</li>
+          <li><strong>Muestra n</strong> pequeña con dependencia 0: aparecen diferencias que son solo azar.</li>
+          </ul>`,
         montar: montarProducto,
       },
       {
         titulo: 'Condicionar puede borrar o crear dependencia',
         descripcion: 'X e Y generadas con Z como causa común o como efecto común. Active «condicionar en Z» y compare las correlaciones.',
+        ayuda: String.raw`<p>Dispersión de X (horizontal) frente a Y (vertical), con la recta de regresión de todos los datos. Al condicionar se examina la relación dentro de cada estrato de Z.</p>
+          <ul>
+          <li><strong>Z causa común</strong> con condicionar en Z: la correlación global desaparece dentro de cada estrato.</li>
+          <li><strong>Z efecto común</strong> con condicionar en Z: aparece una correlación que sin condicionar no estaba.</li>
+          </ul>`,
         montar: montarCondicionar,
       },
     ],

@@ -240,15 +240,29 @@
       <p>Las <strong>dependencias funcionales</strong> formalizan «el rol determina el nombre», y las <strong>formas normales</strong> son
       condiciones sobre ellas que garantizan que no haya redundancia. Normalizar es descomponer la tabla en otras más pequeñas sin perder
       información.</p>`,
+    parametros: [
+      ['Esquema (Fig. 1 y 2)', String.raw`Relación con sus atributos y dependencias funcionales (abstracta o con nombres concretos). Cambiarlo cambia las dependencias que se examinan y la descomposición resultante.`],
+      ['Casillas de atributos X (Fig. 1)', String.raw`El conjunto inicial X cuya clausura \(X^+\) se calcula. Si \(X^+\) contiene todos los atributos, X es superclave.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza el algoritmo un paso a la vez (una dependencia examinada o una división); Reiniciar lo vuelve al principio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Clausura de un conjunto de atributos',
         descripcion: 'El algoritmo que calcula X⁺, todo lo que X determina. Pruebe en el esquema abstracto con X = {B, C} o {C, E}, y compare con las claves candidatas.',
+        ayuda: String.raw`<p>Las dependencias aparecen como una lista y como un grafo; el resultado en construcción es \(X^+\). Se resalta la dependencia que se examina; los atributos tienen color según estén en X (inicio), agregados en este paso o agregados antes.</p>
+          <ul>
+          <li><strong>Casillas de atributos X</strong>: con X = {B, C} o {C, E} se ve qué dependencias se disparan y hasta dónde crece \(X^+\).</li>
+          <li><strong>Esquema</strong>: otro conjunto de dependencias, con otras claves candidatas.</li>
+          </ul>`,
         montar: montarClausura,
       },
       {
         titulo: 'Descomposición en BCNF',
         descripcion: 'Mientras alguna relación tenga una dependencia X → Y con X no superclave, se divide en dos. Observe qué dependencias sobreviven a la descomposición.',
+        ayuda: String.raw`<p>Árbol de la descomposición: la relación que se acaba de crear, la dependencia \(X \to Y\) que viola BCNF (X no es superclave) y las relaciones que ya están en BCNF.</p>
+          <ul>
+          <li><strong>Esquema</strong>: según las dependencias, la descomposición termina en más o menos relaciones, y alguna dependencia puede dejar de verificarse dentro de una sola relación.</li>
+          </ul>`,
         montar: montarBCNF,
       },
     ],

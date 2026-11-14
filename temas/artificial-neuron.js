@@ -117,9 +117,29 @@
       <p>Una <strong>neurona artificial</strong> es la pieza mínima de una red: recibe números, multiplica cada uno por un <em>peso</em>, suma los resultados con un <em>sesgo</em> (<em>bias</em>) y pasa el total por una función
       de activación. Cada peso dice cuánto importa una entrada; el sesgo, cuán fácil es que la neurona se «encienda».</p>
       <p>Geométricamente, una neurona con dos entradas divide el plano con una recta. Una red es una colección de estas rectas combinadas en capas.</p>`,
+    parametros: [
+      ['Datos (Fig. 1)', String.raw`La forma de las dos clases: separables por una recta, dos manchas o XOR. Decide si una sola neurona puede clasificarlas.`],
+      ['Activación (Fig. 1)', String.raw`La función que convierte la suma ponderada en salida: Escalón (perceptrón) da 0 o 1 con corte brusco; Sigmoid da una probabilidad gradual.`],
+      ['Peso w₁ y w₂, Sesgo b (Fig. 1)', String.raw`Los parámetros de la neurona: los pesos fijan la orientación de la frontera y cuánto cuenta cada característica; el sesgo la desplaza respecto del origen.`],
+      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Nuevos datos sortea otra muestra. Reproducir, Un paso, Hasta el final y Reiniciar aplican la regla del perceptrón, que mueve la frontera hacia un ejemplo mal clasificado.`],
+      ['Compuerta objetivo (Fig. 2)', String.raw`La función lógica que se quiere reproducir: AND, OR, NAND o XOR. Define la salida correcta de cada una de las cuatro filas.`],
+      ['Peso w₁, Peso w₂ y Sesgo b (Fig. 2)', String.raw`Los tres números de la neurona. Cada combinación acierta o falla en las cuatro filas de la tabla.`],
+      ['Poner pesos conocidos (Fig. 2)', String.raw`Carga unos pesos que implementan la compuerta elegida, para comprobar que es posible (no existen para XOR).`],
+    ],
     visualizaciones: [
-      { titulo: 'Una neurona traza una recta', descripcion: 'Cambie \\(w_1\\), \\(w_2\\) y \\(b\\) y vea girar y desplazarse la frontera. Pulse Reproducir para que la regla del perceptrón la encuentre sola; pruebe con XOR, donde no puede converger.', montar: montarRecta },
-      { titulo: 'La neurona como compuerta lógica', descripcion: 'Busque pesos que reproduzcan AND, OR y NAND, y compruebe que XOR es imposible con una sola neurona.', montar: montarCompuertas },
+      { titulo: 'Una neurona traza una recta', descripcion: 'Cambie \\(w_1\\), \\(w_2\\) y \\(b\\) y vea girar y desplazarse la frontera. Pulse Reproducir para que la regla del perceptrón la encuentre sola; pruebe con XOR, donde no puede converger.',
+        ayuda: String.raw`<p>Los puntos son los ejemplos, coloreados por clase. La línea es la frontera \(w\cdot x + b = 0\) y la flecha es el vector de pesos, que apunta hacia la clase 1; los ejemplos mal clasificados se resaltan.</p>
+          <ul>
+          <li><strong>Peso w₁ / Peso w₂</strong>: giran la frontera (cambia la dirección de la flecha) y, con ello, cuál característica pesa más.</li>
+          <li><strong>Sesgo b</strong>: desplaza la frontera sin girarla.</li>
+          <li><strong>Datos</strong> en «XOR»: ninguna recta deja de tener ejemplos mal clasificados, por eso el perceptrón no converge.</li>
+          </ul>`, montar: montarRecta },
+      { titulo: 'La neurona como compuerta lógica', descripcion: 'Busque pesos que reproduzcan AND, OR y NAND, y compruebe que XOR es imposible con una sola neurona.',
+        ayuda: String.raw`<p>La tabla muestra las cuatro combinaciones de entrada de la compuerta; cada fila se marca como «la neurona acierta» o «la neurona falla» según su salida con los pesos actuales.</p>
+          <ul>
+          <li><strong>Compuerta objetivo</strong>: con AND, OR o NAND existe una combinación de pesos que acierta las cuatro filas; con XOR siempre falla alguna.</li>
+          <li><strong>Pesos y sesgo</strong>: mueva los valores hasta que todas las filas acierten; el sesgo decide cuánta suma hace falta para encender la neurona.</li>
+          </ul>`, montar: montarCompuertas },
     ],
     teoria: String.raw`
       <h2>Definición</h2>

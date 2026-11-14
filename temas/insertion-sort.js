@@ -8,10 +8,23 @@
       los que son mayores.</p>
       <p>Aunque en el peor caso es cuadrático, es muy rápido con datos casi ordenados y con arreglos pequeños, por lo que
       las implementaciones de bibliotecas reales lo usan como pieza de algoritmos híbridos.</p>`,
+    parametros: [
+      ['Datos iniciales (Fig. 1)', String.raw`El orden de partida. Aquí sí importa: con datos ordenados el algoritmo casi no trabaja y con datos invertidos hace el máximo.`],
+      ['Tamaño n (Fig. 1)', String.raw`Cantidad de elementos que se ordenan.`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso muestra una comparación, Hasta el final termina y Reiniciar vuelve al arreglo inicial.`],
+      ['Medida (Fig. 2)', String.raw`Comparaciones entre elementos o escrituras al arreglo.`],
+      ['Escala vertical y casillas (Fig. 2)', String.raw`La escala logarítmica muestra el caso lineal como una recta muy por debajo de las curvas cuadráticas; las casillas ocultan o muestran cada distribución.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Insertion sort paso a paso',
         descripcion: 'La zona sombreada es el prefijo ya procesado. Cada elemento nuevo se desplaza hacia la izquierda mientras sea menor que su vecino. Compare las «inversiones iniciales» con el número de intercambios realizados.',
+        ayuda: String.raw`<p>Las barras son los elementos. La zona sombreada a la izquierda es el prefijo ya ordenado; el elemento que entra se compara (azul) con su vecino izquierdo y se intercambia (naranja) mientras sea menor.</p>
+          <ul>
+          <li>Cada intercambio corrige exactamente una <em>inversión</em> (un par en orden equivocado), por eso «intercambios» termina igual a «inversiones iniciales».</li>
+          <li><strong>Datos iniciales</strong>: con «Ya ordenada» no hay inversiones y cada elemento se compara una sola vez (costo lineal); con «Invertida» hay \(n(n-1)/2\) inversiones; con «Casi ordenada», pocas.</li>
+          <li><strong>Tamaño n</strong>: con datos aleatorios las comparaciones quedan cerca de \(n^2/4\), la mitad de la referencia «n²/2».</li>
+          </ul>`,
         montar: (c) => VIZ.orden.animacion(c, {
           alg: 'insercion', n: 32,
           lecturasExtra: (original, a, e) => [['inversiones iniciales', VIZ.entero(VIZ.orden.inversiones(original))], ['intercambios', VIZ.entero(e.esc / 2)]],
@@ -20,6 +33,12 @@
       {
         titulo: 'Mejor, peor y caso promedio',
         descripcion: 'Con datos ya ordenados el costo es lineal; con datos invertidos, \\(n(n-1)/2\\); con datos aleatorios, cerca de \\(n^2/4\\). Use escala logarítmica para ver la recta del caso lineal.',
+        ayuda: String.raw`<p>Cada curva es el costo de insertion sort medido para una distribución inicial, en función de \(n\). Las líneas punteadas \(n^2/2\) y \(n\log_2 n\) sirven de referencia.</p>
+          <ul>
+          <li>La curva «Invertida» coincide con \(n^2/2\) (peor caso), «Aleatoria» queda en la mitad (\(n^2/4\)) y «Ya ordenada» es casi plana: \(n-1\) comparaciones.</li>
+          <li>En <strong>escala logarítmica</strong>, la curva de datos ordenados aparece como una recta de pendiente menor: es la diferencia entre costo lineal y cuadrático.</li>
+          <li>Con <strong>Escrituras</strong> se cuenta el movimiento de datos, que es proporcional al número de inversiones.</li>
+          </ul>`,
         montar: (c) => VIZ.orden.curvas(c, { series: 'distribuciones', alg: 'insercion' }),
       },
     ],

@@ -240,15 +240,31 @@
       Todos tienen el mismo origen: α solo mira qué actividad sigue directamente a cuál.</p>
       <p>Entender cada fallo ayuda a elegir después el algoritmo adecuado: casi todas las ideas del <a href="tema.html?id=heuristic-miner">minero heurístico</a> y del
       <a href="tema.html?id=inductive-miner">minero inductivo</a> existen para evitar estos problemas.</p>`,
+    parametros: [
+      ['Caso (Fig. 1 y 2)', String.raw`El ejemplo donde α falla (bucles, dependencia a distancia, actividad opcional, etc.). Cada uno tiene su registro y su red.`],
+      ['Variante a reproducir y Evento reproducido (Fig. 1)', String.raw`La variante del registro que se reproduce en la red y el evento hasta el que se avanza.`],
+      ['Longitud máxima de traza (Fig. 2)', String.raw`Largo máximo de las trazas que se comparan.`],
+      ['Probar con otro caso (Fig. 2)', String.raw`Salta a otro de los casos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cinco casos donde α falla',
         descripcion: 'Elija un caso y reproduzca sus variantes sobre la red que descubre α: verá exactamente dónde falta una ficha. Observe en la huella la celda roja que causa el error.',
+        ayuda: String.raw`<p>Se reproduce una variante sobre la red que descubre α. Se marca la transición que se dispara, la plaza sin ficha cuando hacía falta (ficha artificial), la plaza con ficha sobrante al terminar y las actividades sin ningún arco, que α no conectó.</p>
+          <ul>
+          <li><strong>Caso</strong>: cambia la limitación que se muestra.</li>
+          <li><strong>Variante a reproducir</strong> y <strong>Evento reproducido</strong>: llevan hasta el evento donde falta una ficha.</li>
+          </ul>`,
         montar: montarFallos,
       },
       {
         titulo: 'Lo que permite la red y lo que se vio',
         descripcion: 'Compare, por longitud de traza, las que están en el registro con las que acepta la red. En la dependencia a distancia aparece comportamiento extra; en la actividad opcional, una variante perdida.',
+        ayuda: String.raw`<p>El eje horizontal es la longitud de la traza y el vertical, las trazas distintas. Se comparan las que están en el registro y las que acepta la red.</p>
+          <ul>
+          <li><strong>Caso</strong>: en la dependencia a distancia la red acepta trazas extra; en la actividad opcional se pierde una variante vista.</li>
+          <li><strong>Longitud máxima de traza</strong>: amplía el rango comparado y muestra cómo crece la diferencia.</li>
+          </ul>`,
         montar: montarComportamiento,
       },
     ],

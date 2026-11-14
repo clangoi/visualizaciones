@@ -152,15 +152,29 @@
       <p>El algoritmo <strong>clean</strong> (así se llama en la caja de herramientas Balu de reconocimiento de patrones) hace
       exactamente eso, sin mirar las clases. Es rápido y reduce el trabajo de los métodos de selección que vienen después,
       pero un umbral de correlación demasiado bajo puede descartar información útil.</p>`,
+    parametros: [
+      ['Umbral de correlación |ρ| (Fig. 1)', String.raw`Valor de correlación absoluta a partir del cual dos características se consideran redundantes y se descarta una de ellas. Bajarlo descarta más características.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Regenera los objetos medidos, y con ellos la matriz de correlación.`],
+      ['Pareja de características (Fig. 2)', String.raw`Qué par de características se compara. Muestra que una correlación alta no implica siempre redundancia para separar clases.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El algoritmo clean paso a paso',
         descripcion: 'La matriz de correlación absoluta de diez características de objetos segmentados. Baje el umbral y observe cuántas características caen.',
+        ayuda: String.raw`<p>La matriz muestra la correlación absoluta |ρ| entre las diez características: color de celda alto o bajo según |ρ|. Se resalta el par o característica que se examina en el paso actual, y las descartadas se marcan aparte. El registro describe cada decisión.</p>
+          <ul>
+          <li><strong>Umbral de correlación |ρ|</strong>: al bajarlo, más pares superan el umbral y se descartan más características; al subirlo, se conservan casi todas.</li>
+          <li><strong>Nuevos datos</strong>: otra muestra de objetos cambia las correlaciones y, con ellas, qué características caen.</li>
+          </ul>`,
         montar: montarClean,
       },
       {
         titulo: 'Correlación no es redundancia',
         descripcion: 'Dos parejas igual de correlacionadas pueden comportarse distinto: J de Fisher de cada característica sola y de la pareja.',
+        ayuda: String.raw`<p>Se dibujan los objetos de la pareja elegida en el plano de las dos características, con los colores de cada clase. La lectura da el \(J\) de Fisher de cada una sola y de la pareja.</p>
+          <ul>
+          <li><strong>Pareja de características</strong>: dos parejas igual de correlacionadas pueden separar las clases muy distinto; si el \(J\) de la pareja es mucho mayor que el de cada una, la segunda aporta información aunque estén correlacionadas.</li>
+          </ul>`,
         montar: montarPares,
       },
     ],

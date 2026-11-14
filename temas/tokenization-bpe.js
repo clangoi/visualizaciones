@@ -102,9 +102,22 @@
     intro: String.raw`
       <p>Los modelos de lenguaje no leen letras ni palabras enteras, sino <strong>tokens</strong>: fragmentos intermedios. Si el vocabulario fuera de letras, las secuencias serían larguísimas; si fuera de palabras, haría falta una entrada por cada conjugación, nombre propio y errata, y cualquier palabra nueva sería desconocida.</p>
       <p>La <strong>codificación por pares de bytes</strong> (<em>Byte-Pair Encoding</em>, BPE) encuentra un punto medio automáticamente: parte de letras y va fundiendo, una y otra vez, el par más frecuente. Las raíces y terminaciones comunes («cant», «ando», «bail») se vuelven tokens; una palabra rara se descompone en trozos conocidos.</p>`,
+    parametros: [
+      ['Texto a segmentar (Fig. 1)', String.raw`Las palabras que se segmentan con las fusiones aprendidas. Una palabra nueva se divide en fragmentos conocidos.`],
+      ['Reproductor (Fig. 1)', String.raw`Aplica las fusiones una por una, de la más frecuente a la menos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Fusionar el par más frecuente', descripcion: 'Reproduzca las fusiones y mire cómo aparecen fragmentos compartidos (raíces y terminaciones) antes de que cada palabra sea un único token. Escriba una palabra nueva y vea cómo se segmenta.', montar: montarFusiones },
-      { titulo: 'Vocabulario grande o secuencias largas', descripcion: 'Recorra la curva del compromiso: cada token extra acorta menos que el anterior.', montar: montarCompromiso },
+      { titulo: 'Fusionar el par más frecuente', descripcion: 'Reproduzca las fusiones y mire cómo aparecen fragmentos compartidos (raíces y terminaciones) antes de que cada palabra sea un único token. Escriba una palabra nueva y vea cómo se segmenta.',
+        ayuda: String.raw`<p>Cada recuadro es un token y los colores se alternan para separarlos; · marca el fin de palabra. Al principio cada letra es un token y cada fusión une el par más frecuente en uno solo.</p>
+          <ul>
+          <li><strong>Texto a segmentar</strong>: palabras frecuentes terminan en pocos tokens; las raras o inventadas quedan en más fragmentos.</li>
+          <li><strong>Reproductor</strong>: a más fusiones, menos tokens por palabra y más fragmentos compartidos como raíces y terminaciones.</li>
+          </ul>`, montar: montarFusiones },
+      { titulo: 'Vocabulario grande o secuencias largas', descripcion: 'Recorra la curva del compromiso: cada token extra acorta menos que el anterior.',
+        ayuda: String.raw`<p>Eje horizontal: fusiones realizadas. Eje vertical: valor relativo al inicio. Una curva son los tokens por palabra (cuanto menor, secuencias más cortas) y la otra, el tamaño del vocabulario (más filas en la tabla de embeddings).</p>
+          <ul>
+          <li>Esta figura no tiene controles: al pasar el cursor por la curva se ve qué se gana y cuánto crece el vocabulario en cada fusión.</li>
+          </ul>`, montar: montarCompromiso },
     ],
     teoria: String.raw`
       <h2>Algoritmo de entrenamiento</h2>

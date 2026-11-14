@@ -282,15 +282,36 @@
     intro: String.raw`
       <p>Un <strong>cuello de botella</strong> (<em>bottleneck</em>) es la actividad o el recurso que limita el rendimiento de todo el proceso: allí se forman las colas y se pierde tiempo. Se reconoce en el modelo coloreando cada actividad según su espera o servicio medios, como un <em>mapa de calor</em> sobre el grafo de procesos.</p>
       <p>Las <em>actividades críticas</em> son las de mayor valor en la métrica elegida, y el <em>camino crítico</em> es la ruta del modelo con mayor tiempo medio. Pero un cuello de botella no se arregla marcándolo: hay que preguntarse si lo que falta es capacidad, y qué cuello aparece después de agregarla.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1)', String.raw`Proceso cuyo modelo se colorea con las medidas de tiempo.`],
+      ['Colorear por (Fig. 1)', String.raw`Qué medida da el color: espera media, servicio medio o su suma. La espera y el servicio suelen señalar actividades distintas.`],
+      ['Actividades críticas (Fig. 1)', String.raw`Cuántas actividades se marcan como críticas (las de mayor valor). Con 0 no se marca ninguna.`],
+      ['Mostrar camino crítico (Fig. 1)', String.raw`Dibuja el camino del modelo con mayor tiempo medio total, por donde pasa la mayor parte de la demora.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otra muestra de casos.`],
+      ['Llegada de casos (por hora) (Fig. 2)', String.raw`Carga que entra al proceso. Subirla aumenta la utilización de todos los roles.`],
+      ['Capacidad original (Fig. 2)', String.raw`Devuelve cada rol a su número inicial de personas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mapa de calor sobre el modelo',
         descripcion: 'El color sigue la espera o el servicio medio; el naranjo marca el camino de mayor tiempo medio y el rojo, las actividades críticas. Alterne entre espera y servicio: muestran cuellos distintos.',
+        ayuda: String.raw`<p>Es el modelo del proceso con cada actividad coloreada según la medida elegida: más intenso significa mayor valor. El rojo marca las actividades críticas, el naranja el camino de mayor tiempo medio y un contorno distingue la actividad seleccionada.</p>
+          <ul>
+          <li><strong>Colorear por</strong>: la espera se asigna a la actividad que sigue a la flecha; cambiar a servicio suele mover el color a otras actividades.</li>
+          <li><strong>Actividades críticas</strong>: fija cuántas actividades se resaltan en rojo, de mayor a menor valor.</li>
+          <li><strong>Mostrar camino crítico</strong>: activa o quita el trazo naranja del camino más lento.</li>
+          </ul>`,
         montar: montarMapa,
       },
       {
         titulo: 'Utilización y capacidad',
         descripcion: 'La espera en cola crece de forma explosiva cuando la utilización se acerca a 100 %. Aumente la llegada, sume personas al rol saturado y observe cómo el cuello de botella se desplaza a otro rol.',
+        ayuda: String.raw`<p>Cada fila es un rol con su utilización. El color indica el nivel: por debajo de 70 %, entre 70 % y 90 %, o por encima de 90 % (la cola se dispara). También se muestran las personas del rol y la espera en cola resultante.</p>
+          <ul>
+          <li><strong>Llegada de casos (por hora)</strong>: al subirla aumenta la utilización; al pasar de 90 % la espera en cola crece de forma explosiva.</li>
+          <li><strong>Clic en un rol</strong>: suma una persona, baja su utilización y el cuello de botella puede pasar a otro rol.</li>
+          <li><strong>Capacidad original</strong>: restaura el punto de partida para comparar.</li>
+          </ul>`,
         montar: montarCapacidad,
       },
     ],

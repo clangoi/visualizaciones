@@ -216,10 +216,22 @@
       replicación del registro y seguridad.</p>
       <p>El tiempo se divide en <strong>términos</strong> numerados, cada uno con a lo más un líder. El líder recibe los comandos de los clientes, los agrega a su registro y
       los replica; una entrada está <strong>confirmada</strong> cuando la tiene una mayoría. Si los seguidores dejan de oír al líder, uno de ellos se postula en un término nuevo.</p>`,
+    parametros: [
+      ['Velocidad (Fig. 1)', String.raw`Cuántos ticks de simulación avanzan por segundo real. No cambia el comportamiento, solo el ritmo con que se ve.`],
+      ['Reproducir, Avanzar 50 ms y Reiniciar (Fig. 1)', String.raw`Reproducir avanza solo, Avanzar 50 ms da un paso fijo y Reiniciar crea un nuevo clúster con otra semilla de temporizadores.`],
+      ['Comando del cliente (Fig. 1)', String.raw`Hace que el líder agregue una entrada a su registro. Replicarla y confirmarla requiere que la mayoría de los servidores la reciba.`],
+      ['Hacer caer al líder (Fig. 1)', String.raw`Detiene al líder actual. Sin latidos, el primer seguidor cuyo temporizador venza inicia una elección con un término mayor.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Elección y replicación',
         descripcion: 'Reproduzca, envíe comandos del cliente y haga caer al líder. Observe el temporizador (arco azul): el primero que vence inicia la elección. Con dos servidores caídos todavía hay mayoría (3 de 5); con tres, nada avanza.',
+        ayuda: String.raw`<p>Cada servidor es un nodo cuyo color indica su rol: seguidor, candidato o líder. El arco alrededor es su temporizador de elección. Los mensajes en tránsito son pedidos de voto o latidos y entradas, y abajo se ve el registro de cada servidor.</p>
+          <ul>
+          <li><strong>Comando del cliente</strong>: aparece una entrada nueva en el registro del líder y luego en los seguidores, a medida que llegan los latidos.</li>
+          <li><strong>Hacer caer al líder</strong>: el nodo se apaga, algún temporizador vence, surgen pedidos de voto y se elige un líder con término mayor.</li>
+          <li>Al hacer clic en servidores hasta dejar menos de la mayoría vivos, no se elige líder: sin quórum no hay progreso.</li>
+          </ul>`,
         montar,
       },
     ],

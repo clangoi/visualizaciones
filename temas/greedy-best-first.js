@@ -108,15 +108,33 @@
       <p>Cuando la heurística es buena, va casi en línea recta hacia la meta y expande muy pocos nodos. Pero como no mira el
       costo acumulado, puede seguir un camino que «parece» prometedor y resulta caro, y no tiene garantía de optimalidad. Es la
       elección natural cuando importa encontrar <em>alguna</em> solución rápido.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`Búsqueda voraz (ordena solo por \(h\)) o A* (ordena por \(g + h\)), sobre el mismo grafo.`],
+      ['Vértices, Nuevo grafo y reproductor (Fig. 1)', String.raw`Tamaño del grafo, generar otro y controlar la animación.`],
+      ['Heurística (Fig. 2)', String.raw`Manhattan o fichas fuera de lugar para guiar ambas búsquedas en el 8-puzzle.`],
+      ['Peso w de A* ponderado (Fig. 2)', String.raw`A* ponderado ordena por \(g + w\,h\). Con \(w = 1\) es A* (óptimo); al subir \(w\) se parece cada vez más a la voraz, y su costo queda acotado por \(w\) veces el óptimo.`],
+      ['Nuevas instancias (Fig. 2)', String.raw`Sortea otros puzzles.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Voraz frente a A*',
         descripcion: 'Ejecute la búsqueda voraz y luego A* sobre el mismo grafo. Pruebe varios grafos («Nuevo grafo») hasta encontrar uno en que la voraz expanda menos pero devuelva un camino más caro.',
+        ayuda: String.raw`<p>Es el mismo esqueleto de búsqueda en un grafo geométrico. La búsqueda <strong>voraz</strong> siempre expande el vértice que parece más cercano a la meta (menor \(h\)), sin mirar cuánto costó llegar; <strong>A*</strong> suma ese costo \(g\).</p>
+          <ul>
+          <li>Ejecute las dos estrategias sobre el mismo grafo: la voraz suele expandir menos vértices (azules) pero el camino naranja puede ser más caro; compare «costo encontrado» con «costo óptimo».</li>
+          <li>Use <strong>Nuevo grafo</strong> hasta encontrar un caso en que la voraz se deja engañar por un vértice que está cerca en línea recta pero mal conectado.</li>
+          </ul>`,
         montar: montarGrafo,
       },
       {
         titulo: 'Rapidez contra calidad en el 8-puzzle',
         descripcion: 'La búsqueda voraz expande muy pocos nodos, pero sus soluciones pueden ser varias veces más largas que la óptima. A* ponderado se mueve entre ambos extremos: cambie \\(w\\) y observe los puntos naranjos.',
+        ayuda: String.raw`<p>Cada punto es un puzzle al azar: su posición horizontal es la longitud óptima y la vertical, la de la solución encontrada. La diagonal marca las soluciones óptimas y la otra línea punteada, la cota \(w \cdot C^*\) de A* ponderado. Azul: búsqueda voraz; naranja: A* ponderado.</p>
+          <ul>
+          <li>Los puntos azules quedan muy por encima de la diagonal: la voraz encuentra soluciones mucho más largas, aunque expande muy pocos nodos (lecturas).</li>
+          <li><strong>Peso w</strong>: con 1, los puntos naranjos están sobre la diagonal; al subirlo, se dispersan hacia arriba pero nunca pasan la cota, y los nodos expandidos bajan.</li>
+          <li><strong>Heurística</strong>: con fichas fuera de lugar (menos informada) ambas búsquedas expanden más.</li>
+          </ul>`,
         montar: montarPuzzle,
       },
     ],

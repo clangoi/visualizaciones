@@ -201,20 +201,46 @@
       una tabla SQL); los <strong>no estructurados</strong> —texto, imágenes, audio— hay que convertirlos primero.</p>
       <p>Esa conversión no es neutra: decide qué se considera parecido. Y no toda columna admite las mismas operaciones; un
       código postal es un número, pero promediarlo no tiene sentido.</p>`,
+    parametros: [
+      ['Documento 1, 2 y 3 (Fig. 1)', String.raw`El texto de cada documento. Cada uno se convierte en una fila de la matriz documento-término.`],
+      ['quitar palabras vacías (Fig. 1)', String.raw`Elimina palabras muy frecuentes y poco informativas, lo que quita columnas de la matriz y cambia las distancias entre documentos.`],
+      ['presencia (0/1) en vez de conteo (Fig. 1)', String.raw`Cada celda indica solo si la palabra aparece, sin contar cuántas veces. Se pierde la frecuencia pero no la presencia.`],
+      ['Cargar «0», «1», «7» y Borrar (Fig. 2)', String.raw`Cargan una plantilla de dígito en la cuadrícula o la vacían. Dibujar o cargar cambia los 64 píxeles del vector.`],
+      ['Ciudad (nominal) y Talla (ordinal) (Fig. 3)', String.raw`La codificación de cada columna categórica: one-hot o un número entero. One-hot no inventa orden entre categorías; un entero sí lo introduce, lo que es adecuado solo para la talla.`],
+      ['Fila A y Fila B (Fig. 3)', String.raw`Las dos filas de la tabla cuyos vectores y distancia se comparan.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De texto a matriz documento-término',
         descripcion: 'Cada documento se convierte en el vector de cuántas veces aparece cada palabra. Observe que la matriz se llena de ceros y que d1 y d2 se parecen más entre sí que con d3.',
+        ayuda: String.raw`<p>Cada fila de la matriz es un documento y cada columna, una palabra. El color indica cuánto aparece cada palabra: poco, mucho o no aparece (cero). La lectura compara los documentos entre sí.</p>
+          <ul>
+          <li><strong>quitar palabras vacías</strong>: desaparecen las columnas de palabras comunes, y los documentos se parecen solo por sus palabras con contenido.</li>
+          <li><strong>presencia (0/1)</strong>: todas las celdas con valor se vuelven 1, de modo que una palabra repetida deja de pesar más.</li>
+          <li>Editar un documento cambia su fila y el parecido con los otros.</li>
+          </ul>`,
         montar: montarTexto,
       },
       {
         titulo: 'Una imagen es un vector',
         descripcion: 'Dibuje un dígito: los 64 píxeles forman un vector y la distancia euclidiana a cada plantilla decide a cuál se parece.',
+        ayuda: String.raw`<p>La cuadrícula son los 64 píxeles de la imagen: encendidos (1) y apagados (0). El vector resultante pone las filas una tras otra; se marca la fila 3 de la imagen dentro del vector. La lectura da la distancia euclidiana a cada plantilla.</p>
+          <ul>
+          <li><strong>Cargar «0», «1», «7»</strong>: reemplaza el vector por el de esa plantilla, con distancia 0 a ella misma.</li>
+          <li><strong>Borrar</strong>: deja todos los píxeles apagados, vector de ceros.</li>
+          <li>Al encender o apagar píxeles cambia la distancia a cada plantilla, y la menor decide a cuál se parece.</li>
+          </ul>`,
         montar: montarImagen,
       },
       {
         titulo: 'Tipos de características y su codificación',
         descripcion: 'Una tabla con una columna de cada tipo. Cambie la codificación de las columnas categóricas y observe cómo cambian las distancias.',
+        ayuda: String.raw`<p>Se muestran los datos originales y los vectores numéricos resultantes tras la codificación elegida; la lectura da la distancia entre las filas A y B.</p>
+          <ul>
+          <li><strong>Ciudad (nominal)</strong>: con one-hot, dos ciudades distintas siempre distan lo mismo; con código entero, la distancia depende de un orden que no existe.</li>
+          <li><strong>Talla (ordinal)</strong>: con rango se conserva el orden de las tallas; con one-hot se pierde.</li>
+          <li><strong>Fila A</strong> y <strong>Fila B</strong>: eligen el par cuya distancia se calcula.</li>
+          </ul>`,
         montar: montarTipos,
       },
     ],

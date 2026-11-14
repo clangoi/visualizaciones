@@ -78,9 +78,28 @@
     intro: String.raw`
       <p>Entrenar un modelo grande no es solo un problema de algoritmos: es de <strong>presupuesto</strong>. El cómputo necesario crece con el tamaño del modelo y con la cantidad de datos, y se paga en GPU-horas, en dinero, en electricidad y en emisiones. Hoy, entrenar un modelo de lenguaje de frontera cuesta de millones a cientos de millones de dólares; entrenar uno pequeño en una GPU de escritorio cuesta unos pocos dólares.</p>
       <p>Una pregunta práctica es cómo repartir un presupuesto fijo entre <em>un modelo más grande</em> y <em>más datos</em>. Las leyes de escalamiento empíricas muestran que ambos deben crecer juntos.</p>`,
+    parametros: [
+      ['Parámetros N (10^x) (Fig. 1)', String.raw`Tamaño del modelo, en potencias de diez. Más parámetros implican más operaciones por dato.`],
+      ['Datos de entrenamiento D (10^x) (Fig. 1)', String.raw`Cantidad de tokens o ejemplos vistos. El cómputo crece con el producto de N por D.`],
+      ['Número de GPU (Fig. 1)', String.raw`Cuántos aceleradores trabajan en paralelo: reduce el tiempo, pero no el total de GPU-horas.`],
+      ['Utilización del cómputo máximo (Fig. 1)', String.raw`Qué fracción de la capacidad teórica se aprovecha en la práctica. Una utilización baja alarga el tiempo y el costo.`],
+      ['Precio por GPU-hora (USD) (Fig. 1)', String.raw`Convierte las GPU-horas en dinero.`],
+      ['Presupuesto de cómputo C (10^x FLOP) (Fig. 2)', String.raw`Cómputo total fijo que se reparte entre tamaño de modelo y cantidad de datos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Calculadora de costo de entrenamiento', descripcion: 'Elija parámetros, datos y GPU y lea tiempo, dinero y energía. Compare con modelos conocidos.', montar: montarCalculadora },
-      { titulo: 'Modelo grande o más datos', descripcion: 'Con el cómputo fijo, recorra el tamaño del modelo y encuentre el reparto que minimiza la pérdida estimada.', montar: montarEscala },
+      { titulo: 'Calculadora de costo de entrenamiento', descripcion: 'Elija parámetros, datos y GPU y lea tiempo, dinero y energía. Compare con modelos conocidos.',
+        ayuda: String.raw`<p>Un gráfico logarítmico ubica su configuración (N, D) junto a modelos de referencia con cifras publicadas aproximadas. Debajo se leen tiempo, costo y energía.</p>
+          <ul>
+          <li><strong>N y D</strong>: aumentar cualquiera de ellos multiplica el cómputo (aprox. \(6ND\) FLOP) y mueve el punto hacia los modelos mayores.</li>
+          <li><strong>Número de GPU</strong>: reduce el tiempo en calendario pero las GPU-horas, y el costo, no cambian.</li>
+          <li><strong>Utilización</strong> y <strong>Precio por GPU-hora</strong>: la primera escala el tiempo y el costo en sentido inverso; el segundo, de forma directa.</li>
+          </ul>`, montar: montarCalculadora },
+      { titulo: 'Modelo grande o más datos', descripcion: 'Con el cómputo fijo, recorra el tamaño del modelo y encuentre el reparto que minimiza la pérdida estimada.',
+        ayuda: String.raw`<p>Eje horizontal: parámetros N. La curva es la pérdida estimada \(L(N, D)\) con \(C = 6ND\) fijo, por lo que D se ajusta a cada N. Una marca indica el reparto de menor pérdida y la línea la pérdida irreducible E.</p>
+          <ul>
+          <li><strong>Presupuesto de cómputo C</strong>: al subirlo, la curva baja y el mejor N se desplaza a modelos mayores.</li>
+          <li>Las pérdidas altas a la izquierda corresponden a modelos pequeños con muchos datos; a la derecha, a modelos grandes con pocos.</li>
+          </ul>`, montar: montarEscala },
     ],
     teoria: String.raw`
       <h2>Cuántas operaciones</h2>

@@ -228,15 +228,34 @@
       después elige, rama por rama, los grupos que <strong>persisten</strong> en un rango amplio de densidades.</p>
       <p>El resultado: grupos de densidades distintas en un mismo conjunto, ruido marcado como tal, y un solo parámetro
       intuitivo, el tamaño mínimo de grupo.</p>`,
+    parametros: [
+      ['MinPts (Fig. 1 y 2)', String.raw`Cuántos vecinos define la distancia núcleo de cada punto (distancia a su MinPts-ésimo vecino). Con valores altos, los puntos aislados se vuelven más «lejanos» y el resultado es más suave.`],
+      ['Árbol sobre (Fig. 1)', String.raw`Con qué distancia se construye el árbol de expansión mínima: alcanzabilidad mutua (la de HDBSCAN) o distancia euclidiana.`],
+      ['Datos (Fig. 2)', String.raw`El conjunto, con densidades distintas, que se agrupa y cuyo árbol condensado se dibuja.`],
+      ['Tamaño mínimo de grupo (Fig. 2)', String.raw`Número mínimo de puntos para que una rama cuente como grupo. Las ramas menores se tratan como puntos que se desprenden.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Sortea otra muestra de puntos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Distancia núcleo y alcanzabilidad mutua',
         descripcion: 'El árbol de expansión mínima con la distancia de HDBSCAN frente a la euclidiana. Compare a qué puntos llegan las aristas más pesadas.',
+        ayuda: String.raw`<p>Las aristas del árbol de expansión mínima se dibujan con grosor proporcional a su cercanía; se resaltan las 5 aristas más pesadas. Al pasar el cursor sobre un punto se muestra el círculo con radio núcleo(p).</p>
+          <ul>
+          <li><strong>Árbol sobre</strong> alcanzabilidad mutua: un punto aislado queda lejos de todos (su núcleo es grande), así que las aristas más pesadas llegan al ruido.</li>
+          <li><strong>Árbol sobre</strong> distancia euclidiana: las aristas más pesadas pueden ser las que cruzan entre grupos.</li>
+          <li><strong>MinPts</strong> mayor: los círculos núcleo crecen y la distancia entre puntos se aleja de la euclidiana.</li>
+          </ul>`,
         montar: montarAlcanzabilidad,
       },
       {
         titulo: 'Árbol condensado y estabilidad',
         descripcion: 'La jerarquía resumida y los grupos elegidos por estabilidad, con el resultado en el plano. Compare su ARI con el de DBSCAN en «Densidades distintas».',
+        ayuda: String.raw`<p>El primer panel es el árbol condensado: cada barra es un grupo que nace arriba (eje vertical \(\lambda = 1/\text{distancia}\)) cuando su padre se divide y se angosta al perder puntos. Los grupos elegidos por estabilidad (área) van en color; los no elegidos se ven aparte. El otro panel muestra el resultado en el plano, con el ruido como cruz.</p>
+          <ul>
+          <li><strong>Tamaño mínimo de grupo</strong> mayor: desaparecen ramas pequeñas y hay menos grupos; los puntos de esas ramas pasan a ser ruido.</li>
+          <li><strong>MinPts</strong> mayor: más puntos se vuelven ruido y el árbol es más simple.</li>
+          <li>Compare su ARI con el de DBSCAN en «Densidades distintas»: HDBSCAN no necesita un único ε.</li>
+          </ul>`,
         montar: montarCondensado,
       },
     ],

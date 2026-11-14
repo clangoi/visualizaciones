@@ -146,10 +146,20 @@
       <p><strong>Paxos</strong> (Lamport, 1989/1998) lo resuelve con fallas de caída mientras una mayoría siga viva. Los <em>proponentes</em> numeran sus propuestas; en
       una primera fase obtienen de una mayoría de <em>aceptadores</em> la promesa de ignorar números menores y averiguan si ya se aceptó algún valor; en la segunda,
       piden aceptar un valor, que debe ser el ya aceptado si lo hay. Nunca se eligen dos valores distintos, aunque, con mala suerte, puede no terminar.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Qué situación se simula: un proponente, un aceptador caído, un segundo proponente que llega tarde o dos proponentes en duelo. Muestra cómo Paxos conserva un valor ya aceptado o reintenta tras ser rechazado.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la simulación evento por evento y la reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Las dos fases de Paxos',
         descripcion: 'Avance evento por evento. En «Un segundo proponente llega tarde», P2 descubre que A1 ya aceptó X y propone X en lugar de Y. En «Proponentes en duelo», cada uno anula al otro hasta que uno espera más.',
+        ayuda: String.raw`<p>Los proponentes y los aceptadores se unen con flechas cuyo color indica el tipo de mensaje: prepare, promise, accept, accepted o nack (rechazo), según la leyenda. El registro y la lectura describen el evento actual.</p>
+          <ul>
+          <li><strong>Escenario</strong> «Un segundo proponente llega tarde»: P2 recibe promesas que informan de un valor ya aceptado y por eso propone ese valor, no el suyo.</li>
+          <li><strong>Escenario</strong> «Un aceptador caído»: con la mayoría restante el acuerdo se alcanza igual.</li>
+          <li><strong>Escenario</strong> «Proponentes en duelo»: aparecen nack porque cada prepare con número mayor anula al anterior.</li>
+          </ul>`,
         montar,
       },
     ],

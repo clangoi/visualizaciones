@@ -432,20 +432,41 @@
       viola pero que todo punto entero factible cumple: recorta un pedazo de la región relajada sin perder ninguna solución entera. Se agrega, se vuelve a resolver el LP y se repite.</p>
       <p>Cada corte acerca la región relajada a la <em>envoltura convexa</em> de las soluciones enteras, el conjunto donde el LP daría directamente la respuesta correcta. Los cortes de
       <strong>Gomory</strong> se obtienen mecánicamente de una fila fraccionaria del tableau del símplex; los resolvedores modernos los combinan con la ramificación (<em>branch and cut</em>).</p>`,
+    parametros: [
+      ['Problema (Fig. 1, 2 y 3)', String.raw`El programa entero de partida, con su región relajada y sus puntos enteros.`],
+      ['Dirección del corte y Desplazamiento del corte (Fig. 1)', String.raw`Orientación de la recta y cuánto se acerca al óptimo. Un corte válido no elimina puntos enteros; uno desplazado de más sí los pierde.`],
+      ['Faceta que separa el óptimo (Fig. 1)', String.raw`Coloca un corte que toca la envoltura convexa entera y deja fuera el óptimo relajado.`],
+      ['Fila fuente del corte (Fig. 2)', String.raw`Fila fraccionaria del tableau de la que se construye el corte de Gomory: la de mayor parte fraccionaria o la primera.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza o reinicia la secuencia de cortes.`],
+      ['Cortes en la raíz (Fig. 3)', String.raw`Número de cortes aplicados antes de ramificar. Más cortes ajustan la cota inicial pero cuestan iteraciones.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Geometría de un corte',
         descripcion: 'Gire la dirección del corte: con desplazamiento 0 la recta toca la envoltura entera (verde) y nunca elimina un punto entero. Baje el desplazamiento y empezará a perder puntos (cruces rojas): ese corte ya no es válido. Pulse «Faceta que separa el óptimo» para el corte más profundo.',
+        ayuda: String.raw`<p>Región relajada tras el corte, zona eliminada, recta del corte y envoltura convexa entera. Las cruces rojas son puntos enteros perdidos y el rombo, el óptimo relajado original y el nuevo.</p>
+          <ul>
+          <li><strong>Dirección del corte</strong>: gira la recta; un corte útil separa el óptimo relajado.</li>
+          <li><strong>Desplazamiento del corte</strong>: con valor 0 la recta toca la envoltura y es válida; al bajarlo aparecen puntos enteros perdidos.</li>
+          </ul>`,
         montar: montarGeometria,
       },
       {
         titulo: 'Cortes de Gomory sobre el tableau',
         descripcion: 'Avance un corte por paso: se elige una fila fraccionaria, se forma el corte con las partes fraccionarias y se reoptimiza con el símplex dual. Observe cómo la recta elimina el vértice fraccionario y cómo el tableau vuelve a mostrar valores fraccionarios hasta que todos son enteros. Pruebe «primera fila fraccionaria».',
+        ayuda: String.raw`<p>A la izquierda, la región tras cada corte; el último destaca sobre los anteriores. Se marcan el óptimo relajado actual y el entero. Abajo, el tableau del símplex.</p>
+          <ul>
+          <li><strong>Fila fuente del corte</strong>: cambia de dónde sale cada corte y por tanto cuántos hacen falta.</li>
+          </ul>`,
         montar: montarGomory,
       },
       {
         titulo: 'Cortes frente a ramificación',
         descripcion: 'Compare cómo baja la cota con cortes solos, con ramificación sola y con unos cuantos cortes seguidos de ramificación (branch and cut). Cambie el número de cortes en la raíz y vea cuántos nodos ahorra.',
+        ayuda: String.raw`<p>Eje horizontal: iteración (corte o nodo); vertical: cota superior. Tres curvas: solo cortes, solo ramificación y cortes en la raíz seguidos de ramificación. Una línea marca el óptimo entero.</p>
+          <ul>
+          <li><strong>Cortes en la raíz</strong>: más cortes iniciales bajan la cota antes de ramificar y reducen los nodos.</li>
+          </ul>`,
         montar: montarComparacion,
       },
     ],

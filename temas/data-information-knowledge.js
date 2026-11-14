@@ -273,15 +273,36 @@
       <p>Los sistemas de información existen para recorrer esa pirámide a escala: reciben millones de datos, producen informes y, bien
       diseñados, dejan reglas que las personas pueden usar. Cada peldaño agrega significado pero también supuestos, y por eso conviene ver
       qué se añade en cada uno.</p>`,
+    parametros: [
+      ['Periodo analizado (Fig. 1)', String.raw`Cuántos meses de ingreso se agrupan y se comparan con el mismo periodo del año anterior. Un periodo corto es más ruidoso; uno largo suaviza la comparación.`],
+      ['Regla: crecimiento mínimo (Fig. 1)', String.raw`Umbral de crecimiento interanual que debe superar un producto para cumplir la regla de decisión. Subirlo vuelve la regla más exigente y deja menos productos.`],
+      ['Regla: participación mínima (Fig. 1)', String.raw`Porcentaje mínimo del ingreso total que debe aportar un producto. Subirlo descarta productos pequeños aunque crezcan mucho.`],
+      ['Información disponible (Fig. 2)', String.raw`Cuánto contexto usa el sistema para alertar: desde un dato aislado hasta un modelo de tendencia y estación. Más contexto significa distinguir mejor una caída real de una fluctuación normal.`],
+      ['Alertar si cae más de (Fig. 2)', String.raw`Tamaño de la caída respecto de la referencia que dispara una alerta. Un umbral bajo genera falsas alarmas; uno alto deja caídas reales sin alerta.`],
+      ['Ruido de las ventas (Fig. 2)', String.raw`Variación aleatoria de las ventas mensuales. Con más ruido es más difícil separar una caída real de una oscilación casual.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra de ventas con las mismas condiciones, para comprobar que lo observado no es casualidad.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De la fila al conocimiento',
         descripcion: 'Avance con «Un paso»: primero ve 14 cifras sueltas, luego totales por región, después series con comparación interanual y por fin una regla de decisión. Mueva el periodo y los umbrales de la regla: cambia qué combinaciones región × producto se señalan.',
+        ayuda: String.raw`<p>La figura recorre cuatro etapas, de cifras sueltas a una regla de decisión. En las series, el eje horizontal es el mes y el vertical el ingreso mensual; se compara el periodo analizado con el mismo periodo del año anterior. En el plano final, el eje horizontal es la participación en el ingreso (%) y el vertical el crecimiento interanual (%); la forma de cada marca indica el producto y las que cumplen la regla se distinguen del resto.</p>
+          <ul>
+          <li><strong>Periodo analizado</strong>: cambia cuántos meses se comparan; con ello varían los totales y el crecimiento de cada producto.</li>
+          <li><strong>Regla: crecimiento mínimo</strong>: desplaza la frontera vertical del plano; los productos bajo ese valor dejan de cumplir la regla.</li>
+          <li><strong>Regla: participación mínima</strong>: desplaza la frontera horizontal; los productos con poca participación quedan fuera aunque crezcan.</li>
+          </ul>`,
         montar: montarPiramide,
       },
       {
         titulo: 'Decidir con y sin contexto',
         descripcion: 'Una serie de ventas con 4 caídas reales ocultas. Cambie la información disponible (de un dato aislado a un modelo de tendencia y estación) y observe cómo bajan las falsas alarmas y las omisiones; suba el ruido y vea hasta dónde ayuda el contexto.',
+        ayuda: String.raw`<p>Línea de ventas mensuales (eje horizontal: mes; vertical: ventas en miles de &#36;) con la referencia del nivel de información elegido. Las marcas señalan alertas sobre una caída real, falsas alarmas y caídas reales que no generaron alerta.</p>
+          <ul>
+          <li><strong>Información disponible</strong>: al pasar de un dato aislado a un modelo de tendencia y estación, la referencia se ajusta mejor a la serie y bajan las falsas alarmas y las omisiones.</li>
+          <li><strong>Alertar si cae más de</strong>: un umbral pequeño multiplica las falsas alarmas; uno grande deja caídas reales sin señalar.</li>
+          <li><strong>Ruido de las ventas</strong>: más ruido aleja la serie de su referencia y empeora el equilibrio entre alertas y omisiones.</li>
+          </ul>`,
         montar: montarContexto,
       },
     ],

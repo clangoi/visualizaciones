@@ -173,9 +173,26 @@
       <p><strong>Keras</strong> es la interfaz de alto nivel con la que se define, entrena y evalúa una red en unas pocas líneas. Ofrece dos maneras de definir un modelo. La API <strong>Sequential</strong> apila capas en línea recta: es la más corta y sirve para la mayoría de los casos simples.
       La API <strong>funcional</strong> trata cada capa como una función sobre tensores, y construye un grafo: permite atajos residuales, ramas paralelas y varias entradas o salidas.</p>
       <p>En ambos casos Keras infiere las formas de los tensores y cuenta los parámetros al construir el modelo, lo que ayuda a detectar errores de forma antes de entrenar.</p>`,
+    parametros: [
+      ['Entrada (Fig. 1)', String.raw`Forma de los datos que recibe el modelo (p. ej. imagen gris 28×28). Las formas siguientes se calculan desde ella.`],
+      ['Empezar desde (Fig. 1)', String.raw`Carga un modelo de ejemplo como punto de partida.`],
+      ['Agregar capas, Quitar la última y Vaciar (Fig. 1)', String.raw`Construyen el modelo capa a capa; cada capa cambia la forma de salida y el número de parámetros.`],
+      ['Modelo (Fig. 2)', String.raw`Qué arquitectura funcional se muestra: con atajo, con ramas o con dos entradas.`],
+      ['Filtros por convolución (Fig. 2)', String.raw`Número de filtros de las convoluciones; cambia los parámetros de las capas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Construir un modelo Sequential', descripcion: 'Agregue capas y observe cómo cambian las formas y el número de parámetros. Intente poner Conv2D después de Flatten o demasiados MaxPooling2D.', montar: montarSecuencial },
-      { titulo: 'La API funcional', descripcion: 'Elija un modelo con atajo, con ramas o con dos entradas, cambie los filtros y lea el código que lo define.', montar: montarFuncional },
+      { titulo: 'Construir un modelo Sequential', descripcion: 'Agregue capas y observe cómo cambian las formas y el número de parámetros. Intente poner Conv2D después de Flatten o demasiados MaxPooling2D.',
+        ayuda: String.raw`<p>Una tabla equivalente a <code>model.summary()</code>: cada fila es una capa con su forma de salida y sus parámetros, y el total al final. Se marca el primer error de forma.</p>
+          <ul>
+          <li><strong>Entrada</strong>: fija la forma inicial.</li>
+          <li>Agregar capas cambia la forma y los parámetros; una capa incompatible (p. ej. Conv2D tras Flatten) se señala como error.</li>
+          </ul>`, montar: montarSecuencial },
+      { titulo: 'La API funcional', descripcion: 'Elija un modelo con atajo, con ramas o con dos entradas, cambie los filtros y lea el código que lo define.',
+        ayuda: String.raw`<p>Grafo del modelo: nodos de entrada, de capa con parámetros, sin parámetros y de unión de ramas, junto con el código que lo define.</p>
+          <ul>
+          <li><strong>Modelo</strong>: cambia el grafo (atajo, ramas, dos entradas) y el punto donde se unen las ramas.</li>
+          <li><strong>Filtros por convolución</strong>: modifica los parámetros de las capas convolucionales, no la estructura.</li>
+          </ul>`, montar: montarFuncional },
     ],
     teoria: String.raw`
       <h2>Ciclo de trabajo</h2>

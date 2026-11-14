@@ -81,9 +81,28 @@
       <p>En un valle estrecho, un solo \(\eta\) para todos los parámetros es un mal compromiso: la dirección empinada pide pasos pequeños y la plana, grandes. Los <strong>optimizadores adaptativos</strong> resuelven esto dándole a cada parámetro su propio tamaño de paso, calculado a partir
       de la historia de sus gradientes.</p>
       <p><em>AdaGrad</em> divide por la raíz de la suma de gradientes al cuadrado; <em>RMSProp</em> la reemplaza por un promedio móvil, para que el paso no se encoja para siempre; <em>Adam</em> combina ese promedio con momentum y corrige su sesgo inicial.</p>`,
+    parametros: [
+      ['Superficie (Fig. 1)', String.raw`La forma de la función a minimizar, por ejemplo con direcciones de pendiente muy distinta o con un punto de silla.`],
+      ['Escala de la tasa (Fig. 1)', String.raw`Multiplica la tasa de cada método a la vez. Con una escala alta algunos divergen u oscilan; con una baja, avanzan lento.`],
+      ['Casillas de métodos y reproductor (Fig. 1)', String.raw`Las casillas muestran u ocultan SGD, Momentum, AdaGrad, RMSProp y Adam; Reproducir, Un paso, Hasta el final y Reiniciar avanzan los pasos.`],
+      ['Datos, Optimizador, Tasa de aprendizaje y Tamaño del lote (Fig. 2)', String.raw`Datos es la forma de las clases; Optimizador, el método de actualización; Tasa de aprendizaje, el tamaño del paso; Tamaño del lote, cuántos ejemplos se usan por paso.`],
+      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Nuevos datos sortea otra muestra; el reproductor entrena la red.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cinco optimizadores, una superficie', descripcion: 'Compare las trayectorias. Cambie la escala de la tasa y la superficie, y active o desactive métodos con las casillas.', montar: montarCarrera },
-      { titulo: 'Los mismos métodos entrenando una red', descripcion: 'Entrene la misma red con distintos optimizadores y tasas y compare las curvas de pérdida.', montar: montarRed },
+      { titulo: 'Cinco optimizadores, una superficie', descripcion: 'Compare las trayectorias. Cambie la escala de la tasa y la superficie, y active o desactive métodos con las casillas.',
+        ayuda: String.raw`<p>Los ejes son los parámetros θ₁ y θ₂ y las curvas de nivel, la función a minimizar. Cada trayectoria es un optimizador (color de la leyenda); todos parten del mismo punto y se marca el mínimo.</p>
+          <ul>
+          <li><strong>Superficie</strong>: SGD y Momentum necesitan tasas pequeñas porque el gradiente es muy distinto según la dirección; AdaGrad, RMSProp y Adam normalizan cada coordenada. En «Punto de silla» se ve quién se detiene y quién sigue.</li>
+          <li><strong>Escala de la tasa</strong>: sube o baja todas a la vez para ver cuáles toleran tasas altas.</li>
+          <li><strong>Casillas</strong>: aíslan trayectorias para compararlas de a pares.</li>
+          </ul>`, montar: montarCarrera },
+      { titulo: 'Los mismos métodos entrenando una red', descripcion: 'Entrene la misma red con distintos optimizadores y tasas y compare las curvas de pérdida.',
+        ayuda: String.raw`<p>A un lado, los puntos coloreados por clase (huecos: validación) con la frontera que aprende la red; al otro, la pérdida de entrenamiento y de validación por época.</p>
+          <ul>
+          <li><strong>Optimizador</strong>: con la misma tasa, SGD y Adam llevan la pérdida a niveles distintos; los adaptativos son menos sensibles a la escala de los gradientes.</li>
+          <li><strong>Tasa de aprendizaje</strong>: con Adam, subirla a 0,5 vuelve la pérdida inestable.</li>
+          <li><strong>Tamaño del lote</strong>: con lote 1 la curva de pérdida es más irregular.</li>
+          </ul>`, montar: montarRed },
     ],
     teoria: String.raw`
       <h2>Las reglas de actualización</h2>

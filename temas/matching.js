@@ -153,15 +153,33 @@
       no tratado con covariables parecidas, y compara solo entre gemelos.</p>
       <p>Hay que decidir qué es «parecido»: la <strong>distancia</strong> entre covariables, cuántos controles usar, cuánta diferencia tolerar
       (el <em>caliper</em>) y si el matching es <strong>exacto</strong> (mismas categorías) o <strong>inexacto</strong> (vecinos cercanos).</p>`,
+    parametros: [
+      ['Distancia (Fig. 1)', String.raw`Cómo se mide la cercanía entre pacientes: euclidiana o Mahalanobis, que tiene en cuenta escalas y correlación de las covariables.`],
+      ['Controles por tratado k (Fig. 1)', String.raw`Cuántos controles se emparejan con cada tratado. Más controles bajan la varianza pero aceptan parejas más lejanas.`],
+      ['Caliper (distancia máxima) (Fig. 1)', String.raw`Distancia máxima aceptada. Un caliper chico deja tratados sin pareja.`],
+      ['con reemplazo (Fig. 1)', String.raw`Permite que un control sea pareja de varios tratados.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada.`],
+      ['Cortes por covariable (Fig. 2)', String.raw`Número de intervalos por covariable que define la rejilla. Más cortes dan estratos más finos y menos tratados conservados.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Vecino más cercano',
         descripcion: 'Cada tratado (cuadrado naranjo) unido a sus controles más cercanos. Cambie la distancia, k y el caliper y compare el ATT estimado con el verdadero.',
+        ayuda: String.raw`<p>Cada punto es un paciente (edad estandarizada horizontal, gravedad vertical): tratados, controles, parejas unidas por líneas, tratados sin pareja fuera del caliper y controles no usados. La lectura compara el ATT estimado con el verdadero.</p>
+          <ul>
+          <li><strong>Caliper</strong> pequeño: aparecen tratados sin pareja y el sesgo baja a costa de perder tratados.</li>
+          <li><strong>Controles por tratado k</strong> mayor: cada tratado se une a más controles.</li>
+          <li><strong>con reemplazo</strong>: menos controles sin usar y parejas repetidas.</li>
+          </ul>`,
         montar: montarVecinos,
       },
       {
         titulo: 'Matching exacto por estratos',
         descripcion: 'Coarsened exact matching: la rejilla define los estratos. El segundo gráfico muestra el sesgo y la fracción de tratados conservados según el número de cortes.',
+        ayuda: String.raw`<p>La rejilla marca celdas con tratados y controles (usadas) y celdas descartadas. El gráfico inferior muestra, según los cortes, el |sesgo| del ATT estimado y la fracción de tratados conservados.</p>
+          <ul>
+          <li><strong>Cortes por covariable</strong> mayores: el sesgo baja, pero también la fracción de tratados conservados.</li>
+          </ul>`,
         montar: montarCEM,
       },
     ],

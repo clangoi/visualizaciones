@@ -184,15 +184,33 @@
       <p>La <strong>continuidad del negocio</strong> es la capacidad de seguir entregando lo esencial cuando algo falla. Se empieza con un <strong>análisis de impacto (BIA)</strong>: qué procesos hay, cuánto cuesta cada hora sin ellos y cuánto tiempo puede la organización tolerar su caída antes de un daño grave (el MTD).
       Con eso se decide qué recuperar primero y qué inversión se justifica.</p>
       <p>Frente a cada riesgo hay cuatro respuestas: <strong>evitar</strong> la actividad, <strong>reducir</strong> la probabilidad o el impacto con controles, <strong>transferir</strong> la pérdida (un seguro, un contrato) o <strong>aceptar</strong> el riesgo. La mejor depende de comparar su costo con la pérdida esperada que deja.</p>`,
+    parametros: [
+      ['Botones de orden de recuperación (Fig. 1)', String.raw`Ordenan la restauración por tolerancia (MTD), por costo por hora, por costo ÷ duración o según la lista. Cada orden cambia cuántos procesos pasan su MTD y cuánta pérdida se acumula.`],
+      ['Recargo de la prima del seguro (Fig. 2)', String.raw`Multiplica el costo de transferir el riesgo. Si sube mucho, transferir deja de ser la opción más barata.`],
+      ['Riesgo residual tolerable por riesgo (Fig. 2)', String.raw`Umbral de pérdida que se acepta después de la estrategia. Un residual mayor se marca como no tolerable.`],
+      ['Elegir la más barata y Aceptar todo (Fig. 2)', String.raw`La primera selecciona para cada riesgo la estrategia de menor costo anual total; la segunda elige aceptar en todos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Impacto y orden de recuperación',
         descripcion: 'Pruebe los cuatro órdenes de recuperación: por tolerancia evita pasar el MTD, pero el orden «costo ÷ duración» minimiza la pérdida total. Suba una barra con clic y vea el efecto.',
+        ayuda: String.raw`<p>Cada barra es un proceso de negocio, restaurado uno tras otro por un solo equipo. Se pinta según se restaure dentro de su MTD o después, y la marca indica la caída máxima tolerable de cada proceso.</p>
+          <ul>
+          <li><strong>Por tolerancia</strong>: evita pasar el MTD, pero no minimiza la pérdida total.</li>
+          <li><strong>Óptimo (costo ÷ duración)</strong>: minimiza la pérdida total acumulada.</li>
+          <li><strong>Por costo por hora</strong> y <strong>Orden de la lista</strong>: sirven de comparación; la lista no considera ni costo ni MTD.</li>
+          </ul>`,
         montar: montarBia,
       },
       {
         titulo: 'Evitar, reducir, transferir o aceptar',
         descripcion: 'Elija una estrategia por riesgo con clic y compare el total anual con el mínimo posible. Suba el recargo del seguro a ×3 y observe cómo transferir deja de ser la mejor opción.',
+        ayuda: String.raw`<p>Filas son los riesgos y columnas, las estrategias (evitar, reducir, transferir, aceptar). Cada celda muestra el costo anual total: costo de la estrategia más la pérdida esperada que queda. Se marca la elegida, la más barata y las que dejan el residual sobre lo tolerable.</p>
+          <ul>
+          <li><strong>Recargo de la prima</strong>: encarece la celda de transferir y puede cambiar cuál es la más barata.</li>
+          <li><strong>Riesgo residual tolerable</strong>: marca las celdas que no lo cumplen.</li>
+          <li><strong>Elegir la más barata</strong>: lleva el total anual al mínimo posible.</li>
+          </ul>`,
         montar: montarEstrategias,
       },
     ],

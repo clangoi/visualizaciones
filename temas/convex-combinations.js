@@ -369,15 +369,33 @@
       segmento que los une; con tres, el triángulo; con muchos, la <strong>envoltura convexa</strong>, la «banda elástica» más pequeña que los rodea.</p>
       <p>Esta idea explica por qué la programación lineal es tan manejable: como \(c\cdot x\) es lineal, el valor de una mezcla es la mezcla de los valores, y nunca puede superar al
       mejor de los puntos mezclados. Por eso el óptimo se busca solo entre los <a href="tema.html?id=extreme-points-directions">puntos extremos</a>.</p>`,
+    parametros: [
+      ['λ₁, λ₂ y λ₃ (pesos de A, B y C) (Fig. 1)', String.raw`Pesos de cada vértice en P = λ₁A + λ₂B + λ₃C. Mover uno reparte el resto entre los demás; con pesos no negativos, P queda dentro del triángulo.`],
+      ['Pesos iguales y Vértices por defecto (Fig. 1)', String.raw`Pesos iguales pone P en el baricentro; Vértices por defecto restaura A, B y C.`],
+      ['Puntos (Fig. 2)', String.raw`La cantidad de puntos cuya envoltura convexa se dibuja.`],
+      ['Dirección de c y Minimizar en vez de maximizar (Fig. 2)', String.raw`Dirección del objetivo c·x y si se busca el mínimo o el máximo. Define qué vértice de la envoltura es el óptimo.`],
+      ['Nuevos puntos y Quitar el último (Fig. 2)', String.raw`Sortean otros puntos o eliminan el último agregado.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Pesos y coordenadas baricéntricas',
         descripcion: 'Mueva los pesos o arrastre P dentro del triángulo y vea que cada peso es el área relativa del subtriángulo opuesto; saque P del triángulo para ver aparecer un peso negativo.',
+        ayuda: String.raw`<p>Los vértices A, B y C forman un triángulo; P es la mezcla ponderada. Cada peso es el área relativa del subtriángulo opuesto al vértice. Si P sale del triángulo, algún λ es negativo.</p>
+          <ul>
+          <li><strong>Pesos λ</strong>: acercan P al vértice con mayor peso.</li>
+          <li><strong>Pesos iguales</strong>: P queda en el centro.</li>
+          </ul>`,
         montar: montarMezcla,
       },
       {
         titulo: 'Envoltura convexa y un LP sobre ella',
         descripcion: 'Gire la dirección c y agregue puntos con clic: el mejor valor de c·x siempre se alcanza en un vértice de la envoltura, nunca en un punto interior.',
+        ayuda: String.raw`<p>Los puntos se distinguen en vértices de la envoltura e interiores o en el borde; se dibuja la envoltura convexa, la dirección c con la curva de nivel óptima y el óptimo de c·x.</p>
+          <ul>
+          <li><strong>Dirección de c</strong>: al girar, el óptimo salta entre vértices de la envoltura.</li>
+          <li><strong>Minimizar</strong>: invierte el sentido y elige el vértice opuesto.</li>
+          <li>Un punto interior nunca es óptimo.</li>
+          </ul>`,
         montar: montarEnvoltura,
       },
     ],

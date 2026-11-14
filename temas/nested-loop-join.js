@@ -107,10 +107,20 @@
       eso todo motor lo tiene.</p>
       <p>El problema es el disco. Si \(S\) no cabe en memoria, hay que volver a leerla completa por cada tupla de \(R\). La elección de cuál
       relación va afuera y si se itera por tuplas o por páginas cambia el costo en órdenes de magnitud.</p>`,
+    parametros: [
+      ['Variante (Fig. 1)', String.raw`Tupla a tupla compara cada tupla de la relación externa con todas las de la interna; página a página compara páginas completas, lo que reduce las lecturas de la interna.`],
+      ['Usar S como relación externa (Fig. 1)', String.raw`Intercambia los papeles de R y S. La relación externa se lee una vez y la interna, una vez por cada unidad de la externa, así que el orden cambia el número de lecturas.`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso ejecuta una comparación o lectura y Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Nested loop join paso a paso',
         descripcion: 'R tiene 3 páginas y S tiene 4, con 2 tuplas por página y un solo marco para cada relación. Compare las lecturas de la variante tupla a tupla con la de página a página.',
+        ayuda: String.raw`<p>Se ven las páginas de R y S con sus tuplas. Las tuplas que se comparan en el paso actual se resaltan, las que coinciden forman un par de salida y la página leída en este paso se marca aparte. Abajo, el registro y las tablas de salida.</p>
+          <ul>
+          <li><strong>Variante</strong> tupla a tupla: la interna se vuelve a leer por cada tupla externa; página a página la relee solo por cada página externa, con menos lecturas.</li>
+          <li><strong>Usar S como relación externa</strong>: el resultado es el mismo, pero el conteo de lecturas cambia según cuál relación se recorre una sola vez.</li>
+          </ul>`,
         montar: montarNLJ,
       },
     ],

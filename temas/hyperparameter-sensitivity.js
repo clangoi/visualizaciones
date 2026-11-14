@@ -150,15 +150,31 @@
       no es confiable.</p>
       <p>El <strong>análisis de robustez</strong> recorre un rango razonable de cada hiperparámetro y, con <a href="tema.html?id=bootstrap">bootstrap</a>,
       mide también cuánto varía el resultado con los datos. Lo que se busca son <strong>mesetas</strong>: zonas donde el resultado es estable en ambos sentidos.</p>`,
+    parametros: [
+      ['Datos (Fig. 1)', String.raw`El tipo de datos sintéticos sobre los que se corre DBSCAN. Con manchas de igual densidad hay una meseta clara; con densidades distintas no existe un solo ε que sirva para todas.`],
+      ['MinPts (Fig. 1)', String.raw`El número mínimo de vecinos dentro de ε para que un punto sea núcleo. Más MinPts exige zonas más densas y declara más puntos como ruido.`],
+      ['Confusión (Fig. 2)', String.raw`La intensidad del confusor que sesga la asignación del tratamiento. Con más confusión, el efecto estimado se aleja del verdadero cuando el emparejamiento es poco estricto.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra y recalcula las bandas de remuestreo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'DBSCAN según ε',
         descripcion: 'Número de grupos y estabilidad a lo largo de ε, con remuestras bootstrap. Compare la meseta de «Tres manchas» con la de «Densidades distintas».',
+        ayuda: String.raw`<p>El eje horizontal es ε. Una curva con banda es el número de grupos (mediana y banda 10–90 % en 20 remuestras); otra, el ARI con los datos completos (estabilidad). Una zona marcada es la meseta: grupos constantes y ARI alto.</p>
+          <ul>
+          <li><strong>Datos</strong>: en «Tres manchas» aparece una meseta ancha en 3 grupos; con densidades distintas no hay un ε que acierte en todos.</li>
+          <li><strong>MinPts</strong>: al subirlo, la meseta se desplaza hacia ε mayores y puede estrecharse; cuanto más ancha, más confiable es el resultado.</li>
+          </ul>`,
         montar: montarDBSCAN,
       },
       {
         titulo: 'Un efecto causal según el caliper',
         descripcion: 'El ATT estimado por matching para distintos calipers, con su banda bootstrap y el valor verdadero.',
+        ayuda: String.raw`<p>El eje horizontal es el caliper (escala log) y el vertical, el ATT. Una curva con banda es el ATT estimado (banda 10–90 % en 30 remuestras bootstrap); una referencia indica el ATT verdadero de los tratados emparejados; otra curva, con el eje derecho (×5), muestra cuántos tratados se conservan.</p>
+          <ul>
+          <li><strong>Confusión</strong>: con más confusión, la estimación se aleja del valor verdadero, sobre todo con calipers grandes, donde se emparejan unidades muy distintas.</li>
+          <li><strong>Nuevos datos</strong>: la banda ancha con caliper chico señala ruido; si la conclusión cambia de signo o magnitud a lo largo del rango, no es robusta.</li>
+          </ul>`,
         montar: montarCaliper,
       },
     ],

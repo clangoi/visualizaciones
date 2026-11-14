@@ -133,15 +133,29 @@
       <p>La <strong>inducción estructural</strong> es la inducción para objetos definidos por reglas, como las fórmulas. En vez de recorrer números, se recorre la construcción:
       se prueba la propiedad para los <em>casos base</em> y se prueba que cada <em>regla de construcción</em> la conserva.</p>
       <p>Es una demostración que se lee como un recorrido del árbol sintáctico de abajo hacia arriba. Cuando una regla no conserva la propiedad, aparece de inmediato el contraejemplo más pequeño.</p>`,
+    parametros: [
+      ['Fórmula y Propiedad P(φ) (Fig. 1)', String.raw`La fórmula recorrida y la propiedad que se verifica nodo por nodo desde las hojas.`],
+      ['Propiedad a poner a prueba (Fig. 2)', String.raw`La propiedad que se contrasta con fórmulas aleatorias.`],
+      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otra muestra de fórmulas para buscar contraejemplos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La demostración como recorrido del árbol',
         descripcion: 'Escriba una fórmula y verifique una propiedad nodo por nodo: en cada paso se usa la propiedad de los hijos para concluirla en el padre.',
+        ayuda: String.raw`<p>Se resalta la subfórmula que se verifica, sus hijos (cuya hipótesis inductiva se usa) y los nodos con P ya verificada.</p>
+          <ul>
+          <li><strong>Propiedad P(φ)</strong>: cambia lo que se comprueba en cada nodo con la hipótesis de sus hijos.</li>
+          <li><strong>Fórmula</strong>: cambia el árbol recorrido.</li>
+          </ul>`,
         montar: montarDemostracion,
       },
       {
         titulo: 'Busque contraejemplos',
         descripcion: 'Ponga a prueba propiedades verdaderas y falsas con miles de fórmulas aleatorias. Las falsas se delatan con una fórmula mínima; las verdaderas no tienen ninguna.',
+        ayuda: String.raw`<p>El registro informa el resultado de probar la propiedad en muchas fórmulas generadas.</p>
+          <ul>
+          <li><strong>Propiedad a poner a prueba</strong>: una falsa muestra una fórmula mínima que la viola; una verdadera no encuentra ninguna.</li>
+          </ul>`,
         montar: montarContraejemplos,
       },
     ],

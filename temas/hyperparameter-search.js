@@ -87,9 +87,25 @@
     intro: String.raw`
       <p>Los <strong>hiperparámetros</strong> —tasa de aprendizaje, tamaño del lote, número de capas, regularización— no los aprende el entrenamiento: los fija quien lo hace. Se eligen entrenando muchas veces y comparando el rendimiento en un conjunto de <strong>validación</strong> que el entrenamiento no usa.</p>
       <p>Cómo buscar y cómo evaluar importan. La <strong>búsqueda aleatoria</strong> suele superar a la cuadrícula con el mismo presupuesto cuando solo unos pocos hiperparámetros importan. Y cuantas más configuraciones se prueban, más se «sobreajusta» la validación: la cifra final debe medirse en un conjunto de <strong>prueba</strong> intocado.</p>`,
+    parametros: [
+      ['Presupuesto (entrenamientos) (Fig. 1)', String.raw`Cuántas configuraciones puede probar cada método. Con más presupuesto ambos cubren mejor el espacio.`],
+      ['Otra búsqueda aleatoria (Fig. 1)', String.raw`Vuelve a sortear los puntos de la búsqueda aleatoria para ver cuánto depende del azar.`],
+      ['Ejemplos de validación (Fig. 2)', String.raw`Tamaño del conjunto con el que se elige el mejor candidato. Con pocos, la exactitud de validación es muy ruidosa.`],
+      ['Repetir el experimento (Fig. 2)', String.raw`Repite la selección con nuevos datos para ver que el sesgo aparece de forma sistemática.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cuadrícula frente a búsqueda aleatoria', descripcion: 'Con el mismo presupuesto, cuente cuántos valores distintos de la tasa de aprendizaje prueba cada método. Repita la búsqueda aleatoria varias veces.', montar: montarBusqueda },
-      { titulo: 'Elegir con la validación infla el resultado', descripcion: 'Aumente el número de configuraciones probadas y compare la cifra de validación con la de prueba. Reduzca los ejemplos de validación y vea que el efecto crece.', montar: montarSesgo },
+      { titulo: 'Cuadrícula frente a búsqueda aleatoria', descripcion: 'Con el mismo presupuesto, cuente cuántos valores distintos de la tasa de aprendizaje prueba cada método. Repita la búsqueda aleatoria varias veces.',
+        ayuda: String.raw`<p>Es el espacio de dos hiperparámetros sobre la superficie de rendimiento. Los puntos azules son la cuadrícula, los naranjas la búsqueda aleatoria, y una marca destaca el mejor punto de cada método.</p>
+          <ul>
+          <li><strong>Presupuesto</strong>: la cuadrícula prueba pocos valores distintos por eje, mientras la aleatoria prueba valores distintos en cada uno.</li>
+          <li><strong>Otra búsqueda aleatoria</strong>: cambia dónde caen los puntos y puede mover el mejor hallado.</li>
+          </ul>`, montar: montarBusqueda },
+      { titulo: 'Elegir con la validación infla el resultado', descripcion: 'Aumente el número de configuraciones probadas y compare la cifra de validación con la de prueba. Reduzca los ejemplos de validación y vea que el efecto crece.',
+        ayuda: String.raw`<p>Eje horizontal: número de configuraciones probadas. La curva de validación es la exactitud del mejor candidato medida con los mismos datos que lo eligieron, la de prueba es la del mismo candidato con datos nuevos y la línea de referencia es la exactitud real (70 %).</p>
+          <ul>
+          <li><strong>Configuraciones probadas</strong>: la exactitud de validación sube por selección y se separa de la de prueba, que se queda cerca de 70 %.</li>
+          <li><strong>Ejemplos de validación</strong>: con menos ejemplos, la brecha entre ambas curvas crece.</li>
+          </ul>`, montar: montarSesgo },
     ],
     teoria: String.raw`
       <h2>Métodos de búsqueda</h2>

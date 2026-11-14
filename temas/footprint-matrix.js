@@ -281,20 +281,40 @@
       calculada solo mirando qué actividad sigue directamente a cuál.</p>
       <p>Es el puente entre el registro y los algoritmos de descubrimiento: el <a href="tema.html?id=alpha-algorithm">algoritmo α</a> no vuelve a mirar las trazas, solo esta
       tabla. Por eso dos registros muy distintos pueden dar el mismo modelo si tienen la misma huella.</p>`,
+    parametros: [
+      ['Registro de ejemplo (Fig. 1, 2 y 3)', String.raw`El registro del que se calcula la huella.`],
+      ['Trazas (Fig. 1, 2 y 3)', String.raw`Trazas editables con sus frecuencias. Cambian los pares consecutivos y, por tanto, las relaciones de la matriz.`],
+      ['Quitar selección (Fig. 1 y 3)', String.raw`Limpia la celda o actividad seleccionada.`],
+      ['Reproductor (Fig. 2)', String.raw`Recorre los pares consecutivos a &gt; b y luego transforma cada fila en relaciones.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De las trazas a la matriz',
         descripcion: 'Edite las trazas y observe cómo cambia cada celda. Haga clic en una celda para ver en qué trazas aparecen «ab» y «ba»; pruebe el ejemplo del bucle de longitud 1 y mire la diagonal.',
+        ayuda: String.raw`<p>Matriz con una fila y una columna por actividad. Cada celda es la relación entre ambas: causal (→), inversa (←), paralela (‖) o sin relación (#), como indica la leyenda. Al hacer clic en una celda se ven las trazas donde aparecen «ab» y «ba».</p>
+          <ul>
+          <li><strong>Trazas</strong>: si aparecen ambos órdenes, la celda pasa a paralelo; si solo uno, a causal.</li>
+          <li>Con un bucle de longitud 1, la diagonal deja de ser #.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Construcción paso a paso',
         descripcion: 'Primero se cuentan los pares consecutivos a > b; después cada fila se transforma en relaciones. Reproduzca despacio y compare con la matriz final de la figura anterior.',
+        ayuda: String.raw`<p>Se construye la matriz paso a paso. Primero se cuentan los pares consecutivos a &gt; b, resaltando el par que se lee; después cada celda se transforma en su relación.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: muestra que la relación depende de si ocurre a &gt; b, b &gt; a, ambas o ninguna.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Dependencias que se leen en la huella',
         descripcion: 'La matriz se convierte en un grafo causal con las bifurcaciones y uniones marcadas como XOR o AND. Haga clic en una actividad y cambie de registro para ver cómo la huella delata elecciones y paralelos.',
+        ayuda: String.raw`<p>Grafo causal derivado de la matriz. Las flechas son relaciones a → b; las actividades con bifurcación o unión se colorean como XOR (elección), AND (paralelo) o patrón mixto o irregular.</p>
+          <ul>
+          <li><strong>Registro de ejemplo</strong>: cambia las elecciones y los paralelos que delata la huella.</li>
+          <li><strong>Quitar selección</strong>: deja de resaltar la actividad elegida.</li>
+          </ul>`,
         montar: montarPatrones,
       },
     ],

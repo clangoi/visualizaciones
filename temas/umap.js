@@ -123,15 +123,33 @@
       <strong>grafo de vecinos</strong> ponderado en el espacio original y luego busca una disposición en el plano cuyo grafo se le parezca.</p>
       <p>Suele ser más rápido que t-SNE, conserva algo más de la estructura global y tiene dos perillas fáciles de interpretar:
       cuántos vecinos mirar (<code>n_neighbors</code>) y qué tan juntos se permite dibujar los puntos (<code>min_dist</code>).</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`El conjunto de puntos que se representa: en 2-D en la Fig. 1 y en alta dimensión en la Fig. 2.`],
+      ['Vecinos k (Fig. 1)', String.raw`Cuántos vecinos más cercanos conecta cada punto en el grafo. Con pocos, el grafo se parte en componentes; con muchos, se unifica.`],
+      ['n_neighbors (Fig. 2)', String.raw`Equivale a k: la escala local que UMAP intenta conservar. Chico rompe estructuras grandes; grande las une.`],
+      ['min_dist (Fig. 2)', String.raw`Distancia mínima permitida entre puntos en el mapa. Cerca de 0 los puntos se apiñan; cerca de 1 se reparten.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otra muestra. El reproductor (Fig. 2) avanza o reinicia las épocas del descenso estocástico.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El grafo difuso de vecinos',
         descripcion: 'Los k vecinos de cada punto, con pesos que decaen desde el vecino más cercano. Suba k y observe cuándo el grafo pasa de varias componentes a una sola.',
+        ayuda: String.raw`<p>Cada arista del grafo se dibuja azul con opacidad proporcional al peso de su unión difusa. Al hacer clic en un punto, sus aristas se resaltan en naranja (peso dirigido) y se dibuja el radio \(\rho_i\) (violeta) hasta su vecino más cercano.</p>
+          <ul>
+          <li><strong>Vecinos k</strong> pequeño: el grafo tiene varias componentes desconectadas.</li>
+          <li><strong>Vecinos k</strong> mayor: aparecen aristas más largas y el grafo pasa a una sola componente.</li>
+          <li>El vecino más cercano siempre recibe peso 1: todo punto queda conectado aun en zonas poco densas.</li>
+          </ul>`,
         montar: montarGrafo,
       },
       {
         titulo: 'La disposición en el plano',
         descripcion: 'El descenso estocástico que acomoda el grafo en 2-D. Compare min_dist 0 (grupos muy apretados) con 0,8 (puntos repartidos).',
+        ayuda: String.raw`<p>Cada punto es una observación colocada en el plano por UMAP; color y forma indican su grupo o posición en la rampa. Parte de una incrustación espectral y se refina época a época.</p>
+          <ul>
+          <li><strong>n_neighbors</strong> chico: el rollo suizo se rompe en trozos; grande, se desenrolla como una banda.</li>
+          <li><strong>min_dist</strong> 0: grupos muy apretados; 0,8: puntos repartidos que muestran mejor la forma interna.</li>
+          </ul>`,
         montar: montarDisposicion,
       },
     ],

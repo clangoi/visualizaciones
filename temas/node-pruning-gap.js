@@ -339,15 +339,32 @@
       La tercera es la más potente, y la que decide si un problema de cien variables se resuelve en segundos o nunca.</p>
       <p>Mientras el algoritmo corre, la cota superior baja y el incumbente sube hasta encontrarse. La distancia relativa entre ambos es la <strong>brecha de optimalidad</strong>:
       es lo que reportan los resolvedores y permite detenerse cuando la solución es «suficientemente buena» sin esperar a la prueba completa.</p>`,
+    parametros: [
+      ['Siguiente nodo (Fig. 1 y 2)', String.raw`Regla de selección: mejor cota o profundidad. Determina qué incumbente se halla primero y cuántos nodos se podan.`],
+      ['Podar por cota (Fig. 1)', String.raw`Si se desmarca, los nodos peores que el incumbente se siguen ramificando: muestra cuánto trabajo ahorra la poda.`],
+      ['Incumbente inicial (Fig. 1)', String.raw`Valor de partida de la mejor solución entera conocida. Uno alto poda más nodos desde el inicio.`],
+      ['Tolerancia de brecha (Fig. 2)', String.raw`Brecha relativa a partir de la cual se aceptaría detener la búsqueda. Mayor tolerancia termina antes con una garantía más débil.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Generan otra mochila y avanzan o reinician la ejecución.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Qué se poda y por qué',
         descripcion: 'Reproduzca el árbol de una mochila con dos recursos y haga clic en cualquier nodo para leer la razón de su poda. Desmarque «Podar por cota» para ver cuánto crece el árbol sin acotar, y suba el incumbente inicial: cuanto mejor sea desde el principio, menos nodos se crean.',
+        ayuda: String.raw`<p>Árbol de ramificación: abierto, ramificado y tres tipos de poda (optimalidad por solución entera, infactibilidad y cota) según la leyenda. El anillo marca el nodo en proceso.</p>
+          <ul>
+          <li><strong>Podar por cota</strong>: desmarcada, desaparecen los nodos podados por cota y el árbol crece.</li>
+          <li><strong>Incumbente inicial</strong>: cuanto mejor, más nodos quedan con cota peor y se podan.</li>
+          </ul>`,
         montar: montarPodas,
       },
       {
         titulo: 'La brecha se cierra',
         descripcion: 'Siga cómo la cota superior (azul) baja y el incumbente (verde) sube. Cambie «mejor cota» por «profundidad» para comparar cuál halla antes una buena solución, y mueva la tolerancia para ver en qué paso podría detenerse con una garantía de \\(x\\,\\%\\).',
+        ayuda: String.raw`<p>Eje horizontal: paso (nodo procesado); vertical: valor del objetivo. Una curva azul es la cota superior, otra verde el incumbente, y la brecha es la distancia entre ambas. Se marca el primer paso con brecha dentro de la tolerancia.</p>
+          <ul>
+          <li><strong>Siguiente nodo</strong>: cambia la rapidez con que baja la cota y sube el incumbente.</li>
+          <li><strong>Tolerancia de brecha</strong>: mueve el paso marcado donde se podría detener el algoritmo.</li>
+          </ul>`,
         montar: montarBrecha,
       },
     ],

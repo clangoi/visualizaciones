@@ -99,9 +99,23 @@
     intro: String.raw`
       <p><strong>Brushing</strong> (pincelar) es seleccionar un grupo de ítems arrastrando sobre una vista. <strong>Linking</strong> (enlazar) es que esa selección se refleje en otras vistas del mismo conjunto de datos. Juntos permiten preguntar «¿cómo son, en las otras variables, los ítems que veo aquí?» sin escribir una consulta.</p>
       <p>Es la técnica base de las <em>vistas múltiples coordinadas</em>: cada vista muestra un aspecto distinto, y la selección las conecta.</p>`,
+    parametros: [
+      ['Al seleccionar de nuevo (Fig. 1)', String.raw`Define si un rectángulo nuevo sustituye a la selección anterior o se suma a ella. Con «agregar» se acumulan varias regiones, cuya unión es lo que se enlaza entre vistas.`],
+      ['Quitar selección (Fig. 1)', String.raw`Vacía la selección: todos los ítems vuelven a verse como no seleccionados.`],
+      ['Todo el período (Fig. 2)', String.raw`Amplía el intervalo de tiempo a los 120 días completos, de modo que todos los eventos quedan dentro.`],
+    ],
     visualizaciones: [
-      { titulo: 'Dos dispersiones enlazadas', descripcion: 'Seleccione un rectángulo en una vista y observe dónde caen esos ítems en la otra; pruebe a agregar regiones.', montar: montarEnlazadas },
-      { titulo: 'Brushing sobre el tiempo', descripcion: 'Elija un intervalo en la serie de eventos y vea en qué zona del mapa ocurrieron.', montar: montarTiempo },
+      { titulo: 'Dos dispersiones enlazadas', descripcion: 'Seleccione un rectángulo en una vista y observe dónde caen esos ítems en la otra; pruebe a agregar regiones.',
+        ayuda: String.raw`<p>Son dos gráficos de dispersión de los mismos 70 ítems, con distintos atributos en los ejes. Los puntos naranjas son los seleccionados, y se destacan en ambas vistas a la vez (linking); los grises no están seleccionados. La lectura de abajo resume los ítems elegidos.</p>
+          <ul>
+          <li><strong>Al seleccionar de nuevo</strong> «agregar»: los puntos de rectángulos sucesivos permanecen naranjas, y la lectura cuenta la unión.</li>
+          <li><strong>Quitar selección</strong>: todo vuelve a gris en las dos vistas, lo que confirma que ambas comparten la misma selección.</li>
+          </ul>`, montar: montarEnlazadas },
+      { titulo: 'Brushing sobre el tiempo', descripcion: 'Elija un intervalo en la serie de eventos y vea en qué zona del mapa ocurrieron.',
+        ayuda: String.raw`<p>Arriba, la serie de eventos a lo largo de los días, con el intervalo elegido sombreado; abajo, el mapa de dispersión de esos eventos. Los puntos naranjas ocurrieron dentro del intervalo y los grises, fuera.</p>
+          <ul>
+          <li><strong>Todo el período</strong>: el intervalo cubre toda la serie y todos los puntos del mapa se vuelven naranjas; al reducirlo de nuevo se ve en qué zona del mapa se concentran los eventos de esas fechas.</li>
+          </ul>`, montar: montarTiempo },
     ],
     teoria: String.raw`
       <h2>Mecanismo</h2>

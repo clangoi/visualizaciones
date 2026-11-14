@@ -92,9 +92,25 @@
       (división por cero, falla de página) y son síncronas.</p>
       <p>Ambas usan el mismo mecanismo: guardar el estado, entrar al núcleo por un vector de manejadores y volver. Además de reaccionar a los dispositivos, son la base de la
       multitarea: la interrupción del reloj es lo que le quita la CPU a un programa que no quiere soltarla.</p>`,
+    parametros: [
+      ['Evento y reproductor (Fig. 1)', String.raw`Qué evento llega (dos interrupciones y dos excepciones) y los botones para recorrer su atención paso a paso. Distingue quién lo genera y si la instrucción se reintenta.`],
+      ['Interrupciones por segundo (Fig. 2)', String.raw`Frecuencia con que el hardware interrumpe al programa. Más interrupciones significan más veces que se ejecuta el manejador.`],
+      ['Costo de cada manejador (µs) (Fig. 2)', String.raw`Tiempo que dura cada manejador. Multiplicado por la frecuencia da la fracción de CPU que no queda para el programa.`],
+      ['Nuevos instantes (Fig. 2)', String.raw`Redistribuye al azar el momento en que llegan las interrupciones, sin cambiar su cantidad ni su costo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Qué pasa cuando llega un evento', descripcion: 'Recorra cuatro eventos: dos interrupciones y dos excepciones. Compare quién genera el evento y si el programa reintenta su instrucción.', montar: montarFlujo },
-      { titulo: 'Sobrecosto de las interrupciones', descripcion: 'Suba la frecuencia o el costo del manejador y observe la fracción de CPU que ya no queda para el programa.', montar: montarSobrecosto },
+      { titulo: 'Qué pasa cuando llega un evento', descripcion: 'Recorra cuatro eventos: dos interrupciones y dos excepciones. Compare quién genera el evento y si el programa reintenta su instrucción.',
+        ayuda: String.raw`<p>Tres bandas: programa interrumpido (azul), manejador en el núcleo (naranja) y hardware (aguamarina). Cada paso se coloca en la banda donde ocurre y el registro explica qué hace.</p>
+          <ul>
+          <li><strong>Evento</strong>: una interrupción la origina un dispositivo ajeno a la instrucción; una excepción la origina la propia instrucción. Compare en qué paso retoma el programa y si repite la instrucción.</li>
+          </ul>`, montar: montarFlujo },
+      { titulo: 'Sobrecosto de las interrupciones', descripcion: 'Suba la frecuencia o el costo del manejador y observe la fracción de CPU que ya no queda para el programa.',
+        ayuda: String.raw`<p>Una barra de tiempo: tramos azules del programa de usuario y tramos naranjas de manejadores de interrupción. La lectura da la fracción de CPU ocupada por manejadores.</p>
+          <ul>
+          <li><strong>Interrupciones por segundo</strong>: al subirla aparecen más tramos naranjas y el porcentaje perdido crece.</li>
+          <li><strong>Costo de cada manejador (µs)</strong>: al subirlo cada tramo naranja se ensancha con el mismo efecto sobre el porcentaje.</li>
+          <li><strong>Nuevos instantes</strong>: cambia las posiciones de los tramos, no la fracción total.</li>
+          </ul>`, montar: montarSobrecosto },
     ],
     teoria: String.raw`
       <h2>Tratamiento</h2>

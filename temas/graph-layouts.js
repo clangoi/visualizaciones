@@ -100,9 +100,23 @@
     intro: String.raw`
       <p>Una red no trae posiciones: hay que <strong>inventarlas</strong>. El <em>layout</em> es el algoritmo que coloca cada nodo en el plano, y decide qué se ve: los grupos, las conexiones largas, el flujo.</p>
       <p>Un buen layout minimiza cruces de enlaces, mantiene cerca lo conectado y deja respirar a los nodos. Para grafos dirigidos acíclicos, además, hace evidente la dirección.</p>`,
+    parametros: [
+      ['Layout (Fig. 1)', String.raw`Algoritmo que decide la posición de los 24 nodos: circular, rejilla, al azar o dirigido por fuerzas. La red es la misma; solo cambia el dibujo y, con él, cuánto se ve de su estructura.`],
+      ['Nueva red (Fig. 1)', String.raw`Genera otra red con grupos distintos para comprobar si lo observado depende de la red concreta.`],
+      ['Layout del grafo dirigido (Fig. 2)', String.raw`Dibuja el grafo de nueve nodos por capas (la dirección se lee de arriba abajo) o por fuerzas (la dirección solo se ve en las puntas de flecha).`],
+    ],
     visualizaciones: [
-      { titulo: 'Cuatro layouts de una misma red', descripcion: 'Compare circular, rejilla, azar y fuerzas en cruces de enlaces y longitud media.', montar: montarLayouts },
-      { titulo: 'Grafo dirigido por capas', descripcion: 'Compare el layout jerárquico con uno por fuerzas y haga clic en un nodo para ver qué alcanza.', montar: montarCapas },
+      { titulo: 'Cuatro layouts de una misma red', descripcion: 'Compare circular, rejilla, azar y fuerzas en cruces de enlaces y longitud media.',
+        ayuda: String.raw`<p>Cada nodo es un punto coloreado según su grupo (leyenda «grupo 1» a «grupo 4») y cada línea, un enlace. La lectura da los cruces de enlaces y la longitud media.</p>
+          <ul>
+          <li><strong>Layout</strong> «dirigido por fuerzas»: acerca los nodos conectados, baja la longitud media y deja ver los grupos, aunque no garantiza el mínimo de cruces. «Al azar» los maximiza.</li>
+          <li><strong>Nueva red</strong> cambia nodos y enlaces; compare si el orden entre layouts se mantiene.</li>
+          </ul>`, montar: montarLayouts },
+      { titulo: 'Grafo dirigido por capas', descripcion: 'Compare el layout jerárquico con uno por fuerzas y haga clic en un nodo para ver qué alcanza.',
+        ayuda: String.raw`<p>Nodos azules (A a I) unidos por enlaces dirigidos. Al hacer clic en un nodo, se pintan de naranja los nodos y enlaces que alcanza desde él. El texto de abajo describe lo alcanzado.</p>
+          <ul>
+          <li><strong>Layout del grafo dirigido</strong> «por capas»: cada enlace va hacia abajo y el orden causal es evidente; «por fuerzas» agrupa pero la dirección se vuelve difícil de seguir.</li>
+          </ul>`, montar: montarCapas },
     ],
     teoria: String.raw`
       <h2>Criterios estéticos</h2>

@@ -290,15 +290,32 @@
       <p>También hay certificados negativos: cuando un sistema de desigualdades no tiene solución, existe una combinación
       de ellas que lo demuestra (lema de Farkas). Verificar cualquiera de los dos cuesta unas pocas multiplicaciones de matrices,
       aunque encontrarlos haya costado un algoritmo entero.</p>`,
+    parametros: [
+      ['x₁, x₂, y₁, y₂ y y₃ (Fig. 1)', String.raw`Candidato primal \(x\) y candidato dual \(y\). Un par es certificado de óptimo solo si ambos son factibles y \(c^Tx=b^Ty\).`],
+      ['Par óptimo, Factible no óptimo, y con una violación y Perturbar (Fig. 1)', String.raw`Cargan ejemplos para ver qué condición falla: el óptimo, un \(x\) factible con \(y\) que no certifica, un \(y\) que viola una restricción y una perturbación del par actual.`],
+      ['Mínimo t de x₁ + x₂ (restricción 2) (Fig. 2)', String.raw`Fija una cota de la segunda restricción; con \(t=6\) el sistema se vuelve contradictorio y con \(t\le 4\) deja de serlo.`],
+      ['y₁, y₂ y y₃ (Fig. 2)', String.raw`Pesos con que se combinan las restricciones para buscar un certificado de infactibilidad.`],
+      ['Buscar certificado, y = (1, 1, 0) e y = 0 (Fig. 2)', String.raw`Buscar certificado resuelve un LP para hallar \(y\); los otros dos cargan ejemplos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Verificar un par primal-dual',
         descripcion: 'Mueva x y y y observe cuáles de las condiciones se cumplen; solo cuando las tres lo hacen aparece un certificado. Compare la última fila de abajo con la fila z del tablero del Simplex: los costos reducidos son las holguras duales.',
+        ayuda: String.raw`<p>Región factible del primal con el punto \(x\) (hueco si es infactible) y la curva de nivel \(c^Tx=b^Ty\). Debajo se verifican las condiciones: factibilidad primal, factibilidad dual e igualdad de valores.</p>
+          <ul>
+          <li><strong>Par óptimo</strong>: las tres condiciones se cumplen y aparece el certificado.</li>
+          <li><strong>y con una violación</strong>: una restricción dual falla y el valor ya no es una cota válida.</li>
+          </ul>`,
         montar: montarVerificar,
       },
       {
         titulo: 'Certificado de infactibilidad (Farkas)',
         descripcion: 'Con t = 6 el sistema es contradictorio. Pulse «Buscar certificado», o pruebe y = (1, 1, 0): la combinación de restricciones queda a la izquierda de los ejes. Luego baje t hasta 4 o menos y vea que no existe ningún y.',
+        ayuda: String.raw`<p>Se dibuja el conjunto factible (si existe), cada restricción y la combinación \(\sum y_i\cdot\)(restricción i), que debe quedar fuera del cuadrante no negativo para certificar la infactibilidad.</p>
+          <ul>
+          <li><strong>t</strong>: con valores altos la región se vacía y existe un certificado de Farkas; con \(t\le 4\) hay puntos factibles y no existe.</li>
+          <li><strong>y</strong>: con \(y=(1,1,0)\) la combinación contradice \(x\ge 0\) cuando \(t=6\).</li>
+          </ul>`,
         montar: montarFarkas,
       },
     ],

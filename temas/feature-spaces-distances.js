@@ -132,9 +132,26 @@
       y la cercanía se mide con una <em>distancia</em>.</p>
       <p>Pero no hay una única distancia, ni un único espacio. Cambiar de distancia cambia la forma de la vecindad; y cambiar las unidades de una característica la estira o la aplasta. Por eso el espacio de características
       es la parte más importante del modelo, y el aprendizaje profundo se dedica a aprenderlo.</p>`,
+    parametros: [
+      ['Distancia (Fig. 1)', String.raw`La forma de medir cercanía: euclidiana, Manhattan, Chebyshev, coseno u otras. Cada una define qué puntos se consideran a la misma distancia y, por tanto, quiénes son los vecinos.`],
+      ['Vecinos k (Fig. 1)', String.raw`Cuántos vecinos se resaltan. El borde de la vecindad pasa por el k-ésimo.`],
+      ['Nuevos puntos (Fig. 1)', String.raw`Sortea otro conjunto de ejemplos.`],
+      ['Datos (Fig. 2)', String.raw`El tipo de datos sintéticos. Determina cuál característica es la informativa y cuál se afecta más por la escala.`],
+      ['Escala de x₂ (log₁₀) (Fig. 2)', String.raw`El factor por el que se multiplica la segunda característica (potencia de 10). Una escala enorme hace que x₂ domine la distancia; una minúscula, que la ignore.`],
+    ],
     visualizaciones: [
-      { titulo: 'La forma de una vecindad', descripcion: 'Cambie la distancia y observe cómo la vecindad pasa de círculo a rombo, cuadrado o ángulo. Con pocos vecinos la lista cambia poco; con muchos, bastante.', montar: montarMetricas },
-      { titulo: 'Quién manda cuando cambia la escala', descripcion: 'Multiplique la segunda característica por una escala enorme o minúscula y mire cómo se hunde la exactitud de 5-NN.', montar: montarEscala },
+      { titulo: 'La forma de una vecindad', descripcion: 'Cambie la distancia y observe cómo la vecindad pasa de círculo a rombo, cuadrado o ángulo. Con pocos vecinos la lista cambia poco; con muchos, bastante.',
+        ayuda: String.raw`<p>Los puntos son los ejemplos, y se marca el vecino más cercano (k) de la consulta. La línea que rodea a la consulta marca los puntos a la misma distancia que el k-ésimo vecino: su forma depende de la distancia.</p>
+          <ul>
+          <li><strong>Distancia</strong>: la vecindad pasa de círculo a rombo, cuadrado o, con el coseno, un par de rayos desde el origen; cambian los vecinos elegidos.</li>
+          <li><strong>Vecinos k</strong>: con k mayor la vecindad crece y la lista cambia más.</li>
+          </ul>`, montar: montarMetricas },
+      { titulo: 'Quién manda cuando cambia la escala', descripcion: 'Multiplique la segunda característica por una escala enorme o minúscula y mire cómo se hunde la exactitud de 5-NN.',
+        ayuda: String.raw`<p>A la izquierda, los datos con x₂ multiplicada por la escala (ejes x₁ y x₂ · escala), tal como los ve la distancia. A la derecha, la exactitud de 5-NN en validación cruzada dejando uno fuera según la escala de x₂, con una marca en la escala elegida.</p>
+          <ul>
+          <li><strong>Escala de x₂</strong>: con escalas extremas una sola característica decide y la exactitud cae; hay un rango intermedio donde las dos contribuyen.</li>
+          <li><strong>Datos</strong>: según cuál característica separe las clases, la caída ocurre hacia escalas grandes o pequeñas.</li>
+          </ul>`, montar: montarEscala },
     ],
     teoria: String.raw`
       <h2>Distancias</h2>

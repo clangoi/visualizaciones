@@ -305,20 +305,46 @@
       operaciones cuando el tamaño de la entrada \(n\) tiende a infinito, ignorando constantes y términos de menor orden.
       Así, \(3n^2 + 10n + 50\) y \(n^2/2\) pertenecen a la misma clase, \(\Theta(n^2)\), porque para \(n\) grande la forma de la
       curva importa mucho más que su escala.</p>`,
+    parametros: [
+      ['n máximo (Fig. 1 y 3)', String.raw`Hasta qué tamaño de entrada se dibuja el eje horizontal. Con valores pequeños las funciones casi no se distinguen; al agrandarlo aparece la diferencia entre órdenes de crecimiento.`],
+      ['Escala vertical (Fig. 1)', String.raw`<em>Lineal</em> muestra los valores tal cual; <em>logarítmica</em> mide cuántas veces se multiplica el valor, de modo que las potencias \(n^k\) se vuelven rectas y se pueden comparar funciones muy distintas en el mismo gráfico.`],
+      ['Casillas de funciones (Fig. 1)', String.raw`Activan o desactivan cada orden de crecimiento (1, \(\log_2 n\), \(\sqrt n\), \(n\), \(n\log_2 n\), \(n^2\), \(2^n\), \(n!\)). En escala lineal el eje vertical se ajusta a la más rápida visible.`],
+      ['Tamaño n (Fig. 2)', String.raw`El tamaño de la entrada, de 10 a mil millones en escala logarítmica.`],
+      ['Operaciones por segundo (Fig. 2)', String.raw`La velocidad del computador. Representa el factor constante: multiplicarla por mil desplaza todas las barras igual, sin cambiar cuál es más lenta.`],
+      ['a, b, d (Fig. 3)', String.raw`Los coeficientes de \(f(n) = a n^2 + b n + d\). \(a\) es el término dominante; \(b\) y \(d\) son términos de orden menor que solo influyen para \(n\) pequeño.`],
+      ['constante c (Fig. 3)', String.raw`El multiplicador de la cota \(c\,n^2\). La definición de \(O\) exige encontrar algún \(c\) para el que la desigualdad valga desde un \(n_0\) en adelante.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Órdenes de crecimiento',
         descripcion: 'Las ocho clases más frecuentes en el análisis de algoritmos. Active o desactive funciones y cambie la escala para comparar.',
+        ayuda: String.raw`<p>Cada curva es una función de costo típica: el eje horizontal es el tamaño de la entrada \(n\) y el vertical, el número de operaciones. Las curvas que suben antes son algoritmos que se vuelven lentos más rápido.</p>
+          <ul>
+          <li><strong>n máximo</strong> amplía la ventana: con \(n\) pequeño casi todas se parecen; al crecer, las exponenciales y factoriales se despegan.</li>
+          <li><strong>Escala logarítmica</strong>: las potencias \(n^k\) se vuelven rectas cuya pendiente es \(k\), y \(2^n\) o \(n!\) se curvan hacia arriba. Así se comparan funciones que difieren en muchos órdenes de magnitud.</li>
+          <li><strong>Casillas</strong>: en escala lineal, desactivar la función más rápida reescala el eje y revela diferencias que estaban aplastadas (por ejemplo, \(n^2\) frente a \(n \log n\)).</li>
+          </ul>`,
         montar: montarCrecimiento,
       },
       {
         titulo: '¿Cuánto tarda en la práctica?',
         descripcion: 'Tiempo que tomaría ejecutar f(n) operaciones a una velocidad dada. Un factor constante (un computador 1000 veces más rápido) desplaza todas las barras igual; el orden de crecimiento no cambia.',
+        ayuda: String.raw`<p>Cada barra es el tiempo que tardaría un algoritmo con ese orden de crecimiento para la entrada elegida. La escala horizontal es logarítmica: cada marca multiplica el tiempo por diez. Las líneas verticales marcan un segundo y un año como referencia.</p>
+          <ul>
+          <li><strong>Tamaño n</strong>: al aumentarlo, las barras \(2^n\) y \(n!\) cruzan pronto la línea de un año, mientras \(\log n\) y \(n\) siguen siendo instantáneas.</li>
+          <li><strong>Operaciones por segundo</strong>: un computador mil veces más rápido corre todas las barras la misma distancia a la izquierda. Es el efecto de una constante; no cambia el orden entre las barras ni rescata a un algoritmo exponencial.</li>
+          </ul>`,
         montar: montarTiempos,
       },
       {
         titulo: 'La definición de O grande',
         descripcion: 'Decir que \\(f(n) = O(n^2)\\) es afirmar que existe una constante \\(c\\) y un umbral \\(n_0\\) a partir del cual \\(f(n) \\le c\\,n^2\\). Ajuste los coeficientes de \\(f\\) y busque el menor \\(c\\) que funciona.',
+        ayuda: String.raw`<p>La curva azul es \(f(n)\) y la naranja es la cota \(c \cdot n^2\). La zona sombreada empieza en \(n_0\): desde ahí en adelante la curva azul queda por debajo de la naranja, que es exactamente lo que pide \(f(n) = O(n^2)\).</p>
+          <ul>
+          <li><strong>a, b y d</strong> cambian la forma de \(f\). Un \(b\) o \(d\) grande empuja \(n_0\) hacia la derecha, pero no impide que la cota se cumpla: solo importan para \(n\) pequeño.</li>
+          <li><strong>constante c</strong>: si \(c &gt; a\), la cota termina ganando y aparece un \(n_0\); si \(c &lt; a\), la parábola de \(f\) crece más rápido y no existe \(n_0\). Si \(c = a\), depende del signo de los términos menores. Por eso la lectura muestra \(\lim f(n)/n^2 = a\).</li>
+          <li><strong>n máximo</strong> solo cambia cuánto del eje se ve; úselo si \(n_0\) queda fuera del gráfico.</li>
+          </ul>`,
         montar: montarDefinicion,
       },
     ],

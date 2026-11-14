@@ -255,20 +255,55 @@
     intro: String.raw`
       <p>Un sistema de información cuesta hoy y rinde durante años: ahorra costos, evita pérdidas o abre ventas. Para decidir si vale la pena hay que traer esos flujos futuros a una misma unidad. El <strong>valor presente neto</strong> (VPN) descuenta cada flujo según la tasa que exige la empresa; la <strong>tasa interna de retorno</strong> (TIR) es la tasa a la que el VPN se anula; y el <strong>plazo de recuperación</strong> dice cuánto tarda en volver lo invertido.</p>
       <p>Ninguno de estos números es verdad absoluta: dependen de beneficios que aún no existen y de una tasa que incluye el riesgo. Por eso se prueban con sensibilidad y simulación, y cuando el dinero no alcanza para todos los proyectos buenos, se arma una cartera.</p>`,
+    parametros: [
+      ['Proyecto de partida (Fig. 1 y 2)', String.raw`Proyecto de ejemplo que fija los valores iniciales de los demás controles.`],
+      ['Inversión inicial (Fig. 1)', String.raw`Desembolso en el año 0. Hunde el flujo acumulado al inicio.`],
+      ['Beneficio del año 1 y Crecimiento anual del beneficio (Fig. 1)', String.raw`Beneficio del primer año y su variación anual. Determinan los flujos positivos.`],
+      ['Costo operativo anual (Fig. 1)', String.raw`Gasto recurrente que se resta cada año del beneficio.`],
+      ['Vida útil (Fig. 1)', String.raw`Años en que el proyecto genera flujos.`],
+      ['Tasa de descuento (Fig. 1)', String.raw`Rendimiento mínimo exigido. Subirla reduce el valor presente de los flujos futuros.`],
+      ['Tasa libre de riesgo y Prima de riesgo del proyecto (Fig. 2)', String.raw`Componentes de la tasa que se exige. Más prima reduce el VPN.`],
+      ['Sobrecosto esperado de la inversión (Fig. 2)', String.raw`Cuánto más se gasta de lo planeado.`],
+      ['Beneficios realmente obtenidos (Fig. 2)', String.raw`Porcentaje de los beneficios previstos que sí se logran.`],
+      ['Incertidumbre (desviación) (Fig. 2)', String.raw`Dispersión aleatoria de los resultados simulados.`],
+      ['Nuevas simulaciones (Fig. 2)', String.raw`Repite las simulaciones.`],
+      ['Presupuesto de inversión (Fig. 3)', String.raw`Dinero para repartir entre proyectos.`],
+      ['Tasa de descuento (Fig. 3)', String.raw`Tasa con que se calcula el VPN de cada proyecto.`],
+      ['Aplicar el óptimo y Nuevos proyectos (Fig. 3)', String.raw`Selecciona la mejor combinación o genera otros proyectos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Flujo de caja, VPN, TIR y recuperación',
         descripcion: 'Parta de un proyecto y cambie inversión, beneficios, crecimiento, vida útil y tasa. Suba la tasa hasta que el VPN se anule (la TIR) y compare los plazos de recuperación simple y descontado.',
+        ayuda: String.raw`<p>Eje horizontal: año; vertical: millones. Las barras son el flujo anual, positivo o negativo, y dos curvas muestran el acumulado sin descontar y descontado.</p>
+          <ul>
+          <li><strong>Inversión inicial</strong>: baja el año 0 y retrasa la recuperación.</li>
+          <li><strong>Beneficio</strong>, <strong>Crecimiento</strong> y <strong>Costo operativo</strong>: cambian las barras anuales.</li>
+          <li><strong>Vida útil</strong>: añade o quita años de flujos.</li>
+          <li><strong>Tasa de descuento</strong>: separa más la curva descontada de la simple; al subirla el VPN llega a 0 (la TIR).</li>
+          </ul>`,
         montar: montarFlujo,
       },
       {
         titulo: 'Riesgo, tasa de descuento y simulación',
         descripcion: 'Aumente la prima de riesgo, el sobrecosto o la incertidumbre y observe cuánto baja la probabilidad de que el VPN sea positivo, aunque el plan original parezca sano. Compare el proyecto de la nube con el asistente virtual.',
+        ayuda: String.raw`<p>Arriba, eje horizontal: tasa de descuento; vertical: VPN (millones), con el plan original, con sobrecosto y beneficios reales y la tasa exigida. Abajo, histograma de VPN simulados (eje horizontal VPN, vertical simulaciones) con los positivos y negativos diferenciados.</p>
+          <ul>
+          <li><strong>Prima de riesgo</strong> y <strong>Tasa libre de riesgo</strong>: mueven la tasa exigida sobre la curva.</li>
+          <li><strong>Sobrecosto</strong> y <strong>Beneficios obtenidos</strong>: bajan la curva real respecto del plan.</li>
+          <li><strong>Incertidumbre</strong>: ensancha el histograma y más simulaciones quedan bajo 0.</li>
+          </ul>`,
         montar: montarRiesgo,
       },
       {
         titulo: 'Cartera con restricción de presupuesto',
         descripcion: 'Ejecute la regla de los mejores índices primero y compárela con el óptimo; luego elija proyectos a mano y baje el presupuesto hasta que la regla simple deje de ser óptima.',
+        ayuda: String.raw`<p>Eje horizontal: inversión acumulada (millones); vertical: VPN por peso invertido. Las barras son proyectos elegidos o no elegidos, los de VPN negativo se distinguen y se traza el presupuesto.</p>
+          <ul>
+          <li><strong>Presupuesto de inversión</strong>: mueve la línea y cambia cuáles caben.</li>
+          <li><strong>Tasa de descuento</strong>: baja el VPN y puede volver negativos a algunos proyectos.</li>
+          <li><strong>Aplicar el óptimo</strong>: compara la regla de mejores índices primero con la combinación óptima.</li>
+          </ul>`,
         montar: montarCartera,
       },
     ],

@@ -137,15 +137,29 @@
       <p>Una demostración por inducción es una <strong>cadena</strong>: unos casos base de los que se parte y una regla que, de cada eslabón, lleva al siguiente.
       Las cadenas no tienen por qué avanzar de uno en uno. Una regla «\(k \to k+2\)» necesita dos casos base; una regla «\(k \to 2k\)» solo alcanza potencias de dos a partir del 1.</p>
       <p>Pensar en lo que <em>alcanza</em> la cadena aclara qué casos base hacen falta y por qué. Es también la forma de entender los conjuntos definidos por reglas.</p>`,
+    parametros: [
+      ['Caso base n₀ (Fig. 1)', String.raw`Primer elemento que se declara alcanzado desde el principio.`],
+      ['Agregar un segundo caso base / Segundo caso base (Fig. 1)', String.raw`Añade otro punto de partida. Sirve cuando las reglas saltan y no alcanzan todos los números desde uno solo.`],
+      ['Estampilla a y Estampilla b (Fig. 2)', String.raw`Los dos valores de estampilla disponibles. Determinan qué montos se pagan exactamente y cuál es el mayor imposible.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La cadena que generan unas reglas',
         descripcion: 'Elija casos base y reglas, y reproduzca las generaciones. Pruebe «+2» con base 0, luego agregue base 1, y «+2» y «+3» juntas.',
+        ayuda: String.raw`<p>Los números se colorean por generación: alcanzados en una generación anterior, alcanzados en esta, o aún no alcanzados.</p>
+          <ul>
+          <li><strong>Caso base</strong>: define de qué números parte el conjunto generado.</li>
+          <li><strong>Segundo caso base</strong>: añade una cadena nueva; por ejemplo, con «+2» y base 0 solo salen pares, y con base 1 también los impares.</li>
+          </ul>`,
         montar: montarReglas,
       },
       {
         titulo: 'Estampillas de a y b',
         descripcion: 'Montos que se pueden pagar con estampillas de dos valores. Busque el mayor monto imposible y la racha de casos base que permite inducir desde ahí.',
+        ayuda: String.raw`<p>Cada monto se marca como pagable exactamente o no, se señala el mayor monto imposible, y los casos base son una racha de montos seguidos pagables.</p>
+          <ul>
+          <li><strong>Estampilla a / b</strong>: cambian los montos pagables y el mayor imposible; la racha de casos base mide a montos consecutivos, desde los cuales se induce sumando a.</li>
+          </ul>`,
         montar: montarEstampillas,
       },
     ],

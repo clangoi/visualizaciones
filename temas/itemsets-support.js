@@ -97,15 +97,32 @@
       <p>Esa fracción es el <strong>soporte</strong>. Es simple de calcular para un itemset, pero con \(d\) productos hay \(2^d - 1\)
       itemsets posibles: con mil productos, más que átomos en el universo. Todo el área de patrones frecuentes trata de
       evitar contarlos todos.</p>`,
+    parametros: [
+      ['Casillas de productos (Fig. 1)', String.raw`Definen el itemset X cuyo soporte se cuenta. Añadir un producto exige más coincidencias, así que el soporte nunca sube.`],
+      ['Nuevas canastas (Fig. 1 y 2)', String.raw`Genera otra muestra de transacciones. Muestra que el soporte es una frecuencia de la muestra y varía con ella.`],
+      ['Soporte mínimo (Fig. 2)', String.raw`Umbral de frecuencia: los itemsets por encima se consideran frecuentes. Subirlo deja menos itemsets frecuentes.`],
+      ['Tamaños (Fig. 2)', String.raw`Cuántos productos puede tener cada itemset mostrado (solo 1, 1 y 2, o hasta 3). Más tamaños muestran muchos más itemsets, casi todos de soporte bajo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Contar canastas',
         descripcion: 'Elija productos y vea qué transacciones los contienen a todos. Agregue un producto más: el soporte nunca sube.',
+        ayuda: String.raw`<p>Cada fila de la tabla es una canasta (transacción). Las filas resaltadas contienen todos los productos marcados; su fracción sobre el total es el soporte de X.</p>
+          <ul>
+          <li><strong>Casillas de productos</strong>: marque uno y luego añada otro; el número de filas resaltadas baja o se mantiene, nunca aumenta.</li>
+          <li><strong>Nuevas canastas</strong>: las filas cambian y con ellas el soporte del mismo itemset.</li>
+          </ul>`,
         montar: montarCanastas,
       },
       {
         titulo: 'El soporte de los itemsets pequeños',
         descripcion: 'Todos los itemsets de tamaño 1 a 3 ordenados por soporte, con el umbral de soporte mínimo.',
+        ayuda: String.raw`<p>Cada barra es un itemset, ordenado por soporte (eje vertical). Las barras que alcanzan la línea del soporte mínimo son frecuentes y las que no, infrecuentes, según la leyenda.</p>
+          <ul>
+          <li><strong>Soporte mínimo</strong>: la línea sube o baja y cambia cuántas barras la superan.</li>
+          <li><strong>Tamaños</strong>: al incluir 2 y 3 productos aparecen muchas barras más, casi todas bajo el umbral.</li>
+          <li><strong>Nuevas canastas</strong>: remuestrea las 200 canastas; las alturas varían un poco.</li>
+          </ul>`,
         montar: montarSoportes,
       },
     ],

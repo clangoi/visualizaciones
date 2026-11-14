@@ -101,15 +101,30 @@
     intro: String.raw`
       <p>¿Cuántos estados necesita, como mínimo, un autómata para un lenguaje? Dos palabras \(u\) y \(v\) deben ir a <em>estados distintos</em> si algún sufijo \(z\) separa sus destinos: \(uz\in L\) pero \(vz\notin L\). Si no existe tal sufijo, pueden compartir estado.</p>
       <p>El <strong>teorema de Myhill-Nerode</strong> convierte esta idea en una caracterización exacta: un lenguaje es regular si y solo si esa relación tiene <em>finitas</em> clases, y el número de clases es el tamaño del autómata mínimo.</p>`,
+    parametros: [
+      ['Lenguaje (Fig. 1)', String.raw`El lenguaje cuyos prefijos se agrupan. De él depende cuántas clases existan.`],
+      ['Longitud máxima de prefijos (Fig. 1)', String.raw`Hasta qué longitud se consideran prefijos. Más longitud puede revelar más clases.`],
+      ['Longitud máxima de sufijos (Fig. 1)', String.raw`Hasta qué longitud se ensayan sufijos para distinguir prefijos; pocos sufijos pueden fusionar prefijos que no lo son.`],
+      ['Prefijo u y Prefijo v (Fig. 1)', String.raw`Dos prefijos concretos que se comparan. Indican si son equivalentes o qué sufijo los distingue.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Clases de equivalencia de los prefijos',
         descripcion: 'Agrupe los prefijos según los sufijos que los distinguen. Compare el número de clases con los estados del AFD mínimo y pruebe dos prefijos concretos.',
+        ayuda: String.raw`<p>Los prefijos se agrupan en clases: dos prefijos están en la misma clase si ningún sufijo hace que uno forme una palabra del lenguaje y el otro no. Se compara el número de clases con los estados del AFD mínimo.</p>
+          <ul>
+          <li><strong>Longitud máxima de sufijos</strong>: con más sufijos se distinguen más prefijos, y las clases se estabilizan en el número real.</li>
+          <li><strong>Prefijo u / v</strong>: si son equivalentes, comparten clase; si no, se muestra un sufijo que los separa.</li>
+          </ul>`,
         montar: montarClases,
       },
       {
         titulo: '¿Se estabiliza el número de clases?',
         descripcion: 'Para lenguajes regulares la curva se aplana; para aⁿbⁿ y los palíndromos sigue creciendo: no hay un número finito de clases.',
+        ayuda: String.raw`<p>Eje horizontal: P, la longitud máxima de prefijo. Eje vertical: número de clases. Cada curva es un lenguaje (par-a, contiene-aba, a-antes-b, aⁿbⁿ y palíndromos), usando sufijos de longitud hasta 7.</p>
+          <ul>
+          <li>En un lenguaje regular la curva se aplana en su índice; en aⁿbⁿ y palíndromos sigue creciendo, lo que indica infinitas clases y no regularidad.</li>
+          </ul>`,
         montar: montarCrecimiento,
       },
     ],

@@ -298,15 +298,30 @@
       <p>Cuando hay varias desigualdades, la dificultad de KKT es combinatoria: ¿cuáles restricciones están <em>activas</em> (pegadas al borde) en el óptimo y cuáles no? Una vez que se supone un conjunto
       activo, el problema se vuelve un sistema de ecuaciones que se sabe resolver; el resto es probar combinaciones y descartar las que no cuadran.</p>
       <p>Esa es la lógica de los métodos de <em>conjunto activo</em>, y también la de los vértices en el Simplex: cada conjunto activo propone un punto, y KKT decide si es el correcto.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Problema con tres restricciones, incluido un caso degenerado.`],
+      ['Probar los ocho conjuntos (Fig. 1)', String.raw`Revisa una a una las combinaciones de activas e inactivas.`],
+      ['Trayectoria del mínimo libre (Fig. 2)', String.raw`Camino que sigue el mínimo sin restricciones.`],
+      ['Posición a lo largo de la trayectoria (Fig. 2)', String.raw`Punto del camino; cambia el óptimo y los multiplicadores.`],
+      ['Ir al primer cambio de conjunto activo (Fig. 2)', String.raw`Salta al punto donde una restricción se activa o se libera.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Probar conjuntos activos',
         descripcion: 'Recorra con «Un paso» las ocho combinaciones y vea cuál produce el punto KKT; luego arrastre el mínimo libre y repita. Pruebe el escenario degenerado y observe conjuntos distintos que dan el mismo punto.',
+        ayuda: String.raw`<p>Región factible, restricciones supuestas activas e inactivas (μ = 0), mínimo sin restricciones y resultado de cada conjunto: punto KKT o rechazado.</p>
+          <ul>
+          <li><strong>Probar los ocho conjuntos</strong>: solo un conjunto da un punto KKT; los demás son rechazados.</li>
+          </ul>`,
         montar: montarEnumeracion,
       },
       {
         titulo: 'Cuándo se activa cada restricción',
         descripcion: 'Mueva el mínimo libre fuera de la región y mire los multiplicadores: cada μ nace en 0 justo cuando la holgura de su restricción se agota. Use el botón para saltar al primer cambio de conjunto activo.',
+        ayuda: String.raw`<p>Arriba, la región, x* y g₁, g₂, g₃. Abajo, los multiplicadores de cada restricción según la posición.</p>
+          <ul>
+          <li><strong>Posición</strong>: cada μ nace en 0 justo cuando la holgura de su restricción se agota.</li>
+          </ul>`,
         montar: montarBarrido,
       },
     ],

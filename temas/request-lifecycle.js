@@ -153,15 +153,35 @@
       <strong>negociar el cifrado</strong> (TLS), <strong>pedir la página</strong> (HTTP), <strong>descargarla</strong> y por último <strong>dibujarla</strong>.</p>
       <p>Casi todos los pasos iniciales son viajes de ida y vuelta, así que en una página típica el tiempo no lo dicta la velocidad del enlace sino la <em>distancia</em>.
       Entender esta cascada explica optimizaciones como cachés, CDN, conexiones persistentes y HTTP/2.</p>`,
+    parametros: [
+      ['Latencia (RTT) (Fig. 1 y 2)', String.raw`El tiempo de ida y vuelta a la red. Multiplica cada etapa que necesita viajes (DNS, TCP, TLS, espera).`],
+      ['Ancho de banda y Tamaño de la página (Fig. 1)', String.raw`Ritmo de transferencia y volumen a descargar. Juntos determinan la duración de la etapa de descarga.`],
+      ['Tiempo del servidor (Fig. 1)', String.raw`Lo que tarda el servidor en preparar la respuesta, visible como la etapa de espera.`],
+      ['Versión de TLS, DNS en caché y Conexión ya abierta (Fig. 1)', String.raw`Opciones que quitan o acortan etapas: menos viajes en TLS, sin búsqueda DNS o sin abrir la conexión de nuevo.`],
+      ['Recursos de la página y Protocolo (Fig. 2)', String.raw`Cuántos archivos se piden y cómo se transportan: HTTP/1.1 con una o seis conexiones, o HTTP/2 multiplexado.`],
+      ['Nuevos tamaños (Fig. 2)', String.raw`Sortea otros tamaños de archivo para ver que el patrón no depende de un caso particular.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cascada de la primera carga',
         descripcion: 'Mueva latencia, ancho de banda y tiempo del servidor, y active la caché de DNS o una conexión reutilizada: vea qué etapas desaparecen y cuáles dominan.',
+        ayuda: String.raw`<p>Cada barra horizontal es una etapa de la primera carga, en orden: DNS, TCP, TLS, espera del servidor, descarga y renderizado, cada una con su color de la leyenda. El largo es su duración.</p>
+          <ul>
+          <li><strong>Latencia (RTT)</strong>: alarga DNS, TCP, TLS y espera, que dependen de viajes de ida y vuelta.</li>
+          <li><strong>Versión de TLS</strong> y <strong>DNS en caché</strong>: acortan o eliminan sus barras.</li>
+          <li><strong>Ancho de banda</strong> y <strong>Tamaño de la página</strong>: solo cambian la barra de descarga.</li>
+          </ul>`,
         montar: montarCascada,
       },
       {
         titulo: 'Muchos recursos: HTTP/1.1 frente a HTTP/2',
         descripcion: 'Una página real pide decenas de archivos. Cambie de protocolo con una latencia alta y observe quién paga más aperturas de conexión.',
+        ayuda: String.raw`<p>Cada fila es un archivo. Se distinguen la apertura de conexión (TCP + TLS), la espera (RTT + servidor) y la descarga.</p>
+          <ul>
+          <li><strong>Protocolo</strong>: con HTTP/1.1 y una conexión los archivos se encolan; con seis, se reparten; con HTTP/2 se piden a la vez y se paga una sola apertura.</li>
+          <li><strong>Latencia (RTT)</strong>: encarece cada apertura y cada espera, por lo que la diferencia entre protocolos crece.</li>
+          <li><strong>Recursos de la página</strong>: más filas, más tiempo total en las variantes que encolan.</li>
+          </ul>`,
         montar: montarRecursos,
       },
     ],

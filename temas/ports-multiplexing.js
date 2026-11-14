@@ -71,9 +71,23 @@
     intro: String.raw`
       <p>La capa de red entrega datagramas a un <em>host</em>; la de transporte los entrega al <em>proceso</em> correcto. Lo hace con <strong>puertos</strong>: el emisor <strong>multiplexa</strong> (reúne datos de varios sockets, les pone puertos de origen y destino y los pasa a la red) y el receptor <strong>demultiplexa</strong> (mira el puerto de destino y entrega al socket adecuado).</p>
       <p>Hay dos servicios. <strong>UDP</strong> agrega casi nada: entrega mensajes sueltos, sin conexión y sin garantías. <strong>TCP</strong> ofrece un flujo de bytes fiable, ordenado y con control de flujo y de congestión, a costa de establecer una conexión.</p>`,
+    parametros: [
+      ['Protocolo del servidor (puerto 80) (Fig. 1)', String.raw`Define cómo el servidor reparte los segmentos que llegan al puerto 80: UDP los entrega todos a un único socket; TCP crea un socket por cada conexión (IP y puerto de origen).`],
+      ['Llega un segmento y Reiniciar (Fig. 1)', String.raw`Llega un segmento simula la llegada de un segmento de un cliente al azar y Reiniciar vacía la tabla de sockets.`],
+      ['Segmentos a enviar (Fig. 2)', String.raw`Cantidad de segmentos que se envían en la comparación. Escala el número de segmentos perdidos por UDP y las transmisiones totales de TCP.`],
+    ],
     visualizaciones: [
-      { titulo: 'Demultiplexación en el servidor', descripcion: 'Haga llegar segmentos al puerto 80 y vea cuántos sockets distintos crea un servidor UDP frente a uno TCP.', montar: montarDemux },
-      { titulo: 'TCP frente a UDP bajo pérdidas', descripcion: 'Aumente la probabilidad de pérdida. UDP entrega cada vez menos; TCP sigue entregando todo, pero retransmite.', montar: montarComparacion },
+      { titulo: 'Demultiplexación en el servidor', descripcion: 'Haga llegar segmentos al puerto 80 y vea cuántos sockets distintos crea un servidor UDP frente a uno TCP.',
+        ayuda: String.raw`<p>La tabla lista los últimos segmentos recibidos: el origen (IP:puerto), el cliente y el número del socket que lo atendió. La lectura cuenta los segmentos recibidos y los sockets distintos en uso.</p>
+          <ul>
+          <li><strong>Protocolo del servidor</strong> en UDP: todas las filas muestran el mismo socket, porque solo cuenta (IP destino, puerto destino).</li>
+          <li>En TCP, cada par (IP, puerto) de origen distinto recibe un número de socket nuevo y «sockets distintos en uso» crece; un origen repetido reutiliza el suyo.</li>
+          </ul>`, montar: montarDemux },
+      { titulo: 'TCP frente a UDP bajo pérdidas', descripcion: 'Aumente la probabilidad de pérdida. UDP entrega cada vez menos; TCP sigue entregando todo, pero retransmite.',
+        ayuda: String.raw`<p>El eje horizontal es la probabilidad de pérdida \(p\) y el vertical un valor relativo. La curva roja (UDP, «segmentos que se pierden») sube con \(p\); la azul (TCP) muestra las transmisiones por segmento entregado, \(1/(1-p)\).</p>
+          <ul>
+          <li><strong>Segmentos a enviar</strong>: más segmentos aumentan el total perdido por UDP y el total de transmisiones de TCP, sin cambiar la forma de las curvas.</li>
+          </ul>`, montar: montarComparacion },
     ],
     teoria: String.raw`
       <h2>Identificación del socket</h2>

@@ -86,9 +86,26 @@
       <p>Dos personas que nunca se han visto quieren hablar en secreto, pero solo disponen de un canal donde todos escuchan. ¿Cómo acordar una clave compartida sin enviarla? <strong>Diffie-Hellman</strong> lo logra con
       una idea elegante: cada uno mezcla un secreto propio con un número público, intercambian los resultados, y cada uno vuelve a mezclar su secreto con lo recibido. Ambos llegan al <em>mismo</em> valor, que quien escuchó no puede calcular.</p>
       <p>Es el corazón del acuerdo de claves de HTTPS, y la base del cifrado de las comunicaciones modernas.</p>`,
+    parametros: [
+      ['Primo p y base g (Fig. 1)', String.raw`Los parámetros públicos acordados a la vista de todos; no son secretos.`],
+      ['Secreto de Ana (a) y Secreto de Beto (b) (Fig. 1)', String.raw`Los números privados de cada uno, que nunca viajan. Solo se envían \(g^a\) y \(g^b\) módulo p.`],
+      ['el atacante puede modificar los mensajes (Fig. 1)', String.raw`Pone a un atacante activo en el canal, que reemplaza los valores públicos y acuerda un secreto con cada lado.`],
+      ['Tamaño de p (Fig. 2)', String.raw`Los bits del primo: cuanto mayor, más costoso resulta deducir el secreto a partir de lo público.`],
+    ],
     visualizaciones: [
-      { titulo: 'Acuerdo de clave paso a paso', descripcion: 'Elija números pequeños y recorra el intercambio: ambos obtienen el mismo secreto. Luego active al atacante activo y vea qué sale mal.', montar: montarAcuerdo },
-      { titulo: 'Por qué resistir al espía', descripcion: 'Aumente el tamaño del primo p y compare el tiempo de la fuerza bruta con el del mejor método conocido.', montar: montarDificultad },
+      { titulo: 'Acuerdo de clave paso a paso', descripcion: 'Elija números pequeños y recorra el intercambio: ambos obtienen el mismo secreto. Luego active al atacante activo y vea qué sale mal.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre Ana y Beto (y el atacante, si está activo), con los parámetros públicos, los valores enviados, el secreto compartido y, cuando el atacante modifica los mensajes, los valores que él sustituye.</p>
+          <ul>
+          <li><strong>Secreto de Ana (a)</strong> y <strong>Secreto de Beto (b)</strong>: aunque se cambien, el secreto compartido calculado por ambos coincide.</li>
+          <li><strong>Primo p y base g</strong> cambian los valores públicos que viajan y el resultado numérico.</li>
+          <li>Con <strong>el atacante puede modificar los mensajes</strong>, cada lado termina con un secreto distinto, compartido con el atacante: DH no autentica por sí solo.</li>
+          </ul>`, montar: montarAcuerdo },
+      { titulo: 'Por qué resistir al espía', descripcion: 'Aumente el tamaño del primo p y compare el tiempo de la fuerza bruta con el del mejor método conocido.',
+        ayuda: String.raw`<p>Eje horizontal: tamaño de p en bits. Eje vertical: exponente de 10 del tiempo del ataque en segundos. La curva roja es la fuerza bruta (\(2^n\) pasos) y la azul el mejor algoritmo conocido, sub-exponencial.</p>
+          <ul>
+          <li><strong>Tamaño de p</strong>: al crecer, la curva roja sube mucho más rápido que la azul; el punto de la lectura indica el tiempo de cada ataque para ese tamaño.</li>
+          <li>Un tiempo superior a unos 10^17 s supera la edad del universo, así que el ataque es inviable.</li>
+          </ul>`, montar: montarDificultad },
     ],
     teoria: String.raw`
       <h2>El protocolo</h2>

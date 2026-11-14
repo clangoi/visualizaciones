@@ -274,20 +274,44 @@
       <strong>conservación de flujo</strong>: en un nodo de paso, lo que entra es igual a lo que sale; en uno con oferta o demanda, la diferencia es exactamente esa oferta o demanda.</p>
       <p>Añadiendo capacidades y costos por unidad se obtiene un programa lineal con una estructura especial (la matriz de incidencia nodo-arco), que es la base de los caminos más cortos,
       el flujo máximo, el flujo de costo mínimo y el problema de transporte de esta sección.</p>`,
+    parametros: [
+      ['Flujo del arco elegido (Fig. 1)', String.raw`La cantidad de flujo que circula por el arco seleccionado. Cambiarla modifica lo que sale y entra en sus dos nodos, y con ello si cumplen la conservación.`],
+      ['Flujo de costo mínimo y Poner en cero (Fig. 1 y 2)', String.raw`Flujo de costo mínimo carga el plan óptimo, que cumple todas las ofertas y demandas; Poner en cero quita todo el flujo.`],
+      ['Capacidad del arco nuevo y Costo del arco nuevo (Fig. 3)', String.raw`Capacidad máxima y costo por unidad de los arcos que usted agregue. Un arco de capacidad baja puede ser un cuello de botella; uno barato atrae flujo.`],
+      ['Oferta del nodo elegido (+) o demanda (−) (Fig. 3)', String.raw`Cuánto genera (positivo) o consume (negativo) el nodo seleccionado. Si la oferta total no iguala la demanda total, no existe flujo factible.`],
+      ['Ejemplo, Quitar nodo elegido, Quitar último arco y Vaciar (Fig. 3)', String.raw`Cargan una red de ejemplo o eliminan el nodo seleccionado, el último arco o toda la red.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Conservación de flujo nodo por nodo',
         descripcion: 'Elija un arco con un clic y cambie su flujo: cada nodo pasa a verde cuando sale − entra iguala su oferta b, y a rojo si no. Pruebe «Flujo de costo mínimo» y luego suba un arco por encima de su capacidad.',
+        ayuda: String.raw`<p>Los nodos son verdes cuando lo que sale menos lo que entra iguala su oferta b, y rojos si la violan; los arcos con flujo se distinguen, los que superan su capacidad se marcan aparte y el arco elegido se resalta.</p>
+          <ul>
+          <li><strong>Flujo del arco elegido</strong>: al cambiarlo, sus dos nodos extremos pueden pasar de verde a rojo o viceversa.</li>
+          <li><strong>Flujo de costo mínimo</strong>: deja todos los nodos cumplidos y sin arcos sobre su capacidad.</li>
+          <li>Subir un arco sobre su capacidad lo marca como violación.</li>
+          </ul>`,
         montar: montarConservacion,
       },
       {
         titulo: 'La matriz de incidencia',
         descripcion: 'Cada columna de N tiene un +1 en el nodo de origen y un −1 en el de destino de su arco. Sume flujo a los arcos y observe cómo el producto N·x se compara fila a fila con b.',
+        ayuda: String.raw`<p>Se muestra la matriz de incidencia N, con +1 en el origen y −1 en el destino de cada arco, el flujo x y el vector b. Cada fila compara N·x con b para un nodo.</p>
+          <ul>
+          <li><strong>Flujo de costo mínimo</strong>: N·x iguala a b en todas las filas.</li>
+          <li><strong>Poner en cero</strong>: N·x es cero, por lo que no se cumple b en los nodos con oferta o demanda.</li>
+          </ul>`,
         montar: montarIncidencia,
       },
       {
         titulo: 'Construya su propia red',
         descripcion: 'Cree nodos y arcos, asigne ofertas y demandas, y vea si existe un flujo factible. Intente que la oferta total no iguale la demanda, o ponga un arco de capacidad 1 en un cuello de botella: la figura explica por qué falla.',
+        ayuda: String.raw`<p>Los nodos son orígenes (oferta), destinos (demanda) o de transbordo. Los arcos con flujo óptimo se distinguen de los que no llevan flujo, y el nodo elegido se resalta.</p>
+          <ul>
+          <li><strong>Oferta del nodo elegido</strong>: convierte el nodo en origen, destino o transbordo; si el total no cuadra, no hay flujo factible.</li>
+          <li><strong>Capacidad del arco nuevo</strong>: una capacidad 1 en un cuello de botella impide enviar todo.</li>
+          <li><strong>Costo del arco nuevo</strong>: cambia qué arcos usa el flujo óptimo.</li>
+          </ul>`,
         montar: montarEditor,
       },
     ],

@@ -68,8 +68,16 @@
     intro: String.raw`
       <p>Un buen dashboard se lee en pocos segundos: primero los <strong>indicadores clave</strong>, luego la <strong>tendencia</strong>, después las <strong>comparaciones</strong> y, al final, el <strong>detalle</strong>. El diseño decide el orden en que se mira.</p>
       <p>Los controles van juntos y a la vista, los números importantes son grandes y están donde la mirada empieza —arriba a la izquierda—, y todo lo demás se subordina a ellos.</p>`,
+    parametros: [
+      ['Organización (Fig. 1)', String.raw`Cómo se acomodan los componentes en la rejilla de 12 columnas: por jerarquía (lo importante, arriba y grande) o en el orden en que se crearon. Cambia dónde cae cada componente y el orden en que se lee.`],
+    ],
     visualizaciones: [
-      { titulo: 'Jerarquía en una rejilla de 12 columnas', descripcion: 'Alterne entre una organización jerárquica y una sin criterio, y observe dónde queda cada componente en el orden de lectura.', montar: montarRejilla },
+      { titulo: 'Jerarquía en una rejilla de 12 columnas', descripcion: 'Alterne entre una organización jerárquica y una sin criterio, y observe dónde queda cada componente en el orden de lectura.',
+        ayuda: String.raw`<p>Cada tarjeta es un componente del informe, coloreado por tipo (gris control, azul KPI, naranja tendencia, aguamarina comparación, violeta detalle). Las estrellas indican su importancia, el ancho y alto son su espacio en la rejilla y el círculo oscuro numera el orden de lectura. Un clic resalta una tarjeta. La lectura da las filas de la rejilla, la posición de lectura del componente más importante y cuántos de los tres primeros son de los más importantes.</p>
+          <ul>
+          <li><strong>Organización</strong> «Por jerarquía»: filtros y KPI quedan arriba y la tendencia a su lado; los componentes de mayor importancia se leen primero.</li>
+          <li><strong>Organización</strong> «Sin jerarquía»: los mismos componentes en otro orden; los más importantes pasan a leerse más tarde y la lectura lo refleja.</li>
+          </ul>`, montar: montarRejilla },
     ],
     teoria: String.raw`
       <h2>Principios</h2>

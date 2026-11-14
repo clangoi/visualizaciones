@@ -215,15 +215,34 @@
       organiza en <em>plug-ins</em> que se encadenan, cada uno con entradas y salidas tipadas.</p>
       <p>Lo que cambia entre herramientas es la interfaz y la escala; las decisiones importantes (qué columna es el caso, cuánto filtrar, qué algoritmo usar) son las mismas
       y es ahí donde se ganan o se pierden los proyectos.</p>`,
+    parametros: [
+      ['Cobertura de variantes conservadas (Fig. 1)', String.raw`Qué fracción de los casos, tomando las variantes más frecuentes, se conserva al filtrar el ruido. Menos cobertura da un modelo más simple pero que explica menos del registro.`],
+      ['Reproductor y Nuevo registro (Fig. 1)', String.raw`El reproductor recorre los cinco pasos del flujo; Nuevo registro genera otra muestra ruidosa y reinicia.`],
+      ['Identificador de caso (Fig. 2)', String.raw`La columna del CSV que se toma como caso; define cómo se agrupan los eventos en trazas.`],
+      ['Actividad (Fig. 2)', String.raw`La columna que se toma como nombre de actividad de cada evento.`],
+      ['Marca de tiempo (Fig. 2)', String.raw`Si los eventos se ordenan por la columna de hora o por su orden en el archivo.`],
+      ['Mapeo correcto (Fig. 2)', String.raw`Restablece la asignación adecuada de columnas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El flujo de análisis, paso a paso',
         descripcion: 'Avance por los cinco pasos con un registro ruidoso. Baje la cobertura de variantes y compare el fitness del registro filtrado con el del completo.',
+        ayuda: String.raw`<p>Cada recuadro es un paso del flujo: azul el que está en curso, verde los hechos y gris los pendientes. Abajo se dibuja la red descubierta con el algoritmo Alfa; las plazas en rojo son donde faltan fichas al reproducir el registro completo (desajustes).</p>
+          <ul>
+          <li><strong>Cobertura de variantes conservadas</strong>: al bajarla, la red se simplifica y aparecen más plazas rojas, es decir, menor fitness frente al registro completo.</li>
+          <li><strong>Nuevo registro</strong>: otro ruido, otra red; confirma si la conclusión depende de la muestra.</li>
+          </ul>`,
         montar: montarPipeline,
       },
       {
         titulo: 'Importar un CSV y generar el XES',
         descripcion: 'Asigne las columnas de caso, actividad y tiempo y vea el XES resultante. Un mapeo equivocado cambia el número de casos y de variantes.',
+        ayuda: String.raw`<p>Las tablas muestran el CSV, con las columnas de caso (azul), actividad (naranja) y tiempo (aguamarina) resaltadas, y el XES generado con el recuento de casos, variantes y orden.</p>
+          <ul>
+          <li><strong>Identificador de caso</strong>: elegir «recurso» o «region» produce pocos casos enormes en vez de uno por reclamo.</li>
+          <li><strong>Actividad</strong>: una columna equivocada da variantes sin sentido para el proceso.</li>
+          <li><strong>Marca de tiempo</strong>: sin ella, el orden del archivo reemplaza al orden real y puede alterar las trazas.</li>
+          </ul>`,
         montar: montarImportar,
       },
     ],

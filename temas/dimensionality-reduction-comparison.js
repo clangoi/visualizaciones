@@ -132,15 +132,31 @@
       lineal); <a href="tema.html?id=t-sne">t-SNE</a> conserva los vecindarios (estructura <strong>local</strong>);
       <a href="tema.html?id=umap">UMAP</a> busca un punto intermedio.</p>
       <p>Comparar los mapas sobre los mismos datos, y medir qué conserva cada uno, evita sacar conclusiones de artefactos del método.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`El conjunto de alta dimensión (cúmulos, rollo suizo o anillos enlazados) sobre el que se comparan los tres métodos.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Sortea otra muestra del mismo tipo de datos para ver si la comparación se mantiene.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tres mapas de los mismos datos',
         descripcion: 'PCA, t-SNE y UMAP sobre el mismo conjunto. En el rollo suizo, PCA lo ve de costado; en los cúmulos, compare si las dos familias quedan separadas.',
+        ayuda: String.raw`<p>Tres mapas en 2-D de los mismos puntos: PCA, t-SNE y UMAP, con el color y la forma del grupo o la rampa. Al pasar el cursor sobre un punto se marca en los tres junto con sus 10 vecinos originales.</p>
+          <ul>
+          <li><strong>Datos</strong> rollo suizo: PCA lo ve de costado y aplasta capas; compare si t-SNE y UMAP lo desenrollan.</li>
+          <li><strong>Datos</strong> cúmulos: compruebe si las dos familias quedan separadas en cada mapa.</li>
+          <li>Vecinos desperdigados al señalar un punto indican que ese método rompió la estructura local.</li>
+          </ul>`,
         montar: montarTres,
       },
       {
         titulo: 'Local frente a global',
         descripcion: 'Preservación de vecinos según el tamaño del vecindario. Las curvas se cruzan: el mejor método depende de la escala que importe.',
+        ayuda: String.raw`<p>El eje horizontal es el tamaño del vecindario k y el vertical, la fracción de los k vecinos originales que siguen entre los k del mapa. Una curva por método (PCA azul, t-SNE naranja, UMAP aguamarina) y una línea gris con el nivel esperado al azar, \(k/(n-1)\).</p>
+          <ul>
+          <li>Con k chico se mide estructura local; con k grande, global.</li>
+          <li>Las curvas se cruzan: el mejor método depende de la escala que importe.</li>
+          <li><strong>Datos</strong>: cambiar el conjunto altera qué método conserva mejor cada escala.</li>
+          </ul>`,
         montar: montarCurvas,
       },
     ],

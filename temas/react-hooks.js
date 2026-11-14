@@ -88,9 +88,24 @@
       <p>Un componente de función se ejecuta de arriba abajo cada vez que se renderiza y no recuerda nada entre ejecuciones. Los <strong>Hooks</strong> le dan memoria y efectos:
       <code>useState</code> guarda un valor entre renders, y <code>useEffect</code> ejecuta código <em>después</em> de pintar, como pedir datos o suscribirse a algo.</p>
       <p>Para usarlos bien hay que recordar dos ideas: cada render es una «foto» con sus propios valores, y los cambios de estado se encolan y se procesan juntos.</p>`,
+    parametros: [
+      ['Al hacer clic, el manejador ejecuta (Fig. 1)', String.raw`Si las tres llamadas usan el valor capturado del render o una función que recibe el valor más reciente. Determina cuánto sube el estado por clic.`],
+      ['Dependencias del efecto (Fig. 2)', String.raw`La lista que le dice a <code>useEffect</code> cuándo volver a ejecutarse. Cambiarla modifica qué cambios disparan el efecto.`],
+      ['Incrementar a, Incrementar b y Reiniciar (Fig. 2)', String.raw`Cambian cada uno de los dos estados y vuelven al inicio.`],
+    ],
     visualizaciones: [
-      { titulo: 'useState y la cola de actualizaciones', descripcion: 'Compare tres llamadas con un valor calculado y tres con una función: avance paso a paso hasta el nuevo render.', montar: montarEstado },
-      { titulo: 'useEffect y sus dependencias', descripcion: 'Cambie las dependencias y pulse los botones: observe cuándo corre el efecto, cuándo se limpia y cuándo se omite.', montar: montarEfecto },
+      { titulo: 'useState y la cola de actualizaciones', descripcion: 'Compare tres llamadas con un valor calculado y tres con una función: avance paso a paso hasta el nuevo render.',
+        ayuda: String.raw`<p>Se ven las actualizaciones encoladas, el render actual con su valor capturado y el estado nuevo, según la leyenda.</p>
+          <ul>
+          <li><strong>setCuenta(cuenta + 1) × 3</strong>: las tres llamadas usan el mismo valor capturado y el estado sube solo 1.</li>
+          <li><strong>setCuenta(c =&gt; c + 1) × 3</strong>: cada actualización parte del resultado anterior y el estado sube 3.</li>
+          </ul>`, montar: montarEstado },
+      { titulo: 'useEffect y sus dependencias', descripcion: 'Cambie las dependencias y pulse los botones: observe cuándo corre el efecto, cuándo se limpia y cuándo se omite.',
+        ayuda: String.raw`<p>El registro muestra en qué momento se ejecuta el efecto, cuándo se limpia y cuándo se omite tras cada render.</p>
+          <ul>
+          <li><strong>Dependencias del efecto</strong>: con una lista que no incluye una variable, cambiarla no ejecuta el efecto; con la lista vacía solo corre al inicio.</li>
+          <li><strong>Incrementar a</strong> e <strong>Incrementar b</strong>: provocan un render y muestran si el efecto se ejecuta o se omite según las dependencias.</li>
+          </ul>`, montar: montarEfecto },
     ],
     teoria: String.raw`
       <h2>useState</h2>

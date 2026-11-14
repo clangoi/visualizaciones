@@ -84,9 +84,25 @@
       <p>HTTP funciona con <em>pregunta y respuesta</em>: el cliente pide y el servidor contesta; el servidor no puede hablar primero. Para un chat, una cotización en vivo o un juego, eso obliga a «preguntar cada tanto» (<em>polling</em>),
       con peticiones que casi siempre vuelven vacías y noticias que llegan tarde.</p>
       <p>Los <strong>WebSockets</strong> abren una conexión <strong>persistente y bidireccional</strong>: tras un saludo inicial por HTTP, cliente y servidor se envían mensajes en cualquier momento.</p>`,
+    parametros: [
+      ['Intervalo de sondeo y Eventos del servidor por minuto (Fig. 1)', String.raw`Cada cuántos segundos el cliente pregunta al servidor y cuántos eventos genera el servidor por minuto. Juntos determinan la espera y el desperdicio.`],
+      ['Otros eventos (Fig. 1)', String.raw`Genera otra secuencia aleatoria de eventos con la misma frecuencia.`],
+      ['Figuras sin más controles (Fig. 2)', String.raw`Esta figura no tiene controles: use el cursor sobre los mensajes o las notas del diagrama para leer cada paso.`],
+    ],
     visualizaciones: [
-      { titulo: 'Sondeo frente a WebSocket', descripcion: 'Cambie el intervalo de sondeo y la frecuencia de eventos: compare cuánto tardan en llegar los eventos y cuántas peticiones se desperdician.', montar: montarTiempos },
-      { titulo: 'Ciclo de vida de una conexión', descripcion: 'Recorra el saludo de actualización, los mensajes en ambos sentidos, una caída de red con reconexión y el cierre.', montar: montarCiclo },
+      { titulo: 'Sondeo frente a WebSocket', descripcion: 'Cambie el intervalo de sondeo y la frecuencia de eventos: compare cuánto tardan en llegar los eventos y cuántas peticiones se desperdician.',
+        ayuda: String.raw`<p>Línea de tiempo: marcas naranjas son eventos en el servidor; azules, peticiones de sondeo con datos; grises, peticiones vacías (desperdicio); verdes, mensajes por WebSocket.</p>
+          <ul>
+          <li><strong>Intervalo de sondeo</strong> largo: cada evento espera hasta la siguiente pregunta, por lo que llega más tarde; uno corto reduce la espera pero aumenta las peticiones vacías.</li>
+          <li><strong>Eventos del servidor por minuto</strong> alto: se aprovechan más peticiones y bajan las vacías.</li>
+          <li>Los mensajes verdes salen en el instante del evento, sin esperar.</li>
+          </ul>`, montar: montarTiempos },
+      { titulo: 'Ciclo de vida de una conexión', descripcion: 'Recorra el saludo de actualización, los mensajes en ambos sentidos, una caída de red con reconexión y el cierre.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre cliente y servidor con el saludo HTTP de actualización, los mensajes en ambos sentidos, ping/pong, una caída con reconexión y el cierre ordenado. Los colores distinguen solicitud HTTP, cambio de protocolo, mensajes, ping/pong, cierre y falla.</p>
+          <ul>
+          <li>Los mensajes del servidor aparecen sin petición previa, a diferencia de HTTP.</li>
+          <li>Tras la falla, el cliente debe reconectar con un nuevo saludo: la conexión no se recupera sola.</li>
+          </ul>`, montar: montarCiclo },
     ],
     teoria: String.raw`
       <h2>Comparación</h2>

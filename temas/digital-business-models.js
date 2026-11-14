@@ -149,15 +149,35 @@
     intro: String.raw`
       <p>Un <strong>modelo de negocio digital</strong> describe cómo una organización crea, entrega y captura valor usando datos y plataformas. Lo que cambia respecto de vender un producto es la relación con el cliente: en vez de una venta única hay una experiencia continua, medida en cada uso, que se puede mejorar y cobrar de otras formas, como una cuota mensual, un plan gratuito que se convierte en pago o una comisión sobre lo que ocurre en la plataforma.</p>
       <p>Para comparar modelos hay que mirar su <strong>economía unitaria</strong>: cuánto cuesta conseguir un cliente (CAC), cuánto deja en toda su vida (LTV) y en cuánto tiempo se recupera lo gastado. Las figuras muestran ambas cosas: una cuenta por cliente y una simulación de ingresos de tres modelos a lo largo de tres años.</p>`,
+    parametros: [
+      ['Ingreso mensual por cliente (ARPU) y Margen bruto (Fig. 1)', String.raw`Lo que paga cada cliente al mes y qué parte queda después de costos directos. Su producto es el margen mensual por cliente.`],
+      ['Cancelación mensual (churn) (Fig. 1)', String.raw`Fracción de clientes que se va cada mes. Fija cuánto tiempo genera margen un cliente.`],
+      ['Costo de adquirir un cliente (CAC) (Fig. 1)', String.raw`Lo gastado para conseguir un cliente. Es lo que hay que recuperar antes de ganar.`],
+      ['Mostrar (Fig. 2)', String.raw`Qué magnitud comparan las curvas de los tres modelos: ingreso mensual, margen acumulado o usuarios activos.`],
+      ['Usuarios nuevos al mes, Cancelación mensual, Conversión freemium a pago y Comisión sobre lo transado (Fig. 2)', String.raw`Son los supuestos propios de cada modelo: entrada de usuarios a la suscripción, bajas, paso de gratis a pago en freemium y porcentaje que cobra la comisión.`],
+      ['Otro escenario y reproductor (Fig. 2)', String.raw`Cambia el escenario de partida y hace avanzar los meses.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Economía unitaria: CAC, LTV y recuperación',
         descripcion: 'Mueva el churn y el CAC y mire cuándo la curva azul cruza la línea roja. Busque el punto en que LTV / CAC cae bajo 3, donde el crecimiento deja de ser rentable.',
+        ayuda: String.raw`<p>Eje horizontal: meses desde la compra; eje vertical: valores por cliente. La curva es el margen acumulado esperado por cliente adquirido, la línea horizontal es el CAC y otra línea marca el LTV (valor de por vida). Una marca indica el mes de recuperación.</p>
+          <ul>
+          <li><strong>Cancelación mensual (churn)</strong> más alta: la curva se aplana antes, el LTV baja y puede no alcanzar el CAC.</li>
+          <li><strong>Costo de adquirir un cliente</strong> más alto: sube la línea de CAC y la recuperación se atrasa.</li>
+          <li><strong>ARPU</strong> y <strong>Margen bruto</strong>: más pendiente y mayor LTV.</li>
+          </ul>`,
         montar: montarUnitaria,
       },
       {
         titulo: 'Suscripción, freemium y comisión',
         descripcion: 'Compare los tres modelos en ingreso, margen acumulado y usuarios. Pruebe subir la conversión freemium o bajar la comisión y vea cuál modelo es más sensible a cada parámetro.',
+        ayuda: String.raw`<p>Eje horizontal: mes. Hay una curva por modelo (suscripción, freemium y comisión), con la magnitud que indica Mostrar.</p>
+          <ul>
+          <li><strong>Conversión freemium a pago</strong> mayor: la curva de freemium sube más que las otras, sobre todo en margen acumulado.</li>
+          <li><strong>Comisión sobre lo transado</strong> menor: baja el ingreso del modelo de comisión.</li>
+          <li><strong>Mostrar</strong> margen acumulado: permite ver qué modelo recupera primero lo gastado en adquirir usuarios.</li>
+          </ul>`,
         montar: montarModelos,
       },
     ],

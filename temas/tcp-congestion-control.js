@@ -88,9 +88,26 @@
     intro: String.raw`
       <p>Si todos los emisores envían tan rápido como pueden, las colas de los routers se llenan, se pierden paquetes, se retransmite más, y la red entra en <strong>congestión</strong>. TCP regula su ritmo sin ayuda de la red: usa las pérdidas como señal y ajusta una <strong>ventana de congestión</strong> (<code>cwnd</code>).</p>
       <p>La regla es <strong>AIMD</strong> (<em>additive increase, multiplicative decrease</em>): subir despacio, sumando 1 segmento por RTT, y bajar rápido, a la mitad, cuando hay pérdidas. Eso produce el famoso «diente de sierra».</p>`,
+    parametros: [
+      ['Variante (Fig. 1)', String.raw`Qué hace TCP al detectar una pérdida: Tahoe vuelve a cwnd = 1 e inicio lento; Reno aplica recuperación rápida y reduce cwnd a la mitad.`],
+      ['Capacidad de la ruta (Fig. 1)', String.raw`Segmentos que caben en la ruta antes de que haya pérdida. Fija a qué valor de cwnd se produce cada caída.`],
+      ['Otra ejecución (Fig. 1)', String.raw`Genera otra ejecución del ejemplo, con otro patrón de pérdidas.`],
+      ['Regla de ajuste (Fig. 2)', String.raw`Cómo cada flujo sube y baja su velocidad: AIMD suma 1 y divide por 2; AIAD suma 1 y resta 1; MIMD multiplica y divide. Determina si los flujos convergen al reparto justo.`],
+      ['Velocidad inicial del flujo 1 y 2 (Fig. 2)', String.raw`Punto de partida (x, y) de la trayectoria. Con reparto desigual se ve si la regla lo corrige o lo conserva.`],
+    ],
     visualizaciones: [
-      { titulo: 'La ventana de congestión', descripcion: 'Observe el inicio lento, el aumento lineal y la caída al perder. Compare Tahoe con Reno y cambie la capacidad de la ruta.', montar: montarCwnd },
-      { titulo: 'Por qué AIMD y no otra regla', descripcion: 'Dos flujos con velocidades distintas: solo AIMD los lleva al reparto equitativo. Cambie la regla y las velocidades iniciales.', montar: montarEquidad },
+      { titulo: 'La ventana de congestión', descripcion: 'Observe el inicio lento, el aumento lineal y la caída al perder. Compare Tahoe con Reno y cambie la capacidad de la ruta.',
+        ayuda: String.raw`<p>El eje horizontal son los RTT y el vertical, cwnd en segmentos. La línea azul es cwnd, los puntos rojos son pérdidas y la línea gris, la capacidad de la ruta.</p>
+          <ul>
+          <li><strong>Variante</strong> Tahoe: tras cada pérdida cwnd cae a 1 y vuelve a crecer en inicio lento; Reno cae solo a la mitad y sigue en aumento lineal.</li>
+          <li><strong>Capacidad de la ruta</strong> mayor: cwnd llega más alto antes de perder y los ciclos se alargan.</li>
+          </ul>`, montar: montarCwnd },
+      { titulo: 'Por qué AIMD y no otra regla', descripcion: 'Dos flujos con velocidades distintas: solo AIMD los lleva al reparto equitativo. Cambie la regla y las velocidades iniciales.',
+        ayuda: String.raw`<p>Cada eje es la velocidad de un flujo. La línea roja es la recta de capacidad \(x+y=100\), la verde el reparto equitativo \(x=y\) y la azul, la trayectoria de (flujo 1, flujo 2) a lo largo de los ajustes.</p>
+          <ul>
+          <li><strong>Regla de ajuste</strong> AIMD: la trayectoria se acerca a la recta \(x=y\) sobre la capacidad; AIAD y MIMD mantienen o amplían la desigualdad.</li>
+          <li><strong>Velocidades iniciales</strong>: cuanto más alejado de \(x=y\) el inicio, más ciclos necesita AIMD para equilibrar.</li>
+          </ul>`, montar: montarEquidad },
     ],
     teoria: String.raw`
       <h2>Fases</h2>

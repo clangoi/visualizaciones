@@ -141,15 +141,28 @@
       <p>Para simular un AFN sin adivinar basta con llevar la cuenta de <strong>todos los estados en que podría estar</strong> después de cada símbolo. Ese conjunto es una fotografía completa de la situación: lo que pueda pasar en el futuro depende solo de él.
       Tratar cada posible conjunto como un estado nuevo da un autómata <em>determinista</em>.</p>
       <p>Esa es la <strong>construcción por subconjuntos</strong>. Siempre funciona; su costo es que el AFD puede tener hasta \(2^n\) estados si el AFN tenía \(n\), aunque en muchos autómatas se alcanzan solo unos pocos.</p>`,
+    parametros: [
+      ['AFN (Fig. 1 y 2)', String.raw`El autómata no determinista que se convierte en AFD. Su estructura decide cuántos subconjuntos nuevos aparecen.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso calcula el destino de un subconjunto con un símbolo; Reiniciar vuelve a empezar la construcción.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Determinizar paso a paso',
         descripcion: 'Avance con «Un paso»: cada paso calcula el destino de un subconjunto con un símbolo. Observe a la izquierda qué estados del AFN componen el subconjunto actual.',
+        ayuda: String.raw`<p>A la izquierda está el AFN y a la derecha el AFD que se va construyendo; cada estado del AFD es un conjunto de estados del AFN. El subconjunto que se procesa se resalta junto con sus estados en el AFN, los subconjuntos nuevos aparecen como pendientes en la cola y la transición recién calculada se marca.</p>
+          <ul>
+          <li><strong>AFN</strong>: un autómata con más ramificaciones genera más subconjuntos pendientes en la cola.</li>
+          <li><strong>Un paso</strong>: toma un subconjunto y un símbolo, une los destinos de sus estados y, si el resultado es nuevo, lo añade a la cola.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Subconjuntos alcanzables frente a 2ⁿ',
         descripcion: 'De todos los subconjuntos de estados posibles, solo algunos aparecen. Haga clic en uno alcanzable para ver la palabra más corta que lleva a él.',
+        ayuda: String.raw`<p>Se muestran los subconjuntos de estados del AFN que son alcanzables, cada uno con la palabra más corta que lo produce, frente a los que nunca aparecen. Los de aceptación se distinguen por contener algún estado final.</p>
+          <ul>
+          <li><strong>AFN</strong>: compare cuántos de los \(2^n\) subconjuntos posibles aparecen realmente; en muchos ejemplos son pocos.</li>
+          </ul>`,
         montar: montarAlcanzables,
       },
     ],

@@ -155,20 +155,40 @@
       trayectorias de estudiantes en una plataforma, rutas de pacientes en un hospital. Lo que cambia entre dominios no es la técnica sino <strong>las preguntas</strong> y qué significa un desvío.</p>
       <p>Cada figura trabaja un registro simulado de un dominio, con un protocolo de referencia conocido, para que pueda ver cómo se detectan desvíos, esperas y cifras como el abandono o el
       cumplimiento de un tiempo máximo.</p>`,
+    parametros: [
+      ['Colorear por (Fig. 1, 2 y 3)', String.raw`El criterio del color de las actividades: frecuencia, espera media antes de la actividad o desvíos del protocolo. Cambia qué cuello de botella o anomalía resalta el mapa.`],
+      ['Desvíos en los datos (Fig. 1, 2 y 3)', String.raw`La proporción de casos que se salta o altera el protocolo. Subirla agrega transiciones no admitidas al registro.`],
+      ['Nuevos casos (Fig. 1, 2 y 3)', String.raw`Genera otra muestra simulada con la misma configuración.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Industria: compra a pago',
         descripcion: 'Mapa del proceso con frecuencias, esperas y desvíos. Suba los desvíos y vea cómo aparecen compras sin aprobación o pagos antes de recibir.',
+        ayuda: String.raw`<p>Mapa del proceso de compra a pago: los nodos son actividades, coloreadas de poca a mucha frecuencia o espera, y el grosor de cada arista es el número de casos. Las aristas rojas son transiciones que el protocolo no admite. Bajo el mapa, una tabla responde preguntas del dominio.</p>
+          <ul>
+          <li><strong>Colorear por</strong> «espera media»: los nodos más intensos son los cuellos de botella.</li>
+          <li><strong>Desvíos en los datos</strong>: al subirlos aparecen aristas rojas, como pagos antes de recibir.</li>
+          </ul>`,
         montar: montarDominio('industria'),
       },
       {
         titulo: 'Educación: trayectorias de estudiantes',
         descripcion: 'Rutas por un curso con ciclo de lecciones y tareas. Compare quienes abandonan con quienes rinden el examen y pruebe si hacer tareas se relaciona con aprobar.',
+        ayuda: String.raw`<p>Mapa de trayectorias de estudiantes con el mismo código visual: color por frecuencia o espera, grosor por número de casos y rojo para transiciones no admitidas.</p>
+          <ul>
+          <li><strong>Colorear por</strong> «frecuencia»: el ciclo de lecciones y tareas aparece como los nodos y aristas más intensos.</li>
+          <li><strong>Desvíos en los datos</strong>: aumentan las rutas atípicas, por ejemplo hacia el examen sin pasar por las tareas.</li>
+          </ul>`,
         montar: montarDominio('educacion'),
       },
       {
         titulo: 'Salud: ruta clínica en urgencias',
         descripcion: 'Camino de un paciente desde la admisión hasta el alta. Cambie a «espera media» para ubicar el cuello de botella y a «desvíos» para ver quién se salta el electrocardiograma.',
+        ayuda: String.raw`<p>Mapa de la ruta clínica en urgencias, del ingreso al alta, con el mismo código de colores, grosores y aristas rojas.</p>
+          <ul>
+          <li><strong>Colorear por</strong> «espera media antes de la actividad»: ubica la actividad donde el paciente espera más.</li>
+          <li><strong>Colorear por</strong> «desvíos del protocolo»: resalta los casos que se saltan el electrocardiograma.</li>
+          </ul>`,
         montar: montarDominio('salud'),
       },
     ],

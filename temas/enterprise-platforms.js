@@ -203,15 +203,40 @@
       interfaces con otras aplicaciones. Su valor no está sólo en registrar lo que ocurre, sino en <strong>automatizar las operaciones repetitivas</strong> que antes hacían personas.</p>
       <p>Hay tres niveles de automatización: <em>reglas</em> (el sistema decide según condiciones), <em>flujos de trabajo</em> (el sistema asigna, notifica y controla tareas) y <em>RPA</em> (robots de software que
       imitan a una persona operando pantallas de sistemas que no se pueden modificar). Automatizar libera horas y evita errores, pero cuesta desarrollo y mantención: hay que calcular cuándo se paga.</p>`,
+    parametros: [
+      ['Costo de una hora de trabajo (Fig. 1)', String.raw`Valor monetario de cada hora manual. Determina cuánto dinero equivale a las horas liberadas.`],
+      ['Error tras automatizar (Fig. 1)', String.raw`Tasa de error que sigue habiendo en la tarea automatizada. Resta parte del beneficio.`],
+      ['Automatizar todo, Solo cobertura alta y Quitar todo (Fig. 1)', String.raw`Seleccionan en bloque las tareas automatizadas: todas, solo las de cobertura de 85 % o más, o ninguna.`],
+      ['Ejecuciones al mes (Fig. 2)', String.raw`Volumen de la tarea. Con más ejecuciones, el ahorro mensual crece.`],
+      ['Minutos por ejecución manual (Fig. 2)', String.raw`Tiempo de hacer la tarea a mano.`],
+      ['Parte automatizable (Fig. 2)', String.raw`Fracción del trabajo que la plataforma puede asumir.`],
+      ['Costo de una hora (Fig. 2)', String.raw`Valor de una hora de trabajo manual.`],
+      ['Errores en el trabajo manual (Fig. 2)', String.raw`Fracción de ejecuciones manuales con error, que añaden costo de corrección.`],
+      ['Inversión inicial (desarrollo) (Fig. 2)', String.raw`Costo de partida de la automatización.`],
+      ['Licencia y mantención al mes (Fig. 2)', String.raw`Costo recurrente que reduce el ahorro neto.`],
+      ['Crecimiento mensual del volumen (Fig. 2)', String.raw`Aumento mensual de las ejecuciones, que acelera la recuperación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Qué tareas automatizar',
         descripcion: 'Haga clic en las tareas para automatizarlas y observe las horas liberadas (verde), los errores evitados y el ahorro mensual. Compare las tareas de mucho volumen y alta cobertura con «Revisar contratos», que requiere juicio y casi no se puede automatizar.',
+        ayuda: String.raw`<p>Barras por tarea con las horas al mes: la parte que sigue siendo manual y la parte liberada por la automatización (verde).</p>
+          <ul>
+          <li><strong>Automatizar todo</strong>: casi todas las barras se llenan de horas liberadas.</li>
+          <li><strong>Solo cobertura alta</strong>: automatiza solo las tareas de mayor cobertura, las de mejor retorno.</li>
+          <li><strong>Error tras automatizar</strong>: más alto, reduce el beneficio neto de cada tarea.</li>
+          </ul>`,
         montar: montarTareas,
       },
       {
         titulo: 'Punto de equilibrio de automatizar',
         descripcion: 'Suba la inversión o baje el volumen y vea cómo se aleja el cruce de las curvas. En el gráfico de abajo, haga clic para probar otro volumen: encuentre el volumen mínimo para recuperar la inversión en un año.',
+        ayuda: String.raw`<p>Arriba, el costo acumulado en dólares por mes, a mano y automatizando (incluida la inversión), con el cruce señalado. Abajo, los meses necesarios para recuperar la inversión según las ejecuciones al mes (tope 48), con el volumen elegido marcado.</p>
+          <ul>
+          <li><strong>Inversión inicial</strong> más alta: la curva automatizada parte más arriba y el cruce se aleja.</li>
+          <li><strong>Ejecuciones al mes</strong> más altas: la recuperación llega antes; en el gráfico de abajo se mueve el punto elegido.</li>
+          <li><strong>Licencia y mantención</strong>: reduce la pendiente del ahorro y retrasa el cruce.</li>
+          </ul>`,
         montar: montarEquilibrio,
       },
     ],

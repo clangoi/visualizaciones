@@ -148,15 +148,33 @@
       <p>Es importante distinguir. Una tabla <em>seudonimizada</em> sigue conteniendo datos personales: quien tenga la llave (o pueda
       reconstruirla) recupera las identidades. Solo cuando la vinculación es razonablemente imposible se habla de datos
       <a href="tema.html?id=anonimizacion">anonimizados</a>.</p>`,
+    parametros: [
+      ['Técnica por columna: nombre, rut, cp, edad, sexo (Fig. 1)', String.raw`Qué se hace con cada columna antes de publicar: conservarla, suprimirla, enmascararla, seudonimizarla (hash o token) o generalizarla. Cada opción pierde distinta información y protege distinto.`],
+      ['RUT de la víctima (Fig. 2)', String.raw`El RUT cuyo hash intenta revertir el atacante.`],
+      ['Espacio que prueba el atacante (Fig. 2)', String.raw`El conjunto de candidatos que se recorre. Cuanto más grande, más tiempo tarda el ataque.`],
+      ['hash con clave secreta (HMAC) (Fig. 2)', String.raw`Si el hash se calcula con una clave que el atacante no conoce. Con clave no basta calcular el hash de cada candidato.`],
+      ['Atacar (Fig. 2)', String.raw`Ejecuta la búsqueda de candidatos y muestra si recuperó el RUT.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Técnicas por columna',
         descripcion: 'Aplique una técnica a cada columna de la tabla clínica. Las filas en rojo siguen siendo únicas por sus cuasi-identificadores, aunque no tengan nombre.',
+        ayuda: String.raw`<p>La tabla clínica muestra el resultado de las técnicas elegidas. Las filas en rojo son únicas según cp, edad y sexo publicados, y por eso siguen siendo identificables aunque no tengan nombre; las columnas transformadas aparecen resaltadas.</p>
+          <ul>
+          <li><strong>nombre</strong> y <strong>rut</strong>: suprimirlos o seudonimizarlos oculta la identidad directa, pero no cambia qué filas son únicas.</li>
+          <li><strong>cp</strong>, <strong>edad</strong> y <strong>sexo</strong>: generalizar o suprimir estos cuasi-identificadores reduce las filas únicas marcadas en rojo.</li>
+          </ul>`,
         montar: montarTecnicas,
       },
       {
         titulo: 'Revertir un hash de RUT',
         descripcion: 'Un hash parece irreversible, pero el espacio de RUT es pequeño: basta calcular el hash de cada candidato. Con una clave secreta (HMAC) el ataque deja de funcionar.',
+        ayuda: String.raw`<p>El eje horizontal es el número de candidatos que hay que probar y el vertical, el tiempo (escala logarítmica). Las líneas son el tiempo con 10⁹ hashes por segundo (una GPU) y con 10⁶ (un núcleo); una marca señala el espacio de RUT de personas.</p>
+          <ul>
+          <li><strong>Espacio que prueba el atacante</strong>: un espacio mayor desplaza el punto a la derecha y sube el tiempo; aun así los RUT de personas caben en tiempos alcanzables.</li>
+          <li><strong>hash con clave secreta (HMAC)</strong>: activada, el ataque ya no recupera el RUT porque falta la clave.</li>
+          <li><strong>Atacar</strong>: muestra el resultado concreto de la búsqueda sobre el RUT elegido.</li>
+          </ul>`,
         montar: montarFuerzaBruta,
       },
     ],

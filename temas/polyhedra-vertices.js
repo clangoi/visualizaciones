@@ -487,20 +487,48 @@
       Es la forma de toda región factible de un LP. Sus «esquinas» son los <strong>vértices</strong>, y los segmentos que unen vértices vecinos son las <strong>aristas</strong>.</p>
       <p>Tres hechos guían todo el tema: más restricciones no siempre dan más vértices (algunas son redundantes), un poliedro puede ser no acotado (y entonces tiene
       semirrectas además de aristas), y el número de vértices puede crecer muy rápido con la dimensión, aunque en el plano nunca supera el de restricciones.</p>`,
+    parametros: [
+      ['Restricciones iniciales (Fig. 1)', String.raw`El conjunto de partida de restricciones. Define qué región se forma antes de agregar o quitar.`],
+      ['Incluir x₁, x₂ ≥ 0 (Fig. 1)', String.raw`Incluye o quita los límites de no negatividad. Sin ellos la región puede abrirse hacia otros lados.`],
+      ['Nuevas restricciones, Quitar la última y Quitar todas (Fig. 1)', String.raw`Sortean otro conjunto, eliminan la última agregada o dejan solo el plano.`],
+      ['Corte 1, Corte 2… (Fig. 2)', String.raw`Activan o desactivan cada plano que corta el sólido. Cada corte quita un trozo y cambia vértices, aristas y caras.`],
+      ['b del corte 1 (Fig. 2)', String.raw`Posición del primer corte. Con b = 6 aparecen vértices degenerados, donde se anulan más de tres restricciones.`],
+      ['Giro e Inclinación (Fig. 2)', String.raw`El ángulo de vista del sólido; no cambian el poliedro.`],
+      ['Resaltar cara (Fig. 2)', String.raw`Colorea una cara para ver qué vértices y aristas la forman.`],
+      ['Ángulo de la normal de R (Fig. 3)', String.raw`Orientación de la restricción móvil R. Cambia cuánto se abre el poliedro y qué direcciones extremas tiene.`],
+      ['Dirección del objetivo c (Fig. 3)', String.raw`Dirección en que se mejora el objetivo. El problema es no acotado si c tiene componente positiva en alguna dirección extrema.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Edite las restricciones y cuente',
         descripcion: 'Haga clic para agregar restricciones y quitarlas con los botones; observe cuáles son redundantes y que, en un politopo plano, vértices y aristas son siempre iguales en número.',
+        ayuda: String.raw`<p>El eje horizontal es x₁ y el vertical x₂. La región factible es el poliedro; sus vértices se marcan y las restricciones se distinguen entre las que forman una arista y las redundantes. Las aristas no acotadas se señalan con su dirección.</p>
+          <ul>
+          <li><strong>Incluir x₁, x₂ ≥ 0</strong>: agrega dos aristas y puede acotar la región.</li>
+          <li><strong>Quitar la última</strong>: una restricción redundante no cambia la región.</li>
+          <li>En un politopo plano, vértices y aristas son siempre iguales en número.</li>
+          </ul>`,
         montar: montarEditar,
       },
       {
         titulo: 'Un poliedro en 3-D',
         descripcion: 'Gire el cubo, active cortes y compruebe la fórmula de Euler \\(V - E + F = 2\\); con el corte 1 en b = 6 aparecen vértices degenerados, donde se anulan más de tres restricciones.',
+        ayuda: String.raw`<p>Es un sólido 3-D con vértices (3 restricciones activas), vértices degenerados (más de 3), aristas, más claras cuanto más lejos, y la cara resaltada. Se cumple \(V - E + F = 2\).</p>
+          <ul>
+          <li><strong>Cortes</strong>: cada uno agrega una cara y cambia V, E y F.</li>
+          <li><strong>b del corte 1</strong>: con b = 6 se forman vértices degenerados.</li>
+          <li><strong>Giro</strong> e <strong>Inclinación</strong> sólo giran la vista.</li>
+          </ul>`,
         montar: montarSolido,
       },
       {
         titulo: 'Regiones no acotadas y direcciones',
         descripcion: 'Gire la restricción móvil y observe cómo el politopo se abre y gana direcciones extremas; después gire c y busque cuándo el objetivo deja de estar acotado.',
+        ayuda: String.raw`<p>Se dibujan la restricción móvil R (por el punto (3, 2)), las cotas x₁ ≥ 0 y x₂ ≥ 0, la región factible, las direcciones extremas d, el objetivo c y el óptimo de max c·x.</p>
+          <ul>
+          <li><strong>Ángulo de la normal de R</strong>: cuando la región se abre, aparecen direcciones extremas d.</li>
+          <li><strong>Dirección del objetivo c</strong>: si c·d &gt; 0 para alguna d, no hay óptimo finito.</li>
+          </ul>`,
         montar: montarNoAcotado,
       },
     ],

@@ -230,15 +230,34 @@
     intro: String.raw`
       <p>La <strong>IA generativa</strong> produce contenido nuevo (texto, código, imágenes) a partir de lo que aprendió de enormes cantidades de ejemplos. En las organizaciones ya se usa para redactar correos, resumir reuniones, escribir código, atender clientes y preparar borradores de informes. Su promesa es productividad: pasar de una hoja en blanco a un borrador en segundos.</p>
       <p>Su costo oculto es la <strong>verificación</strong>. Un modelo de lenguaje elige la palabra más plausible, no la más verdadera, y por eso puede escribir con total seguridad algo falso (una <em>alucinación</em>). Cuanto más caro sea un error, más tiempo hay que gastar revisando, y el ahorro se reduce. Estas figuras muestran ese intercambio y un modelo de lenguaje diminuto que permite ver de dónde sale.</p>`,
+    parametros: [
+      ['Verificación humana de cada resultado (Fig. 1)', String.raw`Qué fracción de las salidas del modelo revisa una persona. Más verificación atrapa más errores inventados, pero resta tiempo ahorrado.`],
+      ['Tendencia del modelo a inventar (Fig. 1)', String.raw`Qué tan frecuentemente el modelo produce contenido falso con apariencia plausible. Escala la pérdida esperada de todos los casos.`],
+      ['Pérdida tolerable por tarea (Fig. 1)', String.raw`El límite de pérdida que la organización acepta. Los casos por encima de él requieren más control.`],
+      ['Palabras de contexto (Fig. 2)', String.raw`Cuántas palabras anteriores mira el modelo para elegir la siguiente (0, 1 o 2). Más contexto da frases más coherentes pero más copiadas del corpus.`],
+      ['Temperatura (azar al elegir) (Fig. 2)', String.raw`Qué tanto se favorece la palabra más probable. Baja repite lo más frecuente; alta da más variedad y más riesgo de incoherencia.`],
+      ['Otra oración (Fig. 2)', String.raw`Genera una nueva oración con los mismos ajustes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Productividad frente a riesgo',
         descripcion: 'Suba la verificación humana y vea cómo cada caso se mueve hacia menos riesgo y menos tiempo ahorrado. Pruebe bajar la pérdida tolerable: los casos de alto impacto, como la opinión legal, dejan de ser viables aunque ahorren tiempo.',
+        ayuda: String.raw`<p>Cada caso de uso es un punto: eje horizontal, tiempo ahorrado por tarea; eje vertical, pérdida esperada por errores no detectados. Una línea marca la pérdida tolerable y cada caso muestra su trayectoria al variar la verificación de 0 a 100 %.</p>
+          <ul>
+          <li><strong>Verificación humana</strong> más alta: los puntos se mueven hacia la izquierda (menos tiempo ahorrado) y hacia abajo (menos pérdida).</li>
+          <li><strong>Tendencia del modelo a inventar</strong> alta: los puntos suben y más casos superan la línea de pérdida tolerable.</li>
+          <li><strong>Pérdida tolerable</strong> baja: la línea desciende y los casos de alto impacto dejan de ser aceptables sin verificación.</li>
+          </ul>`,
         montar: montarRiesgo,
       },
       {
         titulo: 'Un modelo de lenguaje en miniatura',
         descripcion: 'Genere una oración palabra por palabra con 0, 1 o 2 palabras de contexto y observe las probabilidades de cada paso. Con un contexto la oración suena bien pero puede ser nueva (fichas rojas); con dos copia el corpus (fichas verdes).',
+        ayuda: String.raw`<p>Se muestra la generación palabra por palabra: la palabra elegida y otras candidatas con su probabilidad en cada paso. Las fichas son tríos de palabras: unas existen en el corpus y otras son combinaciones nuevas que nadie escribió.</p>
+          <ul>
+          <li><strong>Palabras de contexto</strong>: con más contexto, las candidatas se reducen y aumentan las fichas copiadas del corpus.</li>
+          <li><strong>Temperatura</strong> alta: se eligen con más frecuencia candidatas poco probables y aparecen más fichas nuevas.</li>
+          </ul>`,
         montar: montarGenerar,
       },
     ],

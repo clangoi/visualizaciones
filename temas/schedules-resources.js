@@ -336,20 +336,42 @@
       <strong>holgura</strong> y cuándo termina el proyecto. Así un gerente sabe dónde vale la pena concentrar su atención y dinero.</p>
       <p>Pero el cronograma calculado supone gente infinita. En la práctica, las mismas personas están pedidas por varias actividades en la misma semana: hay <strong>sobreasignación</strong>. Nivelar los recursos
       desplaza actividades con holgura y, si no alcanza, alarga el proyecto.</p>`,
+    parametros: [
+      ['Actividad y Duración de la actividad elegida (Fig. 1)', String.raw`Qué actividad de la red se modifica y cuánto dura. Cambiarla mueve las fechas de las que dependen de ella.`],
+      ['Restablecer duraciones y Restablecer (Fig. 1 y 2)', String.raw`Devuelven las duraciones al plan original.`],
+      ['Actividad y Cambio de duración (Fig. 2)', String.raw`Cuál actividad se acelera o retrasa y por cuántas semanas. Muestra si el fin del proyecto se mueve.`],
+      ['Personas disponibles (Fig. 3)', String.raw`La capacidad de recursos por semana. Con menos personas hay semanas sobreasignadas que obligan a desplazar actividades.`],
+      ['Regla de prioridad (Fig. 3)', String.raw`Qué actividad pasa primero cuando hay más trabajo que personas: menor holgura, más larga u orden de la lista.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Red de actividades y ruta crítica',
         descripcion: 'Recorra el pase hacia adelante y el pase hacia atrás. Luego haga clic en una actividad no crítica y alárguela: no pasa nada hasta que consuma toda su holgura. Alargue una crítica y el proyecto se alarga igual.',
+        ayuda: String.raw`<p>Cada nodo es una actividad con sus fechas tempranas y tardías y su holgura. Destaca la actividad que se calcula ahora y la ruta crítica (holgura 0); las flechas son dependencias.</p>
+          <ul>
+          <li><strong>Duración</strong> de una actividad crítica: alarga el proyecto entero.</li>
+          <li><strong>Duración</strong> de una actividad con holgura: no cambia el fin hasta que consume toda su holgura.</li>
+          </ul>`,
         montar: montarRed,
       },
       {
         titulo: 'Gantt, holgura y aceleración',
         descripcion: 'Acelere la integración (E) en una semana y luego en dos: ahorra una, pero no dos, porque aparece otra ruta crítica. Retrase la capacitación (H) hasta 9 semanas sin mover el fin.',
+        ayuda: String.raw`<p>Diagrama de Gantt: cada barra es una actividad, crítica o con holgura, con la holgura disponible dibujada y marcas del fin original y el fin nuevo.</p>
+          <ul>
+          <li><strong>Cambio de duración</strong> negativo en una actividad crítica: el fin se adelanta solo hasta que aparece otra ruta crítica.</li>
+          <li><strong>Cambio de duración</strong> positivo en una con holgura: la barra consume holgura y el fin no se mueve hasta agotarla.</li>
+          </ul>`,
         montar: montarGantt,
       },
       {
         titulo: 'Sobreasignación y nivelación',
         descripcion: 'Con 8 personas nadie espera; baje a 5 y observe qué actividades se desplazan sin atrasar el fin; baje a 4 o 3 y vea cómo el proyecto se alarga. Compare las reglas de prioridad.',
+        ayuda: String.raw`<p>Arriba, las actividades en el tiempo, en su inicio temprano o desplazadas, con el inicio temprano sin nivelar como referencia. Abajo, las personas necesarias por semana frente a la capacidad; las semanas sobreasignadas se resaltan.</p>
+          <ul>
+          <li><strong>Personas disponibles</strong> bajas: más semanas sobreasignadas, más actividades desplazadas y, si faltan mucho, un fin más tardío.</li>
+          <li><strong>Regla de prioridad</strong>: cambia cuál actividad se desplaza y, con ello, si el fin del proyecto se atrasa.</li>
+          </ul>`,
         montar: montarNivelacion,
       },
     ],

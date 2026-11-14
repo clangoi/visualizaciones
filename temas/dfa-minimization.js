@@ -160,15 +160,30 @@
     intro: String.raw`
       <p>Un mismo lenguaje tiene muchos autómatas, pero entre los deterministas hay <strong>uno solo que es el más pequeño</strong>, salvo el nombre de los estados. Se obtiene eliminando los estados inalcanzables y fusionando los que son <em>equivalentes</em>: los que ninguna palabra puede distinguir.</p>
       <p>Dos algoritmos clásicos lo calculan: el de <em>refinamiento de particiones</em> (Moore), que empieza con todos juntos y va separando, y el de la <em>tabla de pares</em>, que marca los pares distinguibles.</p>`,
+    parametros: [
+      ['Autómata (Fig. 1 y 2)', String.raw`El AFD que se minimiza. Los estados equivalentes se fusionarán.`],
+      ['Mi expresión (Fig. 1 y 2)', String.raw`Una expresión propia para generar el AFD en lugar de uno de los ejemplos.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso es una ronda de refinamiento de la partición; Reiniciar vuelve a la ronda 0.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Refinar la partición',
         descripcion: 'Avance ronda a ronda: cada color es una clase. Al estabilizarse, las clases son los estados del autómata mínimo que aparece a la derecha. Pruebe sus propias expresiones.',
+        ayuda: String.raw`<p>El AFD con cada estado coloreado según su clase en la partición actual; los estados inalcanzables se marcan aparte y se eliminan primero. Al estabilizarse, cada clase es un estado del autómata mínimo que aparece a la derecha.</p>
+          <ul>
+          <li><strong>Ronda siguiente</strong>: una clase se divide si sus estados van a clases distintas con algún símbolo.</li>
+          <li><strong>Autómata / Mi expresión</strong>: menos colores al final que estados al principio significa que había estados equivalentes.</li>
+          </ul>`,
         montar: montarParticion,
       },
       {
         titulo: 'Tabla de pares distinguibles',
         descripcion: 'Cada celda marca un par de estados con la palabra más corta que los separa; los que quedan sin marcar son equivalentes. Observe cómo la palabra crece ronda a ronda.',
+        ayuda: String.raw`<p>Tabla de pares de estados. Un par distinguible muestra la palabra más corta que los separa; los pares sin marca son equivalentes y se fusionan.</p>
+          <ul>
+          <li><strong>Ronda</strong>: la palabra testigo crece a medida que avanzan las rondas.</li>
+          <li><strong>Autómata / Mi expresión</strong>: los pares sin marcar al terminar son los estados que se fusionan.</li>
+          </ul>`,
         montar: montarTabla,
       },
     ],

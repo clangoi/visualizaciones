@@ -266,20 +266,46 @@
     intro: String.raw`
       <p>Una <strong>plataforma digital</strong> conecta a dos o más grupos que se necesitan entre sí: conductores y pasajeros, vendedores y compradores, desarrolladores y usuarios. Su valor no está solo en el producto, sino en <strong>quién más participa</strong>: es lo que se llama <strong>efecto de red</strong>. Un teléfono vale más cuantos más teléfonos existan; una aplicación de transporte vale más con más conductores y más pasajeros.</p>
       <p>Esto genera un problema de arranque (¿quién llega primero?) y una dinámica de «el ganador se lleva casi todo». Hay una <strong>masa crítica</strong> bajo la cual la plataforma se apaga y sobre la cual crece sola. Las figuras muestran el valor de la red, cómo crece una plataforma de dos lados y dónde está esa frontera.</p>`,
+    parametros: [
+      ['Usuarios de la red (n) (Fig. 1)', String.raw`El tamaño de la red. Es el eje horizontal y fija en qué punto se leen los valores.`],
+      ['Valor mensual de cada conexión (Fig. 1)', String.raw`Lo que vale al mes cada conexión entre dos usuarios. Escala las curvas de valor de la red.`],
+      ['Costo mensual de cada usuario (Fig. 1)', String.raw`Lo que cuesta atender a cada usuario. Determina la recta de costo y dónde el valor la supera.`],
+      ['Conductores iniciales (lado A) y Pasajeros iniciales (lado B) (Fig. 2)', String.raw`Cuántos participantes de cada lado hay al comienzo. Si quedan bajo la masa crítica, la plataforma se apaga.`],
+      ['Efecto entre lados (β), Efecto dentro del lado (γ), Fricción para unirse (θ) y Subsidio al lado A (Fig. 2 y 3)', String.raw`β es cuánto atrae cada lado al otro, γ cuánto influye un lado sobre sí mismo, θ lo difícil de sumarse y el subsidio abarata la entrada del lado A. Juntos fijan dónde está la masa crítica.`],
+      ['Reproductor (Fig. 2 y 3)', String.raw`Avanza la simulación mes a mes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El valor de una red según su tamaño',
         descripcion: 'Mueva n y compare cómo crece el valor con la ley de Metcalfe, con una regla más conservadora y sin efecto de red. Cambie el costo por usuario y observe cómo se desplaza la masa crítica donde el valor supera al costo.',
+        ayuda: String.raw`<p>Eje horizontal: usuarios n; eje vertical: valor o costo al mes. Hay curvas de valor (Metcalfe, Odlyzko y sin efecto de red), la recta de costo total y una marca en el n elegido. El segundo panel dibuja n usuarios y sus conexiones posibles.</p>
+          <ul>
+          <li><strong>Usuarios de la red (n)</strong>: mueve la marca y agrega puntos y líneas en el segundo panel; las conexiones crecen mucho más rápido que los usuarios.</li>
+          <li><strong>Costo mensual de cada usuario</strong>: sube la recta de costo y desplaza el cruce con la curva de valor, que es la masa crítica.</li>
+          <li><strong>Valor mensual de cada conexión</strong>: sube las curvas de valor y la masa crítica baja.</li>
+          </ul>`,
         montar: montarValor,
       },
       {
         titulo: 'Crecimiento de una plataforma de dos lados',
         descripcion: 'Reproduzca 60 meses de adopción. Con los valores iniciales la plataforma se apaga; suba los usuarios iniciales, el efecto entre lados o el subsidio al lado A hasta que despegue y mire cuándo.',
+        ayuda: String.raw`<p>Eje horizontal: mes; eje vertical: participación. Una curva es el lado A (de 1.000 conductores posibles) y la otra el lado B (de 20.000 pasajeros posibles), con la masa crítica sobre la diagonal.</p>
+          <ul>
+          <li><strong>Conductores iniciales</strong> y <strong>Pasajeros iniciales</strong> altos: las curvas arrancan sobre la masa crítica y suben; bajos, caen a cero.</li>
+          <li><strong>Efecto entre lados (β)</strong> mayor: cada lado atrae más al otro y la plataforma despega con arranques menores.</li>
+          <li><strong>Subsidio al lado A</strong>: adelanta ese lado y puede arrastrar al otro lado.</li>
+          </ul>`,
         montar: montarCrecimiento,
       },
       {
         titulo: 'Plano de fases: dónde está la masa crítica',
         descripcion: 'Haga clic en distintos puntos del plano para ver adónde lleva cada arranque. La zona verde despega y la roja se apaga; con subsidio la frontera se mueve a favor del lado subsidiado.',
+        ayuda: String.raw`<p>Plano de fases: eje horizontal, participación del lado A; eje vertical, participación del lado B. Una región termina con la plataforma masiva y otra termina apagada; las flechas muestran hacia dónde empuja el modelo y una trayectoria sale del punto elegido.</p>
+          <ul>
+          <li><strong>Fricción para unirse (θ)</strong> alta: la región que termina apagada crece.</li>
+          <li><strong>Subsidio al lado A</strong>: la frontera entre regiones se mueve a favor del lado subsidiado.</li>
+          <li><strong>Efecto entre lados (β)</strong> mayor: la región de despegue crece.</li>
+          </ul>`,
         montar: montarFases,
       },
     ],

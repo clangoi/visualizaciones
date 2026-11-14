@@ -294,15 +294,34 @@
       <p>Un <strong>reporte</strong> entrega las cifras completas, ordenadas en tablas; un <strong>tablero</strong> (<em>dashboard</em>) selecciona pocos indicadores y los dibuja para que se entiendan de un vistazo y
       se puedan explorar con filtros. Ninguno es mejor en general: depende de quién lee y qué pregunta tiene. La gerencia general necesita tres cifras y una tendencia; quien opera ventas, el detalle del último mes.</p>
       <p>Diseñar bien es decidir qué mostrar a cada nivel, qué gráfico responde cada pregunta y cómo se conectan los filtros para que un clic en una región actualice todo el tablero.</p>`,
+    parametros: [
+      ['Nivel del lector (Fig. 1)', String.raw`Perfil de quien consulta. Cambia cuántas cifras debe leer para llegar a una conclusión.`],
+      ['Vista (Fig. 1)', String.raw`Tablero con gráficos o reporte tabular con las mismas cifras.`],
+      ['Región y Producto (Fig. 1)', String.raw`Filtros que limitan todas las cifras a una región o producto. También se filtra con clic en el gráfico.`],
+      ['Limpiar filtros y Nuevos datos (Fig. 1)', String.raw`Quitan los filtros o generan otros datos.`],
+      ['Pregunta del gerente (Fig. 2)', String.raw`Tipo de pregunta: tendencia, comparación, composición, relación, etc.`],
+      ['Gráfico elegido (Fig. 2)', String.raw`Tipo de gráfico con que se dibujan los datos. La figura muestra si responde bien la pregunta.`],
+      ['Probar el gráfico recomendado (Fig. 2)', String.raw`Elige el gráfico más adecuado a la pregunta.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tablero frente a reporte tabular',
         descripcion: 'Cambie el nivel del lector y compare cuántas cifras debe leer en el tablero y en el reporte. En el tablero haga clic en una región: todo se filtra a la vez.',
+        ayuda: String.raw`<p>Gráficos de ingreso por trimestre, ingreso mensual y unidades de los últimos seis meses (o la tabla equivalente). La leyenda distingue el valor mostrado del resto cuando hay un filtro por clic.</p>
+          <ul>
+          <li><strong>Vista</strong> tabular: la misma información aparece como cifras, que hay que leer una por una.</li>
+          <li><strong>Región</strong> y <strong>Producto</strong>: todos los gráficos se recalculan para esa selección.</li>
+          </ul>`,
         montar: montarTablero,
       },
       {
         titulo: 'Qué gráfico para qué pregunta',
         descripcion: 'Para cada pregunta, pruebe gráficos distintos con los mismos datos. Intente una torta con 24 meses, o líneas para comparar regiones, y vea qué se pierde.',
+        ayuda: String.raw`<p>Los mismos datos de ventas dibujados con el gráfico elegido: líneas o barras por mes, dispersión de unidades e ingreso por venta, o histograma de ingreso por venta.</p>
+          <ul>
+          <li><strong>Pregunta del gerente</strong>: cambia lo que se debe ver.</li>
+          <li><strong>Gráfico elegido</strong>: si no encaja con la pregunta (p. ej. una torta con 24 meses con colores repetidos), el dibujo oculta lo que se pregunta.</li>
+          </ul>`,
         montar: montarElegir,
       },
     ],

@@ -316,15 +316,36 @@
       <p>Es el ejemplo más limpio de cómo traducir un problema real a un modelo: las <em>variables</em> son cantidades de alimento, cada
       requisito nutricional es una <em>restricción lineal</em> y el costo total es la <em>función objetivo</em>. En la solución óptima unas
       pocas restricciones quedan exactas (<em>activas</em>) y el resto sobra.</p>`,
+    parametros: [
+      ['Requisitos mínimos y máximos (Fig. 1)', String.raw`Energía mínima y máxima, proteína, calcio, vitamina C y fibra mínimas. Subir un requisito obliga a elegir alimentos que lo aporten, y el costo de la dieta sube.`],
+      ['Máx. raciones por alimento (Fig. 1)', String.raw`El tope de raciones diarias de cada alimento. Bajarlo fuerza a diversificar la dieta.`],
+      ['Casillas de alimentos (Fig. 1)', String.raw`Incluir o excluir cada alimento. Excluir uno obliga a cubrir sus nutrientes con otros, normalmente a mayor costo.`],
+      ['Restablecer requisitos (Fig. 1)', String.raw`Devuelve todos los requisitos a sus valores iniciales.`],
+      ['Alimento A (horizontal) y Alimento B (vertical) (Fig. 2)', String.raw`Los dos alimentos que se grafican en el plano: sus raciones son los ejes.`],
+      ['Precio de A y Precio de B (Fig. 2)', String.raw`El costo por ración. Define la pendiente de las rectas de igual costo y cuál vértice resulta el más barato.`],
+      ['Ir al óptimo (Fig. 2)', String.raw`Coloca su dieta en la óptima.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La dieta de costo mínimo',
         descripcion: 'Suba el requisito de calcio o de vitamina C y observe qué alimentos entran; excluya la leche o las lentejas y compare. La tabla muestra qué restricciones son activas y su precio sombra. Pruebe una energía mínima mayor que la máxima para obtener un problema infactible.',
+        ayuda: String.raw`<p>Cada barra es el número de raciones por día de un alimento en la dieta óptima. Los alimentos excluidos se señalan aparte y una marca indica el tope de raciones. Una tabla muestra las restricciones activas y su precio sombra.</p>
+          <ul>
+          <li><strong>Calcio mínimo</strong> o <strong>Vitamina C mínima</strong>: al subirlos entran alimentos que aportan ese nutriente.</li>
+          <li><strong>Máx. raciones</strong>: si una barra toca el tope, ese límite está frenando el costo mínimo.</li>
+          <li><strong>Casillas</strong>: los alimentos desmarcados dejan de aparecer.</li>
+          </ul>`,
         montar: montarDieta,
       },
       {
         titulo: 'Dos alimentos: la región factible',
         descripcion: 'Con solo dos alimentos el problema se ve en el plano. Arrastre su dieta dentro y fuera de la región sombreada, mueva el precio de B hasta que el óptimo salte a otro vértice y cambie de pareja para ver cuándo no hay solución.',
+        ayuda: String.raw`<p>Los ejes son las raciones de A y de B. La zona sombreada es la región factible, la recta es la de igual costo que pasa por su dieta y se marca la dieta óptima.</p>
+          <ul>
+          <li><strong>Precio de A</strong> y <strong>Precio de B</strong>: al subir uno, la recta se inclina y el óptimo puede saltar a otro vértice.</li>
+          <li><strong>Alimento A/B</strong>: cambia la pareja y con ella la forma de la región.</li>
+          <li><strong>Ir al óptimo</strong>: lleva su dieta al vértice de menor costo.</li>
+          </ul>`,
         montar: montarRegion,
       },
     ],

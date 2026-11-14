@@ -41,14 +41,17 @@ Reglas para que todas las páginas se vean y se comporten igual. Muchas se compr
 ```js
 VIZ.registrarTema('<id>', {
   intro: String.raw`<p>…</p>`,          // 1 o 2 párrafos: la idea, el problema que resuelve
-  visualizaciones: [{ titulo, descripcion, montar(cuerpo) }],
+  parametros: [['Tamaño n (Fig. 1)', String.raw`…`], …],  // qué se puede modificar y qué significa
+  visualizaciones: [{ titulo, descripcion, ayuda: String.raw`…`, montar(cuerpo) }],
   teoria: String.raw`<h2>…</h2> …`,     // fundamento matemático
 });
 ```
 
 - **Intro**: en palabras, sin fórmulas pesadas. Qué es, para qué sirve, cuál es la idea clave.
 - **Título de figura**: corto, sin punto final (*Kruskal paso a paso*).
-- **Descripción de figura**: una o dos frases que digan **qué mirar y qué probar** («Pruebe datos ya ordenados…»).
+- **Parámetros** ✓: un par `[nombre, explicación]` por control (o grupo de controles afines), con las figuras donde aparece entre paréntesis. Explique qué representa el parámetro y qué significa cambiarlo, no cómo se mueve el control. `tema.js` lo muestra al final de la intro bajo «Parámetros que puede modificar».
+- **Descripción de figura**: una o dos frases que digan **qué se está mostrando**, qué mirar y qué probar («Pruebe datos ya ordenados…»).
+- **Ayuda de figura** ✓ (`ayuda`, con `String.raw`): se despliega bajo la descripción con «¿Ayuda con lo que ves?». Un párrafo que explique qué representa cada elemento del gráfico (ejes, colores, marcas) y una lista que relacione cada control con lo que cambia en la figura y lo que ese cambio significa.
 - **Teoría**: secciones `<h2>` (aparecen en el índice de la página) y `<h3>` si hace falta. Orden habitual: definición → algoritmo en pseudocódigo → corrección (invariante o demostración) → análisis de costo → variantes y conexiones con otros temas (enlaces `tema.html?id=…`).
 - Use `<table>` para comparar costos, `<div class="recuadro">` para un teorema o advertencia, `<pre><code>` para pseudocódigo.
 
@@ -63,7 +66,7 @@ VIZ.registrarTema('<id>', {
 ## 6. Matemática
 
 - Fórmulas en línea con `\( … \)`, en bloque con `\[ … \]` ✓ (no `$…$`).
-- `intro` y `teoria` siempre con `String.raw\`…\`` ✓, para que las barras invertidas lleguen intactas a KaTeX. Dentro, no escriba `${` salvo para interpolar a propósito.
+- `intro`, `teoria`, `ayuda` y los textos de `parametros` siempre con `String.raw\`…\`` ✓, para que las barras invertidas lleguen intactas a KaTeX. Dentro, no escriba `${` salvo para interpolar a propósito.
 - En la `descripcion` (cadena normal) las barras se duplican: `'\\(O(n \\log n)\\)'`.
 - Escriba `<`, `>` y `&` como `&lt;`, `&gt;` y `&amp;` (también dentro de fórmulas y de `<pre>`), porque el texto pasa por `innerHTML`.
 - Notación: `\Theta`, `O`, `\Omega`; `\log_2`; `\lfloor \rfloor`, `\lceil \rceil`; `\mathbb{E}`; palabras dentro de fórmulas con `\text{…}`.
@@ -157,7 +160,7 @@ npm run verificar                # todo el sitio
 npm run verificar -- bst avl     # solo algunos temas
 ```
 
-Revisa: catálogo ↔ archivos, ids, glifos, colores fuera de la paleta, `String.raw`, delimitadores de fórmulas, sincronía entre CSS y `VIZ.color`; y en el navegador, que cada tema cargue sin errores, tenga el número de figuras del catálogo, que sus fórmulas rendericen, que todos sus botones funcionen, que tenga leyendas y que no desborde a 390 px.
+Revisa: catálogo ↔ archivos, ids, que cada tema tenga `parametros` y cada figura `ayuda`, glifos, colores fuera de la paleta, `String.raw`, delimitadores de fórmulas, sincronía entre CSS y `VIZ.color`; y en el navegador, que cada tema cargue sin errores, tenga el número de figuras del catálogo, que sus fórmulas rendericen, que todos sus botones funcionen, que tenga leyendas y que no desborde a 390 px.
 
 Lo que no se puede automatizar: **mire la página**. A 1300 px y a 390 px, sin etiquetas que choquen, con los textos legibles, y que lo que dice la descripción realmente se vea al probarlo.
 

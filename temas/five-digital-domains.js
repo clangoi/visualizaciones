@@ -299,20 +299,42 @@
     intro: String.raw`
       <p>Según David Rogers, la transformación digital no consiste en comprar tecnología, sino en cambiar cinco <strong>dominios</strong> de la estrategia: <strong>clientes</strong>, <strong>competencia</strong>, <strong>datos</strong>, <strong>innovación</strong> y <strong>valor</strong>. En cada uno hay un supuesto heredado de la era industrial que la tecnología digital deja sin sustento: los clientes ya no son una masa que recibe mensajes, sino una red que conversa; la competencia no es solo el sector, sino un ecosistema; los datos dejan de ser un subproducto para ser un activo; la innovación pasa de grandes proyectos a experimentos rápidos; y el valor deja de ser fijo.</p>
       <p>Las figuras permiten evaluar una organización en un radar de madurez, ver cómo cambia cada supuesto y comprobar por qué el equilibrio entre dominios pesa tanto como el nivel de cada uno.</p>`,
+    parametros: [
+      ['Organización de partida (Fig. 1)', String.raw`El perfil de madurez con que arranca el radar: banco tradicional, retailer con tienda en línea, empresa nativa digital o pyme manufacturera. Cada uno tiene una forma distinta de fortalezas y rezagos.`],
+      ['Nivel meta (Fig. 1)', String.raw`El nivel de madurez (de 1 a 5) al que se quiere llegar en todos los dominios. Define la brecha entre lo que se tiene y lo que se busca.`],
+      ['Dominio y Avance de la transformación (Fig. 2)', String.raw`El dominio elige cuál de los cinco supuestos se examina; el avance, qué parte del cambio de supuesto tradicional a digital ya ocurrió (0 a 100 %).`],
+      ['Esfuerzo en cada dominio (Fig. 3)', String.raw`Cuánto del esfuerzo de cada trimestre se invierte en clientes, competencia, datos, innovación y valor. Importa la proporción entre ellos.`],
+      ['Equilibrado, Todo en datos, Todo en innovación y reproductor (Fig. 3)', String.raw`Los botones fijan repartos de ejemplo y el reproductor avanza los 16 trimestres para ver su efecto.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Radar de madurez digital',
         descripcion: 'Arrastre los vértices del polígono para evaluar cada dominio de 0 a 5 y compare con la meta. Cambie de organización de partida: una empresa nativa digital y una pyme manufacturera tienen formas muy distintas.',
+        ayuda: String.raw`<p>Radar de cinco ejes, uno por dominio (clientes, competencia, datos, innovación y valor), con madurez de 0 (inexistente) a 5 (optimizado). El polígono es el nivel actual, otro es el nivel meta y se destaca el dominio más rezagado.</p>
+          <ul>
+          <li><strong>Organización de partida</strong>: cambia la forma del polígono; la pyme queda cerca del centro y la empresa nativa digital cerca del borde.</li>
+          <li><strong>Nivel meta</strong>: agranda o encoge el polígono de referencia y muestra cuánto falta en cada eje.</li>
+          </ul>`,
         montar: montarRadar,
       },
       {
         titulo: 'Los supuestos que cambian',
         descripcion: 'Elija un dominio y mueva el avance de 0 a 100 % para ver cómo se reemplaza el supuesto tradicional por el digital. Observe qué se desvanece (las flechas de difusión masiva, la frontera del sector) y qué aparece (la red, las alianzas).',
+        ayuda: String.raw`<p>Compara el supuesto tradicional con el digital del dominio elegido, con elementos como clientes, mensajes de la empresa, conexiones entre clientes, rivales, aliados, datos usados o guardados, ciclos de trabajo y aprendizaje acumulado.</p>
+          <ul>
+          <li><strong>Dominio</strong>: cambia la escena que se dibuja, por ejemplo clientes como masa frente a clientes como red.</li>
+          <li><strong>Avance de la transformación</strong>: a medida que crece, los elementos del supuesto tradicional (difusión masiva, frontera del sector) se desvanecen y aparecen los digitales.</li>
+          </ul>`,
         montar: montarSupuestos,
       },
       {
         titulo: 'Invertir en equilibrio',
         descripcion: 'Reparta el esfuerzo entre los cinco dominios y reproduzca 16 trimestres. Compare «Todo en datos» y «Todo en innovación» con el reparto equilibrado: la media geométrica, que mide el valor, premia el equilibrio.',
+        ayuda: String.raw`<p>Eje horizontal: trimestre; eje vertical: nivel de madurez (0–5). Hay una curva por dominio y dos agregados: la media geométrica (que mide el valor) y la media aritmética.</p>
+          <ul>
+          <li><strong>Todo en datos</strong> o <strong>Todo en innovación</strong>: un dominio sube, los demás se estancan y la media geométrica queda muy por debajo de la aritmética.</li>
+          <li><strong>Equilibrado</strong>: los dominios avanzan juntos y las dos medias casi coinciden.</li>
+          </ul>`,
         montar: montarEquilibrio,
       },
     ],

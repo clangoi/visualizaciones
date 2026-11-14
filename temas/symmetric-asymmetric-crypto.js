@@ -101,10 +101,31 @@
       <p>Cifrar es transformar un mensaje para que solo quien tenga cierto secreto pueda leerlo. Hay dos familias. En el <strong>cifrado simétrico</strong> la <em>misma</em> clave cifra y descifra: es rápido,
       pero obliga a compartir esa clave en secreto de antemano.</p>
       <p>En el <strong>cifrado asimétrico</strong> cada persona tiene un <em>par</em> de claves: una pública (para que cualquiera le cifre mensajes) y una privada (para leerlos y para firmar). Resuelve el reparto de claves, a costa de ser mucho más lento.</p>`,
+    parametros: [
+      ['Mensaje, clave de quien cifra (Ana) y clave de quien descifra (Beto) (Fig. 1)', String.raw`El texto a proteger y las claves de ambos extremos. Solo si las dos claves coinciden Beto recupera el mensaje.`],
+      ['Primos p y q, Exponente público e (Fig. 2)', String.raw`Los dos primos generan el módulo \(n = pq\) y las claves; e es el exponente de la clave pública. Con números pequeños se pueden seguir las cuentas, pero no son seguros.`],
+      ['Mensaje, firmar y descifrar con una clave equivocada (Fig. 2)', String.raw`El texto a cifrar con la pública; firmar lo cifra con la privada (cualquiera puede verificarlo) y la clave equivocada muestra que sin la privada no se recupera.`],
+      ['Personas que se comunican (Fig. 3)', String.raw`El número de interlocutores para los que se cuentan las claves necesarias.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cifrado simétrico: una clave compartida', descripcion: 'Cifre un mensaje y descífrelo con la misma clave y con otra distinta; vea cómo cambia el resultado.', montar: montarSimetrico },
-      { titulo: 'RSA con números pequeños', descripcion: 'Elija primos y vea cómo se obtienen las claves; cifre con la pública, firme con la privada y pruebe una clave equivocada.', montar: montarRsa },
-      { titulo: 'Cuántas claves hacen falta', descripcion: 'Compare el número de claves de ambos modelos al crecer el número de personas que se comunican.', montar: montarClaves },
+      { titulo: 'Cifrado simétrico: una clave compartida', descripcion: 'Cifre un mensaje y descífrelo con la misma clave y con otra distinta; vea cómo cambia el resultado.',
+        ayuda: String.raw`<p>Se muestra el mensaje cifrado con la clave de Ana y el resultado de descifrarlo con la clave de Beto, byte a byte.</p>
+          <ul>
+          <li><strong>Clave de quien descifra (Beto)</strong> igual a la de Ana: se recupera el mensaje original.</li>
+          <li>Con una clave distinta, el resultado es texto ilegible: la misma clave sirve para cifrar y descifrar.</li>
+          </ul>`, montar: montarSimetrico },
+      { titulo: 'RSA con números pequeños', descripcion: 'Elija primos y vea cómo se obtienen las claves; cifre con la pública, firme con la privada y pruebe una clave equivocada.',
+        ayuda: String.raw`<p>Se muestran los valores de RSA (módulo, clave pública, clave privada) y el mensaje convertido en números, cifrado y descifrado.</p>
+          <ul>
+          <li><strong>Primo p</strong> y <strong>Primo q</strong>: al cambiarlos cambian \(n\) y la clave privada; la pública y la privada son un par.</li>
+          <li><strong>firmar</strong> usa la clave privada y se verifica con la pública, al revés que cifrar.</li>
+          <li><strong>descifrar con una clave equivocada</strong> da basura en lugar del mensaje.</li>
+          </ul>`, montar: montarRsa },
+      { titulo: 'Cuántas claves hacen falta', descripcion: 'Compare el número de claves de ambos modelos al crecer el número de personas que se comunican.',
+        ayuda: String.raw`<p>Eje horizontal: personas (n). Eje vertical: claves necesarias. La curva roja es el modelo simétrico (una clave por pareja, \(n(n-1)/2\)) y la azul el asimétrico (un par por persona, \(2n\)).</p>
+          <ul>
+          <li><strong>Personas que se comunican</strong> mueve los marcadores sobre las curvas: la roja crece de forma cuadrática y la azul linealmente, por eso el modelo simétrico se vuelve inmanejable.</li>
+          </ul>`, montar: montarClaves },
     ],
     teoria: String.raw`
       <h2>Simétrico</h2>

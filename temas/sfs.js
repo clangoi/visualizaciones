@@ -217,15 +217,27 @@
       <p>Cuesta del orden de \(d \cdot m\) evaluaciones en vez de las \(\binom{d}{m}\) de la
       <a href="tema.html?id=exhaustive-search">búsqueda exhaustiva</a>, y suele quedar cerca del óptimo. Falla cuando dos
       características solo sirven juntas: ninguna de las dos gana por sí sola el paso en que se decide.</p>`,
+    parametros: [
+      ['Método (Fig. 1)', String.raw`Elige entre SFS (agrega características) y SBS (quita características) como estrategia secuencial.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Regenera los datos; cambia qué características resultan mejores y su orden.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Selección secuencial paso a paso',
         descripcion: 'Las barras muestran el criterio de Fisher con cada candidata. Compare el orden en que SFS agrega características con el orden en que SBS las quita.',
+        ayuda: String.raw`<p>Eje Y: \(J\) de Fisher. Cada barra es una candidata: las ya en el subconjunto (SFS) o ya quitadas (SBS), las candidatas evaluadas, la que se evalúa y la elegida. Se muestra el registro de cada paso.</p>
+          <ul>
+          <li><strong>Método</strong>: con SFS se construye el subconjunto desde vacío; con SBS se parte de todas y se quita la que menos \(J\) pierde.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'SFS, SBS y SFFS frente al óptimo',
         descripcion: 'El valor de J alcanzado por cada método para cada número de características, comparado con el máximo exacto.',
+        ayuda: String.raw`<p>Eje X: características elegidas m; eje Y: \(J\) de Fisher. Cada curva es el valor alcanzado por el óptimo (búsqueda exhaustiva), SFS, SBS y SFFS (flotante).</p>
+          <ul>
+          <li><strong>Nuevos datos</strong>: los métodos pueden quedar por debajo del óptimo en algunos m; la brecha muestra el costo de no buscar exhaustivamente.</li>
+          </ul>`,
         montar: montarComparacion,
       },
     ],

@@ -261,15 +261,33 @@
       <em>a cuáles</em> la envía al terminar, como un XOR de conjuntos, y cada conjunto es un AND.</p>
       <p>Esto expresa de forma natural una elección inclusiva (cualquier subconjunto no vacío de ramas), algo que una red de Petri solo logra con transiciones
       silenciosas. Un registro de eventos es válido en la C-Net si se pueden asignar bindings que hagan coincidir lo que cada actividad emite con lo que otra consume.</p>`,
+    parametros: [
+      ['Modelo (Fig. 1 y 2)', String.raw`La red causal. Cada modelo tiene sus propios enlaces causales y bindings de entrada y salida, como el diamante con OR.`],
+      ['Bindings activados (Fig. 1)', String.raw`Casillas que activan o desactivan bindings de salida y de entrada. Cada binding indica qué conjunto de actividades se activa o espera como grupo; quitarlos cambia qué trazas son válidas.`],
+      ['Máx. actividades por traza (Fig. 1)', String.raw`Longitud máxima de las trazas válidas que se listan.`],
+      ['Traza a ejecutar y Otra traza válida (Fig. 2)', String.raw`La traza que se ejecuta y un atajo para cargar una válida del modelo.`],
+      ['Reproductor (Fig. 2)', String.raw`Ejecuta la traza actividad por actividad.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Bindings de entrada y de salida',
         descripcion: 'Active o desactive bindings y mire cómo cambia la lista de trazas válidas. Pruebe «Diamante con OR»; luego deje solo {b,c} en la salida de a y desmarque {b,c} en la entrada de d: no queda ninguna traza válida.',
+        ayuda: String.raw`<p>Los nodos son actividades y los enlaces causales se dibujan cuando tienen binding de salida y de entrada; los incompletos, a los que falta uno, se marcan aparte. La actividad de inicio se distingue. Debajo se listan las trazas válidas.</p>
+          <ul>
+          <li><strong>Bindings</strong>: quitar un binding de salida o de entrada puede dejar enlaces incompletos y reducir la lista de trazas válidas.</li>
+          <li>Con «Diamante con OR», dejar solo {b,c} en la salida de a y no tener {b,c} en la entrada de d deja sin trazas válidas.</li>
+          <li><strong>Máx. actividades por traza</strong>: recorta la lista.</li>
+          </ul>`,
         montar: montarBindings,
       },
       {
         titulo: 'Ejecutar una traza en la red causal',
         descripcion: 'Reproduzca una traza y siga las obligaciones pendientes. Escriba abe en el diamante: e no puede ejecutarse porque d nunca se ejecutó.',
+        ayuda: String.raw`<p>Se ejecuta la traza en la red. Un número en un enlace indica obligaciones pendientes (cuántas); la obligación que consume el paso actual se resalta, y la actividad que se ejecuta ahora lleva anillo.</p>
+          <ul>
+          <li><strong>Traza a ejecutar</strong>: en el diamante, «abe» falla en e porque d nunca se ejecutó y su obligación queda pendiente.</li>
+          <li><strong>Modelo</strong>: cambia las obligaciones que genera cada actividad.</li>
+          </ul>`,
         montar: montarEjecucion,
       },
     ],

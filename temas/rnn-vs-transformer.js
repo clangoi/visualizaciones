@@ -97,9 +97,23 @@
     intro: String.raw`
       <p>Las RNN y los Transformers resuelven el mismo problema —modelar secuencias— con ideas opuestas. La RNN lee en orden y lleva un resumen en un estado que se actualiza paso a paso. El Transformer mira todas las posiciones a la vez y deja que cada una consulte directamente a las demás.</p>
       <p>De ahí salen dos diferencias prácticas: el <strong>camino</strong> que debe recorrer la información entre dos palabras (\(n\) pasos frente a uno) y el <strong>paralelismo</strong> (la RNN es secuencial; la atención, no). El costo, a cambio, es cuadrático en el largo del texto.</p>`,
+    parametros: [
+      ['Dimensión del modelo d (Fig. 1)', String.raw`Tamaño del vector de cada palabra. Entra como \(d^2\) en el costo de la RNN y como \(d\) en la atención, por lo que cambia dónde se cruzan las curvas.`],
+      ['Escala de los pesos recurrentes de la RNN (Fig. 2)', String.raw`Magnitud de los pesos que propagan el estado entre pasos. Controla cuánto del cambio inicial sobrevive al avanzar.`],
+      ['Otros pesos (Fig. 2)', String.raw`Sortea otros pesos recurrentes.`],
+    ],
     visualizaciones: [
-      { titulo: 'Costo según el largo de la secuencia', descripcion: 'Compare operaciones, pasos secuenciales y memoria. Busque dónde la atención empieza a costar más que la RNN y cómo cambia con la dimensión d.', montar: montarCosto },
-      { titulo: 'Cuánto llega de la primera palabra a la última', descripcion: 'Aumente el largo y observe cómo se apaga la influencia en una RNN y cómo se mantiene en la atención. Cambie la escala de los pesos recurrentes.', montar: montarInfluencia },
+      { titulo: 'Costo según el largo de la secuencia', descripcion: 'Compare operaciones, pasos secuenciales y memoria. Busque dónde la atención empieza a costar más que la RNN y cómo cambia con la dimensión d.',
+        ayuda: String.raw`<p>Eje horizontal: largo de la secuencia n. Eje vertical: costo en escala logarítmica. Las curvas son: operaciones de la RNN (naranja) y de la autoatención (azul), pasos secuenciales de la RNN (gris) y memoria de pesos de la atención (verde).</p>
+          <ul>
+          <li><strong>Dimensión d</strong>: con d grande, la atención sigue costando menos que la RNN hasta secuencias más largas, porque el término \(n^2 d\) tarda en superar a \(n d^2\).</li>
+          </ul>`, montar: montarCosto },
+      { titulo: 'Cuánto llega de la primera palabra a la última', descripcion: 'Aumente el largo y observe cómo se apaga la influencia en una RNN y cómo se mantiene en la atención. Cambie la escala de los pesos recurrentes.',
+        ayuda: String.raw`<p>Eje horizontal: largo de la secuencia n. Eje vertical: influencia de la primera palabra en la última. La curva de la RNN (naranja) es el cambio que llega a través de n pasos; la de autoatención (azul), el efecto directo.</p>
+          <ul>
+          <li><strong>Escala de los pesos recurrentes</strong>: con valores bajos la curva de la RNN cae a casi cero al alargar la secuencia; con valores altos cae más despacio o crece.</li>
+          <li>La curva de autoatención no depende de este control: la palabra final consulta directamente a la primera.</li>
+          </ul>`, montar: montarInfluencia },
     ],
     teoria: String.raw`
       <h2>Comparación</h2>

@@ -5,9 +5,26 @@
     intro: String.raw`
       <p>Las políticas anteriores piden algo imposible: conocer cuánto va a durar cada trabajo. La <strong>cola multinivel con retroalimentación</strong> (MLFQ) lo aprende observando. Todo proceso nuevo entra al nivel más prioritario, que tiene el quantum más corto; si agota su quantum se le baja de nivel, y si se bloquea antes (interactivo) se queda.</p>
       <p>Resultado: los trabajos cortos e interactivos terminan en los niveles altos y los largos se hunden hacia los niveles bajos, con quantum mayor, sin que nadie declare sus ráfagas.</p>`,
+    parametros: [
+      ['Carga de trabajo (Fig. 1 y 2)', String.raw`El patrón de llegadas y ráfagas: un proceso largo primero (convoy), al azar o una tarea corta entre muchas largas. Prueba si la política separa trabajos cortos y largos.`],
+      ['Procesos (Fig. 1 y 2)', String.raw`Cuántos procesos compiten por la CPU.`],
+      ['Quantum (Fig. 1 y 2)', String.raw`Quantum del nivel superior; los niveles siguientes usan 2q y 4q. También es el quantum de Round Robin en la comparación.`],
+      ['Nuevos datos y reproductor (Fig. 1); Nuevos datos (Fig. 2)', String.raw`Generan otra muestra de la carga; el reproductor avanza una unidad de tiempo por paso.`],
+      ['Métrica (Fig. 2)', String.raw`Espera media, retorno medio o respuesta media; menor es mejor.`],
+    ],
     visualizaciones: [
-      { titulo: 'MLFQ en acción', descripcion: 'Con 3 niveles y quantum q, 2q y 4q, observe cómo el proceso largo recibe tramos cada vez más largos mientras los cortos terminan rápido. El quantum del control es el del nivel superior.', montar: (c) => VIZ.sor.figuraPlanificacion(c, { algs: [ALGS[0]], cargas: ['convoy', 'azar', 'larga'], n0: 5, q: true, q0: 1 }) },
-      { titulo: 'MLFQ frente a las demás políticas', descripcion: 'Compare las cuatro políticas con la misma carga. Pruebe «un proceso largo llega primero».', montar: (c) => VIZ.sor.figuraComparacion(c, { algs: ALGS, cargas: ['convoy', 'azar', 'larga'], n0: 6, q: true, q0: 1 }) },
+      { titulo: 'MLFQ en acción', descripcion: 'Con 3 niveles y quantum q, 2q y 4q, observe cómo el proceso largo recibe tramos cada vez más largos mientras los cortos terminan rápido. El quantum del control es el del nivel superior.',
+        ayuda: String.raw`<p>Diagrama de Gantt de MLFQ con tres niveles: una fila por proceso, franja gris desde su llegada y tramos coloreados cuando usa la CPU. Un proceso que agota su quantum baja de nivel y recibe tramos más largos pero menos frecuentes.</p>
+          <ul>
+          <li><strong>Quantum</strong>: define el turno del nivel superior; con q pequeño los cortos terminan antes de bajar de nivel.</li>
+          <li><strong>Carga de trabajo</strong> convoy: el proceso largo va bajando y no bloquea a los cortos.</li>
+          </ul>`, montar: (c) => VIZ.sor.figuraPlanificacion(c, { algs: [ALGS[0]], cargas: ['convoy', 'azar', 'larga'], n0: 5, q: true, q0: 1 }) },
+      { titulo: 'MLFQ frente a las demás políticas', descripcion: 'Compare las cuatro políticas con la misma carga. Pruebe «un proceso largo llega primero».',
+        ayuda: String.raw`<p>Una barra por política (MLFQ, Round Robin, SRTF y FCFS) con la métrica elegida sobre los mismos procesos.</p>
+          <ul>
+          <li><strong>Métrica</strong>: MLFQ se acerca a SRTF en espera sin conocer las ráfagas.</li>
+          <li><strong>Carga de trabajo</strong> convoy: FCFS empeora mucho; MLFQ y Round Robin no.</li>
+          </ul>`, montar: (c) => VIZ.sor.figuraComparacion(c, { algs: ALGS, cargas: ['convoy', 'azar', 'larga'], n0: 6, q: true, q0: 1 }) },
     ],
     teoria: String.raw`
       <h2>Reglas</h2>

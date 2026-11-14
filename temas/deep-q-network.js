@@ -94,9 +94,26 @@
     intro: String.raw`
       <p>Con unas pocas casillas, la función de valor se puede guardar en una tabla: una celda para cada par estado–acción. Pero en un videojuego, el «estado» es una imagen de miles de píxeles, y hay más estados posibles que átomos en el universo. La tabla es imposible.</p>
       <p>Una <strong>Deep Q-Network</strong> (DQN) reemplaza la tabla por una red neuronal que recibe el estado y devuelve el valor \(Q(s,a)\) de cada acción. Como la red generaliza, estados parecidos reciben valores parecidos. Se entrena para que \(Q(s,a)\) se parezca a \(r+\gamma\max_{a'}Q(s',a')\), usando solo la experiencia que el agente va acumulando.</p>`,
+    parametros: [
+      ['Tasa de aprendizaje (Fig. 1)', String.raw`Tamaño de cada ajuste de los pesos de la red. Pequeña: aprende lento pero estable; grande: rápido pero puede oscilar.`],
+      ['Otra semilla y reproductor (Fig. 1)', String.raw`Cambia la inicialización y el azar del entrenamiento; el reproductor entrena, avanza o reinicia.`],
+      ['Entrenar la red y Red nueva (Fig. 2)', String.raw`Entrenar ejecuta 150 episodios sobre la red actual; Red nueva descarta lo aprendido para volver a la predicción inicial.`],
+      ['Acción a evaluar (Fig. 2)', String.raw`La acción de la casilla elegida cuyo Q predicho se compara con su objetivo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Aprender Q con una red', descripcion: 'Entrene la DQN y compare lo que aprende con el valor óptimo calculado con el modelo. Mire cómo el retorno sube y ε baja.', montar: montarEntrenamiento },
-      { titulo: 'El objetivo de un paso', descripcion: 'Elija una casilla y una acción y compare la predicción de la red con el objetivo r + γ·máx Q(s′). Entrene y vea cómo el error TD se achica.', montar: montarObjetivo },
+      { titulo: 'Aprender Q con una red', descripcion: 'Entrene la DQN y compare lo que aprende con el valor óptimo calculado con el modelo. Mire cómo el retorno sube y ε baja.',
+        ayuda: String.raw`<p>A la izquierda, el mapa muestra para cada casilla el máximo Q(s, ·) de la red y una flecha con su acción voraz. A la derecha, la curva es el retorno por episodio (suavizado) y la línea de referencia, el valor óptimo \(V(\text{inicio})\).</p>
+          <ul>
+          <li><strong>Tasa de aprendizaje</strong>: determina qué tan rápido la curva de retorno se acerca al valor óptimo y si lo hace con oscilaciones.</li>
+          <li><strong>Otra semilla</strong>: muestra cuánto varía el aprendizaje según la inicialización.</li>
+          </ul>`, montar: montarEntrenamiento },
+      { titulo: 'El objetivo de un paso', descripcion: 'Elija una casilla y una acción y compare la predicción de la red con el objetivo r + γ·máx Q(s′). Entrene y vea cómo el error TD se achica.',
+        ayuda: String.raw`<p>Al elegir una casilla se comparan dos barras: la azul de Q(s, a) que predice la red y la del objetivo \(r + \gamma \max Q(s', \cdot)\). La diferencia es el error TD.</p>
+          <ul>
+          <li><strong>Entrenar la red</strong>: la predicción se acerca al objetivo y el error TD se achica.</li>
+          <li><strong>Red nueva</strong>: vuelve a abrirse la brecha entre predicción y objetivo.</li>
+          <li><strong>Acción a evaluar</strong>: cambia a qué par (s, a) corresponden la predicción y el objetivo.</li>
+          </ul>`, montar: montarObjetivo },
     ],
     teoria: String.raw`
       <h2>Q-learning con una red</h2>

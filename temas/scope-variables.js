@@ -87,15 +87,29 @@
     intro: String.raw`
       <p>Un cuantificador no actúa sobre toda la fórmula, sino sobre una parte: su <strong>alcance</strong>. Las apariciones de una variable dentro del alcance de un cuantificador sobre esa misma variable están <strong>ligadas</strong>; las demás son <strong>libres</strong>.</p>
       <p>Una fórmula con variables libres no es verdadera ni falsa por sí misma: depende de qué elemento se asigne a cada una. Una fórmula sin variables libres es una <strong>sentencia</strong>, y es la que realmente tiene un valor en cada interpretación.</p>`,
+    parametros: [
+      ['Fórmula y Ejemplos (Fig. 1)', String.raw`La fórmula cuyo alcance de cuantificadores se analiza. Los ejemplos cargan casos con variables libres y ligadas, con o sin paréntesis.`],
+      ['Fórmula con variables libres, Asignación de x y de y (Fig. 2)', String.raw`La fórmula a evaluar y los elementos que se asignan a sus variables libres. Una asignación distinta cambia el valor de las subfórmulas que dependen de ellas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El alcance de cada cuantificador',
         descripcion: 'Escriba fórmulas con varios cuantificadores y vea el fondo de cada alcance. Pruebe \\(\\forall x\\, P(x) \\land Q(x)\\) con y sin paréntesis, y una variable que aparece libre y ligada a la vez.',
+        ayuda: String.raw`<p>Cada cuantificador tiene un fondo que cubre su alcance, es decir, la subfórmula donde liga a su variable. Las variables fuera del alcance de un cuantificador quedan libres.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: los paréntesis alteran el alcance; \(\forall x\, P(x) \land Q(x)\) y \(\forall x\,(P(x) \land Q(x))\) cubren distinto.</li>
+          <li><strong>Ejemplos</strong>: cargan casos donde la misma letra aparece libre y ligada a la vez.</li>
+          </ul>`,
         montar: montarAlcance,
       },
       {
         titulo: 'Satisfacción bajo una asignación',
         descripcion: 'Elija una asignación para las variables libres y siga el valor de cada subfórmula en un árbol, sobre una interpretación fija.',
+        ayuda: String.raw`<p>El árbol de la fórmula se pinta con el valor de cada subfórmula: verdadera con la asignación o falsa. Una marca indica que el valor depende de una variable ligada más arriba.</p>
+          <ul>
+          <li><strong>Asignación de x / y</strong>: cambia los valores de las hojas con variables libres y puede cambiar el de la raíz.</li>
+          <li><strong>Fórmula</strong>: una variable ligada no depende de la asignación; una libre sí.</li>
+          </ul>`,
         montar: montarSatisfaccion,
       },
     ],

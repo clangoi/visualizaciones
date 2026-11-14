@@ -95,9 +95,27 @@
     intro: String.raw`
       <p>Un <strong>directorio</strong> es, por dentro, un archivo especial: una tabla de pares <em>nombre → i-nodo</em>. El <strong>i-nodo</strong> guarda todo lo demás (tamaño, permisos, dónde están los bloques de datos); el nombre no es parte del archivo, solo una forma de llegar a él.</p>
       <p>Eso explica los dos tipos de enlace: el <strong>enlace duro</strong> es otro nombre para el mismo i-nodo; el <strong>simbólico</strong> es un archivo pequeño que guarda una ruta.</p>`,
+    parametros: [
+      ['Ruta (Fig. 1)', String.raw`El nombre que se resuelve. Cada componente exige leer un directorio y un i-nodo, así que rutas más largas cuestan más lecturas.`],
+      ['Caché de directorios (ya leído /) (Fig. 1)', String.raw`Si el directorio raíz ya está en memoria, se evita esa lectura de disco.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la resolución componente por componente.`],
+      ['Botones de comandos y Reiniciar (Fig. 2)', String.raw`Crean enlaces duros o simbólicos, borran el original o leen cada enlace; Reiniciar vuelve al estado inicial.`],
+    ],
     visualizaciones: [
-      { titulo: 'Resolver una ruta', descripcion: 'Siga la resolución de una ruta absoluta componente a componente y cuente las lecturas de disco. Active la caché de directorios.', montar: montarRuta },
-      { titulo: 'Enlaces duros y simbólicos', descripcion: 'Cree los dos enlaces y borre el archivo original. Luego lea cada uno: uno sigue funcionando y el otro está roto.', montar: montarEnlaces },
+      { titulo: 'Resolver una ruta', descripcion: 'Siga la resolución de una ruta absoluta componente a componente y cuente las lecturas de disco. Active la caché de directorios.',
+        ayuda: String.raw`<p>Es una tabla de pasos: cada fila es una lectura de directorio o de i-nodo al resolver la ruta, hasta llegar al archivo. No usa colores con significado.</p>
+          <ul>
+          <li><strong>Ruta</strong>: cambia el número de filas y de lecturas de disco.</li>
+          <li><strong>Caché de directorios</strong>: quita la lectura de la raíz y baja el total en una.</li>
+          </ul>`, montar: montarRuta },
+      { titulo: 'Enlaces duros y simbólicos', descripcion: 'Cree los dos enlaces y borre el archivo original. Luego lea cada uno: uno sigue funcionando y el otro está roto.',
+        ayuda: String.raw`<p>Los nombres apuntan a i-nodos con una línea negra. El enlace simbólico apunta a un nombre con una línea naranja, y un punto rojo marca un enlace roto.</p>
+          <ul>
+          <li><strong>ln notas.txt duro.txt</strong>: agrega otro nombre que apunta al mismo i-nodo.</li>
+          <li><strong>ln -s notas.txt blando.txt</strong>: crea un nombre que solo guarda otro nombre.</li>
+          <li><strong>rm notas.txt</strong>: el duro sigue llegando al i-nodo; el simbólico queda roto.</li>
+          <li><strong>cat duro.txt</strong> y <strong>cat blando.txt</strong>: muestran en el registro si cada lectura funciona.</li>
+          </ul>`, montar: montarEnlaces },
     ],
     teoria: String.raw`
       <h2>Resolución de rutas</h2>

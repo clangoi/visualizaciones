@@ -173,15 +173,32 @@
       las variables que no interesan. Pero esa suma tiene \(2^n\) términos.</p>
       <p>La <strong>eliminación de variables</strong> reordena la suma para aprovechar la factorización de la red, y cuando ni eso alcanza,
       los métodos de <strong>muestreo</strong> estiman las probabilidades simulando la red.</p>`,
+    parametros: [
+      ['Consulta (Fig. 1)', String.raw`Cuál probabilidad se calcula: la del robo o la del terremoto dado lo observado.`],
+      ['Orden de eliminación (Fig. 1)', String.raw`Secuencia en que se suman las variables ocultas. El resultado es el mismo, pero cambia el tamaño de los factores intermedios y, por tanto, el trabajo.`],
+      ['evidencia: Juan llama y evidencia: María llama (Fig. 1)', String.raw`Qué llamadas se tratan como observadas. Fijar evidencia reduce las tablas y cambia la respuesta.`],
+      ['Evidencia (Fig. 2)', String.raw`Qué se observa: ambas llamadas (rara), solo Juan o la alarma. Cuanto más rara es la evidencia, menos muestras sirven.`],
+      ['Otra corrida (Fig. 2)', String.raw`Repite la simulación con otras muestras aleatorias.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Eliminación de variables',
         descripcion: 'El cálculo exacto de P(Robo | Juan y María llaman) como una secuencia de productos y sumas de tablas. Cambie el orden y compare el tamaño del mayor factor.',
+        ayuda: String.raw`<p>Cada paso muestra los factores como tablas: el creado en este paso, los que se multiplican y los que esperan. La tabla final da la respuesta y el registro describe cada operación.</p>
+          <ul>
+          <li><strong>Orden de eliminación</strong>: compare el tamaño del mayor factor creado en cada orden.</li>
+          <li><strong>Consulta</strong>: cambia cuál variable queda sin eliminar.</li>
+          </ul>`,
         montar: montarEliminacion,
       },
       {
         titulo: 'Inferencia por muestreo',
         descripcion: 'Dos estimadores por simulación convergiendo al valor exacto. Compare con evidencia rara y con evidencia común.',
+        ayuda: String.raw`<p>Estimación de P(robo | evidencia) (vertical) según el número de muestras (horizontal, en potencias de 10), para muestreo por rechazo y ponderación por verosimilitud, con el valor exacto como referencia.</p>
+          <ul>
+          <li><strong>Evidencia</strong> rara: el rechazo descarta casi todas las muestras y oscila más; la ponderación converge más rápido.</li>
+          <li><strong>Evidencia</strong> común: ambos estimadores se acercan pronto al valor exacto.</li>
+          </ul>`,
         montar: montarMuestreo,
       },
     ],

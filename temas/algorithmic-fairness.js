@@ -91,9 +91,26 @@
     intro: String.raw`
       <p>Un modelo entrenado con datos del pasado aprende, junto con las regularidades útiles, las desigualdades del pasado. Si en los datos un grupo fue rechazado más a menudo, el modelo reproducirá esa pauta aunque nunca se le diga a qué grupo pertenece una persona: otras variables (código postal, historial) lo delatan. A eso se le llama <strong>sesgo algorítmico</strong>.</p>
       <p>La <strong>equidad</strong> se mide con criterios que comparan el trato a los grupos: ¿se acepta la misma fracción de cada uno (paridad demográfica)?, ¿se acepta la misma fracción de los que de verdad cumplirían (igualdad de oportunidades)?, ¿son igual de confiables las aceptaciones (paridad predictiva)? Los tres no se pueden cumplir a la vez salvo en casos triviales, y elegir cuál importa es una decisión ética, no técnica.</p>`,
+    parametros: [
+      ['Sesgo de los datos: puntaje de B desplazado (Fig. 1) y Sesgo de los datos (Fig. 2)', String.raw`Cuánto subestima el puntaje del modelo al grupo B por los datos con que se entrenó. A mayor sesgo, personas igual de solventes reciben puntajes menores.`],
+      ['Diferencia real de capacidad de pago de B (Fig. 1 y 2)', String.raw`Cuánto difiere de verdad la capacidad de B respecto de A. Permite separar el sesgo del modelo de una diferencia real entre los grupos.`],
+      ['Umbral para A, Umbral para B y Mismo umbral para ambos (Fig. 1)', String.raw`El puntaje mínimo para aprobar a cada grupo. Con el mismo umbral se aplica una regla única; separarlos permite compensar el sesgo.`],
+      ['Otra población (Fig. 1)', String.raw`Genera otra muestra de solicitantes sintéticos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un umbral o uno por grupo', descripcion: 'Con el mismo umbral, compare las cuatro medidas por grupo. Luego baje el umbral de B hasta igualar las oportunidades y vea qué pasa con las otras.', montar: montarUmbrales },
-      { titulo: 'El precio de la equidad', descripcion: 'Recorra el umbral de B y observe la exactitud y la brecha. Cambie el sesgo de los datos y la diferencia real entre los grupos.', montar: montarCompromiso },
+      { titulo: 'Un umbral o uno por grupo', descripcion: 'Con el mismo umbral, compare las cuatro medidas por grupo. Luego baje el umbral de B hasta igualar las oportunidades y vea qué pasa con las otras.',
+        ayuda: String.raw`<p>Se muestran las distribuciones de puntaje de los grupos A (azul) y B (naranja) con sus umbrales, y las medidas de equidad por grupo (por ejemplo, tasa de aprobación y de oportunidades).</p>
+          <ul>
+          <li><strong>Sesgo de los datos</strong>: desplaza hacia abajo la distribución de B y reduce su tasa de aprobación con el mismo umbral.</li>
+          <li><strong>Umbral para B</strong>: al bajarlo se aprueba a más personas de B y se iguala la tasa de oportunidades, a costa de otras medidas.</li>
+          <li><strong>Diferencia real de capacidad</strong>: si es distinta de cero, igualar todas las medidas a la vez deja de ser posible.</li>
+          </ul>`, montar: montarUmbrales },
+      { titulo: 'El precio de la equidad', descripcion: 'Recorra el umbral de B y observe la exactitud y la brecha. Cambie el sesgo de los datos y la diferencia real entre los grupos.',
+        ayuda: String.raw`<p>Eje horizontal: umbral aplicado al grupo B, con A fijo en 0. Una curva es la exactitud global y otra la brecha de oportunidades \(|TPR_A - TPR_B|\); la marca indica el umbral de B con brecha mínima.</p>
+          <ul>
+          <li><strong>Sesgo de los datos</strong>: desplaza hacia la izquierda el umbral de B que anula la brecha.</li>
+          <li><strong>Diferencia real de capacidad</strong>: cambia dónde queda la exactitud máxima respecto del umbral de brecha mínima; su distancia es el precio de la equidad.</li>
+          </ul>`, montar: montarCompromiso },
     ],
     teoria: String.raw`
       <h2>Criterios</h2>

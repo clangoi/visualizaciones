@@ -104,9 +104,25 @@
     intro: String.raw`
       <p>La <strong>cobertura</strong> (<em>coverage</em>) mide qué parte del código ejecutan las pruebas: líneas, ramas de cada <code>if</code>, funciones. Una herramienta instrumenta el programa y marca en rojo lo que ninguna prueba toca.</p>
       <p>Sirve para <em>encontrar lo que no se está probando</em>. Pero no mide si las pruebas son buenas: se puede ejecutar todo el código sin comprobar nada.</p>`,
+    parametros: [
+      ['Casillas de pruebas (Fig. 1)', String.raw`Cada casilla activa una prueba de la batería. Las líneas y ramas que ejecuta se cuentan como cubiertas.`],
+      ['Las pruebas ejecutan el código pero no tienen expect() (Fig. 1)', String.raw`Quita las aserciones: el código se ejecuta igual y la cobertura no cambia, pero ninguna prueba puede ya detectar un error.`],
+      ['Cobertura buscada (Fig. 2)', String.raw`Porcentaje de líneas cubiertas que se busca como meta.`],
+      ['Calidad de las aserciones (Fig. 2)', String.raw`Si las pruebas verifican resultados (fuertes) o solo que el código no explote (débiles). Cambia cuántos defectos detecta cada punto de cobertura.`],
+    ],
     visualizaciones: [
-      { titulo: 'Qué líneas y ramas cubren las pruebas', descripcion: 'Active pruebas una a una y observe qué líneas se pintan de verde y qué ramas quedan sin cubrir. Luego quite las aserciones y vea que la cifra no cambia.', montar: montarCobertura },
-      { titulo: 'Rendimientos decrecientes', descripcion: 'Suba el objetivo de cobertura y compare el beneficio (defectos detectados) con el costo; pruebe aserciones débiles.', montar: montarRetorno },
+      { titulo: 'Qué líneas y ramas cubren las pruebas', descripcion: 'Active pruebas una a una y observe qué líneas se pintan de verde y qué ramas quedan sin cubrir. Luego quite las aserciones y vea que la cifra no cambia.',
+        ayuda: String.raw`<p>El código en una lista: las líneas ejecutadas por alguna prueba activa se pintan de verde; las ramas que ninguna recorre quedan sin cubrir.</p>
+          <ul>
+          <li><strong>Casillas de pruebas</strong>: cada prueba que se activa pinta más líneas y puede cubrir ramas nuevas; la cifra de cobertura sube.</li>
+          <li><strong>Sin expect()</strong>: la cobertura se mantiene, lo que muestra que cubrir líneas no es lo mismo que verificar su comportamiento.</li>
+          </ul>`, montar: montarCobertura },
+      { titulo: 'Rendimientos decrecientes', descripcion: 'Suba el objetivo de cobertura y compare el beneficio (defectos detectados) con el costo; pruebe aserciones débiles.',
+        ayuda: String.raw`<p>Eje horizontal: cobertura de líneas (%). Eje vertical: porcentaje del máximo. Una curva es el porcentaje de defectos detectados y otra, el costo de escribir y mantener las pruebas.</p>
+          <ul>
+          <li><strong>Cobertura buscada</strong>: hacia el final los defectos detectados casi no aumentan, mientras el costo sigue creciendo.</li>
+          <li><strong>Calidad de las aserciones</strong>: con aserciones débiles la curva de detección queda más baja y llega menos lejos con la misma cobertura.</li>
+          </ul>`, montar: montarRetorno },
     ],
     teoria: String.raw`
       <h2>Métricas</h2>

@@ -106,9 +106,29 @@
       <p>Una <strong>promesa</strong> representa un valor que todavía no existe: el resultado futuro de una operación asíncrona, como pedir datos a un servidor.
       Nace <em>pendiente</em> y termina <em>cumplida</em> (con un valor) o <em>rechazada</em> (con un error), y ya no cambia.</p>
       <p>Las promesas se encadenan con <code>.then</code>, <code>.catch</code> y <code>.finally</code>, y <code>async/await</code> es una sintaxis que las hace leerse como código secuencial. Se reemplazan así los anidados «callbacks en pirámide».</p>`,
+    parametros: [
+      ['Paso 1, 2 y 3 (Fig. 1)', String.raw`Cada uno es un paso de la cadena de promesas (leer usuario, leer pedidos, calcular total). Elegir «se rechaza» hace que esa promesa falle, y el rechazo se propaga hacia adelante saltando los <code>.then</code>.`],
+      ['Agregar .catch() y .finally() (Fig. 1)', String.raw`El <code>.catch()</code> captura el rechazo y permite continuar; sin él queda un rechazo sin capturar. El <code>.finally()</code> se ejecuta siempre, haya éxito o error.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la cadena paso a paso o sola; Reiniciar la vuelve al comienzo.`],
+      ['Petición 1, 2 y 3 (Fig. 2)', String.raw`La duración de cada petición simulada. Cambiarla modifica cuál termina primero y cuánto tarda el total según la estrategia.`],
+      ['Estrategia (Fig. 2)', String.raw`Cómo se lanzan las peticiones: una tras otra con <code>await</code>, o juntas con <code>Promise.all</code>, <code>allSettled</code> o <code>race</code>. Determina cuándo se obtiene el resultado y qué pasa si una falla.`],
+      ['La petición 2 falla (Fig. 2)', String.raw`Hace que la segunda petición termine en error, para ver cómo reacciona cada estrategia.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cadena de promesas y rechazos', descripcion: 'Haga fallar un paso y avance: vea cómo el rechazo salta los <code>.then</code> hasta el <code>.catch</code>. Quite el <code>.catch</code> y observe el rechazo sin capturar.', montar: montarCadena },
-      { titulo: 'await secuencial frente a Promise.all', descripcion: 'Compare esperar las peticiones una tras otra con lanzarlas juntas, y vea qué hace cada estrategia ante una falla.', montar: montarCombinadores },
+      { titulo: 'Cadena de promesas y rechazos', descripcion: 'Haga fallar un paso y avance: vea cómo el rechazo salta los <code>.then</code> hasta el <code>.catch</code>. Quite el <code>.catch</code> y observe el rechazo sin capturar.',
+        ayuda: String.raw`<p>Cada nodo es una promesa de la cadena y su color es su estado: pendiente, cumplida, rechazada u omitida (el <code>.then</code> que se salta por un rechazo previo).</p>
+          <ul>
+          <li><strong>Paso 1 a 3</strong>: un paso en «se rechaza» se vuelve rojo y los siguientes <code>.then</code> pasan a omitidos, porque el error viaja hasta el primer manejador.</li>
+          <li><strong>agregar .catch()</strong>: sin él, el rechazo termina sin capturar; con él, el error se maneja y la cadena sigue.</li>
+          <li><strong>agregar .finally()</strong>: aparece un nodo que se ejecuta en cualquier caso.</li>
+          </ul>`, montar: montarCadena },
+      { titulo: 'await secuencial frente a Promise.all', descripcion: 'Compare esperar las peticiones una tras otra con lanzarlas juntas, y vea qué hace cada estrategia ante una falla.',
+        ayuda: String.raw`<p>Una barra por petición sobre el eje del tiempo (ms): azul mientras está en curso, roja si falla. Una marca indica el instante en que se obtiene el resultado según la estrategia.</p>
+          <ul>
+          <li><strong>Estrategia</strong> «await una tras otra»: las barras se colocan en escalera y el total es la suma; con <code>Promise.all</code> arrancan juntas y el total es el de la más lenta.</li>
+          <li><strong>Estrategia</strong> <code>Promise.race</code>: la marca cae en cuanto termina la primera, sea éxito o fallo.</li>
+          <li><strong>La petición 2 falla</strong>: con <code>Promise.all</code> el resultado es el rechazo, mientras que <code>allSettled</code> espera a todas y las informa individualmente.</li>
+          </ul>`, montar: montarCombinadores },
     ],
     teoria: String.raw`
       <h2>Estados</h2>

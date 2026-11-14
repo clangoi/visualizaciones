@@ -76,6 +76,11 @@ for (const p of revisar) {
     const id = p.slice(6, -3);
     if (!s.includes(`VIZ.registrarTema('${id}'`)) falla(`${p}: debe llamar a VIZ.registrarTema('${id}', …)`);
     for (const campo of ['intro', 'teoria']) if (!new RegExp(`${campo}: String\\.raw\``).test(s)) falla(`${p}: «${campo}» debe escribirse con String.raw\`…\``);
+    // Cada figura lleva «ayuda» y el tema explica sus parámetros.
+    const nDesc = (s.match(/\bdescripcion:/g) || []).length;
+    const nAyuda = (s.match(/\bayuda: String\.raw`/g) || []).length;
+    if (nAyuda < nDesc) falla(`${p}: ${nDesc} figuras y solo ${nAyuda} con «ayuda» (texto de «¿Ayuda con lo que ves?»)`);
+    if (!/\bparametros:\s*\[/.test(s)) falla(`${p}: falta «parametros: [[nombre, explicación], …]»`);
     for (const m of s.matchAll(/String\.raw`([\s\S]*?)`/g)) {
       if (/\$(?!\{)/.test(m[1])) falla(`${p}: use \\( … \\) y \\[ … \\] para las fórmulas, no $…$`);
     }
@@ -133,6 +138,8 @@ async function navegador(soloIds) {
     const katex = await pagina.evaluate(() => (typeof window.katex === 'undefined' ? -1 : document.querySelectorAll('.katex-error').length));
     if (katex > 0) falla(`[${t.id}] ${katex} fórmulas con error de KaTeX`);
     if (katex < 0) aviso(`[${t.id}] KaTeX no cargó (¿sin conexión?): no se revisaron las fórmulas`);
+    const sinAyuda = await pagina.$$eval('figure.viz', (fs) => fs.filter((f) => !f.querySelector('.viz-ayuda')).length);
+    if (sinAyuda) falla(`[${t.id}] ${sinAyuda} figura(s) sin «¿Ayuda con lo que ves?»`);
     const sinLeyenda = await pagina.$$eval('figure.viz', (fs) => fs.filter((f) => f.querySelector('canvas') && !f.querySelector('.leyenda') && !f.querySelector('[data-sin-leyenda]')).length);
     if (sinLeyenda) aviso(`[${t.id}] ${sinLeyenda} figura(s) con lienzo y sin leyenda (agregue VIZ.leyenda o marque cuerpo.dataset.sinLeyenda con el motivo)`);
     // Pulsa cada botón (salvo los que inician animaciones continuas) y luego «Hasta el final».

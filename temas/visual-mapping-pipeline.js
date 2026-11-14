@@ -133,9 +133,23 @@
       <p>Una visualización no aparece de golpe: es una <strong>cadena de transformaciones</strong>. Los datos crudos se limpian y organizan, después se
       <em>asignan</em> a propiedades visuales, y al final se agregan ejes y rótulos para que la persona pueda leer la imagen.</p>
       <p>El paso decisivo es el <strong>mapeo visual</strong>: decidir qué atributo va a la posición, al tamaño, al color. La misma tabla produce imágenes muy distintas según ese reparto.</p>`,
+    parametros: [
+      ['Etapa (Fig. 1)', String.raw`El paso del proceso: datos crudos, preparados, mapeo visual o vista final. Cada etapa transforma la anterior.`],
+      ['Posición x, Posición y, Tamaño y Color (Fig. 2)', String.raw`A qué canal visual se asigna cada atributo (ingreso, esperanza de vida, población o continente). Elegir un canal es decidir cuál es más legible para cada dato.`],
+    ],
     visualizaciones: [
-      { titulo: 'De los datos crudos a la vista', descripcion: 'Recorra las cuatro etapas y observe qué cambia en cada una.', montar: montarEtapas },
-      { titulo: 'Reparto de atributos en canales', descripcion: 'Asigne ingreso, vida, población y continente a posición, tamaño y color. Pruebe repetir un atributo o poner uno cuantitativo en color.', montar: montarMapeo },
+      { titulo: 'De los datos crudos a la vista', descripcion: 'Recorra las cuatro etapas y observe qué cambia en cada una.',
+        ayuda: String.raw`<p>El lienzo muestra el estado de los datos en la etapa elegida: desde filas sin tratar hasta la imagen terminada, con la leyenda y el registro de lo que ocurrió en ese paso.</p>
+          <ul>
+          <li><strong>Etapa</strong> al avanzar: los datos se limpian, luego se asignan a canales visuales y finalmente se dibuja la vista; un error temprano se arrastra hasta la imagen final.</li>
+          </ul>`, montar: montarEtapas },
+      { titulo: 'Reparto de atributos en canales', descripcion: 'Asigne ingreso, vida, población y continente a posición, tamaño y color. Pruebe repetir un atributo o poner uno cuantitativo en color.',
+        ayuda: String.raw`<p>Cada círculo es un país; su posición, tamaño y color dependen de los atributos asignados y la leyenda lo explica.</p>
+          <ul>
+          <li><strong>Posición x</strong> y <strong>Posición y</strong>: ponen un atributo en cada eje y hacen visible la relación entre ambos.</li>
+          <li><strong>Tamaño</strong> y <strong>Color</strong>: añaden atributos como área o tono; un atributo continuo en color se lee peor que en posición.</li>
+          <li>Repetir un atributo o elegir «(ninguno)» muestra qué información se pierde o se duplica.</li>
+          </ul>`, montar: montarMapeo },
     ],
     teoria: String.raw`
       <h2>Proceso de referencia</h2>

@@ -306,15 +306,35 @@
       los hijos de la posición \(i\) están en \(2i+1\) y \(2i+2\).</p>
       <p>Es la implementación estándar de una <strong>cola de prioridad</strong>: insertar y extraer el máximo cuestan
       \(O(\log n)\). <strong>Heapsort</strong> usa un montículo para ordenar en el lugar en \(O(n\log n)\) garantizado.</p>`,
+    parametros: [
+      ['Valor (Fig. 1)', String.raw`El número (de 1 a 99) que se agrega con «Insertar».`],
+      ['Velocidad (Fig. 1)', String.raw`Pasos por segundo de la animación de cada operación.`],
+      ['sin animación (Fig. 1)', String.raw`Aplica la operación completa de inmediato, sin mostrar comparaciones ni intercambios.`],
+      ['Botones de operación (Fig. 1)', String.raw`<em>Insertar</em> agrega un valor y lo hace subir; <em>Extraer máximo</em> saca la raíz y hunde el último elemento; <em>Construir</em> arma un montículo con 15 o 31 valores al azar usando el método de Floyd; <em>Heapsort</em> ordena extrayendo el máximo repetidamente.`],
+      ['Datos iniciales (Fig. 2)', String.raw`El orden en que llegan los datos al construir el montículo. Afecta mucho a las inserciones sucesivas y poco a Floyd.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Operaciones de un montículo',
         descripcion: 'El mismo montículo visto como árbol y como arreglo. Inserte valores, extraiga el máximo, construya un montículo aleatorio o ejecute heapsort: la línea punteada del arreglo separa el montículo de la parte ya ordenada.',
+        ayuda: String.raw`<p>Arriba está el montículo como árbol binario completo y abajo el mismo contenido como arreglo: el nodo en la posición \(i\) tiene sus hijos en \(2i+1\) y \(2i+2\). Todo padre es mayor o igual que sus hijos, de modo que el máximo está siempre en la raíz.</p>
+          <ul>
+          <li><strong>Insertar</strong>: el valor entra al final del arreglo (la hoja más a la derecha) y sube comparándose (azul) e intercambiándose (naranja) con su padre. Nunca hace más de «altura» comparaciones.</li>
+          <li><strong>Extraer máximo</strong>: el último elemento pasa a la raíz y se hunde hacia el hijo mayor hasta recuperar la propiedad.</li>
+          <li><strong>Heapsort</strong>: cada máximo extraído se guarda al final del arreglo (en negro, a la derecha de la línea punteada); el montículo se achica y la parte ordenada crece.</li>
+          <li><strong>Velocidad</strong> y <strong>sin animación</strong> solo cambian cómo se muestra, no el número de comparaciones.</li>
+          </ul>`,
         montar: montarMonticulo,
       },
       {
         titulo: 'Construir un montículo en tiempo lineal',
         descripcion: 'Comparaciones necesarias para construir un montículo de \\(n\\) elementos insertándolos uno a uno, frente al método de Floyd que hunde los nodos internos de abajo hacia arriba.',
+        ayuda: String.raw`<p>Cada curva es el número de comparaciones medido para construir un montículo de \(n\) elementos (eje horizontal) con dos métodos: insertar uno a uno (naranja) o el método de Floyd, que hunde los nodos internos de abajo hacia arriba (azul). Las líneas punteadas son \(2n\) y \(n\log_2 n\).</p>
+          <ul>
+          <li><strong>Datos iniciales</strong> «Ya ordenada» (creciente): cada inserción sube hasta la raíz y la curva naranja sigue a \(n\log_2 n\).</li>
+          <li>Con «Invertida», cada inserción se detiene de inmediato y ambas curvas quedan bajas.</li>
+          <li>La curva de Floyd nunca supera \(2n\), sin importar la distribución: la mayoría de los nodos están cerca de las hojas y se hunden poco.</li>
+          </ul>`,
         montar: montarConstruccion,
       },
     ],

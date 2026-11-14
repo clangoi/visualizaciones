@@ -97,10 +97,19 @@
       cadena, tardan en el peor caso), además del tamaño de los mensajes y de cuántas fallas toleran.</p>
       <p>Este tema reúne las fórmulas de los algoritmos de la sección para verlas lado a lado. Las diferencias entre \(O(n)\), \(O(n \log n)\), \(O(n^2)\) y \(O(n^3)\), invisibles
       con cinco procesos, deciden qué es practicable con mil.</p>`,
+    parametros: [
+      ['Problema (Fig. 1)', String.raw`Qué tarea distribuida se compara. Cada problema muestra los algoritmos que lo resuelven con distinto número de mensajes.`],
+      ['Hasta n = (Fig. 1)', String.raw`Máximo número de procesos del eje horizontal (16 a 1 024). Con n grande las diferencias entre algoritmos se vuelven enormes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mensajes según el número de procesos',
         descripcion: 'Elija un problema y compare los algoritmos. Extienda n hasta 1 024: las pendientes en escala log-log revelan el exponente de cada uno.',
+        ayuda: String.raw`<p>Eje horizontal: procesos n. Eje vertical: mensajes. Ambos en escala log-log, así que cada algoritmo es aproximadamente una recta cuya pendiente es el exponente del crecimiento.</p>
+          <ul>
+          <li><strong>Problema</strong>: cambia el conjunto de algoritmos y sus curvas.</li>
+          <li><strong>Hasta n =</strong>: al extender n la separación entre curvas de distinta pendiente crece.</li>
+          </ul>`,
         montar,
       },
     ],

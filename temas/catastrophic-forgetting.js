@@ -117,9 +117,24 @@
     intro: String.raw`
       <p>Una red que ya sabe hacer la tarea A y se entrena después con la tarea B puede <strong>olvidar</strong> A casi por completo. No es un defecto del algoritmo, sino de la manera de aprender: el descenso de gradiente solo minimiza la pérdida de B, y si los pesos que codificaban A estorban, los modifica. A este fenómeno se le llama <strong>olvido catastrófico</strong>.</p>
       <p>Importa cada vez que se hace ajuste fino de un modelo preentrenado, o cuando un sistema debe aprender de forma continua sin volver a entrenar con todos los datos anteriores.</p>`,
+    parametros: [
+      ['Estrategia al aprender la tarea B (Fig. 1)', String.raw`Cómo se entrena la red con la tarea B: entrenar todo, congelar convoluciones, y variantes que mezclan ejemplos de A. Determina cuánto de A se conserva.`],
+      ['Otra semilla y reproductor (Fig. 1)', String.raw`Cambian los datos y pesos al azar, y controlan el entrenamiento.`],
+      ['Con repaso (50 % de ejemplos de A) (Fig. 2)', String.raw`Si se activa, el entrenamiento de B incluye ejemplos de A, que protegen lo aprendido.`],
+    ],
     visualizaciones: [
-      { titulo: 'Aprender B y olvidar A', descripcion: 'Compare las cuatro estrategias. Fíjese en que congelar las convoluciones no evita el olvido (la cabeza cambia), mientras que mezclar ejemplos de A sí.', montar: montarOlvido },
-      { titulo: 'Plasticidad frente a estabilidad', descripcion: 'Con y sin repaso, mire cómo cambia la exactitud final en A y en B para cuatro tasas de aprendizaje.', montar: montarBarrido },
+      { titulo: 'Aprender B y olvidar A', descripcion: 'Compare las cuatro estrategias. Fíjese en que congelar las convoluciones no evita el olvido (la cabeza cambia), mientras que mezclar ejemplos de A sí.',
+        ayuda: String.raw`<p>Exactitud por época de entrenamiento en B. La línea azul es la tarea A (ya aprendida) y la naranja es la tarea B (nueva).</p>
+          <ul>
+          <li><strong>Estrategia</strong> sin repaso: la naranja sube mientras la azul cae (olvido).</li>
+          <li>Congelar convoluciones no evita la caída de A, porque la cabeza cambia; mezclar ejemplos de A sí la limita.</li>
+          </ul>`, montar: montarOlvido },
+      { titulo: 'Plasticidad frente a estabilidad', descripcion: 'Con y sin repaso, mire cómo cambia la exactitud final en A y en B para cuatro tasas de aprendizaje.',
+        ayuda: String.raw`<p>Exactitud final tras 30 épocas según la tasa de aprendizaje: en A (azul) y en B (naranja, según la leyenda).</p>
+          <ul>
+          <li><strong>Con repaso</strong>: la exactitud en A se conserva a casi todas las tasas.</li>
+          <li>Sin repaso: tasas mayores aprenden más B pero olvidan más A.</li>
+          </ul>`, montar: montarBarrido },
     ],
     teoria: String.raw`
       <h2>Por qué ocurre</h2>

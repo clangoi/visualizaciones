@@ -128,10 +128,21 @@
       reales y nadie en particular queda expuesto.</p>
       <p>Esa condición es la difícil: un modelo muy flexible puede <em>memorizar</em> registros, y entonces el dato «sintético» es una copia.
       Los datos sintéticos no son privados por definición; lo son si el generador se entrena con garantías, como privacidad diferencial.</p>`,
+    parametros: [
+      ['Generador (Fig. 1)', String.raw`El método que crea los datos sintéticos: marginales independientes, gaussiana multivariada, histograma con privacidad diferencial o copia con ruido mínimo. Determina qué estructura de los datos reales se conserva.`],
+      ['ε del histograma (Fig. 1)', String.raw`El presupuesto de privacidad del generador por histograma. Solo tiene efecto con ese generador: un ε pequeño da más ruido y más protección; uno grande copia mejor los datos reales.`],
+      ['Generar otra vez (Fig. 1)', String.raw`Produce una nueva muestra sintética con el mismo generador.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cuatro generadores',
         descripcion: 'Edad e ingreso de 160 personas reales, con un grupo de estudiantes. Compare qué conserva cada generador y cuántos registros sintéticos quedan peligrosamente cerca de uno real.',
+        ayuda: String.raw`<p>Dos paneles muestran edad (horizontal) e ingreso en miles (vertical): a la izquierda, los datos reales y a la derecha, los sintéticos. Los registros sintéticos casi idénticos a uno real se marcan aparte, porque delatan a esa persona.</p>
+          <ul>
+          <li><strong>Generador</strong>: las marginales independientes pierden la relación entre edad e ingreso; la gaussiana la mantiene, pero no el grupo de estudiantes; la copia con ruido mínimo conserva todo, pero deja muchos registros peligrosamente cercanos.</li>
+          <li><strong>ε del histograma</strong>: con ε bajo la nube sintética se desordena y hay menos registros cercanos a uno real.</li>
+          <li><strong>Generar otra vez</strong>: cambia los puntos sintéticos pero se mantiene el patrón del generador.</li>
+          </ul>`,
         montar: montarSinteticos,
       },
     ],

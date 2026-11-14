@@ -84,15 +84,34 @@
       pero no explorados y una lista <strong>CERRADA</strong> de estados ya expandidos. Lo único que cambia es <em>cuál</em> estado se
       saca de ABIERTA. La <strong>búsqueda heurística</strong> usa una estimación \(h\) de la distancia que falta hasta la meta para
       elegir bien, y así explora una fracción diminuta del espacio.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`El criterio para ordenar ABIERTA: anchura (cola), profundidad (pila), costo uniforme (\(g\)), voraz (\(h\)) o A* (\(g + h\)).`],
+      ['Vértices (Fig. 1)', String.raw`Cantidad de vértices del grafo generado al azar.`],
+      ['Nuevo grafo y reproductor (Fig. 1)', String.raw`Generan otro grafo y controlan la animación (Reproducir, Un paso, Hasta el final, Reiniciar).`],
+      ['Ramificación b (Fig. 2)', String.raw`Cuántos sucesores tiene cada estado cuando la búsqueda no tiene información.`],
+      ['Ramificación efectiva b* (Fig. 2)', String.raw`La ramificación que «ve» una búsqueda guiada por una heurística: cuántos sucesores por nivel explora en la práctica. Más cerca de 1, mejor heurística.`],
+      ['Profundidad de la solución d (Fig. 2)', String.raw`A cuántos pasos está la meta.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un esqueleto, cinco estrategias',
         descripcion: 'Ejecute la misma búsqueda cambiando solo el criterio con que se ordena ABIERTA. Compare cuántos vértices se expanden y si el camino es óptimo; con A* la frontera avanza «apuntando» a la meta.',
+        ayuda: String.raw`<p>Los vértices están ubicados en el plano y cada arista pesa al menos su largo (el número sobre ella). El anillo verde es el inicio y el rojo la meta. Los amarillos están en ABIERTA (frontera) y los azules en CERRADA (ya expandidos); el anillo naranja es el que se expande ahora. Bajo cada vértice aparecen \(h\) (distancia en línea recta a la meta) y, si ya se descubrió, \(g\).</p>
+          <ul>
+          <li><strong>Estrategia</strong> es lo único que cambia entre ejecuciones: el mismo esqueleto con otro criterio produce comportamientos muy distintos. Compare «expandidos» y «¿óptimo?».</li>
+          <li>Costo uniforme y A* siempre devuelven el camino óptimo; A* lo hace expandiendo menos. La voraz expande poco pero puede devolver un camino caro.</li>
+          <li>Haga clic en un vértice para elegirlo como meta y Mayús + clic para el inicio.</li>
+          </ul>`,
         montar: montarEsqueleto,
       },
       {
         titulo: 'Por qué hace falta una heurística',
         descripcion: 'Una buena heurística no cambia el carácter exponencial de la búsqueda, pero reduce la base: compare \\(b = 3\\) con una ramificación efectiva \\(b^* = 1.4\\) a profundidad 24.',
+        ayuda: String.raw`<p>El eje horizontal es la profundidad y el vertical (logarítmico), los nodos generados hasta esa profundidad. La curva azul es una búsqueda sin heurística con ramificación \(b\) y la naranja, una con heurística que reduce la ramificación a \(b^*\). En escala logarítmica ambas son rectas: las dos son exponenciales.</p>
+          <ul>
+          <li><strong>b</strong> y <strong>b*</strong> cambian la pendiente de cada recta. La lectura «ahorro» crece como \((b/b^*)^d\): una pequeña mejora de la base vale muchísimo a profundidad grande.</li>
+          <li><strong>Profundidad d</strong>: la lectura «a 10⁶ nodos/s» traduce los nodos a tiempo real.</li>
+          </ul>`,
         montar: montarCrecimiento,
       },
     ],

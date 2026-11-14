@@ -68,9 +68,26 @@
     intro: String.raw`
       <p>Las aplicaciones de red siguen dos arquitecturas. En <strong>cliente-servidor</strong>, un servidor siempre activo con dirección fija atiende las solicitudes de muchos clientes (la web). En <strong>P2P</strong>, cualquier par a la vez pide y ofrece servicio, y la capacidad total crece con los usuarios (BitTorrent).</p>
       <p>Los procesos de una y otra se comunican a través de <strong>sockets</strong>, la puerta entre la aplicación y la capa de transporte: la aplicación escribe y lee en el socket y el sistema se encarga del resto.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Elige el protocolo de transporte: TCP con conexión o UDP sin conexión. Cambia qué llamadas hacen falta y si hay handshake.`],
+      ['Reproductor (Fig. 1)', String.raw`Revela los mensajes uno a uno; cada paso trae su explicación.`],
+      ['Archivo F (GB) (Fig. 2)', String.raw`Tamaño del archivo a repartir. Escala el tiempo de ambos esquemas por igual.`],
+      ['Subida de cada par u (Mbps) (Fig. 2)', String.raw`Capacidad con que cada par ayuda a repartir el archivo. Más subida mejora solo a P2P.`],
+      ['Bajada de cada cliente d (Mbps) (Fig. 2)', String.raw`Velocidad de descarga de cada cliente; fija un piso al tiempo en ambos esquemas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Programación con sockets', descripcion: 'Compare la secuencia de llamadas con TCP (connect, accept) y con UDP (sendto, recvfrom).', montar: montarSockets },
-      { titulo: 'Cliente-servidor frente a P2P', descripcion: 'Aumente los clientes: el servidor se satura y el tiempo crece sin parar, pero en P2P casi no cambia. Pruebe una subida baja por par.', montar: montarDistribucion },
+      { titulo: 'Programación con sockets', descripcion: 'Compare la secuencia de llamadas con TCP (connect, accept) y con UDP (sendto, recvfrom).',
+        ayuda: String.raw`<p>Dos líneas verticales son el cliente (azul) y el servidor (naranja); cada flecha es una llamada o un mensaje, con su explicación al avanzar.</p>
+          <ul>
+          <li><strong>Escenario</strong>: con TCP aparecen listen, connect, accept y el handshake; con UDP solo sendto y recvfrom, y cada datagrama lleva su destino.</li>
+          </ul>`, montar: montarSockets },
+      { titulo: 'Cliente-servidor frente a P2P', descripcion: 'Aumente los clientes: el servidor se satura y el tiempo crece sin parar, pero en P2P casi no cambia. Pruebe una subida baja por par.',
+        ayuda: String.raw`<p>Eje horizontal, clientes N; vertical, horas para que todos tengan el archivo. La línea roja es cliente-servidor y la azul, P2P.</p>
+          <ul>
+          <li><strong>Archivo F</strong>: sube ambas líneas proporcionalmente.</li>
+          <li><strong>Subida de cada par u</strong>: una subida baja acerca la línea azul a la roja; una alta la mantiene casi plana.</li>
+          <li><strong>Bajada de cada cliente d</strong>: limita el tiempo mínimo, sobre todo cuando N es pequeño.</li>
+          </ul>`, montar: montarDistribucion },
     ],
     teoria: String.raw`
       <h2>Direcciones y puertos</h2>

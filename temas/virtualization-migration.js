@@ -126,10 +126,23 @@
       <p><strong>Migrar</strong> un proceso o una VM sirve para equilibrar la carga, liberar una máquina para mantención o acercar el cómputo a los datos.
       La dificultad es la memoria: copiar varios gigabytes toma segundos, y la VM no puede estar detenida tanto tiempo. La <strong>migración en vivo</strong>
       copia la memoria mientras la VM sigue corriendo y solo la detiene un instante al final.</p>`,
+    parametros: [
+      ['Ancho de banda (páginas/s) (Fig. 1)', String.raw`Velocidad del enlace entre origen y destino. Mientras sea mayor que el ritmo de ensuciado, cada ronda envía menos páginas que la anterior.`],
+      ['Escrituras de la VM (por s) (Fig. 1)', String.raw`Cuántas páginas escribe la máquina virtual mientras se copia. Cada escritura invalida una copia ya enviada y obliga a reenviarla.`],
+      ['Páginas que se escriben (conjunto caliente) (Fig. 1)', String.raw`Tamaño del grupo de páginas que la VM modifica. Si es pequeño, las mismas páginas se ensucian una y otra vez y el total sucio se acota.`],
+      ['Detener con ≤ páginas sucias (Fig. 1)', String.raw`Umbral para pausar la VM y copiar el resto. Más alto detiene antes, pero el corte es más largo.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza ronda a ronda, se pausa o reinicia la migración.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Migración en vivo por precopia',
         descripcion: 'Avance ronda a ronda: cada ronda copia lo que se ensució en la anterior, y la cantidad decrece si la red es más rápida que las escrituras. Suba las escrituras por encima del ancho de banda: la precopia deja de converger.',
+        ayuda: String.raw`<p>A la izquierda, cada celda es una de las 256 páginas: gris aún no copiada, azul se copia en esta ronda, verde ya está al día en el destino, naranja se ensució durante la ronda y rojo se copió con la VM detenida. A la derecha, las barras son las páginas enviadas en cada ronda.</p>
+          <ul>
+          <li><strong>Ancho de banda</strong> mayor que <strong>Escrituras de la VM</strong>: las barras decrecen y la migración converge.</li>
+          <li>Con las escrituras por encima del ancho de banda las barras no bajan: la precopia no converge.</li>
+          <li><strong>Detener con ≤ páginas sucias</strong>: fija cuándo aparecen las páginas rojas, es decir, el tamaño de la pausa final.</li>
+          </ul>`,
         montar,
       },
     ],

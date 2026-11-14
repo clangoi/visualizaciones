@@ -239,15 +239,31 @@
       (horas de capacitación, líneas cubiertas por pruebas) apoya la gestión diaria, y solo se vuelve clave cuando se conecta con un objetivo.</p>
       <p>Los indicadores se clasifican por su naturaleza (<em>financieros</em> o <em>no financieros</em>) y por su momento: los <em>rezagados</em> miden resultados ya ocurridos y los
       <em>adelantados</em> miden procesos que anticipan esos resultados. Un indicador mal definido es peor que ninguno, porque las personas se ajustan a lo que se mide.</p>`,
+    parametros: [
+      ['Resaltar (Fig. 1)', String.raw`Filtra los doce indicadores por tipo (financiero o no, adelantado o rezagado). Permite aislar una familia sin cambiar los datos.`],
+      ['Definición del KPI (Fig. 2)', String.raw`Qué se mide en el centro de atención: llamadas por hora u otras definiciones. Cada una premia una conducta distinta.`],
+      ['Esfuerzo por acortar llamadas (Fig. 2)', String.raw`Qué parte del esfuerzo del equipo se dedica a terminar llamadas rápido. Más esfuerzo sube las llamadas por hora, pero puede bajar la resolución y la satisfacción.`],
+      ['Que el equipo optimice el KPI y Volver al 30 % (Fig. 2)', String.raw`El primero lleva el esfuerzo al valor que maximiza el KPI elegido; el segundo regresa al punto de partida.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mapa de indicadores',
         descripcion: 'Doce indicadores clasificados como financieros o no financieros, adelantados o rezagados. Haga clic en uno para ver su fórmula y use «Resaltar» para aislar un tipo, por ejemplo solo los adelantados.',
+        ayuda: String.raw`<p>Cada marca es un indicador, agrupado según sea financiero o no, adelantado o rezagado. Los KPI ligados a un objetivo estratégico se distinguen de las métricas operacionales, y el indicador seleccionado se destaca.</p>
+          <ul>
+          <li><strong>Resaltar</strong>: deja visibles solo los indicadores del tipo elegido, por ejemplo los adelantados, que anticipan resultados.</li>
+          </ul>`,
         montar: montarMapa,
       },
       {
         titulo: 'Un KPI mal definido induce mala conducta',
         descripcion: 'Un centro de atención se mide primero por «llamadas por hora». Pulse «Que el equipo optimice» con cada definición y compare cuántos casos se resuelven de verdad y cómo queda la satisfacción.',
+        ayuda: String.raw`<p>El eje horizontal es el esfuerzo por acortar llamadas y el vertical, el porcentaje del máximo de cada curva: llamadas por hora, casos resueltos por hora (valor real) y satisfacción del cliente. El marcador indica la conducta actual.</p>
+          <ul>
+          <li><strong>Definición del KPI</strong>: cambia qué curva se maximiza al optimizar.</li>
+          <li><strong>Esfuerzo</strong>: mueve la conducta; con llamadas por hora, más esfuerzo sube esa curva mientras caen los casos resueltos y la satisfacción.</li>
+          <li><strong>Que el equipo optimice el KPI</strong>: muestra dónde queda el equipo y qué se pierde de valor real.</li>
+          </ul>`,
         montar: montarConducta,
       },
     ],

@@ -301,15 +301,34 @@
       <p>La ilusión es imperfecta: no hay memoria compartida (no se pueden pasar punteros, solo copias), las máquinas pueden representar
       los datos de forma distinta, y sobre todo la red y el servidor pueden fallar. Ante un timeout, el cliente no sabe si el servidor
       alcanzó a ejecutar la llamada.</p>`,
+    parametros: [
+      ['Llamada (Fig. 1)', String.raw`Qué procedimiento remoto se invoca y con qué argumentos. Cambia los bytes que viajan y el resultado.`],
+      ['Cliente little-endian sin formato canónico (Fig. 1)', String.raw`Hace que el cliente envíe sus enteros en su propio orden de bytes sin convertirlos. El servidor los interpreta al revés y calcula con valores erróneos.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza paso a paso los once pasos de la llamada, o la reinicia.`],
+      ['Semántica (Fig. 2)', String.raw`Política ante pérdidas: no reintentar, reintentar siempre o reintentar y filtrar duplicados por identificador.`],
+      ['Probabilidad de perder un mensaje (Fig. 2)', String.raw`Con qué frecuencia la red descarta un pedido o una respuesta. Más pérdidas implican más reintentos y más riesgo de repetir la operación.`],
+      ['Nueva llamada (Fig. 2)', String.raw`Sortea otra secuencia de pérdidas para la misma configuración.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Anatomía de una llamada',
         descripcion: 'Siga los once pasos de una llamada y observe los bytes del mensaje bajo el diagrama. Pruebe la casilla con <code>suma(3, 7)</code>: sin formato canónico, el servidor suma números enormes.',
+        ayuda: String.raw`<p>El tiempo avanza hacia abajo entre las líneas del cliente y del servidor. La flecha del paso actual es naranja y las de pasos ya realizados, grises. Abajo, el mensaje en bytes: azul los argumentos, verde el resultado.</p>
+          <ul>
+          <li><strong>Llamada</strong>: cambia los bytes azules y la respuesta verde.</li>
+          <li><strong>Cliente little-endian sin formato canónico</strong>: los bytes azules salen en otro orden y el servidor recibe números distintos de los enviados.</li>
+          </ul>`,
         montar: montarAnatomia,
       },
       {
         titulo: 'Pérdidas, reintentos y duplicados',
         descripcion: 'Una operación que no es idempotente («retirar 10»). Con reintentos, una respuesta perdida provoca ejecuciones repetidas; filtrando duplicados por xid nunca hay más de una.',
+        ayuda: String.raw`<p>Entre cliente y servidor: pedidos «retirar 10» (azul), respuestas (verde) y mensajes perdidos (rojo). Los puntos naranja son ejecuciones en el servidor; los amarillos, timeouts o duplicados filtrados. Debajo, las estadísticas de 2 000 llamadas.</p>
+          <ul>
+          <li><strong>Semántica</strong> «Al menos una vez»: tras perder una respuesta el reintento ejecuta de nuevo y aparecen varios puntos naranja.</li>
+          <li>Con «A lo más una vez» los duplicados se filtran (puntos amarillos) y hay a lo sumo una ejecución.</li>
+          <li><strong>Probabilidad de perder un mensaje</strong>: más líneas rojas y más reintentos.</li>
+          </ul>`,
         montar: montarFallas,
       },
     ],

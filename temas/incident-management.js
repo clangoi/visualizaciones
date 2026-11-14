@@ -208,15 +208,36 @@
       <p>Un <strong>incidente de seguridad</strong> es un evento que compromete la confidencialidad, la integridad o la disponibilidad: un ransomware, una cuenta robada, una filtración. Lo decisivo no es solo evitar los incidentes, que tarde o temprano ocurren,
       sino <strong>cuánto tarda la organización en notarlos y en controlarlos</strong>, porque el daño crece con el tiempo.</p>
       <p>La gestión de incidentes ordena la respuesta en fases: preparación, detección, contención, erradicación, recuperación y lecciones aprendidas. Medir los tiempos de cada una (MTTD y MTTR) permite saber dónde conviene invertir.</p>`,
+    parametros: [
+      ['Madurez del equipo (Fig. 1)', String.raw`Carga tiempos típicos de cada fase para un equipo sin plan, con plan o con plan, simulacros y monitoreo.`],
+      ['Tiempo hasta detectar (Fig. 1)', String.raw`Horas con el ataque activo antes de verlo. Es la fase en que el daño crece sin freno.`],
+      ['Tiempo de contención, Erradicación y Recuperación (Fig. 1)', String.raw`Duración en horas de cada fase posterior. Alargarlas retrasa el fin del incidente.`],
+      ['Propagación del ataque por hora (Fig. 1)', String.raw`Qué tan rápido se extiende el ataque mientras no está contenido. Más alta, el pico de sistemas afectados es mayor.`],
+      ['Mejora de detección (monitoreo) (Fig. 2)', String.raw`Reduce el tiempo sin detectar de cada incidente. Mueve los puntos a la izquierda.`],
+      ['Mejora de respuesta (plan y práctica) (Fig. 2)', String.raw`Reduce los tiempos de las fases de contención a recuperación y el costo acumulado.`],
+      ['Propagación del ataque por hora y Nuevos incidentes (Fig. 2)', String.raw`La propagación cambia el costo de esperar; Nuevos incidentes sortea otros 40 incidentes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un incidente, fase por fase',
         descripcion: 'Reproduzca el incidente y observe cómo el ataque se propaga hasta que se detecta. Compare «Sin plan» con «Plan, simulacros y monitoreo»: cambian el pico de sistemas, la duración y el costo.',
+        ayuda: String.raw`<p>El eje horizontal son las horas desde el inicio y el vertical, los sistemas afectados. Las franjas de color son las fases (detección, contención, erradicación, recuperación y lecciones aprendidas) y el área roja son los sistemas afectados.</p>
+          <ul>
+          <li><strong>Madurez del equipo</strong>: un equipo preparado acorta las fases y reduce el pico de sistemas.</li>
+          <li><strong>Tiempo hasta detectar</strong>: alarga la primera franja, durante la cual los sistemas afectados crecen sin freno.</li>
+          <li><strong>Propagación del ataque por hora</strong>: más alta, el área roja sube con mayor pendiente.</li>
+          </ul>`,
         montar: montarCiclo,
       },
       {
         titulo: 'Costo según el tiempo sin detectar',
         descripcion: 'Mueva la mejora de detección y vea bajar los 40 incidentes por la curva; luego mejore solo la respuesta y compare. Haga clic en un punto para ver en qué fase se fue el dinero.',
+        ayuda: String.raw`<p>Cada punto es un incidente simulado (40 por año): horas sin detectarlo (horizontal) contra su costo en miles de USD (vertical). Se comparan con la curva del modelo con tiempos medianos y con la misma muestra sin mejoras.</p>
+          <ul>
+          <li><strong>Mejora de detección</strong>: los puntos se mueven a la izquierda y bajan por la curva.</li>
+          <li><strong>Mejora de respuesta</strong>: baja el costo sin cambiar las horas sin detectar.</li>
+          <li><strong>Propagación</strong>: empina la curva; el costo crece mucho más rápido que el tiempo.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

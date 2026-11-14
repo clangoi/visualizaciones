@@ -90,9 +90,30 @@
     intro: String.raw`
       <p>El elemento <code>&lt;path&gt;</code> dibuja cualquier forma con una pequeña «instrucción de lápiz» en su atributo <code>d</code>: <em>mover</em> a un punto, <em>trazar</em> una línea, una curva o un arco. Los gráficos de líneas, áreas y mapas son, por dentro, un <code>path</code> largo.</p>
       <p>Las curvas de <strong>Bézier</strong> se controlan con puntos que el trazo no toca pero que lo atraen: moverlos es esculpir la curva.</p>`,
+    parametros: [
+      ['Comando (Fig. 1)', String.raw`El tipo de trazo del atributo d: L une los puntos con segmentos, Q usa una Bézier cuadrática (un punto de control) y C una cúbica (dos puntos de control).`],
+      ['Parámetro t (De Casteljau) (Fig. 1)', String.raw`La fracción del recorrido (0 a 1) a la que se construye un punto de la curva por interpolaciones sucesivas entre los puntos de control. Su valor extremo cae en 0 al inicio y en 1 al final de la curva.`],
+      ['Restablecer puntos (Fig. 1)', String.raw`Devuelve los puntos arrastrados a su posición inicial.`],
+      ['rx y ry (Fig. 2)', String.raw`Los radios horizontal y vertical de la elipse que se usa para el arco. Si son demasiado pequeños para unir los dos extremos, SVG los agranda.`],
+      ['x-axis-rotation (Fig. 2)', String.raw`El giro en grados de los ejes de la elipse; solo se nota si rx y ry son distintos.`],
+      ['large-arc-flag (Fig. 2)', String.raw`Elige entre el arco corto (apagado) y el largo (encendido) de los dos que pasan por los extremos con la misma elipse.`],
+      ['sweep-flag (Fig. 2)', String.raw`Elige el sentido de recorrido: encendido gira en sentido horario, apagado en antihorario.`],
+    ],
     visualizaciones: [
-      { titulo: 'Curvas de Bézier con puntos de control', descripcion: 'Arrastre los puntos y recorra el parámetro t para ver cómo se construye el punto de la curva por interpolaciones sucesivas.', montar: montarCurvas },
-      { titulo: 'Arcos elípticos y sus flags', descripcion: 'Combine los dos flags y los radios para recorrer las cuatro soluciones posibles entre dos puntos.', montar: montarArcos },
+      { titulo: 'Curvas de Bézier con puntos de control', descripcion: 'Arrastre los puntos y recorra el parámetro t para ver cómo se construye el punto de la curva por interpolaciones sucesivas.',
+        ayuda: String.raw`<p>La curva negra es el path. Los círculos azules son los extremos y los naranjas los puntos de control, unidos por una línea discontinua gris. Las líneas verde y violeta son los segmentos intermedios de De Casteljau y el punto oscuro es el punto de la curva en el valor de t elegido.</p>
+          <ul>
+          <li><strong>Comando</strong>: cambia el número de puntos y el grado de la curva; con L no hay puntos de control.</li>
+          <li><strong>Parámetro t</strong>: desliza el punto oscuro a lo largo de la curva y muestra cómo se obtiene de los intermedios.</li>
+          <li>Arrastrar los puntos modifica la forma: la curva se acerca a los puntos de control sin pasar por ellos.</li>
+          </ul>`, montar: montarCurvas },
+      { titulo: 'Arcos elípticos y sus flags', descripcion: 'Combine los dos flags y los radios para recorrer las cuatro soluciones posibles entre dos puntos.',
+        ayuda: String.raw`<p>Los dos puntos azules son los extremos fijos. El arco naranja es el elegido por los flags y los trazos grises son las otras tres soluciones con los mismos radios.</p>
+          <ul>
+          <li><strong>large-arc-flag</strong>: pasa el arco naranja del tramo corto al largo de la misma elipse.</li>
+          <li><strong>sweep-flag</strong>: lo lleva al lado opuesto de la cuerda, con sentido de giro inverso.</li>
+          <li><strong>rx</strong>, <strong>ry</strong> y <strong>x-axis-rotation</strong>: cambian la forma y la inclinación de la elipse, y por tanto de las cuatro soluciones.</li>
+          </ul>`, montar: montarArcos },
     ],
     teoria: String.raw`
       <h2>Comandos de path</h2>

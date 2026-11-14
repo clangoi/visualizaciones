@@ -199,15 +199,34 @@
       el tiempo de ciclo medio, la fracción de casos que cumple un plazo, el costo por caso o la tasa de reproceso. Definir bien el KPI importa tanto como medirlo.</p>
       <p>Para que sirva, un KPI necesita una fórmula precisa, una unidad, una meta y un periodo de referencia. Con eso es posible comparar el proceso <em>antes</em> y
       <em>después</em> de un cambio sin discutir qué se entendía por «mejor».</p>`,
+    parametros: [
+      ['KPI (Fig. 1)', String.raw`El indicador que se calcula sobre los casos del registro (por ejemplo tiempo de ciclo). Cambiarlo cambia la unidad, la distribución y la escala de la meta.`],
+      ['Meta (valor máximo aceptable) (Fig. 1)', String.raw`El umbral que un caso no debe superar para cumplir. Moverlo cambia cuántos casos quedan a cada lado y, con ello, el porcentaje de cumplimiento.`],
+      ['Nuevos casos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada; sirve para ver cuánto varía el resultado solo por azar.`],
+      ['Espera media tras el cambio (Fig. 2)', String.raw`La espera típica del proceso después de la mejora. Valores bajos acortan el ciclo; el estado anterior tenía 25 min.`],
+      ['Prob. de reproceso tras el cambio (Fig. 2)', String.raw`La fracción de casos que vuelve a una etapa anterior después del cambio. Bajarla reduce repeticiones; antes era 35 %.`],
+      ['SLA: ciclo máximo (Fig. 2)', String.raw`El tiempo máximo acordado para un caso; define qué proporción de casos incumple el acuerdo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De los casos al KPI',
         descripcion: 'Elija un KPI y mueva la meta: el cumplimiento cambia al repartirse los casos entre dentro y fuera de ella. Pruebe una meta igual al percentil 90.',
+        ayuda: String.raw`<p>Histograma del KPI: cada barra cuenta casos. Las verdes cumplen la meta y las rojas la incumplen. La línea negra es la meta y la gris, la media del KPI.</p>
+          <ul>
+          <li><strong>KPI</strong>: reemplaza la distribución; la forma indica si la media representa bien a los casos.</li>
+          <li><strong>Meta</strong>: al desplazar la línea negra se pintan de rojo más o menos barras; el cumplimiento es la fracción de casos en verde.</li>
+          <li>Con la meta en el percentil 90, solo una décima de los casos queda en rojo.</li>
+          </ul>`,
         montar: montarDefinir,
       },
       {
         titulo: 'KPIs antes y después de un cambio',
         descripcion: 'Baje la espera y la probabilidad de reproceso y observe qué KPIs mejoran; reduzca el cambio hasta que la diferencia deje de ser significativa.',
+        ayuda: String.raw`<p>Cada barra es el cambio porcentual de un KPI entre el registro anterior y el posterior al cambio: verde si mejora, rojo si empeora y la línea gris marca 0 %.</p>
+          <ul>
+          <li><strong>Espera media</strong> y <strong>Prob. de reproceso</strong>: al bajarlas, las barras de tiempo y de reproceso se vuelven más verdes; con cambios pequeños la diferencia puede no ser significativa.</li>
+          <li><strong>SLA</strong>: modifica la barra de cumplimiento del acuerdo sin cambiar el proceso.</li>
+          </ul>`,
         montar: montarAntesDespues,
       },
     ],

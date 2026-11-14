@@ -92,9 +92,28 @@
       <p>Una <strong>prueba unitaria</strong> ejecuta una pequeña pieza de código con una entrada conocida y comprueba, con una <em>aserción</em> (<em>assertion</em>), que el resultado es el esperado.
       Escribirlas obliga a pensar en los casos límite y deja una red de seguridad: si algo se rompe en el futuro, una prueba falla y señala dónde.</p>
       <p>Cuando la pieza depende de algo externo (una API, la base de datos, el reloj), se sustituye por un <strong>doble de prueba</strong> (<em>mock</em>) para que la prueba sea rápida, repetible y no falle por razones ajenas.</p>`,
+    parametros: [
+      ['Código bajo prueba (Fig. 1)', String.raw`Qué versión de la función de descuento se prueba: la correcta o una con un error distinto. Sirve para ver qué errores detecta su batería.`],
+      ['Nuevo caso: precio y descuento esperado (Fig. 1)', String.raw`Datos de un caso propio: el precio de entrada y el resultado que usted espera. Es lo que la aserción comparará con el valor real.`],
+      ['Agregar caso, Ejecutar pruebas y Restablecer casos (Fig. 1)', String.raw`Agregar suma su caso a la batería; Ejecutar corre todos los casos contra la versión elegida; Restablecer deja solo los casos iniciales.`],
+      ['La función obtenerClima llama a una API (Fig. 2)', String.raw`Si la prueba usa la API real por red, un mock que devuelve datos fijos o un mock que simula un error.`],
+      ['Fallas de la API real (Fig. 2)', String.raw`Porcentaje de llamadas que fallan por problemas de red, solo con la API real.`],
+      ['Repetir las corridas (Fig. 2)', String.raw`Genera otra tanda de ejecuciones con la misma configuración.`],
+    ],
     visualizaciones: [
-      { titulo: 'Casos de prueba y aserciones', descripcion: 'Ejecute la misma batería contra la versión correcta y tres versiones con un bug distinto; agregue su propio caso.', montar: montarEjecutor },
-      { titulo: 'Dependencia real frente a mock', descripcion: 'Compare corridas con una API real (lenta y con fallas) y con un mock, incluido uno que simula un error.', montar: montarMock },
+      { titulo: 'Casos de prueba y aserciones', descripcion: 'Ejecute la misma batería contra la versión correcta y tres versiones con un bug distinto; agregue su propio caso.',
+        ayuda: String.raw`<p>Tabla de casos con el valor esperado, el obtenido y su resultado (pasa o falla) tras ejecutar la batería.</p>
+          <ul>
+          <li><strong>Código bajo prueba</strong>: con la versión correcta todos pasan; con una con bug fallan los casos que tocan ese error.</li>
+          <li><strong>Nuevo caso</strong> y <strong>Agregar caso</strong>: un caso que usted espera mal falla aunque el código sea correcto, y uno bien elegido puede delatar un bug que los demás no veían.</li>
+          </ul>`, montar: montarEjecutor },
+      { titulo: 'Dependencia real frente a mock', descripcion: 'Compare corridas con una API real (lenta y con fallas) y con un mock, incluido uno que simula un error.',
+        ayuda: String.raw`<p>Cada marca es una corrida de la prueba: la prueba pasa, la prueba falla o falla por culpa de la red y no del código.</p>
+          <ul>
+          <li><strong>La función llama a</strong> «real»: son lentas y algunas fallan por la red sin que el código tenga bug.</li>
+          <li><strong>Fallas de la API real</strong>: más fallos espurios cuando sube el porcentaje.</li>
+          <li><strong>mock</strong>: las corridas son rápidas y estables; el <strong>mock que simula un error</strong> permite comprobar cómo reacciona su código al fallo sin depender de la red.</li>
+          </ul>`, montar: montarMock },
     ],
     teoria: String.raw`
       <h2>Anatomía de una prueba</h2>

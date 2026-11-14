@@ -277,20 +277,51 @@
       <p>Un <strong>respaldo</strong> es una copia de los datos que permite volver a un estado anterior cuando algo sale mal: un borrado, un ransomware, un incendio. La <strong>recuperación ante desastres</strong> (DR) va más allá de los datos: es el plan para volver a operar los sistemas.
       Dos números la guían: cuántos datos puede perder la organización (<strong>RPO</strong>) y cuánto tiempo puede estar sin servicio (<strong>RTO</strong>).</p>
       <p>Un respaldo que nunca se probó no es una garantía. Y si todas las copias están en el mismo lugar, en el mismo tipo de disco y conectadas a la red, un solo evento las destruye a todas; de ahí la regla 3-2-1.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`Completo diario, completo semanal con diferencial diario o con incremental diario. Define cuánto espacio ocupa y cuántos conjuntos exige restaurar.`],
+      ['Datos totales y Datos que cambian por día (Fig. 1)', String.raw`El tamaño del conjunto y la fracción que cambia diariamente. Determinan el tamaño de cada respaldo diferencial e incremental.`],
+      ['Velocidad de copia (Fig. 1)', String.raw`Rendimiento de la copia en GB/h; fija cuánto dura cada respaldo.`],
+      ['Restaurar al final del día (Fig. 1)', String.raw`Día que se quiere recuperar. Muestra qué conjuntos de la cadena se necesitan.`],
+      ['Intervalo entre respaldos (Fig. 2)', String.raw`Horas entre copias. Es el tope de los datos que se pueden perder (RPO real).`],
+      ['Sitio de recuperación (Fig. 2)', String.raw`Tipo de sitio alterno, de ninguno a caliente. Cambia el tiempo de espera y el costo anual.`],
+      ['Detectar la falla y Restaurar datos y probar (Fig. 2)', String.raw`Horas de detección y de restauración que, con la espera del sitio, forman la caída (RTO real).`],
+      ['Meta de RPO y Meta de RTO (Fig. 2)', String.raw`Objetivos de pérdida y de caída máximas; indican si la configuración los cumple.`],
+      ['Costo de cada hora de caída (Fig. 2)', String.raw`Valor económico de una hora sin servicio; da el costo del incidente frente al del sitio.`],
+      ['Falla al azar (Fig. 2)', String.raw`Coloca la falla en un momento aleatorio de la línea de tiempo.`],
+      ['Probabilidades de falla (Fig. 3)', String.raw`Falla individual de una copia, de un tipo de medio, desastre en un lugar y ransomware sobre copias en línea. Cada una amenaza a distintas copias.`],
+      ['Configuraciones predefinidas (Fig. 3)', String.raw`Botones que cargan una distribución de copias de referencia, de «Solo el original» a «3-2-1 con cinta sin conexión».`],
+    ],
     visualizaciones: [
       {
         titulo: 'Completo, diferencial e incremental',
         descripcion: 'Cambie la estrategia y haga clic en distintos días: el incremental ocupa poco espacio pero exige una cadena larga para restaurar; el diferencial necesita solo dos conjuntos. Pruebe restaurar el día 7 y el día 14.',
+        ayuda: String.raw`<p>El eje horizontal son los días y el vertical, el tamaño de cada respaldo en GB. Cada barra se colorea según su tipo (completo, diferencial o incremental) y el anillo marca los conjuntos necesarios para restaurar el día elegido.</p>
+          <ul>
+          <li><strong>Estrategia</strong>: el incremental ocupa poco espacio pero exige una cadena larga; el diferencial necesita solo dos conjuntos.</li>
+          <li><strong>Datos que cambian por día</strong>: agranda las barras diferenciales e incrementales.</li>
+          <li><strong>Restaurar al final del día</strong>: mueve el anillo y cambia cuántos conjuntos se necesitan.</li>
+          </ul>`,
         montar: montarRespaldos,
       },
       {
         titulo: 'RPO, RTO y sitio de recuperación',
         descripcion: 'Mueva la falla con clic y cambie el intervalo entre respaldos: la pérdida nunca supera el intervalo. Pruebe «Sitio caliente» para bajar el RTO y observe el costo anual que se paga a cambio.',
+        ayuda: String.raw`<p>Línea de tiempo en horas con los respaldos, el momento de la falla, los datos perdidos (RPO real) y el servicio caído (RTO real), comparados con sus metas.</p>
+          <ul>
+          <li><strong>Intervalo entre respaldos</strong>: la pérdida nunca supera el intervalo.</li>
+          <li><strong>Sitio de recuperación</strong>: uno más rápido acorta la caída pero sube el costo anual.</li>
+          <li><strong>Detectar</strong> y <strong>Restaurar</strong>: alargan el servicio caído hasta superar la meta de RTO.</li>
+          </ul>`,
         montar: montarRpoRto,
       },
       {
         titulo: 'La regla 3-2-1',
         descripcion: 'Agregue copias con clic y compare con las configuraciones de referencia. Pruebe dos discos en la misma oficina (casi no mejora) y luego una copia en cinta sin conexión frente a un ransomware del 8 %.',
+        ayuda: String.raw`<p>Cada cuadro es una copia, ubicada por tipo de medio y lugar. Se marcan las condiciones de la regla 3-2-1 cumplidas o no, y las barras comparan la probabilidad de conservar al menos una copia, con su configuración frente a las de referencia.</p>
+          <ul>
+          <li><strong>Probabilidades de falla</strong>: bajan las barras en las configuraciones expuestas a ese riesgo.</li>
+          <li><strong>Configuraciones</strong>: dos discos en la misma oficina casi no mejoran; una copia en cinta sin conexión resiste el ransomware.</li>
+          </ul>`,
         montar: montarRegla321,
       },
     ],

@@ -73,9 +73,29 @@
     intro: String.raw`
       <p>Una <strong>transformación</strong> mueve, gira o escala todo un elemento sin tocar sus coordenadas internas. El elemento <code>&lt;g&gt;</code> agrupa varias formas para transformarlas, estilizarlas y manejarlas como una sola.</p>
       <p>Ese par —grupo + <code>translate</code>— es la base de la <em>convención de márgenes</em> con la que se arman casi todos los gráficos: se dibuja en un sistema local y el grupo lo coloca en la página.</p>`,
+    parametros: [
+      ['translate x, translate y (Fig. 1)', String.raw`Cuánto se desplaza la figura horizontal y verticalmente respecto de su posición original.`],
+      ['rotate (Fig. 1)', String.raw`El ángulo de giro, en grados, alrededor del origen del sistema de coordenadas vigente (no del centro de la figura).`],
+      ['scale (Fig. 1)', String.raw`El factor de tamaño: menor que 1 la encoge, mayor que 1 la agranda; también escala los desplazamientos que vengan después.`],
+      ['Orden (Fig. 1)', String.raw`Si primero se traslada y luego se rota, o al revés. Las transformaciones no conmutan: el orden cambia dónde queda la figura.`],
+      ['margen izquierdo, margen superior y margen inferior (Fig. 2)', String.raw`Espacio reservado para ejes y rótulos alrededor del área de dibujo. Desplazan el grupo con translate y reducen el ancho o alto interior disponible para las barras.`],
+      ['Mostrar el marco del grupo (Fig. 2)', String.raw`Muestra u oculta el rectángulo del área interior, que marca el origen local del grupo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Traslación, rotación y escala', descripcion: 'Combine las tres transformaciones e invierta el orden: rotar y luego trasladar no es lo mismo que trasladar y luego rotar.', montar: montarTransformar },
-      { titulo: 'Grupos y márgenes', descripcion: 'Cambie los márgenes de un gráfico de barras: el grupo se desplaza y las barras conservan sus coordenadas locales.', montar: montarMargenes },
+      { titulo: 'Traslación, rotación y escala', descripcion: 'Combine las tres transformaciones e invierta el orden: rotar y luego trasladar no es lo mismo que trasladar y luego rotar.',
+        ayuda: String.raw`<p>El rectángulo gris discontinuo es la figura original, con su esquina en el origen. El rectángulo naranja es la misma figura transformada; el código inferior muestra el atributo <code>transform</code> resultante.</p>
+          <ul>
+          <li><strong>translate x</strong> y <strong>translate y</strong>: mueven el naranja sobre la rejilla de 50 unidades.</li>
+          <li><strong>rotate</strong> gira alrededor del origen del sistema, así que además de girar la figura la desplaza.</li>
+          <li><strong>Orden</strong> «rotate → translate» con rotación distinta de 0: la figura termina en otro lugar, porque el desplazamiento se rota también.</li>
+          </ul>`, montar: montarTransformar },
+      { titulo: 'Grupos y márgenes', descripcion: 'Cambie los márgenes de un gráfico de barras: el grupo se desplaza y las barras conservan sus coordenadas locales.',
+        ayuda: String.raw`<p>Cinco barras azules (A–E) dentro de un grupo <code>&lt;g&gt;</code>; el marco naranja es el área interior (ancho × alto), con su tamaño en la lectura. Las barras usan coordenadas locales desde la esquina del marco.</p>
+          <ul>
+          <li><strong>margen izquierdo</strong> y <strong>margen superior</strong>: trasladan todo el grupo y reducen el área interior; las barras no cambian de coordenadas locales, solo de posición.</li>
+          <li><strong>margen inferior</strong>: reduce el alto del área y, con él, la altura de las barras.</li>
+          <li><strong>Mostrar el marco del grupo</strong>: deja ver o no el rectángulo que delimita el área.</li>
+          </ul>`, montar: montarMargenes },
     ],
     teoria: String.raw`
       <h2>Transformaciones como matrices</h2>

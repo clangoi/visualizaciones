@@ -92,9 +92,25 @@
     intro: String.raw`
       <p>Una sola atención obliga a cada palabra a escoger un único patrón de mirada. Pero una frase tiene muchas relaciones a la vez: el adjetivo con su sustantivo, el verbo con su sujeto, la palabra con la anterior. La <strong>atención multi-cabeza</strong> (<em>multi-head attention</em>) ejecuta varias atenciones en paralelo, cada una con sus propias matrices \(W_Q,W_K,W_V\), de modo que cada <strong>cabeza</strong> puede especializarse en un tipo de relación.</p>
       <p>Para no encarecer el cálculo, cada cabeza trabaja en un subespacio más pequeño: con \(h\) cabezas, cada una usa \(d_k=d/h\) dimensiones. Sus resultados se concatenan y se mezclan con una última matriz.</p>`,
+    parametros: [
+      ['Cabezas 1 a 4 (Fig. 1)', String.raw`Activa o apaga cada cabeza. Cada una tiene sus propios pesos y aprende un patrón de atención distinto; el promedio solo incluye las activas.`],
+      ['Palabra que se mira (Fig. 1)', String.raw`Qué fila de cada cabeza se resalta: a qué palabras atiende esa palabra.`],
+      ['Dimensión del modelo (Fig. 2)', String.raw`Tamaño total del vector de cada palabra, que se reparte entre las cabezas.`],
+      ['Número de cabezas (Fig. 2)', String.raw`En cuántos subespacios se divide la dimensión. Más cabezas implican menos dimensiones por cabeza (d_k = d/h), pero el total de parámetros no cambia.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cada cabeza mira distinto', descripcion: 'Apague y encienda cabezas y compare sus patrones y el promedio. Elija una palabra para ver su fila resaltada en cada una.', montar: montarCabezas },
-      { titulo: 'Repartir las dimensiones', descripcion: 'Cambie el número de cabezas y la dimensión del modelo: \\(d_k\\) cambia, pero el número de parámetros no.', montar: montarReparto },
+      { titulo: 'Cada cabeza mira distinto', descripcion: 'Apague y encienda cabezas y compare sus patrones y el promedio. Elija una palabra para ver su fila resaltada en cada una.',
+        ayuda: String.raw`<p>Cada matriz es el patrón de atención de una cabeza: filas son palabras que consultan, columnas las atendidas; más oscuro significa más atención. Hay una matriz promedio de las cabezas activas.</p>
+          <ul>
+          <li><strong>Casillas de cabeza</strong>: al apagar una, desaparece su patrón y el promedio se calcula con las restantes.</li>
+          <li><strong>Palabra que se mira</strong>: resalta su fila en cada cabeza y permite comparar a qué palabras atiende cada una.</li>
+          </ul>`, montar: montarCabezas },
+      { titulo: 'Repartir las dimensiones', descripcion: 'Cambie el número de cabezas y la dimensión del modelo: \\(d_k\\) cambia, pero el número de parámetros no.',
+        ayuda: String.raw`<p>Cada bloque azul es el subespacio de \(d_k=d/h\) dimensiones de una cabeza; el bloque verde es la concatenación que pasa por la matriz de salida \(W_O\).</p>
+          <ul>
+          <li><strong>Número de cabezas</strong>: más cabezas dan bloques más estrechos; con \(h=1\) hay un solo bloque de \(d\) dimensiones.</li>
+          <li><strong>Dimensión del modelo</strong>: escala todos los bloques y el total de parámetros.</li>
+          </ul>`, montar: montarReparto },
     ],
     teoria: String.raw`
       <h2>Definición</h2>

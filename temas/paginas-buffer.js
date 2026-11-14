@@ -253,15 +253,35 @@
       organizan para que se puedan insertar, borrar y mover sin cambiar su identificador, que otros (los índices) usan para encontrarlos.</p>
       <p>En memoria, el <strong>gestor de buffer</strong> mantiene un arreglo de marcos donde caben algunas páginas. Cuando se pide una
       página que no está, hay que elegir cuál sacar: esa <strong>política de reemplazo</strong> decide cuántas veces se va al disco.</p>`,
+    parametros: [
+      ['Tamaño del registro (Fig. 1)', String.raw`Largo en bytes del registro que se inserta. Uno grande puede no caber en el espacio libre aunque quede hueco fragmentado.`],
+      ['Insertar, Borrar un registro al azar, Compactar y Reiniciar (Fig. 1)', String.raw`Insertar agrega un registro con una ranura nueva; Borrar deja un hueco; Compactar junta los huecos sin cambiar los rid; Reiniciar vacía la página.`],
+      ['Pedidos (Fig. 2)', String.raw`Patrón de acceso a páginas que se atiende: define si hay localidad, recorridos cíclicos, etc.`],
+      ['Política (Fig. 2)', String.raw`Criterio de reemplazo (LRU, Clock, MRU o FIFO) que decide qué página sale cuando faltan marcos.`],
+      ['Marcos de buffer (Fig. 2)', String.raw`Cantidad de páginas que caben en memoria. Más marcos suelen dar más aciertos.`],
+      ['Velocidad y reproductor (Fig. 2)', String.raw`Reproducir, avanzar paso a paso o reiniciar la secuencia de pedidos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una página con ranuras',
         descripcion: 'Inserte y borre registros de largo variable. El directorio de ranuras permite mover registros dentro de la página (compactar) sin cambiar su rid.',
+        ayuda: String.raw`<p>La página tiene cabecera, directorio de ranuras (que crece desde un extremo), registros y espacio libre. El registro recién insertado se distingue del resto.</p>
+          <ul>
+          <li><strong>Tamaño del registro</strong>: un registro mayor consume más espacio libre y la ranura nueva también ocupa directorio.</li>
+          <li><strong>Borrar</strong> deja huecos entre registros: hay espacio libre total pero no contiguo.</li>
+          <li><strong>Compactar</strong> mueve los registros y junta el espacio libre; los rid no cambian porque las ranuras siguen apuntando al registro.</li>
+          </ul>`,
         montar: montarPagina,
       },
       {
         titulo: 'Reemplazo en el buffer',
         descripcion: 'Atienda una secuencia de pedidos con LRU, Clock, MRU o FIFO. Compare las tasas de acierto: ninguna política es la mejor para todos los patrones.',
+        ayuda: String.raw`<p>Cada marco muestra la página cargada. Verde o rojo según la leyenda indica acierto o fallo; el marco recién cargado y el bit de referencia (Clock) se señalan aparte, y el registro lleva la cuenta de aciertos y fallos.</p>
+          <ul>
+          <li><strong>Pedidos</strong> con recorrido cíclico más largo que los marcos: LRU y FIFO fallan siempre, mientras MRU acierta parte.</li>
+          <li><strong>Política</strong>: con el mismo pedido cambia qué marco se reemplaza y, con ello, la tasa de aciertos.</li>
+          <li><strong>Marcos de buffer</strong>: más marcos retienen más páginas y reducen los fallos.</li>
+          </ul>`,
         montar: montarBuffer,
       },
     ],

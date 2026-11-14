@@ -189,15 +189,35 @@
     intro: String.raw`
       <p>La <strong>automatización inteligente</strong> combina automatización de procesos (robots de software que repiten pasos) con técnicas de inteligencia artificial que leen documentos, clasifican solicitudes o proponen decisiones. No todo lo que puede automatizarse debe automatizarse: la pregunta útil es qué tareas tienen <em>mucho volumen</em>, <em>poca variabilidad</em> y <em>bajo riesgo</em>, y cuáles necesitan a una persona que revise.</p>
       <p>Entre «un robot lo hace todo» y «lo hace una persona» hay un punto medio muy común: la <strong>automatización asistida</strong> o <em>human in the loop</em>, donde la máquina prepara y la persona confirma. Cuesta menos construir, libera menos horas, pero tolera mejor los errores del modelo.</p>`,
+    parametros: [
+      ['Variabilidad máxima para automatizar sola (Fig. 1)', String.raw`Hasta qué variabilidad de la tarea se acepta que un sistema la haga sin ayuda. Subirlo hace pasar tareas irregulares al grupo automatizable.`],
+      ['Riesgo máximo para automatizar sola (Fig. 1)', String.raw`Cuánto daño puede causar un error antes de exigir a una persona. Subirlo permite automatizar tareas más delicadas.`],
+      ['Volumen mínimo (tareas/mes) (Fig. 1)', String.raw`Cuántas tareas al mes se necesitan para justificar el esfuerzo. Por debajo de ese volumen la tarea no vale la pena.`],
+      ['Tareas al mes, Minutos por tarea y Parte automatizable sin excepciones (Fig. 2)', String.raw`Describen la carga de trabajo: cuántas tareas hay, cuánto tarda cada una a mano y qué fracción se resuelve sin intervención humana. De ellas sale el ahorro bruto.`],
+      ['Error humano, Error del robot sin supervisión y Costo de cada error (Fig. 2)', String.raw`Qué fracción de tareas sale mal en cada caso y cuánto cuesta cada error. Restan al ahorro, y más al robot sin revisión.`],
+      ['Inversión en el robot completo (Fig. 2)', String.raw`Costo inicial de la automatización total; la asistida cuesta 60 % de ese monto. Desplaza el mes de equilibrio.`],
+      ['Reproductor (Fig. 2)', String.raw`Hace avanzar los meses y muestra cómo se acumula el ahorro.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Qué tareas automatizar',
         descripcion: 'Mueva los umbrales de variabilidad, riesgo y volumen y mire cómo cambia el color de cada tarea y las horas liberadas. Pruebe subir el volumen mínimo: las tareas pequeñas dejan de justificar el esfuerzo aunque sean fáciles.',
+        ayuda: String.raw`<p>Cada círculo es una tarea: eje horizontal, variabilidad; eje vertical, riesgo de un error; el tamaño es el volumen mensual. El color es la decisión: automatizar por completo, automatización asistida, mantener humano o no vale la pena.</p>
+          <ul>
+          <li><strong>Variabilidad máxima</strong> y <strong>Riesgo máximo</strong>: al subirlos, las tareas pasan de «mantener humano» o «asistida» a «automatizar por completo».</li>
+          <li><strong>Volumen mínimo</strong>: al subirlo, los círculos pequeños cambian a «no vale la pena».</li>
+          </ul>`,
         montar: montarCartera,
       },
       {
         titulo: 'Ahorro, errores y recuperación de la inversión',
         descripcion: 'Compare el ahorro acumulado de automatizar por completo frente a hacerlo con revisión humana. Suba el error del robot y el costo de cada error: la línea naranja cae y la azul resiste.',
+        ayuda: String.raw`<p>Dos curvas de ahorro acumulado neto (eje vertical) por mes (eje horizontal): automatización total y asistida (60 % de la inversión). Un marcador indica el punto de equilibrio, donde el ahorro acumulado vale 0.</p>
+          <ul>
+          <li><strong>Error del robot sin supervisión</strong> y <strong>Costo de cada error</strong> altos: la curva de automatización total pierde pendiente y puede quedar bajo la asistida.</li>
+          <li><strong>Inversión en el robot completo</strong>: sube el punto de partida negativo de ambas curvas y retrasa el equilibrio.</li>
+          <li><strong>Tareas al mes</strong>: más volumen aumenta la pendiente de ahorro y acorta la recuperación.</li>
+          </ul>`,
         montar: montarAhorro,
       },
     ],

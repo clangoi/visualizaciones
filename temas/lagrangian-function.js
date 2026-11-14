@@ -256,15 +256,29 @@
       el multiplicador. En lugar de «minimizar \(f\) obedeciendo \(h=0\)», se buscan los puntos donde la función \(L(x,\lambda)=f(x)+\lambda\,h(x)\) tiene gradiente cero.</p>
       <p>Es un cambio de punto de vista muy útil: las dos condiciones del óptimo (el gradiente de \(f\) paralelo al de \(h\), y la restricción cumplida) son
       simplemente \(\nabla L=0\). Resolver ese sistema —aquí con el método de Newton— entrega a la vez el punto y el multiplicador.</p>`,
+    parametros: [
+      ['Problema (Fig. 1 y 2)', String.raw`Función objetivo y restricción de igualdad.`],
+      ['λ inicial (Fig. 1)', String.raw`Valor inicial del multiplicador; junto con el inicio decide a qué punto estacionario llega Newton.`],
+      ['Inicio al azar (Fig. 1)', String.raw`Elige otro punto de partida.`],
+      ['Paso η (Fig. 2)', String.raw`Tamaño de paso del descenso en x y ascenso en λ; si es grande, la trayectoria oscila.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Resolver ∇L = 0 con Newton',
         descripcion: 'Elija un inicio con un clic y pulse «Un paso» para ver cómo Newton resuelve las tres ecuaciones en \\((x,y,\\lambda)\\). Pruebe inicios distintos: algunos terminan en el mínimo y otros en el máximo restringido.',
+        ayuda: String.raw`<p>Restricción \(h = 0\), curvas de nivel de f, iteraciones de Newton con inicio e iteración actual, y puntos estacionarios de L.</p>
+          <ul>
+          <li><strong>λ inicial</strong>: inicios distintos terminan en el mínimo o en el máximo restringido.</li>
+          </ul>`,
         montar: montarNewton,
       },
       {
         titulo: 'La lagrangiana es una silla',
         descripcion: 'Con una sola variable, \\(L(x,\\lambda)\\) es una superficie en el plano \\((x,\\lambda)\\). Haga clic en un punto y reproduzca descenso en x con ascenso en \\(\\lambda\\): la trayectoria busca la silla; compare los tres problemas.',
+        ayuda: String.raw`<p>Plano \((x, \lambda)\) coloreado según L (baja o alta). Se marcan la restricción, la trayectoria descenso-ascenso y el punto estacionario.</p>
+          <ul>
+          <li><strong>Paso η</strong>: controla si la trayectoria llega a la silla o se aleja.</li>
+          </ul>`,
         montar: montarSilla,
       },
     ],

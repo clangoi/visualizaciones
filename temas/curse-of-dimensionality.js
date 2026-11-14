@@ -119,15 +119,32 @@
       lo más grave para la minería de datos, <strong>todas las distancias se parecen</strong>.</p>
       <p>Esto es la <strong>maldición de la dimensionalidad</strong>: los métodos basados en vecinos, densidad o agrupamiento
       pierden contraste, y la cantidad de datos necesaria para cubrir el espacio crece exponencialmente con \(d\).</p>`,
+    parametros: [
+      ['Dimensión d (Fig. 1)', String.raw`Cuántas coordenadas tiene cada punto uniforme. A mayor dimensión, las distancias entre pares se parecen más.`],
+      ['Puntos n (Fig. 1)', String.raw`Cuántos puntos se generan para el histograma.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otra muestra aleatoria de puntos.`],
+      ['Grosor de la cáscara (Fig. 2)', String.raw`Qué parte del lado del cubo cuenta como cáscara exterior.`],
+      ['Fracción de datos a capturar (Fig. 2)', String.raw`Qué porcentaje de los datos debe contener un vecindario cúbico, lo que fija su tamaño necesario.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Las distancias se concentran',
         descripcion: 'Histograma de las distancias entre pares de puntos uniformes, divididas por su media. Suba la dimensión y mire cómo se angosta.',
+        ayuda: String.raw`<p>El eje horizontal es la distancia entre pares dividida por la distancia media y el vertical, su densidad. Una marca señala el mínimo y el máximo desde el primer punto.</p>
+          <ul>
+          <li><strong>Dimensión d</strong>: al subirla el histograma se angosta en torno a 1, y el vecino más cercano y el más lejano casi no se distinguen.</li>
+          <li><strong>Puntos n</strong>: con más puntos la curva es más suave, pero se concentra igual.</li>
+          </ul>`,
         montar: montarConcentracion,
       },
       {
         titulo: 'El espacio se vacía',
         descripcion: 'Tres medidas del cubo unitario según la dimensión: cuánto ocupa la bola inscrita, cuánto la cáscara exterior y qué tan grande debe ser un «vecindario».',
+        ayuda: String.raw`<p>El eje horizontal es la dimensión d y el vertical, una fracción. Las curvas muestran la fracción del cubo que ocupa la bola inscrita, la que ocupa la cáscara exterior y el lado de un vecindario que captura la fracción de datos elegida.</p>
+          <ul>
+          <li><strong>Grosor de la cáscara</strong>: al engrosarla, la cáscara abarca antes casi todo el volumen; en dimensión alta casi todos los puntos están cerca del borde.</li>
+          <li><strong>Fracción de datos a capturar</strong>: al subirla, el vecindario necesita ser más grande; en dimensión alta deja de ser «local».</li>
+          </ul>`,
         montar: montarVolumen,
       },
     ],

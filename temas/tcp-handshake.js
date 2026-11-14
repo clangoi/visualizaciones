@@ -94,15 +94,30 @@
       <p>Internet reenvía paquetes sin garantías: pueden perderse, duplicarse o llegar en desorden. <strong>TCP</strong> construye encima un canal confiable y ordenado
       entre dos programas, y lo primero que hace es <strong>establecer una conexión</strong> con un saludo de tres pasos.</p>
       <p>Después numera cada byte, exige confirmaciones (<em>ACK</em>) y reenvía lo que no fue confirmado. Esa fiabilidad tiene un costo en viajes de ida y vuelta, que explica por qué la latencia domina el tiempo de carga de una página.</p>`,
+    parametros: [
+      ['Segmentos de datos (Fig. 1)', String.raw`Cuántos segmentos se envían tras abrir la conexión. Más segmentos significan más mensajes de datos y de confirmación en el diagrama.`],
+      ['Falla de la red (Fig. 1)', String.raw`Si se pierde un segmento de datos o un ACK. Muestra cómo TCP detecta la falta de confirmación y retransmite.`],
+      ['Ancho de banda y Pérdida de paquetes (Fig. 2)', String.raw`El tope físico del enlace y la fracción de paquetes perdidos. Fijan el techo de velocidad y el castigo por reenvíos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Saludo de tres vías, datos y cierre',
         descripcion: 'Recorra la conexión y luego pruebe «se pierde un segmento» o «se pierde un ACK»: observe quién reenvía y por qué.',
+        ayuda: String.raw`<p>Las líneas verticales son cliente y servidor; cada flecha es un segmento (SYN, SYN-ACK, ACK, datos, FIN) y el tiempo corre hacia abajo. Las fases están rotuladas: establecer, datos, confirmaciones, reenvío, pérdida y cierre.</p>
+          <ul>
+          <li><strong>Falla de la red</strong>: con «se pierde un segmento» aparece una pérdida, la espera del temporizador y el reenvío; con «se pierde un ACK» el cliente retransmite datos que el servidor ya tenía.</li>
+          <li><strong>Segmentos de datos</strong>: alarga la fase de datos y las confirmaciones.</li>
+          </ul>`,
         montar: montarConexion,
       },
       {
         titulo: 'Ventana deslizante y velocidad efectiva',
         descripcion: 'Con RTT creciente, la velocidad de una ventana pequeña se hunde; una ventana grande mantiene el enlace lleno. Suba la pérdida y compare.',
+        ayuda: String.raw`<p>Una curva por tamaño de ventana (1, 10 y 64 segmentos). El eje horizontal es el RTT en ms y el vertical, la velocidad efectiva en Mb/s.</p>
+          <ul>
+          <li><strong>Ancho de banda</strong>: es el techo de todas las curvas; las ventanas grandes lo alcanzan con RTT bajos.</li>
+          <li><strong>Pérdida de paquetes</strong>: reduce las curvas proporcionalmente, porque parte de lo enviado debe reenviarse.</li>
+          </ul>`,
         montar: montarRendimiento,
       },
     ],

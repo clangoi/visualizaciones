@@ -100,15 +100,30 @@
       <p>Una página se abre en teléfonos de 360 px y en monitores de 2500 px. En vez de hacer una versión por dispositivo, el <strong>diseño responsivo</strong> hace que
       <em>una sola</em> página se reacomode según el espacio disponible.</p>
       <p>Se apoya en tres ideas: medidas relativas (porcentajes, <code>fr</code>, <code>vw</code>), imágenes y tipografía flexibles, y <strong>media queries</strong> que cambian el diseño en ciertos anchos (<em>puntos de quiebre</em>).</p>`,
+    parametros: [
+      ['Ancho de la ventana y botones Teléfono, Tableta, Escritorio (Fig. 1)', String.raw`El ancho del viewport simulado. Los botones fijan anchos típicos; cruzar los 600 y 960 px activa otro diseño.`],
+      ['Diseño responsivo (media queries) (Fig. 1)', String.raw`Si la página adapta su disposición al ancho. Sin él, el diseño no cambia y puede salirse de la ventana.`],
+      ['Mínimo, Máximo y Parte fluida (vw) (Fig. 2)', String.raw`Los parámetros de <code>clamp()</code>: el tamaño de letra más chico, el más grande y cuánto crece con el ancho de la ventana.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una página, tres diseños',
         descripcion: 'Arrastre el ancho de la ventana y cruce los puntos de quiebre de 600 y 960 px. Luego desactive el diseño responsivo y mire el desbordamiento.',
+        ayuda: String.raw`<p>Se dibuja una página con cabecera, pie, contenido, menú lateral y tarjetas. Lo que se sale de la ventana se marca según la leyenda.</p>
+          <ul>
+          <li><strong>Ancho de la ventana</strong>: al cruzar 600 y 960 px el menú y las tarjetas se reordenan y cambian de columnas.</li>
+          <li><strong>diseño responsivo</strong> desactivado: la disposición de escritorio se mantiene y los elementos se desbordan en anchos pequeños.</li>
+          </ul>`,
         montar: montarPagina,
       },
       {
         titulo: 'Tipografía fluida con clamp()',
         descripcion: 'Compare un tamaño fijo, uno proporcional al ancho y <code>clamp()</code>. Cambie mínimo, máximo y parte fluida.',
+        ayuda: String.raw`<p>Cada curva es una estrategia de tamaño de letra: el eje horizontal es el ancho de la ventana en px y el vertical, el font-size en px.</p>
+          <ul>
+          <li><strong>Mínimo</strong> y <strong>Máximo</strong>: son los pisos y techos horizontales de la curva de <code>clamp()</code>.</li>
+          <li><strong>Parte fluida (vw)</strong>: la pendiente del tramo central; más alta, la letra crece más rápido con la ventana.</li>
+          </ul>`,
         montar: montarFluido,
       },
     ],

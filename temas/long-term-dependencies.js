@@ -110,9 +110,30 @@
     intro: String.raw`
       <p>Muchas tareas dependen de algo que ocurrió muy atrás: el sujeto de una frase que concuerda con un verbo diez palabras después, un cierre de paréntesis, el estado de una señal hace cien pasos. Una RNN simple tiene una memoria <strong>de corto plazo</strong>: la información de pasos lejanos se diluye en el estado, y, al entrenar, el gradiente que viene de ellos se <strong>desvanece</strong> (o <strong>explota</strong>).</p>
       <p>Las celdas con puertas, <strong>LSTM</strong> y <strong>GRU</strong>, añaden un camino por el que el estado pasa casi intacto de un paso al siguiente, y una puerta aprendida decide cuánto conservar. Así el gradiente puede viajar a lo largo de muchos pasos.</p>`,
+    parametros: [
+      ['Escala de los pesos recurrentes (Fig. 1)', String.raw`Magnitud de los pesos recurrentes de las tres celdas. Determina si el gradiente de una RNN simple se desvanece o explota.`],
+      ['Sesgo de las puertas de memoria (Fig. 1)', String.raw`Sesgo de la puerta de olvido de la LSTM y de actualización de la GRU. Un sesgo alto deja las puertas abiertas a conservar la memoria; uno bajo la borra.`],
+      ['Largo de la secuencia (Fig. 1)', String.raw`Distancia entre el error y los pasos antiguos. Más largo, más gradiente se pierde en el camino.`],
+      ['Celda (Fig. 2)', String.raw`Qué arquitectura se entrena: RNN simple, LSTM o GRU.`],
+      ['Pasos entre la señal y la respuesta (Fig. 2)', String.raw`Distancia que debe recordar la red. Es la dificultad de la tarea.`],
+      ['Ruido de los pasos intermedios (Fig. 2)', String.raw`Magnitud de las entradas que distraen entre la señal y la respuesta.`],
+      ['Otra semilla y reproductor (Fig. 2)', String.raw`Repite el entrenamiento con otros pesos y datos; el reproductor lo ejecuta y reinicia.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cuánto gradiente llega desde lejos', descripcion: 'Compare los tres tipos de celda. Suba el sesgo de las puertas de memoria a 3 y la escala a 0,7: la RNN pierde el gradiente y las puertas lo conservan. Con sesgo 0, ocurre lo contrario.', montar: montarFlujo },
-      { titulo: 'Recordar el primer símbolo', descripcion: 'Entrene cada celda en la tarea de recordar el primer símbolo entre ruido. Cambie la separación y repita varias veces con distintas semillas.', montar: montarEntrenamiento },
+      { titulo: 'Cuánto gradiente llega desde lejos', descripcion: 'Compare los tres tipos de celda. Suba el sesgo de las puertas de memoria a 3 y la escala a 0,7: la RNN pierde el gradiente y las puertas lo conservan. Con sesgo 0, ocurre lo contrario.',
+        ayuda: String.raw`<p>Cada curva es el gradiente relativo que llega al paso \(t\) desde el error en \(t=T\), para la RNN simple (naranja), la LSTM (azul) y la GRU (verde).</p>
+          <ul>
+          <li><strong>Escala de los pesos recurrentes</strong>: afecta sobre todo a la RNN; con escala baja su curva cae hacia cero.</li>
+          <li><strong>Sesgo de las puertas</strong>: al subirlo, las curvas de LSTM y GRU se mantienen altas hacia la izquierda; con sesgo 0 o negativo, caen.</li>
+          <li><strong>Largo de la secuencia</strong>: alarga el eje horizontal y deja ver cuánto llega desde más lejos.</li>
+          </ul>`, montar: montarFlujo },
+      { titulo: 'Recordar el primer símbolo', descripcion: 'Entrene cada celda en la tarea de recordar el primer símbolo entre ruido. Cambie la separación y repita varias veces con distintas semillas.',
+        ayuda: String.raw`<p>Eje horizontal: pasos de entrenamiento. La curva azul es la exactitud en secuencias nuevas, la naranja la pérdida de entrenamiento suavizada y la gris, el azar (50 %).</p>
+          <ul>
+          <li><strong>Celda</strong>: la RNN simple suele quedarse cerca de la línea gris cuando la separación es grande; LSTM y GRU suben por encima.</li>
+          <li><strong>Pasos entre la señal y la respuesta</strong>: al aumentarlos, cada celda tarda más o deja de superar el azar.</li>
+          <li><strong>Ruido</strong>: más ruido vuelve más difícil conservar la señal.</li>
+          </ul>`, montar: montarEntrenamiento },
     ],
     teoria: String.raw`
       <h2>Corto y largo plazo</h2>

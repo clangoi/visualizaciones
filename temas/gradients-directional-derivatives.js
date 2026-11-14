@@ -558,20 +558,45 @@
       <p>De ahí sale la idea central de la optimización sin restricciones: para <em>bajar</em> hay que moverse en una dirección que forme
       un ángulo mayor que 90° con el gradiente. La más pronunciada es \(-\nabla f\), pero hay todo un semiplano de direcciones de descenso.
       Las tres figuras muestran las derivadas parciales, la derivada direccional y un descenso con búsqueda lineal.</p>`,
+    parametros: [
+      ['Función (Fig. 1, 2 y 3)', String.raw`La función \(f(x,y)\) cuyas derivadas se estudian.`],
+      ['Mostrar las componentes ∂f/∂x y ∂f/∂y (Fig. 1)', String.raw`Muestra el gradiente descompuesto en sus dos derivadas parciales.`],
+      ['Punto inicial (Fig. 1 y 3)', String.raw`Devuelve el punto o el iterado a su posición de partida.`],
+      ['Dirección u (ángulo) (Fig. 2)', String.raw`Dirección unitaria en la que se mide el cambio de f. Cambia el valor de \(D_u f\).`],
+      ['Máximo ascenso, Máximo descenso, Tangente a la curva (Fig. 2)', String.raw`Ponen \(u\) en \(+\nabla f\), \(-\nabla f\) o perpendicular al gradiente.`],
+      ['Dirección en cada paso (Fig. 3)', String.raw`Si cada paso va en máximo descenso o en una dirección fija.`],
+      ['Ángulo de la dirección fija (Fig. 3)', String.raw`Dirección usada cuando no se sigue el gradiente; solo desciende si \(\nabla f \cdot d &lt; 0\).`],
+      ['Paso inicial t₀ (Fig. 3)', String.raw`Longitud de ensayo de la búsqueda lineal; Armijo la reduce hasta lograr descenso suficiente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Derivadas parciales y gradiente',
         descripcion: 'Cada derivada parcial es la pendiente de un corte de la superficie (gráfico inferior). Mueva el punto y compruebe que el vector azul \\(\\nabla f\\) es perpendicular a la curva naranja; en el fondo del cuenco se encoge a cero.',
+        ayuda: String.raw`<p>Arriba, el gradiente azul en el punto elegido y la curva de nivel que lo cruza; opcionalmente ∂f/∂x y ∂f/∂y. Abajo, los cortes \(f(x, y_0)\) y \(f(x_0, y)\) con sus tangentes, cuyas pendientes son las derivadas parciales.</p>
+          <ul>
+          <li><strong>Componentes</strong>: sus longitudes coinciden con las pendientes de las tangentes de los cortes.</li>
+          <li><strong>Función</strong>: el gradiente siempre es perpendicular a la curva de nivel.</li>
+          </ul>`,
         montar: montarGradiente,
       },
       {
         titulo: 'Derivada direccional',
         descripcion: 'Gire la dirección \\(u\\) y vea cómo \\(D_u f = \\nabla f \\cdot u\\) dibuja una sinusoide de amplitud \\(\\|\\nabla f\\|\\). Pruebe los tres botones: máximo ascenso, máximo descenso y la tangente a la curva (\\(D_u f = 0\\)).',
+        ayuda: String.raw`<p>Arriba, la dirección \(u\), el gradiente y el círculo de direcciones unitarias. Abajo, \(D_u f(\theta) = \nabla f \cdot u\) en función de θ; se distingue donde la función sube y donde baja.</p>
+          <ul>
+          <li><strong>Dirección u</strong>: la sinusoide alcanza su máximo cuando u coincide con el gradiente.</li>
+          <li><strong>Tangente a la curva</strong>: da \(D_u f = 0\), sin cambio de f.</li>
+          </ul>`,
         montar: montarDireccional,
       },
       {
         titulo: 'Direcciones de descenso y búsqueda lineal',
         descripcion: 'El semicírculo verde reúne las direcciones con \\(\\nabla f \\cdot d < 0\\). Ejecute el descenso más pronunciado con búsqueda lineal de Armijo y observe cómo se acepta o se rechaza cada paso \\(t\\); luego pruebe una dirección fija fuera del semicírculo.',
+        ayuda: String.raw`<p>Arriba, la trayectoria, la dirección d actual, el semicírculo de direcciones de descenso y los ensayos rechazados. Abajo, \(\varphi(t)\) con la recta de Armijo y los pasos t aceptados o rechazados.</p>
+          <ul>
+          <li><strong>Dirección en cada paso</strong>: una dirección fija fuera del semicírculo no desciende.</li>
+          <li><strong>Paso inicial t₀</strong>: un valor grande produce más rechazos antes de cumplir Armijo.</li>
+          </ul>`,
         montar: montarDescenso,
       },
     ],

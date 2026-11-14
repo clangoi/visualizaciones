@@ -97,9 +97,25 @@
     intro: String.raw`
       <p>Un <strong>mapa de calor</strong> dibuja una matriz de valores como una cuadrícula de celdas coloreadas. Con filas y columnas que son categorías o instantes, el color reemplaza al número y la vista descubre patrones —zonas altas, bandas, bloques— que en una tabla se pierden.</p>
       <p>Dos decisiones dominan el resultado: <strong>cómo se asigna color</strong> y <strong>en qué orden</strong> se colocan filas y columnas.</p>`,
+    parametros: [
+      ['Normalizar (Fig. 1)', String.raw`Si el color refleja las ventas absolutas o la posición de cada celda en el rango de su propia fila. Por fila revela la estacionalidad de cada región, pero pierde la comparación de tamaños entre regiones.`],
+      ['Rampa de color (Fig. 1)', String.raw`Azul secuencial, grises o arcoíris. La arcoíris no es recomendada porque crea bordes que los datos no tienen.`],
+      ['Orden de las filas (Fig. 1)', String.raw`Orden original o por total, de mayor a menor. Cambia qué regiones quedan juntas y qué patrones se ven.`],
+      ['Reordenar por similitud (vecino más correlacionado) (Fig. 2)', String.raw`Elige si las variables se muestran en orden mezclado o agrupadas por correlación. Es una decisión de diseño con tanto peso como el color.`],
+    ],
     visualizaciones: [
-      { titulo: 'Mapa de calor de ventas', descripcion: 'Compare valores absolutos y normalizados por fila, tres rampas de color y dos órdenes de filas.', montar: montarCalor },
-      { titulo: 'Matriz de correlación y reordenamiento', descripcion: 'Active el reordenamiento por similitud para que aparezcan bloques de variables relacionadas.', montar: montarCorrelacion },
+      { titulo: 'Mapa de calor de ventas', descripcion: 'Compare valores absolutos y normalizados por fila, tres rampas de color y dos órdenes de filas.',
+        ayuda: String.raw`<p>Cada celda es una región (fila) en un mes (columna); su color codifica las ventas según la leyenda. La lectura da el valor de la celda bajo el cursor.</p>
+          <ul>
+          <li><strong>Normalizar</strong> «por fila»: los colores se comparan dentro de cada región; una región pequeña muestra su pico como una región grande.</li>
+          <li><strong>Rampa de color</strong> «arcoíris»: aparecen franjas aparentes que no corresponden a cambios en los datos.</li>
+          <li><strong>Orden de las filas</strong> «por total»: las regiones con mayores ventas pasan arriba.</li>
+          </ul>`, montar: montarCalor },
+      { titulo: 'Matriz de correlación y reordenamiento', descripcion: 'Active el reordenamiento por similitud para que aparezcan bloques de variables relacionadas.',
+        ayuda: String.raw`<p>Matriz de correlación entre variables: azul indica correlación positiva, naranja negativa y gris, cercana a 0. La lectura da el valor de la celda bajo el cursor.</p>
+          <ul>
+          <li><strong>Reordenar por similitud</strong>: al activarlo aparecen bloques azules de variables relacionadas en lugar de un patrón mezclado.</li>
+          </ul>`, montar: montarCorrelacion },
     ],
     teoria: String.raw`
       <h2>Estructura</h2>

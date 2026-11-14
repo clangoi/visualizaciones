@@ -286,15 +286,31 @@
       soluciones duales y las cotas inferiores de las soluciones primales terminan encontrándose en un mismo número.</p>
       <p>No es un lujo teórico: el método Simplex entrega las dos soluciones a la vez. Los números de la fila \(z\) bajo las
       variables de holgura son, en el tablero óptimo, las variables duales.</p>`,
+    parametros: [
+      ['Regla de entrada (Fig. 1)', String.raw`Criterio para elegir la variable que entra al pivotar: mayor costo reducido o menor índice (Bland).`],
+      ['c₁, c₂, b₁ y b₂ (Fig. 1 y 2)', String.raw`Datos del problema: \(c\) es el objetivo del primal y \(b\) los recursos. Cambian ambas regiones y sus óptimos.`],
+      ['Reproductor (Fig. 1)', String.raw`Un paso aplica un pivote; Reiniciar vuelve al origen.`],
+      ['Ejemplo de partida (Fig. 2)', String.raw`Carga un caso con óptimo, no acotado o infactible, para recorrer las combinaciones posibles entre primal y dual.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Simplex resuelve primal y dual a la vez',
         descripcion: 'Avance paso a paso: el camino de x recorre vértices del primal mientras y, leído de la fila z, salta por el plano del dual. Observe que bᵀy = cᵀx en cada iteración, que y es infactible hasta el final y que en el óptimo cae en un vértice de la región dual.',
+        ayuda: String.raw`<p>A la izquierda, la región del primal y el camino \(x\) del Simplex; a la derecha, la del dual con los valores de \(y\) leídos de la fila z. El «hueco» marca un \(y\) todavía infactible; el par óptimo cierra el recorrido.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: en cada iteración \(b^Ty=c^Tx\); \(y\) es infactible hasta el último pivote.</li>
+          <li><strong>Regla de entrada</strong>: cambia el camino de \(x\) y por tanto los \(y\) intermedios, pero el par final es el mismo.</li>
+          </ul>`,
         montar: montarSimplex,
       },
       {
         titulo: 'Los casos posibles',
         descripcion: 'Elija un ejemplo y mueva c y b hasta que el problema cambie de tipo. Solo aparecen cuatro combinaciones; pruebe a encontrar una con un problema óptimo y el otro no.',
+        ayuda: String.raw`<p>Dos paneles, primal y dual, con sus regiones factibles, fronteras y óptimos. Una región vacía o sin óptimo se indica en la leyenda.</p>
+          <ul>
+          <li><strong>Ejemplo de partida</strong>: muestra los casos posibles; si uno es no acotado, el otro es infactible.</li>
+          <li><strong>c</strong> y <strong>b</strong>: al moverlos un problema puede pasar de tener óptimo a vaciarse, y el otro cambia con él.</li>
+          </ul>`,
         montar: montarCasos,
       },
     ],

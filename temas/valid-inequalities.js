@@ -203,15 +203,33 @@
       <p>Un mismo problema entero puede escribirse con distintas restricciones que aceptan exactamente las mismas soluciones enteras y, sin embargo, tienen relajaciones lineales muy diferentes.
       Una <strong>formulación fuerte</strong> es aquella cuya relajación queda pegada a la envoltura convexa de las soluciones enteras; una débil deja una región mucho mayor, con puntos fraccionarios de apariencia engañosa.</p>
       <p>Una <strong>desigualdad válida</strong> es una restricción extra que cumplen todas las soluciones enteras. Agregarla no cambia el óptimo entero, pero puede recortar la relajación y mejorar la cota. En la práctica es la diferencia entre un árbol de ramificación de miles de nodos y uno de unos pocos.</p>`,
+    parametros: [
+      ['Constante M de x ≤ M·y (Fig. 1)', String.raw`Cota que liga la producción x con la apertura y. Una M grande deja la relajación floja: y puede ser pequeña con x grande.`],
+      ['Costo fijo f (Fig. 1)', String.raw`Costo de abrir la planta; hace más costoso el óptimo relajado cuando se subestima.`],
+      ['Agregar la desigualdad válida x ≤ 100·y y M ajustado (Fig. 1)', String.raw`Imponen un M ajustado: la relajación se acerca a la envoltura de las soluciones enteras.`],
+      ['Costo fijo por instalación (Fig. 2)', String.raw`Costo de abrir cada instalación; con costos altos la relajación débil abre fracciones de muchas.`],
+      ['Mostrar solución (Fig. 2)', String.raw`Elige qué solución dibujar: relajación débil, fuerte u óptimo entero.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otros clientes e instalaciones.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Big-M flojo frente a ajustado',
         descripcion: 'La condición \\(x \\le M y\\) liga la producción con la apertura de la planta. Suba \\(M\\) y la región relajada se abre hacia abajo: la relajación «paga» solo una fracción del costo fijo. Pulse «M ajustado» o marque la desigualdad válida \\(x \\le 100\\,y\\) y la región coincide con la envoltura verde.',
+        ayuda: String.raw`<p>Eje horizontal x (producción), vertical y (planta abierta). El área es la región de la relajación y la envoltura de las soluciones enteras queda dentro; los puntos son y = 0 o 1. Se marcan el óptimo relajado y el entero.</p>
+          <ul>
+          <li><strong>Constante M</strong>: al subir M la región se abre y el óptimo relajado se aleja del entero.</li>
+          <li><strong>Agregar la desigualdad válida</strong>: recorta la región sin perder soluciones enteras.</li>
+          </ul>`,
         montar: montarBigM,
       },
       {
         titulo: 'Localización: formulación débil frente a fuerte',
         descripcion: 'Tres instalaciones y cinco clientes. Compare la solución de la relajación débil (muchas instalaciones medio abiertas) con la fuerte, y con el óptimo entero. Fíjese en la recta de cotas y en cuántos nodos necesita cada formulación; mueva el costo fijo y pruebe «Nuevos datos».',
+        ayuda: String.raw`<p>Instalaciones con relleno proporcional a y, clientes y asignaciones con grosor proporcional a x. Abajo, la recta de cotas compara formulación débil, fuerte y óptimo entero.</p>
+          <ul>
+          <li><strong>Mostrar solución</strong>: la débil abre fracciones de muchas instalaciones; la fuerte se acerca al entero.</li>
+          <li><strong>Costo fijo por instalación</strong>: al subir, se agranda la distancia entre las cotas.</li>
+          </ul>`,
         montar: montarLocalizacion,
       },
     ],

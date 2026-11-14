@@ -158,15 +158,35 @@
       fuente que los tenga junto al nombre, como un padrón, una red social o una filtración anterior.</p>
       <p>Los casos célebres son todos así: la ficha médica del gobernador Weld (Sweeney, 1997), los usuarios de AOL identificados por sus
       búsquedas (2006) y los de Netflix por las fechas de sus calificaciones, cruzadas con IMDb (Narayanan y Shmatikov, 2008).</p>`,
+    parametros: [
+      ['Edad publicada (Fig. 1)', String.raw`Qué tan precisa es la edad en la tabla publicada: exacta, en tramos de 5 o en tramos de 10. Menos precisión junta a más personas del padrón bajo el mismo valor.`],
+      ['Código postal publicado (Fig. 1)', String.raw`Qué tan preciso es el código postal: exacto, 3 dígitos o 2 dígitos. Igual que la edad, a menor precisión hay más candidatos por registro.`],
+      ['Reproductor (Fig. 1)', String.raw`Recorre los registros uno a uno para enlazarlos con el padrón; al cambiar edad o código postal se reinicia.`],
+      ['Usuarios (Fig. 2)', String.raw`Cuántos usuarios tiene el conjunto de datos de ubicación simulado. Con más usuarios es más difícil que alguien sea único.`],
+      ['Resolución (Fig. 2)', String.raw`Qué tan finos son los puntos de ubicación: antena y hora, o zona y bloque de 4 horas.`],
+      ['Puntos que conoce el atacante (Fig. 2)', String.raw`Cuántos puntos (lugar, hora) de la víctima conoce el atacante.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otro conjunto simulado de trayectorias.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ataque de enlace',
         descripcion: 'Cruce la tabla clínica publicada con un padrón público por código postal, edad y sexo. Cada registro con una sola coincidencia queda re-identificado, junto con su diagnóstico.',
+        ayuda: String.raw`<p>Se enlaza el registro publicado con el padrón público. Un color marca el registro que se intenta enlazar, otro los re-identificados (una sola coincidencia) y otro los candidatos del padrón que comparten sus valores.</p>
+          <ul>
+          <li><strong>Edad publicada</strong> en tramos: más candidatos por registro y menos re-identificaciones.</li>
+          <li><strong>Código postal publicado</strong> con menos dígitos: ocurre lo mismo; con edad y código exactos, la mayoría queda con una sola coincidencia y se re-identifica junto con su diagnóstico.</li>
+          </ul>`,
         montar: montarEnlace,
       },
       {
         titulo: 'Unicidad de trayectorias',
         descripcion: 'Datos de ubicación de teléfonos sin nombres. ¿Cuántos puntos (lugar, hora) bastan para que solo un usuario los cumpla? Baje la resolución y vea que no ayuda tanto como parece.',
+        ayuda: String.raw`<p>El eje horizontal es el número de puntos (lugar, hora) conocidos y el vertical, el porcentaje de usuarios únicos, o sea, los únicos que cumplen esos puntos. La leyenda indica la curva y el número de puntos elegido.</p>
+          <ul>
+          <li><strong>Puntos que conoce el atacante</strong>: con más puntos sube el porcentaje de únicos; unos pocos bastan para identificar a casi todos.</li>
+          <li><strong>Resolución</strong> gruesa: baja la curva, pero menos de lo que cabría esperar.</li>
+          <li><strong>Usuarios</strong> y <strong>Nuevos datos</strong>: cambian la muestra y mueven la curva solo un poco.</li>
+          </ul>`,
         montar: montarTrayectorias,
       },
     ],

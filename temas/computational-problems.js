@@ -119,15 +119,28 @@
       <strong>lenguaje</strong>: el conjunto de palabras cuya respuesta es «sí». Decidir si una palabra pertenece a un lenguaje es el problema computacional más básico.</p>
       <p>No todos los lenguajes exigen el mismo esfuerzo. Contar la paridad de las <em>a</em> cabe en un bit de memoria; comparar la cantidad de <em>a</em> y de <em>b</em> exige un contador sin cota;
       comparar tres cantidades o detectar una palabra repetida exige más aún. Las <strong>máquinas abstractas</strong> son precisamente escalones de memoria crecientes.</p>`,
+    parametros: [
+      ['Palabra sobre {a, b, c} (Fig. 1)', String.raw`Entrada que se evalúa contra cuatro lenguajes. Solo admite las letras a, b y c.`],
+      ['Ejemplos (Fig. 1)', String.raw`Palabras prediseñadas que muestran casos típicos: pertenece a unos lenguajes y a otros no.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una palabra, cuatro lenguajes',
         descripcion: 'Escriba una palabra y vea si pertenece a cada lenguaje, qué máquina mínima lo reconoce y cuánta memoria usa. Pruebe aabb, abab y aabbcc.',
+        ayuda: String.raw`<p>Es una tabla de texto sin colores con significado: una fila por lenguaje, con el veredicto (pertenece o no), la máquina mínima que lo reconoce y la memoria que esa máquina necesita para la palabra escrita.</p>
+          <ul>
+          <li><strong>Palabra</strong>: cambia el veredicto de cada fila y la columna «memoria»; en palabras largas de aⁿbⁿ crece la memoria necesaria.</li>
+          <li><strong>Ejemplos</strong>: «aabb» pertenece a aⁿbⁿ, «abab» no; contrastar casos muestra qué lenguajes necesitan contar.</li>
+          </ul>`,
         montar: montarVeredicto,
       },
       {
         titulo: 'La memoria que exige aⁿbⁿ',
         descripcion: 'Cada punto es el autómata finito mínimo para las palabras aᵏbᵏ con k ≤ n: crece linealmente, así que ningún autómata finito reconoce el lenguaje completo.',
+        ayuda: String.raw`<p>El eje horizontal es n (profundidad de anidamiento) y el vertical, el número de estados. Una serie muestra los estados del AFD mínimo para aᵏbᵏ con k ≤ n, que crece linealmente; la otra, la constante de un autómata con pila.</p>
+          <ul>
+          <li>La figura no tiene controles: compare cómo crece una serie y la otra permanece plana, y lea la cifra de la lectura.</li>
+          </ul>`,
         montar: montarMemoria,
       },
     ],

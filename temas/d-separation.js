@@ -105,15 +105,30 @@
       abierto, están d-conectadas y en general serán dependientes.</p>
       <p>Bloquear un camino se decide nodo por nodo con las reglas de <a href="tema.html?id=causal-structures">cadenas, forks y colliders</a>.
       Es la herramienta que usan los criterios de <a href="tema.html?id=backdoor-frontdoor">ajuste causal</a>.</p>`,
+    parametros: [
+      ['Ejemplo: collider abierto, Ejemplo: bloqueado y Quitar condicionamiento (Fig. 1)', String.raw`Cargan configuraciones de X, Y y Z de ejemplo o limpian Z.`],
+      ['condicionar en cada nodo (Fig. 2)', String.raw`Elige qué nodos forman el conjunto Z. Condicionar bloquea cadenas y forks, pero abre colliders y sus descendientes.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra muestra simulada con el grafo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Caminos abiertos y bloqueados',
         descripcion: 'Elija X, Y y un conjunto Z en el grafo, y vea qué caminos quedan abiertos. Con X = A e Y = B, condicionar en D (descendiente del collider C) abre el camino A → C ← B.',
+        ayuda: String.raw`<p>Grafo con X, Y, los nodos condicionados (en Z), los caminos abiertos y el nodo que bloquea un camino. El registro lista cada camino entre X e Y y dice si está abierto o bloqueado.</p>
+          <ul>
+          <li><strong>Ejemplo: collider abierto</strong>: condicionar en un descendiente del collider abre el camino.</li>
+          <li><strong>Ejemplo: bloqueado</strong>: un nodo condicionado en una cadena o fork lo bloquea.</li>
+          <li><strong>Quitar condicionamiento</strong>: se vacía Z.</li>
+          </ul>`,
         montar: montarCaminos,
       },
       {
         titulo: 'Comprobarlo con datos',
         descripcion: 'El veredicto de la d-separación para todos los pares frente a la correlación parcial en datos simulados con ese grafo.',
+        ayuda: String.raw`<p>Para cada par de nodos, la tabla da el veredicto de d-separación dado Z y la correlación parcial medida en datos simulados.</p>
+          <ul>
+          <li><strong>condicionar en…</strong>: cambia Z y con él los veredictos; los pares d-separados deben tener correlación parcial cercana a 0.</li>
+          </ul>`,
         montar: montarDatos,
       },
     ],

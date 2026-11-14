@@ -263,15 +263,34 @@
       Los <strong>sistemas de soporte a decisiones</strong> (<em>decision support systems</em>, DSS) van un paso más allá: incorporan un <em>modelo</em> que permite explorar alternativas
       («¿qué pasa si subo el precio?») en lugar de solo mirar lo ocurrido.</p>
       <p>En la primera figura recorra la cadena completa con 336 ventas simuladas; en la segunda juegue con un modelo de precio y demanda, y vea qué supuesto pesa más en el resultado.</p>`,
+    parametros: [
+      ['Margen mínimo exigido (Fig. 1)', String.raw`Umbral de la regla de decisión. Los resultados bajo el mínimo no pasan, así que la misma tabla puede llevar a otra decisión.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otros datos de las fuentes.`],
+      ['Precio de venta (Fig. 2)', String.raw`Precio que se prueba en el modelo. Mueve el punto elegido sobre la curva de utilidad.`],
+      ['Elasticidad de la demanda (Fig. 2)', String.raw`Qué tanto cae la demanda cuando sube el precio. Con elasticidad alta, subir el precio rinde menos.`],
+      ['Costo variable por unidad (Fig. 2)', String.raw`Costo de cada unidad vendida. Desplaza el precio óptimo.`],
+      ['Costos fijos mensuales (Fig. 2)', String.raw`Costo que no depende del volumen. Baja o sube la utilidad sin cambiar el precio óptimo.`],
+      ['Ir al precio óptimo (Fig. 2)', String.raw`Mueve el precio elegido a la cima de la curva.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De las fuentes a la decisión',
         descripcion: 'Avance etapa por etapa y observe cuántas filas sobreviven en cada una. Al final mueva el margen mínimo exigido: la misma tabla de resultados lleva a otra decisión.',
+        ayuda: String.raw`<p>Etapas del flujo desde las fuentes hasta la decisión: pendientes, la que acaba de ejecutarse y las completadas. Al final aparecen los márgenes calculados, señalados como suficientes o bajo el mínimo, con una línea del margen mínimo.</p>
+          <ul>
+          <li><strong>Margen mínimo exigido</strong>: sube o baja la línea; más márgenes quedan bajo el mínimo si se exige más.</li>
+          </ul>`,
         montar: montarFlujo,
       },
       {
         titulo: 'Modelo «qué pasa si»',
         descripcion: 'Cambie el precio y la elasticidad y busque la cima de la curva; luego mire cuál supuesto mueve más la utilidad. Pruebe elasticidades cercanas a 1,2 y costos altos.',
+        ayuda: String.raw`<p>Arriba, la utilidad mensual según el precio, con el precio elegido y el óptimo. Abajo, un gráfico de sensibilidad: cuánto cambia la utilidad con un -10 % y un +10 % en cada supuesto.</p>
+          <ul>
+          <li><strong>Precio de venta</strong>: acercarlo al óptimo sube la utilidad.</li>
+          <li><strong>Elasticidad de la demanda</strong>: cambia la forma de la curva y el precio óptimo.</li>
+          <li><strong>Costo variable</strong> y <strong>Costos fijos</strong>: cambian el nivel de utilidad y las barras de sensibilidad muestran cuál supuesto pesa más.</li>
+          </ul>`,
         montar: montarQueSiPasa,
       },
     ],

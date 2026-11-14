@@ -258,15 +258,33 @@
       binaria. Se busca el conjunto que sume el mayor <strong>valor presente neto</strong> (VPN) sin gastar más de lo disponible.</p>
       <p>Es una mochila con complicaciones realistas: algunos proyectos son alternativas entre sí (si se hace uno, el otro sobra) y otros dependen de una obra previa.
       Esas reglas lógicas se escriben como desigualdades lineales sobre las variables binarias, y cambian la respuesta aunque el presupuesto sea el mismo.</p>`,
+    parametros: [
+      ['Presupuesto (Fig. 1 y 2)', String.raw`El capital disponible para la cartera. Subirlo permite financiar más proyectos y el valor óptimo crece a saltos.`],
+      ['Tasa de descuento r (Fig. 1 y 2)', String.raw`La tasa con que se descuentan los flujos futuros. Al subirla baja el VPN de cada proyecto y algunos pasan a ser negativos.`],
+      ['Restricciones lógicas (Fig. 1 y 2)', String.raw`Las dependencias o exclusiones entre proyectos. Activarlas reduce las carteras permitidas y el valor óptimo.`],
+      ['Aplicar el óptimo, Vaciar y Nuevos proyectos (Fig. 1 y 2)', String.raw`Aplicar el óptimo elige la mejor cartera, Vaciar la deja sin proyectos y Nuevos proyectos sortea otros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Arme la cartera',
         descripcion: 'Elija proyectos con un clic y vigile el presupuesto y las reglas. Active una restricción lógica y pulse «Aplicar el óptimo»; suba la tasa de descuento r hasta que algún proyecto tenga VPN negativo y deje de convenir.',
+        ayuda: String.raw`<p>Cada barra es un proyecto, con altura igual a su VPN. Los elegidos se distinguen de los no elegidos, y se marcan con otro color los VPN negativos, las reglas violadas y el exceso de presupuesto.</p>
+          <ul>
+          <li><strong>Presupuesto</strong>: si su cartera lo excede, el exceso queda marcado.</li>
+          <li><strong>Tasa de descuento r</strong>: las barras bajan; con r alta algunos VPN son negativos y no conviene elegirlos.</li>
+          <li><strong>Aplicar el óptimo</strong> muestra la mejor cartera que cumple presupuesto y reglas activas.</li>
+          </ul>`,
         montar: montarEleccion,
       },
       {
         titulo: 'Valor óptimo según el presupuesto',
         descripcion: 'Arrastre el presupuesto o haga clic en la curva: el óptimo entero sube a saltos. Apague las dependencias y mida cuánto cuestan; la cota de la relajación lineal nunca queda por debajo.',
+        ayuda: String.raw`<p>El eje horizontal es el presupuesto B (M&#36;) y el vertical el VPN total (M&#36;). Cada curva es una variante del problema, según la leyenda, y el punto marcado corresponde al presupuesto elegido.</p>
+          <ul>
+          <li><strong>Presupuesto</strong>: mueve el punto sobre la curva; el óptimo entero sube a saltos.</li>
+          <li><strong>Tasa de descuento r</strong>: baja la curva completa porque cada VPN disminuye.</li>
+          <li>La curva de la relajación lineal nunca queda por debajo de la entera.</li>
+          </ul>`,
         montar: montarCurva,
       },
     ],

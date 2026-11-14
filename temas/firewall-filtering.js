@@ -56,8 +56,17 @@
     intro: String.raw`
       <p>Un <strong>firewall</strong> es un guardia en el borde de una red: examina cada paquete que entra o sale y decide si pasa o se descarta, según una lista ordenada de <strong>reglas</strong> sobre las cabeceras (direcciones, protocolo, puertos). Así se reduce lo que queda expuesto: solo lo que se permite explícitamente es alcanzable desde fuera.</p>
       <p>Un filtro <em>sin estado</em> mira cada paquete por separado; uno <em>con estado</em> recuerda las conexiones y reconoce las respuestas a lo que se pidió desde dentro.</p>`,
+    parametros: [
+      ['Política por omisión (Fig. 1)', String.raw`Qué ocurre con un paquete que no coincide con ninguna regla: «denegar» lo bloquea y «permitir» lo deja pasar.`],
+      ['Firewall con estado (Fig. 1)', String.raw`Si el firewall recuerda las conexiones iniciadas desde dentro y acepta sus respuestas. Sin estado, esas respuestas se juzgan solo por las reglas.`],
+    ],
     visualizaciones: [
-      { titulo: 'Reglas, política y estado', descripcion: 'Con la política «denegar», ¿qué pasa con las respuestas a una consulta DNS? Active el firewall con estado y observe qué cambia. Luego cambie a «permitir».', montar },
+      { titulo: 'Reglas, política y estado', descripcion: 'Con la política «denegar», ¿qué pasa con las respuestas a una consulta DNS? Active el firewall con estado y observe qué cambia. Luego cambie a «permitir».',
+        ayuda: String.raw`<p>La tabla enumera paquetes de ejemplo con su veredicto (permitido o bloqueado) y la regla que decidió, o la política por omisión. Las reglas se evalúan en orden y gana la primera que coincide.</p>
+          <ul>
+          <li><strong>Política por omisión</strong> «permitir»: los paquetes sin regla pasan; con «denegar» se bloquean.</li>
+          <li><strong>Firewall con estado</strong> activado: las respuestas a conexiones salientes (por ejemplo DNS) se aceptan; sin estado quedan bloqueadas, pero siguen bloqueados los paquetes no solicitados.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>Filtrado de paquetes</h2>

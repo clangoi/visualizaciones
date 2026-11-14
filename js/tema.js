@@ -3,7 +3,8 @@
 
    definicion = {
      intro: html,                       // explicación intuitiva inicial
-     visualizaciones: [{ titulo, descripcion, montar(cuerpo) }],
+     parametros: [[nombre, html], …],  // qué se puede modificar y qué significa (va al final de la intro)
+     visualizaciones: [{ titulo, descripcion, ayuda, montar(cuerpo) }],  // ayuda: html desplegable
      teoria: html                       // fundamento matemático (usa \( \) y \[ \] para LaTeX)
    } */
 (function () {
@@ -63,14 +64,26 @@
           })),
         indiceTema));
 
-    if (def.intro) raiz.appendChild(el('section', { class: 'prosa', html: def.intro }));
+    if (def.intro || def.parametros) {
+      const intro = el('section', { class: 'prosa', html: def.intro || '' });
+      if (def.parametros && def.parametros.length) {
+        intro.append(
+          el('h3', null, 'Parámetros que puede modificar'),
+          el('dl', { class: 'parametros' }, def.parametros.flatMap(([nombre, texto]) =>
+            [el('dt', null, nombre), el('dd', { html: texto })])));
+      }
+      raiz.appendChild(intro);
+    }
 
     (def.visualizaciones || []).forEach((v, i) => {
       const cuerpo = el('div', { class: 'viz-cuerpo' });
       const figura = el('figure', { class: 'viz', id: `viz-${i + 1}` },
         el('figcaption', { class: 'viz-cabecera' },
           el('h3', null, el('span', null, `Fig. ${i + 1}`), v.titulo),
-          v.descripcion ? el('p', { html: v.descripcion }) : null),
+          v.descripcion ? el('p', { html: v.descripcion }) : null,
+          v.ayuda ? el('details', { class: 'viz-ayuda' },
+            el('summary', null, '¿Ayuda con lo que ves?'),
+            el('div', { class: 'viz-ayuda-cuerpo', html: v.ayuda })) : null),
         cuerpo);
       raiz.appendChild(figura);
       indiceTema.appendChild(el('a', { href: `#viz-${i + 1}` }, `Fig. ${i + 1} · ${v.titulo}`));

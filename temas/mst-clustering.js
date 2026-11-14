@@ -138,15 +138,34 @@
       de vecindad de los datos en solo \(n - 1\) aristas.</p>
       <p>Hay una equivalencia exacta: <strong>cortar las k − 1 aristas más largas del MST da los mismos k grupos que el
       clustering jerárquico de enlace simple</strong>. El MST es además la base de <a href="tema.html?id=hdbscan">HDBSCAN</a>.</p>`,
+    parametros: [
+      ['Puntos n (Fig. 1)', String.raw`Cuántos puntos tiene el conjunto y, por tanto, cuántas aristas posibles examina Kruskal. El árbol final tiene n − 1 aristas.`],
+      ['Datos (Fig. 2)', String.raw`La forma de los datos sobre la que se corta el árbol de expansión mínima.`],
+      ['Grupos k (cortes = k − 1) (Fig. 2)', String.raw`Cuántos grupos se quieren: se cortan las k − 1 aristas más largas del árbol.`],
+      ['Ruido de fondo (Fig. 2)', String.raw`Cantidad de puntos sueltos añadidos. Muestran cómo el ruido puede conectar grupos reales.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otra muestra. El reproductor (Fig. 1) avanza o reinicia el algoritmo de Kruskal.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Kruskal sobre los puntos',
         descripcion: 'El MST euclidiano construido arista por arista. Observe que las primeras aristas unen puntos dentro de cada mancha y las últimas, las manchas entre sí.',
+        ayuda: String.raw`<p>Los puntos se unen por aristas conforme Kruskal las examina en orden de longitud: se distinguen la arista aceptada (une dos componentes), la examinada en el paso actual y la rechazada (formaría un ciclo). El registro lista cada decisión.</p>
+          <ul>
+          <li>Las primeras aristas aceptadas unen puntos dentro de cada mancha y las últimas, las manchas entre sí.</li>
+          <li>Cada arista aceptada equivale a una fusión del enlace simple.</li>
+          <li><strong>Puntos n</strong> mayor: más aristas por examinar y más rechazos por ciclo.</li>
+          </ul>`,
         montar: montarKruskal,
       },
       {
         titulo: 'Cortar las aristas más largas',
         descripcion: 'Elija k y vea qué aristas se cortan. El ARI frente al enlace simple es siempre 1: son el mismo método.',
+        ayuda: String.raw`<p>Los puntos se colorean por componente del árbol tras quitar las aristas más largas, que aparecen marcadas como aristas cortadas. La lectura incluye el ARI frente a los grupos verdaderos y frente al enlace simple.</p>
+          <ul>
+          <li><strong>Grupos k</strong>: más cortes dejan más componentes; el resultado es siempre idéntico al enlace simple (ARI = 1 con él).</li>
+          <li><strong>Ruido de fondo</strong> mayor: las aristas largas pasan a ser las que conectan los puntos sueltos y los grupos reales quedan unidos (efecto cadena).</li>
+          <li><strong>Datos</strong>: con lunas o anillos el corte sigue cada forma.</li>
+          </ul>`,
         montar: montarCorte,
       },
     ],

@@ -40,8 +40,19 @@
     intro: String.raw`
       <p>Antes de intercambiar datos, TCP establece una <strong>conexión</strong>: ambos extremos acuerdan sus números de secuencia iniciales con un saludo de tres mensajes (<em>three-way handshake</em>). Después, cada byte del flujo está numerado, y los <strong>ACK</strong> permiten saber qué llegó. Al terminar, la conexión se cierra con otro intercambio.</p>
       <p>Que haya números de secuencia y confirmaciones es lo que permite detectar pérdidas, reordenamientos y duplicados.</p>`,
+    parametros: [
+      ['Fase (Fig. 1)', String.raw`Elige qué tramo de la conexión se recorre: el saludo de 3 vías, un intercambio de datos con números de secuencia o el cierre en 4 pasos.`],
+      ['Se pierde la respuesta del servidor (Fig. 1)', String.raw`Con 1, el SYN+ACK del saludo se pierde: el cliente espera, vence su temporizador y reintenta el SYN. Con 0 el saludo transcurre sin pérdidas.`],
+      ['Un paso y reproductor (Fig. 1)', String.raw`Avanzan o reinician la secuencia de mensajes, uno por uno.`],
+    ],
     visualizaciones: [
-      { titulo: 'Abrir, usar y cerrar una conexión', descripcion: 'Recorra el saludo de 3 vías, un intercambio con una pérdida y el cierre. Active la pérdida del SYN+ACK en el saludo.', montar },
+      { titulo: 'Abrir, usar y cerrar una conexión', descripcion: 'Recorra el saludo de 3 vías, un intercambio con una pérdida y el cierre. Active la pérdida del SYN+ACK en el saludo.',
+        ayuda: String.raw`<p>Cada columna es un extremo (cliente en azul, servidor en naranja) y el tiempo corre hacia abajo; cada flecha es un segmento con su etiqueta (SYN, ACK, seq, ack) y a su lado el estado de TCP. Un segmento perdido se marca con un punto rojo. La lectura indica cuántos mensajes van y los estados de cliente y servidor.</p>
+          <ul>
+          <li><strong>Fase</strong> «Establecer»: los estados pasan de CLOSED/LISTEN a ESTABLISHED tras SYN, SYN+ACK y ACK.</li>
+          <li><strong>Fase</strong> «Intercambio»: el ack indica el siguiente byte esperado; el segmento perdido provoca un ack duplicado y luego la retransmisión.</li>
+          <li><strong>Se pierde la respuesta del servidor</strong> = 1 (en la fase de establecer): aparece el SYN+ACK perdido y un SYN de reintento.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>Saludo de tres vías</h2>

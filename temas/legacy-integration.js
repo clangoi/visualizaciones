@@ -255,20 +255,47 @@
       modernas. Reemplazarlo de golpe es arriesgado, así que casi siempre debe convivir con sistemas nuevos, y para eso hay que <strong>integrar aplicaciones</strong>.</p>
       <p>La forma de conectarlas importa mucho. Unir cada sistema con todos los demás parece sencillo con tres aplicaciones, pero el número de conexiones crece con el cuadrado. Un
       <strong>middleware</strong> o bus de integración reduce el problema a una conexión por sistema, y una migración gradual permite apagar el legado módulo a módulo.</p>`,
+    parametros: [
+      ['Sistemas por conectar (n) (Fig. 1)', String.raw`Cuántos sistemas hay que comunicar. Las interfaces necesarias dependen de este número.`],
+      ['Arquitectura de integración (Fig. 1)', String.raw`Punto a punto conecta cada par de sistemas; con bus, cada sistema se conecta solo al bus.`],
+      ['Agregar / Quitar un sistema (Fig. 1)', String.raw`Cambian n en una unidad para ver cuántas interfaces suma o resta.`],
+      ['Construir una interfaz punto a punto (Fig. 2)', String.raw`Costo de cada conexión directa entre dos sistemas.`],
+      ['Construir un adaptador al bus (Fig. 2)', String.raw`Costo de conectar un sistema al bus.`],
+      ['Costo fijo de implantar el bus (Fig. 2)', String.raw`Inversión inicial del bus, independiente de n.`],
+      ['Mantener una interfaz por año y Horizonte (Fig. 2)', String.raw`Costo anual de cada interfaz y años considerados en el total.`],
+      ['Módulos migrados por trimestre (Fig. 3)', String.raw`Ritmo de la migración gradual.`],
+      ['Migrar un módulo (Fig. 3)', String.raw`Costo de reescribir cada módulo.`],
+      ['Mantener un módulo legado al año y Aumento anual del costo del legado (Fig. 3)', String.raw`Costo de mantener el legado y rapidez con que se encarece.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Punto a punto frente a bus',
         descripcion: 'Agregue sistemas de a uno y cuente las interfaces: en punto a punto la malla se vuelve densa enseguida, con el bus cada sistema nuevo suma una. Marque algunos como legado (clic) y vea cuántas interfaces deben construirse a medida.',
+        ayuda: String.raw`<p>Grafo de sistemas conectados. Los modernos ofrecen API y los legados necesitan un adaptador; las interfaces estándar se distinguen de las hechas a medida (que tocan un legado).</p>
+          <ul>
+          <li><strong>Sistemas por conectar</strong> en punto a punto: las conexiones crecen cuadráticamente, con una malla densa.</li>
+          <li><strong>Arquitectura</strong> con bus: cada sistema añadido suma una sola interfaz.</li>
+          </ul>`,
         montar: montarTopologia,
       },
       {
         titulo: 'Cuándo conviene el bus',
         descripcion: 'La curva del punto a punto sube con n² y la del bus con n más un costo fijo. Busque el punto de equilibrio y vea cómo se mueve al encarecer las interfaces o al abaratar la implantación del bus.',
+        ayuda: String.raw`<p>Dos curvas de costo total (miles de dólares) según los sistemas por integrar (n), una para punto a punto y otra para el bus, con el n elegido marcado.</p>
+          <ul>
+          <li><strong>Construir una interfaz punto a punto</strong> y <strong>Mantener una interfaz</strong> más altos: sube la curva punto a punto y el cruce llega con menos sistemas.</li>
+          <li><strong>Costo fijo del bus</strong> más alto: desplaza el cruce hacia más sistemas.</li>
+          </ul>`,
         montar: montarCosto,
       },
       {
         titulo: 'Migración gradual del legado',
         descripcion: 'Reproduzca los trimestres y compare tres caminos: mantener el legado, migrar de a poco con una fachada de API o reemplazar todo de una vez. Pruebe un legado que envejece rápido (30 %) y otro estable (0 %) y observe qué estrategia gana.',
+        ayuda: String.raw`<p>Arriba, los módulos como celdas: los que siguen en el legado, los que se migran en el trimestre y los ya migrados. Abajo, el costo acumulado (miles de dólares) por trimestre de tres caminos: mantener el legado, migración gradual y reemplazo total.</p>
+          <ul>
+          <li><strong>Módulos migrados por trimestre</strong>: más rápido, la curva gradual se aplana antes.</li>
+          <li><strong>Aumento anual del costo del legado</strong>: la curva de mantener el legado se curva hacia arriba y favorece migrar.</li>
+          </ul>`,
         montar: montarStrangler,
       },
     ],

@@ -149,9 +149,28 @@
       Para medirla se separa un <strong>conjunto de prueba</strong> que el modelo nunca usa para aprender.</p>
       <p>Si el modelo es demasiado simple, falla incluso en los datos de entrenamiento (<em>subajuste</em>, <em>underfitting</em>). Si es demasiado flexible, memoriza el ruido y falla en los datos nuevos (<em>sobreajuste</em>, <em>overfitting</em>).
       Comparar modelos solo tiene sentido con la misma partición y fijándose en la prueba, no en el entrenamiento.</p>`,
+    parametros: [
+      ['Grado del polinomio (Fig. 1)', String.raw`La complejidad del modelo. Con grado bajo se subajusta; con grado alto el modelo sigue el ruido de los datos de entrenamiento y generaliza mal.`],
+      ['Ejemplos de entrenamiento (Fig. 1)', String.raw`Cuántos datos se usan para ajustar. Con pocos, el sobreajuste aparece con grados menores.`],
+      ['Ruido σ (Fig. 1)', String.raw`La dispersión de los datos alrededor de la función verdadera. Con más ruido, el error de prueba mínimo es mayor y el grado óptimo, menor.`],
+      ['Datos y Ruido (Fig. 2)', String.raw`El tipo de datos de clasificación y su ruido. Con más ruido, las clases se mezclan y todos los modelos pierden exactitud en prueba.`],
+      ['Nuevos datos y Nueva partición (Fig. 1 y 2)', String.raw`Sortean otra muestra o una nueva división entre entrenamiento y prueba.`],
+    ],
     visualizaciones: [
-      { titulo: 'Subajuste y sobreajuste', descripcion: 'Suba el grado del polinomio y compare las dos curvas de error. Luego reduzca los ejemplos y vea cómo se adelanta el sobreajuste.', montar: montarGrado },
-      { titulo: 'Comparar modelos con la misma partición', descripcion: 'Un modelo con exactitud 100 % en entrenamiento puede ser el peor en prueba. Pruebe con ruido alto y con «Círculos concéntricos».', montar: montarComparacion },
+      { titulo: 'Subajuste y sobreajuste', descripcion: 'Suba el grado del polinomio y compare las dos curvas de error. Luego reduzca los ejemplos y vea cómo se adelanta el sobreajuste.',
+        ayuda: String.raw`<p>A un lado, los puntos de entrenamiento y de prueba (nunca usados para ajustar), la curva del modelo ajustado y la función verdadera. Al otro, el error cuadrático medio según el grado del polinomio, con una curva para entrenamiento y otra para prueba.</p>
+          <ul>
+          <li><strong>Grado del polinomio</strong>: el error de entrenamiento siempre baja al subirlo; el de prueba baja y luego sube, y el punto de cruce marca el sobreajuste.</li>
+          <li><strong>Ejemplos de entrenamiento</strong>: con pocos, el error de prueba sube antes.</li>
+          <li><strong>Ruido σ</strong>: con más ruido, el grado óptimo es menor.</li>
+          </ul>`, montar: montarGrado },
+      { titulo: 'Comparar modelos con la misma partición', descripcion: 'Un modelo con exactitud 100 % en entrenamiento puede ser el peor en prueba. Pruebe con ruido alto y con «Círculos concéntricos».',
+        ayuda: String.raw`<p>Cada modelo tiene dos barras de exactitud: la de entrenamiento (barra vacía) y la de prueba (barra llena, del color del modelo), con el 60 % de los datos para entrenar y el resto para evaluar.</p>
+          <ul>
+          <li><strong>Nueva partición</strong>: el orden entre modelos puede cambiar; una sola partición es ruidosa.</li>
+          <li><strong>Datos</strong>: un modelo con 100 % en entrenamiento puede ser el peor en prueba, sobre todo con ruido alto o «Círculos concéntricos».</li>
+          <li><strong>Ruido</strong>: baja la exactitud de prueba y agranda la brecha respecto del entrenamiento.</li>
+          </ul>`, montar: montarComparacion },
     ],
     teoria: String.raw`
       <h2>Riesgo verdadero y riesgo empírico</h2>

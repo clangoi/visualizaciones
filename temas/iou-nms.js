@@ -112,9 +112,25 @@
     intro: String.raw`
       <p>Para decidir si una caja predicha «acertó» hace falta un número que mida cuánto se parece a la caja real: la <strong>Intersección sobre Unión</strong> (<em>Intersection over Union</em>, IoU). Vale 1 si coinciden y 0 si no se tocan; por convención, un IoU ≥ 0,5 cuenta como acierto.</p>
       <p>Un detector, además, tiende a proponer muchas cajas casi iguales para un mismo objeto. La <strong>supresión de no máximos</strong> (<em>Non-Maximum Suppression</em>, NMS) las limpia: se queda con la más confiable y descarta las que se le superponen demasiado.</p>`,
+    parametros: [
+      ['Ancho y Alto de la caja predicha (Fig. 1)', String.raw`Tamaño de la caja que se compara con la real. Cambiarlo modifica cuánto se solapan y cuánta área sobra en la unión.`],
+      ['Umbral de IoU (Fig. 1)', String.raw`Valor mínimo de IoU para considerar acertada una predicción. Más alto es más exigente.`],
+      ['Umbral de IoU para suprimir (Fig. 2)', String.raw`Si una candidata se solapa con una conservada más que este valor, se descarta como duplicado. Bajo suprime mucho; alto deja pasar duplicados.`],
+      ['Nuevas detecciones y reproductor (Fig. 2)', String.raw`Sortean otro conjunto de candidatas y avanzan la supresión paso a paso.`],
+    ],
     visualizaciones: [
-      { titulo: 'Intersección sobre unión', descripcion: 'Arrastre la caja naranja sobre la verde y cambie su tamaño. Busque un IoU de 0,5 y observe que dos cajas pueden «parecerse» y aun así no llegar.', montar: montarIoU },
-      { titulo: 'Supresión de no máximos paso a paso', descripcion: 'Avance con «Un paso» y observe qué candidatas se conservan. Pruebe un umbral bajo (0,2) y uno alto (0,8).', montar: montarNMS },
+      { titulo: 'Intersección sobre unión', descripcion: 'Arrastre la caja naranja sobre la verde y cambie su tamaño. Busque un IoU de 0,5 y observe que dos cajas pueden «parecerse» y aun así no llegar.',
+        ayuda: String.raw`<p>Se ven la caja real (verde), la predicha (naranja), su intersección y la unión. El IoU es el área de la intersección dividida por la de la unión.</p>
+          <ul>
+          <li><strong>Ancho</strong> y <strong>Alto</strong>: si la caja predicha es mucho mayor o menor que la real, la unión crece o la intersección se achica y el IoU baja.</li>
+          <li><strong>Umbral de IoU</strong>: indica si la predicción se cuenta como acierto (p. ej. 0,5).</li>
+          </ul>`, montar: montarIoU },
+      { titulo: 'Supresión de no máximos paso a paso', descripcion: 'Avance con «Un paso» y observe qué candidatas se conservan. Pruebe un umbral bajo (0,2) y uno alto (0,8).',
+        ayuda: String.raw`<p>Cada caja es una candidata con su confianza. Cambian de aspecto según el estado: pendiente, la de mayor confianza que se examina, conservada o suprimida (IoU alto con una conservada).</p>
+          <ul>
+          <li><strong>Umbral de IoU para suprimir</strong> bajo (0,2): se suprimen incluso cajas poco solapadas, y objetos cercanos pueden perderse.</li>
+          <li>Con umbral alto (0,8) quedan duplicados del mismo objeto.</li>
+          </ul>`, montar: montarNMS },
     ],
     teoria: String.raw`
       <h2>IoU</h2>

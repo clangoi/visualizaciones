@@ -211,15 +211,34 @@
       red que muestra cómo circula el trabajo entre personas, no entre actividades.</p>
       <p>Con ella se detectan quienes reciben todo el trabajo, quienes solo lo reenvían, y traspasos entre áreas que el organigrama no prevé. Dos decisiones
       cambian la imagen: qué tan lejos se busca la sucesión (causalidad directa o indirecta) y qué peso mínimo se exige para mostrar una flecha.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`El proceso que genera el registro y, con él, quiénes intervienen y cómo se pasan el trabajo.`],
+      ['Casos y Casos a recorrer (Fig. 1 y 2)', String.raw`Cantidad de casos de la red (Fig. 1) o de casos que se recorren evento a evento (Fig. 2).`],
+      ['Polivalencia (Fig. 1)', String.raw`Probabilidad de que una persona haga actividades de otro rol. Al subirla aparecen traspasos entre más personas.`],
+      ['Distancia máxima (causalidad indirecta) (Fig. 1)', String.raw`Cuántos eventos adelante se considera que alguien entrega a otro. Con 1 solo son traspasos directos; mayores incluyen indirectos.`],
+      ['Peso mínimo y Ocultar traspasos a sí mismo (Fig. 1)', String.raw`Peso mínimo quita traspasos poco frecuentes; Ocultar quita las flechas de una persona a sí misma.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Genera otro registro; los pasos de la Fig. 2 cuentan un traspaso a la vez.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Red de traspasos entre personas',
         descripcion: 'Suba el peso mínimo para quedarse con los traspasos principales; aumente la distancia máxima y observe aparecer flechas indirectas. Haga clic en una persona para ver a quién entrega y de quién recibe.',
+        ayuda: String.raw`<p>Red de personas con flechas de traspaso (grosor = peso). Al hacer clic en una persona se distinguen a quién entrega trabajo, de quién recibe y los otros traspasos.</p>
+          <ul>
+          <li><strong>Peso mínimo</strong>: al subirlo quedan solo los traspasos principales.</li>
+          <li><strong>Distancia máxima</strong>: al aumentarla aparecen flechas indirectas.</li>
+          <li><strong>Ocultar traspasos a sí mismo</strong>: elimina los bucles sobre una persona.</li>
+          </ul>`,
         montar: montarRed,
       },
       {
         titulo: 'La matriz de traspasos, caso a caso',
         descripcion: 'Recorra casos reales evento por evento: cada par consecutivo suma uno a la celda (quien entrega, quien recibe). Compare los procesos y vea en qué filas se concentra el trabajo.',
+        ayuda: String.raw`<p>Matriz de traspasos: filas quien entrega, columnas quien recibe. Se señalan el traspaso que se acaba de contar y los acumulados (más oscuro = más); las celdas claras aún no tienen ninguno.</p>
+          <ul>
+          <li><strong>Proceso</strong>: cambia las filas donde se concentra el trabajo.</li>
+          <li><strong>Casos a recorrer</strong>: más casos acumulan más traspasos y oscurecen las celdas.</li>
+          </ul>`,
         montar: montarMatriz,
       },
     ],

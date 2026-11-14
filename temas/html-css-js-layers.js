@@ -112,9 +112,24 @@
       <p>Toda visualización web se construye con tres lenguajes que se reparten el trabajo: <strong>HTML</strong> dice <em>qué hay</em>, <strong>CSS</strong> dice
       <em>cómo se ve</em> y <strong>JavaScript</strong> dice <em>qué hace</em> y de dónde salen los datos.</p>
       <p>Entender esa separación permite decidir dónde corregir un problema: si una barra mide mal, el error está en el cálculo (JS); si se ve fea, en el estilo (CSS); si falta, en la estructura (HTML).</p>`,
+    parametros: [
+      ['HTML, CSS y JavaScript (Fig. 1)', String.raw`Cada casilla activa una capa de la visualización: estructura, presentación o datos y comportamiento.`],
+      ['Elementos gráficos y Medir en este navegador (Fig. 2)', String.raw`Cuántos elementos se dibujan con cada tecnología; Medir ejecuta la prueba real en su navegador.`],
+    ],
     visualizaciones: [
-      { titulo: 'Tres capas, una visualización', descripcion: 'Active HTML, CSS y JavaScript por separado y vea qué aporta cada capa al gráfico de barras.', montar: montarCapas },
-      { titulo: 'DOM, SVG o canvas: costo de dibujar', descripcion: 'Mida en su propio navegador cuánto tarda crear miles de elementos. Aumente la cantidad y compare.', montar: montarMedicion },
+      { titulo: 'Tres capas, una visualización', descripcion: 'Active HTML, CSS y JavaScript por separado y vea qué aporta cada capa al gráfico de barras.',
+        ayuda: String.raw`<p>Arriba se ve la página resultante y debajo el código que aporta cada capa activa. Las barras son azules cuando el CSS está activo.</p>
+          <ul>
+          <li><strong>HTML: estructura</strong> sola: solo texto y los valores fijos, sin forma de gráfico.</li>
+          <li><strong>CSS: presentación</strong>: añade el aspecto de barras (color, tamaño).</li>
+          <li><strong>JavaScript: datos y comportamiento</strong>: genera las barras a partir de datos y permite que respondan a la interacción.</li>
+          </ul>`, montar: montarCapas },
+      { titulo: 'DOM, SVG o canvas: costo de dibujar', descripcion: 'Mida en su propio navegador cuánto tarda crear miles de elementos. Aumente la cantidad y compare.',
+        ayuda: String.raw`<p>Barras horizontales con el tiempo medido de crear los elementos como div del DOM (azul), círculos SVG (naranja) o arcos de canvas (aguamarina).</p>
+          <ul>
+          <li><strong>Elementos gráficos</strong> mayor: los tiempos de DOM y SVG crecen más, porque cada elemento es un nodo; el canvas solo dibuja píxeles.</li>
+          <li>Repetir <strong>Medir</strong> muestra la variación de la medición en su máquina.</li>
+          </ul>`, montar: montarMedicion },
     ],
     teoria: String.raw`
       <h2>Responsabilidades</h2>

@@ -92,15 +92,30 @@
       factores, que pueden estar muy por debajo, ya se saben factorizar.</p>
       <p>La <strong>inducción fuerte</strong> permite suponer que la propiedad vale para <em>todos</em> los casos anteriores. Aunque parece más potente, es equivalente a la simple;
       la diferencia es de comodidad y de claridad al escribir la prueba.</p>`,
+    parametros: [
+      ['n (Fig. 1)', String.raw`El número que se descompone en primos. Si es compuesto se parte en dos factores menores, y así recursivamente.`],
+      ['Qué casos usa el paso (Fig. 2)', String.raw`Cómo depende cada caso de los anteriores: de uno solo o de varios casos menores.`],
+      ['Caso que se demuestra, n (Fig. 2)', String.raw`El caso concreto cuyas dependencias se resaltan.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Todo número es producto de primos',
         descripcion: 'Elija \\(n\\): si es compuesto se parte en dos factores menores, y así recursivamente hasta llegar a primos. Cada partición usa la hipótesis fuerte.',
+        ayuda: String.raw`<p>Los primos son los casos base; un compuesto se apoya en dos números menores que lo multiplican.</p>
+          <ul>
+          <li><strong>n</strong> primo: no hay descomposición, es caso base.</li>
+          <li><strong>n</strong> compuesto: aparecen sus dos factores menores, que a su vez se descomponen hasta llegar a primos.</li>
+          </ul>`,
         montar: montarFactores,
       },
       {
         titulo: 'De qué casos depende cada caso',
         descripcion: 'Compare qué casos necesita cada tipo de paso. Con la dependencia de \\(n-1\\) y \\(n-2\\) o de los factores, la inducción simple no basta.',
+        ayuda: String.raw`<p>Se resalta el caso que se demuestra, las dependencias directas, los casos necesarios de forma indirecta y los que no se necesitan.</p>
+          <ul>
+          <li><strong>Qué casos usa el paso</strong>: cambia las flechas de dependencia; si necesita varios casos menores, la inducción simple no basta.</li>
+          <li><strong>Caso que se demuestra</strong>: mueve el caso resaltado y con él cuántos casos previos se necesitan.</li>
+          </ul>`,
         montar: montarDependencias,
       },
     ],

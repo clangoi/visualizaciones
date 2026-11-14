@@ -475,20 +475,46 @@
       ninguna activa; sobre una arista hay una; y en un <strong>vértice</strong> hay al menos tantas, y linealmente independientes, como dimensiones tiene el espacio.</p>
       <p>Al pasar a <a href="tema.html?id=standard-form">forma estándar</a> con variables de holgura, «restricción activa» se traduce en «holgura igual a cero», y un vértice se convierte en una
       <strong>solución básica factible</strong>: las variables que valen cero fuera de la base son justamente las restricciones activas. Así, moverse de vértice en vértice es cambiar de base.</p>`,
+    parametros: [
+      ['Problema (Fig. 1, 2 y 3)', String.raw`Elige el problema; incluye uno degenerado, donde el vértice (5, 3) tiene tres restricciones activas.`],
+      ['Imantar a vértices y aristas (Fig. 1)', String.raw`Hace que P se pegue a vértices y aristas, para ver con exactitud qué restricciones se activan.`],
+      ['Siguiente vértice (Fig. 1)', String.raw`Lleva P al vértice siguiente.`],
+      ['Mostrar soluciones básicas infactibles (Fig. 2)', String.raw`Muestra también las bases cuyo punto tiene alguna variable negativa.`],
+      ['Dirección del objetivo c (Fig. 3)', String.raw`Dirección en que mejora el objetivo. Define el camino del Simplex.`],
+      ['Regla de entrada (Fig. 3)', String.raw`Criterio para elegir la variable que entra: Dantzig (mayor costo reducido) o Bland (menor índice). Puede cambiar el camino.`],
+      ['Reproductor (Fig. 3)', String.raw`Avanza el Simplex pivote a pivote, hasta el final o reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Restricciones activas en cada punto',
         descripcion: 'Arrastre P y observe cuántas rectas pasan por él: ninguna dentro, una en una arista, dos en un vértice. Con el problema degenerado, el vértice (5, 3) tiene tres restricciones activas.',
+        ayuda: String.raw`<p>La región factible se dibuja con P; las restricciones activas en P se resaltan con trazo grueso.</p>
+          <ul>
+          <li>Dentro de la región, ninguna es activa; en una arista, una; en un vértice, dos.</li>
+          <li>En el vértice (5, 3) del problema degenerado hay tres.</li>
+          <li><strong>Imantar</strong>: P cae en vértices y aristas.</li>
+          </ul>`,
         montar: montarActivas,
       },
       {
         titulo: 'Bases y soluciones básicas',
         descripcion: 'Cada fila es una elección de qué variables dejar fuera de la base. Elija filas y vea que su punto es la intersección de dos rectas; solo las de variables todas ≥ 0 son vértices. En el problema degenerado, varias bases comparten un mismo vértice.',
+        ayuda: String.raw`<p>Cada base es el punto donde se anulan dos variables xⱼ o sᵢ, y se dibujan las rectas xⱼ = 0 y sᵢ = 0. Son vértices las soluciones básicas factibles; las infactibles tienen alguna variable negativa.</p>
+          <ul>
+          <li><strong>Mostrar infactibles</strong>: aparecen puntos fuera de la región.</li>
+          <li><strong>Problema</strong>: en el degenerado, varias bases dan el mismo vértice.</li>
+          </ul>`,
         montar: montarBases,
       },
       {
         titulo: 'El Simplex recorre bases y vértices',
         descripcion: 'Avance paso a paso: cada pivote cambia una restricción activa por otra y mueve P por una arista. Cambie c, la regla de entrada o el problema; con el degenerado a 30° observe un pivote que cambia de base sin mover el punto.',
+        ayuda: String.raw`<p>El camino del Simplex va de vértice en vértice sobre la región factible; se resaltan el vértice actual, su curva de nivel de c y las restricciones activas.</p>
+          <ul>
+          <li><strong>Dirección de c</strong>: cambia el camino y el óptimo.</li>
+          <li><strong>Regla de entrada</strong>: Dantzig y Bland pueden tomar caminos distintos.</li>
+          <li>Cada pivote cambia una restricción activa por otra.</li>
+          </ul>`,
         montar: montarSimplex,
       },
     ],

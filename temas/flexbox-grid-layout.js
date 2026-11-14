@@ -163,15 +163,36 @@
       <strong>Flexbox</strong> reparte elementos a lo largo de <em>una dimensión</em> (una fila o una columna) y
       <strong>Grid</strong> los coloca en una <em>rejilla de dos dimensiones</em>.</p>
       <p>En ambos, el contenedor decide cómo distribuir el espacio sobrante entre sus hijos; usted describe la intención («centrado», «tres columnas iguales») y el navegador calcula las posiciones.</p>`,
+    parametros: [
+      ['flex-direction, justify-content y align-items (Fig. 1)', String.raw`La dirección del eje principal y cómo se reparte el espacio libre a lo largo de él y en el eje cruzado.`],
+      ['flex-wrap, gap y Elementos (Fig. 1)', String.raw`Si los elementos pasan a otra línea al no caber, la separación entre ellos y su cantidad. Controlan cuándo hay desborde.`],
+      ['flex-grow: 1 en todos y Nuevos tamaños (Fig. 1)', String.raw`Si los elementos absorben el espacio libre repartiéndolo en partes iguales, y un nuevo sorteo de sus tamaños de base.`],
+      ['grid-template-columns (Fig. 2)', String.raw`La definición de las columnas (cantidad y ancho). Con fracciones se reparte el ancho disponible; con auto-fill el número de columnas depende del ancho.`],
+      ['gap y Elementos (Fig. 2)', String.raw`La separación entre celdas y la cantidad de elementos que se acomodan en las pistas.`],
+      ['El elemento 1 ocupa (grid-column: span …) (Fig. 2)', String.raw`Cuántas columnas abarca el primer elemento, que desplaza a los demás.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Flexbox: ejes y reparto',
         descripcion: 'Cambie la dirección y las propiedades de alineación. Active <code>wrap</code> con muchos elementos, o <code>flex-grow</code>, y observe cómo cambia el espacio libre.',
+        ayuda: String.raw`<p>Los elementos se colocan dentro del contenedor. Se marcan el eje principal (justify) y el cruzado (align), y los que desbordan el contenedor se señalan según la leyenda.</p>
+          <ul>
+          <li><strong>flex-direction</strong>: intercambia qué eje es el principal y cuál el cruzado.</li>
+          <li><strong>justify-content</strong> y <strong>align-items</strong>: mueven los elementos a lo largo de cada eje, repartiendo el espacio libre.</li>
+          <li><strong>flex-wrap</strong>: con muchos elementos evita el desborde pasando a otra línea.</li>
+          <li><strong>flex-grow: 1 en todos</strong>: el espacio libre desaparece porque los elementos lo ocupan.</li>
+          </ul>`,
         montar: montarFlex,
       },
       {
         titulo: 'Grid: columnas y fracciones',
         descripcion: 'Pruebe distintas plantillas de columnas y haga que el primer elemento abarque varias; con <code>auto-fill</code> las columnas aparecen según el ancho.',
+        ayuda: String.raw`<p>Los elementos ocupan celdas de una cuadrícula cuyas columnas (pistas) se indican en la leyenda; el que abarca varias columnas se distingue.</p>
+          <ul>
+          <li><strong>grid-template-columns</strong>: cambia cuántas columnas hay y su ancho relativo.</li>
+          <li><strong>El elemento 1 ocupa</strong>: hace más ancho al primero y los demás se reacomodan en las celdas restantes.</li>
+          <li><strong>gap</strong>: abre separación entre filas y columnas sin cambiar el número de pistas.</li>
+          </ul>`,
         montar: montarGrid,
       },
     ],

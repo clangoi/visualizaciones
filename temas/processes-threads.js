@@ -201,15 +201,34 @@
       <p>Cuando hay más hilos listos que núcleos, el <strong>planificador</strong> decide quién usa la CPU. Su política determina la espera promedio, la
       respuesta a los procesos interactivos y la justicia entre ellos. Y cuando los hilos esperan entrada y salida, tener varios permite que la CPU no
       quede ociosa: <strong>concurrencia</strong> aunque no haya <strong>paralelismo</strong> real.</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Política que decide qué proceso listo usa la CPU: orden de llegada, el más corto, el más corto con expropiación o turnos rotativos.`],
+      ['Quantum (Round Robin) (Fig. 1)', String.raw`Duración del turno en Round Robin. Pequeño reparte mejor la CPU pero obliga a más cambios de contexto; grande se parece a FCFS.`],
+      ['Procesos (Fig. 1)', String.raw`Cantidad de procesos que compiten por la CPU.`],
+      ['Nuevos procesos y reproductor (Fig. 1)', String.raw`Nuevos procesos sortea otras llegadas y duraciones. El reproductor avanza la simulación, la pausa o la reinicia.`],
+      ['Hilos (Fig. 2)', String.raw`Cuántos hilos atienden pedidos a la vez. Más hilos permiten que unos usen la CPU mientras otros esperan la E/S.`],
+      ['Núcleos de CPU (Fig. 2)', String.raw`Cuántos hilos pueden ejecutar de verdad al mismo tiempo. Fija el techo de rendimiento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Planificación de la CPU',
         descripcion: 'Compare FCFS, SJF, SRTF y Round Robin con los mismos procesos. SJF minimiza la espera promedio; Round Robin con quantum pequeño reparte mejor, pero cambia más de contexto.',
+        ayuda: String.raw`<p>Cada fila es un proceso: la marca de llegada, el tramo gris de espera y el tramo de color con la CPU en uso. Debajo está la línea de tiempo de la CPU y, abajo, la cola de listos.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: cambia el orden en que se pintan los tramos de color y la longitud de los grises, es decir, la espera promedio.</li>
+          <li><strong>Quantum</strong>: con Round Robin, un quantum corto trocea los tramos de color y aumenta los cambios de contexto.</li>
+          <li><strong>Procesos</strong>: agrega filas y más espera para los últimos en llegar.</li>
+          </ul>`,
         montar: montarPlanificacion,
       },
       {
         titulo: 'Un servidor con varios hilos',
         descripcion: 'Suba los hilos: mientras unos esperan la E/S otros usan la CPU, y el rendimiento crece hasta que la CPU se satura. Con más núcleos, el límite sube.',
+        ayuda: String.raw`<p>Cada fila es un hilo a lo largo del tiempo: azul cuando usa la CPU, aguamarina cuando está bloqueado en E/S y amarillo cuando está listo pero espera un núcleo. Abajo se lee el rendimiento resultante.</p>
+          <ul>
+          <li><strong>Hilos</strong>: agrega filas; mientras unas están en aguamarina otras están en azul, y la CPU deja de estar ociosa.</li>
+          <li><strong>Núcleos de CPU</strong>: con pocos núcleos y muchos hilos aparecen tramos amarillos (esperan turno) y el rendimiento deja de crecer; más núcleos suben ese límite.</li>
+          </ul>`,
         montar: montarHilos,
       },
     ],

@@ -452,20 +452,47 @@
       cada grupo elija casi siempre la misma rama. Cada hoja es una regla de enrutamiento: <em>SI condiciones ENTONCES rama</em>.</p>
       <p>Para elegir cada pregunta se mide cuánto baja la <em>impureza</em> (qué tan mezcladas están las ramas). Entrenar bien es encontrar el
       punto medio entre reglas demasiado simples y reglas que memorizan los desvíos de los datos.</p>`,
+    parametros: [
+      ['Atributo (Fig. 1)', String.raw`Atributo numérico sobre el que se busca el corte. Cada uno separa las decisiones con distinta claridad.`],
+      ['Criterio (Fig. 1 y 2)', String.raw`Medida de impureza con que se compara un corte: Gini o entropía. Dan escalas distintas pero suelen elegir cortes parecidos.`],
+      ['Posición del corte (Fig. 1)', String.raw`Percentil del atributo donde se divide a los casos en dos grupos. Mueve el corte para ver cuánta impureza se elimina.`],
+      ['Mejor corte y Nuevos casos (Fig. 1)', String.raw`Mejor corte ubica el control en el corte de mayor ganancia. Nuevos casos genera otra muestra.`],
+      ['Profundidad máxima (Fig. 2 y 3)', String.raw`Número máximo de divisiones sucesivas. Más profundidad permite reglas más finas y más riesgo de sobreajuste.`],
+      ['Casos mínimos por hoja (Fig. 2 y 3)', String.raw`Mínimo de casos que debe tener una hoja. Subirlo detiene antes el crecimiento y simplifica el árbol.`],
+      ['Desvíos de la regla (Fig. 3)', String.raw`Porcentaje de decisiones que no siguen la regla verdadera. Es el ruido que el árbol no debería aprender.`],
+      ['Nuevos casos y reproductor (Fig. 2 y 3)', String.raw`Nuevos casos genera otra muestra; en la figura 2 el reproductor divide un nodo por paso.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Impureza y ganancia de un corte',
         descripcion: 'La curva da la ganancia de cada posible corte de un atributo y las barras muestran cómo queda repartida la decisión. Pruebe «Mejor corte» con cada atributo y cambie entre Gini y entropía: las escalas difieren, pero los cortes que más ganan son parecidos.',
+        ayuda: String.raw`<p>Arriba, los casos ordenados por el atributo con su decisión: aprobar directo, revisión manual o rechazar. Abajo, la ganancia de cada corte posible, con el corte elegido y el mejor corte marcados.</p>
+          <ul>
+          <li><strong>Posición del corte</strong>: mueve el corte elegido; la ganancia es mayor cuando cada lado queda dominado por una sola decisión.</li>
+          <li><strong>Mejor corte</strong>: salta al máximo de la curva de ganancia.</li>
+          <li><strong>Criterio</strong>: cambia la escala de la ganancia entre Gini y entropía.</li>
+          </ul>`,
         montar: montarCorte,
       },
       {
         titulo: 'El árbol crece paso a paso',
         descripcion: 'Avance con «Un paso»: cada nodo se evalúa y se divide con el corte de mayor ganancia. Reduzca la profundidad o suba los casos mínimos por hoja y observe cómo se detiene antes y qué pasa con la impureza de las hojas.',
+        ayuda: String.raw`<p>Cada nodo del árbol está coloreado por su clase mayoritaria (aprobar directo, revisión manual o rechazar). Se distinguen los nodos pendientes, el que se está evaluando y los ya divididos.</p>
+          <ul>
+          <li><strong>Profundidad máxima</strong>: limita cuántos niveles se dividen; con menos profundidad quedan hojas mezcladas, más impuras.</li>
+          <li><strong>Casos mínimos por hoja</strong>: impide dividir nodos pequeños y el árbol se detiene antes.</li>
+          </ul>`,
         montar: montarCrecer,
       },
       {
         titulo: 'Reglas legibles y sobreajuste',
         descripcion: 'Entrena con 400 casos y prueba con 200 nuevos. Con desvíos del 15 % o más, suba la profundidad: la exactitud en entrenamiento sigue subiendo, la de prueba se queda atrás de la regla verdadera.',
+        ayuda: String.raw`<p>Eje horizontal: profundidad máxima; eje vertical: exactitud. Una curva es la exactitud con los 400 casos de entrenamiento y otra con los 200 casos nuevos de prueba; la tercera es la regla verdadera con sus desvíos.</p>
+          <ul>
+          <li><strong>Profundidad máxima</strong>: la exactitud de entrenamiento sigue subiendo, pero la de prueba se queda atrás de la regla verdadera: sobreajuste.</li>
+          <li><strong>Desvíos de la regla</strong>: con más ruido crece la distancia entre ambas curvas.</li>
+          <li><strong>Casos mínimos por hoja</strong>: subirlo frena el sobreajuste al impedir hojas diminutas.</li>
+          </ul>`,
         montar: montarReglas,
       },
     ],

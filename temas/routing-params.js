@@ -82,9 +82,27 @@
       <p>El <strong>enrutador</strong> es la pieza que, ante una petición, decide qué código ejecutar según el <em>método</em> y la <em>ruta</em>.
       Además extrae de la petición los datos que el controlador necesita: los <strong>parámetros de ruta</strong> (<code>/usuarios/<b>7</b></code>), los <strong>parámetros de consulta</strong> (<code>?pagina=2</code>) y el <strong>cuerpo</strong> (JSON enviado con <code>POST</code>).</p>
       <p>Elegir bien dónde va cada dato —ruta, consulta o cuerpo— es parte del diseño de la API.</p>`,
+    parametros: [
+      ['Petición (método y URL) (Fig. 1)', String.raw`La petición que se envía al enrutador. Cambiar el método o la ruta altera qué ruta coincide y qué parámetros se extraen de ella.`],
+      ['Ejemplos (Fig. 1)', String.raw`Peticiones de muestra que rellenan el campo anterior: casos que coinciden, que extraen parámetros o que no coinciden con ninguna ruta.`],
+      ['page y limit (Fig. 2)', String.raw`La página que se pide y cuántos elementos tiene cada una. Fijan qué tramo de la colección se devuelve.`],
+      ['min (precio mínimo) (Fig. 2)', String.raw`Filtro por precio: solo se consideran los productos que lo igualan o superan.`],
+      ['sort (Fig. 2)', String.raw`El criterio de orden aplicado antes de paginar: precio ascendente, descendente o por nombre.`],
+    ],
     visualizaciones: [
-      { titulo: 'El enrutador paso a paso', descripcion: 'Escriba o elija una petición y vea qué ruta coincide, qué parámetros se extraen y qué respuesta se daría si ninguna coincide.', montar: montarEnrutador },
-      { titulo: 'Filtrar, ordenar y paginar', descripcion: 'Mueva <code>page</code>, <code>limit</code>, <code>min</code> y <code>sort</code> y observe cómo cambia la URL y el tramo de la colección devuelto.', montar: montarPaginacion },
+      { titulo: 'El enrutador paso a paso', descripcion: 'Escriba o elija una petición y vea qué ruta coincide, qué parámetros se extraen y qué respuesta se daría si ninguna coincide.',
+        ayuda: String.raw`<p>Tabla de las rutas declaradas y, debajo, el resultado: cuál coincide con la petición, qué parámetros de ruta extrae y la respuesta que se daría (o un 404 si ninguna coincide).</p>
+          <ul>
+          <li><strong>Petición</strong>: al cambiar un segmento de la URL cambia el valor extraído del parámetro; si la ruta no existe, ninguna fila coincide.</li>
+          <li><strong>Ejemplos</strong>: permiten comparar enseguida un caso que coincide con uno que no.</li>
+          </ul>`, montar: montarEnrutador },
+      { titulo: 'Filtrar, ordenar y paginar', descripcion: 'Mueva <code>page</code>, <code>limit</code>, <code>min</code> y <code>sort</code> y observe cómo cambia la URL y el tramo de la colección devuelto.',
+        ayuda: String.raw`<p>La URL con la cadena de consulta que se arma con los valores elegidos, y la tabla de productos devueltos para esa consulta.</p>
+          <ul>
+          <li><strong>page</strong> y <strong>limit</strong>: desplazan y ajustan el tramo; una página más allá del final devuelve una tabla vacía.</li>
+          <li><strong>min</strong>: reduce la colección filtrada y por tanto el número de páginas disponibles.</li>
+          <li><strong>sort</strong>: reordena antes de cortar la página, por lo que cambian los productos que aparecen en ella.</li>
+          </ul>`, montar: montarPaginacion },
     ],
     teoria: String.raw`
       <h2>Rutas con parámetros</h2>

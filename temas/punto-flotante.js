@@ -445,15 +445,38 @@
       exactamente solo algunos números —distribuidos de forma muy desigual— y todos los demás se <em>redondean</em> al más cercano.</p>
       <p>Por eso <code>0.1 + 0.2 == 0.3</code> es falso en casi todos los lenguajes: ni 0.1, ni 0.2, ni 0.3 tienen representación
       binaria finita.</p>`,
+    parametros: [
+      ['Formato (Fig. 1)', String.raw`Precisión media (16 bits), simple (32) o doble (64). Más bits de exponente amplían el rango; más bits de fracción reducen el error de redondeo.`],
+      ['Número decimal (Fig. 1)', String.raw`El valor que se quiere guardar. Se redondea al número representable más cercano en el formato elegido.`],
+      ['Botones de ejemplos (Fig. 1)', String.raw`Valores típicos: 0.1 y 1/3 (no tienen representación exacta en binario), π, 1, −2.5, los extremos del formato, ∞ y NaN.`],
+      ['− 1 ULP / + 1 ULP (Fig. 1)', String.raw`Pasan al número representable inmediatamente menor o mayor. Un ULP (<em>unit in the last place</em>) es la distancia entre dos vecinos.`],
+      ['Bits de exponente (Fig. 2)', String.raw`Cuántas binadas \([2^k, 2^{k+1})\) tiene el formato diminuto, es decir, qué tan amplio es su rango.`],
+      ['Bits de fracción (Fig. 2)', String.raw`Cuántos valores hay dentro de cada binada (\(2^p\)): define la precisión relativa \(\varepsilon = 2^{-p}\).`],
+      ['Mostrar hasta (Fig. 2)', String.raw`Acerca o aleja la recta para ver de cerca los valores pequeños.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Anatomía de un número en punto flotante',
         descripcion: 'Escriba un número decimal y observe cómo se codifica, cuál es el valor exacto que realmente se almacena y cuánto error introduce el redondeo.',
+        ayuda: String.raw`<p>Las tres franjas de bits son el <em>signo</em>, el <em>exponente</em> (con sesgo) y la <em>fracción</em>. Debajo se muestra cómo se combinan: \((-1)^s \cdot 1.f \cdot 2^{e - \text{sesgo}}\), el valor exacto que realmente queda almacenado y el error frente al número que escribió.</p>
+          <ul>
+          <li><strong>0.1</strong>: su expansión binaria es infinita, así que lo almacenado no es 0.1; el error relativo queda bajo \(u = 2^{-(p+1)}\).</li>
+          <li><strong>Formato</strong>: al pasar de media a doble precisión, el error relativo baja de \(\approx 10^{-4}\) a \(\approx 10^{-17}\).</li>
+          <li><strong>± 1 ULP</strong>: muestra que entre dos vecinos no hay nada; el ULP crece con la magnitud del número.</li>
+          <li>Haga clic en un bit para invertirlo: un bit de exponente cambia el valor en un factor de dos o más; uno de fracción, apenas un poco. Con todos los bits de exponente en 0 aparecen los subnormales; en 1, ∞ y NaN.</li>
+          </ul>`,
         montar: montarEditor,
       },
       {
         titulo: 'Densidad de los números representables',
         descripcion: 'Un formato diminuto (minifloat) permite ver todos sus valores a la vez. Los valores están igualmente espaciados dentro de cada binada \\([2^k, 2^{k+1})\\), y el espaciado se duplica al pasar a la siguiente.',
+        ayuda: String.raw`<p>Arriba, cada marca es un número positivo representable en un formato diminuto de \(1 + E + P\) bits; los naranjos son subnormales (cerca de cero) y los azules, normales. Abajo, el espaciado relativo entre valores consecutivos en escala logarítmica.</p>
+          <ul>
+          <li>Dentro de cada binada los valores están igualmente espaciados, y al pasar a la siguiente el espaciado se duplica: hay tantos números entre 1 y 2 como entre 1024 y 2048.</li>
+          <li><strong>Bits de fracción</strong>: más marcas por binada y espaciado relativo menor (\(\varepsilon\) máquina en la lectura).</li>
+          <li><strong>Bits de exponente</strong>: más binadas, es decir, un rango mayor desde el mínimo subnormal hasta el máximo finito.</li>
+          <li><strong>Mostrar hasta</strong>: acerque la vista para ver que los subnormales llenan uniformemente el hueco entre 0 y el mínimo normal.</li>
+          </ul>`,
         montar: montarRecta,
       },
     ],

@@ -114,9 +114,27 @@
       <p>Sin <strong>función de activación</strong>, una red de cien capas sería equivalente a una sola capa lineal. Es la activación la que introduce la no linealidad que permite representar curvas y fronteras complicadas.</p>
       <p>Las tres clásicas son <em>Sigmoid</em> (comprime a \((0,1)\)), <em>Tanh</em> (comprime a \((-1,1)\)) y <em>ReLU</em> (deja pasar lo positivo y apaga lo negativo). Su forma importa también para el entrenamiento: la <strong>derivada</strong> dice cuánto de la señal de error
       atraviesa la neurona, y en las colas de la sigmoide y la tanh es casi cero: la neurona está <em>saturada</em>.</p>`,
+    parametros: [
+      ['Casillas de funciones (Fig. 1)', String.raw`Cada casilla muestra u oculta la curva de una activación en los dos paneles. Sirven para comparar formas y derivadas.`],
+      ['Activación (Fig. 2)', String.raw`La función que se aplica en cada capa de la cadena. Decide qué tan grande es el factor f′(z) con que se multiplica el gradiente.`],
+      ['Capas (Fig. 2)', String.raw`Cuántas capas de una neurona tiene la cadena. Más capas significa más factores multiplicados.`],
+      ['Peso w de cada capa (Fig. 2)', String.raw`El peso, igual para todas las capas. Junto con f′, define si cada factor w·f′(z) achica o agranda el gradiente.`],
+      ['Entrada x (Fig. 2)', String.raw`El valor que entra a la primera capa. Determina en qué punto de la curva queda cada neurona (zona activa o saturada).`],
+    ],
     visualizaciones: [
-      { titulo: 'Funciones y derivadas', descripcion: 'Compare las formas y fíjese en dónde se aplanan las derivadas. Active Leaky ReLU para ver cómo evita la zona de derivada cero.', montar: montarCurvas },
-      { titulo: 'Gradientes desvanecientes', descripcion: 'Con Sigmoid y \\(w = 1\\), el gradiente se reduce a una fracción diminuta en pocas capas. Cambie a ReLU, o suba \\(w\\) con Sigmoid, y observe la diferencia.', montar: montarGradiente },
+      { titulo: 'Funciones y derivadas', descripcion: 'Compare las formas y fíjese en dónde se aplanan las derivadas. Active Leaky ReLU para ver cómo evita la zona de derivada cero.',
+        ayuda: String.raw`<p>A la izquierda, cada curva es una función de activación f(z); a la derecha, su derivada f′(z), el factor que multiplica al gradiente en la retropropagación. Una zona sombreada marca donde Sigmoid está saturada (f′ menor que 0,05).</p>
+          <ul>
+          <li><strong>Casillas</strong>: Sigmoid y Tanh tienen derivada casi 0 en los extremos; ReLU tiene derivada 0 para z negativo, y Leaky ReLU conserva una pendiente pequeña ahí.</li>
+          </ul>`, montar: montarCurvas },
+      { titulo: 'Gradientes desvanecientes', descripcion: 'Con Sigmoid y \\(w = 1\\), el gradiente se reduce a una fracción diminuta en pocas capas. Cambie a ReLU, o suba \\(w\\) con Sigmoid, y observe la diferencia.',
+        ayuda: String.raw`<p>Cada barra es el |gradiente| en una capa (1 = la más cercana a la entrada), relativo a la última; el eje es logarítmico y el color distingue las capas con gradiente menor que 10⁻³, que casi no aprenden.</p>
+          <ul>
+          <li><strong>Activación</strong>: con Sigmoid el factor es como máximo 0,25 por capa y el gradiente se desvanece; con ReLU no se achica en la zona activa.</li>
+          <li><strong>Capas</strong>: más capas hacen que el gradiente de las primeras caiga más.</li>
+          <li><strong>Peso w</strong>: con Sigmoid, subir w compensa parte de la caída; con valores muy altos puede saturar o explotar.</li>
+          <li><strong>Entrada x</strong>: valores lejos de 0 saturan Sigmoid y Tanh y agravan el desvanecimiento.</li>
+          </ul>`, montar: montarGradiente },
     ],
     teoria: String.raw`
       <h2>Las funciones</h2>

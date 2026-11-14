@@ -218,15 +218,31 @@
       conoce los de todos los demás, y elige siempre al proceso vivo de identificador más alto.</p>
       <p>Quien detecta la caída desafía a todos los que tienen identificador mayor. Si alguno responde, ese «matón» toma el control de la
       elección y el desafiante se retira; si nadie responde a tiempo, el desafiante gana y se lo comunica a los menores.</p>`,
+    parametros: [
+      ['Procesos (Fig. 1)', String.raw`Cantidad de procesos. Fija cuántos hay por encima del iniciador y cuántos mensajes se encadenan.`],
+      ['Inicia la elección (Fig. 1)', String.raw`Proceso que detecta la falla del coordinador. Mientras más bajo su número, más procesos mayores contestan e inician sus elecciones.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza ronda a ronda, pausa o reinicia la elección.`],
+      ['Procesos n (Fig. 2)', String.raw`Cantidad de procesos de la gráfica de costo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Elección paso a paso',
         descripcion: 'Avance ronda a ronda. Pruebe a que inicie P1 o el proceso más alto vivo, y a hacer caer también al segundo más alto: gana siempre el mayor que sigue vivo.',
+        ayuda: String.raw`<p>Los procesos están en círculo. Las flechas naranja son ELECTION, las aguamarina OK y las verdes COORDINATOR. Un proceso amarillo está en elección y uno gris, caído; el gris no responde y sus mensajes se pierden.</p>
+          <ul>
+          <li><strong>Inicia la elección</strong>: con P1 se encadenan más ELECTION y OK; con el más alto vivo, casi nadie responde y se proclama enseguida.</li>
+          <li><strong>Procesos</strong>: más procesos superiores al iniciador y más mensajes.</li>
+          <li>Siempre gana el proceso vivo de mayor número.</li>
+          </ul>`,
         montar: montarEleccion,
       },
       {
         titulo: 'Mensajes según quién inicia',
         descripcion: 'Cuantos más procesos haya por encima del que detecta la falla, más elecciones se encadenan. El peor caso es cuadrático en \\(n\\).',
+        ayuda: String.raw`<p>Eje horizontal: proceso que inicia; vertical: mensajes. Las series (ELECTION naranja, OK aguamarina, COORDINATOR verde) se apilan, y la línea gris es el peor caso \((n-1)^2 + n - 2\).</p>
+          <ul>
+          <li><strong>Procesos n</strong>: al aumentar n los totales crecen y la curva de iniciadores bajos se acerca al peor caso, cuadrático.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

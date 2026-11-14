@@ -316,20 +316,45 @@
       (normalmente un trimestre) y se califica de 0 a 1.</p>
       <p>A diferencia de un KPI, que vigila de forma permanente algo que debe mantenerse sano, un OKR busca un cambio y es deliberadamente ambicioso: se espera cumplir alrededor de 0,7.
       Los OKR se escriben en cascada, de modo que los resultados clave de la empresa son los objetivos de las áreas.</p>`,
+    parametros: [
+      ['Resultado clave (Fig. 1)', String.raw`El indicador y su unidad. En «Tiempo de primera respuesta» la meta es bajar, y la fórmula del puntaje sigue valiendo.`],
+      ['Meta del trimestre (Fig. 1)', String.raw`Valor que se quiere alcanzar al final del trimestre. Moverla cambia qué tan lejos está el valor actual.`],
+      ['Valor actual (Fig. 1)', String.raw`Dónde está hoy el resultado clave. Define el puntaje de 0 a 1.`],
+      ['Restablecer (Fig. 1 y 2)', String.raw`Devuelve el resultado clave o los puntajes y pesos a sus valores iniciales.`],
+      ['Peso del resultado clave 1, 2… (Fig. 2)', String.raw`Importancia relativa de cada resultado clave en el puntaje del objetivo. Con peso 0 deja de contar.`],
+      ['Ritmo de cada área (Fig. 3)', String.raw`Qué tan rápido avanza el área respecto del plan de la semana. Más lento deja sus resultados clave atrasados.`],
+      ['Nuevos datos y reproductor (Fig. 3)', String.raw`Nuevos datos sortea otros avances; el reproductor avanza el trimestre semana a semana.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Del valor medido al puntaje 0 a 1',
         descripcion: 'Arrastre el valor actual a lo largo de la escala y vea cómo cambia el puntaje y su color. Cambie a «Tiempo de primera respuesta», donde la meta es bajar, y mueva la meta para ver qué la hace inalcanzable.',
+        ayuda: String.raw`<p>Escala del valor medido con el inicio, la meta y el valor actual. Una franja de color muestra el puntaje: menor que 0,3, de 0,3 a 0,7 o 0,7 o más (éxito).</p>
+          <ul>
+          <li><strong>Valor actual</strong>: al acercarse a la meta, el puntaje sube y cambia de color.</li>
+          <li><strong>Meta del trimestre</strong>: una meta más exigente baja el puntaje del mismo valor actual.</li>
+          <li><strong>Resultado clave</strong>: con una meta de bajar, el puntaje crece cuando el valor disminuye.</li>
+          </ul>`,
         montar: montarResultado,
       },
       {
         titulo: 'Un objetivo con varios resultados clave',
         descripcion: 'Fije el puntaje de cada resultado clave arrastrando su barra y cambie los pesos. Compare el puntaje ponderado con el promedio simple: suba el peso de un resultado clave atrasado.',
+        ayuda: String.raw`<p>Cada barra es el puntaje de un resultado clave, con color según su rango; el puntaje del objetivo se compara con el promedio simple de los resultados clave.</p>
+          <ul>
+          <li><strong>Peso del resultado clave</strong>: subir el peso de uno atrasado arrastra el puntaje ponderado hacia abajo, aunque el promedio simple no cambie.</li>
+          <li><strong>Restablecer</strong>: recupera los puntajes iniciales.</li>
+          </ul>`,
         montar: montarObjetivo,
       },
       {
         titulo: 'Cascada de OKR durante el trimestre',
         descripcion: 'Reproduzca las 13 semanas y cambie el ritmo de un área: su objetivo, el resultado clave de la empresa que alimenta y el puntaje global se recalculan en cascada. Baje el ritmo de Producto y observe quién arrastra a la empresa.',
+        ayuda: String.raw`<p>Cuadros en cascada: resultados clave y objetivos de las áreas alimentan los de la empresa. Cada cuadro tiene el color de su puntaje, y la semana actual indica el avance del trimestre de 13 semanas.</p>
+          <ul>
+          <li><strong>Ritmo de cada área</strong>: un ritmo bajo hunde el puntaje del área y, en cascada, el del resultado clave de la empresa y el puntaje global.</li>
+          <li><strong>Reproductor</strong>: muestra cómo evolucionan semana a semana.</li>
+          </ul>`,
         montar: montarCascada,
       },
     ],

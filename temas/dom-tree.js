@@ -121,15 +121,28 @@
       <p>Un archivo HTML es texto; lo que el navegador manipula es un <strong>árbol de objetos</strong>, el <strong>DOM</strong> (<em>Document Object Model</em>).
       Cada etiqueta se vuelve un nodo con padre, hijos, atributos y texto. Los estilos CSS, los scripts y los lectores de pantalla trabajan sobre ese árbol, no sobre el texto.</p>
       <p>Por eso importa <em>qué</em> etiquetas se eligen: las <strong>semánticas</strong> (<code>header</code>, <code>nav</code>, <code>main</code>) describen la función de cada parte, y de ello dependen la accesibilidad y el posicionamiento en buscadores.</p>`,
+    parametros: [
+      ['Selector CSS y Ejemplos (Fig. 1)', String.raw`La condición con la que se eligen nodos del árbol. Cambiarla muestra qué elementos selecciona y cuáles no.`],
+      ['Marcado (Fig. 2)', String.raw`Si la página usa elementos semánticos (cabecera, menú, contenido, aparte, pie) o solo bloques div. El aspecto visual es el mismo; cambia lo que entienden los lectores de pantalla.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El DOM y los selectores',
         descripcion: 'Escriba selectores como <code>article p</code> o <code>main &gt; *</code> y vea qué nodos del árbol coinciden. Haga clic en un nodo para obtener su camino.',
+        ayuda: String.raw`<p>Es el árbol del documento: cada nodo es un elemento HTML y las líneas unen padres con hijos.</p>
+          <ul>
+          <li><strong>Selector CSS</strong>: los nodos que coinciden se marcan según la leyenda; el resto aparece sin coincidencia.</li>
+          <li>Un clic en un nodo lo marca como elegido y muestra su camino desde la raíz.</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'HTML semántico y accesibilidad',
         descripcion: 'Alterne entre elementos semánticos y solo <code>&lt;div&gt;</code>: la misma página visual pierde sus regiones navegables.',
+        ayuda: String.raw`<p>La misma página se dibuja como bloques. Las regiones con significado (landmarks) se distinguen de los bloques anónimos según la leyenda.</p>
+          <ul>
+          <li><strong>Marcado</strong>: con «solo div» todas las regiones pasan a bloques anónimos; el lector de pantalla pierde los puntos de navegación.</li>
+          </ul>`,
         montar: montarSemantica,
       },
     ],

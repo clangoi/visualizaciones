@@ -225,15 +225,34 @@
     intro: String.raw`
       <p>El promedio esconde casi todo lo importante de una duración. Dos procesos con el mismo tiempo de ciclo medio pueden tener una mayoría de casos rápidos y unos pocos extremadamente lentos, y es esa <em>cola</em> la que suele generar reclamos y multas. Por eso se examina la <strong>distribución</strong> completa: histograma, cuantiles y valores atípicos.</p>
       <p>Con la distribución se puede responder lo que importa en la práctica: ¿qué fracción de los casos cumple un plazo comprometido (<em>SLA</em>, acuerdo de nivel de servicio)? ¿Cuáles son los casos atípicos que conviene investigar uno por uno? ¿La mediana representa mejor al caso típico que la media?</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`Proceso cuyos tiempos de ciclo se analizan; su forma de distribución cambia (por ejemplo, reclamos tiene cola larga).`],
+      ['Casos (Fig. 1)', String.raw`Tamaño de la muestra. Con más casos el histograma es más estable.`],
+      ['Barras (Fig. 1)', String.raw`Número de intervalos del histograma. Pocas ocultan la forma; demasiadas la vuelven ruidosa.`],
+      ['SLA en el percentil 90 y Nuevos datos (Fig. 1)', String.raw`El primero fija el plazo en el percentil 90 (cumple el 90 % de los casos); el segundo genera otra muestra.`],
+      ['Medida (Fig. 2)', String.raw`Qué se resume en cajas: tiempo de ciclo por variante, o servicio o espera por actividad.`],
+      ['Largo de bigotes (× RIC) (Fig. 2)', String.raw`Hasta cuántas veces el rango intercuartílico se extienden los bigotes. Más largo implica menos casos considerados atípicos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Histograma, cuantiles y plazo',
         descripcion: 'Las barras agrupan los tiempos de ciclo; el rojo marca los casos fuera del plazo. Haga clic para mover el SLA y vea cómo cambia el cumplimiento; compare media y mediana en el proceso de reclamos, que tiene bucles y cola larga.',
+        ayuda: String.raw`<p>Eje horizontal: tiempo de ciclo en minutos; eje vertical: número de casos. Las barras azules cumplen el SLA y las rojas lo incumplen. Líneas verticales: media, mediana, SLA (plazo) y valla de atípicos Q3 + 1,5·RIC.</p>
+          <ul>
+          <li><strong>Proceso</strong> con cola larga: la media queda a la derecha de la mediana, porque los casos lentos la arrastran.</li>
+          <li><strong>Barras</strong>: cambia el ancho de cada intervalo y el detalle de la forma.</li>
+          <li><strong>SLA en el percentil 90</strong>: mueve el plazo y deja en rojo cerca del 10 % de los casos.</li>
+          </ul>`,
         montar: montarHistograma,
       },
       {
         titulo: 'Cajas y casos atípicos',
         descripcion: 'Cada caja resume un grupo (variante o actividad). Cambie la medida y alargue los bigotes: los puntos rojos son candidatos a investigar; haga clic en una fila para ver sus casos.',
+        ayuda: String.raw`<p>Cada fila es un grupo (variante o actividad). La caja va de Q1 a Q3 (mitad central de los casos), con la mediana dentro y la media como rombo; los bigotes llegan hasta el límite fijado y los puntos rojos son atípicos fuera de ellos.</p>
+          <ul>
+          <li><strong>Largo de bigotes (× RIC)</strong>: al alargarlos, los puntos rojos más cercanos pasan a considerarse normales.</li>
+          <li><strong>Medida</strong>: cambia qué se mide en cada fila (ciclo, servicio o espera) y se reordena el resumen.</li>
+          </ul>`,
         montar: montarCajas,
       },
     ],

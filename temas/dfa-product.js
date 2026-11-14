@@ -107,15 +107,30 @@
       <p>Si ya se tienen autómatas para dos lenguajes, ¿se puede construir uno para su unión o intersección? Sí, con el <strong>autómata producto</strong>: corre los dos a la vez, y su estado es el par de estados actuales.
       La única diferencia entre unión, intersección o diferencia es <em>qué pares</em> se declaran de aceptación.</p>
       <p>El <strong>complemento</strong> es aún más simple: en un AFD completo basta con intercambiar los estados de aceptación y de rechazo.</p>`,
+    parametros: [
+      ['Autómata A y Autómata B (Fig. 1 y 2)', String.raw`Los dos AFD que se combinan. Los estados del producto son pares (estado de A, estado de B).`],
+      ['Operación (Fig. 1)', String.raw`Cómo se combinan los lenguajes. Solo cambia qué pares son de aceptación, no las transiciones.`],
+      ['Palabra y reproductor (Fig. 1)', String.raw`Entrada que se ejecuta sobre A y B a la vez, y los botones que avanzan la lectura símbolo por símbolo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El autómata producto en marcha',
         descripcion: 'Elija dos autómatas y una operación; el diagrama es el producto. Avance sobre una palabra y vea cómo se mueve el par (estado de A, estado de B).',
+        ayuda: String.raw`<p>El diagrama es el autómata producto. El par resaltado en azul es el estado actual (pA, pB); al terminar, verde significa que el par acepta según la operación y rojo, que rechaza.</p>
+          <ul>
+          <li><strong>Operación</strong>: la misma ejecución puede acabar en verde o en rojo según qué pares cuenten como aceptación.</li>
+          <li><strong>Autómata A / B</strong>: cambian los pares del diagrama y su tamaño.</li>
+          <li><strong>Palabra</strong>: otra entrada lleva el par por otro camino.</li>
+          </ul>`,
         montar: montarProducto,
       },
       {
         titulo: 'Tamaños y leyes de De Morgan',
         descripcion: 'Compare los estados de cada construcción y compruebe, buscando una palabra distinguidora, que \\(\\overline{A\\cup B} = \\overline{A}\\cap\\overline{B}\\).',
+        ayuda: String.raw`<p>Tabla de texto sin colores con los estados de cada construcción (A, B, producto y sus variantes) y dos filas que verifican las leyes de De Morgan mediante una palabra distinguidora.</p>
+          <ul>
+          <li><strong>Autómata A / B</strong>: cambian los tamaños; el producto tiene a lo más n·m estados y el mínimo suele ser menor.</li>
+          </ul>`,
         montar: montarLeyes,
       },
     ],

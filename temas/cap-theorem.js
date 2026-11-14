@@ -134,10 +134,21 @@
       <p>El <strong>teorema CAP</strong> (Brewer, 2000; Gilbert y Lynch, 2002) dice que, durante una partición, no se puede tener a la vez <strong>consistencia</strong> (linealizable:
       toda lectura ve la última escritura) y <strong>disponibilidad</strong> (toda réplica viva responde). Hay que renunciar a una: rechazar operaciones en el lado minoritario
       (CP) o aceptarlas en ambos lados y reconciliar después (AP).</p>`,
+    parametros: [
+      ['Ante una partición, el sistema elige (Fig. 1)', String.raw`La política cuando la red se parte. CP exige mayoría para operar y por tanto rechaza en el lado minoritario; AP deja operar a ambos lados y acepta que diverjan.`],
+      ['Cortar / reparar la red (Fig. 1)', String.raw`Separa o une los dos lados de la red. Representa una partición de red.`],
+      ['Cliente 1 escribe, Cliente 2 escribe, Cliente 1 lee, Cliente 2 lee (Fig. 1)', String.raw`Cada cliente opera en su lado de la red. Permiten ver qué operaciones se aceptan o rechazan.`],
+      ['Reiniciar (Fig. 1)', String.raw`Restablece las réplicas y la red.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Partir la red',
         descripcion: 'Corte la red y haga que ambos clientes escriban y lean. En modo CP el lado derecho, sin mayoría, rechaza todo. En modo AP ambos lados responden, las réplicas divergen y al reparar se pierde una escritura.',
+        ayuda: String.raw`<p>Cinco réplicas se reparten en dos lados. La leyenda distingue las operaciones aceptadas, las rechazadas o por la partición, y las réplicas con un valor que otra no tiene.</p>
+          <ul>
+          <li><strong>CP</strong> con la red cortada: el lado sin mayoría rechaza todo; se pierde disponibilidad pero no hay divergencia.</li>
+          <li><strong>AP</strong> con la red cortada: ambos lados aceptan y las réplicas divergen; al reparar la red hay conflicto y una escritura se pierde.</li>
+          </ul>`,
         montar,
       },
     ],

@@ -163,15 +163,28 @@
       ítems, y cada conjunto unido a los que tienen un ítem más. Con 5 ítems son 32 nodos; con \(d\), \(2^d\).</p>
       <p>Por la <strong>monotonía del soporte</strong>, los frecuentes forman una región conectada en la parte superior. Encontrar
       itemsets frecuentes es encontrar la <strong>frontera</strong> de esa región, y podar todo lo que queda bajo un nodo infrecuente.</p>`,
+    parametros: [
+      ['Soporte mínimo (Fig. 1 y 2)', String.raw`Umbral de frecuencia. En la Fig. 1 mueve la frontera entre frecuentes e infrecuentes; en la Fig. 2 decide qué se cuenta y qué se poda.`],
+      ['Nuevas canastas y reproductor (Fig. 1 y 2)', String.raw`Nueva muestra de transacciones y, en la Fig. 2, avance del recorrido por niveles.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Frecuentes, maximales y cerrados',
         descripcion: 'La retícula de los cinco productos más vendidos. Mueva el soporte mínimo y observe la frontera; los anillos marcan los resúmenes compactos.',
+        ayuda: String.raw`<p>Cada nodo es un itemset de los cinco productos más vendidos, ordenados por tamaño. La intensidad indica el soporte de los frecuentes; los anillos marcan los maximales (sin superconjuntos frecuentes) y los cerrados (ningún superconjunto con su mismo soporte).</p>
+          <ul>
+          <li><strong>Soporte mínimo</strong> alto: pocos nodos frecuentes y la frontera baja hacia los itemsets pequeños.</li>
+          <li><strong>Soporte mínimo</strong> bajo: la frontera sube y los maximales son itemsets grandes.</li>
+          </ul>`,
         montar: montarBorde,
       },
       {
         titulo: 'Apriori recorre la retícula',
         descripcion: 'Nivel por nivel: qué se cuenta y qué se poda. Suba el soporte mínimo para ver podas más tempranas.',
+        ayuda: String.raw`<p>La misma retícula, recorrida nivel por nivel. Los nodos se colorean como contados frecuentes, contados infrecuentes, podados sin contar o aún no visitados.</p>
+          <ul>
+          <li><strong>Soporte mínimo</strong>: al subirlo, más nodos quedan podados porque un subconjunto ya era infrecuente.</li>
+          </ul>`,
         montar: montarRecorrido,
       },
     ],

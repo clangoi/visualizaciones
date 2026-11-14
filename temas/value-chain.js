@@ -171,15 +171,32 @@
     intro: String.raw`
       <p>La <strong>cadena de valor</strong> de Michael Porter descompone una empresa en las actividades que agregan valor a lo que vende. Las <em>primarias</em> llevan el producto del proveedor al cliente (logística de entrada, operaciones, logística de salida, marketing y ventas, servicio); las de <em>apoyo</em> las hacen posibles (infraestructura, recursos humanos, desarrollo tecnológico, aprovisionamiento). Lo que queda del ingreso después de pagar todas las actividades es el <em>margen</em>.</p>
       <p>Para un sistema de información la pregunta útil es dónde conviene instalarlo: no donde la tecnología es más vistosa, sino donde el costo evitado o el ingreso adicional supera el costo del propio sistema.</p>`,
+    parametros: [
+      ['Reducción de costo máxima del SI (Fig. 1)', String.raw`Mayor ahorro que un sistema puede lograr en una actividad. Más ahorro hace rentables más actividades.`],
+      ['Costo anual de cada SI (Fig. 1)', String.raw`Costo de instalar un sistema en cada actividad. Si supera el ahorro, el margen cae.`],
+      ['Digitalizar la mejor, Todas las rentables y Limpiar (Fig. 1)', String.raw`Instalan el SI en la actividad de mayor ganancia, en todas las que dan ganancia o lo quitan de todas.`],
+      ['Estrategia de TI (Fig. 2)', String.raw`Qué tipo de uso de TI se aplica (automatizar, conocer al cliente, integrar proveedores o plataforma completa). Cambia qué costos baja o qué ingresos sube.`],
+      ['Éxito de la implementación (Fig. 2)', String.raw`Qué parte de los beneficios se logra. Un éxito bajo deja el margen en su valor anterior o peor.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Dónde instalar un sistema de información',
         descripcion: 'Haga clic en las actividades de una distribuidora ficticia y vea cómo cambian sus costos y el margen. Pruebe «Digitalizar la mejor», suba el costo del SI hasta que servicio o infraestructura dejen de convenir y compare con operaciones.',
+        ayuda: String.raw`<p>Cadena de valor de una distribuidora con actividades primarias y de apoyo. Cada una muestra el costo anual del SI, el margen y el costo o margen antes del SI.</p>
+          <ul>
+          <li><strong>Reducción de costo máxima</strong>: más ahorro en las actividades con SI.</li>
+          <li><strong>Costo anual de cada SI</strong>: si sube, servicio o infraestructura dejan de ser rentables.</li>
+          </ul>`,
         montar: montarDonde,
       },
       {
         titulo: 'Cascada del margen según la estrategia de TI',
         descripcion: 'Elija una estrategia (automatizar, conocer al cliente, integrar proveedores o una plataforma completa) y baje el éxito de la implementación hasta encontrar el punto en que el margen vuelve a ser el de partida.',
+        ayuda: String.raw`<p>Cascada del ingreso al margen: ingreso, costos primarios, costos de apoyo, costo del SI y margen, con una marca de la posición antes del SI.</p>
+          <ul>
+          <li><strong>Estrategia de TI</strong>: cambia qué barras de costo bajan o suben.</li>
+          <li><strong>Éxito de la implementación</strong>: al bajarlo el margen vuelve al de antes del SI.</li>
+          </ul>`,
         montar: montarCascada,
       },
     ],

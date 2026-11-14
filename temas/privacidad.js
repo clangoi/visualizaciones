@@ -91,10 +91,21 @@
       <p>La intuición ingenua es que basta con quitar nombres y RUT. No basta: unos pocos atributos inocentes en combinación identifican a
       casi todos. Latanya Sweeney mostró en 2000 que el 87 % de la población de Estados Unidos queda única con solo código postal, fecha de
       nacimiento y sexo, y re-identificó así la ficha médica del gobernador de Massachusetts.</p>`,
+    parametros: [
+      ['Casillas de atributos: sexo, año de nacimiento, día y mes de nacimiento, comuna (Fig. 1)', String.raw`Qué atributos conoce el atacante sobre la persona. Cada atributo agrega tantos valores posibles como indica su nombre; más atributos combinados significan más combinaciones y, por tanto, más personas únicas.`],
+      ['Tamaño de la población (Fig. 1)', String.raw`Cuántas personas hay en la población simulada, en escala logarítmica. A igual número de combinaciones, una población más chica deja más combinaciones con una sola persona.`],
+      ['Nueva población (Fig. 1)', String.raw`Genera otra población aleatoria con el mismo tamaño y atributos, para ver cuánto varía la medición.`],
+    ],
     visualizaciones: [
       {
         titulo: '¿Cuántos quedan únicos?',
         descripcion: 'Una población simulada con sexo, fecha de nacimiento y comuna. Combine atributos y vea qué fracción de personas es la única con esos valores, es decir, identificable.',
+        ayuda: String.raw`<p>El eje horizontal es el tamaño de la población (escala logarítmica) y el vertical, el porcentaje de personas únicas, es decir, las únicas con esa combinación de valores. La línea de la leyenda es el valor esperado si los valores fueran uniformes; los puntos son lo medido en la población simulada.</p>
+          <ul>
+          <li><strong>Casillas de atributos</strong>: al marcar más atributos, la curva sube porque hay más combinaciones posibles y menos personas comparten cada una; con pocos atributos casi nadie es único.</li>
+          <li><strong>Tamaño de la población</strong>: al crecer, la curva baja, porque más personas se reparten las mismas combinaciones y se repiten más.</li>
+          <li><strong>Nueva población</strong>: los puntos medidos cambian algo pero se mantienen cerca de la línea esperada.</li>
+          </ul>`,
         montar: montarUnicidad,
       },
     ],

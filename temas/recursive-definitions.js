@@ -109,15 +109,29 @@
       Funciona porque siempre se llega a casos base que no dependen de nada.</p>
       <p>Definir y demostrar son dos caras de lo mismo: las funciones recursivas se analizan por inducción, y la forma de la definición dicta qué clase de inducción hace falta
       (simple para \(n!\), fuerte para Fibonacci).</p>`,
+    parametros: [
+      ['Definición recursiva y n (Fig. 1)', String.raw`La función cuyo árbol de llamadas se despliega y el tamaño del argumento. Un n mayor genera más subproblemas.`],
+      ['Discos (Fig. 2)', String.raw`Cantidad de discos de las Torres de Hanoi; cada disco extra duplica los movimientos más uno.`],
+      ['Reproductor (Fig. 2)', String.raw`Reproducir, dar un paso o reiniciar para ver los movimientos uno a uno.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El árbol de llamadas',
         descripcion: 'Cada definición despliega un árbol de subproblemas. Compare cuántas llamadas hay y cuáles se repiten; en Fibonacci el mismo \\(F(k)\\) se calcula muchas veces.',
+        ayuda: String.raw`<p>Cada nodo es una llamada a la función. Los nodos de la leyenda distinguen la primera vez que se calcula un subproblema de los subproblemas repetidos.</p>
+          <ul>
+          <li><strong>Definición recursiva</strong>: cambia la forma del árbol; en Fibonacci aparecen muchos nodos repetidos, en otras definiciones no.</li>
+          <li><strong>n</strong>: al aumentarlo crece el número de llamadas y, en Fibonacci, el de repetidas.</li>
+          </ul>`,
         montar: montarLlamadas,
       },
       {
         titulo: 'Torres de Hanoi',
         descripcion: 'Resuelva el rompecabezas con la recursión \\(T(n) = 2T(n-1) + 1\\) y cuente los movimientos. Reproduzca con 4 o 5 discos.',
+        ayuda: String.raw`<p>Tres varillas con discos pequeños y grandes; el disco recién movido se destaca y el registro lista los movimientos.</p>
+          <ul>
+          <li><strong>Discos</strong>: con n discos se hacen \(2^n - 1\) movimientos, resultado de \(T(n) = 2T(n-1) + 1\).</li>
+          </ul>`,
         montar: montarHanoi,
       },
     ],

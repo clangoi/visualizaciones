@@ -118,9 +118,26 @@
     intro: String.raw`
       <p>El <strong>aprendizaje contrastivo</strong> aprende representaciones sin etiquetas de clase: solo se necesita saber qué pares de datos «van juntos». Dos vistas del mismo ejemplo (una imagen recortada y girada de dos maneras, una frase y su traducción, una foto y su descripción) forman un <strong>par positivo</strong>; el resto de ejemplos del lote son <strong>negativos</strong>.</p>
       <p>La pérdida acerca los positivos y aleja los negativos en el espacio de representaciones. Para lograrlo, la red tiene que descartar lo que cambia entre vistas (ruido, recorte) y conservar lo que se mantiene (el contenido), y de paso agrupa lo parecido.</p>`,
+    parametros: [
+      ['Temperatura τ (Fig. 1 y 2)', String.raw`Escala de las similitudes en la softmax de la pérdida. Con τ baja la pérdida castiga con dureza a los negativos más parecidos; con τ alta los trata a todos casi igual.`],
+      ['Fuerza de la aumentación σ (Fig. 1)', String.raw`Cuánto se perturba cada ejemplo para crear su pareja positiva. Con σ pequeña las parejas son casi idénticas; con σ grande el problema es más difícil.`],
+      ['Reproductor y Otra semilla (Fig. 1)', String.raw`Entrena la red y la reinicia con otros datos.`],
+      ['Ejemplos en el lote (Fig. 2)', String.raw`Número de ejemplos del lote; todos los demás sirven de negativos.`],
+      ['Otros vectores (Fig. 2)', String.raw`Sortea nuevos vectores.`],
+    ],
     visualizaciones: [
-      { titulo: 'Entrenar con pares positivos y negativos', descripcion: 'Entrene y observe cómo los tres grupos, que la red nunca vio etiquetados, se separan en el círculo. Pruebe con una aumentación pequeña y con una grande.', montar: montarEntrenar },
-      { titulo: 'La matriz de similitudes y la pérdida', descripcion: 'Cambie la temperatura y el tamaño del lote y mire cómo se reparte el softmax entre la pareja correcta y las demás.', montar: montarMatriz },
+      { titulo: 'Entrenar con pares positivos y negativos', descripcion: 'Entrene y observe cómo los tres grupos, que la red nunca vio etiquetados, se separan en el círculo. Pruebe con una aumentación pequeña y con una grande.',
+        ayuda: String.raw`<p>Cada punto es un ejemplo proyectado en el círculo unitario y su color es el grupo al que pertenece, que la red nunca conoce. Los puntos de un mismo grupo deberían ir juntándose y los de grupos distintos separándose.</p>
+          <ul>
+          <li><strong>Temperatura τ</strong>: afecta la rapidez y nitidez con que se separan los grupos.</li>
+          <li><strong>Fuerza de la aumentación σ</strong>: con σ pequeña los grupos quedan más compactos; con σ grande se mezclan más.</li>
+          </ul>`, montar: montarEntrenar },
+      { titulo: 'La matriz de similitudes y la pérdida', descripcion: 'Cambie la temperatura y el tamaño del lote y mire cómo se reparte el softmax entre la pareja correcta y las demás.',
+        ayuda: String.raw`<p>Matriz de similitudes entre las parejas del lote: la diagonal son las parejas positivas y la intensidad de cada celda es su peso softmax; cada fila suma 1.</p>
+          <ul>
+          <li><strong>Temperatura τ</strong>: con τ baja, el peso se concentra en la pareja más parecida; con τ alta se reparte entre muchas.</li>
+          <li><strong>Ejemplos en el lote</strong>: más ejemplos significan más negativos que se reparten el peso.</li>
+          </ul>`, montar: montarMatriz },
     ],
     teoria: String.raw`
       <h2>Pérdida InfoNCE</h2>

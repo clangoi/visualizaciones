@@ -412,20 +412,47 @@
       es un conjunto convexo.</p>
       <p>Esta propiedad es la frontera entre lo «fácil» y lo «difícil» en optimización: en un problema convexo todo mínimo local es global y los algoritmos
       de descenso no se pierden en valles falsos. Aquí comprobará la definición con segmentos y cuerdas que usted mueve, y verá qué operaciones conservan la convexidad.</p>`,
+    parametros: [
+      ['Conjunto C (Fig. 1)', String.raw`La forma que se prueba (por ejemplo media luna, disco o pentágono). Algunas son convexas y otras no.`],
+      ['Parámetro t (punto del segmento) (Fig. 1 y 2)', String.raw`La posición del punto \((1-t)A+tB\) a lo largo del segmento: en 0 es A y en 1 es B.`],
+      ['Buscar contraejemplo y A y B al azar dentro (Fig. 1)', String.raw`El primero prueba cientos de pares de puntos para encontrar un segmento que salga del conjunto; el segundo coloca A y B al azar dentro.`],
+      ['Función f (Fig. 2)', String.raw`La función cuya convexidad se estudia.`],
+      ['Sombrear el epígrafo (Fig. 2)', String.raw`Muestra la región por encima de la gráfica. Una función es convexa cuando esa región es un conjunto convexo.`],
+      ['Probar muchos pares (Fig. 2)', String.raw`Evalúa muchas cuerdas y reporta si alguna viola la desigualdad de Jensen.`],
+      ['Función f, Función g y Operación h (Fig. 3)', String.raw`Las funciones de partida y la operación que las combina.`],
+      ['λ y α (Fig. 3)', String.raw`Los parámetros de las operaciones λ · f y f(αx + 0,5): escala y estiramiento o reflejo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Segmentos dentro y fuera de un conjunto',
         descripcion: 'Arrastre A y B dentro de la media luna: el segmento se pone rojo donde sale del conjunto. Cambie a disco o pentágono y compruebe que nunca sale; «Buscar contraejemplo» prueba cientos de pares y se detiene al hallar uno.',
+        ayuda: String.raw`<p>Plano \(x_1\), \(x_2\) con el conjunto C. A y B se arrastran; el segmento es verde en el tramo dentro de C y rojo en el tramo fuera. El punto marcado es \((1-t)A+tB\).</p>
+          <ul>
+          <li><strong>Conjunto C</strong>: en un conjunto convexo el segmento nunca sale; en la media luna sí.</li>
+          <li><strong>Parámetro t</strong>: recorre el segmento; basta un t con el punto fuera de C para refutar la convexidad.</li>
+          <li><strong>Buscar contraejemplo</strong>: si no encuentra ninguno tras cientos de intentos, apoya la convexidad, aunque no la demuestra.</li>
+          </ul>`,
         montar: montarConjuntos,
       },
       {
         titulo: 'Cuerdas, Jensen y epígrafo',
         descripcion: 'Mueva a y b sobre la curva: en una función convexa la cuerda es siempre verde y la brecha de Jensen en t nunca es negativa. Con x⁴ − 2x² o sen x aparece un tramo rojo; la banda al pie marca dónde la curvatura es negativa.',
+        ayuda: String.raw`<p>Gráfica de f con una cuerda entre a y b: verde si queda por encima de f (Jensen se cumple) y roja si queda por debajo (se viola). La banda al pie señala la brecha de Jensen en t.</p>
+          <ul>
+          <li><strong>Función f</strong>: en una convexa la cuerda siempre es verde; en \(x^4-2x^2\) o sen x hay tramos rojos.</li>
+          <li><strong>Sombrear el epígrafo</strong>: la zona sombreada es convexa solo para funciones convexas.</li>
+          </ul>`,
         montar: montarCuerdas,
       },
       {
         titulo: 'Operaciones que conservan la convexidad',
         descripcion: 'Combine f y g con suma, máximo, mínimo, diferencia, escala o composición. Compare la regla teórica con la comprobación numérica: la suma y el máximo conservan la convexidad, el mínimo y la diferencia no, y multiplicar por λ < 0 invierte la curvatura.',
+        ayuda: String.raw`<p>Se dibujan f, g y el resultado h de la operación elegida, con la regla teórica y la comprobación numérica de convexidad.</p>
+          <ul>
+          <li><strong>Operación h</strong>: la suma y el máximo conservan la convexidad; el mínimo y la diferencia pueden perderla.</li>
+          <li><strong>λ</strong>: con λ negativo, λ · f invierte la convexidad.</li>
+          <li><strong>α</strong>: la composición con una función afín conserva la convexidad.</li>
+          </ul>`,
         montar: montarOperaciones,
       },
     ],

@@ -103,9 +103,24 @@
       <p>Un sitio nunca debe guardar contraseñas: si se filtra su base de datos, quedarían expuestas todas las cuentas (y las de otros sitios donde se reutilizan). En su lugar guarda un <strong>hash</strong>:
       el resultado de una función unidireccional, fácil de calcular y prácticamente imposible de invertir.</p>
       <p>Pero un hash común es demasiado <em>rápido</em>: un atacante puede probar miles de millones de candidatas por segundo. Por eso se añade una <strong>sal</strong> aleatoria por usuario y se usan funciones deliberadamente <strong>lentas</strong> (bcrypt, scrypt, Argon2).</p>`,
+    parametros: [
+      ['Contraseña A y Contraseña B (Fig. 1)', String.raw`Dos textos de los que se calcula el hash SHA-256. Con textos casi iguales se aprecia el efecto avalancha.`],
+      ['agregar una sal aleatoria (Fig. 1)', String.raw`Una sal distinta por usuario se mezcla con la contraseña antes de calcular el hash, de modo que claves iguales dejan de producir hashes iguales.`],
+      ['Caracteres permitidos (Fig. 2)', String.raw`El alfabeto del que se forma la contraseña; define cuántas combinaciones debe probar un atacante por cada posición.`],
+    ],
     visualizaciones: [
-      { titulo: 'Efecto avalancha y sal', descripcion: 'Compare los hashes SHA-256 de dos contraseñas casi iguales y active la sal: observe cuántos de los 256 bits cambian y por qué dos usuarios con la misma clave dejan de ser iguales.', montar: montarAvalancha },
-      { titulo: 'Fuerza bruta: rápido frente a lento', descripcion: 'Cambie los caracteres permitidos y compare cuánto resiste cada algoritmo según el largo de la contraseña.', montar: montarFuerzaBruta },
+      { titulo: 'Efecto avalancha y sal', descripcion: 'Compare los hashes SHA-256 de dos contraseñas casi iguales y active la sal: observe cuántos de los 256 bits cambian y por qué dos usuarios con la misma clave dejan de ser iguales.',
+        ayuda: String.raw`<p>Cada celda es uno de los 256 bits del hash: azul si el bit es igual en ambos hashes y naranja si es distinto. Debajo se listan los hashes en hexadecimal.</p>
+          <ul>
+          <li><strong>Contraseña A</strong> y <strong>Contraseña B</strong> con un solo carácter distinto: cerca de la mitad de los bits aparecen naranjas, no solo unos pocos.</li>
+          <li>Con la misma clave en ambas y <strong>sal</strong> activada, los hashes difieren en muchos bits: dos usuarios con la misma contraseña ya no se reconocen por su hash.</li>
+          </ul>`, montar: montarAvalancha },
+      { titulo: 'Fuerza bruta: rápido frente a lento', descripcion: 'Cambie los caracteres permitidos y compare cuánto resiste cada algoritmo según el largo de la contraseña.',
+        ayuda: String.raw`<p>Eje horizontal: largo de la contraseña. Eje vertical (escala logarítmica): segundos medios para adivinarla con una tarjeta gráfica. Cada curva es un algoritmo: SHA-256 sin más (rojo, el más rápido) y PBKDF2 y bcrypt/Argon2 (naranja y azul) con su ritmo de intentos por segundo en la leyenda.</p>
+          <ul>
+          <li><strong>Caracteres permitidos</strong> más amplios desplazan todas las curvas hacia arriba: cada posición multiplica las combinaciones.</li>
+          <li>La separación vertical entre curvas muestra cuánto tiempo extra compra un algoritmo lento para el mismo largo.</li>
+          </ul>`, montar: montarFuerzaBruta },
     ],
     teoria: String.raw`
       <h2>Propiedades de un hash criptográfico</h2>

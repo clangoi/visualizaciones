@@ -145,15 +145,33 @@
       <p>Sus curvas de nivel son elipses: \(\Sigma\) fija su tamaño, su orientación y su excentricidad. Es la pieza básica de los
       <a href="tema.html?id=gaussian-mixture-models">modelos de mezcla</a>, de <a href="tema.html?id=lda-qda">LDA y QDA</a> y del
       análisis de <a href="tema.html?id=pca">componentes principales</a>.</p>`,
+    parametros: [
+      ['σ₁ y σ₂ (Fig. 1 y 2)', String.raw`Las desviaciones estándar de \(x_1\) y \(x_2\). Más σ significa más dispersión en esa variable: la nube se estira en ese eje. En la Fig. 2, σ₂ es la dispersión marginal de \(x_2\).`],
+      ['Correlación ρ (Fig. 1 y 2)', String.raw`Cuánto varían juntas \(x_1\) y \(x_2\). Con ρ distinto de 0 la nube se inclina; con ρ cerca de ±1 casi se reduce a una recta.`],
+      ['mostrar 300 muestras y Nuevas muestras (Fig. 1)', String.raw`Superpone puntos sorteados de la distribución y los vuelve a sortear, para comparar la densidad con muestras reales.`],
+      ['Observar x₁ = x₀ (Fig. 2)', String.raw`El valor de \(x_1\) que se supone observado. Mueve el corte y con él la distribución de \(x_2\) condicionada a ese valor.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La forma de Σ',
         descripcion: 'Mueva las desviaciones y la correlación y observe cómo giran y se estiran las elipses. Los ejes de la elipse son los vectores propios de Σ.',
+        ayuda: String.raw`<p>El fondo es la densidad (más intensa = densidad alta); las elipses son los contornos de Mahalanobis 1, 2 y 3, y los dos ejes son los vectores propios de \(\Sigma\) multiplicados por \(\sqrt{\lambda}\). Los puntos son muestras. Al pasar el cursor se compara la distancia euclidiana con la de Mahalanobis.</p>
+          <ul>
+          <li><strong>σ₁</strong> y <strong>σ₂</strong>: estiran la elipse en cada eje; con ρ = 0 los ejes de la elipse coinciden con los de las variables.</li>
+          <li><strong>Correlación ρ</strong>: gira la elipse hacia la diagonal; sus ejes pasan a ser los vectores propios de \(\Sigma\).</li>
+          <li>Dos puntos a igual distancia euclidiana pueden estar a 1 o a 3 «desviaciones», según la dirección.</li>
+          </ul>`,
         montar: montarForma,
       },
       {
         titulo: 'Marginales y condicionales',
         descripcion: 'Fije un valor de x₁ y compare la distribución de x₂ antes y después de observarlo.',
+        ayuda: String.raw`<p>Se ve el plano \(x_1\)-\(x_2\) con la línea vertical de corte \(x_1=x_0\) y la recta de regresión \(E[x_2\mid x_1]\). El otro panel dibuja, para \(x_2\), la marginal \(p(x_2)\) y la condicional \(p(x_2\mid x_1=x_0)\).</p>
+          <ul>
+          <li><strong>Observar x₁ = x₀</strong>: la condicional se desplaza sobre la recta de regresión.</li>
+          <li><strong>Correlación ρ</strong> mayor: la condicional se angosta (varianza reducida en un factor \(1-\rho^2\)); con ρ = 0 coincide con la marginal (independencia).</li>
+          <li><strong>σ₂</strong> mayor: ensancha la marginal y la condicional.</li>
+          </ul>`,
         montar: montarCondicional,
       },
     ],

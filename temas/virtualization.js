@@ -213,15 +213,38 @@
       Una capa de software, el <em>hipervisor</em>, reparte entre ellas la CPU, la memoria y el almacenamiento.</p>
       <p>Antes de la virtualización cada aplicación solía tener su servidor, que pasaba la mayor parte del tiempo casi ocioso (utilizaciones de 10 a 20 %). Consolidar esas cargas en pocos equipos
       reduce la cantidad de hardware, la energía y el espacio, y hace posible mover cargas entre equipos sin apagarlas. El costo es un problema de empaquetado y un riesgo: si se asigna de más, las máquinas compiten por la CPU.</p>`,
+    parametros: [
+      ['Servidores físicos actuales (Fig. 1)', String.raw`Cuántos servidores con su carga hay que consolidar.`],
+      ['Capacidad de cada host (Fig. 1)', String.raw`Tamaño de cada servidor anfitrión que alojará máquinas virtuales.`],
+      ['Utilización máxima permitida (Fig. 1)', String.raw`Fracción de cada host que se puede llenar, dejando holgura. Bajarla exige más hosts.`],
+      ['Orden de colocación (Fig. 1)', String.raw`Si las cargas se colocan de la más pesada a la más liviana o en el orden de llegada; afecta cuántos hosts se necesitan.`],
+      ['Host de reserva (N+1) (Fig. 1)', String.raw`Agrega un host adicional para tolerar la falla de uno.`],
+      ['Nuevos servidores (Fig. 1)', String.raw`Genera otro conjunto de cargas.`],
+      ['Máquinas virtuales en el host (Fig. 2)', String.raw`Cuántas máquinas comparten el mismo host.`],
+      ['Uso medio de cada vCPU (Fig. 2)', String.raw`Qué tan ocupada está cada CPU virtual en promedio.`],
+      ['Horario de los picos (Fig. 2)', String.raw`Si las máquinas tienen picos a horas distintas o a la vez; los simultáneos suman demanda.`],
+      ['Nuevo día (Fig. 2)', String.raw`Genera otra curva de demanda aleatoria.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Consolidar servidores en hosts',
         descripcion: 'Coloque, una a una, las cargas de varios servidores en hosts virtualizados. Compare el orden «de la más pesada a la más liviana» con el de llegada, baje la utilización máxima permitida y active el host de reserva.',
+        ayuda: String.raw`<p>Barras de hosts con las cargas: servidor por virtualizar, máquina virtual que se coloca ahora y ya colocadas. Una línea marca la utilización máxima permitida.</p>
+          <ul>
+          <li><strong>Utilización máxima permitida</strong> baja: las cargas ya no caben y se necesitan más hosts.</li>
+          <li><strong>Orden de colocación</strong> de la más pesada a la más liviana: suele dar un empaquetado más compacto.</li>
+          <li><strong>Host de reserva (N+1)</strong>: suma un host que permite sobrevivir a una falla.</li>
+          </ul>`,
         montar: montarConsolidacion,
       },
       {
         titulo: 'Sobreasignación de CPU',
         descripcion: 'Agregue máquinas virtuales a un mismo host y vea cuándo la demanda del día cruza su capacidad. Pruebe picos escalonados y simultáneos con la misma razón vCPU : núcleos.',
+        ayuda: String.raw`<p>La demanda total de las máquinas virtuales (núcleos) por hora del día, comparada con la capacidad del host; la demanda que el host no puede atender se marca aparte.</p>
+          <ul>
+          <li><strong>Máquinas virtuales en el host</strong> más altas: la demanda cruza la capacidad y aparece demanda sin atender.</li>
+          <li><strong>Horario de los picos</strong> simultáneo: los picos se suman y producen mayor exceso que con picos escalonados.</li>
+          </ul>`,
         montar: montarSobreasignacion,
       },
     ],

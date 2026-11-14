@@ -310,15 +310,34 @@
       la de la otra y el valor óptimo coincide, salvo el cambio de signo al pasar de máximo a mínimo.</p>
       <p>Saber transformar modelos es práctico: cada método pide una forma concreta (el Simplex, por ejemplo, la forma estándar) y funciones como el
       valor absoluto, que no son lineales, se pueden reescribir para que el problema siga siendo un LP.</p>`,
+    parametros: [
+      ['Coeficiente c₁ y c₂ (Fig. 1)', String.raw`Los coeficientes del objetivo del modelo original. Definen en qué dirección se busca el óptimo.`],
+      ['Transformaciones (casillas) (Fig. 1)', String.raw`Cada casilla reescribe el modelo: cambiar máx por mín con objetivo −c, multiplicar restricciones por −1, convertir ≤ en = con holguras o partir una variable libre. Si es equivalente, el óptimo no cambia.`],
+      ['cometer un error de signo (Fig. 1)', String.raw`Introduce un error deliberado en la transformación, para ver que el óptimo cambia cuando no es equivalente.`],
+      ['Objetivo con valor absoluto (Fig. 2)', String.raw`Elige entre la suma de distancias (norma 1) y la mayor distancia (norma infinito) a p.`],
+      ['Poner p dentro de la región y Poner p lejos (Fig. 2)', String.raw`Colocan el punto p en un lugar interior o exterior a la región.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Transformaciones que no cambian el óptimo',
         descripcion: 'Active las casillas una por una y lea cómo se reescribe el modelo; el punto naranja (óptimo del transformado) cae siempre sobre el cuadrado azul. Active «error de signo» junto a una transformación de signo y verá una región roja distinta y un óptimo equivocado.',
+        ayuda: String.raw`<p>Plano \(x_1\), \(x_2\). Se muestra la región del modelo original, su óptimo (cuadrado azul), el óptimo del modelo transformado llevado de vuelta a x (punto naranja) y la región transformada si cambia.</p>
+          <ul>
+          <li><strong>Casillas</strong>: con transformaciones equivalentes, el punto naranja cae sobre el cuadrado azul.</li>
+          <li><strong>cometer un error de signo</strong>: el punto naranja se aparta del azul, lo que delata una transformación no equivalente.</li>
+          <li><strong>Coeficientes</strong>: giran la dirección de búsqueda y mueven ambos óptimos juntos.</li>
+          </ul>`,
         montar: montarTransformar,
       },
       {
         titulo: 'Valor absoluto y máximo como LP',
         descripcion: 'Arrastre p: el óptimo es el punto de la región más cercano a p según la norma elegida. Compare el LP con variables auxiliares t y la búsqueda directa sobre |·|: coinciden, también cuando p cae dentro de la región (valor 0).',
+        ayuda: String.raw`<p>Región factible, curvas de nivel del objetivo con valor absoluto, el óptimo del LP linealizado, el óptimo hallado buscando directamente con |·| y el punto arrastrable p.</p>
+          <ul>
+          <li><strong>Objetivo con valor absoluto</strong>: la norma 1 da curvas en rombo y la de máximo, en cuadrado.</li>
+          <li><strong>Poner p dentro de la región</strong>: el óptimo coincide con p; con <strong>Poner p lejos</strong> cae en la frontera, el punto más cercano a p.</li>
+          <li>Los dos óptimos coinciden: la linealización con variables auxiliares es equivalente.</li>
+          </ul>`,
         montar: montarAbsoluto,
       },
     ],

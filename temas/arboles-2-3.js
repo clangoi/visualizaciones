@@ -164,10 +164,22 @@
       perfectamente balanceado.</p>
       <p>La clave está en cómo crece: en vez de agregar hojas hacia abajo, las claves se insertan en hojas existentes y, cuando un
       nodo se llena, se <em>divide</em> y empuja una clave hacia arriba. El árbol crece desde la raíz.</p>`,
+    parametros: [
+      ['Clave (Fig. 1)', String.raw`El número (1 a 99) sobre el que actúan Insertar, Eliminar y Buscar.`],
+      ['Insertar, Eliminar, Buscar (Fig. 1)', String.raw`Insertar siempre agrega en una hoja y, si se llena, divide nodos hacia arriba; eliminar repara los nodos vacíos con préstamos o fusiones.`],
+      ['Insertar aleatoria / 10 aleatorias / 1, 2, …, 15 (Fig. 1)', String.raw`Atajos para poblar el árbol. Con cualquier orden de inserción las hojas quedan todas a la misma profundidad.`],
+      ['Vaciar (Fig. 1)', String.raw`Borra el árbol.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Inserción con divisiones y eliminación con fusiones',
         descripcion: 'Inserte claves y observe cómo los nodos-4 temporales se dividen y suben su clave del medio. Al eliminar, un nodo vacío pide prestada una clave a un hermano (redistribución) o se fusiona con él.',
+        ayuda: String.raw`<p>Cada rectángulo es un nodo con una clave (nodo-2, dos hijos) o dos claves (nodo-3, tres hijos). Todas las hojas están a la misma profundidad: el árbol crece hacia arriba, por la raíz, nunca hacia abajo.</p>
+          <ul>
+          <li><strong>Insertar</strong>: la clave entra en una hoja. Si la hoja ya tenía dos claves, se forma un nodo-4 temporal que se divide: la clave del medio sube al padre. Si la división llega a la raíz, aparece una raíz nueva y la altura aumenta en uno.</li>
+          <li><strong>Eliminar</strong>: si un nodo queda vacío, pide prestada una clave a un hermano con dos (redistribución) o se fusiona con él bajando una clave del padre.</li>
+          <li>La lectura «rango posible» muestra entre qué alturas puede estar un árbol 2-3 con \(n\) claves: entre \(\log_3\) y \(\log_2\) de \(n+1\).</li>
+          </ul>`,
         montar: (c) => VIZ.arbol.editor(c, crear23(), { inicial: [50, 20, 80, 10, 30, 60, 90, 40, 70], dy: 64 }),
       },
     ],

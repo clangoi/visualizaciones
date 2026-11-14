@@ -107,9 +107,27 @@
     intro: String.raw`
       <p>Entrenar una red es, casi por completo, multiplicar matrices enormes. Las <strong>GPU</strong> tienen miles de núcleos pequeños que hacen esas multiplicaciones en paralelo; por eso un entrenamiento que tardaría semanas en una CPU toma horas. Las <strong>TPU</strong> son aceleradores diseñados específicamente para ese cálculo.</p>
       <p>Pero usarlas bien exige tres cosas: lotes suficientemente grandes para mantenerlas ocupadas, memoria para pesos, gradientes y activaciones, y, si hay varias, un buen reparto del trabajo para que la comunicación no se coma la ganancia.</p>`,
+    parametros: [
+      ['Cómputo por ejemplo (GFLOP, adelante + atrás) (Fig. 1)', String.raw`Trabajo necesario por ejemplo. Más cómputo hace que el dispositivo se sature con lotes más pequeños.`],
+      ['Parámetros (millones) (Fig. 1 y 2)', String.raw`Tamaño del modelo. En la Fig. 1 consume memoria; en la Fig. 2 determina cuánto gradiente hay que comunicar.`],
+      ['Activaciones por ejemplo (MB) (Fig. 1)', String.raw`Memoria que ocupa cada ejemplo del lote. Más activaciones agotan antes la memoria.`],
+      ['Tamaño del lote (marcador) (Fig. 1)', String.raw`Posición señalada sobre las curvas para leer el rendimiento y si el lote cabe.`],
+      ['Ancho de banda entre GPU (GB/s) (Fig. 2)', String.raw`Velocidad de comunicación del gradiente. Un valor bajo aumenta el costo de sincronizar.`],
+      ['Lote por GPU (Fig. 2)', String.raw`Trabajo local por GPU. Un lote grande dedica más tiempo a calcular y menos a comunicar.`],
+    ],
     visualizaciones: [
-      { titulo: 'Tamaño del lote, ocupación y memoria', descripcion: 'Suba el lote y mire cómo el rendimiento de la GPU se acerca a su máximo, y cuándo la memoria se agota. Compare precisión mixta y float32.', montar: montarLote },
-      { titulo: 'Entrenar con varias GPU', descripcion: 'Aumente el número de GPU con un ancho de banda bajo y con uno alto, y compruebe que la aceleración se aleja del ideal.', montar: montarEscalado },
+      { titulo: 'Tamaño del lote, ocupación y memoria', descripcion: 'Suba el lote y mire cómo el rendimiento de la GPU se acerca a su máximo, y cuándo la memoria se agota. Compare precisión mixta y float32.',
+        ayuda: String.raw`<p>Eje horizontal: tamaño del lote; vertical: ejemplos por segundo (escala log). Una curva por dispositivo: CPU (naranja), GPU float32 (azul) y GPU con precisión mixta (verde); se marca dónde el lote no cabe en memoria.</p>
+          <ul>
+          <li><strong>Tamaño del lote</strong>: las GPU se acercan a su máximo al subirlo, hasta que se agota la memoria.</li>
+          <li><strong>Activaciones por ejemplo</strong> y <strong>Parámetros</strong> altos: la memoria se agota con lotes menores.</li>
+          </ul>`, montar: montarLote },
+      { titulo: 'Entrenar con varias GPU', descripcion: 'Aumente el número de GPU con un ancho de banda bajo y con uno alto, y compruebe que la aceleración se aleja del ideal.',
+        ayuda: String.raw`<p>Eje horizontal: número de GPU; vertical: aceleración. Una línea es el escalado ideal y otra la que incluye la comunicación del gradiente.</p>
+          <ul>
+          <li><strong>Ancho de banda</strong> bajo: la aceleración real se aleja del ideal al sumar GPU.</li>
+          <li><strong>Parámetros</strong> altos y <strong>Lote por GPU</strong> bajo aumentan el peso relativo de la comunicación.</li>
+          </ul>`, montar: montarEscalado },
     ],
     teoria: String.raw`
       <h2>Por qué la GPU gana</h2>

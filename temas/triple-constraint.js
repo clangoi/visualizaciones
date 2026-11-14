@@ -319,20 +319,44 @@
       <strong>calidad</strong> (con qué nivel de exigencia). Es la «triple restricción» más la calidad al centro: no se puede mover una sin que se mueva otra. Pedir más funciones en el mismo plazo y presupuesto solo es posible a costa de la calidad.</p>
       <p>Y hay trampas: comprimir el cronograma agrega costo, y sumar personas a un proyecto atrasado suele atrasarlo más (<em>ley de Brooks</em>). Para saber en qué punto está un proyecto sin discutir impresiones, el
       <strong>valor ganado</strong> compara lo planificado, lo logrado y lo gastado en un solo marco de dos índices: SPI (plazo) y CPI (costo).</p>`,
+    parametros: [
+      ['Alcance, Plazo, Equipo y Calidad (Fig. 1)', String.raw`Los lados del triángulo: qué se entrega, cuánto tiempo hay, cuántas personas (que fijan el costo) y qué nivel de pruebas y revisiones se exige. Cambiar uno desequilibra a los demás.`],
+      ['Botones Ceder… y Plan original (Fig. 1)', String.raw`Cada botón ajusta una restricción hasta volver factible el plan, y muestra qué se sacrificó. Plan original vuelve al punto de partida.`],
+      ['Trabajo total, Equipo inicial, Personas que se agregan, Mes en que se agregan y Meses de incorporación (Fig. 2)', String.raw`Describen el trabajo y el refuerzo del equipo: cuánto hay que hacer, con cuántas personas se empieza, cuántas se suman, cuándo y cuánto tardan en rendir.`],
+      ['Ritmo real frente al planificado y Sobrecosto sobre el trabajo hecho (Fig. 3)', String.raw`Qué tan rápido avanza el proyecto respecto del plan y cuánto más cuesta cada unidad de trabajo. Fijan SPI y CPI.`],
+      ['Nuevos datos y reproductor (Fig. 3)', String.raw`Genera otro proyecto con datos distintos y avanza mes a mes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El triángulo y sus compromisos',
         descripcion: 'Suba el alcance hasta que el triángulo se ponga rojo (inviable) y pulse cada botón «Ceder…» para ver cuánto hay que sacrificar en esa restricción. Compare cuánto cuesta cada salida.',
+        ayuda: String.raw`<p>Un triángulo cuyos vértices son alcance, plazo y costo, con la calidad como cuarto factor. Es factible si la capacidad del equipo cubre el esfuerzo requerido; si no, el plan es inviable. Se muestra también el plan original.</p>
+          <ul>
+          <li><strong>Alcance</strong> mayor: crece el esfuerzo requerido y el triángulo se pone rojo cuando supera la capacidad del equipo.</li>
+          <li><strong>Ceder plazo</strong>: extiende el tiempo para que la misma capacidad alcance.</li>
+          <li><strong>Calidad</strong> mayor: exige más esfuerzo en pruebas y revisiones.</li>
+          </ul>`,
         montar: montarTriangulo,
       },
       {
         titulo: 'Más personas no siempre es menos tiempo',
         descripcion: 'En el gráfico superior, busque el equipo que minimiza la duración. En el inferior, mueva el mes en que llegan los refuerzos hacia el final y observe en qué momento el proyecto termina más tarde que sin ellos.',
+        ayuda: String.raw`<p>Arriba: duración (meses) según personas en el equipo, con la duración mínima y las del equipo inicial y ampliado. Abajo: persona-meses de trabajo hechos por mes, con y sin refuerzo y el mes en que llegan.</p>
+          <ul>
+          <li><strong>Personas que se agregan</strong>: más allá de cierto tamaño la duración deja de bajar y vuelve a subir por la comunicación.</li>
+          <li><strong>Mes en que se agregan</strong> tardío: el refuerzo llega con poco trabajo por hacer y el proyecto termina más tarde que sin refuerzo.</li>
+          <li><strong>Meses de incorporación</strong>: mientras se integran, los nuevos casi no producen y frenan a los antiguos.</li>
+          </ul>`,
         montar: montarBrooks,
       },
       {
         titulo: 'Valor ganado: SPI y CPI',
         descripcion: 'Avance mes a mes y observe cómo se separan el valor ganado (EV), el valor planificado (PV) y el costo real (AC). Baje el ritmo y suba el sobrecosto: vea cómo SPI y CPI quedan bajo 1 y el costo final proyectado (EAC) sube.',
+        ayuda: String.raw`<p>Eje horizontal: mes; eje vertical: miles de dólares. Tres curvas: valor planificado (PV), valor ganado (EV) y costo real (AC), más la proyección del costo final (EAC).</p>
+          <ul>
+          <li><strong>Ritmo real</strong> bajo: EV queda bajo PV (SPI menor que 1, atraso).</li>
+          <li><strong>Sobrecosto</strong> alto: AC queda sobre EV (CPI menor que 1) y EAC se eleva sobre el presupuesto.</li>
+          </ul>`,
         montar: montarValorGanado,
       },
     ],

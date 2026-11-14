@@ -228,15 +228,32 @@
       <p>Durante la búsqueda, la heurística de un estado es una consulta a la tabla: tiempo constante y, como la abstracción
       solo puede acortar caminos, siempre admisible. Con varios patrones disjuntos y contando solo los movimientos de las fichas
       de cada patrón, los valores incluso se pueden <strong>sumar</strong>.</p>`,
+    parametros: [
+      ['Fichas del patrón A (Fig. 1)', String.raw`Qué fichas forman el patrón A; las demás forman el patrón B. Cada patrón es una versión simplificada del puzzle donde solo esas fichas se distinguen.`],
+      ['Tipo de base de datos (Fig. 1)', String.raw`<em>Simples</em>: cada base cuenta todos los movimientos y se toma el máximo. <em>Aditivas</em>: cada base cuenta solo los movimientos de sus propias fichas, y por eso se pueden sumar sin perder admisibilidad.`],
+      ['Mezclar y Meta (Fig. 1)', String.raw`Fijan el estado del tablero.`],
+      ['Partición A | B (Fig. 2)', String.raw`Cómo se reparten las ocho fichas entre los dos patrones. Patrones más grandes capturan más interacciones, pero sus bases ocupan más memoria.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Abstraer, precalcular, consultar',
         descripcion: 'Elija qué fichas forman el patrón A y compare las dos formas de combinar las bases: el máximo de bases simples o la suma de bases aditivas. Ambas son siempre \\(\\le h^*\\).',
+        ayuda: String.raw`<p>A la izquierda está el estado real del puzzle. A su lado, sus dos <em>abstracciones</em>: en cada una solo se distinguen las fichas de un patrón (azul o naranja) y las demás se vuelven indistinguibles (grises). Para cada abstracción se precalculó la distancia exacta a la meta abstracta; ese número es la heurística.</p>
+          <ul>
+          <li><strong>Fichas del patrón A</strong>: al cambiar la partición, cambian ambas abstracciones y sus distancias; el número de «estados abstractos» indica cuánta memoria ocupa cada base.</li>
+          <li><strong>Tipo</strong>: con bases simples se toma el máximo de A y B; con aditivas se suman. La aditiva suele dar un valor mayor (más informado) y sigue siendo \(\le h^*\).</li>
+          <li>Compare «h combinada» con «Manhattan» y con «h*».</li>
+          </ul>`,
         montar: montarAbstraccion,
       },
       {
         titulo: 'Más informadas que Manhattan',
         descripcion: 'La suma de bases aditivas domina a Manhattan (con patrones de una ficha sería exactamente Manhattan). Pruebe distintas particiones: los patrones más grandes capturan más interacciones.',
+        ayuda: String.raw`<p>El eje horizontal es la distancia real \(h^*\) y el vertical, el promedio de cada heurística sobre los estados a esa distancia. La diagonal punteada es la heurística perfecta. Azul: Manhattan; naranja: máximo de bases simples; aguamarina: suma de bases aditivas.</p>
+          <ul>
+          <li>La curva aditiva queda siempre sobre Manhattan: la domina, porque Manhattan es el caso de patrones de una sola ficha.</li>
+          <li><strong>Partición</strong>: con patrones grandes (6 | 2) la curva aditiva se acerca más a la diagonal; con patrones desequilibrados o pequeños, gana menos.</li>
+          </ul>`,
         montar: montarPrecision,
       },
     ],

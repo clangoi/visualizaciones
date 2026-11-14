@@ -244,15 +244,37 @@
       <p>Cuesta lo mismo que unas pocas evaluaciones de la red, sin importar cuántos pesos tenga. Pero al multiplicar derivadas capa
       tras capa, el gradiente puede achicarse o crecer exponencialmente con la profundidad: el problema que frenó durante años el
       <a href="tema.html?id=deep-learning">aprendizaje profundo</a>.</p>`,
+    parametros: [
+      ['Entrada x₁ y x₂ (Fig. 1)', String.raw`Los valores que recibe la red. Cambiarlos modifica todas las activaciones, la pérdida y por tanto los gradientes.`],
+      ['Objetivo y (Fig. 1)', String.raw`La salida deseada (0 o 1). Fija hacia dónde empuja el error: cambiarla invierte el signo de los gradientes.`],
+      ['Tasa de aprendizaje η (Fig. 1)', String.raw`Tamaño del paso de la actualización \(w \leftarrow w - \eta\,\partial L/\partial w\). Una tasa grande corrige más por paso, pero puede pasarse del mínimo.`],
+      ['Nuevos pesos y reproductor (Fig. 1)', String.raw`Nuevos pesos sortea otros pesos iniciales; el reproductor avanza el cálculo paso a paso y Reiniciar vuelve a la pasada hacia adelante.`],
+      ['Capas ocultas (Fig. 2)', String.raw`Profundidad de la red. Cada capa adicional añade un factor más al producto de la regla de la cadena.`],
+      ['Activación (Fig. 2)', String.raw`Función no lineal de las neuronas; su derivada es el factor que multiplica el gradiente al pasar por cada capa.`],
+      ['Inicialización de pesos (Fig. 2)', String.raw`Escala de los pesos iniciales (pequeña, Xavier, He o grande). Determina si el gradiente se encoge, se mantiene o crece capa a capa.`],
+      ['Otros pesos (Fig. 2)', String.raw`Sortea otra inicialización con la misma escala, para comprobar que el efecto no es casualidad.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Retropropagación en un grafo de cómputo',
         descripcion: 'Una red con dos entradas, dos neuronas ocultas y una salida. Avance de a un cálculo: primero las activaciones (azul), después los gradientes (naranjo) y al final la actualización.',
+        ayuda: String.raw`<p>Red con dos entradas, dos neuronas ocultas y una salida. En azul se resalta la pasada hacia adelante (activaciones \(a\)), en naranja la pasada hacia atrás (\(\delta=\partial L/\partial z\) y \(\partial L/\partial w\)) y el cálculo del paso actual se marca aparte; el registro y la lectura detallan cada operación.</p>
+          <ul>
+          <li><strong>Entrada x₁</strong> y <strong>Entrada x₂</strong>: cambian las activaciones de la pasada hacia adelante y la pérdida final.</li>
+          <li><strong>Objetivo y</strong>: cambia el error de salida y con él el signo y tamaño de los \(\delta\) en la pasada hacia atrás.</li>
+          <li><strong>Tasa de aprendizaje η</strong>: escala el cambio de cada peso en la actualización final.</li>
+          </ul>`,
         montar: montarGrafo,
       },
       {
         titulo: 'Gradientes que se desvanecen',
         descripcion: 'Norma del gradiente de cada capa de una red profunda recién inicializada, promediada sobre 64 ejemplos. Combine activación e inicialización.',
+        ayuda: String.raw`<p>Eje horizontal: capa oculta (1 junto a la entrada). Se muestran dos series: la norma del gradiente \(\partial L/\partial W\) de cada capa y la desviación estándar de las activaciones. El eje vertical es logarítmico.</p>
+          <ul>
+          <li><strong>Capas ocultas</strong>: más capas alargan las curvas; si el gradiente cae hacia la entrada, las primeras capas casi no aprenden.</li>
+          <li><strong>Activación</strong>: con sigmoide el gradiente suele decaer capa a capa; otras activaciones lo conservan mejor.</li>
+          <li><strong>Inicialización de pesos</strong>: pesos pequeños apagan señal y gradiente, pesos grandes los saturan o los disparan; Xavier y He los mantienen estables.</li>
+          </ul>`,
         montar: montarDesvanecimiento,
       },
     ],

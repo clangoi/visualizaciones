@@ -246,15 +246,34 @@
       y los de <em>gestión</em>, que fijan el rumbo y lo controlan.</p>
       <p>Cada proceso se expande en niveles de detalle: del mapa se baja a subprocesos y luego a actividades. Para llenar esos niveles hay que <strong>descubrir</strong>
       cómo se trabaja de verdad, con entrevistas, observación y registros, porque ninguna fuente sola cuenta la historia completa.</p>`,
+    parametros: [
+      ['Nivel de detalle (Fig. 1)', String.raw`Cuántos niveles del proceso se desglosan (0 a 2). Cada nivel descompone en partes más finas al anterior.`],
+      ['Expandir todos los procesos (Fig. 1)', String.raw`Muestra el desglose de toda la empresa, no solo del proceso elegido; revela cuántas líneas tiene el mapa completo.`],
+      ['Siguiente proceso (Fig. 1)', String.raw`Cambia el proceso que se detalla.`],
+      ['Completitud de cada fuente (Fig. 2)', String.raw`Qué parte del proceso real conoce cada fuente (entrevista, manual, registro, observación). Más completitud descubre más actividades.`],
+      ['Fuentes consultadas y Consultar todas las fuentes (Fig. 2)', String.raw`Qué fuentes se usan. Con más fuentes, más actividades quedan confirmadas por varias.`],
+      ['Mostrar la realidad y Nueva muestra (Fig. 2)', String.raw`Superpone el proceso verdadero para ver qué falta o sobra; Nueva muestra genera otro caso.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Del mapa a las actividades',
         descripcion: 'Elija un proceso y suba el nivel de detalle de 0 a 2: cada nivel desglosa al anterior. Active «Expandir todos» para ver cuántas líneas tiene toda la empresa detallada.',
+        ayuda: String.raw`<p>Jerarquía del proceso. El color de cada caja corresponde a la categoría de la leyenda y cada nivel desglosa al anterior.</p>
+          <ul>
+          <li><strong>Nivel de detalle</strong>: aumentarlo agrega líneas hijas a cada caja.</li>
+          <li><strong>Expandir todos los procesos</strong>: muestra la jerarquía completa de la empresa.</li>
+          </ul>`,
         montar: montarMapa,
       },
       {
         titulo: 'Descubrir un proceso con varias fuentes',
         descripcion: 'Parta con una sola entrevista y agregue fuentes de a una: el mapa se completa y aparecen actividades confirmadas. Fíjese en el «control de calidad» del manual, que el registro y la observación no ven.',
+        ayuda: String.raw`<p>Mapa descubierto del proceso: actividades confirmadas por 2 o más fuentes, de una sola fuente (a verificar), aún no descubiertas, documentadas pero no hechas, y faltas de un paso entre dos actividades.</p>
+          <ul>
+          <li><strong>Fuentes consultadas</strong>: al sumar fuentes, pasan actividades de una sola fuente a confirmadas.</li>
+          <li><strong>Completitud de cada fuente</strong>: baja las actividades aún sin descubrir.</li>
+          <li><strong>Mostrar la realidad</strong>: revela las actividades que ninguna fuente vio y las documentadas pero no hechas.</li>
+          </ul>`,
         montar: montarDescubrimiento,
       },
     ],

@@ -142,10 +142,20 @@
       <p>La herramienta es la <strong>bitácora</strong> (<em>log</em>): un archivo secuencial donde cada cambio se anota, con su valor
       anterior y su valor nuevo, <em>antes</em> de que llegue a los datos. Con ella se puede <strong>rehacer</strong> lo confirmado y
       <strong>deshacer</strong> lo que no.</p>`,
+    parametros: [
+      ['Caída después del LSN (Fig. 1)', String.raw`Número de registro de la bitácora tras el cual se corta el sistema. Define qué transacciones quedaron confirmadas (ganadoras) y cuáles no (perdedoras).`],
+      ['punto de control en el LSN 6 (Fig. 1)', String.raw`Si está activo, la bitácora contiene un punto de control en el LSN 6, desde el que el análisis puede empezar.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la recuperación (análisis, rehacer, deshacer) paso a paso; Reiniciar vuelve a la caída.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Análisis, rehacer y deshacer',
         descripcion: 'Tres transacciones y una caída. Ejecute la recuperación y observe que al final cada dato tiene el valor de la última transacción confirmada.',
+        ayuda: String.raw`<p>A la izquierda la bitácora en disco, con el registro que se lee; a la derecha los datos en disco. Las transacciones ganadoras (con commit) y perdedoras (sin commit) tienen colores distintos, y se marca el dato que se rehace o se deshace en ese momento.</p>
+          <ul>
+          <li><strong>Caída después del LSN</strong>: moverla cambia qué transacciones alcanzaron su commit y por tanto qué se rehace y qué se deshace.</li>
+          <li><strong>punto de control en el LSN 6</strong>: el análisis arranca desde él en lugar de recorrer toda la bitácora.</li>
+          </ul>`,
         montar: montarRecuperacion,
       },
     ],

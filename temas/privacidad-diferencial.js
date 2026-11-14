@@ -153,15 +153,36 @@
       <p>Se logra agregando <strong>ruido aleatorio</strong> calibrado. La garantía no depende de qué sabe el atacante ni de qué otras
       fuentes existan, y se puede componer: cada consulta gasta parte de un <em>presupuesto</em> \(\varepsilon\). La usan el censo de
       EE. UU. de 2020, Apple, Google y Microsoft.</p>`,
+    parametros: [
+      ['ε (presupuesto de privacidad) (Fig. 1)', String.raw`Cuánta privacidad se gasta en la respuesta. Un ε pequeño añade mucho ruido y protege más; uno grande añade poco y la respuesta es más exacta.`],
+      ['Consulta (Fig. 1)', String.raw`El tipo de pregunta y su sensibilidad Δ, lo que una persona puede cambiar la respuesta: un conteo (Δ = 1) o una suma con tope 5 (Δ = 5). Mayor Δ exige más ruido.`],
+      ['Publicar 200 respuestas (Fig. 1)', String.raw`Genera 200 respuestas ruidosas desde la base real para ver su dispersión.`],
+      ['Encuestados n (Fig. 2)', String.raw`Cuántas personas responden. Con más encuestados el error de la estimación baja.`],
+      ['Proporción real que copió (Fig. 2)', String.raw`La proporción verdadera de la población con el rasgo preguntado, que la encuesta intenta estimar.`],
+      ['Prob. de responder la verdad (Fig. 2)', String.raw`La probabilidad de que cada persona responda con honestidad. Cuanto menor, más privacidad individual y más error en la estimación agregada.`],
+      ['Encuestar, Encuestar 20 veces y Borrar (Fig. 2)', String.raw`Hacen una o veinte encuestas simuladas y borran las acumuladas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El mecanismo de Laplace',
         descripcion: 'La distribución de la respuesta publicada para dos bases que difieren en una persona. Baje ε y vea cómo se superponen (más privacidad) a costa de un error mayor.',
+        ayuda: String.raw`<p>El eje horizontal es la respuesta publicada y el vertical, su densidad. Una curva es la respuesta si la base es D (valor real 42), otra la de la base vecina D′ (sin una persona) y el histograma, las respuestas publicadas desde D.</p>
+          <ul>
+          <li><strong>ε</strong>: al bajarlo las curvas se ensanchan y se superponen más, así no se distingue D de D′ (más privacidad), pero el error sube.</li>
+          <li><strong>Consulta</strong>: con Δ = 5 la separación entre las curvas es mayor y, a igual ε, el ruido necesario también.</li>
+          <li><strong>Publicar 200 respuestas</strong>: muestra que las respuestas se reparten siguiendo la curva de D.</li>
+          </ul>`,
         montar: montarLaplace,
       },
       {
         titulo: 'Respuesta aleatorizada',
         descripcion: 'Una encuesta sobre algo vergonzoso donde cada persona miente con cierta probabilidad. Las estimaciones agregadas siguen siendo útiles y el error baja como 1/√n.',
+        ayuda: String.raw`<p>El eje horizontal es el número de encuestados n y el vertical, la proporción estimada. Los puntos son las estimaciones de cada encuesta, una línea es la proporción real y una banda marca ± 2 desviaciones teóricas.</p>
+          <ul>
+          <li><strong>Encuestados n</strong>: al crecer, las estimaciones se agrupan en torno a la proporción real y la banda se estrecha, como 1/√n.</li>
+          <li><strong>Prob. de responder la verdad</strong>: bajarla ensancha la banda; se protege a cada persona, pero la estimación es más imprecisa.</li>
+          <li><strong>Proporción real que copió</strong>: mueve la línea de referencia que las estimaciones deben seguir.</li>
+          </ul>`,
         montar: montarRespuesta,
       },
     ],

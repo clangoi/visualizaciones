@@ -251,15 +251,33 @@
       cuyo efecto nunca verá.</p>
       <p>El <em>cuadro de mando integral</em> (<em>Balanced Scorecard</em>) ordena los objetivos en cuatro perspectivas (financiera, cliente, procesos internos y aprendizaje y crecimiento)
       conectadas por relaciones de causa y efecto: el <strong>mapa estratégico</strong>. Con él se detectan huecos, indicadores huérfanos e iniciativas sin propósito.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`Liderazgo en costos o servicio superior. Cambia cuánto del efecto se traslada por cada flecha del mapa.`],
+      ['Mejora lograda en el objetivo elegido (Fig. 1)', String.raw`Puntos de mejora aplicados al objetivo que se interviene. Mide cuánto se propaga hacia los objetivos financieros.`],
+      ['Probar con «Personal capacitado» (Fig. 1)', String.raw`Selecciona ese objetivo de la perspectiva inferior para seguir su efecto hacia arriba.`],
+      ['Aplicar sugerencias, Quitar todos los vínculos y Restablecer (Fig. 2)', String.raw`Sugerencias agrega los vínculos que faltan; Quitar todos los deja sin alinear; Restablecer vuelve a los vínculos iniciales.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mapa estratégico y propagación del efecto',
         descripcion: 'Elija un objetivo de las perspectivas inferiores, por ejemplo «Personal capacitado», y suba la mejora: el efecto se traslada por las flechas hasta los objetivos financieros. Cambie de estrategia y compare.',
+        ayuda: String.raw`<p>Mapa estratégico por perspectivas, con flechas de causa y efecto entre objetivos. Se distinguen el efecto que se propaga, las relaciones sin efecto, el objetivo intervenido y los objetivos que mejoran.</p>
+          <ul>
+          <li><strong>Estrategia</strong>: los mismos esfuerzos rinden distinto según el peso de cada flecha.</li>
+          <li><strong>Mejora lograda</strong>: más puntos significan más efecto que llega a los objetivos financieros.</li>
+          <li><strong>Personal capacitado</strong>: muestra la cadena completa desde la base.</li>
+          </ul>`,
         montar: montarMapa,
       },
       {
         titulo: 'Matriz objetivo – indicador – iniciativa',
         descripcion: 'Vincule indicadores e iniciativas con los objetivos. Busque los números en rojo bajo cada objetivo y las filas en rojo, que son huecos y huérfanos, y resuélvalos con vínculos o «Aplicar sugerencias».',
+        ayuda: String.raw`<p>Matriz con objetivos en columnas y filas de indicadores e iniciativas. Se distinguen los que miden o apuntan a un objetivo y los huecos u huérfanos sin vínculo, en rojo. Bajo cada objetivo se cuenta «indicadores · iniciativas».</p>
+          <ul>
+          <li><strong>Aplicar sugerencias</strong>: crea vínculos para cubrir huecos y huérfanos.</li>
+          <li><strong>Quitar todos los vínculos</strong>: deja todo sin alinear.</li>
+          <li><strong>Restablecer</strong>: vuelve a la matriz inicial para comparar.</li>
+          </ul>`,
         montar: montarMatriz,
       },
     ],

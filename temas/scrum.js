@@ -332,20 +332,45 @@
       que decide qué construir y en qué orden; el <em>Scrum Master</em>, que ayuda al equipo a seguir el marco y quita obstáculos; y el equipo de desarrollo, que se organiza solo para entregar. Al final de cada sprint debe existir un incremento utilizable.</p>
       <p>Lo que hace gestionable a Scrum es que mide: el <em>burn-down</em> muestra cuánto trabajo falta y la <em>velocidad</em> (puntos terminados por sprint) permite pronosticar fechas con datos, no con deseos.
       Las figuras recorren un sprint, siguen un proyecto completo y muestran por qué una fecha es en realidad una distribución de probabilidad.</p>`,
+    parametros: [
+      ['Capacidad comprometida (Fig. 1)', String.raw`Cuántos puntos de historias el equipo se compromete a terminar en el sprint.`],
+      ['Trabajo imprevisto (Fig. 1)', String.raw`Cuánto trabajo no planificado entra durante el sprint y le quita tiempo a lo comprometido.`],
+      ['Nuevo backlog y reproductor (Fig. 1)', String.raw`Cambia las historias disponibles y avanza el sprint paso a paso.`],
+      ['Tamaño del backlog (Fig. 2 y 3)', String.raw`Total de puntos por entregar al comienzo del proyecto.`],
+      ['Velocidad media y Variabilidad de la velocidad (Fig. 2 y 3)', String.raw`Cuántos puntos termina el equipo por sprint en promedio y cuánto varía de un sprint a otro.`],
+      ['Alcance nuevo por sprint (Fig. 2 y 3)', String.raw`Puntos que se agregan al backlog en cada sprint. Si se acerca a la velocidad, el backlog casi no baja.`],
+      ['Otro equipo y reproductor (Fig. 2)', String.raw`Genera otra historia de velocidades y avanza sprint a sprint.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un sprint paso a paso',
         descripcion: 'Avance por el planning, diez dailies, la review y la retrospectiva. Antes de empezar, haga clic en una historia para subirla de prioridad; luego suba el trabajo imprevisto y vea cómo cae lo que el equipo logra terminar.',
+        ayuda: String.raw`<p>Arriba, historias que pasan por cuatro estados: en el product backlog, comprometidas en el sprint backlog, en curso y hechas (incremento). Abajo, el burn-down: eje horizontal, día del sprint; eje vertical, puntos.</p>
+          <ul>
+          <li><strong>Capacidad comprometida</strong> alta: más historias pasan al sprint backlog y es más probable que queden en curso al terminar.</li>
+          <li><strong>Trabajo imprevisto</strong> alto: la curva de burn-down baja más lento y menos historias llegan a hechas.</li>
+          </ul>`,
         montar: montarSprint,
       },
       {
         titulo: 'Burn-down y pronóstico de término',
         descripcion: 'Reproduzca los sprints de un proyecto y vea cómo el pronóstico se actualiza. Pruebe subir el alcance nuevo por sprint hasta acercarlo a la velocidad: la fecha se aleja y, si lo alcanza, desaparece.',
+        ayuda: String.raw`<p>Eje horizontal: sprint; eje vertical: puntos que faltan. Se ven los puntos que faltan (real), la línea ideal a velocidad media y el pronóstico con la velocidad neta observada, con su rango de ± 1 desviación.</p>
+          <ul>
+          <li><strong>Alcance nuevo por sprint</strong> mayor: la curva real baja más lento y el pronóstico se aleja o desaparece.</li>
+          <li><strong>Variabilidad de la velocidad</strong>: ensancha el rango del pronóstico.</li>
+          <li><strong>Velocidad media</strong>: cambia la pendiente de la línea ideal.</li>
+          </ul>`,
         montar: montarBurndown,
       },
       {
         titulo: '¿Para cuándo estará listo?',
         descripcion: 'Cientos de proyectos simulados muestran la distribución del sprint final. Haga clic en una barra para fijar un plazo y lea su probabilidad; aumente la variabilidad y observe cómo el percentil 85 se aleja de la mediana.',
+        ayuda: String.raw`<p>Histograma: eje horizontal, sprint en que termina; eje vertical, proyectos simulados. Las barras en tono de dentro del plazo y las de después se separan en el plazo elegido, con el percentil 85 marcado.</p>
+          <ul>
+          <li><strong>Variabilidad de la velocidad</strong> mayor: el histograma se ensancha y el percentil 85 se aleja de la media.</li>
+          <li><strong>Tamaño del backlog</strong>: desplaza todas las barras hacia sprints posteriores.</li>
+          </ul>`,
         montar: montarCuando(),
       },
     ],

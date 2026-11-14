@@ -358,15 +358,30 @@
       que las cumpla, o <strong>no acotado</strong>, si hay puntos factibles que mejoran el objetivo tanto como se quiera. El Simplex detecta ambos casos de forma natural.</p>
       <p>El no acotado aparece en el tableau como una columna entrante sin ningún coeficiente positivo: la prueba de razón no tiene con quién competir. El infactible
       se descubre antes de optimizar, con una <strong>fase 1</strong> que usa variables artificiales y trata de anularlas. En modelación, ambos casos casi siempre señalan un error del modelo.</p>`,
+    parametros: [
+      ['c₁ y c₂ (Fig. 1)', String.raw`Componentes del vector objetivo; con ambos positivos z crece en dirección de la región ilimitada.`],
+      ['agregar R₃: x₁ + x₂ ≤ 12 (Fig. 1)', String.raw`Añade una restricción que cierra la región: el problema pasa de no acotado a tener óptimo finito.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza un pivote (o iteración de la fase 1) por pulsación; Reiniciar vuelve al inicio.`],
+      ['k (mínimo exigido en R₂) (Fig. 2)', String.raw`Valor mínimo que debe cumplir la segunda restricción; si es demasiado alto, ya no hay puntos que cumplan todo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Detectar un problema no acotado',
         descripcion: 'Con \\(c=(1,1)\\) el Simplex avanza un par de pivotes y se detiene al ver una columna sin razones: la flecha roja es la dirección en que \\(z\\) crece sin fin. Agregue \\(R_3\\) y compruebe que la región se cierra.',
+        ayuda: String.raw`<p>La región factible está abierta y se corta en el borde del gráfico. Los puntos azules son vértices recorridos y la flecha roja marca la dirección en que \(z\) crece sin límite. El tableau muestra la columna sin razones que detiene el método.</p>
+          <ul>
+          <li><strong>c₁, c₂</strong>: si el objetivo deja de crecer hacia la parte abierta, el Simplex llega a un óptimo finito.</li>
+          <li><strong>agregar R₃</strong>: la región queda cerrada y desaparece la flecha roja.</li>
+          </ul>`,
         montar: montarNoAcotado,
       },
       {
         titulo: 'Fase 1 e infactibilidad',
         descripcion: 'Avance la fase 1 con \\(k=6\\): \\(w\\) baja a 0 y aparece una base factible. Suba \\(k\\) por encima de 9: la región se vacía y \\(w\\) se queda positivo.',
+        ayuda: String.raw`<p>La región factible depende de \(k\); los puntos azules son las iteraciones de la fase 1 proyectadas en \((x_1,x_2)\). Terminan en verde si \(w=0\) (hay base factible) o en rojo si \(w&gt;0\) (infactible).</p>
+          <ul>
+          <li><strong>k</strong>: con \(k=6\) la fase 1 llega a \(w=0\); por encima de 9 la región se vacía y \(w\) queda positivo.</li>
+          </ul>`,
         montar: montarFase1,
       },
     ],

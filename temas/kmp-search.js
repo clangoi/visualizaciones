@@ -113,15 +113,31 @@
     intro: String.raw`
       <p>El algoritmo de <strong>Knuth-Morris-Pratt</strong> (KMP) busca un patrón en un texto <em>sin retroceder nunca en el texto</em>. Cuando una comparación falla después de haber emparejado \(j\) caracteres, el patrón no vuelve a empezar: se desliza hasta alinear su <strong>borde más largo</strong>, porque se sabe que esa parte ya coincide con el texto.</p>
       <p>Esa información está en la función de prefijos \(\pi\) del patrón, que se calcula una vez en tiempo \(O(m)\). La búsqueda completa cuesta \(O(n + m)\), sin importar qué texto o patrón se den.</p>`,
+    parametros: [
+      ['Ejemplos, Texto (hasta 40) y Patrón (Fig. 1)', String.raw`El texto y el patrón que se buscan. Si el patrón tiene bordes, KMP aprovecha lo ya emparejado.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso compara un carácter; tras un fallo el patrón se desliza según \(\pi\).`],
+      ['Tipo de texto (Fig. 2)', String.raw`Clase de texto para medir (peor caso, aleatorio y otros).`],
+      ['Largo del patrón m (Fig. 2)', String.raw`El tamaño del patrón. Afecta mucho a la búsqueda ingenua y poco a KMP.`],
+    ],
     visualizaciones: [
       {
         titulo: 'KMP paso a paso',
         descripcion: 'Avance y observe que el puntero i del texto nunca retrocede: tras un fallo, el patrón se desliza según \\(\\pi\\) y se sigue comparando en el mismo i. Se detectan ocurrencias solapadas.',
+        ayuda: String.raw`<p>El texto con el patrón debajo. Los caracteres se pintan según coincidan o no, y los ya emparejados que no se vuelven a comparar tienen otro color. Los extremos del patrón se desplazan sin que el puntero i del texto retroceda.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: tras un fallo, el patrón se desliza según \(\pi\) y se sigue comparando en el mismo i.</li>
+          <li><strong>Patrón</strong> con solapamientos (como «aba» en «ababa»): detecta ocurrencias solapadas.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Ingenua frente a KMP',
         descripcion: 'Compare comparaciones en cuatro tipos de texto. En el peor caso la ingenua crece como \\(n \\cdot m\\) y KMP se queda bajo \\(2n\\).',
+        ayuda: String.raw`<p>Eje horizontal: n, el largo del texto. Eje vertical: comparaciones. Se comparan la búsqueda ingenua, KMP y la cota 2n de KMP.</p>
+          <ul>
+          <li><strong>Tipo de texto</strong>: en el peor caso la curva ingenua crece como \(n\cdot m\) y la de KMP se queda bajo \(2n\).</li>
+          <li><strong>Largo del patrón m</strong>: agrandarlo dispara la curva ingenua y apenas cambia la de KMP.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

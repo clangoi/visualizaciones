@@ -54,9 +54,24 @@
     intro: String.raw`
       <p><strong>TLS</strong> (sucesor de SSL) protege la comunicación entre dos procesos sobre TCP: es el candado de HTTPS. Antes de enviar datos, cliente y servidor ejecutan un <strong>saludo</strong> (<em>handshake</em>) para tres cosas: acordar algoritmos, <strong>autenticar al servidor</strong> con su certificado y establecer un <strong>secreto compartido</strong> del que derivan las claves simétricas de la sesión.</p>
       <p>El secreto se obtiene con un intercambio de claves tipo Diffie–Hellman, que permite acordar una clave por un canal que un espía observa por completo.</p>`,
+    parametros: [
+      ['Versión (Fig. 1)', String.raw`Compara TLS 1.2 (2 viajes de ida y vuelta antes de los datos) con TLS 1.3 (1 viaje, con la clave DH enviada ya en el primer mensaje).`],
+      ['Un paso y reproductor (Fig. 1)', String.raw`Avanzan o reinician los mensajes del saludo.`],
+      ['Secreto de Ana (a) y de Beto (b) (Fig. 2)', String.raw`Exponentes privados de cada parte. Con ellos se calculan los valores públicos que viajan por la red y el secreto compartido.`],
+    ],
     visualizaciones: [
-      { titulo: 'El saludo de TLS', descripcion: 'Compare TLS 1.2 y TLS 1.3: cuántos viajes de ida y vuelta pasan antes de que viajen los datos y qué se cifra desde antes.', montar: montarSec },
-      { titulo: 'Diffie–Hellman con números pequeños', descripcion: 'Cambie los secretos de Ana y Beto: siempre llegan al mismo valor. Observe cuántas pruebas necesita un espía con un módulo tan pequeño.', montar: montarDH },
+      { titulo: 'El saludo de TLS', descripcion: 'Compare TLS 1.2 y TLS 1.3: cuántos viajes de ida y vuelta pasan antes de que viajen los datos y qué se cifra desde antes.',
+        ayuda: String.raw`<p>Las flechas azules salen del cliente, las naranjas del servidor y las aguamarinas son datos protegidos. La lectura indica los viajes de TLS y que se suma el RTT de TCP.</p>
+          <ul>
+          <li><strong>Versión</strong> TLS 1.2: ClientHello, ServerHello con certificado y clave, ClientKeyExchange y Finished; los datos van en el segundo viaje.</li>
+          <li>TLS 1.3: el cliente envía su clave pública DH desde el inicio y el servidor responde con certificado y Finished ya cifrados; los datos salen un viaje antes.</li>
+          </ul>`, montar: montarSec },
+      { titulo: 'Diffie–Hellman con números pequeños', descripcion: 'Cambie los secretos de Ana y Beto: siempre llegan al mismo valor. Observe cuántas pruebas necesita un espía con un módulo tan pequeño.',
+        ayuda: String.raw`<p>La tabla reúne los valores públicos (\(g^a\) y \(g^b \bmod p\), con \(p=1019\), \(g=2\)) y el secreto compartido que ambos obtienen.</p>
+          <ul>
+          <li><strong>Secretos a y b</strong>: cambian los valores públicos, pero el secreto de Ana y el de Beto coinciden siempre (\(g^{ab}\bmod p\)).</li>
+          <li>Con un módulo tan pequeño un espía lo halla probando pocos exponentes; en la práctica \(p\) es enorme.</li>
+          </ul>`, montar: montarDH },
     ],
     teoria: String.raw`
       <h2>Diffie–Hellman</h2>

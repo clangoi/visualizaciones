@@ -88,9 +88,25 @@
     intro: String.raw`
       <p>El cifrado asegura que nadie lea un mensaje, pero no responde a una pregunta previa: <em>¿con quién estoy hablando de verdad?</em> Un atacante puede interponerse y presentarse como su banco.</p>
       <p>Un <strong>certificado digital</strong> responde con una cadena de confianza: el servidor presenta su clave pública junto con una firma de una <strong>entidad certificadora</strong> (AC) que garantiza que esa clave pertenece a ese nombre; esa AC a su vez está firmada por otra, hasta llegar a una <em>raíz</em> que su navegador ya conoce.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Un caso concreto de certificado (correcto, vencido, nombre distinto, autofirmado, revocado, sin intermedio). Determina qué comprobaciones de la cadena fallan.`],
+      ['el usuario ignora la advertencia y el atacante instaló su propia raíz (Fig. 2)', String.raw`Dos condiciones que cambian si la trampa del atacante tiene éxito: que Ana acepte seguir pese al aviso, o que el equipo ya confíe en una raíz del atacante.`],
+    ],
     visualizaciones: [
-      { titulo: 'Verificación de la cadena de confianza', descripcion: 'Elija escenarios (vencido, nombre incorrecto, autofirmado, revocado…) y vea qué comprobación falla. Haga clic en cada certificado para ver sus campos.', montar: montarCadena },
-      { titulo: 'Qué impide el hombre en el medio', descripcion: 'Siga a un atacante que presenta su propio certificado. Compare lo que ocurre si el usuario ignora la advertencia o si el atacante instaló una raíz.', montar: montarMitm },
+      { titulo: 'Verificación de la cadena de confianza', descripcion: 'Elija escenarios (vencido, nombre incorrecto, autofirmado, revocado…) y vea qué comprobación falla. Haga clic en cada certificado para ver sus campos.',
+        ayuda: String.raw`<p>La cadena de certificados (hoja, intermedio y raíz) se dibuja con cada comprobación en verde si se superó y en rojo si falló; un certificado elegido con clic aparece en azul y sus campos se muestran abajo. La tabla lista las comprobaciones.</p>
+          <ul>
+          <li><strong>Escenario</strong> «certificado vencido»: falla solo la comprobación de fechas; «autofirmado» falla la raíz de confianza.</li>
+          <li>Con «falta el certificado intermedio» fallan la firma del intermedio y la raíz: la cadena no llega a una entidad de confianza.</li>
+          <li>El navegador confía solo si todas las comprobaciones se cumplen.</li>
+          </ul>`, montar: montarCadena },
+      { titulo: 'Qué impide el hombre en el medio', descripcion: 'Siga a un atacante que presenta su propio certificado. Compare lo que ocurre si el usuario ignora la advertencia o si el atacante instaló una raíz.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre Ana, un atacante en la red y el banco. Los colores distinguen petición legítima, acción del atacante y defensa que funciona.</p>
+          <ul>
+          <li>Sin casillas marcadas: la cadena del atacante resulta inválida, el navegador muestra la advertencia y el ataque falla.</li>
+          <li><strong>el usuario ignora la advertencia</strong>: Ana continúa y el atacante lee las credenciales; la defensa depende de que el usuario respete el aviso.</li>
+          <li><strong>el atacante instaló su propia raíz en el equipo</strong>: la cadena resulta válida y no aparece ninguna advertencia.</li>
+          </ul>`, montar: montarMitm },
     ],
     teoria: String.raw`
       <h2>Qué contiene un certificado</h2>

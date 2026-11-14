@@ -104,10 +104,20 @@
       <p>El protocolo <strong>MSI</strong> por invalidación da a cada copia uno de tres estados: <strong>M</strong> (modificado: única copia, distinta de la memoria),
       <strong>S</strong> (compartido, <em>shared</em>: copia limpia, puede haber otras) e <strong>I</strong> (inválido). Para escribir, un procesador debe ser el único con el bloque: invalida a los demás. El
       mismo problema, a escala de red, es el de la <strong>memoria compartida distribuida</strong> y el de toda caché replicada.</p>`,
+    parametros: [
+      ['P1 lee, P1 escribe, P2 lee, P2 escribe, P3 lee, P3 escribe (Fig. 1)', String.raw`Cada botón hace que ese procesador lea o escriba el dato. Las lecturas piden la línea de caché y las escrituras invalidan las demás copias.`],
+      ['20 accesos al azar y Reiniciar (Fig. 1)', String.raw`Genera accesos aleatorios (la mayoría lecturas) para ver muchas transiciones; Reiniciar deja todas las cachés en I.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El protocolo MSI',
         descripcion: 'Haga que los tres lean (todos en S), luego que P2 escriba: las otras copias se invalidan. Si P1 vuelve a leer, P2 debe entregar el valor (flush) y ambos quedan en S.',
+        ayuda: String.raw`<p>Cada procesador tiene una caché con la línea en estado M (única copia modificada), S (copia limpia, quizás compartida) o I (inválida). Por el bus se ven invalidaciones y transferencias de datos, según la leyenda.</p>
+          <ul>
+          <li><strong>P2 escribe</strong> con otras copias en S: sus copias pasan a I y P2 queda en M.</li>
+          <li><strong>P1 lee</strong> después: P2 entrega el valor por el bus y ambos quedan en S.</li>
+          <li><strong>P1 lee</strong> con una copia en S: no hay tráfico, es un acierto.</li>
+          </ul>`,
         montar,
       },
     ],

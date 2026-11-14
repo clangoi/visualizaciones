@@ -353,15 +353,33 @@
       quién sabe hacer qué, qué roles existen de hecho (aunque no estén escritos en ningún organigrama) y dónde el conocimiento depende de una sola persona.</p>
       <p>La herramienta básica es la <strong>matriz de asignación</strong> recurso × actividad. Sus filas son perfiles de trabajo; si dos personas tienen
       perfiles parecidos, probablemente cumplen el mismo rol y pueden agruparse automáticamente.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`Elige el proceso (y su conjunto de roles) del que se genera el registro.`],
+      ['Casos (Fig. 1)', String.raw`Tamaño del registro: más casos hacen más estables los perfiles.`],
+      ['Polivalencia (Fig. 1 y 2)', String.raw`Probabilidad de que una persona haga actividades fuera de su rol. Al subirla, los perfiles se parecen más entre roles.`],
+      ['Valores (Fig. 1)', String.raw`Si cada celda muestra eventos absolutos o porcentaje del trabajo de la persona, para comparar personas con distinta carga.`],
+      ['Grupos buscados (Fig. 2)', String.raw`Cuántos grupos se forman al terminar el agrupamiento. Más grupos que roles parte grupos naturales.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Genera otro registro; los pasos avanzan el agrupamiento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Matriz de asignación recurso × actividad',
         descripcion: 'Cada fila es el perfil de una persona. Con polivalencia 0 se ven bloques por rol; súbala y observe cómo se difuminan, y cambie a «% del trabajo» para comparar personas con distinta carga.',
+        ayuda: String.raw`<p>Matriz con una fila por persona y una columna por actividad; cada celda indica cuántos eventos (o qué porcentaje) la persona ejecutó, de pocos a muchos. Las celdas vacías son actividades que nunca ejecuta.</p>
+          <ul>
+          <li><strong>Polivalencia</strong>: con 0 se ven bloques por rol; al subirla los bloques se difuminan.</li>
+          <li><strong>Valores</strong>: en porcentaje, se compara el perfil sin que influya cuánto trabaja cada persona.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Descubrir grupos de trabajo',
         descripcion: 'Agrupamiento jerárquico paso a paso de los perfiles. Con polivalencia baja los grupos coinciden con los roles (pureza 100 %); súbala o pida más grupos que roles y vea qué se rompe.',
+        ayuda: String.raw`<p>Agrupamiento jerárquico de los perfiles: cada paso une los dos grupos más parecidos; la persona sola aún no se ha unido a otras.</p>
+          <ul>
+          <li><strong>Polivalencia</strong>: baja, los grupos coinciden con los roles; alta, se mezclan.</li>
+          <li><strong>Grupos buscados</strong>: pedir más grupos que roles detiene antes el agrupamiento y divide un rol.</li>
+          </ul>`,
         montar: montarGrupos,
       },
     ],

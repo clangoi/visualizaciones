@@ -102,9 +102,26 @@
     intro: String.raw`
       <p>Un disco es una larga lista de bloques; un <strong>archivo</strong> es una secuencia lógica de bytes que el sistema de archivos reparte en bloques. La pregunta de diseño es <strong>dónde poner los bloques de cada archivo</strong> y <strong>cómo recordarlo</strong>. Hay tres respuestas clásicas: <em>contigua</em>, <em>enlazada</em> e <em>indexada</em>.</p>
       <p>También hay que saber qué bloques están libres: se usa un <strong>mapa de bits</strong> o una lista de bloques libres.</p>`,
+    parametros: [
+      ['Método de asignación (Fig. 1)', String.raw`Cómo se guardan los bloques de un archivo: contigua, enlazada o indexada. Decide cuántos accesos a disco cuesta llegar a un bloque.`],
+      ['Archivo (Fig. 1)', String.raw`Qué archivo se examina; cada uno tiene tamaño y ubicación distintos.`],
+      ['Leer el bloque lógico k (Fig. 1)', String.raw`El bloque del archivo que se quiere leer. En la enlazada, uno más lejano exige más saltos.`],
+      ['Otra distribución (Fig. 1)', String.raw`Cambia dónde están los bloques en el disco.`],
+      ['Bloques contiguos que se piden (Fig. 2)', String.raw`El tamaño de la extensión que se busca en el mapa de bits.`],
+      ['Buscar con el mapa de bits y Reiniciar (Fig. 2)', String.raw`Buscar marca el primer hueco libre suficientemente grande; Reiniciar restablece el mapa.`],
+    ],
     visualizaciones: [
-      { titulo: 'Contigua, enlazada e indexada', descripcion: 'Elija un archivo y un bloque lógico y cuente los accesos a disco con cada método. La enlazada exige recorrer la cadena.', montar: montarAsignacion },
-      { titulo: 'Administración del espacio libre', descripcion: 'Edite el mapa de bits con clics y busque una extensión de n bloques libres. Fragmente el disco y pida extensiones grandes.', montar: montarLibre },
+      { titulo: 'Contigua, enlazada e indexada', descripcion: 'Elija un archivo y un bloque lógico y cuente los accesos a disco con cada método. La enlazada exige recorrer la cadena.',
+        ayuda: String.raw`<p>Cada celda es un bloque del disco, coloreada según el archivo al que pertenece (leyenda) o gris claro si está libre. Los puntos negros señalan los bloques que hay que leer para llegar al bloque k y el punto gris marca el bloque de índice.</p>
+          <ul>
+          <li><strong>Método de asignación</strong>: cambia la forma de los bloques y la cantidad de puntos negros: uno solo en contigua e indexada, toda la cadena en enlazada.</li>
+          <li><strong>Leer el bloque lógico k</strong>: en enlazada, mover k agrega o quita puntos negros.</li>
+          </ul>`, montar: montarAsignacion },
+      { titulo: 'Administración del espacio libre', descripcion: 'Edite el mapa de bits con clics y busque una extensión de n bloques libres. Fragmente el disco y pida extensiones grandes.',
+        ayuda: String.raw`<p>Cada celda es un bit del mapa: negra si el bloque está ocupado (1) y clara si está libre (0). La verde resalta la primera extensión libre encontrada por primer ajuste.</p>
+          <ul>
+          <li><strong>Bloques contiguos que se piden</strong>: cuanto mayor, más difícil es hallar un hueco; si el disco está fragmentado la búsqueda falla.</li>
+          </ul>`, montar: montarLibre },
     ],
     teoria: String.raw`
       <h2>Comparación</h2>

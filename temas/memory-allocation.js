@@ -71,8 +71,17 @@
     intro: String.raw`
       <p>Si cada proceso ocupa un bloque contiguo de memoria, al llegar y terminar procesos de distintos tamaños van quedando <strong>huecos</strong> entre ellos. Puede haber memoria libre de sobra y aun así no caber un proceso, porque está repartida en trozos pequeños: <strong>fragmentación externa</strong>.</p>
       <p>Las políticas de colocación (primer, mejor y peor ajuste) y la <strong>compactación</strong> intentan limitar el problema; la <a href="tema.html?id=paging-address-translation">paginación</a> lo evita de raíz.</p>`,
+    parametros: [
+      ['Política (Fig. 1)', String.raw`Regla para elegir el hueco que recibe cada solicitud: primer ajuste, mejor ajuste, peor ajuste, etc. Cambia cómo se fragmenta la memoria y cuántas solicitudes se rechazan.`],
+      ['Compactar y Nuevos datos (Fig. 1)', String.raw`Compactar junta los procesos y reúne los huecos en uno solo; Nuevos datos genera otra secuencia de solicitudes y liberaciones.`],
+    ],
     visualizaciones: [
-      { titulo: 'Asignar y liberar con huecos', descripcion: 'Ejecute la misma secuencia con cada política y compare la fragmentación externa y los rechazos. Use «Compactar» cuando haya muchos huecos pequeños.', montar },
+      { titulo: 'Asignar y liberar con huecos', descripcion: 'Ejecute la misma secuencia con cada política y compare la fragmentación externa y los rechazos. Use «Compactar» cuando haya muchos huecos pequeños.',
+        ayuda: String.raw`<p>La franja es la memoria. Los bloques azules son procesos asignados y las zonas de fondo gris son huecos libres. Un punto rojo señala una solicitud rechazada aunque la memoria libre total habría bastado: es fragmentación externa.</p>
+          <ul>
+          <li><strong>Política</strong>: con la misma secuencia, cada política deja huecos de tamaños distintos; compare cuántos puntos rojos aparecen.</li>
+          <li><strong>Compactar</strong>: los huecos pequeños se funden en uno grande, de modo que una solicitud antes rechazada ya cabe.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>Políticas de colocación</h2>

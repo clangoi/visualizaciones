@@ -239,15 +239,34 @@
       <p>El índice más usado es el <strong>árbol B+</strong>: un árbol balanceado de páginas, muy ancho y muy bajo. Con cientos de claves
       por página, tres o cuatro niveles bastan para miles de millones de registros, y las hojas enlazadas permiten recorrer rangos en
       orden.</p>`,
+    parametros: [
+      ['Claves por nodo (Fig. 1)', String.raw`Capacidad máxima de cada nodo del árbol B+. Con menos claves el árbol es más alto y se divide más a menudo.`],
+      ['Clave, Insertar y Buscar (Fig. 1)', String.raw`La clave con la que se opera. Insertar la agrega al árbol; Buscar recorre desde la raíz hasta la hoja correspondiente.`],
+      ['Rango [clave, clave + 25] (Fig. 1)', String.raw`Consulta por intervalo: baja hasta la primera hoja y sigue por los punteros entre hojas.`],
+      ['Insertar 10 aleatorias y Vaciar (Fig. 1)', String.raw`Atajos para poblar el árbol con claves al azar o dejarlo vacío.`],
+      ['Páginas del archivo N (Fig. 2)', String.raw`Tamaño del archivo en páginas (escala logarítmica). Escala el costo de las organizaciones que dependen de N.`],
+      ['Selectividad del rango (Fig. 2)', String.raw`Fracción de tuplas que cumple el rango. Afecta solo el costo de la consulta por rango.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un árbol B+',
         descripcion: 'Inserte claves y observe las divisiones: en las hojas la clave se copia hacia arriba; en los nodos internos, sube. Pruebe un rango y vea cómo se usan los punteros entre hojas.',
+        ayuda: String.raw`<p>Cada caja es una página del árbol B+; las hojas están enlazadas entre sí. Los colores de la leyenda marcan la página leída al bajar, la página dividida, las hojas recorridas en un rango y la clave buscada o insertada.</p>
+          <ul>
+          <li><strong>Claves por nodo</strong>: con 2 claves aparecen divisiones y más niveles; con más claves el árbol es bajo y ancho, y se lee menos páginas por búsqueda.</li>
+          <li><strong>Insertar</strong>: cuando una página se llena se divide; la página dividida se destaca.</li>
+          <li><strong>Buscar</strong> marca las páginas leídas en el camino; <strong>Rango</strong> marca además las hojas recorridas.</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'Costo de cada organización',
         descripcion: 'Páginas que lee o escribe cada organización de archivo según la operación. Suba la selectividad del rango y vea cómo el índice no agrupado pasa a ser peor que leer todo.',
+        ayuda: String.raw`<p>Cada grupo de barras es una organización de archivo (heap, ordenado, B+ agrupado, B+ no agrupado, hash) y cada barra, el número de páginas leídas o escritas en una operación: recorrido completo, igualdad sobre la clave, rango o inserción. El eje vertical es la E/S de páginas.</p>
+          <ul>
+          <li><strong>Páginas del archivo N</strong>: sube el costo de las organizaciones lineales (heap, recorrido completo) y apenas el de las que usan índice.</li>
+          <li><strong>Selectividad del rango</strong>: al subirla crece el costo del rango; el B+ no agrupado, que paga una lectura por tupla, termina superando al recorrido completo.</li>
+          </ul>`,
         montar: montarCostos,
       },
     ],

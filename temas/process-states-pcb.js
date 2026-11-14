@@ -91,8 +91,17 @@
       Un mismo programa puede dar lugar a muchos procesos a la vez.</p>
       <p>El núcleo registra cada proceso en un <strong>bloque de control de proceso</strong> (PCB) y lo hace pasar por unos pocos <strong>estados</strong>: puede estar listo para correr, corriendo
       o bloqueado esperando algo. Casi toda la administración del sistema es mover PCBs de una cola a otra.</p>`,
+    parametros: [
+      ['Eventos (Admitir, Despachar, Fin del quantum, Pedir E/S, Termina la E/S, Terminar) y Reiniciar (Fig. 1)', String.raw`Cada botón es una transición del diagrama. Solo se aplica si el proceso seleccionado está en el estado de origen; si no, se informa que no es posible. Reiniciar devuelve los cuatro procesos a Nuevo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Diagrama de estados de un proceso', descripcion: 'Seleccione un proceso y aplique eventos. Pruebe una transición imposible (por ejemplo, despachar a uno bloqueado) y ocupar la CPU con dos procesos.', montar: montarEstados },
+      { titulo: 'Diagrama de estados de un proceso', descripcion: 'Seleccione un proceso y aplique eventos. Pruebe una transición imposible (por ejemplo, despachar a uno bloqueado) y ocupar la CPU con dos procesos.',
+        ayuda: String.raw`<p>Los nodos son los estados (Nuevo, Listo, Ejecución, Bloqueado, Terminado), coloreados según la leyenda, y las flechas las transiciones permitidas. Los procesos A–D se dibujan en su estado actual; el registro muestra el PCB del seleccionado (PID, PC, veces en CPU).</p>
+          <ul>
+          <li><strong>Admitir</strong>, <strong>Despachar</strong> y <strong>Fin del quantum</strong>: llevan Nuevo → Listo → Ejecución → Listo; el PC del PCB cambia al ejecutarse.</li>
+          <li><strong>Pedir E/S</strong> y <strong>Termina la E/S</strong>: Ejecución → Bloqueado y Bloqueado → Listo; un bloqueado nunca pasa directo a Ejecución.</li>
+          <li><strong>Terminar</strong>: Ejecución → Terminado. Con otro proceso ya en Ejecución, Despachar se rechaza: hay una sola CPU.</li>
+          </ul>`, montar: montarEstados },
     ],
     teoria: String.raw`
       <h2>Estados y transiciones</h2>

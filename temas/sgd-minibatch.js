@@ -130,9 +130,25 @@
     intro: String.raw`
       <p>El <strong>descenso de gradiente</strong> baja por la superficie de la pérdida en la dirección contraria al gradiente. Pero calcular el gradiente exacto exige recorrer <em>todos</em> los ejemplos en cada paso, algo impracticable con millones de datos.</p>
       <p>La alternativa es estimarlo con una muestra pequeña: un solo ejemplo (<em>Stochastic Gradient Descent</em>) o un grupo, un <strong>mini-lote</strong> (<em>Mini-Batch Gradient Descent</em>). La estimación es ruidosa, pero en promedio apunta al gradiente verdadero, y permite dar muchísimos más pasos por el mismo trabajo.</p>`,
+    parametros: [
+      ['Tamaño del lote (Fig. 1)', String.raw`Cuántos ejemplos se usan en cada paso para calcular el gradiente. Un lote pequeño es barato pero ruidoso; el lote completo es exacto pero costoso.`],
+      ['Tasa de aprendizaje (Fig. 1 y 2)', String.raw`El tamaño de cada paso. Con una tasa grande se avanza más rápido pero el camino oscila más.`],
+      ['Nuevos datos / Otros datos y reproductor (Fig. 1 y 2)', String.raw`Sortean otros datos. Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 1) controlan los pasos del descenso.`],
+      ['Eje horizontal (Fig. 2)', String.raw`Si el eje cuenta ejemplos procesados (trabajo) o pasos de actualización. Cambia lo que se compara entre lotes: el costo o el número de pasos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Trayectorias sobre la superficie del MSE', descripcion: 'Compare el camino con lote 1, 8, 32 y completo. Observe el temblor del SGD puro y que ningún camino pasa exactamente por la misma ruta.', montar: montarTrayectoria },
-      { titulo: 'Lotes pequeños y grandes: pasos frente a trabajo', descripcion: 'Alterne el eje horizontal. Con el mismo trabajo, ¿quién baja más rápido? Con el mismo número de pasos, ¿quién?', montar: montarComparacion },
+      { titulo: 'Trayectorias sobre la superficie del MSE', descripcion: 'Compare el camino con lote 1, 8, 32 y completo. Observe el temblor del SGD puro y que ningún camino pasa exactamente por la misma ruta.',
+        ayuda: String.raw`<p>Los ejes son los parámetros de una recta: pendiente w y sesgo b. Las curvas de nivel son el MSE sobre todo el conjunto; la línea es la trayectoria de los parámetros, con la posición actual y el mínimo (mínimos cuadrados).</p>
+          <ul>
+          <li><strong>Tamaño del lote</strong>: con lote 1 el camino tiembla alrededor de la ruta exacta; con el conjunto completo es suave pero cada paso cuesta más.</li>
+          <li><strong>Tasa de aprendizaje</strong>: pasos más largos acercan antes al mínimo, pero con lotes chicos aumentan el temblor.</li>
+          </ul>`, montar: montarTrayectoria },
+      { titulo: 'Lotes pequeños y grandes: pasos frente a trabajo', descripcion: 'Alterne el eje horizontal. Con el mismo trabajo, ¿quién baja más rápido? Con el mismo número de pasos, ¿quién?',
+        ayuda: String.raw`<p>Cada curva es el MSE (escala log) de un tamaño de lote, según la leyenda, a lo largo del eje horizontal elegido.</p>
+          <ul>
+          <li><strong>Eje horizontal</strong>: con «ejemplos procesados» el SGD puro baja más rápido por el mismo trabajo; con «pasos» el lote completo baja más por paso.</li>
+          <li><strong>Tasa de aprendizaje</strong>: con una tasa alta todas bajan antes, pero los lotes pequeños se estancan en un nivel de ruido mayor.</li>
+          </ul>`, montar: montarComparacion },
     ],
     teoria: String.raw`
       <h2>Las tres variantes</h2>

@@ -305,15 +305,31 @@
       y casi siempre el trabajo no ocurre en un solo lugar: cruza varias <em>áreas funcionales</em> de la organización.</p>
       <p>Mirar la empresa por procesos, y no por departamentos, explica por qué un pedido que exige 11 horas de trabajo puede tardar casi dos días: el tiempo se
       pierde en los traspasos entre áreas, no en las tareas. Estas figuras descomponen un proceso real de pedido a cobro y siguen el trabajo entre departamentos.</p>`,
+    parametros: [
+      ['Omitir una actividad al azar y Restablecer (Fig. 1)', String.raw`Quita una actividad del proceso para ver qué otras se quedan sin entradas; Restablecer devuelve el proceso completo. También se omite haciendo clic sobre una actividad.`],
+      ['Espera por traspaso entre áreas (Fig. 2)', String.raw`Horas que espera el trabajo cada vez que cambia de un área a otra. Es tiempo sin trabajo efectivo.`],
+      ['Sistema compartido (espera × 0,2) (Fig. 2)', String.raw`Con un sistema común entre áreas, la espera por traspaso se reduce a una quinta parte.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza el caso por las actividades para ver cómo se acumulan trabajo y esperas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Actividades, entradas y salidas',
         descripcion: 'Cada actividad consume documentos y produce otros. Omita «Evaluar crédito» y vea qué actividades se bloquean; luego omita «Registrar cobro» y observe que nada se rompe, pero el proceso ya no cumple su propósito.',
+        ayuda: String.raw`<p>Cada caja es una actividad con sus documentos de entrada y salida. Se distinguen las actividades bloqueadas por falta de una entrada, las omitidas y los traspasos entre áreas.</p>
+          <ul>
+          <li><strong>Omitir una actividad al azar</strong>: las actividades que dependían de su salida quedan bloqueadas; si la omitida no produce nada que otra use, nada se bloquea, pero el proceso deja de cumplir su objetivo.</li>
+          <li><strong>Restablecer</strong>: vuelve al proceso completo, sin bloqueos.</li>
+          </ul>`,
         montar: montarAnatomia,
       },
       {
         titulo: 'El trabajo cruza los silos',
         descripcion: 'Avance paso a paso y mueva la espera por traspaso: el tiempo total crece mucho más que el trabajo. Active el sistema compartido y compare cuánto de las horas es trabajo efectivo.',
+        ayuda: String.raw`<p>Eje horizontal: horas desde el pedido. Cada barra es una actividad: el trabajo y la espera por traspaso, con la ruta crítica de borde grueso.</p>
+          <ul>
+          <li><strong>Espera por traspaso entre áreas</strong>: alarga las barras de espera y el tiempo total crece mucho más que el trabajo.</li>
+          <li><strong>Sistema compartido</strong>: acorta las esperas y sube la proporción de horas que son trabajo efectivo.</li>
+          </ul>`,
         montar: montarSilos,
       },
     ],

@@ -78,9 +78,24 @@
     intro: String.raw`
       <p><strong>HTTP</strong> es el protocolo de la web: el cliente envía una solicitud (<code>GET /index.html</code>) y el servidor responde con un código de estado y el objeto. Es un protocolo <em>sin estado</em> que corre sobre TCP.</p>
       <p>Lo que más cuesta en una página no suele ser transmitir los bytes, sino los <strong>viajes de ida y vuelta</strong> (RTT): cada conexión TCP nueva cuesta uno solo en el saludo. Por eso la historia de HTTP es la de ahorrar RTT: conexiones persistentes, <em>pipelining</em> y, después, multiplexación.</p>`,
+    parametros: [
+      ['Versión (Fig. 1)', String.raw`Elige HTTP/1.0 (una conexión por objeto), HTTP/1.1 persistente o persistente con pipelining. Decide cuántos viajes de ida y vuelta cuesta obtener los objetos.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza los mensajes uno a uno con su explicación.`],
+      ['RTT (ms) (Fig. 2)', String.raw`El tiempo de ida y vuelta de un mensaje. Multiplica el costo de cada viaje.`],
+      ['Conexiones paralelas (HTTP/1.0) (Fig. 2)', String.raw`Cuántas conexiones abre el navegador a la vez en HTTP/1.0. Más paralelismo recorta su tiempo, pero no elimina el handshake por objeto.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cuántos RTT cuesta cada versión', descripcion: 'Compare los tres escenarios para una página con un HTML y una o varias imágenes, y cuente los RTT en cada paso.', montar: montarSecuencia },
-      { titulo: 'Tiempo de carga frente a objetos', descripcion: 'Aumente los objetos y el RTT. Con muchas imágenes, la diferencia entre abrir una conexión por objeto y reutilizarla es enorme.', montar: montarTiempo },
+      { titulo: 'Cuántos RTT cuesta cada versión', descripcion: 'Compare los tres escenarios para una página con un HTML y una o varias imágenes, y cuente los RTT en cada paso.',
+        ayuda: String.raw`<p>Cada flecha es un mensaje entre navegador (azul) y servidor (naranja). Con HTTP/1.0 se repite el SYN, SYN+ACK y ACK para cada objeto; con la persistente se reutiliza la conexión; con pipelining se piden varias imágenes sin esperar cada respuesta.</p>
+          <ul>
+          <li><strong>Versión</strong>: cambia la cantidad de flechas y los RTT para dos objetos (4, 3 y 3 según el caso).</li>
+          </ul>`, montar: montarSecuencia },
+      { titulo: 'Tiempo de carga frente a objetos', descripcion: 'Aumente los objetos y el RTT. Con muchas imágenes, la diferencia entre abrir una conexión por objeto y reutilizarla es enorme.',
+        ayuda: String.raw`<p>Eje horizontal, objetos en la página; vertical, tiempo en ms. Rojo es HTTP/1.0 sin persistencia, azul persistente y aguamarina persistente con pipelining.</p>
+          <ul>
+          <li><strong>RTT</strong>: estira todas las líneas; las pendientes crecen más en la roja.</li>
+          <li><strong>Conexiones paralelas</strong>: reduce la pendiente de la línea roja, y no afecta a las otras.</li>
+          </ul>`, montar: montarTiempo },
     ],
     teoria: String.raw`
       <h2>Mensajes</h2>

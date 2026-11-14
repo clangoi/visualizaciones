@@ -310,15 +310,33 @@
       <p>No importa el tiempo real: una escritura puede «ocurrir» en el orden total después de una lectura que en el reloj vino más tarde. Lo
       único exigido es que todos los procesos estén de acuerdo en un mismo orden. Los procesadores modernos, por eficiencia, ni siquiera
       garantizan eso.</p>`,
+    parametros: [
+      ['Historia (Fig. 1)', String.raw`Qué ejemplo de operaciones de varios procesos se analiza, con lecturas y escrituras en orden de programa. Cada historia es o no explicable por un único orden total.`],
+      ['Otra al azar (Fig. 1)', String.raw`Genera una historia aleatoria para ver si admite o no un orden total.`],
+      ['Con buffers de escritura (TSO, x86) (Fig. 2)', String.raw`Activa buffers donde cada procesador guarda sus escrituras antes de hacerlas visibles. Sin ellos el sistema es secuencialmente consistente; con ellos puede dar resultados que ningún orden total explica.`],
+      ['P1 ejecuta, P2 ejecuta, Vaciar buffer de P1, Vaciar buffer de P2 (Fig. 2)', String.raw`Eligen qué paso ocurre a continuación: una instrucción de un procesador o la publicación de sus escrituras pendientes. Así se construye el intercalado a mano.`],
+      ['Al azar hasta el final y Reiniciar (Fig. 2)', String.raw`Completan la ejecución con pasos aleatorios o vuelven al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Buscar un orden total',
         descripcion: 'Cada fila es un proceso y sus operaciones en orden de programa; el número tras el punto es la posición en el orden total encontrado. Cambie el valor de una lectura y observe cuándo deja de existir un orden.',
+        ayuda: String.raw`<p>Cada fila es un proceso con sus operaciones en orden de programa; los números indican la posición en el orden total hallado. Las lecturas se pueden cambiar con un clic. Abajo, el grafo de orden muestra las precedencias, y un ciclo implica que no existe orden total.</p>
+          <ul>
+          <li><strong>Historia</strong>: pruebe las que la nota marca como imposibles; no hay orden total porque dos procesos exigen órdenes opuestos.</li>
+          <li>Cambiar el valor de una lectura rompe o restablece el orden total.</li>
+          </ul>`,
         montar: montarHistoria,
       },
       {
         titulo: 'La prueba de buffers de escritura',
         descripcion: 'Dos procesadores escriben su variable y leen la del otro. Sin buffers, el resultado (0, 0) es imposible; con buffers de escritura, como en x86, aparece.',
+        ayuda: String.raw`<p>Dos procesadores (P1 y P2) escriben su propia variable y leen la del otro. Las escrituras en un buffer son invisibles para el otro procesador hasta que se vacía.</p>
+          <ul>
+          <li><strong>Con buffers de escritura</strong> desactivado: el resultado (0, 0) nunca aparece.</li>
+          <li><strong>Con buffers de escritura</strong> activado: si ambos leen antes de vaciar sus buffers, el resultado es (0, 0).</li>
+          <li><strong>Vaciar buffer</strong>: hace visible la escritura de ese procesador.</li>
+          </ul>`,
         montar: montarTSO,
       },
     ],

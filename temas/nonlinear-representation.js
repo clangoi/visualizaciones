@@ -79,9 +79,30 @@
     intro: String.raw`
       <p>Una neurona sola solo traza rectas. Pero al combinar varias neuronas con activaciones no lineales, una red puede dibujar curvas arbitrarias: cada neurona oculta aporta una pieza sencilla —un escalón suavizado, un codo— y la capa de salida las suma con pesos.</p>
       <p>Más neuronas permiten más piezas y, por tanto, una aproximación más fina. Sin activación no lineal, en cambio, todas las capas se colapsan en una sola transformación lineal y la red no puede resolver ni siquiera XOR.</p>`,
+    parametros: [
+      ['Función objetivo (Fig. 1)', String.raw`La curva que la red debe aproximar. Una más ondulada necesita más neuronas.`],
+      ['Neuronas ocultas (Fig. 1 y 2)', String.raw`Cuántas piezas puede sumar la red (Fig. 1) o qué capacidad tiene por capa (Fig. 2). Con pocas, no alcanza para curvas complejas.`],
+      ['Activación (Fig. 1 y 2)', String.raw`La no linealidad de las neuronas ocultas. Con Lineal la red equivale a una sola recta, por muchas neuronas que tenga.`],
+      ['Mostrar el aporte de cada neurona (Fig. 1)', String.raw`Muestra u oculta las piezas que suma la red para formar su salida.`],
+      ['Otra inicialización y reproductor (Fig. 1)', String.raw`Otra inicialización parte de pesos distintos; Reproducir, Un paso, Hasta el final y Reiniciar controlan el entrenamiento.`],
+      ['Datos, Capas ocultas y Neuronas por capa (Fig. 2)', String.raw`Datos define la forma de las clases; Capas ocultas y Neuronas por capa, la profundidad y el ancho de la red.`],
+      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Nuevos datos sortea otra muestra; los botones de reproducción controlan el entrenamiento.`],
+    ],
     visualizaciones: [
-      { titulo: 'Una curva como suma de piezas', descripcion: 'Entrene la red y mire las curvas verdes finas: sumadas dan la salida negra. Pruebe «Onda doble» con 3 y con 15 neuronas, y compare ReLU con Tanh.', montar: montarAproximacion },
-      { titulo: 'Fronteras no lineales en el plano', descripcion: 'Entrene una red sobre datos que ninguna recta puede separar y compare la activación lineal con las no lineales.', montar: montarFronteras },
+      { titulo: 'Una curva como suma de piezas', descripcion: 'Entrene la red y mire las curvas verdes finas: sumadas dan la salida negra. Pruebe «Onda doble» con 3 y con 15 neuronas, y compare ReLU con Tanh.',
+        ayuda: String.raw`<p>Los puntos son los ejemplos de entrenamiento; la curva de la función objetivo se compara con la salida de la red. Las curvas finas son el aporte de cada neurona oculta, cuya suma da la salida.</p>
+          <ul>
+          <li><strong>Neuronas ocultas</strong>: con más neuronas hay más piezas y la salida se ajusta mejor a la función.</li>
+          <li><strong>Activación</strong>: con ReLU cada aporte es un codo; con Tanh es una curva suave; con Lineal los aportes son rectas y la salida también.</li>
+          <li><strong>Mostrar el aporte</strong>: permite ver cómo se suman las piezas.</li>
+          </ul>`, montar: montarAproximacion },
+      { titulo: 'Fronteras no lineales en el plano', descripcion: 'Entrene una red sobre datos que ninguna recta puede separar y compare la activación lineal con las no lineales.',
+        ayuda: String.raw`<p>Los puntos son los ejemplos coloreados por clase (los huecos, datos de validación) y el fondo muestra qué clase predice la red en cada lugar. La curva de pérdida muestra la de entrenamiento y la de validación por época.</p>
+          <ul>
+          <li><strong>Activación</strong>: con Lineal la frontera es siempre una recta y falla en XOR o círculos; con Tanh o ReLU se curva.</li>
+          <li><strong>Capas ocultas / Neuronas por capa</strong>: más capacidad permite fronteras más complejas.</li>
+          <li><strong>Datos</strong>: «XOR» y «Círculos concéntricos» no tienen frontera recta.</li>
+          </ul>`, montar: montarFronteras },
     ],
     teoria: String.raw`
       <h2>Sin no linealidad no hay profundidad</h2>

@@ -200,15 +200,33 @@
       rápido de consultar.</p>
       <p>En la primera figura vea por qué el almacén crece mientras el sistema operativo se mantiene acotado; en la segunda construya data marts sobre un <em>esquema estrella</em> y
       compruebe que agregar reduce filas sin perder ingresos.</p>`,
+    parametros: [
+      ['Meses que conserva el sistema operativo (Fig. 1)', String.raw`Ventana de historia que guarda el sistema operativo. El almacén conserva todo; esa diferencia es la brecha.`],
+      ['Sistema de tiendas y Comercio electrónico (Fig. 1)', String.raw`Activan o apagan cada fuente. Sin una de ellas, el almacén queda incompleto.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otras cargas mensuales.`],
+      ['Data mart (Fig. 2)', String.raw`Subconjunto del almacén para un área o canal, que usa solo algunas dimensiones.`],
+      ['Nivel de tiempo (Fig. 2)', String.raw`Granularidad de la dimensión tiempo (p. ej. mes); un nivel más fino significa más filas.`],
+      ['Restablecer (Fig. 2)', String.raw`Devuelve el mart a su configuración inicial.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El almacén acumula historia',
         descripcion: 'Cargue mes a mes y compare las filas del almacén con las del sistema operativo. Apague una fuente para ver un almacén incompleto y acorte la ventana operativa para ampliar la brecha.',
+        ayuda: String.raw`<p>Filas de hechos acumuladas por mes cargado. El almacén se muestra por fuente (tiendas y web) y el sistema operativo como una ventana móvil.</p>
+          <ul>
+          <li><strong>Meses que conserva el sistema operativo</strong> menos: la curva operativa se queda corta y crece la brecha con el almacén.</li>
+          <li><strong>Fuentes</strong>: al apagar una, falta su serie de filas y el almacén queda incompleto.</li>
+          </ul>`,
         montar: montarCarga,
       },
       {
         titulo: 'Esquema estrella y data marts',
         descripcion: 'Elija un data mart y luego quite o agregue dimensiones con clic: observe cómo cambian las filas del mart mientras el ingreso total se mantiene. Pruebe el mart solo web.',
+        ayuda: String.raw`<p>Esquema estrella: la tabla de hechos al centro y sus dimensiones alrededor, con las incluidas en el mart distinguidas de las que no usa.</p>
+          <ul>
+          <li><strong>Dimensiones</strong> (clic): quitar una reduce las filas del mart y agregarla las aumenta, mientras el ingreso total se mantiene.</li>
+          <li><strong>Nivel de tiempo</strong>: un nivel más grueso resume más y baja las filas.</li>
+          </ul>`,
         montar: montarEstrella,
       },
     ],

@@ -210,15 +210,36 @@
       <p>La frontera de decisión \(P = 0.5\) es el hiperplano \(w^\top x + b = 0\): lineal en los atributos. Para fronteras curvas
       basta con agregar atributos no lineales, como cuadrados y productos. Los parámetros se eligen maximizando la verosimilitud,
       lo que equivale a minimizar la <strong>pérdida logarítmica</strong> (entropía cruzada).</p>`,
+    parametros: [
+      ['Datos (Fig. 1)', String.raw`La forma de las dos clases: dos manchas, separables por una recta, dos lunas, círculos concéntricos o XOR.`],
+      ['Atributos (Fig. 1)', String.raw`Con qué variables trabaja el modelo: solo \(x_1, x_2\) (frontera recta) o también \(x_1^2, x_2^2, x_1 x_2\) (frontera cuadrática: elipses, hipérbolas).`],
+      ['Tasa de aprendizaje η (Fig. 1)', String.raw`El tamaño de cada paso del descenso de gradiente.`],
+      ['Regularización λ (Fig. 1)', String.raw`Penaliza pesos grandes (\(\lambda \lVert w \rVert^2\)). Mantiene la frontera más suave y las probabilidades menos extremas.`],
+      ['Peso w y Sesgo b (Fig. 2)', String.raw`Los parámetros del modelo de un atributo \(\sigma(w x + b)\): \(w\) es la pendiente de la sigmoide y \(-b/w\), el punto donde vale 0.5.`],
+      ['Superposición de las clases (Fig. 2)', String.raw`Cuánto se mezclan los ejemplos de las dos clases. Con 0 se separan perfectamente.`],
+      ['Máxima verosimilitud y Nuevos datos', String.raw`Ajustan \(w\) y \(b\) para minimizar la pérdida logarítmica, o sortean otros datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Fronteras aprendidas por descenso de gradiente',
         descripcion: 'Con atributos lineales la frontera es una recta y no puede separar círculos ni XOR; con atributos cuadráticos sí. Pruebe una η grande y λ &gt; 0 para ver su efecto sobre la convergencia y sobre ‖w‖.',
+        ayuda: String.raw`<p>A la izquierda, los datos de dos clases y el fondo coloreado con la probabilidad \(P(y = 1 \mid x)\) que da el modelo: más intenso, más seguro. La línea negra es la frontera \(P = 0.5\). A la derecha, la pérdida logarítmica de entrenamiento y validación por época.</p>
+          <ul>
+          <li><strong>Atributos</strong> lineales: la frontera es siempre una recta, así que con círculos o XOR la exactitud se queda cerca de 50 %. Con cuadráticos, la frontera se curva y los separa.</li>
+          <li><strong>η</strong> grande: la pérdida baja más rápido, aunque puede oscilar.</li>
+          <li><strong>λ &gt; 0</strong>: la norma ‖w‖ deja de crecer y la transición de colores del fondo se vuelve más gradual; si las pérdidas de entrenamiento y validación se separan, λ ayuda a acercarlas.</li>
+          </ul>`,
         montar: montarPlano,
       },
       {
         titulo: 'La sigmoide y la pérdida logarítmica',
         descripcion: 'w controla la pendiente y −b/w la posición de la frontera. Pulse «Máxima verosimilitud» con superposición 0: si las clases se separan perfectamente, el óptimo no existe.',
+        ayuda: String.raw`<p>Los puntos son ejemplos con un solo atributo \(x\) (eje horizontal), dibujados en \(y = 0\) o \(y = 1\) según su clase. La curva negra es \(\sigma(w x + b)\), la probabilidad de la clase 1. Cada segmento rojo mide la probabilidad que el modelo da a la clase equivocada para ese punto.</p>
+          <ul>
+          <li><strong>w</strong> controla qué tan abrupta es la sigmoide; <strong>b</strong> la desplaza. La frontera está en \(x = -b/w\).</li>
+          <li>La pérdida logarítmica castiga mucho más un error confiado que el error cuadrático: compare ambas lecturas al mover la curva.</li>
+          <li><strong>Superposición 0</strong> y luego <strong>Máxima verosimilitud</strong>: como las clases se separan sin error, la pérdida sigue bajando al hacer \(w\) cada vez más grande; el óptimo no existe y la sigmoide se vuelve un escalón.</li>
+          </ul>`,
         montar: montarSigmoide,
       },
     ],

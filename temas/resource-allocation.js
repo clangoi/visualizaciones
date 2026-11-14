@@ -292,15 +292,33 @@
       <p>La solución óptima suele tener una forma muy reconocible: se financia primero lo que más rinde por unidad hasta su tope, un solo
       canal recibe «lo que queda» y el resto se queda en su mínimo. Cuando hay dos objetivos que compiten, ya no existe un reparto
       perfecto: hay una <em>frontera de compromiso</em> y elegir un punto en ella es una decisión de valores, no de cálculo.</p>`,
+    parametros: [
+      ['Qué se maximiza (Fig. 1)', String.raw`El criterio del reparto: alcance, ventas u otro objetivo. Cambia qué canales reciben más dinero.`],
+      ['Presupuesto (Fig. 1 y 2)', String.raw`El total disponible en miles de USD. Si es bajo, solo alcanza para los mínimos de cada canal.`],
+      ['Máx. en internet (Fig. 1)', String.raw`El tope de la fracción del presupuesto que puede ir a internet. Mide cuánto cuesta limitar ese canal.`],
+      ['Peso del alcance (Fig. 2)', String.raw`La importancia relativa del alcance frente a las ventas: 0 es solo ventas y 1, solo alcance.`],
+      ['Equilibrar (50 %) (Fig. 2)', String.raw`Pone el peso en partes iguales.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Reparto óptimo de un presupuesto',
         descripcion: 'Cambie el criterio entre alcance, ventas o ambos y vea cómo se reordena el reparto. Baje el presupuesto hasta que solo alcancen los mínimos, o limite internet a una fracción del total y observe cuánto cuesta esa regla en la tabla.',
+        ayuda: String.raw`<p>Cada barra es el dinero asignado a un canal, con el rango permitido (del mínimo al tope) marcado. El eje horizontal está en miles de USD.</p>
+          <ul>
+          <li><strong>Qué se maximiza</strong>: reordena el reparto hacia los canales mejores para ese criterio.</li>
+          <li><strong>Presupuesto</strong>: al bajarlo, las barras se achican hasta quedar en el mínimo permitido.</li>
+          <li><strong>Máx. en internet</strong>: si el tope impide asignar más a internet, ese dinero pasa a otros canales.</li>
+          </ul>`,
         montar: montarReparto,
       },
       {
         titulo: 'Compromiso entre alcance y ventas',
         descripcion: 'Cada punto de la curva es el mejor reparto para una ponderación distinta de los dos objetivos. Recorra la frontera: pasada cierta zona, ganar alcance cuesta cada vez más ventas. Cambie el presupuesto para ver cómo se desplaza.',
+        ayuda: String.raw`<p>Arriba, la frontera de alcance (eje horizontal) frente a ventas (vertical): cada punto es el mejor reparto para un peso, con el peso elegido y el punto ideal inalcanzable a la vez. Abajo, el dinero por canal según el peso.</p>
+          <ul>
+          <li><strong>Peso del alcance</strong>: recorre la frontera; pasada cierta zona, ganar alcance cuesta cada vez más ventas.</li>
+          <li><strong>Presupuesto</strong>: desplaza toda la frontera hacia arriba y a la derecha.</li>
+          </ul>`,
         montar: montarCompromiso,
       },
     ],

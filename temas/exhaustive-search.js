@@ -172,15 +172,31 @@
       los \(\binom{d}{m}\) subconjuntos y se queda con el de mayor puntaje.</p>
       <p>Es la referencia contra la que se comparan los demás métodos, y es perfectamente práctica con una decena de
       características. Con cien, en cambio, el número de combinaciones supera la edad del universo medida en microsegundos.</p>`,
+    parametros: [
+      ['Tamaño del subconjunto m (Fig. 1 y 2)', String.raw`Cuántas características tiene cada subconjunto candidato. Cambia cuántos subconjuntos existen, \(C(d,m)\).`],
+      ['Nuevos datos (Fig. 1)', String.raw`Regenera los datos y, con ellos, el valor \(J\) de cada subconjunto.`],
+      ['Evaluaciones por segundo (Fig. 2)', String.raw`La velocidad supuesta del cómputo. Convierte el número de subconjuntos en tiempo de espera.`],
+      ['Características d (Fig. 2)', String.raw`Cuántas características hay para elegir. El número de subconjuntos crece muy rápido con d.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Todos los subconjuntos de tamaño m',
         descripcion: 'Cada punto es un subconjunto de m de las diez características, evaluado con el criterio de Fisher J. Ejecute hasta el final y compare el mejor con las mejores características individuales.',
+        ayuda: String.raw`<p>Cada punto es un subconjunto de m características, ordenados de forma lexicográfica en el eje X. Los evaluados están marcados, el actual se distingue y el mejor hasta ahora se resalta. El registro anota cada evaluación.</p>
+          <ul>
+          <li><strong>Tamaño del subconjunto m</strong>: cambia cuántos puntos hay que recorrer.</li>
+          <li><strong>Nuevos datos</strong>: el mejor subconjunto puede cambiar.</li>
+          </ul>`,
         montar: montarRecorrido,
       },
       {
         titulo: 'La explosión combinatoria',
         descripcion: 'Cuántos subconjuntos hay que evaluar según el número de características, y cuánto tardaría hacerlo a una velocidad dada.',
+        ayuda: String.raw`<p>Eje X: características d; eje Y: subconjuntos (escala logarítmica). Se compara \(C(d,m)\) con \(2^d\), y las líneas de referencia marcan un día y un siglo de cómputo.</p>
+          <ul>
+          <li><strong>Evaluaciones por segundo</strong>: mueve las líneas de referencia y muestra desde qué d el tiempo deja de ser aceptable.</li>
+          <li><strong>Tamaño del subconjunto m</strong>: desplaza la curva \(C(d,m)\) y muestra que, aunque m sea fijo, el crecimiento sigue siendo enorme.</li>
+          </ul>`,
         montar: montarExplosion,
       },
     ],

@@ -216,15 +216,33 @@
       <p>El método de <strong>Otsu</strong> (1979) lo elige solo a partir del histograma: prueba todos los umbrales y se queda
       con el que deja las dos clases lo más separadas posible, es decir, con la mayor <em>varianza entre clases</em>.
       Funciona muy bien cuando el histograma tiene dos montes claros, y falla de maneras predecibles cuando no.</p>`,
+    parametros: [
+      ['Imagen, Ruido σ e Iluminación no uniforme (Fig. 1)', String.raw`La escena de partida y su degradación. El ruido ensancha los picos del histograma y la iluminación desigual los desplaza según la zona, hasta mezclar fondo y objeto.`],
+      ['Umbral t, Umbral de Otsu y Nueva imagen (Fig. 1)', String.raw`El umbral t separa los píxeles en dos clases; «Umbral de Otsu» lo coloca donde la varianza entre clases es máxima y «Nueva imagen» regenera el ruido.`],
+      ['Proporción de objeto p y Separación de medias (Fig. 2)', String.raw`Cuánto pesa el objeto frente al fondo y qué tan lejos están sus intensidades medias. Con poco objeto o medias cercanas las dos campanas se solapan.`],
+      ['σ del fondo y σ del objeto (Fig. 2)', String.raw`La dispersión de cada clase. Una clase más ancha se solapa más con la otra y desplaza el mejor umbral hacia ella.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Umbral de Otsu en una imagen',
         descripcion: 'La curva naranja es la varianza entre clases para cada umbral; Otsu toma su máximo. Mueva el umbral y compare la segmentación.',
+        ayuda: String.raw`<p>Arriba, el histograma de intensidades (eje X: intensidad; eje Y: píxeles) y la curva naranja de la varianza entre clases \(\sigma_B^2(t)\), con la marca del umbral elegido. La segunda imagen muestra como objeto los píxeles con intensidad mayor que t.</p>
+          <ul>
+          <li><strong>Umbral t</strong>: la marca se mueve sobre el histograma y la segmentación cambia; en el máximo de la curva naranja la separación entre clases es la mejor.</li>
+          <li><strong>Ruido σ</strong>: los picos se ensanchan y el valle entre ellos se llena; el máximo de \(\sigma_B^2\) se aplana y la segmentación se llena de puntos sueltos.</li>
+          <li><strong>Iluminación no uniforme</strong>: un solo umbral global deja de servir porque el fondo oscuro de un lado vale lo mismo que el objeto del otro.</li>
+          </ul>`,
         montar: montarImagen,
       },
       {
         titulo: 'Cuando las clases no están equilibradas',
         descripcion: 'Un histograma modelado como mezcla de dos gaussianas. Las zonas sombreadas son el error de Otsu: fondo tomado como objeto y objeto tomado como fondo.',
+        ayuda: String.raw`<p>Dos campanas (fondo ponderado por \(1-p\) y objeto por \(p\)), su suma como histograma total, y los umbrales de Otsu y de error mínimo. Las zonas sombreadas son los píxeles mal clasificados.</p>
+          <ul>
+          <li><strong>Proporción de objeto p</strong>: si p es pequeño, la campana del objeto casi desaparece y el umbral de Otsu se aleja del de error mínimo.</li>
+          <li><strong>Separación de medias</strong>: al acercar las campanas crece el área sombreada, es decir, el error inevitable.</li>
+          <li><strong>σ del fondo</strong> y <strong>σ del objeto</strong>: más dispersión significa más solapamiento; con anchos distintos, Otsu tiende a quedar en el punto medio y el de error mínimo se corre hacia la clase más estrecha.</li>
+          </ul>`,
         montar: montarMezcla,
       },
     ],

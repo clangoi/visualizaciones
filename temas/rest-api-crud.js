@@ -111,10 +111,33 @@
       <p>Una <strong>API REST</strong> expone los datos de un servidor como <em>recursos</em> identificados por URL (<code>/tareas</code>, <code>/tareas/2</code>) y los manipula con los
       métodos HTTP. Las cuatro operaciones básicas de los datos, <strong>CRUD</strong> (crear, leer, actualizar, eliminar), se corresponden con <code>POST</code>, <code>GET</code>, <code>PUT/PATCH</code> y <code>DELETE</code>.</p>
       <p>El cliente (una página con <code>fetch</code>, una app móvil, otro servidor) no necesita saber cómo está hecho el servidor: solo el contrato de la API.</p>`,
+    parametros: [
+      ['Endpoint (Fig. 1)', String.raw`La combinación de método HTTP y ruta que se envía a la API de tareas: sobre la colección o sobre un elemento. Determina si se lee, crea, reemplaza, modifica o borra.`],
+      ['Valor de :id (Fig. 1)', String.raw`Qué elemento se apunta en las rutas con <code>:id</code>. El valor 9 no existe y sirve para ver el error 404.`],
+      ['Enviar petición y Restablecer datos (Fig. 1)', String.raw`Enviar ejecuta la petición elegida sobre los datos del servidor; Restablecer devuelve la tabla a su estado inicial.`],
+      ['Comprobar y Borrar respuestas (Fig. 2)', String.raw`Comprobar evalúa si el método y la ruta asignados a cada operación siguen las convenciones REST; Borrar respuestas vacía la tabla para empezar de nuevo.`],
+      ['Respuesta del servidor (Fig. 3)', String.raw`El resultado simulado de la petición: éxito (200), error del cliente (404), error del servidor (500) o caída de red. Cambia si la promesa de <code>fetch</code> se cumple o se rechaza.`],
+      ['El código revisa response.ok (Fig. 3)', String.raw`Si el código lanza un error cuando <code>res.ok</code> es falso. Sin esa revisión, un 404 o un 500 pasan como si fueran éxito.`],
+    ],
     visualizaciones: [
-      { titulo: 'Una API REST con CRUD', descripcion: 'Envíe cada tipo de petición sobre la colección o un elemento, incluso uno que no existe, y observe el estado devuelto y el cambio en la tabla.', montar: montarApi },
-      { titulo: 'Diseñe los endpoints', descripcion: 'Asigne método y ruta a seis operaciones sobre usuarios y pedidos y compruebe si sigue las convenciones REST.', montar: montarDiseno },
-      { titulo: 'Consumir una API con fetch', descripcion: 'Pruebe respuestas 200, 404, 500 y una caída de red, con y sin <code>response.ok</code>: ¿cuándo se rechaza la promesa?', montar: montarFetch },
+      { titulo: 'Una API REST con CRUD', descripcion: 'Envíe cada tipo de petición sobre la colección o un elemento, incluso uno que no existe, y observe el estado devuelto y el cambio en la tabla.',
+        ayuda: String.raw`<p>A la izquierda, la tabla «tareas» con el estado actual del servidor; a la derecha, la última respuesta con su código de estado y su cuerpo.</p>
+          <ul>
+          <li><strong>Endpoint</strong> y <strong>Enviar petición</strong>: una creación agrega una fila con un id nuevo, un borrado la quita y una lectura no cambia la tabla.</li>
+          <li><strong>Valor de :id</strong> en 9: la respuesta es un error 404 y la tabla queda igual.</li>
+          </ul>`, montar: montarApi },
+      { titulo: 'Diseñe los endpoints', descripcion: 'Asigne método y ruta a seis operaciones sobre usuarios y pedidos y compruebe si sigue las convenciones REST.',
+        ayuda: String.raw`<p>Tabla de seis operaciones sobre usuarios y pedidos; para cada una se asignan método y ruta.</p>
+          <ul>
+          <li><strong>Comprobar</strong>: marca cada fila como correcta o no; las convenciones son sustantivos en plural en la ruta y el método HTTP como verbo.</li>
+          </ul>`, montar: montarDiseno },
+      { titulo: 'Consumir una API con fetch', descripcion: 'Pruebe respuestas 200, 404, 500 y una caída de red, con y sin <code>response.ok</code>: ¿cuándo se rechaza la promesa?',
+        ayuda: String.raw`<p>Diagrama de secuencia del código, <code>fetch</code> y el servidor. Los colores distinguen petición, éxito, error del cliente y error.</p>
+          <ul>
+          <li><strong>Respuesta del servidor</strong> en 404 o 500 sin revisar <code>ok</code>: la promesa se cumple y el código sigue como si hubiera datos.</li>
+          <li><strong>Respuesta del servidor</strong> en caída de red: la promesa se rechaza y pasa al <code>catch</code>.</li>
+          <li><strong>el código revisa response.ok</strong>: el error HTTP se lanza a mano y llega también al <code>catch</code>.</li>
+          </ul>`, montar: montarFetch },
     ],
     teoria: String.raw`
       <h2>Principios REST</h2>

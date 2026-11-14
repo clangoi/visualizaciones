@@ -358,15 +358,33 @@
       <p>Por eso un par de soluciones factibles, una de cada problema, atrapa al valor óptimo entre dos números. La distancia
       entre ellos es una <em>brecha</em>: si vale cero, ambas soluciones son óptimas, y si es pequeña, ninguna puede estar muy
       lejos del óptimo.</p>`,
+    parametros: [
+      ['Problema (Fig. 1)', String.raw`Elige el par primal-dual de ejemplo (con óptimo, no acotado o infactible), que determina las regiones dibujadas.`],
+      ['Par factible al azar y Poner ambos en el óptimo (Fig. 1)', String.raw`El primero sortea un \(x\) y un \(y\) factibles; el segundo los lleva a los óptimos, donde la brecha es cero.`],
+      ['c₁, c₂, b₁ y b₂ (Fig. 2)', String.raw`Datos del problema: \(c\) en el objetivo del primal y \(b\) en el del dual. Mueven la diagonal de puntos hacia otros valores.`],
+      ['Pares (Fig. 2)', String.raw`Cantidad de pares factibles \((x,y)\) sorteados en la nube.`],
+      ['Incluir el par óptimo (Fig. 2)', String.raw`Agrega el par óptimo, el único que toca la diagonal.`],
+      ['Nuevo sorteo (Fig. 2)', String.raw`Genera otra muestra de pares.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un par factible y su brecha',
         descripcion: 'Arrastre x en la región del primal y y en la del dual, y observe en la recta de valores que cᵀx nunca pasa a bᵀy mientras ambos sean factibles. Pruebe sacar y de su región (la cota deja de ser válida) y los otros dos problemas: si el primal no es acotado, el dual no tiene ningún punto factible.',
+        ayuda: String.raw`<p>A la izquierda está la región del primal con el valor \(c^Tx\) de su punto y a la derecha la del dual con \(b^Ty\). Abajo, una recta de valores muestra ambos números y la brecha \(b^Ty-c^Tx\). Un punto fuera de su región es infactible y su valor no cuenta.</p>
+          <ul>
+          <li><strong>Par factible al azar</strong>: la brecha siempre es no negativa, porque \(c^Tx\le b^Ty\).</li>
+          <li><strong>Poner ambos en el óptimo</strong>: los dos valores se juntan y la brecha vale 0.</li>
+          </ul>`,
         montar: montarPar,
       },
       {
         titulo: 'Nube de pares factibles',
         descripcion: 'Cada punto enfrenta el valor de un x factible con el de un y factible. Cambie c y b y compruebe que todos los pares quedan sobre la diagonal; solo el par óptimo la toca.',
+        ayuda: String.raw`<p>Cada punto es un par factible: horizontal, \(c^Tx\) del primal; vertical, \(b^Ty\) del dual. La diagonal es \(b^Ty=c^Tx\) y la zona bajo ella está prohibida. El par óptimo es el que toca la diagonal.</p>
+          <ul>
+          <li><strong>c</strong> y <strong>b</strong>: desplazan la nube, pero nunca la hacen cruzar la diagonal.</li>
+          <li><strong>Pares</strong> y <strong>Nuevo sorteo</strong>: más puntos muestran mejor el borde inferior de la nube, que tiende al par óptimo.</li>
+          </ul>`,
         montar: montarNube,
       },
     ],

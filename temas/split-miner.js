@@ -264,15 +264,32 @@
       para cada actividad con varias vecinas, mira cuáles de ellas son concurrentes para elegir entre XOR, AND o una mezcla.</p>
       <p>El resultado es un modelo <a href="tema.html?id=bpmn-gateways">BPMN</a> pequeño y muy preciso, algo más permisivo que el del
       <a href="tema.html?id=inductive-miner">Inductive Miner</a> (que garantiza bloques) pero mucho menos enredado que un DFG sin filtrar.</p>`,
+    parametros: [
+      ['Proceso (Fig. 1 y 2)', String.raw`Elige el modelo de origen del registro; define qué estructura de concurrencia y bucles debe recuperar el algoritmo.`],
+      ['Percentil de frecuencia (Fig. 1 y 2)', String.raw`Umbral de frecuencia bajo el cual se eliminan aristas del DFG, salvo la mejor entrante y la mejor saliente de cada actividad. Subirlo simplifica el grafo.`],
+      ['Tolerancia de concurrencia ε (Fig. 1)', String.raw`Margen para decidir que dos actividades son concurrentes según el balance de sus órdenes observados. Con ε alto más pares pasan a concurrencia.`],
+      ['Ruido y Nuevo registro (Fig. 1 y 2)', String.raw`Ruido es la fracción de trazas alteradas, que añade aristas espurias; Nuevo registro genera otro registro. El reproductor de la Fig. 2 avanza las decisiones de compuertas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Filtro del DFG por percentil',
         descripcion: 'Suba el percentil y observe qué aristas se eliminan y cuáles sobreviven por ser el mejor entrante o saliente de una actividad; con ε alto las ramas paralelas pasan a concurrencia. Pruebe el proceso con bucle.',
+        ayuda: String.raw`<p>DFG filtrado: aristas conservadas por el percentil, conservadas por ser mejor entrante o saliente, eliminadas por el percentil, concurrencias (se quitan del grafo) y bucles cortos (se conservan aparte).</p>
+          <ul>
+          <li><strong>Percentil de frecuencia</strong>: al subirlo se eliminan más aristas, pero algunas sobreviven como mejor entrante o saliente para mantener el grafo conexo.</li>
+          <li><strong>Tolerancia de concurrencia ε</strong>: al subirla, ramas paralelas pasan a concurrencia y salen del grafo.</li>
+          <li><strong>Proceso</strong>: cambia las concurrencias y bucles que existen en origen.</li>
+          </ul>`,
         montar: montarFiltro,
       },
       {
         titulo: 'Descubrir splits y joins',
         descripcion: 'Avance paso a paso: en la solicitud verá un AND tras a, un XOR tras d y sus joins. Con ruido alto aparecen compuertas dudosas que el percentil elimina.',
+        ayuda: String.raw`<p>Grafo con compuertas descubiertas: × XOR (sucesoras exclusivas), + AND (todas concurrentes), ×+ (elige entre grupos paralelos) y «o» (OR, mezcla). Se resalta la compuerta recién decidida; también se marcan bucles cortos y actividades inicial y final.</p>
+          <ul>
+          <li><strong>Ruido</strong>: más ruido produce compuertas dudosas (OR).</li>
+          <li><strong>Percentil de frecuencia</strong>: al subirlo elimina las aristas ruidosas y las compuertas dudosas se aclaran.</li>
+          </ul>`,
         montar: montarCompuertas,
       },
     ],

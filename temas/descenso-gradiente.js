@@ -361,15 +361,38 @@
       <p>La dificultad está en el tamaño del paso: demasiado pequeño y el avance es lentísimo; demasiado grande y el método
       oscila o diverge. Los métodos con <em>momento</em> y los <em>adaptativos</em> como Adam modifican la regla básica para
       avanzar más rápido en valles estrechos y alargados, que son muy comunes en la práctica.</p>`,
+    parametros: [
+      ['Función de pérdida', String.raw`La superficie que se minimiza: una cuadrática mal condicionada (valle elíptico), Rosenbrock (valle curvo y plano) o Himmelblau (cuatro mínimos).`],
+      ['Condicionamiento κ (cuadrática)', String.raw`Cociente entre la curvatura mayor y la menor. Con \(\kappa = 1\) las curvas de nivel son círculos; con \(\kappa\) grande, elipses muy alargadas que hacen zigzaguear al gradiente.`],
+      ['Tasa de aprendizaje η', String.raw`El tamaño del paso de gradiente, momento y Nesterov (en escala logarítmica). En la cuadrática, por encima de \(2/\kappa\) el método diverge.`],
+      ['Momento β', String.raw`Qué fracción de la velocidad anterior se conserva en cada paso. Amortigua el zigzag y acelera en valles largos; cerca de 1 produce oscilaciones.`],
+      ['η de Adam', String.raw`El paso de Adam, que adapta la escala de cada coordenada por separado.`],
+      ['Iteraciones', String.raw`Cuántos pasos da cada optimizador.`],
+      ['Casillas de métodos', String.raw`Muestran u ocultan gradiente, momento, Nesterov y Adam.`],
+      ['Animar y Punto inicial por defecto', String.raw`Animan las trayectorias o vuelven al punto de partida original (también se elige con un clic).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Trayectorias sobre la superficie de pérdida',
         descripcion: 'Fondo: valor de la pérdida (más oscuro = mayor) con sus curvas de nivel. Cada línea es la trayectoria de un optimizador desde el mismo punto inicial.',
+        ayuda: String.raw`<p>El fondo es la pérdida \(f(x, y)\): más oscuro, mayor; las líneas son curvas de nivel. Cada trayectoria de color es un optimizador que parte del mismo punto negro y da pasos cuesta abajo.</p>
+          <ul>
+          <li><strong>κ</strong> grande: el gradiente puro zigzaguea entre las paredes del valle; momento y Nesterov acumulan velocidad a lo largo del valle y llegan antes.</li>
+          <li><strong>η</strong>: subirlo acelera hasta que la trayectoria empieza a rebotar y luego se escapa (divergencia).</li>
+          <li><strong>β</strong> cerca de 1: el momento pasa de largo y describe espirales alrededor del mínimo.</li>
+          <li>En <strong>Himmelblau</strong>, el punto inicial decide a cuál de los cuatro mínimos llega cada método; haga clic en distintos lugares.</li>
+          </ul>`,
         montar: montarSuperficie,
       },
       {
         titulo: 'Convergencia',
         descripcion: 'Distancia al valor óptimo \\(f(x_t) - f^*\\) en cada iteración, en escala logarítmica.',
+        ayuda: String.raw`<p>El eje horizontal es la iteración y el vertical (logarítmico), la distancia al valor óptimo \(f(x_t) - f^*\). Una curva por optimizador, con los mismos parámetros de la figura 1.</p>
+          <ul>
+          <li>Una recta descendente es convergencia lineal (geométrica): el error se multiplica por una constante \(\rho\) en cada paso. Más pendiente, más rápido.</li>
+          <li>Al subir <strong>κ</strong> en la figura 1, la recta del gradiente se aplana (\(\rho\) se acerca a 1); la de momento se aplana mucho menos.</li>
+          <li>Curvas que suben indican divergencia; curvas con dientes, oscilación.</li>
+          </ul>`,
         montar: montarPerdida,
       },
     ],

@@ -427,20 +427,48 @@
       <p>Cada punto del plano de variables es una solución candidata. Unas cumplen todas las restricciones (son <em>factibles</em>) y otras no;
       entre las factibles, la que tiene mejor valor del objetivo es la <em>óptima</em>. Aquí podrá mover una solución y ver cada una de estas
       piezas por separado.</p>`,
+    parametros: [
+      ['Coeficiente c₁ y c₂ (Fig. 1)', String.raw`Los coeficientes de la función objetivo \(f(x)=c_1x_1+c_2x_2\). Cambiarlos gira la dirección en que mejora el valor y, con ella, las curvas de nivel y el óptimo.`],
+      ['Sentido (Fig. 1)', String.raw`Si se busca el mayor o el menor valor de f. El mismo modelo tiene óptimo en otro vértice según el sentido.`],
+      ['Ir al óptimo y Punto al azar (Fig. 1)', String.raw`Ir al óptimo coloca su solución en el mejor punto factible; Punto al azar la coloca en un lugar cualquiera, que puede ser infactible.`],
+      ['Función objetivo (Fig. 2)', String.raw`La función que se minimiza o maximiza sobre la región. Define la forma de las curvas de nivel.`],
+      ['Nivel de la curva (de mín. a máx.) (Fig. 2)', String.raw`El valor de f que representa la curva de nivel, expresado entre el mínimo (0 %) y el máximo (100 %) sobre la región.`],
+      ['Ver el problema equivalente: maximizar −f (Fig. 2)', String.raw`Muestra el mismo problema escrito con el sentido contrario: los óptimos son los mismos puntos y solo cambia el signo del valor.`],
+      ['Nivel en el mínimo y Nivel en el máximo (Fig. 2)', String.raw`Fijan la curva de nivel exactamente en el mínimo o en el máximo.`],
+      ['Madera disponible W, Horas de trabajo L y Pedido mínimo D (Fig. 3)', String.raw`Los recursos y la demanda del modelo de mesas y sillas. Subir W o L agranda lo permitido; subir D exige producir más y reduce la región.`],
+      ['Relajar el pedido hasta hacerlo posible y Valores iniciales (Fig. 3)', String.raw`El primero baja D hasta el mayor valor con solución; el segundo restablece W, L y D.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una solución sobre la región factible',
         descripcion: 'Arrastre el punto dentro y fuera de la región azul y observe cómo cambian su factibilidad, su valor f(x) y la tabla de holguras. Cambie c₁, c₂ y el sentido: la curva de nivel naranja que pasa por el punto empuja el óptimo hacia otro vértice.',
+        ayuda: String.raw`<p>El eje horizontal es \(x_1\) y el vertical \(x_2\). La región azul es la factible, el punto es su solución (de un color si es factible y de otro si no) y la curva naranja es la curva de nivel de f que pasa por ella. Se marca el óptimo y una tabla muestra el valor de f y las holguras.</p>
+          <ul>
+          <li><strong>Coeficiente c₁</strong> y <strong>c₂</strong>: giran las curvas de nivel; el óptimo salta al vértice más lejano en esa dirección.</li>
+          <li><strong>Sentido</strong>: al pasar de maximizar a minimizar, el óptimo se mueve al extremo opuesto de la región.</li>
+          <li><strong>Ir al óptimo</strong>: lleva su punto sobre la marca de óptimo, donde f ya no puede mejorar sin salir de la región.</li>
+          </ul>`,
         montar: montarPunto,
       },
       {
         titulo: 'Minimizar o maximizar',
         descripcion: 'Elija una función objetivo y desplace el nivel de 0 a 100 %: la curva roza la región primero en el mínimo y la deja en el máximo. Active el problema equivalente y compruebe que mín f = −máx(−f) y que el punto óptimo no cambia.',
+        ayuda: String.raw`<p>Los ejes son \(x_1\) y \(x_2\). Se dibuja la región factible y la parte factible de la curva de nivel, con marcas para el mínimo y el máximo de f.</p>
+          <ul>
+          <li><strong>Nivel de la curva</strong>: en 0 % la curva apenas toca la región en el mínimo y en 100 %, en el máximo.</li>
+          <li><strong>Ver el problema equivalente</strong>: el mínimo de f y el máximo de −f aparecen en el mismo punto, con valores opuestos.</li>
+          </ul>`,
         montar: montarSentido,
       },
       {
         titulo: 'Cuando las restricciones se contradicen',
         descripcion: 'Suba el pedido mínimo D, o baje la madera o las horas, hasta que la zona verde desaparezca. El modelo busca el grupo más pequeño de restricciones en conflicto y calcula hasta qué D habría solución.',
+        ayuda: String.raw`<p>Ejes: mesas (\(x_1\)) y sillas (\(x_2\)). Cada tono excluye una zona: el que corresponde a la madera, a las horas o al pedido. Lo que ninguna restricción excluye es la región factible, con el óptimo marcado; si no queda nada, el modelo es infactible.</p>
+          <ul>
+          <li><strong>Madera disponible W</strong> y <strong>Horas de trabajo L</strong>: al bajarlas, crecen las zonas excluidas por esos recursos.</li>
+          <li><strong>Pedido mínimo D</strong>: al subirlo, la zona excluida por el pedido avanza hasta que desaparece la región factible.</li>
+          <li><strong>Relajar el pedido</strong>: devuelve la región factible con el D más alto posible.</li>
+          </ul>`,
         montar: montarInfactible,
       },
     ],

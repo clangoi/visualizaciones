@@ -158,15 +158,38 @@
       verde si se cumple, amarillo si se está cerca y rojo si hay que actuar. Así se evalúa el cumplimiento de objetivos de un vistazo y a lo largo del tiempo.</p>
       <p>Fijar la meta y los umbrales es una decisión de gestión con consecuencias estadísticas: una meta de estiramiento puede dejar casi todo en rojo, y un umbral demasiado ajustado
       sobre un indicador muy variable genera alertas que son pura casualidad. Se aprende a distinguir una señal de ruido.</p>`,
+    parametros: [
+      ['Meta (verde desde) (Fig. 1)', String.raw`Valor del indicador desde el cual el mes se considera cumplido (verde). Una meta más alta deja menos meses en verde.`],
+      ['Tolerancia amarilla bajo la meta (Fig. 1)', String.raw`Ancho de la franja amarilla bajo la meta; el umbral rojo queda debajo de ella. Más tolerancia reduce los meses en rojo.`],
+      ['Meta realista y Meta de estiramiento (Fig. 1)', String.raw`Fijan la meta en la mediana o en el percentil 90 de la serie: con la primera cerca de la mitad de los meses cumple; con la segunda, solo los mejores.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra serie simulada para comprobar que la conclusión no depende de una muestra.`],
+      ['Variabilidad σ del indicador (Fig. 2)', String.raw`Dispersión natural mes a mes. Con más σ hay más alertas sin que el proceso haya cambiado.`],
+      ['Umbral rojo bajo la meta (Fig. 2)', String.raw`Distancia entre la meta y el umbral que dispara la alerta. Un umbral más cercano detecta antes pero da más falsas alarmas.`],
+      ['Deterioro real desde el mes 61 (Fig. 2)', String.raw`Cuánto empeora de verdad el indicador a partir del mes 61. Es lo que la alerta debería detectar.`],
+      ['Exigir dos meses seguidos bajo el umbral (Fig. 2)', String.raw`Regla que pide dos meses consecutivos bajo el umbral. Reduce falsas alarmas a cambio de detectar más tarde.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Meta y semáforo sobre una serie',
         descripcion: 'Mueva la meta y la tolerancia, o haga clic en el gráfico, y vea cuántos meses quedan en cada color. Compare la meta realista (mediana de la serie) con la de estiramiento (percentil 90).',
+        ayuda: String.raw`<p>Serie mensual de entregas a tiempo (%). Los puntos o barras se pintan según estén en verde (cumple), amarillo (dentro de la tolerancia) o rojo (bajo el umbral). Las líneas marcan la meta y el umbral rojo.</p>
+          <ul>
+          <li><strong>Meta</strong>: subirla pasa meses de verde a amarillo o rojo.</li>
+          <li><strong>Tolerancia amarilla</strong>: mueve el umbral rojo y cambia cuántos meses se consideran fallidos.</li>
+          <li><strong>Meta realista</strong> frente a <strong>Meta de estiramiento</strong>: comparan cuánta serie queda en verde con cada una.</li>
+          </ul>`,
         montar: montarSemaforo,
       },
       {
         titulo: 'Falsas alarmas y variabilidad',
         descripcion: 'El proceso está en su meta hasta el mes 60. Suba la variabilidad σ y verá más alertas rojas sin que nada haya cambiado; luego pruebe la regla de dos meses seguidos y compare cuánto tarda en detectar el deterioro.',
+        ayuda: String.raw`<p>Valor mensual del indicador con la meta y el umbral rojo. Las alertas disparadas se marcan y el periodo con deterioro real (desde el mes 61) se sombrea; una alerta antes de ese punto es una falsa alarma.</p>
+          <ul>
+          <li><strong>Variabilidad σ</strong>: más dispersión hace cruzar el umbral por azar.</li>
+          <li><strong>Umbral rojo</strong>: más cerca de la meta dispara más alertas, falsas y verdaderas.</li>
+          <li><strong>Deterioro real</strong>: aleja la serie del umbral y facilita la detección.</li>
+          <li><strong>Exigir dos meses seguidos</strong>: elimina alertas aisladas, pero retrasa la detección del deterioro.</li>
+          </ul>`,
         montar: montarAlarmas,
       },
     ],

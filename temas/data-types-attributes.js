@@ -89,9 +89,26 @@
     intro: String.raw`
       <p>Antes de dibujar hay que saber <em>qué clase de dato</em> se tiene. Una tabla está formada por <strong>ítems</strong> (las filas) y <strong>atributos</strong> (las columnas), y cada atributo es de un tipo: <strong>categórico</strong>, <strong>ordinal</strong> o <strong>cuantitativo</strong>.</p>
       <p>El tipo no siempre es el que parece: un código postal es un número pero no se puede promediar. Clasificar bien decide qué canales visuales y qué operaciones son legítimas.</p>`,
+    parametros: [
+      ['Revisar y Borrar respuestas (Fig. 1)', String.raw`Revisar compara cada tipo elegido con el correcto y muestra la razón; Borrar respuestas vacía todas las elecciones.`],
+      ['Tipo de escala (Fig. 2)', String.raw`Nominal, ordinal, de intervalo o de razón. Cada una admite un conjunto distinto de operaciones con sentido.`],
+      ['Temperatura A y Temperatura B (Fig. 2)', String.raw`Dos valores en °C. Sirven para comprobar si B puede llamarse «el doble» de A.`],
+      ['Expresar en (Fig. 2)', String.raw`Unidad de la comparación: Celsius o kelvin. La razón entre valores cambia con la unidad en °C y no en kelvin, porque solo kelvin tiene cero absoluto.`],
+    ],
     visualizaciones: [
-      { titulo: 'Clasifique siete atributos', descripcion: 'Elija el tipo de cada atributo y revise; cada respuesta incluye la razón.', montar: montarClasificar },
-      { titulo: 'Qué operaciones tienen sentido', descripcion: 'Recorra las cuatro escalas y compruebe con la temperatura por qué la razón no es válida en °C.', montar: montarEscalas },
+      { titulo: 'Clasifique siete atributos', descripcion: 'Elija el tipo de cada atributo y revise; cada respuesta incluye la razón.',
+        ayuda: String.raw`<p>Tabla con siete atributos, valores de ejemplo, un desplegable de tipo y una columna de resultado. No hay colores: el resultado se escribe como texto.</p>
+          <ul>
+          <li><strong>Revisar</strong>: cada fila indica si el tipo es correcto y por qué; los atributos que parecen numéricos pero no lo son suelen fallar.</li>
+          <li><strong>Borrar respuestas</strong>: deja la tabla sin elecciones ni resultados.</li>
+          </ul>`, montar: montarClasificar },
+      { titulo: 'Qué operaciones tienen sentido', descripcion: 'Recorra las cuatro escalas y compruebe con la temperatura por qué la razón no es válida en °C.',
+        ayuda: String.raw`<p>A la izquierda, las operaciones por tipo de escala: en verde las que tienen sentido y en rojo las que no. A la derecha, los valores A (azul) y B (naranja) en la unidad elegida y su razón.</p>
+          <ul>
+          <li><strong>Tipo de escala</strong>: cambia qué operaciones aparecen en verde.</li>
+          <li><strong>Temperatura A / B</strong>: mueven los valores comparados.</li>
+          <li><strong>Expresar en</strong>: con kelvin la razón B/A coincide con el «doble» físico; con °C no, así que la temperatura en °C no es de razón.</li>
+          </ul>`, montar: montarEscalas },
     ],
     teoria: String.raw`
       <h2>Tipos de atributo</h2>

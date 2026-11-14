@@ -86,9 +86,25 @@
       <p>Los procesos están aislados a propósito, pero muchas veces deben cooperar. La <strong>comunicación entre procesos</strong> (IPC) ofrece al menos dos caminos: <strong>pasar mensajes</strong>
       (el núcleo copia los datos de un proceso a otro, como en tuberías y colas) o <strong>compartir memoria</strong> (ambos ven la misma región y ellos se coordinan).</p>
       <p>Las dos exigen sincronización: sin ella, el consumidor leería antes de que el productor escriba, o ambos pisarían los mismos datos.</p>`,
+    parametros: [
+      ['Bytes por escritura y Bytes por lectura (Fig. 1)', String.raw`Cuántos bytes mete el productor o saca el consumidor en cada operación. Si escribe más de lo que cabe o lee más de lo que hay, el proceso se bloquea.`],
+      ['Escribir, Leer y Reiniciar (Fig. 1)', String.raw`Escribir actúa como productor, Leer como consumidor y Reiniciar vacía la tubería.`],
+      ['Sincronizaciones por transferencia (Fig. 2)', String.raw`Cuántas veces hay que sincronizar (semáforo, cerrojo) por cada transferencia con memoria compartida. Cada una suma un costo fijo a esa alternativa.`],
+    ],
     visualizaciones: [
-      { titulo: 'Una tubería (pipe) con búfer acotado', descripcion: 'Escriba y lea con distintos tamaños. Llene la tubería para bloquear al productor y vacíela para bloquear al consumidor.', montar: montarTuberia },
-      { titulo: 'Mensajes frente a memoria compartida', descripcion: 'Compare el costo por transferencia según el tamaño. Observe a partir de qué tamaño conviene compartir memoria.', montar: montarCosto },
+      { titulo: 'Una tubería (pipe) con búfer acotado', descripcion: 'Escriba y lea con distintos tamaños. Llene la tubería para bloquear al productor y vacíela para bloquear al consumidor.',
+        ayuda: String.raw`<p>La tubería es un búfer acotado de celdas: las ocupadas son bytes escritos aún sin leer y las vacías, espacio libre. Los procesos que esperan (productor con la tubería llena, consumidor con la vacía) se marcan como bloqueados, según la leyenda.</p>
+          <ul>
+          <li><strong>Bytes por escritura</strong>: si supera el espacio libre, el productor se bloquea; así la tubería frena a un productor más rápido.</li>
+          <li><strong>Bytes por lectura</strong>: si supera lo disponible, el consumidor se bloquea hasta que haya datos.</li>
+          <li><strong>Escribir</strong>, <strong>Leer</strong>: llenan o vacían celdas en orden FIFO.</li>
+          </ul>`, montar: montarTuberia },
+      { titulo: 'Mensajes frente a memoria compartida', descripcion: 'Compare el costo por transferencia según el tamaño. Observe a partir de qué tamaño conviene compartir memoria.',
+        ayuda: String.raw`<p>El eje horizontal es el tamaño del mensaje (KB) y el vertical el tiempo por transferencia (µs). La curva azul es el paso de mensajes (llamadas y copias) y la naranja, la memoria compartida (solo sincronización).</p>
+          <ul>
+          <li><strong>Sincronizaciones por transferencia</strong>: sube o baja la curva naranja; con muchas sincronizaciones, compartir memoria deja de ser tan barato para mensajes pequeños.</li>
+          <li>El cruce de las curvas marca el tamaño desde el cual conviene compartir memoria: la copia del mensaje crece con el tamaño y la sincronización no.</li>
+          </ul>`, montar: montarCosto },
     ],
     teoria: String.raw`
       <h2>Mecanismos</h2>

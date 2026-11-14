@@ -73,15 +73,29 @@
       <p>Escribir todos los paréntesis vuelve las fórmulas ilegibles. Por eso se acuerdan <strong>reglas de precedencia</strong>: como en aritmética, \(2 + 3 \times 4\) significa \(2 + (3 \times 4)\) porque la multiplicación «liga más fuerte».
       En lógica, \(\neg\) liga más que \(\land\), este más que \(\lor\), luego \(\to\) y por último \(\leftrightarrow\).</p>
       <p>Las reglas son convenciones: sirven para reconstruir <em>un único</em> árbol sintáctico a partir del texto abreviado. Cuando no alcanzan —por ejemplo, con la misma operación repetida— hay ambigüedad, y a veces importa y a veces no.</p>`,
+    parametros: [
+      ['Fórmula (Fig. 1)', String.raw`La cadena con pocos o ningún paréntesis. Las reglas de precedencia deciden cómo se agrupa.`],
+      ['Conectivo repetido (Fig. 2)', String.raw`El conectivo que se repite en la cadena \(x_1 \circ x_2 \circ \cdots\).`],
+      ['Variables (Fig. 2)', String.raw`Cuántas variables hay en la cadena; con más variables hay más lecturas posibles.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los paréntesis que no se escriben',
         descripcion: 'Escriba una fórmula sin paréntesis y vea el árbol y la versión totalmente parentizada. Pruebe \\(p \\to q \\to r\\) y \\(p \\lor q \\land r\\).',
+        ayuda: String.raw`<p>El árbol muestra la agrupación elegida y el número bajo cada conectivo es su orden de ligadura (1 = se aplica primero). El registro da la versión totalmente parentizada.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: al añadir paréntesis cambia el orden de ligadura y la forma del árbol.</li>
+          </ul>`,
         montar: montarPrecedencia,
       },
       {
         titulo: 'Cuántas lecturas tiene una cadena',
         descripcion: 'Una cadena \\(x_1 \\circ x_2 \\circ \\cdots \\circ x_n\\) admite números de Catalan de lecturas. Compare cuántas funciones distintas producen con \\(\\land\\) y con \\(\\to\\).',
+        ayuda: String.raw`<p>Se cuentan las lecturas posibles de la cadena (números de Catalan) y cuántas funciones distintas producen.</p>
+          <ul>
+          <li><strong>Conectivo repetido</strong>: con \(\land\) todas las lecturas dan la misma función; con \(\to\) dan varias distintas.</li>
+          <li><strong>Variables</strong>: más variables multiplican las lecturas.</li>
+          </ul>`,
         montar: montarAmbiguedad,
       },
     ],

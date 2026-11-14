@@ -141,15 +141,31 @@
       sin experimentar. Los dos criterios gráficos más usados de Pearl dicen cuándo, y con qué fórmula.</p>
       <p>El <strong>criterio back-door</strong> indica qué variables controlar para cerrar los caminos de confusión (y cuáles no tocar). El
       <strong>criterio front-door</strong> permite estimar el efecto aun con un confusor no medido, si el efecto pasa por un mediador observado.</p>`,
+    parametros: [
+      ['Ajustar por {Z₁, Z₃}, Solo {Z₃} y Nada (Fig. 1)', String.raw`Eligen el conjunto de variables por el que se ajusta. Cada conjunto cierra o deja abiertos caminos back-door entre X e Y.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera una muestra simulada nueva.`],
+      ['Confusión oculta U (Fig. 2)', String.raw`Intensidad de la confusión por una variable no observada. A más confusión, más sesgo en la regresión ingenua.`],
+      ['Muestra n (Fig. 2)', String.raw`Tamaño de la muestra. Con más datos las estimaciones varían menos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Elegir el conjunto de ajuste',
         descripcion: 'Elija qué variables controlar y vea qué caminos back-door quedan abiertos y cuánto sesgo tiene la estimación.',
+        ayuda: String.raw`<p>Grafo con X, Y y las variables Z. Se marcan los nodos del conjunto de ajuste, los caminos back-door abiertos, los ajustes inválidos (descendientes de X) y el camino causal X → W → Y. El registro indica el sesgo.</p>
+          <ul>
+          <li><strong>Ajustar por {Z₁, Z₃}</strong>: cierra los caminos back-door sin abrir otros.</li>
+          <li><strong>Solo {Z₃}</strong>: deja caminos abiertos y queda sesgo.</li>
+          <li><strong>Nada</strong>: todos los caminos back-door siguen abiertos.</li>
+          </ul>`,
         montar: montarBackdoor,
       },
       {
         titulo: 'El criterio front-door',
         descripcion: 'Con confusión no medida, la regresión ingenua está sesgada; el estimador front-door no. Suba la confusión.',
+        ayuda: String.raw`<p>Estimaciones del efecto de X en Y (vertical): regresión ingenua, front-door a través de M, ajuste por U (imposible, porque no se observa) y efecto real.</p>
+          <ul>
+          <li><strong>Confusión oculta U</strong> alta: la regresión ingenua se aleja del efecto real; front-door sigue cerca.</li>
+          </ul>`,
         montar: montarFrontdoor,
       },
     ],

@@ -252,15 +252,34 @@
       un XOR; las mezclas aparecen como grupos o como OR.</p>
       <p>Además detecta <strong>dependencias de larga distancia</strong>: relaciones como «si se pagó con tarjeta, habrá boleta» que no son vecinas
       en las trazas y que un grafo local no puede expresar.</p>`,
+    parametros: [
+      ['Umbral de dependencia (Fig. 1 y 2)', String.raw`Medida mínima para conservar un enlace entre actividades. En la Fig. 2 es el umbral de larga distancia: mínimo para aceptar la dependencia entre actividades no consecutivas.`],
+      ['Frecuencia mínima de un enlace (Fig. 1)', String.raw`Cuántas veces debe aparecer un enlace para conservarlo; descarta enlaces raros.`],
+      ['Ruido y Casos (Fig. 1 y 2)', String.raw`Ruido es la fracción de trazas alteradas y Casos el tamaño del registro. Más ruido genera enlaces espurios.`],
+      ['Casos que rompen la regla (Fig. 2)', String.raw`Cuántos casos no cumplen la dependencia de larga distancia. Al aumentar, la dependencia pierde apoyo en el registro.`],
+      ['Nuevo registro (Fig. 1 y 2)', String.raw`Genera otro registro aleatorio con los mismos parámetros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De dependencias a C-Net',
         descripcion: 'Haga clic en d y compare sus enlaces: salidas {e} y {f,g} dan un split de grupos (×+); a abre {b,c} a la vez (AND). Suba el ruido y luego la frecuencia mínima para ver desaparecer los enlaces espurios.',
+        ayuda: String.raw`<p>C-Net: cada actividad tiene enlaces de entrada y salida, y las marcas de los enlaces indican cómo se activan: × elige un solo enlace (XOR), + los activa a la vez (AND), ×+ elige entre grupos que son AND y «o» es una mezcla (OR). La actividad elegida se resalta.</p>
+          <ul>
+          <li><strong>Umbral de dependencia</strong>: subirlo quita enlaces débiles y puede simplificar los splits y joins.</li>
+          <li><strong>Frecuencia mínima de un enlace</strong>: elimina enlaces espurios poco frecuentes.</li>
+          <li><strong>Ruido</strong>: más ruido añade enlaces espurios y puede volver mixtas (OR) compuertas que eran limpias.</li>
+          </ul>`,
         montar: montarCNet,
       },
       {
         titulo: 'Dependencias de larga distancia',
         descripcion: 'El grafo local acepta cuatro combinaciones, pero solo dos aparecen en el registro. Aumente los casos que rompen la regla hasta que la dependencia b ⇢ e caiga bajo el umbral y desaparezca.',
+        ayuda: String.raw`<p>Grafo local con dependencias directas y la dependencia de larga distancia detectada entre actividades no consecutivas, distinguidas por color según la leyenda.</p>
+          <ul>
+          <li><strong>Casos que rompen la regla</strong>: al subirlos, la dependencia b ⇢ e cae bajo el umbral y desaparece.</li>
+          <li><strong>Umbral de larga distancia</strong>: subirlo exige más apoyo y elimina antes la dependencia.</li>
+          <li><strong>Casos</strong>: cambia el tamaño del registro sobre el que se mide la dependencia.</li>
+          </ul>`,
         montar: montarLarga,
       },
     ],

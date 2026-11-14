@@ -331,15 +331,38 @@
       <p>En un computador la señal no es continua: se registra en <strong>muestras</strong> tomadas a intervalos regulares. La
       <em>transformada discreta de Fourier</em> (DFT) es la versión que opera sobre esas muestras, y su comportamiento tiene
       consecuencias sorprendentes, como frecuencias que se disfrazan de otras (aliasing).</p>`,
+    parametros: [
+      ['Muestras N (Fig. 1)', String.raw`Cuántas muestras se toman en un segundo, es decir, la frecuencia de muestreo. Solo frecuencias menores que \(N/2\) (Nyquist) se representan sin ambigüedad.`],
+      ['Ventana (Fig. 1)', String.raw`Rectangular (las muestras tal cual) o Hann (atenúa los extremos). Hann reduce la fuga espectral cuando la frecuencia no es entera.`],
+      ['Ruido (Fig. 1)', String.raw`Desviación estándar del ruido aleatorio sumado a la señal.`],
+      ['mostrar componentes (Fig. 1)', String.raw`Dibuja por separado cada una de las sinusoides que forman la señal.`],
+      ['Frecuencia y Amplitud 1, 2, 3 (Fig. 1)', String.raw`Las tres sinusoides que componen la señal: cuántas veces oscilan por segundo y qué tan grandes son.`],
+      ['Onda (Fig. 2)', String.raw`La onda periódica que se reconstruye: cuadrada, diente de sierra o triangular.`],
+      ['Términos no nulos K (Fig. 2)', String.raw`Cuántos términos de la serie de Fourier se suman.`],
+      ['Velocidad de giro y Pausar (Fig. 2)', String.raw`Velocidad de la animación de los círculos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Muestreo y espectro discreto',
         descripcion: 'Arriba, la señal compuesta por hasta tres sinusoides y sus N muestras. Abajo, la magnitud de su DFT. Lleve una frecuencia por encima de N/2 para ver el aliasing, o use frecuencias no enteras para ver la fuga espectral.',
+        ayuda: String.raw`<p>Arriba, la señal continua (gris), formada por hasta tres sinusoides, y sus \(N\) muestras (puntos negros). Abajo, la magnitud de su transformada discreta de Fourier (DFT): una barra por frecuencia entera de 0 a \(N/2\). Cada sinusoide aparece como un pico en su frecuencia, con altura proporcional a su amplitud.</p>
+          <ul>
+          <li><strong>Frecuencia</strong> por encima de \(N/2\): el pico aparece en otra frecuencia más baja (<em>aliasing</em>); las muestras no distinguen ambas sinusoides.</li>
+          <li><strong>Frecuencia</strong> no entera: el pico se reparte entre varias barras vecinas (fuga espectral). La <strong>ventana</strong> Hann concentra esa energía.</li>
+          <li><strong>Ruido</strong>: aparece un piso de barras pequeñas en todas las frecuencias, pero los picos siguen visibles.</li>
+          <li><strong>Muestras N</strong> mayor sube el límite de Nyquist y permite ver frecuencias más altas.</li>
+          </ul>`,
         montar: montarEspectro,
       },
       {
         titulo: 'Series de Fourier y el fenómeno de Gibbs',
         descripcion: 'Una onda periódica reconstruida con sus primeros K términos de Fourier, representados como una cadena de círculos giratorios.',
+        ayuda: String.raw`<p>A la izquierda, una cadena de círculos: cada uno gira con frecuencia \(k\) y radio \(|b_k|\), y la altura de la punta (naranja) dibuja la suma parcial \(S_K(t)\) (azul) a su derecha, junto a la onda objetivo (gris). Abajo, los coeficientes \(b_k\).</p>
+          <ul>
+          <li><strong>Términos K</strong>: al sumar más términos la aproximación se ajusta mejor y el error cuadrático baja.</li>
+          <li>Con la onda <strong>cuadrada</strong> o el <strong>diente de sierra</strong>, cerca de cada salto queda un sobrepaso de casi 9 % que no desaparece al aumentar K: el fenómeno de Gibbs. Solo se angosta.</li>
+          <li>La <strong>triangular</strong> es continua: sus coeficientes decaen más rápido y no hay sobrepaso.</li>
+          </ul>`,
         montar: montarSerie,
       },
     ],

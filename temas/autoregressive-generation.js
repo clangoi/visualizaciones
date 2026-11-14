@@ -145,9 +145,24 @@
     intro: String.raw`
       <p>Un <strong>modelo de lenguaje</strong> asigna probabilidades a la siguiente pieza de un texto dado lo anterior. Si se sortea esa pieza, se agrega al texto y se repite, se obtiene <strong>generación autorregresiva</strong>: cada salida pasa a ser parte de la entrada del siguiente paso.</p>
       <p>Esta página usa el modelo de lenguaje más simple, uno que cuenta qué letra sigue a cada contexto de \(k\) letras; una red recurrente o un Transformer hacen lo mismo, pero con una función aprendida que generaliza a contextos no vistos. Lo que se aprende aquí —contexto, temperatura, perplejidad, sobreajuste— vale para todos.</p>`,
+    parametros: [
+      ['Contexto (letras que mira el modelo) (Fig. 1)', String.raw`Cuántas letras anteriores usa el modelo para predecir la siguiente. Con 0 solo conoce la frecuencia de cada letra.`],
+      ['Temperatura (Fig. 1)', String.raw`Controla qué tan afilada es la distribución. Baja favorece la letra más probable; alta reparte la elección entre más letras.`],
+      ['Otra semilla y reproductor (Fig. 1)', String.raw`Otra semilla cambia los sorteos al muestrear; el reproductor genera letra por letra.`],
+      ['Suavizado α (Fig. 2)', String.raw`Cuenta ficticia que se suma a cada letra posible. Evita probabilidad cero para contextos no vistos, pero con valores grandes aplana las predicciones.`],
+    ],
     visualizaciones: [
-      { titulo: 'Generar letra por letra', descripcion: 'Genere con contexto 1, 3 y 6, y con temperaturas 0,3 y 1,5. Mire la distribución de la siguiente letra en cada paso.', montar: montarGenerar },
-      { titulo: 'Perplejidad según el contexto', descripcion: 'Compare la perplejidad en el texto de entrenamiento y en uno no visto. ¿Cuántas letras de contexto convienen?', montar: montarPerplejidad },
+      { titulo: 'Generar letra por letra', descripcion: 'Genere con contexto 1, 3 y 6, y con temperaturas 0,3 y 1,5. Mire la distribución de la siguiente letra en cada paso.',
+        ayuda: String.raw`<p>Cada barra azul es la probabilidad de una letra candidata para la siguiente posición; la naranja marca la letra elegida al muestrear. La letra elegida se añade al texto y pasa a ser parte del contexto del paso siguiente.</p>
+          <ul>
+          <li><strong>Contexto</strong>: con 1 la salida suena a letras sueltas; con 6 copia con más fidelidad el texto de entrenamiento.</li>
+          <li><strong>Temperatura</strong>: con 0,3 una barra domina y casi siempre se elige; con 1,5 las barras se igualan y aparecen letras raras.</li>
+          </ul>`, montar: montarGenerar },
+      { titulo: 'Perplejidad según el contexto', descripcion: 'Compare la perplejidad en el texto de entrenamiento y en uno no visto. ¿Cuántas letras de contexto convienen?',
+        ayuda: String.raw`<p>Eje horizontal: letras de contexto; eje vertical: perplejidad en escala logarítmica. La curva azul es el texto de entrenamiento, la naranja el texto no visto y la gris, adivinar al azar.</p>
+          <ul>
+          <li><strong>Suavizado α</strong>: con α pequeño la perplejidad de entrenamiento cae pero la del texto no visto sube con contextos largos (sobreajuste); un α mayor las acerca a costa de predecir peor.</li>
+          </ul>`, montar: montarPerplejidad },
     ],
     teoria: String.raw`
       <h2>Factorización autorregresiva</h2>

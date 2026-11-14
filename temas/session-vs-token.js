@@ -102,9 +102,24 @@
       <p>Hay dos grandes maneras de recordar quién es un usuario entre peticiones. En la <strong>sesión</strong> el estado vive en el <em>servidor</em> y el cliente guarda solo un identificador.
       En el <strong>token</strong> (por ejemplo un JWT) el estado viaja <em>con el cliente</em>, firmado para que no pueda alterarse.</p>
       <p>Cada modelo resuelve bien un problema y empeora otro: revocar un acceso, repartir la carga entre muchos servidores, el tamaño de las peticiones o la exposición a ciertos ataques.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`Cómo se reconoce al usuario entre varios servidores: sesión en la memoria de cada uno, sesión en un almacén compartido o token firmado. Cambia dónde está la información de la sesión.`],
+      ['Enviar una petición, Enviar 20 y Reiniciar (Fig. 1)', String.raw`Envían una o veinte peticiones a través del balanceador; Reiniciar pone en cero los contadores.`],
+      ['Importancia (Fig. 2)', String.raw`Peso de cada criterio en una escala de 0 a 5. Refleja qué le importa más a su aplicación.`],
+    ],
     visualizaciones: [
-      { titulo: 'Varios servidores y una sesión', descripcion: 'Envíe peticiones a través de un balanceador con cada estrategia: vea cuándo un servidor «no reconoce» al usuario y cuántas consultas extra implica cada solución.', montar: montarEscala },
-      { titulo: 'Qué conviene según sus prioridades', descripcion: 'Ajuste la importancia de cada criterio y compare el puntaje de ambas opciones; pase el cursor sobre una barra para ver el desglose.', montar: montarDecision },
+      { titulo: 'Varios servidores y una sesión', descripcion: 'Envíe peticiones a través de un balanceador con cada estrategia: vea cuándo un servidor «no reconoce» al usuario y cuántas consultas extra implica cada solución.',
+        ayuda: String.raw`<p>Tres servidores tras un balanceador. Verde indica petición aceptada, rojo rechazada porque el servidor no conoce la sesión y violeta consulta al almacén compartido; los contadores resumen aciertos, fallos y consultas.</p>
+          <ul>
+          <li><strong>Estrategia</strong> de sesión local: las peticiones que caen en un servidor distinto al del login se rechazan.</li>
+          <li><strong>Estrategia</strong> con almacén compartido: todas se aceptan, pero cada una cuesta una consulta extra.</li>
+          <li><strong>Estrategia</strong> con token: se aceptan todas sin consultar nada, porque cada servidor verifica la firma.</li>
+          </ul>`, montar: montarEscala },
+      { titulo: 'Qué conviene según sus prioridades', descripcion: 'Ajuste la importancia de cada criterio y compare el puntaje de ambas opciones; pase el cursor sobre una barra para ver el desglose.',
+        ayuda: String.raw`<p>Una barra por opción, naranja la sesión en el servidor y azul el token firmado (JWT); su longitud es el puntaje ponderado por la importancia de cada criterio.</p>
+          <ul>
+          <li><strong>Importancia</strong>: subir un criterio hace crecer la barra de la opción que lo cumple mejor; la que gana depende de sus prioridades.</li>
+          </ul>`, montar: montarDecision },
     ],
     teoria: String.raw`
       <h2>Comparación</h2>

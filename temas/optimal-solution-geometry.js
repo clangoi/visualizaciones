@@ -357,15 +357,34 @@
       <p>Para optimizar \(c^\top x\) sobre una región poligonal, imagine una recta perpendicular a \(c\) que se desliza en la dirección de mejora hasta el último punto en que aún toca la región.
       Ese último contacto es el óptimo, y casi siempre es una <strong>esquina</strong>. Cuando la recta queda paralela a un lado, el contacto es una <strong>arista entera</strong> y hay infinitos óptimos con el mismo valor.</p>
       <p>Si la región es abierta en la dirección de mejora, la recta nunca deja de tocar: el problema es <strong>no acotado</strong> y no hay óptimo. Y si no hay puntos factibles, tampoco. Estos son los únicos casos posibles de un LP, y por eso los algoritmos basta con que recorran vértices.</p>`,
+    parametros: [
+      ['Región (Fig. 1)', String.raw`Elige la región; con la no acotada algunas direcciones de c dan problema no acotado.`],
+      ['Ángulo de c (Fig. 1 y 2)', String.raw`La dirección del objetivo. Girarla cambia el vértice óptimo; en ciertos ángulos el óptimo se extiende a una arista.`],
+      ['Minimizar c·x (Fig. 1)', String.raw`Cambia el sentido de la mejora a minimizar.`],
+      ['Saltar al siguiente ángulo de arista (Fig. 1)', String.raw`Lleva c al siguiente ángulo con arista óptima.`],
+      ['Siguiente vértice e Ir al vértice óptimo (Fig. 2)', String.raw`Cambian el vértice elegido o lo llevan al óptimo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Gire la función objetivo',
         descripcion: 'Gire c por toda la circunferencia: el óptimo salta de vértice en vértice y, en los ángulos 0°, 45°, 90°, 135°, 180° y 270°, se extiende a una arista. Cambie a la región no acotada y busque los ángulos sin óptimo.',
+        ayuda: String.raw`<p>Se dibujan la región factible, la dirección de mejora con la curva de nivel óptima, el conjunto de óptimos, otras curvas de nivel y las direcciones que mejoran sin límite.</p>
+          <ul>
+          <li><strong>Ángulo de c</strong>: el óptimo salta de vértice en vértice; en 0°, 45°, 90°, 135°, 180° y 270° se extiende a una arista.</li>
+          <li><strong>Minimizar c·x</strong>: invierte el sentido y elige el vértice opuesto.</li>
+          <li><strong>Región</strong>: en la no acotada, algunos ángulos dan una dirección sin límite.</li>
+          </ul>`,
         montar: montarGiro,
       },
       {
         titulo: 'c dentro del cono de normales',
         descripcion: 'Elija un vértice y gire c: solo en el óptimo c cae dentro del cono que forman las normales de las restricciones activas. Los coeficientes que expresan c en esas normales son los multiplicadores (variables duales).',
+        ayuda: String.raw`<p>Desde el vértice elegido salen c y las normales aᵢ de sus restricciones activas, y se sombrea el cono que forman. Si c está dentro del cono, el vértice es óptimo; si no, el cono se muestra aparte.</p>
+          <ul>
+          <li><strong>Ángulo de c</strong>: sólo en el óptimo cae dentro del cono.</li>
+          <li><strong>Siguiente vértice</strong>: cambia el cono y la posición de c.</li>
+          <li><strong>Ir al vértice óptimo</strong>: c queda dentro del cono; sus coeficientes son los multiplicadores.</li>
+          </ul>`,
         montar: montarCono,
       },
     ],

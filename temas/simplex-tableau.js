@@ -385,20 +385,43 @@
       elige una variable que entra, se descubre cuál debe salir antes de violar alguna restricción y se reescribe la tabla.</p>
       <p>Cada tableau corresponde a un vértice; cada pivote, a un paso por una arista que no empeora \(z\). El algoritmo termina cuando ninguna
       variable puede mejorar el objetivo.</p>`,
+    parametros: [
+      ['c₁ (beneficio de x₁) y c₂ (beneficio de x₂) (Fig. 1 y 2)', String.raw`Son los coeficientes de la función objetivo; fijan la pendiente de la recta de nivel y qué columna tiene el costo reducido más negativo.`],
+      ['Regla de entrada (Fig. 1 y 2)', String.raw`Criterio para elegir la variable que entra: Dantzig toma el costo reducido más negativo; las otras reglas pueden dar otro camino y otro número de pivotes.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Un paso aplica el pivote marcado y muestra el siguiente tableau o vértice; Reiniciar vuelve al origen.`],
+      ['Problema (Fig. 3)', String.raw`Elige el problema de partida (el de Chvátal, uno al azar u otros), cuyo tableau inicial se pivota a mano.`],
+      ['Pivotar, Sugerir Dantzig, Deshacer y Reiniciar (Fig. 3)', String.raw`Pivotar ejecuta el pivote de la columna que usted eligió; Sugerir Dantzig marca la columna que elegiría esa regla; Deshacer y Reiniciar retroceden.`],
+      ['Nuevos datos (Fig. 3)', String.raw`Genera otro problema aleatorio (solo actúa si el problema elegido es el aleatorio).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Simplex paso a paso en el tableau',
         descripcion: 'Avance iteración por iteración y mire la columna entrante, la prueba de razón y la fila saliente. Cambie \\(c_1\\) y \\(c_2\\), y compare cómo cambian las variables que entran con la regla de Dantzig y la de Bland.',
+        ayuda: String.raw`<p>La tabla es el tableau: columnas de variables y lado derecho, y la última fila con los costos reducidos (en negrita los negativos). La columna azul es la entrante, la fila naranja la saliente (menor razón) y la celda violeta el pivote.</p>
+          <ul>
+          <li><strong>c₁, c₂</strong>: cambian los costos reducidos iniciales y, con ellos, qué variable entra primero.</li>
+          <li><strong>Regla de entrada</strong>: con otra regla la columna azul puede ser distinta y el número de iteraciones cambia.</li>
+          </ul>`,
         montar: montarIteraciones,
       },
       {
         titulo: 'El recorrido sobre el plano',
         descripcion: 'El camino de vértices en el plano que corresponde a cada tableau. Arrastre la punta del vector \\(c\\) para ver cómo cambia la ruta: siempre sube por aristas hasta que \\(c\\) forma un ángulo obtuso con todas las salientes.',
+        ayuda: String.raw`<p>El polígono es la región factible; los puntos recorridos son los vértices que visita el Simplex, el actual muestra el próximo movimiento, y el verde es el óptimo. El vector \(c\) se arrastra por su punta y la recta de nivel \(z=c\cdot x\) pasa por el vértice actual.</p>
+          <ul>
+          <li><strong>Regla de entrada</strong>: cambia la arista por la que se sale de cada vértice y por tanto el camino.</li>
+          <li>Al mover \(c\) la recta de nivel gira; el Simplex se detiene cuando ninguna arista mejora \(z\).</li>
+          </ul>`,
         montar: montarRecorrido,
       },
       {
         titulo: 'Elija usted la variable entrante',
         descripcion: 'Elija la columna que entra, vea la prueba de razón y pivote. Pruebe a vencer a Dantzig en el problema «Dantzig tarda más que Bland»: el mínimo posible lo dice la lectura.',
+        ayuda: String.raw`<p>El tableau usa los mismos colores: bordes azules en columnas con costo reducido negativo (candidatas), fila naranja y pivote violeta tras elegir la entrante. La lectura compara sus pivotes con Dantzig, Bland y el mínimo posible.</p>
+          <ul>
+          <li><strong>Problema</strong>: cada uno tiene un mínimo de pivotes distinto; en «Dantzig tarda más que Bland» se puede mejorar a Dantzig.</li>
+          <li><strong>Pivotar</strong> y <strong>Deshacer</strong>: permiten probar caminos alternativos y contar pivotes.</li>
+          </ul>`,
         montar: montarEleccion,
       },
     ],

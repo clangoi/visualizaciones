@@ -101,9 +101,26 @@
       <p>Una red feedforward trata cada dato por separado. Pero muchos datos son <strong>secuencias</strong>: palabras de una frase, lecturas de un sensor, notas de una melodía; lo que importa de cada elemento depende de lo que vino antes.
       Una <strong>red recurrente</strong> (RNN) procesa la secuencia un paso a la vez y mantiene un <strong>estado oculto</strong> (<em>hidden state</em>) \(h_t\): un resumen, que ella misma aprende a escribir, de todo lo visto hasta \(t\).</p>
       <p>Los mismos pesos se usan en todos los pasos (como el kernel de una CNN se comparte en el espacio, aquí se comparte en el tiempo), así que la red acepta secuencias de cualquier largo con un número fijo de parámetros.</p>`,
+    parametros: [
+      ['Pasos de ruido tras la señal (Fig. 1)', String.raw`Cuántos pasos sin información separan el primer símbolo del final de la secuencia. Más pasos obligan al estado oculto a conservar el recuerdo durante más tiempo.`],
+      ['Neuronas del estado oculto (Fig. 1)', String.raw`Tamaño de la memoria de la red. Con pocas neuronas hay menos capacidad para guardar el primer símbolo.`],
+      ['Otra semilla y reproductor (Fig. 1)', String.raw`Otra semilla genera otros pesos y datos de entrenamiento; el reproductor entrena la red y la reinicia al cambiar un parámetro.`],
+      ['Tamaño del impulso en t = 0 (Fig. 2)', String.raw`Intensidad de la entrada única que recibe la red en el primer paso. Escala todo el rastro del estado, pero no cambia cuánto tarda en desvanecerse.`],
+      ['Peso de entrada u (Fig. 2)', String.raw`Cuánto pesa esa entrada al entrar en el estado. Con un peso mayor el estado arranca más lejos de cero.`],
+    ],
     visualizaciones: [
-      { titulo: 'El estado oculto guarda el pasado', descripcion: 'Entrene la red y compare el estado oculto de dos secuencias que solo difieren en su primer símbolo. Aumente los pasos de ruido para dificultar la memoria.', montar: montarEstado },
-      { titulo: 'Cuánto dura un recuerdo', descripcion: 'Compare cuatro pesos recurrentes ante un impulso aislado y vea cuál «recuerda» más tiempo.', montar: montarImpulso },
+      { titulo: 'El estado oculto guarda el pasado', descripcion: 'Entrene la red y compare el estado oculto de dos secuencias que solo difieren en su primer símbolo. Aumente los pasos de ruido para dificultar la memoria.',
+        ayuda: String.raw`<p>Cada fila es una secuencia y cada columna, un paso de tiempo; las celdas muestran las neuronas del estado oculto: azul para activación positiva y naranja para negativa. Las dos secuencias solo difieren en su primer símbolo, así que cualquier diferencia entre sus estados es memoria de ese símbolo.</p>
+          <ul>
+          <li><strong>Pasos de ruido tras la señal</strong>: al aumentarlos, las diferencias entre ambos estados se apagan hacia el final; la red olvida el primer símbolo.</li>
+          <li><strong>Neuronas del estado oculto</strong>: con más neuronas aparecen más filas y suele quedar más rastro de la señal inicial.</li>
+          </ul>`, montar: montarEstado },
+      { titulo: 'Cuánto dura un recuerdo', descripcion: 'Compare cuatro pesos recurrentes ante un impulso aislado y vea cuál «recuerda» más tiempo.',
+        ayuda: String.raw`<p>Cada curva muestra el estado \(h_t\) en el tiempo \(t\) tras un único impulso en \(t=0\), una por cada peso recurrente de la leyenda.</p>
+          <ul>
+          <li><strong>Tamaño del impulso</strong>: sube o baja el punto de partida de todas las curvas en la misma proporción.</li>
+          <li><strong>Peso de entrada u</strong>: cambia la altura del primer valor; las curvas con peso recurrente pequeño caen rápido y las de peso cercano a 1 persisten más.</li>
+          </ul>`, montar: montarImpulso },
     ],
     teoria: String.raw`
       <h2>La recurrencia</h2>

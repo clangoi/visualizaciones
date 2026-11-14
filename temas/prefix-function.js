@@ -122,15 +122,31 @@
     intro: String.raw`
       <p>Para no repetir comparaciones hay que saber qué parte de lo leído sigue siendo útil después de un fallo. La respuesta está en los <strong>bordes</strong> del patrón: un borde de una palabra es una parte de ella que es <em>a la vez prefijo y sufijo</em> (y distinta de toda la palabra). En «ababa», «a» y «aba» son bordes.</p>
       <p>La <strong>función de prefijos</strong> \(\pi\) guarda, para cada prefijo del patrón, el largo de su borde más largo. Con ella se puede construir un autómata de búsqueda y saltarse comparaciones sin perder ninguna ocurrencia.</p>`,
+    parametros: [
+      ['Ejemplos y Patrón (hasta 14) (Fig. 1)', String.raw`El patrón cuya función de prefijos se calcula. Sus repeticiones internas dan bordes largos.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso extiende el cálculo un carácter y, si no continúa el borde, prueba con el borde del borde.`],
+      ['Autómata y Palabra (Fig. 2)', String.raw`El patrón del que se construye el autómata de búsqueda y el texto que lee.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza un símbolo del texto y mueve el estado.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Calcular la función de prefijos',
         descripcion: 'Avance paso a paso: k es el largo del borde actual. Si el siguiente carácter no continúa el borde, se prueba con el borde del borde. Haga clic en una columna para ver su borde.',
+        ayuda: String.raw`<p>Para cada posición i se muestra \(\pi[i]\), el largo del mayor borde de \(p[0..i]\): un prefijo del patrón que también es sufijo de ese tramo. Los colores marcan el prefijo, el sufijo, el carácter que coincide y el que no.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: k es el largo del borde actual; si el siguiente carácter no continúa el borde, k baja al borde del borde.</li>
+          <li><strong>Clic en una columna</strong>: muestra el borde de esa posición.</li>
+          </ul>`,
         montar: montarPrefijos,
       },
       {
         titulo: 'El autómata de búsqueda del patrón',
         descripcion: 'Un AFD con m + 1 estados reconoce todos los textos que terminan en el patrón. Lea un texto y observe cómo el estado coincide con el prefijo emparejado.',
+        ayuda: String.raw`<p>Un AFD con m + 1 estados. El estado j es la longitud del mayor prefijo del patrón que es sufijo de lo leído; el doble círculo es el estado m, que indica una ocurrencia. Las transiciones que retroceden son los saltos de la función de prefijos.</p>
+          <ul>
+          <li><strong>Autómata</strong>: patrones con bordes largos como «aaaa» tienen más transiciones hacia atrás.</li>
+          <li><strong>Palabra</strong>: cada vez que el estado llega a m hay una ocurrencia que termina en ese símbolo.</li>
+          </ul>`,
         montar: montarAutomata,
       },
     ],

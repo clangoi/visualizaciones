@@ -349,15 +349,34 @@
       etiquetas de antemano: es aprendizaje <em>no supervisado</em>. El método k-medias representa cada grupo por un punto, su
       <strong>centroide</strong>, y asigna cada dato al centroide más cercano. Se usa para segmentar clientes, comprimir colores de
       imágenes (cuantización), inicializar otros modelos o simplemente explorar la estructura de unos datos.</p>`,
+    parametros: [
+      ['k (centroides) (Fig. 1)', String.raw`Cuántos grupos busca el algoritmo.`],
+      ['Inicialización (Fig. 1)', String.raw`Dónde se ubican los centroides al comienzo: k-means++ (alejados entre sí, con probabilidad proporcional a la distancia), Forgy (k datos al azar) o uniformes en el plano. Una mala inicialización puede llevar a un mínimo local.`],
+      ['Grupos reales, Puntos y Dispersión σ (Fig. 1)', String.raw`Cómo se generan los datos: cuántas manchas hay, cuántos puntos en total y qué tan anchas son.`],
+      ['mostrar regiones de Voronoi (Fig. 1)', String.raw`Colorea el fondo según el centroide más cercano.`],
+      ['Ejecutar, Un paso, Nuevos centroides, Nuevos datos (Fig. 1)', String.raw`Corren el algoritmo, avanzan una fase (asignar o actualizar), reinician los centroides o sortean otros datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El algoritmo de Lloyd',
         descripcion: 'Alterna dos pasos: <em>asignar</em> cada punto al centroide más cercano y <em>actualizar</em> cada centroide al promedio de sus puntos. El fondo muestra la región de cada centroide; la línea punteada, su recorrido. Cada grupo tiene además una forma distinta.',
+        ayuda: String.raw`<p>Los puntos son los datos y las cruces, los centroides; el color de cada punto indica su grupo actual. El fondo muestra la región de cada centroide (los puntos más cercanos a él que a cualquier otro). La línea punteada es el recorrido de cada centroide.</p>
+          <ul>
+          <li>Cada iteración alterna dos fases: <strong>asignar</strong> cada punto al centroide más cercano y <strong>actualizar</strong> cada centroide al promedio de sus puntos. La inercia \(J\) nunca sube.</li>
+          <li><strong>k</strong> distinto de «Grupos reales»: con menos, el algoritmo une manchas; con más, divide alguna.</li>
+          <li><strong>Inicialización</strong> uniforme o Forgy: pulse varias veces «Nuevos centroides» hasta ver una solución con dos centroides en una mancha y ninguno en otra (mínimo local). Con k-means++ ocurre mucho menos.</li>
+          <li>Más <strong>dispersión σ</strong> hace que las manchas se superpongan y los grupos dejen de ser evidentes.</li>
+          </ul>`,
         montar: montarLloyd,
       },
       {
         titulo: 'Elegir k: el método del codo',
         descripcion: 'La inercia siempre disminuye al aumentar k; el «codo» marca el punto desde el cual agregar grupos deja de reducirla de forma importante.',
+        ayuda: String.raw`<p>Para cada \(k\) de 1 a 10 (eje horizontal), la menor inercia obtenida con k-means++ sobre los datos de la figura 1: la suma de distancias al cuadrado de cada punto a su centroide.</p>
+          <ul>
+          <li>La curva siempre baja, porque más centroides siempre ajustan mejor. Lo que importa es dónde deja de bajar mucho: el «codo».</li>
+          <li>Cambie «Grupos reales» o «Dispersión σ» en la figura 1: con manchas bien separadas el codo es nítido y cae en el número real de grupos; con mucha dispersión se vuelve difuso.</li>
+          </ul>`,
         montar: montarCodo,
       },
     ],

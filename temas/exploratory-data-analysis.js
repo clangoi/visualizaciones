@@ -174,15 +174,30 @@
       (EDA, por sus siglas en inglés), propuesto por John Tukey como contrapeso a la estadística puramente confirmatoria.</p>
       <p>El problema es que la pantalla tiene dos dimensiones y los datos, muchas. Las matrices de dispersión y las coordenadas
       paralelas son dos formas clásicas de ver varias dimensiones a la vez.</p>`,
+    parametros: [
+      ['colorear por especie (Fig. 1)', String.raw`Colorea los puntos según la especie. Permite comparar la correlación de un par de variables en todos los datos con la que hay dentro de cada especie.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra de flores sintéticas.`],
+      ['Limpiar filtros (Fig. 2)', String.raw`Quita todos los filtros de los ejes y vuelve a mostrar todas las flores.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Matriz de dispersión',
         descripcion: 'Todas las vistas de a pares de cuatro variables de flores sintéticas. Compare la correlación total de un par con la que hay dentro de cada especie.',
+        ayuda: String.raw`<p>Es una matriz de gráficos de dispersión de cuatro variables: cada celda fuera de la diagonal enfrenta un par de variables y la diagonal indica la variable. Cada punto es una flor.</p>
+          <ul>
+          <li><strong>colorear por especie</strong>: activada, se ve que la correlación global de un par puede venir de la diferencia entre especies y ser distinta (o nula) dentro de cada una.</li>
+          <li><strong>Nuevos datos</strong>: otra muestra con la misma estructura.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Coordenadas paralelas con filtros',
         descripcion: 'Las cuatro variables como ejes verticales. Filtre por largo de pétalo y observe qué especies quedan y qué valores toman en los otros ejes.',
+        ayuda: String.raw`<p>Cada eje vertical es una variable y cada flor, una línea que cruza los cuatro ejes, con el color de su especie. Las líneas fuera del filtro aparecen atenuadas y los filtros se marcan sobre los ejes.</p>
+          <ul>
+          <li><strong>Filtros</strong> sobre un eje: quedan resaltadas las flores en ese rango, y se ve qué especies son y qué valores toman en los otros ejes.</li>
+          <li><strong>Limpiar filtros</strong>: vuelven todas las líneas.</li>
+          </ul>`,
         montar: montarParalelas,
       },
     ],

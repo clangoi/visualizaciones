@@ -167,15 +167,30 @@
       cambian los datos de maneras cuyo resultado esperado se conoce y comprueban que el método se comporta como debería.</p>
       <p>Pasar estas pruebas no demuestra que la estimación sea correcta, pero fallarlas sí revela problemas. El <strong>análisis de sensibilidad</strong>
       complementa: cuantifica cuán fuerte tendría que ser un confusor no medido para cambiar la conclusión.</p>`,
+    parametros: [
+      ['Confusor no medido U (Fig. 1)', String.raw`La fuerza con que una variable U, que no se midió, influye a la vez en el tratamiento y en el resultado. Al subirla, la estimación del efecto se sesga, aunque las pruebas de refutación no lo detecten.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada y repite las estimaciones.`],
+      ['Celdas de la rejilla (Fig. 2)', String.raw`No hay controles; cada celda representa un confusor con cierta fuerza sobre el tratamiento y sobre el resultado, y un clic en ella muestra su efecto estimado.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Pruebas de refutación',
         descripcion: 'Placebo, causa común aleatoria y subconjunto de datos, cada una repetida 100 veces. Suba el confusor no medido y observe qué pruebas lo notan.',
+        ayuda: String.raw`<p>Cada fila es una prueba de refutación. El punto es el efecto estimado y la barra, el rango del 95 % en 100 repeticiones; se comparan con la estimación original y con el valor que debería dar la prueba (0 para el placebo; el efecto original para las otras dos). Una línea marca el efecto real (2).</p>
+          <ul>
+          <li><strong>Confusor no medido U</strong>: al subirlo, la estimación original se aleja del efecto real, pero las tres pruebas siguen dando el valor esperado: no detectan confusores que no se midieron.</li>
+          <li><strong>Nuevos datos</strong>: la estimación cambia de una muestra a otra, lo que ayuda a ver cuánto de ese movimiento es azar.</li>
+          </ul>`,
         montar: montarRefutar,
       },
       {
         titulo: 'Análisis de sensibilidad',
         descripcion: 'El efecto estimado bajo confusores no medidos de distinta fuerza. La línea roja separa donde la conclusión cambia.',
+        ayuda: String.raw`<p>Cada celda es un confusor no medido: el eje horizontal es su fuerza sobre el tratamiento y el vertical, sobre el resultado. El color indica si el efecto estimado se mantiene o se anula; una frontera marca donde el efecto baja a 1, la mitad del original.</p>
+          <ul>
+          <li><strong>Nuevos datos</strong>: recalcula la rejilla con otra muestra; la frontera se desplaza un poco, lo que da idea de su incertidumbre.</li>
+          <li><strong>Clic en una celda</strong>: muestra el efecto estimado para esa combinación de fuerzas; cuanto más lejos de la esquina inferior izquierda, más se reduce el efecto.</li>
+          </ul>`,
         montar: montarSensibilidad,
       },
     ],

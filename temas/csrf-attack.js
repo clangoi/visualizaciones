@@ -72,9 +72,26 @@
       <p>Los navegadores adjuntan <strong>automáticamente</strong> las cookies de un sitio a cualquier petición que se le haga, sin importar qué página la originó. Un atacante puede aprovecharlo:
       si usted está conectado a su banco y visita una página maliciosa, esta puede hacer que su navegador envíe una petición al banco <em>con su cookie de sesión</em>.</p>
       <p>Eso es <strong>CSRF</strong> (<em>Cross-Site Request Forgery</em>): el atacante no roba la sesión, la <em>usa</em> sin que usted lo sepa. Afecta a las acciones que cambian datos.</p>`,
+    parametros: [
+      ['Atributo SameSite de la cookie (Fig. 1)', String.raw`Regla que indica al navegador cuándo adjuntar la cookie de sesión a peticiones originadas en otros sitios. Cuanto más estricta, menos probable que el ataque llegue con sesión.`],
+      ['Token anti-CSRF y verificación de Origin (Fig. 1)', String.raw`Defensas del servidor: exigir un secreto por sesión que evil.com no puede leer, o comprobar que la petición venga del propio dominio. Cada una corta el ataque en un paso distinto.`],
+      ['SameSite de la cookie de sesión (Fig. 2)', String.raw`El mismo atributo aplicado a cinco situaciones de navegación; muestra cuáles envían la cookie y cuáles no.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un ataque CSRF y sus defensas', descripcion: 'Recorra el ataque contra un banco y active una defensa a la vez (SameSite, token anti-CSRF, verificación de Origin) para ver dónde se corta.', montar: montarAtaque },
-      { titulo: 'Cuándo se envía la cookie según SameSite', descripcion: 'Cambie el valor de SameSite y compare cinco situaciones: cuáles permiten el ataque y cuáles dejan sin sesión al usuario legítimo.', montar: montarMatriz },
+      { titulo: 'Un ataque CSRF y sus defensas', descripcion: 'Recorra el ataque contra un banco y active una defensa a la vez (SameSite, token anti-CSRF, verificación de Origin) para ver dónde se corta.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre Ana, el banco y evil.com: cada flecha es un mensaje (login, visita al sitio malicioso, formulario oculto, respuesta del banco). Los colores distinguen acción legítima, trampa del atacante, ataque exitoso y ataque bloqueado.</p>
+          <ul>
+          <li><strong>Atributo SameSite</strong> en «None»: la cookie viaja en el envío cruzado y el ataque termina en «transferencia hecha». Con un valor más estricto, el banco recibe la petición sin sesión y responde «401».</li>
+          <li><strong>token anti-CSRF</strong>: el formulario de evil.com no puede incluir el token, y el banco rechaza con «403» aunque la cookie sea válida.</li>
+          <li><strong>verifica la cabecera Origin</strong>: el banco detecta que el origen no es el suyo y rechaza; el corte ocurre en un paso distinto al del token.</li>
+          </ul>`, montar: montarAtaque },
+      { titulo: 'Cuándo se envía la cookie según SameSite', descripcion: 'Cambie el valor de SameSite y compare cinco situaciones: cuáles permiten el ataque y cuáles dejan sin sesión al usuario legítimo.',
+        ayuda: String.raw`<p>Cada fila de la tabla es una situación de navegación; las columnas indican si la cookie se envía y si eso permite el ataque o deja sin sesión al usuario legítimo.</p>
+          <ul>
+          <li><strong>SameSite</strong> en «None»: la cookie se envía en todas las situaciones, incluidas las del atacante.</li>
+          <li>En «Lax» sigue viajando en la navegación segura (clic en un enlace) pero no en envíos POST ni cargas ocultas de otro sitio.</li>
+          <li>En «Strict» no viaja en ninguna situación entre sitios, a costa de dejar sin sesión también a quien llega por un enlace legítimo.</li>
+          </ul>`, montar: montarMatriz },
     ],
     teoria: String.raw`
       <h2>Condiciones del ataque</h2>

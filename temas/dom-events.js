@@ -109,9 +109,26 @@
       y avisa a los <em>listeners</em> registrados con <code>addEventListener</code>.</p>
       <p>Un clic sobre un botón también es un clic sobre su contenedor y sobre todos sus ancestros: el evento <strong>viaja</strong> por el árbol del DOM.
       Entender ese viaje (captura, objetivo, burbujeo) permite usar <em>delegación de eventos</em> y evitar errores sutiles.</p>`,
+    parametros: [
+      ['abuelo, padre y hijo (Fig. 1)', String.raw`La configuración del listener de cada nivel (captura, burbuja o con stopPropagation). Determina cuáles se ejecutan y si la propagación se corta.`],
+      ['Reproductor (Fig. 1)', String.raw`Recorre la propagación paso a paso tras hacer clic en un cuadro.`],
+      ['Escriba aquí (campo real) (Fig. 2)', String.raw`Un campo de texto real que genera eventos input y change al escribir y salir.`],
+      ['El handler llama a preventDefault() (Fig. 2)', String.raw`Si el manejador cancela la acción por defecto del envío.`],
+      ['Enviar formulario y Limpiar registro (Fig. 2)', String.raw`Envía el formulario simulado y borra el registro de eventos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Propagación de un evento', descripcion: 'Haga clic en distintos cuadros y configure listeners de captura, de burbuja o con <code>stopPropagation()</code>: observe el orden de ejecución.', montar: montarPropagacion },
-      { titulo: 'Eventos de un formulario real', descripcion: 'Escriba en el campo y salga de él; compare <code>input</code> con <code>change</code> y pruebe el envío con y sin <code>preventDefault()</code>.', montar: montarFormulario },
+      { titulo: 'Propagación de un evento', descripcion: 'Haga clic en distintos cuadros y configure listeners de captura, de burbuja o con <code>stopPropagation()</code>: observe el orden de ejecución.',
+        ayuda: String.raw`<p>Los tres cuadros anidados son abuelo, padre e hijo. Las flechas indican la fase de captura (de arriba abajo) y de burbujeo (de abajo arriba), con el objetivo y los listeners ejecutados marcados según la leyenda.</p>
+          <ul>
+          <li><strong>abuelo</strong>, <strong>padre</strong> e <strong>hijo</strong>: un listener de captura corre al bajar y uno de burbuja al subir.</li>
+          <li>Con stopPropagation en un nivel, los niveles siguientes quedan sin ejecutar y se marcan como detenidos.</li>
+          </ul>`, montar: montarPropagacion },
+      { titulo: 'Eventos de un formulario real', descripcion: 'Escriba en el campo y salga de él; compare <code>input</code> con <code>change</code> y pruebe el envío con y sin <code>preventDefault()</code>.',
+        ayuda: String.raw`<p>El registro lista los eventos en el orden en que ocurren al escribir, salir del campo y enviar.</p>
+          <ul>
+          <li><strong>Escriba aquí</strong>: <code>input</code> se dispara en cada tecla; <code>change</code> solo al salir si el valor cambió.</li>
+          <li><strong>preventDefault()</strong> activado: el envío se cancela y la página no se recarga; desactivado, el envío sigue su curso.</li>
+          </ul>`, montar: montarFormulario },
     ],
     teoria: String.raw`
       <h2>Fases de un evento</h2>

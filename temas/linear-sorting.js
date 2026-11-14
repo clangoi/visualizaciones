@@ -236,15 +236,34 @@
       son enteros en un rango acotado, se puede ordenar <strong>sin comparar</strong>: usando las claves directamente como índices de
       un arreglo. Así se obtienen algoritmos de tiempo lineal como <strong>counting sort</strong>, <strong>radix sort</strong> y
       <strong>bucket sort</strong>.</p>`,
+    parametros: [
+      ['Elementos n (Fig. 1 y 2)', String.raw`Cantidad de números que se ordenan.`],
+      ['k (Fig. 1)', String.raw`Las claves toman valores de 0 a \(k-1\). Counting sort usa un arreglo de \(k\) contadores, así que su costo es \(\Theta(n + k)\): conviene cuando \(k\) es pequeño frente a \(n\).`],
+      ['Dígitos d (Fig. 2)', String.raw`Cuántos dígitos decimales tiene cada número. Radix sort hace una pasada estable por dígito, con costo \(\Theta(d(n + 10))\).`],
+      ['Velocidad y reproductor (Fig. 1 y 2)', String.raw`Reproducir avanza solo, Un paso muestra una operación, Hasta el final termina y Reiniciar vuelve al inicio.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otros números al azar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Counting sort',
         descripcion: 'Las letras pequeñas distinguen elementos con la misma clave según su orden original. Observe que en la salida conservan ese orden.',
+        ayuda: String.raw`<p>La fila superior es la entrada; cada celda tiene su clave y, en pequeño, una letra que indica su orden de aparición entre las de igual clave. El color crece con la clave. La fila del medio es el arreglo de contadores \(C\) (uno por clave) y la inferior, la salida.</p>
+          <ul>
+          <li>Las fases son: <strong>contar</strong> cuántas veces aparece cada clave, <strong>acumular</strong> para que \(C[v]\) diga dónde termina el bloque de \(v\), y <strong>colocar</strong> recorriendo la entrada de derecha a izquierda.</li>
+          <li>Recorrer al revés es lo que hace al algoritmo <em>estable</em>: en la salida las letras de una misma clave conservan su orden original.</li>
+          <li><strong>k</strong> grande alarga el arreglo de contadores sin ordenar nada más; <strong>Elementos n</strong> alarga la entrada. La lectura «operaciones ≈ 2n + k» muestra cómo pesa cada uno.</li>
+          </ul>`,
         montar: montarConteo,
       },
       {
         titulo: 'Radix sort (dígito menos significativo primero)',
         descripcion: 'En cada pasada los números se distribuyen en 10 baldes según un dígito y se recolectan en orden. Como cada pasada es estable, al terminar la última los números quedan ordenados.',
+        ayuda: String.raw`<p>Arriba está la secuencia de números y abajo los 10 baldes, uno por dígito del 0 al 9. En cada pasada se mira un dígito (resaltado en naranja), empezando por las unidades: los números se distribuyen en los baldes en orden de llegada y luego se recolectan del 0 al 9.</p>
+          <ul>
+          <li>Después de la pasada \(j\), la secuencia queda ordenada por los \(j\) últimos dígitos. Como cada pasada es estable, no deshace el orden logrado antes.</li>
+          <li><strong>Dígitos d</strong>: más dígitos significa más pasadas; el costo crece linealmente con \(d\).</li>
+          <li><strong>Elementos n</strong>: más números por pasada; los 10 baldes se recorren igual.</li>
+          </ul>`,
         montar: montarRadix,
       },
     ],

@@ -149,10 +149,21 @@
       arquitectura decide en qué máquinas, o <strong>niveles</strong>, vive cada una.</p>
       <p>Esa decisión no es estética: cada vez que dos capas quedan en máquinas distintas, cada llamada entre ellas paga la latencia de la red, y cada
       capa que se concentra en un servidor compartido se paga en su capacidad.</p>`,
+    parametros: [
+      ['Distribución de las capas (Fig. 1)', String.raw`Decide en qué máquina corre cada capa (interfaz, lógica, datos). Cambia cuántas veces una búsqueda cruza la red y cuánta CPU cae en el servidor.`],
+      ['Latencia cliente–servidor (ida y vuelta) (Fig. 1)', String.raw`Tiempo de ida y vuelta entre el cliente y el servidor. Pesa más en las configuraciones que cruzan la red muchas veces, como la interfaz remota.`],
+      ['Clientes simultáneos (Fig. 1)', String.raw`Cuántos clientes buscan a la vez. Más clientes cargan los servidores y alargan la espera en cola hasta saturarlos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Dónde poner cada capa',
         descripcion: 'Cambie la distribución y la latencia. Con la interfaz en el servidor, cada clic cruza la red; con la lógica en el cliente, cada consulta la cruza. Suba los clientes hasta saturar el servidor de la configuración elegida.',
+        ayuda: String.raw`<p>El esquema superior muestra las tres capas (interfaz azul, lógica naranja, datos aguamarina) colocadas en el cliente o en los servidores, con los cruces de red entre ellas. El gráfico inferior apila, para cada configuración, el tiempo de respuesta de una búsqueda: red (amarillo), CPU del cliente (azul), CPU de los servidores (violeta) y espera en cola (rojo).</p>
+          <ul>
+          <li><strong>Distribución de las capas</strong>: mueve las cajas y cambia los cruces de red. Con la interfaz en el servidor, cada clic cruza la red; con la lógica en el cliente, cada consulta la cruza.</li>
+          <li><strong>Latencia cliente–servidor</strong>: al subirla crece el segmento amarillo de las configuraciones con muchos cruces, no el de las que cruzan poco.</li>
+          <li><strong>Clientes simultáneos</strong>: al subirlos aparece y crece el segmento rojo; si un servidor se satura, la espera se dispara.</li>
+          </ul>`,
         montar,
       },
     ],

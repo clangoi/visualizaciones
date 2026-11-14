@@ -165,15 +165,30 @@
       <p>Dentro de esa restricción, cuanto más grande, mejor: una heurística que se acerca a \(h^*\) poda más. La forma
       sistemática de obtener heurísticas admisibles es <strong>relajar</strong> el problema —quitarle reglas— y resolver la
       versión fácil de manera exacta.</p>`,
+    parametros: [
+      ['Movimientos al mezclar (Fig. 1)', String.raw`Cuántos movimientos al azar se aplican al pulsar «Mezclar».`],
+      ['Mezclar, Conflicto lineal, Meta (Fig. 1)', String.raw`Fijan el estado del tablero: al azar, uno preparado donde Manhattan subestima mucho, o la meta.`],
+      ['Mostrar h / h* (Fig. 2)', String.raw`Cambia el eje vertical de valores absolutos a la fracción de la distancia real que recupera cada heurística (1 sería perfecta).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tres heurísticas para el 8-puzzle',
         descripcion: 'Mueva fichas y observe que siempre \\(h_1 \\le h_2 \\le h_3 \\le h^*\\). Pruebe «Conflicto lineal»: dos fichas en su fila pero invertidas engañan a Manhattan.',
+        ayuda: String.raw`<p>A la izquierda está el tablero; las fichas sombreadas están fuera de lugar y el número pequeño en cada una es su distancia Manhattan a su casilla final. A la derecha, barras con el valor de cada heurística junto a la distancia real \(h^*\) (negra).</p>
+          <ul>
+          <li>\(h_1\) cuenta fichas fuera de lugar; \(h_2\) suma las distancias Manhattan; \(h_3\) agrega 2 por cada par de fichas en su fila o columna final pero invertidas. Siempre \(h_1 \le h_2 \le h_3 \le h^*\): las tres son admisibles y cada una domina a la anterior.</li>
+          <li><strong>Conflicto lineal</strong>: las fichas 1, 2 y 3 están en su fila pero desordenadas; \(h_2\) es baja y \(h_3\) se acerca mucho más a \(h^*\).</li>
+          </ul>`,
         montar: montarComparar,
       },
       {
         titulo: 'Qué tan informada es cada heurística',
         descripcion: 'Una heurística perfecta seguiría la diagonal. Active la precisión relativa: Manhattan recupera en promedio cerca de dos tercios de la distancia real.',
+        ayuda: String.raw`<p>El eje horizontal es la distancia real \(h^*\) y el vertical, el valor promedio de cada heurística sobre todos los estados a esa distancia. La diagonal punteada es la heurística perfecta \(h = h^*\): cuanto más cerca de ella, más informada.</p>
+          <ul>
+          <li>Las tres curvas quedan bajo la diagonal (son admisibles) y en el orden \(h_1 &lt; h_2 &lt; h_3\).</li>
+          <li><strong>Mostrar h / h*</strong>: la escala relativa muestra qué fracción de la distancia recupera cada una; Manhattan ronda dos tercios.</li>
+          </ul>`,
         montar: montarPromedios,
       },
     ],

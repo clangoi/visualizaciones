@@ -236,15 +236,32 @@
       cuánto empuja la pared correspondiente. Como las paredes solo empujan hacia dentro, los pesos no pueden ser negativos.</p>
       <p><strong>Económica</strong>: el multiplicador mide cuánto mejora el valor óptimo si se relaja la restricción en una unidad. Es el análogo no lineal del precio sombra del Simplex: una restricción
       con \(\mu=0\) sobra, y una con \(\mu\) grande es un cuello de botella.</p>`,
+    parametros: [
+      ['Empuja contra una pared, una esquina, Dentro (Fig. 1)', String.raw`Colocan el mínimo libre para que actúen una fuerza, dos o ninguna.`],
+      ['Restricción (Fig. 2)', String.raw`Restricción que se relaja.`],
+      ['Mínimo libre, coordenadas x e y (Fig. 2)', String.raw`Posición del mínimo sin restricciones; decide si la restricción está activa.`],
+      ['Relajación ε de la restricción (Fig. 2)', String.raw`Cuánto se afloja el límite. El valor óptimo cambia con pendiente \(-\mu\).`],
+      ['Poner el mínimo libre dentro (Fig. 2)', String.raw`Hace inactiva la restricción: \(\mu = 0\).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los multiplicadores como pesos de fuerzas',
         descripcion: 'Arrastre el mínimo libre fuera del triángulo y vea cómo −∇f se descompone en las flechas de las paredes activas. Pruebe los botones: contra una pared actúa una sola fuerza, en la esquina dos, dentro ninguna.',
+        ayuda: String.raw`<p>Región factible, \(-\nabla f\), fuerzas \(\mu_1 \nabla g_1\) de la pared oblicua y \(\mu \nabla g\) de las paredes x ≥ 0, y ≥ 0. En el óptimo hay equilibrio.</p>
+          <ul>
+          <li><strong>Empuja contra una esquina</strong>: dos paredes equilibran la fuerza; sus μ son los pesos.</li>
+          <li><strong>Dentro</strong>: no hay fuerzas.</li>
+          </ul>`,
         montar: montarFuerzas,
       },
       {
         titulo: 'Sensibilidad: relajar la restricción',
         descripcion: 'Mueva ε y compare la pendiente de \\(p^*(\\varepsilon)\\) con \\(-\\mu\\). Pruebe poner el mínimo libre dentro de la región: \\(\\mu=0\\) y la curva es plana.',
+        ayuda: String.raw`<p>Arriba, región con ε y frontera con ε = 0, con \(x^*(\varepsilon)\). Abajo, \(p^*(\varepsilon)\) en función de ε con su tangente de pendiente \(-\mu\).</p>
+          <ul>
+          <li><strong>Relajación ε</strong>: \(p^*\) baja a razón \(\mu\).</li>
+          <li><strong>Mínimo libre</strong>: dentro, \(\mu = 0\) y la curva es plana.</li>
+          </ul>`,
         montar: montarSensibilidad,
       },
     ],

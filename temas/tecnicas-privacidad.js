@@ -134,10 +134,21 @@
       privacidad con utilidad, pero de formas distintas: unas conservan la media, otras la distribución, otras las correlaciones.</p>
       <p>Elegir bien exige saber qué análisis se hará con los datos. Un ingreso con ruido sirve para estimar el promedio regional, pero no
       para estudiar a los millonarios; un ingreso con tope protege a los millonarios, pero sesga la media hacia abajo.</p>`,
+    parametros: [
+      ['Técnica sobre el ingreso (Fig. 1)', String.raw`La técnica aplicada a la columna de ingreso: cada una cambia los valores publicados y, con ello, el equilibrio entre utilidad y riesgo.`],
+      ['Parámetro de la técnica (Fig. 1)', String.raw`Aparece según la técnica elegida y regula cuánto se altera el ingreso. A mayor alteración hay más protección y menos utilidad.`],
+      ['Nueva semilla de ruido (Fig. 1)', String.raw`Cambia el ruido aleatorio de las técnicas que lo usan, para ver cuánto depende el resultado de un sorteo concreto.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Técnicas sobre una columna',
         descripcion: 'Ingreso de 40 personas según su edad. Aplique cada técnica y compare la utilidad (media, desviación, correlación) con el riesgo (valores que siguen siendo exactos).',
+        ayuda: String.raw`<p>El eje horizontal es la edad y el vertical, el ingreso mensual (miles de &#36;) de 40 personas. Los puntos del valor original y del valor publicado se unen por persona; los que coinciden son registros que se pueden enlazar. La lectura compara media, desviación y correlación.</p>
+          <ul>
+          <li><strong>Técnica</strong>: al cambiarla, los puntos publicados se desplazan; cuantos menos coincidan con el original, menor el riesgo, y cuanto más se parezcan la media, la desviación y la correlación, mayor la utilidad.</li>
+          <li><strong>Parámetro</strong>: aumentarlo desplaza más los valores, con menos riesgo y menos utilidad.</li>
+          <li><strong>Nueva semilla de ruido</strong>: los valores se mueven pero las estadísticas globales cambian poco.</li>
+          </ul>`,
         montar: montarTecnicas,
       },
     ],

@@ -141,15 +141,31 @@
       <p>Dos medidas describen la forma de una fórmula o expresión: su <strong>tamaño</strong> (cuántos símbolos o nodos tiene) y su <strong>profundidad</strong> (cuán anidada está).
       Se calculan siguiendo la estructura: el valor de un nodo sale de los valores de sus hijos.</p>
       <p>Ese estilo de definición se llama <strong>recursión estructural</strong>. Es seguro —siempre termina porque las partes son más pequeñas que el todo— y es la base de casi todo lo que se hace con árboles sintácticos: evaluar, traducir, simplificar.</p>`,
+    parametros: [
+      ['Fórmula y Función (Fig. 1)', String.raw`La fórmula cuyo árbol se recorre y la función (por ejemplo, tamaño o profundidad) que se calcula de hojas a raíz con su ecuación recursiva.`],
+      ['Profundidad máxima (Fig. 2)', String.raw`Altura máxima permitida de las fórmulas aleatorias generadas.`],
+      ['Solo conectivos binarios (sin ¬) (Fig. 2)', String.raw`Si se excluye la negación, cada nodo interno tiene dos hijos y las fórmulas se vuelven más anchas.`],
+      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otra muestra aleatoria de fórmulas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De las hojas a la raíz',
         descripcion: 'Escriba una fórmula, elija una función y avance paso a paso: cada nodo se calcula con la ecuación recursiva correspondiente a su conectivo.',
+        ayuda: String.raw`<p>Cada nodo del árbol se marca como el que se calcula ahora, ya calculado (con su valor debajo) o pendiente.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: cambia el árbol y los valores.</li>
+          <li><strong>Función</strong>: cambia la ecuación recursiva aplicada en cada nodo según su conectivo.</li>
+          </ul>`,
         montar: montarRecursion,
       },
       {
         titulo: 'Cotas entre profundidad y tamaño',
         descripcion: 'Fórmulas aleatorias dibujadas por (profundidad, tamaño). Quite las negaciones y compruebe que se pegan a la curva superior; con ellas, aparecen cadenas más largas.',
+        ayuda: String.raw`<p>Cada fórmula aleatoria es un punto en (profundidad, tamaño); el área indica cuántas hay. Las cotas son profundidad + 1 ≤ tamaño ≤ \(2^{\text{profundidad}+1} - 1\).</p>
+          <ul>
+          <li><strong>Profundidad máxima</strong>: amplía el rango horizontal de los puntos.</li>
+          <li><strong>Solo conectivos binarios</strong>: los puntos se acercan a la cota superior, pues no hay cadenas de negaciones.</li>
+          </ul>`,
         montar: montarCotas,
       },
     ],

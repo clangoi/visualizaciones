@@ -315,20 +315,44 @@
       <p>Antes de cambiar un proceso conviene probar el cambio en un modelo. La <strong>simulación de procesos</strong> reproduce, evento por evento, cómo llegan los casos,
       esperan en cola por un recurso limitado (un evaluador, una caja, un servidor) y avanzan; así se miden tiempos de espera, utilización y tiempos de ciclo sin arriesgar la operación real.</p>
       <p>Lo primero que revela es el <strong>cuello de botella</strong>: la etapa cuya capacidad se agota antes que las demás y que fija el ritmo de todo el proceso. Agregar recursos en cualquier otro lugar es gastar dinero sin acortar el tiempo de ciclo.</p>`,
+    parametros: [
+      ['Llegadas por hora (Fig. 1 y 2)', String.raw`Ritmo al que llegan solicitudes. Más llegadas aumentan la ocupación de cada etapa y la cola.`],
+      ['Recursos en cada etapa y Agregar/Quitar un recurso (Fig. 1 y 2)', String.raw`Cuántas personas o sistemas atienden en cada etapa. Más recursos suben la capacidad.`],
+      ['Nueva simulación y reproductor (Fig. 1)', String.raw`Repite la simulación con otras llegadas; el reproductor controla el avance.`],
+      ['Etapa que se modifica y Restablecer (Fig. 2)', String.raw`Elige en qué etapa se agrega o quita un recurso y vuelve al escenario base.`],
+      ['Cambio al proceso (Fig. 3)', String.raw`Modificación del proceso (más capacidad, menos tiempo de servicio, etc.) cuya curva se compara con la actual.`],
+      ['Llegadas por hora (cursor) (Fig. 3)', String.raw`Marca la carga sobre la curva para leer su tiempo de ciclo.`],
+      ['Mostrar puntos simulados (Fig. 3)', String.raw`Muestra u oculta los resultados simulados para compararlos con la teoría.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Simulación evento por evento',
         descripcion: 'Reproduzca llegadas y atenciones de 100 solicitudes de crédito. Suba las llegadas hasta que la etapa roja acumule cola y luego agréguele un recurso: la cola se vacía.',
+        ayuda: String.raw`<p>Etapas del proceso con sus recursos, ocupados o libres, y las solicitudes en cola. La etapa de mayor utilización teórica se marca como cuello de botella.</p>
+          <ul>
+          <li><strong>Llegadas por hora</strong>: al subirlas la cola crece en el cuello de botella.</li>
+          <li><strong>Recursos en cada etapa</strong>: más recursos ocupan y liberan más rápido y la cola desaparece.</li>
+          </ul>`,
         montar: montarSimulacion,
       },
       {
         titulo: 'Utilización y escenario «qué pasa si»',
         descripcion: 'Compare la utilización de cada etapa con el escenario base. Agregue un recurso en una etapa que no es el cuello y compruebe que el tiempo de ciclo casi no cambia; después hágalo en la roja.',
+        ayuda: String.raw`<p>Barras de utilización ρ por etapa, coloreadas por tramo (menor que 70 %, 70–90 % o mayor que 90 %), con el escenario base y la línea de capacidad (ρ = 100 %).</p>
+          <ul>
+          <li><strong>Agregar un recurso</strong> en la etapa roja baja su ρ y acorta el tiempo de ciclo; en otra etapa casi no cambia nada.</li>
+          <li><strong>Llegadas por hora</strong>: suben todas las barras en proporción.</li>
+          </ul>`,
         montar: montarCuello,
       },
       {
         titulo: 'Tiempo de ciclo según la carga',
         descripcion: 'La curva sube lentamente y luego se dispara al acercarse a la capacidad. Elija un cambio y vea cuánto desplaza la capacidad; los puntos simulados siguen la teoría.',
+        ayuda: String.raw`<p>Eje horizontal: llegadas por hora; vertical: tiempo de ciclo (min). Curvas teóricas del proceso actual y con el cambio, y puntos simulados.</p>
+          <ul>
+          <li><strong>Cambio al proceso</strong>: desplaza la curva hacia mayor capacidad, donde se dispara más tarde.</li>
+          <li><strong>Llegadas por hora (cursor)</strong>: al acercarse a la capacidad el tiempo de ciclo crece de forma brusca.</li>
+          </ul>`,
         montar: montarCiclo,
       },
     ],

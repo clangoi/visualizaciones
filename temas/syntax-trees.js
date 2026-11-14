@@ -75,15 +75,27 @@
       <p>Toda fórmula bien formada se lee de una sola manera, y esa lectura se dibuja como un <strong>árbol sintáctico</strong>: los átomos son las hojas, y cada conectivo es un nodo cuyos hijos son sus operandos.
       La raíz es el <em>conectivo principal</em>, el último que se aplica.</p>
       <p>Cada nodo del árbol corresponde a una <strong>subfórmula</strong>: el texto de todo lo que cuelga de él. Ver una fórmula como árbol es lo que permite evaluarla, simplificarla y demostrar cosas sobre ella.</p>`,
+    parametros: [
+      ['Fórmula (Fig. 1 y 2)', String.raw`La expresión cuyo árbol sintáctico se dibuja; su estructura define qué conectivo es raíz.`],
+      ['Ejemplos (Fig. 2)', String.raw`Cargan fórmulas con subfórmulas repetidas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Árbol sintáctico y subfórmulas',
         descripcion: 'Escriba una fórmula y haga clic en los nodos: cada uno aísla una subfórmula. Compruebe que la raíz es el conectivo que se aplica al final.',
+        ayuda: String.raw`<p>Cada nodo es una subfórmula, con la raíz como último conectivo aplicado. Al hacer clic en un nodo, se resalta la subfórmula elegida (raíz del subárbol) y el resto de su subárbol.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: cambia la forma del árbol; el conectivo principal queda en la raíz.</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'Subfórmulas repetidas',
         descripcion: 'Los nodos del mismo color son la misma subfórmula escrita varias veces. Pruebe los ejemplos y cuente cuántas subfórmulas distintas hay.',
+        ayuda: String.raw`<p>Los nodos con el mismo color son la misma subfórmula repetida; los que aparecen una sola vez se distinguen aparte.</p>
+          <ul>
+          <li><strong>Fórmula y Ejemplos</strong>: cuantos más colores repetidos, menos subfórmulas distintas tiene la fórmula.</li>
+          </ul>`,
         montar: montarCompartidas,
       },
     ],

@@ -306,20 +306,47 @@
       recursos frente a otras alternativas, incluida la de no hacer nada.</p>
       <p>Los costos son más fáciles de estimar que los beneficios. Por eso conviene separar los beneficios <em>tangibles</em> (ahorros e ingresos que se miden en dinero) de los
       <em>intangibles</em> (satisfacción, reputación, capacidad de aprender) y, sobre todo, probar qué tan sensible es la decisión a los supuestos con escenarios.</p>`,
+    parametros: [
+      ['Inversión inicial, Beneficio tangible anual y Costo de operación anual (Fig. 1)', String.raw`Lo que se gasta al comienzo, lo que el proyecto genera cada año y lo que cuesta mantenerlo. De ellos sale el flujo neto de cada año.`],
+      ['Intangibles valorados por año e Incluir los intangibles en la evaluación (Fig. 1)', String.raw`Beneficios difíciles de medir a los que se les pone cifra. La casilla decide si cuentan en el flujo acumulado y en el VPN.`],
+      ['Adopción en el primer año (Fig. 1)', String.raw`Qué parte de los beneficios se logra el primer año, mientras la gente aún aprende a usar la solución.`],
+      ['Horizonte y Tasa de descuento (Fig. 1)', String.raw`Cuántos años se evalúan y cuánto se castiga un dinero futuro frente al de hoy. Una tasa alta reduce el peso de los beneficios lejanos.`],
+      ['Tasa de descuento (Fig. 2)', String.raw`La tasa con la que se calcula el VPN de los dos proyectos. Mover la tasa cambia cuál proyecto gana.`],
+      ['Mejora de beneficios, Caída de beneficios, Sobrecosto de la inversión y Retraso de los beneficios (Fig. 3)', String.raw`Qué tanto se desvía cada escenario (optimista o pesimista) del caso base.`],
+      ['Probabilidad del pesimista, Probabilidad del optimista y Tasa de descuento (Fig. 3)', String.raw`Con qué peso se promedian los escenarios para el VPN esperado y a qué tasa se descuentan.`],
+      ['Nueva simulación (Fig. 3)', String.raw`Repite la simulación con otros sorteos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Flujo de costos y beneficios',
         descripcion: 'Mueva la inversión, el beneficio y la tasa, y observe cuándo la línea acumulada cruza el cero. Active los intangibles y baje la adopción del primer año: ¿cambia el signo del VPN?',
+        ayuda: String.raw`<p>Eje horizontal: año; eje vertical: miles de dólares. Las barras son beneficio tangible, intangible valorado y costo (inversión y operación). Las líneas son el flujo acumulado y el acumulado descontado.</p>
+          <ul>
+          <li><strong>Tasa de descuento</strong> mayor: la línea descontada queda más abajo que la acumulada y el cruce con cero se atrasa o desaparece.</li>
+          <li><strong>Adopción en el primer año</strong> baja: las barras de beneficio del primer año se achican y se retrasa la recuperación.</li>
+          <li><strong>Incluir los intangibles</strong>: agrega barras de beneficio y sube el flujo, lo que puede cambiar el signo del VPN.</li>
+          </ul>`,
         montar: montarFlujos,
       },
       {
         titulo: 'Elegir entre dos proyectos',
         descripcion: 'Haga clic en el gráfico para cambiar la tasa de descuento. A la izquierda de la tasa de cruce gana A por VPN; a la derecha, B. Compruebe que la TIR siempre favorece a B.',
+        ayuda: String.raw`<p>Eje horizontal: tasa de descuento; eje vertical: VPN en miles de dólares. Cada proyecto tiene una curva; se marcan la tasa de cruce, donde ambos VPN son iguales, y la tasa elegida.</p>
+          <ul>
+          <li><strong>Tasa de descuento</strong> menor que la de cruce: gana el proyecto de VPN más alto en esa zona; mayor, gana el otro.</li>
+          <li>El punto donde cada curva corta el eje de VPN 0 es su TIR; la TIR por sí sola puede preferir un proyecto que a la tasa elegida tiene menor VPN.</li>
+          </ul>`,
         montar: montarComparar,
       },
       {
         titulo: 'Escenarios y riesgo del caso',
         descripcion: 'Aumente la probabilidad del escenario pesimista o el retraso de los beneficios: el VPN esperado cae y aparecen proyectos con VPN negativo. Pruebe una caída de beneficios del 60 %.',
+        ayuda: String.raw`<p>Arriba, tres escenarios (pesimista, base y optimista) con su VPN y el VPN esperado. Abajo, la simulación: un histograma de los VPN de muchos proyectos, con los negativos (que no se justifican) separados de los positivos y el VPN esperado marcado.</p>
+          <ul>
+          <li><strong>Probabilidad del pesimista</strong> mayor: el VPN esperado baja y crece la parte negativa del histograma.</li>
+          <li><strong>Retraso de los beneficios</strong> y <strong>Sobrecosto de la inversión</strong>: bajan el VPN pesimista, más aún si la tasa es alta.</li>
+          <li><strong>Nueva simulación</strong>: muestra cuánto varía el histograma de un sorteo a otro.</li>
+          </ul>`,
         montar: montarEscenarios,
       },
     ],

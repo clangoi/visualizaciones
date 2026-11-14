@@ -153,9 +153,26 @@
       <p>Una red convolucional no tiene un solo paso donde «reconoce» un objeto: lo va construyendo por etapas. Las primeras capas detectan bordes y orientaciones; las siguientes combinan esas respuestas en esquinas y curvas; las últimas, en partes y objetos completos.
       Es una <strong>jerarquía de características</strong>, y se puede mirar directamente: basta dibujar los <em>mapas de activación</em> de cada capa para una imagen dada.</p>
       <p>La red de esta página es real y minúscula (364 parámetros): se entrena aquí mismo, en su navegador, para distinguir seis figuras. Así se ve qué aprenden los filtros y qué responde cada capa.</p>`,
+    parametros: [
+      ['Imagen de entrada (Fig. 1)', String.raw`Qué figura ve la red; «en blanco» permite dibujar la propia.`],
+      ['Pesos nuevos y reproductor (Fig. 1)', String.raw`Reinician la red con pesos al azar y controlan el entrenamiento que ajusta los filtros.`],
+      ['Imagen y Filtro de la capa 1 (Fig. 2)', String.raw`Qué imagen se mira y cuál de los filtros de la primera capa se muestra.`],
+      ['Entrenar la red y Olvidar (pesos al azar) (Fig. 2)', String.raw`Comparan el mismo filtro entrenado y sin entrenar. Olvidar vuelve a pesos aleatorios.`],
+    ],
     visualizaciones: [
-      { titulo: 'Entrenar una CNN y mirar por dentro', descripcion: 'Pulse Reproducir y mire los filtros. Después elija una figura o dibuje la suya haciendo clic y observe los mapas de cada capa y las probabilidades.', montar: montarRed },
-      { titulo: 'Filtro entrenado frente a filtro aleatorio', descripcion: 'Compare el mapa de un filtro tras entrenar con uno antes de entrenar. Cambie de imagen y de filtro.', montar: montarFiltro },
+      { titulo: 'Entrenar una CNN y mirar por dentro', descripcion: 'Pulse Reproducir y mire los filtros. Después elija una figura o dibuje la suya haciendo clic y observe los mapas de cada capa y las probabilidades.',
+        ayuda: String.raw`<p>Se muestran la imagen, los filtros y los mapas de activación de cada capa, y las probabilidades por clase con la clase predicha. Un color indica activación o peso positivo y otro, peso negativo.</p>
+          <ul>
+          <li>Al entrenar, los filtros pasan de ruido a patrones reconocibles y las probabilidades se concentran en la clase correcta.</li>
+          <li><strong>Imagen de entrada</strong>: cambia qué mapas se encienden y la clase predicha.</li>
+          </ul>`, montar: montarRed },
+      { titulo: 'Filtro entrenado frente a filtro aleatorio', descripcion: 'Compare el mapa de un filtro tras entrenar con uno antes de entrenar. Cambie de imagen y de filtro.',
+        ayuda: String.raw`<p>Se ve el filtro elegido de la capa 1 y su mapa de respuesta sobre la imagen. Un color es respuesta positiva y otro, peso negativo del filtro.</p>
+          <ul>
+          <li><strong>Entrenar la red</strong>: el filtro se organiza y su mapa resalta rasgos de la imagen.</li>
+          <li><strong>Olvidar (pesos al azar)</strong>: el mapa vuelve a un patrón sin estructura.</li>
+          <li><strong>Filtro de la capa 1</strong>: cada filtro aprende un rasgo distinto.</li>
+          </ul>`, montar: montarFiltro },
     ],
     teoria: String.raw`
       <h2>Qué se ve en cada capa</h2>

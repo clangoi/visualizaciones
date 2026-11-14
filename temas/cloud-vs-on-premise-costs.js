@@ -214,20 +214,49 @@
       <p>Comprar servidores propios y arrendar capacidad en la nube son dos formas distintas de pagar por lo mismo. Lo primero es un gasto de capital (<strong>CAPEX</strong>): una inversión grande al inicio que se amortiza durante la vida útil del equipo.
       Lo segundo es un gasto operativo (<strong>OPEX</strong>): pagos periódicos proporcionales al uso. Cambia la contabilidad, pero sobre todo cambia quién carga con el riesgo de equivocarse en el tamaño.</p>
       <p>Para comparar hay que mirar el <em>costo total de propiedad</em> (TCO) y el perfil de uso: un servidor propio cuesta lo mismo esté ocupado o ocioso, y por eso conviene a cargas constantes y altamente utilizadas; la nube cobra por lo que se usa y conviene a cargas variables o inciertas.</p>`,
+    parametros: [
+      ['Capacidad contratada (Fig. 1)', String.raw`Tamaño de la infraestructura. Escala el costo de ambas opciones.`],
+      ['Utilización media (Fig. 1 y 2)', String.raw`Fracción de la capacidad que realmente se usa. La nube cobra por uso; el servidor propio cuesta lo mismo se use o no.`],
+      ['Horizonte (Fig. 1)', String.raw`Años que cubre el gráfico. Un horizonte largo da tiempo al servidor propio de amortizar su inversión.`],
+      ['Compromiso en la nube (Fig. 1)', String.raw`Plazo de reserva (p. ej. 1 o 3 años) que abarata la tarifa a cambio de comprometerse.`],
+      ['Precio local por vCPU (Fig. 2)', String.raw`Costo de compra de cada vCPU propia.`],
+      ['Operación local (por año) (Fig. 2)', String.raw`Gasto anual de energía, personal y mantención del servidor propio.`],
+      ['Vida útil del equipo (Fig. 2)', String.raw`Años en que se reparte el costo de compra.`],
+      ['Precio de la nube por vCPU-hora (Fig. 2)', String.raw`Tarifa bajo demanda de la nube.`],
+      ['Perfil de carga (Fig. 3)', String.raw`Forma de la demanda durante el año: constante o variable.`],
+      ['Capacidad reservada en la nube (1 año) (Fig. 3)', String.raw`Cuántas vCPU se reservan; la carga por encima de ella se paga bajo demanda.`],
+      ['Nuevo año (Fig. 3)', String.raw`Genera otra carga semanal aleatoria.`],
+    ],
     visualizaciones: [
       {
         titulo: 'CAPEX y OPEX en el tiempo',
         descripcion: 'Compare el costo acumulado de comprar y de arrendar. Baje la utilización y la nube gana; súbala y el servidor propio termina por alcanzarla. Pruebe las reservas a 1 y 3 años.',
+        ayuda: String.raw`<p>Costo acumulado (USD) por año de la opción local, con inversión inicial (CAPEX) y gasto anual (OPEX), frente a la nube, que solo tiene gasto operativo.</p>
+          <ul>
+          <li><strong>Utilización media</strong> baja: la curva de la nube crece más despacio y se mantiene bajo la local.</li>
+          <li><strong>Horizonte</strong> largo: la curva local, que parte más alta, puede terminar cruzando a la de la nube.</li>
+          <li><strong>Compromiso en la nube</strong>: baja la pendiente de la curva de la nube.</li>
+          </ul>`,
         montar: montarAcumulado,
       },
       {
         titulo: 'Punto de equilibrio según utilización',
         descripcion: 'Cada línea es el costo anual de una vCPU. Busque el cruce entre el servidor propio y la nube bajo demanda, y cambie los precios para ver cómo se mueve.',
+        ayuda: String.raw`<p>Cada línea es el costo anual de una vCPU (USD) según la utilización media. El servidor propio es casi plano y la nube sube con el uso.</p>
+          <ul>
+          <li><strong>Precio local por vCPU</strong> y <strong>Operación local</strong> más altos: suben la línea propia y el cruce se da con menos utilización.</li>
+          <li><strong>Precio de la nube</strong> más alto: la línea de la nube sube más rápido y el cruce llega antes.</li>
+          </ul>`,
         montar: montarEquilibrio,
       },
       {
         titulo: 'Carga constante o variable',
         descripcion: 'Elija un perfil de carga y compare servidor propio (dimensionado para el pico), nube bajo demanda y nube con una reserva. Busque a mano la reserva que minimiza el costo.',
+        ayuda: String.raw`<p>Carga media de cada semana (vCPU) a lo largo del año, con la capacidad local dimensionada para el pico y la capacidad reservada en la nube.</p>
+          <ul>
+          <li><strong>Perfil de carga</strong> variable: la capacidad local queda muy por encima de la carga media y se desperdicia.</li>
+          <li><strong>Capacidad reservada</strong>: cerca del mínimo de la carga, evita pagar de más; sobre la carga media se paga por capacidad sin usar.</li>
+          </ul>`,
         montar: montarPerfil,
       },
     ],

@@ -99,9 +99,27 @@
     intro: String.raw`
       <p>Para <em>generar</em> texto, el modelo predice cada palabra viendo solo las anteriores. Pero entrenar palabra por palabra sería lentísimo. El truco de los Transformers es procesar la frase completa de una vez y <strong>enmascarar</strong> la atención: a la palabra \(i\) se le prohíbe mirar las posiciones \(j>i\). Así se entrenan en paralelo todos los pasos de la generación, sin que ninguno vea la respuesta.</p>
       <p>La máscara se aplica antes del softmax, sumando \(-\infty\) a los puntajes prohibidos: tras la exponencial, su peso es exactamente 0. Otra máscara, la de <em>relleno</em>, oculta las posiciones vacías que se agregan para igualar el largo de las frases de un lote.</p>`,
+    parametros: [
+      ['Máscara causal (Fig. 1 y 2)', String.raw`Impide que cada posición atienda a las posteriores. Es lo que permite entrenar un generador sin que «vea» la palabra que debe predecir.`],
+      ['Enmascarar la última palabra como relleno (Fig. 1)', String.raw`Simula que la última posición es relleno (padding) sin contenido; ninguna palabra puede atender a ella.`],
+      ['Reproductor (Fig. 1)', String.raw`Calcula la matriz fila por fila.`],
+      ['Palabra que se cambia (posición) (Fig. 2)', String.raw`Qué palabra de la frase se sustituye.`],
+      ['Cambiar por otra palabra (Fig. 2)', String.raw`Hace la sustitución y compara las salidas con las de antes.`],
+    ],
     visualizaciones: [
-      { titulo: 'Ocultar el futuro', descripcion: 'Avance fila por fila con la máscara causal y, luego, apáguela y compare. Active la máscara de relleno para ocultar también la última palabra.', montar: montarMascara },
-      { titulo: 'El futuro no puede filtrarse', descripcion: 'Cambie una palabra y mire qué posiciones cambian. Con máscara, solo las que la siguen.', montar: montarFuga },
+      { titulo: 'Ocultar el futuro', descripcion: 'Avance fila por fila con la máscara causal y, luego, apáguela y compare. Active la máscara de relleno para ocultar también la última palabra.',
+        ayuda: String.raw`<p>Cada fila es la palabra que consulta y cada columna, la atendida. Las celdas con color tienen peso de atención; las prohibidas tienen puntaje −∞ y peso 0. La fila resaltada es la que se calcula en ese paso.</p>
+          <ul>
+          <li><strong>Máscara causal</strong>: activada, la zona sobre la diagonal queda prohibida y cada fila reparte su peso solo entre las anteriores y ella misma; apagada, todas las celdas tienen peso.</li>
+          <li><strong>Enmascarar la última palabra</strong>: su columna queda prohibida; ninguna fila le asigna atención.</li>
+          </ul>`, montar: montarMascara },
+      { titulo: 'El futuro no puede filtrarse', descripcion: 'Cambie una palabra y mire qué posiciones cambian. Con máscara, solo las que la siguen.',
+        ayuda: String.raw`<p>Cada posición indica si la salida cambió al sustituir una palabra: una marca para «no cambió» y otra para «cambió».</p>
+          <ul>
+          <li><strong>Máscara causal</strong> activada: solo cambian las posiciones desde la palabra sustituida en adelante; las anteriores no ven el cambio.</li>
+          <li><strong>Máscara causal</strong> apagada: cambian todas las posiciones; hay fuga de información del futuro.</li>
+          <li><strong>Palabra que se cambia</strong>: mover la posición hacia el final deja menos posiciones afectadas con la máscara.</li>
+          </ul>`, montar: montarFuga },
     ],
     teoria: String.raw`
       <h2>Atención enmascarada</h2>

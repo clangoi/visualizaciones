@@ -241,20 +241,49 @@
       el <strong>truco del kernel</strong> reemplaza los productos punto por una función de similitud y obtiene un separador lineal
       en un espacio de atributos de dimensión muy alta —incluso infinita— sin calcularlo nunca. Varias SVM binarias se combinan
       para tener varias clases, y en el extremo, una SVM por cada ejemplo (<strong>exemplar-SVM</strong>).</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 3)', String.raw`La forma de las dos clases. En la Fig. 3 incluye lunas, círculos y XOR, que no se separan con una recta.`],
+      ['Penalización C (Fig. 1, 2 y 3)', String.raw`Cuánto cuesta que un punto quede dentro del margen o mal clasificado (escala logarítmica). C pequeño tolera violaciones y da márgenes anchos; C grande exige clasificar todo bien.`],
+      ['Clase al hacer clic (Fig. 1)', String.raw`De qué clase son los puntos que se agregan con un clic.`],
+      ['Estrategia (Fig. 2)', String.raw`Cómo combinar clasificadores binarios para tres clases: uno contra el resto, uno contra uno, o exemplar-SVM (un clasificador por cada ejemplo positivo).`],
+      ['Clase de los exemplars (Fig. 2)', String.raw`Qué clase se trata como positiva en exemplar-SVM.`],
+      ['Kernel (Fig. 3)', String.raw`La medida de similitud: lineal (frontera recta), polinomial de grado \(d\) o gaussiano (RBF).`],
+      ['γ (RBF) y Grado d (Fig. 3)', String.raw`γ controla el alcance de cada punto en el kernel gaussiano (grande = muy local); \(d\) es el grado del kernel polinomial.`],
+      ['Nuevos datos', String.raw`Sortean otra muestra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Margen máximo y vectores de soporte',
         descripcion: 'Baje C: el margen se ensancha y más puntos quedan dentro de él (anillos rojos). Súbalo: el margen se angosta para clasificar todo bien. Agregue puntos cerca de la frontera y lejos de ella.',
+        ayuda: String.raw`<p>Dos clases de puntos (azul y naranja). La línea negra es la frontera \(f(x) = 0\) y las grises, los márgenes \(f(x) = \pm 1\). Los puntos con anillo negro son vectores de soporte sobre el margen; los de anillo rojo, vectores que lo violan. Solo los vectores de soporte definen la frontera.</p>
+          <ul>
+          <li><strong>C</strong> bajo: el margen se ensancha y muchos puntos quedan dentro (anillos rojos). <strong>C</strong> alto: el margen se angosta hasta clasificar todo bien, si es posible.</li>
+          <li>Agregue un punto lejos de la frontera: nada cambia. Agréguelo dentro del margen: la frontera se mueve.</li>
+          </ul>`,
         montar: montarMargen,
       },
       {
         titulo: 'Varias clases y exemplar-SVM',
         descripcion: 'Compare las tres formas de usar SVM binarias con tres clases. En exemplar-SVM cada ejemplo positivo tiene su propio clasificador, que reconoce solo lo que se le parece.',
+        ayuda: String.raw`<p>Tres clases de puntos y el fondo con la clase predicha. Las líneas son las fronteras de los clasificadores binarios que se entrenan según la estrategia.</p>
+          <ul>
+          <li><strong>Uno contra el resto</strong>: tres clasificadores (cada clase frente a las demás); gana el de mayor puntaje.</li>
+          <li><strong>Uno contra uno</strong>: un clasificador por par de clases y gana la clase con más votos.</li>
+          <li><strong>Exemplar-SVM</strong>: cada punto de la clase elegida tiene su propio clasificador; la zona sombreada es donde algún exemplar lo reconoce. Haga clic en un punto para ver su frontera.</li>
+          <li><strong>C</strong> cambia todas las fronteras a la vez; compare el total de vectores de soporte.</li>
+          </ul>`,
         montar: montarMulticlase,
       },
       {
         titulo: 'Kernels',
         descripcion: 'Con kernel lineal no se pueden separar círculos concéntricos; con el polinomial de grado 2 o el gaussiano sí. Suba γ hasta que la frontera rodee cada punto: sobreajuste.',
+        ayuda: String.raw`<p>Los datos de entrenamiento, la frontera \(f(x) = 0\) (negra) y los márgenes (grises). El kernel define qué formas puede tener la frontera.</p>
+          <ul>
+          <li><strong>Kernel lineal</strong> con círculos o XOR: ninguna recta sirve y la exactitud se queda baja.</li>
+          <li><strong>Polinomial</strong> de grado 2: la frontera se vuelve una elipse o hipérbola y separa los círculos.</li>
+          <li><strong>Gaussiano</strong>: <strong>γ</strong> pequeño da fronteras suaves; γ grande hace que la frontera rodee cada punto, la exactitud de entrenamiento llega a 100 % y la de validación cae (sobreajuste).</li>
+          <li><strong>C</strong> alto combinado con γ alto acentúa ese sobreajuste.</li>
+          </ul>`,
         montar: montarKernel,
       },
     ],

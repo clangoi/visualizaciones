@@ -374,15 +374,36 @@ const yRama = (c) => c.r1;
       el puntaje del cliente o el canal por el que llegó? La respuesta guía qué datos conviene registrar con cuidado y dónde vale la pena intervenir.</p>
       <p>Hay varias formas de medir la importancia de un atributo, y no siempre coinciden. Además, un factor que «predice» una ruta no es necesariamente
       su causa: un atributo correlacionado con el verdadero motivo parece importante sin serlo.</p>`,
+    parametros: [
+      ['Punto de decisión (Fig. 1)', String.raw`Qué decisión del proceso se explica: 1, tras evaluar el riesgo, o 2, tras la revisión manual.`],
+      ['Profundidad del árbol (Fig. 1)', String.raw`Profundidad del modelo con que se mide la importancia. Un árbol más profundo captura más relaciones entre atributos.`],
+      ['Barajados por atributo (Fig. 1)', String.raw`Cuántas veces se baraja cada atributo para medir la pérdida de exactitud. Más barajados dan una estimación más estable.`],
+      ['Desvíos de la regla (Fig. 1)', String.raw`Porcentaje de decisiones que no siguen la regla. Más desvíos reducen la importancia de todos los atributos.`],
+      ['Quitar «puntaje» del modelo (Fig. 1)', String.raw`Excluye el atributo que decide. Otros atributos que se mueven con él pasan a parecer importantes.`],
+      ['Monto, Puntaje, Ingreso, Carga, Cliente nuevo y Canal web (Fig. 2)', String.raw`Datos del caso que se predice. Cada uno mueve el caso por el árbol y puede cambiar la ruta y la decisión predicha.`],
+      ['Atributos del modelo (Fig. 2)', String.raw`Con qué atributos se entrena el árbol: todos, sin puntaje (queda el ingreso) o solo canal y carga.`],
+      ['Ingreso típico del puntaje y Nuevos datos (Fig. 2)', String.raw`El primero fija el ingreso que corresponde al puntaje actual; el segundo genera otra muestra.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Importancia de cada factor',
         descripcion: 'Compara dos medidas de importancia. Con todos los atributos, «puntaje» domina; active «Quitar puntaje» y observe cómo el ingreso, que no decide nada pero se mueve con el puntaje, ocupa su lugar.',
+        ayuda: String.raw`<p>Cada atributo tiene dos barras: la ganancia de información (fracción de la entropía que explica el atributo solo) y la importancia por permutación (puntos de exactitud que se pierden al barajarlo).</p>
+          <ul>
+          <li><strong>Quitar «puntaje» del modelo</strong>: el ingreso, que se mueve con el puntaje sin decidir nada, ocupa el lugar del puntaje.</li>
+          <li><strong>Barajados por atributo</strong>: más repeticiones estabilizan la barra de permutación.</li>
+          <li><strong>Desvíos de la regla</strong>: más desvíos hacen más bajas las barras.</li>
+          </ul>`,
         montar: montarImportancia,
       },
       {
         titulo: 'Predecir la ruta de un caso nuevo',
         descripcion: 'Elija los atributos del modelo y mueva los datos de un caso: el árbol lo lleva a una ruta. Con «sin puntaje», suba el ingreso sin cambiar el puntaje y vea que la predicción cambia pero la regla de negocio no.',
+        ayuda: String.raw`<p>Es el árbol aprendido con las decisiones aprobar directo, revisión manual o rechazar. El camino de este caso se resalta desde la raíz hasta la hoja con la decisión predicha.</p>
+          <ul>
+          <li><strong>Puntaje</strong> o <strong>Monto</strong>: al cruzar un umbral del árbol, el camino cambia de rama.</li>
+          <li><strong>Atributos del modelo</strong> «sin puntaje»: subir el ingreso sin cambiar el puntaje cambia la predicción aunque la regla de negocio no cambie.</li>
+          </ul>`,
         montar: montarPrediccion,
       },
     ],

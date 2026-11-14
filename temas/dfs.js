@@ -200,15 +200,33 @@
       <p>Más allá de visitar todos los vértices, los <strong>tiempos</strong> en que DFS descubre y termina cada vértice, y el tipo de cada
       arista que encuentra, revelan la estructura del grafo: ciclos, orden topológico, componentes fuertemente conexas, puentes y
       puntos de articulación.</p>`,
+    parametros: [
+      ['Nodos y Densidad (Fig. 1 y 2)', String.raw`Cantidad de vértices y número medio de aristas por vértice del grafo generado. Más densidad, más aristas que clasificar.`],
+      ['dirigido (Fig. 1)', String.raw`Si las aristas tienen sentido. En grafos no dirigidos solo hay aristas de árbol y de retorno.`],
+      ['Nuevo grafo / Nuevo DAG', String.raw`Generan otro grafo al azar (en la Fig. 2, siempre sin ciclos).`],
+      ['Velocidad y reproductor (Fig. 1 y 2)', String.raw`Reproducir avanza solo, Un paso examina una arista, Hasta el final termina y Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'DFS paso a paso',
         descripcion: 'Cada vértice pasa de blanco a gris al ser descubierto y a negro al terminar. Las aristas se clasifican según el color del vértice al que llegan.',
+        ayuda: String.raw`<p>Cada vértice cambia de color según su estado: blanco (sin descubrir), amarillo (en la pila de recursión, aún explorando) y negro (terminado). Bajo cada uno aparecen sus tiempos «descubrimiento / término». La pila de abajo muestra el camino actual desde el origen.</p>
+          <ul>
+          <li>Cada arista examinada (naranja) se clasifica según el estado del vértice al que llega: hacia uno blanco es <em>de árbol</em> (azul); hacia uno en la pila, <em>de retorno</em> (roja, indica un ciclo); hacia uno terminado, <em>de avance</em> o <em>de cruce</em>.</li>
+          <li><strong>dirigido</strong> desactivado: solo aparecen aristas de árbol y de retorno.</li>
+          <li>Más <strong>densidad</strong> produce más aristas de retorno y, por tanto, ciclos; la lectura «¿tiene ciclos?» lo resume al terminar.</li>
+          <li>Haga clic en un vértice para iniciar el recorrido desde él y ver otro árbol DFS.</li>
+          </ul>`,
         montar: montarDFS,
       },
       {
         titulo: 'Orden topológico con DFS',
         descripcion: 'En un grafo dirigido acíclico (DAG), listar los vértices por tiempo de término decreciente da un orden en que toda arista va de izquierda a derecha.',
+        ayuda: String.raw`<p>Arriba, un grafo dirigido sin ciclos (DAG) que se recorre con DFS. Abajo, los vértices ordenados por tiempo de término decreciente: cada vértice que termina se agrega a la izquierda de la lista.</p>
+          <ul>
+          <li>En el orden final, toda arista apunta hacia la derecha (azul): un vértice termina siempre después que todos los que se alcanzan desde él.</li>
+          <li><strong>Nodos</strong> y <strong>Densidad</strong> cambian el DAG; con más aristas hay menos órdenes topológicos válidos, pero DFS siempre encuentra uno.</li>
+          </ul>`,
         montar: montarTopologico,
       },
     ],

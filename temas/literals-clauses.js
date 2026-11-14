@@ -135,15 +135,29 @@
       <p>Casi todos los programas que resuelven SAT trabajan con fórmulas de una forma muy regular. Un <strong>literal</strong> es una variable o su negación (\(p\), \(\neg p\)); una <strong>cláusula</strong> es una disyunción de literales
       (\(p \lor \neg q \lor r\)); y una fórmula en <strong>forma normal conjuntiva</strong> (CNF) es una conjunción de cláusulas.</p>
       <p>Pensar en cláusulas ayuda a ver el espacio de soluciones: cada una <em>prohíbe</em> una región de valuaciones —las que falsifican todos sus literales—, y las soluciones son las que sobreviven a todas las prohibiciones.</p>`,
+    parametros: [
+      ['Cláusulas separadas por «;» (Fig. 1)', String.raw`El conjunto de cláusulas sobre p, q, r. Cada cláusula agregada prohíbe las valuaciones que la falsifican y deja menos modelos.`],
+      ['Variables n y Nuevo muestreo (Fig. 2)', String.raw`Cantidad de variables sobre las que se agregan cláusulas aleatorias de tres literales. Nuevo muestreo repite la secuencia con otras cláusulas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cláusulas sobre un cubo',
         descripcion: 'Con tres variables, las 8 valuaciones son los vértices de un cubo. Escriba cláusulas y vea qué aristas se prohíben y qué vértices quedan como modelos.',
+        ayuda: String.raw`<p>Los ocho vértices del cubo son las valuaciones de p, q y r. Se distinguen los modelos (satisfacen todas las cláusulas) y los vértices descartados; las aristas marcadas son las que alguna cláusula falsifica.</p>
+          <ul>
+          <li><strong>Cláusulas</strong>: una cláusula de un solo literal descarta cuatro vértices; una de tres literales, solo uno. Agregar cláusulas reduce los modelos.</li>
+          <li>Si todos los vértices quedan descartados, el conjunto es insatisfacible.</li>
+          </ul>`,
         montar: montarCubo,
       },
       {
         titulo: 'Cada cláusula descarta una región',
         descripcion: 'Agregue cláusulas aleatorias de tres literales y vea cómo el número de modelos cae casi exponencialmente, hasta que no queda ninguno.',
+        ayuda: String.raw`<p>El eje horizontal es el número de cláusulas añadidas \(m\) y el vertical, el número de modelos. Se comparan los modelos contados con el esperado \(2^n (7/8)^m\) y se marca el primer \(m\) sin modelos.</p>
+          <ul>
+          <li><strong>Variables n</strong>: con más variables hay más modelos al inicio y hacen falta más cláusulas para eliminarlos todos.</li>
+          <li><strong>Nuevo muestreo</strong>: cambia las cláusulas elegidas; la curva contada oscila alrededor de la esperada.</li>
+          </ul>`,
         montar: montarEncogimiento,
       },
     ],

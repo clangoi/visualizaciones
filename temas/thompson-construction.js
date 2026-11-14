@@ -62,15 +62,31 @@
     intro: String.raw`
       <p>La <strong>construcción de Thompson</strong> convierte cualquier expresión regular en un autómata. Se aplica de forma <em>modular</em>: hay una pieza para cada símbolo y una receta para cada operador (unión, concatenación, estrella) que combina las piezas de las subexpresiones.</p>
       <p>Cada pieza tiene un único estado inicial y un único estado final, y las recetas solo agregan ε-transiciones. Por eso el resultado crece linealmente con la expresión.</p>`,
+    parametros: [
+      ['Expresión regular (Fig. 1)', String.raw`La expresión que se traduce a ε-AFN. Su estructura de operadores determina qué fragmentos se componen y en qué orden.`],
+      ['Ejemplos (Fig. 1)', String.raw`Expresiones de muestra para cargar sin escribirlas.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`En la Fig. 1 cada paso muestra el autómata de una subexpresión más grande; en la Fig. 2 avanza la lectura de la palabra.`],
+      ['Autómata y Palabra (Fig. 2)', String.raw`El autómata de Thompson de una expresión de ejemplo y la cadena que lee; cambiarlos reinicia la ejecución.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Construir el autómata pieza por pieza',
         descripcion: 'Escriba una expresión y avance: en cada paso se ve el autómata de una subexpresión, desde los símbolos hasta la expresión completa.',
+        ayuda: String.raw`<p>Se dibuja el fragmento de autómata de la subexpresión actual, desde los símbolos hasta la expresión completa. Se marcan el estado inicial y el final del fragmento y las transiciones ε se distinguen de las de símbolo.</p>
+          <ul>
+          <li><strong>Expresión regular</strong>: cada operador (unión, concatenación, estrella) añade estados y ε-transiciones fijos alrededor de los fragmentos de sus partes.</li>
+          <li><strong>Paso</strong>: pasa de una subexpresión a la que la contiene, hasta tener el autómata total.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Ejecutar el ε-AFN resultante',
         descripcion: 'Lea una palabra con el autómata de Thompson y siga el conjunto de estados activos, ε-clausuras incluidas.',
+        ayuda: String.raw`<p>Se ejecuta el ε-AFN construido: los estados activos están resaltados y la transición recién usada se destaca; al terminar, el color indica si acepta o rechaza. El conjunto activo incluye siempre la ε-clausura.</p>
+          <ul>
+          <li><strong>Palabra</strong>: en una unión se mantienen activas las dos ramas; en una estrella el fragmento puede repetirse o saltarse.</li>
+          <li><strong>Autómata</strong>: cambia la expresión de origen y, con ella, el lenguaje aceptado.</li>
+          </ul>`,
         montar: montarEjecucion,
       },
     ],

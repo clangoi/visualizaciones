@@ -82,15 +82,28 @@
       <p>Un <strong>argumento</strong> tiene premisas y una conclusión. Es <strong>válido</strong> si la verdad de las premisas garantiza la verdad de la conclusión: no hay manera de que las premisas sean todas verdaderas y la conclusión falsa.
       Esa idea, expresada con valuaciones, es la <strong>consecuencia lógica</strong> \(\Gamma \models \varphi\).</p>
       <p>La validez es una propiedad de la <em>forma</em> del argumento, no de su contenido: un argumento válido puede tener premisas falsas, y uno inválido puede tener todas sus partes verdaderas. Para refutar un argumento inválido basta un único <strong>contraejemplo</strong>.</p>`,
+    parametros: [
+      ['Premisas, Conclusión y Ejemplos (Fig. 1)', String.raw`El argumento que se evalúa: premisas separadas por «;» y una conclusión. Los ejemplos cargan argumentos prearmados; cualquier cambio recalcula la tabla.`],
+      ['Forma de argumento (Fig. 2)', String.raw`Qué esquema se examina (modus ponens, tollens, silogismos o falacias). Decide qué fila de la tabla, si hay alguna, refuta el argumento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Premisas y conclusión a su elección',
         descripcion: 'Escriba premisas (separadas por «;») y una conclusión. Las filas verdes son los modelos de las premisas; si alguna fila es roja, el argumento es inválido.',
+        ayuda: String.raw`<p>Cada fila de la tabla es una valuación con el valor de cada premisa y de la conclusión. Las filas verdes son modelos de todas las premisas; una fila roja es una donde las premisas valen V y la conclusión F.</p>
+          <ul>
+          <li><strong>Premisas</strong>: agregar premisas elimina modelos; con las suficientes, una fila roja puede desaparecer y el argumento pasa a válido.</li>
+          <li><strong>Conclusión</strong>: si vale V en todos los modelos de las premisas, \(\Gamma \models \varphi\); una sola fila roja basta para que no sea consecuencia.</li>
+          </ul>`,
         montar: montarArgumento,
       },
       {
         titulo: 'Formas de argumento conocidas',
         descripcion: 'Compare las reglas válidas (modus ponens, tollens, silogismos) con las falacias típicas. Cada falacia tiene una fila roja que la refuta.',
+        ayuda: String.raw`<p>Se muestra la tabla de verdad del esquema elegido y se marca la fila refutadora cuando existe.</p>
+          <ul>
+          <li><strong>Forma de argumento</strong>: las formas válidas no tienen fila roja; las falacias (por ejemplo, afirmar el consecuente) tienen al menos una.</li>
+          </ul>`,
         montar: montarFormas,
       },
     ],

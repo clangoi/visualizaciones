@@ -334,15 +334,31 @@
       independientes es una <strong>base</strong> y produce una única <strong>solución básica</strong>.</p>
       <p>Si además esa solución cumple \(x \ge 0\), es una <strong>solución básica factible</strong>, y resulta ser exactamente un vértice del poliedro.
       Por eso buscar el óptimo de un LP se reduce a revisar un conjunto finito: las bases.</p>`,
+    parametros: [
+      ['Variables básicas (Fig. 1)', String.raw`Elige qué tres de las cinco variables forman la base; las otras dos se fijan en cero y el punto es la intersección de sus rectas.`],
+      ['Siguiente base y Siguiente base factible (Fig. 1)', String.raw`Recorren las diez bases posibles; la segunda salta a la siguiente cuyo punto cumple todas las restricciones (todas las componentes no negativas).`],
+      ['b₁ (lado derecho de R₁) (Fig. 2)', String.raw`Desplaza la primera restricción. Con ciertos valores varias bases coinciden en un mismo vértice (degeneración).`],
+      ['Reproductor (Fig. 2)', String.raw`Examina una base por pulsación y marca si es factible o no; Reiniciar vuelve a empezar la enumeración.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Elegir una base y resolver B⁻¹b',
         descripcion: 'Elija tres variables básicas: las otras dos se anulan y el punto es la intersección de sus rectas. Pruebe la base \\(\\{x_1, s_1, s_2\\}\\): la solución sale del polígono y tiene componentes negativas.',
+        ayuda: String.raw`<p>El polígono es la región factible; las rectas son las restricciones y los ejes. Los puntos se clasifican según la leyenda: solución básica factible (vértice), básica no factible (cae fuera del polígono) y la base elegida, resaltada.</p>
+          <ul>
+          <li><strong>Variables básicas</strong>: cambia el punto elegido; si queda fuera de la región, alguna componente de \(B^{-1}b\) es negativa y la base no es factible.</li>
+          <li><strong>Siguiente base factible</strong>: salta siempre a un vértice del polígono.</li>
+          </ul>`,
         montar: montarBase,
       },
       {
         titulo: 'Enumerar las diez bases',
         descripcion: 'Examine las \\(\\binom{5}{3}=10\\) bases una por una: cinco son factibles y coinciden con los vértices del polígono, las otras cinco caen fuera. Con \\(b_1 = 5{,}6\\) varias bases comparten un vértice.',
+        ayuda: String.raw`<p>Se dibujan las bases a medida que se examinan: factibles (vértices del polígono) y no factibles (fuera), con la base actual resaltada. La lectura cuenta cuántas van factibles de las diez.</p>
+          <ul>
+          <li><strong>b₁</strong>: al variar la recta R₁ cambian los puntos y cuáles quedan dentro; con \(b_1=5{,}6\) varias bases caen en el mismo vértice.</li>
+          <li><strong>Reproductor</strong>: avanza base por base hasta contar las cinco factibles.</li>
+          </ul>`,
         montar: montarEnumeracion,
       },
     ],

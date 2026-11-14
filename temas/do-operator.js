@@ -139,15 +139,33 @@
       \(X = x\), ¿cómo sería \(Y\)?».</p>
       <p>Intervenir equivale a hacer <strong>cirugía en el grafo</strong>: se borran las flechas que entran en \(X\) y el resto del mecanismo queda
       igual. Con esa idea se definen los efectos causales y se razona sobre <strong>mediadores</strong>.</p>`,
+    parametros: [
+      ['Fuerza del confusor Z (Fig. 1)', String.raw`Cuánto influye Z a la vez sobre X e Y. En 0 no hay confusión y observar equivale a intervenir; al subir, la asociación observada se aleja del efecto causal.`],
+      ['Efecto causal X → Y (Fig. 1)', String.raw`Cuánto cambia Y por cada unidad que se fuerza X. Es la pendiente que do(X) debe recuperar.`],
+      ['Valor x₀ (Fig. 1)', String.raw`Valor al que se fija X en la intervención do(X = x₀).`],
+      ['mostrar el grafo intervenido do(X = x₀) (Fig. 1)', String.raw`Muestra el grafo sin la flecha de Z hacia X, es decir, X fijado desde fuera.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada.`],
+      ['X → M (a), M → Y (b) y X → Y directo (c) (Fig. 2)', String.raw`Coeficientes de cada flecha. El efecto indirecto es a·b y el total es c + a·b.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Observar frente a intervenir',
         descripcion: 'Con un confusor Z, la recta de regresión observada no coincide con el efecto de intervenir. Lleve el confusor a 0 y las dos rectas se juntan.',
+        ayuda: String.raw`<p>Cada punto es una observación (X horizontal, Y vertical). Una recta es E[Y | X = x] observada y otra, E[Y | do(X = x)]; un marcador indica Y bajo do(X = x₀).</p>
+          <ul>
+          <li><strong>Fuerza del confusor Z</strong> alta: las dos rectas se separan; en 0 coinciden.</li>
+          <li><strong>Efecto causal</strong>: la recta de intervención lo reproduce siempre, la observada solo sin confusión.</li>
+          </ul>`,
         montar: montarCirugia,
       },
       {
         titulo: 'Efectos total, directo e indirecto',
         descripcion: 'X afecta a Y directamente y a través del mediador M. Compare los efectos teóricos, los que se miden interviniendo y lo que da una regresión.',
+        ayuda: String.raw`<p>Barras del efecto sobre Y de subir X en 1: valor teórico, estimado con intervenciones simuladas y obtenido por regresión observacional (total con Y ~ X, directo con Y ~ X + M).</p>
+          <ul>
+          <li><strong>a</strong> y <strong>b</strong> mayores: crece el efecto indirecto a·b.</li>
+          <li><strong>c</strong>: modifica solo el efecto directo.</li>
+          </ul>`,
         montar: montarMediacion,
       },
     ],

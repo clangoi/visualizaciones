@@ -282,15 +282,33 @@
       <p>El <strong>Project Model Canvas</strong> (PM Canvas) resume un proyecto en una sola hoja de trece bloques: por qué se hace (justificativas), qué se logrará (objetivos, beneficios), qué se entregará (producto, requisitos, grupos de entrega),
       quiénes participan (interesados, equipo), qué condiciona al proyecto (premisas, restricciones, riesgos) y cuánto cuesta y dura (línea de tiempo, costos). Se completa en equipo, en una reunión, antes de escribir un plan detallado.</p>
       <p>Su valor no está en llenar casilleros, sino en la <strong>coherencia</strong>: cada justificativa debe tener un objetivo, cada objetivo un beneficio medible y un producto, cada requisito un interesado que lo pida y un grupo de entrega que lo construya, y los plazos y costos deben caber en las restricciones.</p>`,
+    parametros: [
+      ['Proyecto (Fig. 1)', String.raw`Cuál caso de canvas se muestra, con sus objetivos, requisitos y restricciones.`],
+      ['Quitar o restaurar el elemento elegido y Restaurar todo (Fig. 1)', String.raw`Retiran o devuelven elementos para ver qué validaciones del canvas dejan de cumplirse.`],
+      ['Redacción del objetivo y Se justifica por (Fig. 2)', String.raw`Cómo se escribe el objetivo y qué problema lo respalda. Una redacción vaga no es medible ni acotada.`],
+      ['Meta de primera respuesta, Plazo del objetivo y Mejora mensual que el equipo logra (Fig. 2)', String.raw`La meta a alcanzar, el tiempo para lograrla y el ritmo real del equipo. Dicen si la meta es alcanzable.`],
+      ['Presupuesto aprobado (Fig. 2)', String.raw`Cuánto dinero hay para lograrla. Junto con el plazo decide si el objetivo es coherente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un canvas completo y sus validaciones',
         descripcion: 'Haga clic en un elemento para ver qué otros lo sustentan o lo usan; quítelo y observe qué validaciones fallan. Pruebe quitar el objetivo O2, el requisito R4 o la restricción de plazo X2.',
+        ayuda: String.raw`<p>Los elementos del canvas se muestran en cajas conectadas. El elemento elegido se destaca, los relacionados se marcan, los que incumplen una validación se señalan y los quitados aparecen aparte.</p>
+          <ul>
+          <li><strong>Quitar el elemento elegido</strong>: los elementos que dependían de él quedan sin sustento y fallan validaciones.</li>
+          <li><strong>Proyecto</strong>: cambia el conjunto completo de elementos y de relaciones.</li>
+          </ul>`,
         montar: montarCanvas,
       },
       {
         titulo: 'Objetivo SMART y coherencia con plazo y presupuesto',
         descripcion: 'Elija la redacción c) y suba el plazo hasta que el objetivo sea alcanzable al ritmo del equipo; después reduzca el plazo del objetivo a menos de 8 meses y vea que deja de ser coherente con la línea de tiempo.',
+        ayuda: String.raw`<p>Arriba, eje horizontal: mes; eje vertical: horas hasta la primera respuesta. Una curva es lo que el equipo logra y otra lo que exige el objetivo, con el mes en que se alcanza la meta y el plazo. Abajo, grupos dentro o fuera del plazo y del presupuesto.</p>
+          <ul>
+          <li><strong>Plazo del objetivo</strong> corto: la curva exigida baja más rápido que la del equipo y los grupos pasan a exceder el plazo.</li>
+          <li><strong>Mejora mensual que el equipo logra</strong> mayor: la curva del equipo cae antes y se cumple la meta en menos meses.</li>
+          <li><strong>Meta de primera respuesta</strong> más baja: la meta queda más lejos y se tarda más en alcanzarla.</li>
+          </ul>`,
         montar: montarSmart,
       },
     ],

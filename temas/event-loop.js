@@ -149,9 +149,26 @@
       <p>JavaScript ejecuta tu código en <strong>un solo hilo</strong>: solo hace una cosa a la vez. Sin embargo, las páginas piden datos, esperan clics y miden tiempo sin congelarse.
       El truco es el <strong>bucle de eventos</strong> (<em>event loop</em>): una rutina que, cuando la pila de llamadas queda vacía, toma el siguiente trabajo pendiente de unas colas.</p>
       <p>Hay dos colas con prioridad distinta: las <em>microtareas</em> (callbacks de promesas) y las <em>tareas</em> o macrotareas (timers, eventos de entrada). Entender su orden explica resultados que parecen «al revés».</p>`,
+    parametros: [
+      ['Programa (Fig. 1)', String.raw`El fragmento de código cuya ejecución se simula. Cada programa mezcla código síncrono, promesas y temporizadores para ver en qué orden los atiende el bucle de eventos.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la simulación paso a paso o sola; Reiniciar vuelve al inicio del programa elegido.`],
+      ['Duración del cálculo pesado (Fig. 2)', String.raw`Cuántos milisegundos mantiene ocupado el hilo principal un cálculo largo. Mientras dura, ningún clic puede atenderse.`],
+      ['Dividirlo en trozos de 50 ms (Fig. 2)', String.raw`Reparte el mismo cálculo en tramos cortos que ceden el hilo entre uno y otro, de modo que los clics pendientes se atienden en los huecos.`],
+      ['Otros clics (Fig. 2)', String.raw`Genera otra secuencia de clics de ejemplo para comprobar que el efecto no depende de un caso particular.`],
+    ],
     visualizaciones: [
-      { titulo: 'Pila, microtareas y tareas', descripcion: 'Avance paso a paso por tres programas y prediga el orden de la consola antes de verlo; fíjese en cuándo se vacían las microtareas.', montar: montarBucle },
-      { titulo: 'Un cálculo largo bloquea la interfaz', descripcion: 'Suba la duración del cálculo y mire cuánto esperan los clics; luego divídalo en trozos que ceden el hilo.', montar: montarBloqueo },
+      { titulo: 'Pila, microtareas y tareas', descripcion: 'Avance paso a paso por tres programas y prediga el orden de la consola antes de verlo; fíjese en cuándo se vacían las microtareas.',
+        ayuda: String.raw`<p>Cuatro zonas coloreadas: la pila de llamadas (azul) con la función en ejecución, las microtareas (violeta) con los callbacks de promesas, las tareas (amarillo de la leyenda: timers y eventos) y la consola (la salida impresa hasta ese paso).</p>
+          <ul>
+          <li><strong>Programa</strong>: cambia el código simulado; compare en qué orden aparece cada línea en la consola.</li>
+          <li>Al avanzar, fíjese en que las microtareas se vacían por completo antes de pasar a la siguiente tarea: por eso una promesa imprime antes que un <code>setTimeout</code> de 0 ms.</li>
+          </ul>`, montar: montarBucle },
+      { titulo: 'Un cálculo largo bloquea la interfaz', descripcion: 'Suba la duración del cálculo y mire cuánto esperan los clics; luego divídalo en trozos que ceden el hilo.',
+        ayuda: String.raw`<p>Línea de tiempo del hilo principal: la barra del cálculo pesado, los clics atendidos y la espera de cada clic (latencia) desde que ocurre hasta que se atiende.</p>
+          <ul>
+          <li><strong>Duración del cálculo pesado</strong>: alarga la barra de cálculo y, con ella, la latencia de los clics que caen dentro; con 0 ms no hay espera.</li>
+          <li><strong>Dividirlo en trozos de 50 ms</strong>: la barra se corta en tramos y los clics se atienden entre ellos, de modo que la espera máxima baja a unos 50 ms aunque el trabajo total sea el mismo.</li>
+          </ul>`, montar: montarBloqueo },
     ],
     teoria: String.raw`
       <h2>El algoritmo</h2>

@@ -203,15 +203,35 @@
       <p>El mismo cociente responde otra pregunta: ¿sobre qué recta conviene proyectar los datos para que las clases queden
       lo más separadas posible? Esa recta es el <strong>discriminante lineal de Fisher</strong>, y en general no coincide con
       la dirección de mayor varianza.</p>`,
+    parametros: [
+      ['Clases (Fig. 1)', String.raw`Número de clases de la muestra. Con más clases hay más medias que separar.`],
+      ['Separación de medias (Fig. 1)', String.raw`Qué tan lejos están las medias de clase entre sí, lo que mide la dispersión entre clases \(S_b\).`],
+      ['Correlación intra-clase ρ (Fig. 1)', String.raw`Cuánto se alargan e inclinan las nubes de cada clase. Cambia la dispersión intra-clase \(S_w\).`],
+      ['Nuevos datos (Fig. 1)', String.raw`Regenera la muestra con los mismos ajustes.`],
+      ['Dirección θ (Fig. 2)', String.raw`Ángulo de la recta sobre la que se proyectan los datos.`],
+      ['Dirección de Fisher y Mayor varianza (PCA) (Fig. 2)', String.raw`Saltan a la dirección que maximiza \(J\) y a la de mayor varianza total, para compararlas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Dispersión intra y entre clases',
         descripcion: 'Las elipses muestran la covarianza de cada clase; los segmentos negros, la dispersión de las medias. J resume ambas en un número.',
+        ayuda: String.raw`<p>Eje X: \(x_1\); eje Y: \(x_2\). Cada elipse encierra 2σ de la covarianza de una clase; los segmentos negros unen la media global con las medias de clase (\(S_b\)) y \(S_w\) es la covarianza intra-clase promedio.</p>
+          <ul>
+          <li><strong>Separación de medias</strong>: los segmentos negros se alargan y \(J\) crece.</li>
+          <li><strong>Correlación intra-clase ρ</strong>: las elipses se inclinan y se estiran; con la inclinación adecuada, la separación se vuelve más difícil.</li>
+          <li><strong>Clases</strong>: cambia el número de elipses y de medias.</li>
+          </ul>`,
         montar: montarTodo(montarDispersion),
       },
       {
         titulo: 'La dirección de proyección',
         descripcion: 'Arriba, el cociente J(θ) para cada dirección; abajo, los datos proyectados sobre la dirección elegida. Haga clic en la curva para elegir θ.',
+        ayuda: String.raw`<p>Arriba, \(J(\theta)=w^TS_bw/w^TS_ww\) frente a θ (grados), con el máximo (dirección de Fisher), la dirección de mayor varianza y el θ elegido. Abajo, los datos proyectados \(z=w^Tx\) sobre esa dirección.</p>
+          <ul>
+          <li><strong>Dirección θ</strong>: al acercarse al máximo de la curva, las clases proyectadas se solapan menos.</li>
+          <li><strong>Mayor varianza (PCA)</strong>: lleva θ a la dirección más dispersa, que no tiene por qué separar las clases.</li>
+          <li><strong>Dirección de Fisher</strong>: lleva θ al máximo de \(J\), donde la proyección separa mejor.</li>
+          </ul>`,
         montar: montarTodo(montarProyeccion),
       },
     ],

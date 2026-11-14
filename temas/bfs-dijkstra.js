@@ -143,10 +143,22 @@
       <strong>búsqueda en anchura</strong> (BFS): explorar el grafo por capas, primero los vecinos del origen, luego los vecinos de
       esos, y así sucesivamente. Si las aristas tienen pesos no negativos distintos, la generalización es el
       <strong>algoritmo de Dijkstra</strong>, que en vez de una cola usa una cola de prioridad ordenada por distancia.</p>`,
+    parametros: [
+      ['Nodos y Densidad (Fig. 1 y 2)', String.raw`Tamaño del grafo y número medio de aristas por vértice.`],
+      ['dirigido (Fig. 1 y 2)', String.raw`Si las aristas solo se recorren en un sentido; algunos vértices pueden quedar inalcanzables desde el origen.`],
+      ['Nuevo grafo (Fig. 1 y 2)', String.raw`Genera otro grafo al azar (con pesos en la Fig. 2).`],
+      ['Velocidad y reproductor (Fig. 1 y 2)', String.raw`Reproducir avanza solo, Un paso procesa una arista, Hasta el final termina y Reiniciar vuelve al origen.`],
+    ],
     visualizaciones: [
       {
         titulo: 'BFS: caminos con menos aristas',
         descripcion: 'Los vértices procesados se colorean según su distancia al origen: forman capas concéntricas. Bajo cada vértice, su distancia en número de aristas.',
+        ayuda: String.raw`<p>BFS explora el grafo por capas desde el origen. Los vértices en amarillo están en la cola (descubiertos, aún sin procesar); los procesados se pintan con una rampa azul según su distancia: claros los cercanos, oscuros los lejanos. Bajo cada vértice, «d=» es su número mínimo de aristas desde el origen.</p>
+          <ul>
+          <li>La cola (abajo) siempre tiene vértices de a lo más dos distancias consecutivas: por eso se procesan en orden de distancia.</li>
+          <li>Las aristas azules forman el <em>árbol BFS</em>; al pasar el cursor sobre un vértice, el camino naranja es su ruta más corta en número de aristas.</li>
+          <li><strong>Densidad</strong> alta acorta todas las distancias; con <strong>dirigido</strong> activado, algunos vértices quedan en \(\infty\).</li>
+          </ul>`,
         montar: (c) => montarBase(c, {
           semilla: 4, pesos: false, prefijo: 'd=', crear: crearBFS, tituloEstructura: 'Cola (frente → final):',
           estiloNodo: (s, i) => (s.estado[i] === 2 ? { relleno: VIZ.css(VIZ.enRampa(0.25 + 0.7 * (s.dist[i] / Math.max(1, s.maxNivel)))), borde: C.tinta, texto: s.dist[i] / Math.max(1, s.maxNivel) > 0.35 ? C.sobre : C.tinta } : s.estado[i] === 1 ? { relleno: C.s4 } : {}),
@@ -164,6 +176,12 @@
       {
         titulo: 'Dijkstra: caminos de menor peso',
         descripcion: 'Los números sobre las aristas son pesos. Los vértices negros tienen distancia definitiva; los amarillos están en la frontera con una distancia provisional que puede mejorar.',
+        ayuda: String.raw`<p>Los números sobre las aristas son pesos (costos). Los vértices negros ya tienen su distancia definitiva; los amarillos están en la frontera con una distancia provisional. En cada paso se toma el de menor distancia de la cola de prioridad y se <em>relajan</em> sus aristas (naranja): si pasar por él mejora la distancia de un vecino, se actualiza.</p>
+          <ul>
+          <li>A diferencia de BFS, el camino de menor peso puede tener más aristas; compárelo pasando el cursor sobre un vértice al terminar.</li>
+          <li>Las aristas azules son la mejor arista de llegada a cada vértice; juntas forman el árbol de caminos más cortos.</li>
+          <li>Cambie el origen haciendo clic en otro vértice y observe cómo cambia el árbol.</li>
+          </ul>`,
         montar: (c) => montarBase(c, {
           semilla: 6, pesos: true, prefijo: '', crear: crearDijkstra, tituloEstructura: 'Cola de prioridad (menor → mayor):',
           estiloNodo: (s, i) => (s.final[i] ? { relleno: C.tinta, borde: C.tinta, texto: C.sobre } : s.frontera.has(i) ? { relleno: C.s4 } : {}),

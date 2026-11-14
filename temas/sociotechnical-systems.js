@@ -185,15 +185,38 @@
       <p>Muchas implementaciones fracasan por tratar el proyecto como un asunto puramente técnico. Estas figuras separan los dos lados y
       muestran cuánto cuesta ignorar uno, y cómo el <em>ajuste mutuo</em> (cambiar la organización y también la herramienta) llega a buen
       puerto más rápido que cualquier lado por separado.</p>`,
+    parametros: [
+      ['Complementariedad (ρ) (Fig. 1)', String.raw`Qué tan necesarias son tecnología y organización entre sí. Con valor alto, un lado muy fuerte no compensa al débil; con valor bajo, pueden sustituirse.`],
+      ['Presupuesto de mejora (Fig. 1)', String.raw`Cantidad total que se puede repartir entre tecnología y organización. Más presupuesto permite avanzar más en el plano.`],
+      ['Tecnología actual y Organización actual (Fig. 1)', String.raw`Punto de partida del sistema en cada eje (0–100). También se mueve arrastrando el punto.`],
+      ['Todo a tecnología, Todo a organización y Reparto óptimo (Fig. 1)', String.raw`Tres formas de gastar el presupuesto: solo en un lado o en la proporción que más eleva el rendimiento.`],
+      ['Aprendizaje de la organización (Fig. 2)', String.raw`Qué tan rápido la organización se adapta al sistema. Más aprendizaje acerca antes el rendimiento al potencial.`],
+      ['Personalización de la tecnología (Fig. 2)', String.raw`Qué tanto se ajusta la tecnología a la organización. Más personalización reduce la brecha entre ambas.`],
+      ['Capacidad de la tecnología instalada (Fig. 2)', String.raw`Potencial técnico del sistema. Fija el techo del rendimiento.`],
+      ['Preparación inicial de la organización (Fig. 2)', String.raw`Nivel de partida de procesos, habilidades y cultura. Con poca preparación, el arranque es lento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Superficie de rendimiento',
         descripcion: 'El color es el rendimiento en función de tecnología y organización. Arrastre el punto a una zona desequilibrada (tecnología 80, organización 25) y compare invertir todo en un lado con el reparto óptimo; baje ρ para volver más complementarios ambos factores.',
+        ayuda: String.raw`<p>Mapa de color con la tecnología en el eje horizontal y la organización (procesos, habilidades, cultura) en el vertical (0–100). El color es el rendimiento, de bajo a alto. El punto negro es la situación actual, la línea muestra el reparto del presupuesto y la marca verde, el reparto óptimo.</p>
+          <ul>
+          <li><strong>Complementariedad (ρ)</strong>: cambia la forma de las zonas de color; con ρ alto solo el equilibrio rinde bien.</li>
+          <li><strong>Tecnología actual</strong> y <strong>Organización actual</strong>: mueven el punto; lo desequilibrado cae en una zona de bajo rendimiento.</li>
+          <li><strong>Presupuesto de mejora</strong>: alarga la línea del reparto y el rendimiento que se puede alcanzar.</li>
+          <li><strong>Todo a tecnología</strong> / <strong>Todo a organización</strong> / <strong>Reparto óptimo</strong>: comparan el rendimiento resultante de cada estrategia.</li>
+          </ul>`,
         montar: montarSuperficie,
       },
       {
         titulo: 'Implementación y ajuste mutuo',
         descripcion: 'Una plataforma potente llega a una organización poco preparada. Observe cómo evolucionan cuatro estrategias en 36 meses y pruebe llevar uno de los aprendizajes a 0 %.',
+        ayuda: String.raw`<p>Eje horizontal: meses desde la puesta en marcha; vertical: rendimiento (0–100). Cada curva es una estrategia de implementación, con una línea del umbral de éxito.</p>
+          <ul>
+          <li><strong>Aprendizaje de la organización</strong> y <strong>Personalización de la tecnología</strong>: llevar uno a 0 % impide que la curva correspondiente alcance el umbral.</li>
+          <li><strong>Capacidad de la tecnología instalada</strong>: eleva el techo de rendimiento, pero no sirve si la organización no se adapta.</li>
+          <li><strong>Preparación inicial</strong>: desplaza el punto de partida de las curvas.</li>
+          </ul>`,
         montar: montarAjuste,
       },
     ],

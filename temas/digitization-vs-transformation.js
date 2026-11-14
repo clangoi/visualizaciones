@@ -231,15 +231,31 @@
     intro: String.raw`
       <p>Tres palabras que suelen usarse como si fueran una sola, y que describen cambios muy distintos. La <strong>digitización</strong> convierte información analógica en digital (escanear un contrato). La <strong>digitalización</strong> usa lo digital para rehacer un proceso (facturar, aprobar y registrar sin papel). La <strong>transformación digital</strong> cambia el modelo de negocio: qué se ofrece, a quién y cómo se cobra, apoyándose en datos y tecnología.</p>
       <p>Confundirlas lleva a decisiones caras: una empresa puede gastar años en digitizar archivos y creer que se transformó. Las dos figuras ayudan a distinguirlas: primero clasificando ejemplos reales y luego viendo por qué cada nivel depende del anterior y por qué el valor grande está en el último.</p>`,
+    parametros: [
+      ['Botones de nivel y Mezclar y reiniciar (Fig. 1)', String.raw`Asignan la iniciativa elegida a digitización, digitalización o transformación. Mezclar y reiniciar borra las respuestas y cambia el orden.`],
+      ['Presupuesto a cada nivel (Fig. 2)', String.raw`Cuánto del esfuerzo de cada trimestre se destina a digitización, a digitalización y a transformación. Importa la proporción entre los tres.`],
+      ['Todo en transformación y Reparto equilibrado (Fig. 2)', String.raw`Atajos que fijan los tres presupuestos: todo al nivel superior, o un reparto parejo.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza los 40 trimestres de la simulación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Clasifique iniciativas por lo que cambian',
         descripcion: 'Clasifique las doce iniciativas en digitización, digitalización o transformación. Equivóquese a propósito con alguna y lea la explicación; los casos de frontera, como el PDF que se imprime, son los más instructivos.',
+        ayuda: String.raw`<p>Cada iniciativa es un elemento numerado dispuesto en una columna según su clasificación. Gris es sin clasificar, y los colores de «bien» y «mal clasificada» indican si coincide con la respuesta correcta. Un anillo marca la iniciativa elegida.</p>
+          <ul>
+          <li><strong>Botones de nivel</strong>: ubican la iniciativa elegida en la columna de ese nivel y, al hacerlo, muestra si acertó.</li>
+          <li><strong>Mezclar y reiniciar</strong>: vuelve todo a sin clasificar.</li>
+          </ul>`,
         montar: montarClasificar,
       },
       {
         titulo: 'Madurez: cada nivel apoya al siguiente',
         descripcion: 'Reparta el esfuerzo entre los tres niveles y reproduzca 40 trimestres. Compare «Reparto equilibrado» con «Todo en transformación» y observe cuánto presupuesto se pierde cuando se salta un nivel.',
+        ayuda: String.raw`<p>Eje horizontal: trimestre; eje vertical: porcentaje completado. Tres curvas muestran el avance de digitización, digitalización y transformación, y otra, el valor creado (índice 0–100).</p>
+          <ul>
+          <li><strong>Presupuesto</strong> a transformación sin presupuesto a los niveles inferiores: su curva casi no avanza, porque depende de los niveles que la sostienen.</li>
+          <li><strong>Reparto equilibrado</strong>: las tres curvas avanzan y el valor creado crece más.</li>
+          </ul>`,
         montar: montarMadurez,
       },
     ],

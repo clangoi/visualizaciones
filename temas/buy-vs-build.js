@@ -191,15 +191,35 @@
       y deja a la organización mantenedora de su propio software.</p>
       <p>La decisión no se resuelve mirando el precio de lista: hay que comparar el <em>costo total de propiedad</em> en el horizonte de uso, el ajuste, el plazo, el riesgo y la dependencia del proveedor.
       Las figuras calculan los costos de las tres opciones y los combinan en una matriz de decisión ponderada.</p>`,
+    parametros: [
+      ['Usuarios (Fig. 1)', String.raw`Cuántas personas usan el sistema. Aumenta el costo de licencias y favorece lo desarrollado a medida.`],
+      ['Ajuste del paquete a los requerimientos (Fig. 1 y 2)', String.raw`Qué parte de lo pedido cubre el paquete sin cambios. Un ajuste bajo exige personalizar o pierde en la matriz.`],
+      ['Tamaño del sistema a medida (Fig. 1)', String.raw`Cuánto trabajo implica desarrollarlo. Define la inversión inicial de esa opción.`],
+      ['Alza anual de la licencia (Fig. 1)', String.raw`Cuánto sube cada año el costo de licencia. Hace crecer el costo de comprar con el tiempo.`],
+      ['Horizonte de evaluación (Fig. 1)', String.raw`Cuántos años se miran. Un horizonte largo da tiempo para recuperar la inversión del desarrollo.`],
+      ['Peso de cada criterio (Fig. 2)', String.raw`La importancia de costo, ajuste, plazo, independencia del proveedor y riesgo en la decisión.`],
+      ['Solo el costo importa y Pesos iniciales (Fig. 2)', String.raw`Fijan todo el peso en el costo o devuelven los pesos de partida.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Costo total de las tres opciones',
         descripcion: 'Compare el costo acumulado de comprar, personalizar y desarrollar. Suba los usuarios o el alza de la licencia y vea cómo el desarrollo a medida llega antes al punto de equilibrio; baje el ajuste del paquete y mire el costo de la brecha.',
+        ayuda: String.raw`<p>Eje horizontal: años; eje vertical: costo acumulado en miles de USD. Hay una curva por opción (comprar el paquete, comprarlo y personalizarlo, o desarrollar a medida) y una marca del horizonte elegido.</p>
+          <ul>
+          <li><strong>Usuarios</strong> y <strong>Alza anual de la licencia</strong> altos: las curvas de comprar suben más y la de a medida las cruza antes.</li>
+          <li><strong>Ajuste del paquete</strong> bajo: aumenta el costo de personalizar.</li>
+          <li><strong>Horizonte de evaluación</strong>: mueve la marca; una opción puede ganar a 3 años y perder a 8.</li>
+          </ul>`,
         montar: montarCostoTotal,
       },
       {
         titulo: 'Matriz de decisión ponderada',
         descripcion: 'Cambie la importancia de cada criterio. Con «Solo el costo importa» y con el ajuste en 95 % gana el paquete; dé peso al ajuste y a la independencia del proveedor y observe cuándo el ganador cambia.',
+        ayuda: String.raw`<p>Cada opción tiene una barra apilada con la contribución de cada criterio a su puntaje: costo total (5 años), ajuste a los requerimientos, plazo, independencia del proveedor y bajo riesgo. Gana la barra más larga.</p>
+          <ul>
+          <li><strong>Peso</strong> de un criterio mayor: su segmento crece en todas las barras, más en las que puntúan bien en él.</li>
+          <li><strong>Solo el costo importa</strong>: el ganador queda determinado por el costo total.</li>
+          </ul>`,
         montar: montarMatriz,
       },
     ],

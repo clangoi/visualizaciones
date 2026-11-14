@@ -97,9 +97,24 @@
       <p>JavaScript es de <em>tipado dinámico</em>: los errores de tipo (sumar un texto, leer una propiedad inexistente) solo aparecen cuando el código se ejecuta, a veces en producción.
       <strong>TypeScript</strong> añade un sistema de <em>tipado estático</em>: se declaran los tipos y un compilador los comprueba <strong>antes</strong> de ejecutar, para luego convertir todo en JavaScript común.</p>
       <p>Los tipos funcionan además como documentación y permiten que el editor autocomplete y refactorice con seguridad.</p>`,
+    parametros: [
+      ['Fragmento (Fig. 1)', String.raw`El programa de ejemplo con un error típico; cada uno ilustra otro tipo de problema que un tipo puede prevenir.`],
+      ['Lenguaje y modo (Fig. 1)', String.raw`JavaScript, TypeScript o TypeScript estricto: cambia cuántos errores señala el compilador antes de ejecutar.`],
+      ['Tipo (Fig. 2)', String.raw`El tipo contra el cual se comprueban varios valores de ejemplo para ver cuáles se pueden asignar.`],
+    ],
     visualizaciones: [
-      { titulo: 'Lo que atrapa el compilador', descripcion: 'Elija un fragmento con un error típico y compare JavaScript, TypeScript y el modo estricto: ¿cuándo se descubre cada problema?', montar: montarCompilador },
-      { titulo: 'Tipado estructural', descripcion: 'Seleccione un tipo y compruebe qué valores se pueden asignar: lo que importa es la forma, no el nombre.', montar: montarEstructural },
+      { titulo: 'Lo que atrapa el compilador', descripcion: 'Elija un fragmento con un error típico y compare JavaScript, TypeScript y el modo estricto: ¿cuándo se descubre cada problema?',
+        ayuda: String.raw`<p>Arriba está el fragmento; en «Al compilar» las fichas con los diagnósticos del compilador y en «Al ejecutar el JavaScript resultante» lo que realmente ocurre al correrlo.</p>
+          <ul>
+          <li><strong>Lenguaje y modo</strong> en JavaScript: no hay diagnósticos y el error, si existe, aparece al ejecutar.</li>
+          <li>En TypeScript o su modo estricto el compilador señala el problema antes de ejecutar; el modo estricto detecta más casos.</li>
+          <li>Cada <strong>Fragmento</strong> activa un error distinto, por lo que el resultado depende de qué comprobaciones actúen.</li>
+          </ul>`, montar: montarCompilador },
+      { titulo: 'Tipado estructural', descripcion: 'Seleccione un tipo y compruebe qué valores se pueden asignar: lo que importa es la forma, no el nombre.',
+        ayuda: String.raw`<p>Cada fila de la tabla es un valor candidato y la columna final indica si puede asignarse al tipo elegido, y por qué.</p>
+          <ul>
+          <li><strong>Tipo</strong>: al cambiarlo cambian los campos exigidos; un valor con campos de más sigue siendo válido porque basta que tenga la forma pedida, sin importar su nombre.</li>
+          </ul>`, montar: montarEstructural },
     ],
     teoria: String.raw`
       <h2>Idea</h2>

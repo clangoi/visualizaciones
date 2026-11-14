@@ -81,9 +81,31 @@
     intro: String.raw`
       <p>Hasta ahora el agente aprendía el valor de las acciones y actuaba eligiendo la de mayor valor. Los <strong>métodos de gradiente de política</strong> toman otro camino: la propia red <em>es</em> la política. Recibe el estado y devuelve una distribución de probabilidad sobre las acciones; el agente sortea de ella, y los pesos se ajustan para que las acciones que llevaron a buenos retornos se vuelvan más probables.</p>
       <p>Tiene ventajas: maneja acciones continuas, permite políticas estocásticas y optimiza directamente lo que importa. Su costo es que el gradiente es ruidoso: un episodio es una muestra única del retorno, y por eso se resta una <strong>línea base</strong>.</p>`,
+    parametros: [
+      ['Entorno (Fig. 1)', String.raw`El mapa de entrenamiento: Pequeño (4×4) u otros con trampas, que hacen más difícil aprender.`],
+      ['Tasa de aprendizaje (Fig. 1)', String.raw`Tamaño del paso con que REINFORCE ajusta la red tras cada episodio. Alta: aprende rápido pero con más ruido.`],
+      ['Restar una línea base al retorno (Fig. 1)', String.raw`Usar \(G-b\) en lugar de \(G\) reduce la variabilidad de la señal sin cambiar su dirección media.`],
+      ['Otra semilla y reproductor (Fig. 1)', String.raw`Cambia el azar del entrenamiento; el reproductor entrena, avanza o reinicia.`],
+      ['Retorno del episodio G (Fig. 2)', String.raw`El retorno obtenido en el episodio cuya acción se refuerza.`],
+      ['Línea base b (promedio habitual) (Fig. 2)', String.raw`El retorno que se espera normalmente; sirve de referencia para decidir si G fue mejor o peor.`],
+      ['Acción que se tomó (Fig. 2)', String.raw`Cuál de las acciones fue la ejecutada y, por tanto, la que se refuerza o se debilita.`],
+      ['Restar la línea base (Fig. 2)', String.raw`Activa o desactiva el uso de b en la señal de aprendizaje.`],
+    ],
     visualizaciones: [
-      { titulo: 'Aprender la política con REINFORCE', descripcion: 'Entrene con y sin línea base y con distintas tasas. Compare el comportamiento en «Pequeño» y en «Trampas».', montar: montarReinforce },
-      { titulo: 'La señal de aprendizaje', descripcion: 'Mueva el retorno y la línea base y vea cómo cambia la actualización de las probabilidades.', montar: montarSenal },
+      { titulo: 'Aprender la política con REINFORCE', descripcion: 'Entrene con y sin línea base y con distintas tasas. Compare el comportamiento en «Pequeño» y en «Trampas».',
+        ayuda: String.raw`<p>A la izquierda, flechas por casilla con la probabilidad de cada acción según la red (más largas, más probables). A la derecha, la curva es el retorno por episodio (media móvil) y la línea, el valor óptimo \(V(\text{inicio})\).</p>
+          <ul>
+          <li><strong>Restar una línea base</strong>: la curva suele subir con menos altibajos.</li>
+          <li><strong>Tasa de aprendizaje</strong>: las flechas se concentran más rápido en una acción; si es alta, la curva se vuelve errática.</li>
+          <li><strong>Entorno</strong>: con trampas el retorno cuesta más en acercarse al óptimo.</li>
+          </ul>`, montar: montarReinforce },
+      { titulo: 'La señal de aprendizaje', descripcion: 'Mueva el retorno y la línea base y vea cómo cambia la actualización de las probabilidades.',
+        ayuda: String.raw`<p>Barras con la probabilidad actual de cada acción; una marca indica si la actualización la aumenta o la disminuye.</p>
+          <ul>
+          <li><strong>Retorno G</strong> mayor que <strong>b</strong>: la acción tomada aumenta su probabilidad; menor: disminuye.</li>
+          <li><strong>Restar la línea base</strong>: desactivada, un retorno positivo siempre refuerza la acción aunque sea peor que lo habitual.</li>
+          <li><strong>Acción que se tomó</strong>: es la barra cuya probabilidad sube o baja.</li>
+          </ul>`, montar: montarSenal },
     ],
     teoria: String.raw`
       <h2>Teorema del gradiente de política</h2>

@@ -115,10 +115,20 @@
       aleatorio donde buscar significa <a href="tema.html?id=flooding-random-walk">inundar o caminar al azar</a>.</p>
       <p>Los pares no son iguales: unos tienen buena conexión y están siempre encendidos, otros entran y salen. Las redes <strong>jerárquicas</strong> (KaZaA, Gnutella 0.6, Skype en sus
       inicios) aprovechan esto: los pares fuertes se vuelven <strong>superpares</strong>, indexan los archivos de un grupo de pares débiles y solo ellos participan en las búsquedas.</p>`,
+    parametros: [
+      ['Pares (Fig. 1)', String.raw`Total de pares de la red. Más pares encarecen la inundación en la red plana mucho más que en la red con superpares.`],
+      ['Fracción de superpares (Fig. 1)', String.raw`Qué parte de los pares actúa como superpar. Menos superpares indexan a más pares cada uno y soportan más carga; más superpares reparten mejor el trabajo pero hay más a quienes consultar.`],
+      ['Nueva red (Fig. 1)', String.raw`Genera otra red aleatoria con los mismos parámetros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Red plana y red con superpares',
         descripcion: 'La misma búsqueda por inundación en las dos topologías. Con superpares se toca una fracción pequeña de la red. Baje la fracción de superpares: cada uno indexa más pares y carga con más trabajo.',
+        ayuda: String.raw`<p>Arriba se ve la red plana y abajo la red con superpares, ambas con la misma búsqueda por inundación. Los superpares y los pares débiles se distinguen por color, y se marcan quien busca, el que tiene el archivo y los mensajes de la búsqueda.</p>
+          <ul>
+          <li><strong>Fracción de superpares</strong>: al bajarla se tocan menos nodos en la búsqueda, pero cada superpar indexa más pares.</li>
+          <li><strong>Pares</strong>: al subirlos, la cantidad de mensajes de la red plana crece más que la de la red con superpares.</li>
+          </ul>`,
         montar,
       },
     ],

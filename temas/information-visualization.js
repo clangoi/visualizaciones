@@ -142,15 +142,31 @@
       <p>La <strong>visualización de información</strong> convierte datos abstractos —cifras, categorías, relaciones— en una imagen que una persona puede
       <em>mirar</em> para pensar mejor. Su apuesta es que el sistema visual humano procesa en paralelo lo que la lectura de números hace en serie.</p>
       <p>No se trata de decorar una tabla: se trata de elegir qué se dibuja y cómo, para que la pregunta que usted tiene se responda con el menor esfuerzo posible.</p>`,
+    parametros: [
+      ['Representación (Fig. 1)', String.raw`Cómo se presentan los datos de las ciudades: tabla de números, barras o barras ordenadas. Cambia cuánto esfuerzo cuesta responder.`],
+      ['Pregunta (Fig. 1)', String.raw`Qué se busca: la ciudad con mayor valor, la de menor valor o cuántas superan el promedio.`],
+      ['Mostrar la respuesta y Nuevos datos (Fig. 1)', String.raw`La respuesta se resalta para comprobar su propia lectura; Nuevos datos genera otra tabla con otros valores.`],
+      ['Mostrar los puntos (Fig. 2)', String.raw`Muestra u oculta las observaciones de los cuatro conjuntos de Anscombe, que comparten estadísticas resumen pero tienen forma distinta.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La misma pregunta en tabla y en gráfico',
         descripcion: 'Responda cada pregunta con la tabla y luego con las barras. Pruebe las barras ordenadas: ¿qué preguntas se vuelven triviales?',
+        ayuda: String.raw`<p>Cada barra o fila es una ciudad. Con la respuesta visible, la que responde la pregunta se marca en verde y las demás en azul.</p>
+          <ul>
+          <li><strong>Representación</strong> «Tabla de números»: para hallar el mayor hay que leer todas las cifras; con «Barras» se ve a simple vista la más larga.</li>
+          <li>En «Barras ordenadas», el máximo y el mínimo quedan en los extremos y contar las que superan el promedio se vuelve fácil.</li>
+          <li><strong>Pregunta</strong> cambia qué barras se resaltan al mostrar la respuesta.</li>
+          </ul>`,
         montar: montarTablaGrafico,
       },
       {
         titulo: 'El cuarteto de Anscombe',
         descripcion: 'Cuatro conjuntos con las mismas estadísticas resumen. Active los puntos y compare lo que las cifras ocultaban.',
+        ayuda: String.raw`<p>Cuatro paneles con puntos azules (x, y) y su recta de regresión naranja; las estadísticas de cada panel aparecen en la lectura.</p>
+          <ul>
+          <li><strong>Mostrar los puntos</strong>: sin los puntos solo hay cifras idénticas; con ellos, las nubes resultan muy distintas (una curva, un valor atípico) aunque la recta sea la misma.</li>
+          </ul>`,
         montar: montarAnscombe,
       },
     ],

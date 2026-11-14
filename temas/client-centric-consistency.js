@@ -178,10 +178,23 @@
       <p>Los modelos <strong>centrados en el cliente</strong> (Terry et al., sistema Bayou, 1994) no prometen nada entre clientes distintos, pero sí
       que la <em>sesión</em> de un cliente se vea coherente: que no vea retroceder los datos, que vea lo que él mismo escribió y que sus escrituras se
       apliquen en orden, sin importar a qué réplica se conecte.</p>`,
+    parametros: [
+      ['Garantías: Lecturas monótonas, Escrituras monótonas, Leer lo escrito, Escrituras siguen a lecturas (Fig. 1)', String.raw`Cada casilla activa una garantía de sesión. Con ella activa, el sistema fuerza que la réplica esté al día antes de operar; sin ella, el cliente puede ver datos más viejos que los ya vistos.`],
+      ['Escribir y Leer (Fig. 1)', String.raw`El cliente escribe o lee en la réplica donde está.`],
+      ['Ir a la réplica siguiente (Fig. 1)', String.raw`El cliente cambia de réplica, como al balancear carga. Una réplica puede no tener aún sus escrituras anteriores.`],
+      ['Propagar una actualización y Otro cliente escribe (Fig. 1)', String.raw`Propagar entrega una actualización pendiente a otra réplica (propagación perezosa). Otro cliente escribe agrega escrituras ajenas que el cliente no ha visto.`],
+      ['Ejemplo y Reiniciar (Fig. 1)', String.raw`Ejemplo carga una secuencia que muestra una violación; Reiniciar vuelve al estado inicial.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un cliente que cambia de réplica',
         descripcion: 'Pulse «Ejemplo»: el cliente escribe en L1, pasa a L2 y lee un valor viejo (violación en rojo). Active «Leer lo escrito» y repita: L2 trae primero la escritura (flecha violeta).',
+        ayuda: String.raw`<p>Se ven las réplicas con sus escrituras y los pasos del cliente. Los colores de la leyenda distinguen escrituras y lecturas del cliente, escrituras de otro cliente, la propagación perezosa, la sincronización forzada por una garantía y la violación de una garantía.</p>
+          <ul>
+          <li><strong>Garantías</strong>: con «Leer lo escrito» activa, la lectura en otra réplica trae primero la escritura (sincronización forzada); sin ella, lee un valor viejo y se marca la violación.</li>
+          <li><strong>Ir a la réplica siguiente</strong>: es lo que expone al cliente a réplicas desactualizadas.</li>
+          <li><strong>Propagar una actualización</strong>: acerca las réplicas y reduce los casos de lecturas viejas.</li>
+          </ul>`,
         montar,
       },
     ],

@@ -212,15 +212,33 @@
       que no baja más allá de profundidad 0, luego otra hasta 1, luego hasta 2, y así hasta encontrar la meta. Parece un
       desperdicio repetir todo el trabajo anterior, pero como la mayoría de los nodos de un árbol están en el último nivel, la
       repetición cuesta poco.</p>`,
+    parametros: [
+      ['Ramificación b (Fig. 1 y 2)', String.raw`Cuántos hijos tiene cada nodo. En la Fig. 2, cuanto mayor, menos pesa repetir los niveles superiores.`],
+      ['Profundidad del árbol (Fig. 1)', String.raw`Niveles del árbol de ejemplo. Con \(b = 3\) se limita a 3 para que quepa.`],
+      ['Profundidad de la meta d (Fig. 2)', String.raw`A qué nivel está la meta; determina cuántas iteraciones hacen falta.`],
+      ['Reproductor (Fig. 1)', String.raw`Reproducir avanza solo, Un paso genera un nodo, Hasta el final termina y Reiniciar vuelve a la primera iteración.`],
+    ],
     visualizaciones: [
       {
         titulo: 'IDDFS paso a paso',
         descripcion: 'Observe que los nodos cercanos a la raíz se generan una vez por iteración (el contador bajo cada nodo), mientras que los del último nivel se generan una sola vez.',
+        ayuda: String.raw`<p>Es un árbol de búsqueda completo. IDDFS hace una búsqueda en profundidad con límite 0, luego con límite 1, 2… hasta encontrar la meta (anillo rojo). Amarillo: nodos en la pila (el camino actual); azul: visitados en esta iteración. El número bajo cada nodo cuenta cuántas veces se ha generado sumando todas las iteraciones.</p>
+          <ul>
+          <li>Los nodos cercanos a la raíz se generan una vez por iteración y los del último nivel, una sola vez. Como el último nivel tiene la mayoría de los nodos, repetir los de arriba cuesta poco.</li>
+          <li>Compare «generados en total» con «BFS habría generado»: la diferencia es pequeña, mientras la memoria es solo la pila (\(d + 1\) nodos).</li>
+          <li>Haga clic en un nodo para cambiar la meta; una meta más profunda requiere más iteraciones.</li>
+          </ul>`,
         montar: montarPasoAPaso,
       },
       {
         titulo: 'Cuánto cuesta repetir',
         descripcion: 'Con \\(b = 2\\) IDDFS genera cerca del doble que BFS; con \\(b = 10\\), apenas un 11 % más. A cambio, su memoria crece linealmente con la profundidad.',
+        ayuda: String.raw`<p>El eje horizontal es la profundidad de la meta y el vertical (logarítmico), los nodos generados. Azul: BFS, que genera cada nodo una vez; naranja: IDDFS, que repite los niveles superiores en cada iteración.</p>
+          <ul>
+          <li>Las curvas son casi paralelas: IDDFS genera un factor constante más, que tiende a \(b/(b-1)\) (lectura «límite»).</li>
+          <li><strong>Ramificación b</strong>: con \(b = 2\) IDDFS genera cerca del doble; con \(b = 10\), solo un 11 % más.</li>
+          <li>Las lecturas de memoria muestran la verdadera ventaja: BFS guarda ≈ \(b^d\) nodos y IDDFS ≈ \(b \cdot d\).</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

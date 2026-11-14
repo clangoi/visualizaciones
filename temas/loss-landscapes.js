@@ -126,9 +126,26 @@
     intro: String.raw`
       <p>La pérdida de una red es una función de todos sus parámetros: una «superficie» con millones de dimensiones. No podemos verla entera, pero sí <strong>cortarla</strong>: elegir dos direcciones, moverse en ese plano y medir la pérdida en cada punto.</p>
       <p>Esos cortes muestran por qué entrenar es difícil —valles estrechos, mesetas, puntos de silla— y por qué a veces funciona tan bien: en alta dimensión, la mayoría de los puntos críticos son sillas y muchos mínimos tienen pérdidas parecidas.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`El problema de clasificación con que se entrena la red. Cambia la superficie de pérdida y la solución obtenida.`],
+      ['Alcance del corte (Fig. 1)', String.raw`Qué tan lejos de la solución se mide la pérdida en cada dirección. Un alcance grande muestra la forma global; uno chico, el entorno inmediato.`],
+      ['Otras direcciones (Fig. 1)', String.raw`Elige otras dos direcciones aleatorias para el corte del plano. La red es la misma; cambia la rebanada observada.`],
+      ['Segmento (Fig. 2)', String.raw`La recta que se recorre: de la inicialización a la solución, o de una solución a otra entrenada con otra semilla.`],
+      ['Otra semilla (Fig. 2)', String.raw`Entrena de nuevo con otra semilla, es decir, otra inicialización y otra solución.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un corte de la superficie de pérdida', descripcion: 'Se entrena una red pequeña y se mide la pérdida sobre un plano que pasa por la solución. Cambie las direcciones y el alcance, y compare las formas.', montar: montarCorte },
-      { titulo: 'La pérdida a lo largo de un segmento', descripcion: 'Camine en línea recta de la inicialización a la solución, o de una solución a otra, y compruebe si hay barreras.', montar: montarSegmento },
+      { titulo: 'Un corte de la superficie de pérdida', descripcion: 'Se entrena una red pequeña y se mide la pérdida sobre un plano que pasa por la solución. Cambie las direcciones y el alcance, y compare las formas.',
+        ayuda: String.raw`<p>Los ejes son dos direcciones aleatorias en el espacio de parámetros, y el color es la pérdida (de baja a alta, según la leyenda), con curvas de nivel. El punto marca la red entrenada, en el centro del corte.</p>
+          <ul>
+          <li><strong>Alcance del corte</strong>: al ampliarlo aparecen paredes y mesetas que no se ven cerca de la solución.</li>
+          <li><strong>Otras direcciones</strong>: el mismo punto puede verse como un valle, una meseta o una pared según el corte.</li>
+          </ul>`, montar: montarCorte },
+      { titulo: 'La pérdida a lo largo de un segmento', descripcion: 'Camine en línea recta de la inicialización a la solución, o de una solución a otra, y compruebe si hay barreras.',
+        ayuda: String.raw`<p>El eje horizontal es α, la posición sobre el segmento θ(α) = (1−α)·θ_inicio + α·θ_fin, y el vertical, la pérdida. Los extremos (α = 0 y α = 1) están marcados.</p>
+          <ul>
+          <li><strong>Segmento</strong>: de la inicialización a la solución la pérdida suele bajar sin barreras; entre dos soluciones puede haber una barrera, de modo que promediar sus pesos no da una buena red.</li>
+          <li><strong>Otra semilla</strong>: muestra si la barrera es particular de esa pareja de soluciones.</li>
+          </ul>`, montar: montarSegmento },
     ],
     teoria: String.raw`
       <h2>Curvatura y puntos críticos</h2>

@@ -101,9 +101,26 @@
     intro: String.raw`
       <p>Una RNN conoce el orden porque procesa las palabras una tras otra. La autoatención, en cambio, mira todas a la vez y trata la frase como un <em>conjunto</em>: «el perro muerde al cartero» y «al cartero muerde el perro» tendrían las mismas salidas por palabra. Para que el orden importe hay que <strong>inyectarlo</strong>.</p>
       <p>La <strong>codificación posicional</strong> (<em>positional encoding</em>) suma a cada palabra un vector que depende de su posición. En el Transformer original son senos y cosenos de distintas frecuencias; cada posición obtiene un «código» único y las distancias se vuelven fáciles de calcular.</p>`,
+    parametros: [
+      ['Dimensión del modelo d (Fig. 1)', String.raw`Cuántas componentes tiene la codificación de cada posición. Con más componentes aparecen más frecuencias distintas.`],
+      ['Posiciones (Fig. 1)', String.raw`Cuántas posiciones de la frase se representan.`],
+      ['Dimensión que se grafica a la derecha (Fig. 1)', String.raw`Qué columna del mapa se dibuja como onda a lo largo de las posiciones.`],
+      ['Sumar la codificación posicional a cada palabra (Fig. 2)', String.raw`Con ella, cada palabra recibe además una señal de su posición. Sin ella, la capa solo ve un conjunto de palabras.`],
+      ['Reordenar las palabras y Orden original (Fig. 2)', String.raw`Mezcla el orden de las palabras o lo restablece, para ver si las salidas cambian.`],
+    ],
     visualizaciones: [
-      { titulo: 'El patrón sinusoidal', descripcion: 'Cambie la dimensión del modelo y observe cómo las primeras columnas oscilan rápido y las últimas, lento. Elija una dimensión para ver su onda.', montar: montarMapa },
-      { titulo: 'Sin posición, el orden no existe', descripcion: 'Reordene las palabras con y sin codificación posicional y compare las salidas de la capa de atención.', montar: montarOrden },
+      { titulo: 'El patrón sinusoidal', descripcion: 'Cambie la dimensión del modelo y observe cómo las primeras columnas oscilan rápido y las últimas, lento. Elija una dimensión para ver su onda.',
+        ayuda: String.raw`<p>A la izquierda, un mapa: filas son posiciones y columnas, dimensiones; azul para valor positivo y naranja para negativo. A la derecha, la onda de la dimensión elegida a lo largo de las posiciones.</p>
+          <ul>
+          <li><strong>Dimensión del modelo</strong>: añade columnas; las primeras oscilan rápido y las últimas, lento.</li>
+          <li><strong>Dimensión que se grafica</strong>: una dimensión inicial da una onda de periodo corto; una posterior da una más lenta.</li>
+          </ul>`, montar: montarMapa },
+      { titulo: 'Sin posición, el orden no existe', descripcion: 'Reordene las palabras con y sin codificación posicional y compare las salidas de la capa de atención.',
+        ayuda: String.raw`<p>Cada barra es la salida de la capa de atención de una palabra (primeras 8 componentes). Las verdes son las salidas que no cambian al reordenar y las rojas son las que sí cambian.</p>
+          <ul>
+          <li><strong>Sumar la codificación posicional</strong> desactivada: al reordenar, todas las barras siguen verdes; la capa no distingue el orden.</li>
+          <li><strong>Sumar la codificación</strong> activada: al reordenar, las salidas se vuelven rojas, porque la posición forma parte de la entrada.</li>
+          </ul>`, montar: montarOrden },
     ],
     teoria: String.raw`
       <h2>Codificación sinusoidal</h2>

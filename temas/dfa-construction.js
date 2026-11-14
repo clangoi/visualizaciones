@@ -102,15 +102,32 @@
       <p>Diseñar un autómata es decidir <strong>qué hay que recordar</strong> mientras se lee la palabra. Para «número par de <em>a</em>» basta un bit; para «contiene <em>aba</em>» hay que saber qué parte del patrón se lleva ya emparejada.
       Cada estado representa una clase de historias que, de cara al futuro, se comportan igual.</p>
       <p>Una buena práctica es ir de la definición a los estados, completar todas las transiciones (incluido un estado de error si hace falta) y después <em>probar</em> el autómata contra la definición con todas las palabras cortas.</p>`,
+    parametros: [
+      ['Lenguaje (Fig. 1 y 2)', String.raw`El lenguaje cuyo AFD se estudia. Cada estado del diagrama representa qué hay que recordar de lo leído.`],
+      ['Palabra de prueba (Fig. 1)', String.raw`Entrada cuyo camino se pinta en el diagrama, para comprobar si cada estado recuerda lo que dice su significado.`],
+      ['Longitud máxima probada (Fig. 2)', String.raw`Hasta qué largo se comparan autómata y definición, palabra por palabra. Más longitud revisa más palabras.`],
+      ['Sabotear una transición y Restaurar (Fig. 2)', String.raw`Sabotear redirige una transición al azar, introduciendo un error; Restaurar vuelve al autómata correcto.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Qué recuerda cada estado',
         descripcion: 'Elija un lenguaje y lea qué significa cada estado; escriba una palabra y siga su camino por el diagrama. Haga clic en un estado para resaltarlo.',
+        ayuda: String.raw`<p>El diagrama azul marca el estado elegido y el camino de la palabra de prueba; el estado final se pinta verde si la palabra se acepta. Abajo, una tabla indica el significado de cada estado.</p>
+          <ul>
+          <li><strong>Lenguaje</strong>: cambia el diagrama y los significados de los estados.</li>
+          <li><strong>Palabra de prueba</strong>: el camino resaltado muestra qué «situaciones» recorre la palabra hasta aceptar o rechazar.</li>
+          </ul>`,
         montar: montarSignificado,
       },
       {
         titulo: 'Probar el autómata contra la definición',
         descripcion: 'Se comparan autómata y definición sobre todas las palabras hasta la longitud elegida. Sabotee una transición y observe el contraejemplo más corto.',
+        ayuda: String.raw`<p>Se compara el autómata con la definición del lenguaje sobre todas las palabras hasta la longitud elegida. Verde indica que coinciden; rojo, una palabra donde discrepan (contraejemplo). La lectura da cuántas palabras se probaron.</p>
+          <ul>
+          <li><strong>Sabotear una transición</strong>: aparece un contraejemplo (el más corto) y el diagrama deja de coincidir con la definición.</li>
+          <li><strong>Longitud máxima probada</strong>: si es muy corta puede no alcanzar el contraejemplo; subirla lo encuentra.</li>
+          <li><strong>Restaurar</strong>: vuelve a verde.</li>
+          </ul>`,
         montar: montarVerificar,
       },
     ],

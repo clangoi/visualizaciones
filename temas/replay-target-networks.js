@@ -88,9 +88,24 @@
     intro: String.raw`
       <p>Entrenar una red con la experiencia de un agente rompe dos supuestos del aprendizaje supervisado: los datos consecutivos están <em>muy correlacionados</em> (el agente ve lo mismo una y otra vez) y los «objetivos» <em>se mueven</em> (dependen de la propia red). Dos ideas lo arreglan.</p>
       <p>La <strong>memoria de repetición</strong> (<em>experience replay</em>) guarda las transiciones y entrena con lotes tomados al azar de ellas, rompiendo la correlación y reutilizando cada experiencia. La <strong>red objetivo</strong> (<em>target network</em>) es una copia congelada de la red que calcula los objetivos y se actualiza solo cada tanto, para que el objetivo deje de moverse en cada paso. Una mejora es la <strong>repetición priorizada</strong>, que muestrea con más frecuencia las transiciones más sorprendentes.</p>`,
+    parametros: [
+      ['Otra semilla y reproductor (Fig. 1 y 2)', String.raw`Otra semilla repite el entrenamiento con otro azar; el reproductor lo hace avanzar, lo detiene o lo reinicia.`],
+      ['Reunir experiencia (60 episodios) (Fig. 2)', String.raw`Llena la memoria de repetición con transiciones de 60 episodios.`],
+      ['Exponente de prioridad α (0 = uniforme) (Fig. 2)', String.raw`Cuánto se favorece muestrear transiciones con error grande. Con 0 todas son igualmente probables; al subirlo, las raras e informativas se repiten más.`],
+    ],
     visualizaciones: [
-      { titulo: 'Con y sin los dos ingredientes', descripcion: 'Entrene cuatro agentes a la vez y compare retorno y error de valor. Repita con varias semillas: el ingrediente que más ayuda cambia de una a otra.', montar: montarAblacion },
-      { titulo: 'Repetición priorizada', descripcion: 'Junte experiencia y suba α: las llegadas a la meta, que son raras, pasan a muestrearse mucho más.', montar: montarPriorizada },
+      { titulo: 'Con y sin los dos ingredientes', descripcion: 'Entrene cuatro agentes a la vez y compare retorno y error de valor. Repita con varias semillas: el ingrediente que más ayuda cambia de una a otra.',
+        ayuda: String.raw`<p>Cuatro agentes aprenden el mismo mundo: ambos ingredientes, solo repetición, solo red objetivo o ninguno (un color por variante, según la leyenda). A la izquierda, el retorno promedio de los últimos 10 episodios; a la derecha, el error entre el valor estimado y el óptimo exacto.</p>
+          <ul>
+          <li><strong>Otra semilla</strong>: cambia el resultado; el ingrediente que más ayuda varía entre semillas, por eso conviene repetir.</li>
+          <li>Una curva de retorno más alta y un error menor indican mejor aprendizaje de esa variante.</li>
+          </ul>`, montar: montarAblacion },
+      { titulo: 'Repetición priorizada', descripcion: 'Junte experiencia y suba α: las llegadas a la meta, que son raras, pasan a muestrearse mucho más.',
+        ayuda: String.raw`<p>Dos paneles muestran la memoria: cuanto más oscuro, más transiciones o más probabilidad de ser muestreada. Las transiciones que terminan en la meta se distinguen del resto.</p>
+          <ul>
+          <li><strong>Reunir experiencia</strong>: llena la memoria; las llegadas a la meta son pocas frente al resto.</li>
+          <li><strong>Exponente de prioridad α</strong>: al subirlo, aumenta la probabilidad de muestrear las transiciones de meta.</li>
+          </ul>`, montar: montarPriorizada },
     ],
     teoria: String.raw`
       <h2>Memoria de repetición</h2>

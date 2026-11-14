@@ -287,15 +287,39 @@
       <em>salidas</em>, con una <em>retroalimentación</em> que permite corregir el rumbo.</p>
       <p>Por eso un sistema falla de maneras muy distintas según qué componente esté débil: un equipo excelente con un proceso informal o un
       proceso impecable con usuarios sin capacitación producen el mismo síntoma, pedidos que se pierden. Estas figuras permiten verlo.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Combinación predefinida de fortaleza de los componentes del sistema (por ejemplo datos sucios o equipos obsoletos). Fija de una vez varios deslizadores.`],
+      ['Fortaleza de cada componente (Fig. 1)', String.raw`Qué tan sólido es cada componente (datos, equipos, personas, etc.) de 0 a 100 %. Un componente débil hace perder pedidos en su etapa.`],
+      ['Retroalimentación (errores corregidos) (Fig. 1)', String.raw`Porcentaje de pedidos fallidos que el sistema corrige y reincorpora. Más retroalimentación recupera pérdidas.`],
+      ['Nuevos pedidos (Fig. 1)', String.raw`Procesa otra tanda de pedidos aleatorios con la misma configuración.`],
+      ['Ganancia de la retroalimentación (Fig. 2)', String.raw`Qué tan fuerte corrige el pedido según la diferencia entre las existencias y la meta. Muy alta, con retraso, genera oscilaciones.`],
+      ['Retraso del informe de existencias (Fig. 2)', String.raw`Semanas que tarda en conocerse el inventario real. Con retraso la corrección llega tarde.`],
+      ['Plazo de entrega del proveedor (Fig. 2)', String.raw`Semanas entre pedir y recibir. Un plazo largo agrava el desajuste entre pedido y necesidad.`],
+      ['Variabilidad de la demanda (Fig. 2)', String.raw`Cuánto fluctúa la demanda semanal. Más variabilidad exige más corrección.`],
+      ['La demanda sube en la semana 20 (Fig. 2)', String.raw`Agrega un salto de la demanda para ver cómo responde cada regla.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra serie de demanda.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Armar un sistema de pedidos',
         descripcion: 'Defina qué tan sólido es cada componente y procese 200 pedidos. Pruebe «Datos sucios» y luego «Equipos obsoletos»: la pérdida cae en etapas distintas. Quite un componente con un clic y vea qué etapa deja de funcionar.',
+        ayuda: String.raw`<p>Por etapa del proceso se muestran los pedidos que llegan, los que la superan, los corregidos por la retroalimentación y los perdidos. El color de cada componente indica su solidez: sólido (70 % o más), regular (40–69 %) o débil (menos de 40 %).</p>
+          <ul>
+          <li><strong>Escenario</strong>: reajusta varios componentes y muestra en qué etapa se concentra la pérdida.</li>
+          <li><strong>Fortaleza de cada componente</strong>: al bajar uno, su etapa pierde más pedidos y el componente cambia de color.</li>
+          <li><strong>Retroalimentación</strong>: sube la cantidad de pedidos corregidos y baja la de perdidos.</li>
+          </ul>`,
         montar: montarArmar,
       },
       {
         titulo: 'Entrada, proceso, salida y retroalimentación',
         descripcion: 'Una bodega decide cuánto pedir. Compare un pedido fijo con una regla que corrige según las existencias. Suba la ganancia junto con el retraso del informe: la corrección llega tarde y las existencias oscilan.',
+        ayuda: String.raw`<p>Eje horizontal: semana; vertical: unidades en existencia. Se comparan las existencias con pedido fijo y con retroalimentación, frente a la meta de existencias y a la demanda semanal.</p>
+          <ul>
+          <li><strong>Ganancia</strong>: con valores altos, la curva con retroalimentación se acerca a la meta más rápido o empieza a oscilar.</li>
+          <li><strong>Retraso del informe</strong> y <strong>Plazo de entrega</strong>: la corrección llega tarde y las existencias se alejan de la meta con oscilaciones.</li>
+          <li><strong>La demanda sube en la semana 20</strong>: se ve cuánto tarda cada regla en reaccionar al salto.</li>
+          </ul>`,
         montar: montarCiclo,
       },
     ],

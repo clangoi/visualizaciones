@@ -315,20 +315,48 @@
       reemplaza las grandes liberaciones trimestrales por cambios pequeños y frecuentes.</p>
       <p>La organización lo mide con cuatro indicadores: frecuencia de despliegue, plazo de entrega de un cambio, tasa de falla de cambios y tiempo de recuperación. Las figuras muestran cómo un pipeline
       detiene defectos, por qué desplegar poco a poco reduce el riesgo y cómo ciertas estrategias de despliegue limitan el daño de una versión defectuosa.</p>`,
+    parametros: [
+      ['Commits con defecto (Fig. 1)', String.raw`Qué proporción de los cambios nuevos trae un defecto.`],
+      ['Cobertura de pruebas automáticas (Fig. 1)', String.raw`Qué parte de los defectos pueden detectar las pruebas del pipeline. Con baja cobertura más defectos llegan a producción.`],
+      ['Nuevos commits y reproductor (Fig. 1 y 2)', String.raw`Generan otro conjunto de commits y avanzan la simulación.`],
+      ['Días entre despliegues (Fig. 2)', String.raw`El tamaño del lote: cada cuánto se publica. Define cuántos cambios se acumulan en cada despliegue.`],
+      ['Automatización de pruebas y despliegue (Fig. 2)', String.raw`Cuánto trabajo manual se evita en cada despliegue. Hace barato desplegar seguido.`],
+      ['Cambios terminados por día y Defectos por cambio (Fig. 2)', String.raw`El ritmo de trabajo del equipo y la calidad de cada cambio antes de las pruebas. Escalan el tamaño del lote y las fallas.`],
+      ['Solicitudes que falla la versión mala y Errores acumulados que disparan la alarma (Fig. 3)', String.raw`Qué tan defectuosa es la versión y cuántos errores se necesitan para detectar el problema y revertir.`],
+      ['Tráfico inicial del canary y Minutos entre etapas del canary (Fig. 3)', String.raw`Qué parte del tráfico recibe primero la versión nueva y cada cuánto sube. Fijan cuánta gente se expone antes de la alarma.`],
+      ['Revertir un despliegue completo (Fig. 3)', String.raw`Cuánto tarda volver atrás cuando se publicó a todos a la vez.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Un pipeline de integración y entrega continua',
         descripcion: 'Reproduzca 30 commits por las etapas de build, pruebas y despliegue. Baje la cobertura de pruebas a 0 % y vea cuántos defectos llegan a producción; súbala y observe qué etapa detiene más.',
+        ayuda: String.raw`<p>Cada celda es un commit que recorre build, pruebas y despliegue. Se distingue el que se evalúa, el desplegado sin defectos, el detenido por el pipeline (defecto atrapado), el desplegado con defecto y el aún no procesado.</p>
+          <ul>
+          <li><strong>Cobertura de pruebas automáticas</strong> en 0 %: los commits con defecto se despliegan con falla en producción en lugar de ser detenidos.</li>
+          <li><strong>Commits con defecto</strong> mayor: más celdas detenidas o con falla, según la cobertura.</li>
+          </ul>`,
         montar: montarPipeline,
       },
       {
         titulo: 'Tamaño de lote y métricas DORA',
         descripcion: 'Mueva el intervalo entre despliegues: los lotes grandes alargan el plazo y fallan más, pero cada despliegue cuesta trabajo. Cambie la automatización y busque el intervalo con menos horas perdidas.',
+        ayuda: String.raw`<p>Dos paneles con eje horizontal en días entre despliegues. El primero muestra el plazo de entrega y el segundo, las horas perdidas por trabajo de despliegue, recuperación de fallas y el total, con marcadores en el intervalo elegido.</p>
+          <ul>
+          <li><strong>Días entre despliegues</strong> largos: el plazo sube y también la recuperación de fallas, porque cada lote trae más defectos.</li>
+          <li><strong>Días entre despliegues</strong> muy cortos: sube el trabajo de despliegue si hay poca automatización; hay un mínimo del total.</li>
+          <li><strong>Automatización de pruebas y despliegue</strong>: baja la curva de trabajo y el mínimo se corre hacia despliegues más frecuentes.</li>
+          </ul>`,
         montar: montarLote,
       },
       {
         titulo: 'Estrategias de despliegue y radio de impacto',
         descripcion: 'Compare publicar todo de una vez, un canary por etapas y blue-green con una versión defectuosa. Baje la tasa de fallas y vea cómo el canary tarda más en activar la alarma; suba el tiempo de reversión y vea crecer el daño.',
+        ayuda: String.raw`<p>Eje horizontal: minutos desde el despliegue; eje vertical: solicitudes fallidas acumuladas. Hay una curva por estrategia: todo de una vez, canary (tráfico creciente por etapas) y blue-green (cambio instantáneo con reversión inmediata).</p>
+          <ul>
+          <li><strong>Solicitudes que falla la versión mala</strong> menor: el canary tarda más en acumular errores y activar la alarma.</li>
+          <li><strong>Tráfico inicial del canary</strong> bajo: menos solicitudes fallidas antes de detectar el problema.</li>
+          <li><strong>Revertir un despliegue completo</strong> más lento: la curva de todo de una vez sigue subiendo durante más tiempo.</li>
+          </ul>`,
         montar: montarEstrategias,
       },
     ],

@@ -87,9 +87,24 @@
       <p>Una <strong>llamada al sistema</strong> es la puerta por la que un programa pide un servicio al núcleo: abrir un archivo, crear un proceso, enviar datos por la red.
       Para el programador parece una función más (<code>read</code>, <code>fork</code>), pero por dentro cruza la frontera entre <a href="tema.html?id=kernel-user-mode">modo usuario y modo núcleo</a>.</p>
       <p>Como cada cruce tiene un costo, los programas y las bibliotecas agrupan el trabajo: leer o escribir en bloques en vez de byte a byte.</p>`,
+    parametros: [
+      ['Llamada (Fig. 1)', String.raw`Qué llamada al sistema se recorre (su número, su envoltorio en la biblioteca y su manejador en el núcleo). Cambia el servicio solicitado, no el mecanismo de la trampa.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza o retrocede por los pasos del camino de la llamada, desde el envoltorio hasta el retorno.`],
+      ['Tamaño del búfer B (bytes) (Fig. 2)', String.raw`Cuántos bytes se agrupan en cada write. Con B grande se hacen menos llamadas al núcleo para escribir lo mismo.`],
+      ['Costo de una llamada (ns) (Fig. 2)', String.raw`Tiempo fijo de cruzar al núcleo y volver. Cuanto mayor es, más pesa la estrategia de un write por byte.`],
+    ],
     visualizaciones: [
-      { titulo: 'Anatomía de una llamada', descripcion: 'Elija una llamada y recorra su camino: envoltorio, trampa, tabla de llamadas, manejador y retorno.', montar: montarLlamada },
-      { titulo: 'El costo de cruzar al núcleo', descripcion: 'Compare escribir byte a byte con escribir por bloques. Mueva el tamaño del búfer y el costo de cada llamada.', montar: montarCosto },
+      { titulo: 'Anatomía de una llamada', descripcion: 'Elija una llamada y recorra su camino: envoltorio, trampa, tabla de llamadas, manejador y retorno.',
+        ayuda: String.raw`<p>Cada paso se ubica según su capa: código del programa (azul), biblioteca o envoltorio (naranja) y núcleo (aguamarina). El registro muestra el paso actual, incluido el número de la llamada que se carga antes de la trampa.</p>
+          <ul>
+          <li><strong>Llamada</strong>: cambia el nombre de la llamada y su número en la tabla; el recorrido por capas es el mismo para todas.</li>
+          </ul>`, montar: montarLlamada },
+      { titulo: 'El costo de cruzar al núcleo', descripcion: 'Compare escribir byte a byte con escribir por bloques. Mueva el tamaño del búfer y el costo de cada llamada.',
+        ayuda: String.raw`<p>El eje horizontal son los bytes escritos y el vertical el tiempo total en µs. La curva roja es un write por byte; la azul, un write por cada B bytes.</p>
+          <ul>
+          <li><strong>Tamaño del búfer B (bytes)</strong>: al subirlo la curva azul se aplana respecto de la roja, porque hay menos cruces al núcleo.</li>
+          <li><strong>Costo de una llamada (ns)</strong>: al subirlo la curva roja crece más rápido; la diferencia entre ambas es el ahorro por agrupar.</li>
+          </ul>`, montar: montarCosto },
     ],
     teoria: String.raw`
       <h2>Interfaz</h2>

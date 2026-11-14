@@ -188,15 +188,32 @@
       <strong>espacio de atributos</strong>, y aprender es encontrar una función sobre ese espacio. Las bibliotecas resumen el
       proceso en tres verbos: <code>fit</code> (aprender de los datos), <code>transform</code> (cambiar su representación) y
       <code>predict</code> (aplicar lo aprendido a datos nuevos).</p>`,
+    parametros: [
+      ['Eje horizontal y Eje vertical (Fig. 1)', String.raw`Qué dos atributos de las flores se usan como coordenadas del gráfico: largo o ancho del pétalo, o largo del sépalo.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Sortea otra muestra de ejemplos.`],
+      ['Estandarizar antes de k-NN (Fig. 2)', String.raw`Lleva cada atributo a media 0 y desviación 1 antes de medir distancias, para que ninguno domine solo por estar en otra escala.`],
+      ['Vecinos k (Fig. 2)', String.raw`Cuántos vecinos votan para clasificar un punto. \(k\) pequeño sigue cada detalle de los datos; \(k\) grande suaviza la frontera.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De la tabla al espacio de atributos',
         descripcion: 'Elija qué dos atributos usar como ejes. Con los del pétalo las tres especies se separan casi solas; con el largo del sépalo se mezclan: la representación importa tanto como el algoritmo.',
+        ayuda: String.raw`<p>A la izquierda, la tabla de datos: cada fila es una flor (un ejemplo), las columnas \(x_1, x_2, x_3\) son sus atributos y \(y\), su especie. A la derecha, cada fila dibujada como un punto usando los dos atributos elegidos como ejes; el color y la forma indican la especie.</p>
+          <ul>
+          <li><strong>Ejes</strong> con largo y ancho del pétalo: las tres especies forman grupos casi separados. Con el largo del sépalo, versicolor y virginica se mezclan.</li>
+          <li>Lo que cambia no son los datos sino la <em>representación</em>: la misma tabla vista con otros atributos es más fácil o más difícil de clasificar.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'fit, transform y predict',
         descripcion: 'Un clasificador de k vecinos más cercanos con un paso de estandarización. Active y desactive la estandarización: la frontera pasa de franjas horizontales a una diagonal, y la exactitud de validación sube.',
+        ayuda: String.raw`<p>Cada punto es un estudiante: horas de estudio en el eje horizontal y puntaje de ingreso en el vertical; el color dice si aprobó. El fondo es la predicción del clasificador de \(k\) vecinos más cercanos en cada lugar. Los puntos con contorno son de validación (no se usaron para entrenar).</p>
+          <ul>
+          <li>Sin <strong>estandarizar</strong>, el puntaje (cientos de unidades) domina la distancia y las horas casi no cuentan: la frontera queda en franjas horizontales. Al estandarizar, ambos atributos pesan y la frontera se vuelve diagonal; la exactitud de validación sube.</li>
+          <li><strong>Vecinos k</strong>: con \(k = 1\) la exactitud de entrenamiento es 100 % (memoriza) pero la frontera es irregular; con \(k\) mayor la frontera se suaviza.</li>
+          <li>Haga clic en el gráfico para crear un estudiante nuevo: las líneas naranjas lo unen con los \(k\) vecinos que votan su predicción.</li>
+          </ul>`,
         montar: montarTubo,
       },
     ],

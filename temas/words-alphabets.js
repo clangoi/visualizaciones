@@ -137,15 +137,34 @@
       alfabetos distintos. Todo lo que estudiaremos —máquinas, expresiones, gramáticas— se reduce a decidir qué palabras pertenecen a un conjunto.</p>
       <p>Las palabras se pegan unas con otras (<em>concatenación</em>) y esa operación, sencilla, tiene un neutro —la palabra vacía ε— y obliga a distinguir
       con cuidado el orden: <em>uv</em> no es <em>vu</em>.</p>`,
+    parametros: [
+      ['Alfabeto Σ (Fig. 1)', String.raw`Conjunto de símbolos permitidos. Un símbolo fuera de Σ invalida la palabra.`],
+      ['Palabra u y Palabra v (Fig. 1)', String.raw`Dos palabras de hasta 10 símbolos. La concatenación uv pone u primero y v después.`],
+      ['Potencia n (Fig. 1)', String.raw`Cuántas veces se repite la palabra (uⁿ). Con n = 0 se obtiene la palabra vacía.`],
+      ['Intercambiar u y v (Fig. 1)', String.raw`Intercambia los dos valores para comparar uv con vu.`],
+      ['Tamaño del alfabeto |Σ| (Fig. 2)', String.raw`Cantidad de símbolos, de 1 a 4. Es la base del crecimiento exponencial.`],
+      ['Longitud n (Fig. 2)', String.raw`Largo de las palabras contadas. Cada símbolo añadido multiplica por |Σ| el número de palabras.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Palabras, concatenación y potencias',
         descripcion: 'Escriba dos palabras u y v: compare uv con vu, cambie la potencia n y pruebe palabras vacías o con símbolos fuera del alfabeto.',
+        ayuda: String.raw`<p>Filas con los símbolos de u (azul), de v (naranja) y de los resultados; los símbolos fuera de Σ se marcan en rojo. La lectura da longitudes y compara uv con vu.</p>
+          <ul>
+          <li><strong>Intercambiar u y v</strong>: uv y vu casi nunca coinciden, es decir, la concatenación no es conmutativa.</li>
+          <li><strong>Potencia n</strong>: la longitud de uⁿ es n veces la de u.</li>
+          <li><strong>Alfabeto Σ</strong>: al cambiarlo, los símbolos fuera de Σ se adaptan o se marcan en rojo.</li>
+          </ul>`,
         montar: montarPalabras,
       },
       {
         titulo: 'Cuántas palabras hay de cada longitud',
         descripcion: 'Aumente el alfabeto y la longitud: el número de palabras crece como \\(|\\Sigma|^n\\), por eso enumerar todas las entradas nunca es práctico.',
+        ayuda: String.raw`<p>Eje horizontal: longitud n; eje vertical (logarítmico): cantidad de palabras. La línea azul es |Σ|ⁿ palabras de longitud n y la naranja, las de longitud ≤ n. Debajo se listan las primeras palabras de longitud n.</p>
+          <ul>
+          <li><strong>Tamaño del alfabeto</strong>: sube la pendiente de las rectas, es decir, la base de la exponencial.</li>
+          <li><strong>Longitud n</strong>: mueve el punto leído y alarga las palabras de la lista; el total crece sin tope práctico.</li>
+          </ul>`,
         montar: montarConteo,
       },
     ],

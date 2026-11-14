@@ -96,9 +96,24 @@
     intro: String.raw`
       <p>La <strong>GRU</strong> (<em>Gated Recurrent Unit</em>) logra casi lo mismo que la LSTM con una celda más simple: no tiene una memoria separada, solo el estado \(h_t\), y dos puertas en lugar de tres.</p>
       <p>La <strong>puerta de actualización</strong> \(z_t\) elige, unidad por unidad, cuánto del estado anterior se conserva y cuánto se reemplaza; la <strong>puerta de reinicio</strong> \(r_t\) decide cuánto del pasado se usa al calcular el candidato. Es una interpolación entre «quedarse igual» y «renovarse».</p>`,
+    parametros: [
+      ['Primer símbolo de la secuencia (Fig. 1)', String.raw`La señal que la GRU debe recordar: +1 (clase 1) o −1 (clase 0).`],
+      ['Pasos de ruido (Fig. 1)', String.raw`Cuántos pasos de entrada irrelevantes siguen a la señal.`],
+      ['Otra semilla y reproductor (Fig. 1)', String.raw`Otra semilla reinicia el entrenamiento con otros pesos; el reproductor entrena la red.`],
+      ['Tamaño de la entrada d (Fig. 2)', String.raw`Dimensión del vector de entrada de cada celda. Influye en cuántos parámetros tiene cada compuerta.`],
+    ],
     visualizaciones: [
-      { titulo: 'Las dos puertas de la GRU', descripcion: 'Entrene la GRU y observe cómo evolucionan z y r durante la secuencia. Compare las secuencias que empiezan con +1 y con −1.', montar: montarPuertas },
-      { titulo: 'GRU, LSTM y RNN: costo en parámetros', descripcion: 'Compare el número de parámetros a medida que crece el estado oculto. A igual tamaño, la GRU es un 25 % más pequeña que la LSTM.', montar: montarParametros },
+      { titulo: 'Las dos puertas de la GRU', descripcion: 'Entrene la GRU y observe cómo evolucionan z y r durante la secuencia. Compare las secuencias que empiezan con +1 y con −1.',
+        ayuda: String.raw`<p>Cada columna es un paso de tiempo. Se muestran la entrada y los estados y puertas de la GRU: azul para valor positivo y naranja para negativo; en las puertas z y r, el tono oscuro es abierta (cerca de 1) y el claro, cerrada (cerca de 0).</p>
+          <ul>
+          <li><strong>Primer símbolo</strong>: al cambiarlo de +1 a −1 se invierte el signo del estado oculto, que es lo que recuerda la señal.</li>
+          <li><strong>Pasos de ruido</strong>: más pasos muestran cuánto tiempo conserva la GRU el estado con la puerta z.</li>
+          </ul>`, montar: montarPuertas },
+      { titulo: 'GRU, LSTM y RNN: costo en parámetros', descripcion: 'Compare el número de parámetros a medida que crece el estado oculto. A igual tamaño, la GRU es un 25 % más pequeña que la LSTM.',
+        ayuda: String.raw`<p>Eje horizontal: unidades ocultas \(H\); eje vertical: número de parámetros. Cada curva es un tipo de celda: RNN simple (naranja), GRU (verde) y LSTM (azul).</p>
+          <ul>
+          <li><strong>Tamaño de la entrada d</strong>: sube todas las curvas; la LSTM, con cuatro bloques, crece más rápido que la GRU, con tres, y esta más que la RNN simple, con uno.</li>
+          </ul>`, montar: montarParametros },
     ],
     teoria: String.raw`
       <h2>Ecuaciones</h2>

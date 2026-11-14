@@ -93,9 +93,24 @@
       <p>Una <strong>extensión de navegador</strong> es un pequeño programa web que añade funciones al navegador: bloquear anuncios, gestionar contraseñas, traducir, resaltar texto. Se construye con HTML, CSS y JavaScript,
       más un archivo <code>manifest.json</code> que declara qué es, qué partes tiene y qué permisos pide.</p>
       <p>Sus partes viven en contextos separados: el <strong>service worker</strong> (<em>background</em>) reacciona a eventos y usa las APIs del navegador; el <strong>popup</strong> es su pequeña interfaz; y los <strong>content scripts</strong> se inyectan en las páginas para leer y modificar su DOM.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`Cuál de los tres flujos se recorre: resaltar palabras mediante mensajes, guardar una opción o bloquear un recurso de red. Cada uno involucra partes distintas de la extensión.`],
+      ['Permisos y Patrón del content script (matches) (Fig. 2)', String.raw`Los permisos marcados se vuelven parte del manifest y definen qué APIs puede usar la extensión; el patrón decide en qué páginas se inyecta el script. Más amplio significa más poder y más riesgo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Mensajes entre las partes', descripcion: 'Recorra tres escenarios y vea qué parte inicia cada acción y cuál puede tocar la página o las APIs del navegador.', montar: montarMensajes },
-      { titulo: 'Manifest, permisos y patrones', descripcion: 'Marque permisos y edite el patrón de coincidencia: vea el manifest resultante, el riesgo que percibiría el usuario y en qué páginas se inyecta el script.', montar: montarManifest },
+      { titulo: 'Mensajes entre las partes', descripcion: 'Recorra tres escenarios y vea qué parte inicia cada acción y cuál puede tocar la página o las APIs del navegador.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre popup, service worker, content script y página. Los colores distinguen la iniciativa del usuario o de la página, las llamadas a la API de la extensión, los resultados y el bloqueo.</p>
+          <ul>
+          <li><strong>Escenario</strong> de mensajes: el popup pide al service worker, éste reenvía al content script y solo este último toca el DOM de la página.</li>
+          <li>En el escenario de opciones, quien guarda con storage notifica a las demás partes mediante storage.onChanged.</li>
+          <li>En el de bloqueo, la regla declarativa actúa sin pasar la petición por el código de la extensión.</li>
+          </ul>`, montar: montarMensajes },
+      { titulo: 'Manifest, permisos y patrones', descripcion: 'Marque permisos y edite el patrón de coincidencia: vea el manifest resultante, el riesgo que percibiría el usuario y en qué páginas se inyecta el script.',
+        ayuda: String.raw`<p>Arriba se ve el manifest generado, luego el aviso de riesgo que percibiría el usuario y una tabla con páginas de ejemplo en las que el patrón se inyecta o no.</p>
+          <ul>
+          <li>Cada <strong>permiso</strong> marcado agrega una línea al manifest y puede subir el riesgo del aviso.</li>
+          <li><strong>Patrón del content script (matches)</strong>: uno estrecho limita las filas de la tabla que coinciden; <code>&lt;all_urls&gt;</code> hace coincidir todas las páginas.</li>
+          </ul>`, montar: montarManifest },
     ],
     teoria: String.raw`
       <h2>Arquitectura</h2>

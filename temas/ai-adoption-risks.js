@@ -212,15 +212,34 @@
     intro: String.raw`
       <p>Adoptar inteligencia artificial abre <strong>oportunidades</strong> (menos costos, mejor atención, productos nuevos) y trae <strong>riesgos</strong> propios: sesgos que discriminan sin que nadie lo haya querido, datos personales expuestos, dependencia de un proveedor, modelos que no pueden explicar sus decisiones y obligaciones legales que cambian. Una decisión responsable pesa ambas cosas en lugar de mirar solo la promesa o solo el miedo.</p>
       <p>Dos ideas ordenan el análisis: el <strong>valor esperado</strong> (cada resultado ponderado por su probabilidad) y la <strong>curva de adopción</strong>, que muestra cómo se extiende el uso por la organización y cómo un incidente la frena. La gobernanza de la IA es lo que baja la probabilidad de los riesgos y acorta esas caídas, a un costo.</p>`,
+    parametros: [
+      ['Escenario (Fig. 1)', String.raw`El supuesto general sobre el entorno: pesimista, base u optimista. Escala el valor esperado de las oportunidades y de los riesgos.`],
+      ['Inversión en gobernanza de IA (Fig. 1)', String.raw`Cuánto se invierte en controles, políticas y supervisión. Reduce la pérdida esperada de los riesgos, pero suma un costo.`],
+      ['Activar todo (Fig. 1)', String.raw`Vuelve a incluir todas las oportunidades y los riesgos que se hayan excluido con clic.`],
+      ['Impulso inicial (directivos, p) (Fig. 2)', String.raw`La adopción que ocurre por decisión directiva, sin depender de otras áreas. Marca el arranque de la curva.`],
+      ['Contagio entre áreas (q) (Fig. 2)', String.raw`Cuánto influyen las áreas que ya usan IA sobre las que no. Más contagio da una curva más empinada.`],
+      ['Mes del incidente, Gravedad del incidente y Meses para recuperar la confianza (Fig. 2)', String.raw`Cuándo ocurre un incidente grave, cuántas áreas deja de usar IA y cuánto tarda la organización en volver a confiar. Con mes 0 no hay incidente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Valor esperado de adoptar IA',
         descripcion: 'Cambie el escenario y la inversión en gobernanza para ver cómo se compone el valor neto. Excluya con clic una oportunidad o un riesgo para ver cuánto pesa, y busque el nivel de gobernanza que maximiza el resultado.',
+        ayuda: String.raw`<p>Cada barra horizontal es una oportunidad (valor esperado) o un riesgo (pérdida esperada). Se suman al costo de la gobernanza para dar el valor esperado neto.</p>
+          <ul>
+          <li><strong>Escenario</strong> pesimista: las barras de oportunidad se acortan y las de riesgo se alargan, y el neto baja.</li>
+          <li><strong>Inversión en gobernanza de IA</strong>: acorta las barras de riesgo pero agrega costo; hay un nivel en que el neto es máximo.</li>
+          </ul>`,
         montar: montarValor,
       },
       {
         titulo: 'Curva de adopción y madurez',
         descripcion: 'Reproduzca los 48 meses de adopción y observe las etapas de madurez. Agregue un incidente grave a mitad de camino y compare con la trayectoria sin incidente: la recuperación depende de cuánto tarde la confianza en volver.',
+        ayuda: String.raw`<p>Eje horizontal: mes; eje vertical: áreas que usan IA. La curva muestra la adopción con incidente, con la trayectoria sin incidente como referencia, el mes del incidente marcado y las líneas de los umbrales de madurez.</p>
+          <ul>
+          <li><strong>Contagio entre áreas (q)</strong> alto: la curva sube más rápido una vez que hay primeras áreas usuarias.</li>
+          <li><strong>Gravedad del incidente</strong>: define cuánto cae la curva respecto de la trayectoria sin incidente.</li>
+          <li><strong>Meses para recuperar la confianza</strong>: cuanto más largos, más tarda la curva en volver a la trayectoria original.</li>
+          </ul>`,
         montar: montarAdopcion,
       },
     ],

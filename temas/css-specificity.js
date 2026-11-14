@@ -111,15 +111,31 @@
       <p>CSS significa <em>hojas de estilo en cascada</em>: muchas reglas pueden apuntar al mismo elemento, y el navegador debe decidir cuál manda.
       Esa decisión no es el azar ni el orden alfabético, sino un algoritmo con tres ingredientes: <strong>importancia</strong>, <strong>especificidad</strong> y <strong>orden</strong>.</p>
       <p>Además, algunas propiedades (como el color del texto) se <strong>heredan</strong> de padres a hijos, mientras que otras (como el borde) no.</p>`,
+    parametros: [
+      ['Casillas de reglas, estilo en línea y regla «p» con !important (Fig. 1)', String.raw`Cada casilla enciende o apaga una regla candidata para el color de un mismo elemento. Al quitarlas se ve qué ingrediente (importancia, origen en línea, especificidad u orden) decide al ganador.`],
+      ['Propiedad y Valor (Fig. 2)', String.raw`La propiedad CSS que se aplica y el valor que se asigna a un elemento del árbol. Su tipo decide si el valor viaja a los descendientes (heredada) o se queda en el elemento.`],
+      ['Limpiar (Fig. 2)', String.raw`Quita los valores asignados y devuelve el árbol a su estado inicial.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La cascada: quién gana',
         descripcion: 'Desactive reglas una por una, active el estilo en línea o <code>!important</code> y compruebe qué ingrediente decide el color final.',
+        ayuda: String.raw`<p>La tabla enumera las reglas que apuntan al elemento <code>p</code> con id y clase, con su especificidad; abajo se ve el color resultante. Las reglas desactivadas no participan.</p>
+          <ul>
+          <li><strong>Casillas de reglas</strong>: al apagar la ganadora, gana la siguiente con mayor especificidad o la última escrita en caso de empate.</li>
+          <li><strong>estilo en línea</strong>: supera a las reglas de hoja de estilo normales.</li>
+          <li><strong>regla «p» con !important</strong>: gana incluso a la regla más específica, salvo que haya otra importante.</li>
+          </ul>`,
         montar: montarCascada,
       },
       {
         titulo: 'Herencia de propiedades',
         descripcion: 'Aplique un color en <code>main</code> y mire hasta dónde llega; luego pruebe con <code>border</code> y vea que no se propaga.',
+        ayuda: String.raw`<p>Es el árbol de elementos (body, header, h1, nav, a, main, article, p, span). Se marca dónde se fijó un valor y cómo queda el valor de cada nodo; los que no tienen regla muestran el valor inicial.</p>
+          <ul>
+          <li><strong>Propiedad</strong>: con una heredada (como color) el valor llega a los descendientes; con una no heredada (como border) solo afecta al nodo elegido.</li>
+          <li><strong>Valor</strong>: lo que se escribe al hacer clic en un nodo.</li>
+          </ul>`,
         montar: montarHerencia,
       },
     ],

@@ -153,15 +153,33 @@
     intro: String.raw`
       <p>Para usar un AFN en serio —en un buscador, en un motor de expresiones— no se «adivina»: se <strong>simula</strong>. Hay tres caminos. Seguir el conjunto de estados activos a cada símbolo (barato en memoria, costo proporcional al tamaño del conjunto por símbolo); determinizar todo antes (costo inicial exponencial en el peor caso, pero luego una consulta por símbolo); o determinizar <em>bajo demanda</em>, guardando en una caché los subconjuntos que el texto realmente visita.</p>
       <p>Además, si los estados caben en una palabra de máquina, el conjunto activo es un vector de bits y un paso se calcula con unas pocas instrucciones.</p>`,
+    parametros: [
+      ['n (estados del AFN = n + 1) (Fig. 1)', String.raw`El tamaño del AFN usado. El AFD equivalente puede necesitar del orden de \(2^n\) estados, así que n decide cuánto cuesta construirlo por completo.`],
+      ['Longitud del texto (Fig. 1)', String.raw`Cuántos símbolos se leen. Con textos más largos el costo por símbolo domina sobre el costo inicial.`],
+      ['Nuevo texto (Fig. 1)', String.raw`Genera otro texto aleatorio; sirve para ver cuánto depende el AFD perezoso de los estados que el texto visita.`],
+      ['Patrón (hasta 10) y Texto (hasta 30) (Fig. 2)', String.raw`El patrón cuyas ocurrencias se buscan y el texto donde se buscan. Definen qué bits se encienden en cada columna.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza columna a columna sobre el texto; Reiniciar vuelve a la primera.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Costo de tres estrategias',
         descripcion: 'Aumente n y la longitud del texto: el AFD completo paga un costo inicial enorme, el AFN paga siempre, y el perezoso solo por lo que visita.',
+        ayuda: String.raw`<p>Eje horizontal: símbolos leídos. Eje vertical: costo acumulado. Cada curva es una estrategia: simular el AFN con conjuntos, construir primero todo el AFD, o usar un AFD perezoso con caché.</p>
+          <ul>
+          <li><strong>n</strong>: la curva del AFD completo parte de un costo inicial que crece con n, mientras la del AFN no.</li>
+          <li><strong>Longitud del texto</strong>: con textos largos la inversión inicial del AFD completo se amortiza.</li>
+          <li><strong>Nuevo texto</strong>: la curva perezosa cambia porque solo paga por los estados que ese texto visita.</li>
+          </ul>`,
         montar: montarCostos,
       },
       {
         titulo: 'El AFN en paralelo con bits (Shift-And)',
         descripcion: 'Cada fila es un estado del AFN del patrón y cada columna una posición del texto. Una sola operación de palabra actualiza todas las filas a la vez.',
+        ayuda: String.raw`<p>Cada fila es un estado del AFN del patrón (prefijo de ese largo) y cada columna una posición del texto. Un bit encendido indica estado activo: el prefijo del patrón de ese largo termina ahí. La fila del patrón completo marca una ocurrencia.</p>
+          <ul>
+          <li><strong>Patrón</strong>: patrones más largos agregan filas; uno con símbolos repetidos activa varias filas a la vez.</li>
+          <li><strong>Texto</strong>: cada columna se obtiene de la anterior con una sola operación de palabra sobre todas las filas.</li>
+          </ul>`,
         montar: montarBits,
       },
     ],

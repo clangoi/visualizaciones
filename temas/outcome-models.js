@@ -133,15 +133,32 @@
       <p>Funciona tan bien como el modelo. Si los grupos se solapan poco, el modelo debe <strong>extrapolar</strong>, y un modelo mal especificado
       sesga el resultado. Los estimadores <strong>doblemente robustos</strong> combinan un modelo de resultado con uno de
       <a href="tema.html?id=propensity-score">propensión</a> y solo necesitan que uno de los dos sea correcto.</p>`,
+    parametros: [
+      ['Modelo de resultado (Fig. 1)', String.raw`Forma con que se ajusta la relación entre gravedad y resultado: lineal o cuadrática. Si no coincide con la verdadera, el efecto estimado sale sesgado.`],
+      ['Confusión (Fig. 1)', String.raw`Cuánto depende el tratamiento de la gravedad. Mayor confusión hace más grande la extrapolación del modelo.`],
+      ['Nuevos datos y Repetir (Fig. 1 y 2)', String.raw`Generan una muestra nueva o repiten los estudios simulados.`],
+      ['modelo de resultado correcto (Fig. 2)', String.raw`Indica si el modelo de resultado incluye gravedad² como el verdadero.`],
+      ['modelo de propensión correcto (Fig. 2)', String.raw`Indica si el modelo de tratamiento incluye gravedad² como el verdadero.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ajuste por regresión',
         descripcion: 'Un modelo por grupo (T-learner) y la diferencia promedio. Suba la confusión con el modelo lineal y luego cambie a cuadrático.',
+        ayuda: String.raw`<p>Puntos de tratados y controles según gravedad (horizontal) y resultado Y (vertical), con sus modelos ajustados μ₁(x) y μ₀(x) y las curvas verdaderas E[Y(t) | x].</p>
+          <ul>
+          <li><strong>Modelo de resultado</strong> lineal sobre curvas cuadráticas: los modelos ajustados se separan de las verdaderas.</li>
+          <li><strong>Confusión</strong> alta: los grupos se solapan menos en gravedad y el error se nota más.</li>
+          </ul>`,
         montar: montarRegresion,
       },
       {
         titulo: 'Doble robustez',
         descripcion: 'Regresión, IPW y AIPW en muchos estudios simulados, con modelos correctos o mal especificados.',
+        ayuda: String.raw`<p>Estimaciones del ATE de regresión, IPW y AIPW en muchos estudios (puntos por estudio, promedio y ATE verdadero).</p>
+          <ul>
+          <li>Con una sola casilla correcta, AIPW suele quedar cerca del verdadero.</li>
+          <li>Con ambas incorrectas, todos los estimadores se desvían.</li>
+          </ul>`,
         montar: montarRobustez,
       },
     ],

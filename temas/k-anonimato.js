@@ -123,15 +123,34 @@
       suya. Lo propusieron Samarati y Sweeney en 1998, como respuesta directa al ataque de enlace.</p>
       <p>Se logra generalizando y suprimiendo. Pero k-anonimato protege la <em>identidad</em>, no el <em>atributo sensible</em>: si todas
       las filas de un grupo tienen el mismo diagnóstico, no importa cuál de ellas sea la víctima.</p>`,
+    parametros: [
+      ['Nivel de cp, Nivel de edad, Nivel de sexo (Fig. 1 y 2)', String.raw`Cuánto se generaliza cada cuasi-identificador. Un nivel más alto es menos preciso y junta más filas en las mismas clases de equivalencia.`],
+      ['k objetivo (Fig. 1)', String.raw`El tamaño mínimo que debe tener cada clase de equivalencia.`],
+      ['suprimir clases con menos de k filas (Fig. 1)', String.raw`Elimina las clases que no llegan a k filas en lugar de generalizar más.`],
+      ['Víctima (Fig. 2)', String.raw`La persona de la que el atacante conoce cp, edad y sexo y cuya clase intenta leer.`],
+      ['el atacante sabe además que no tiene gripe (Fig. 2)', String.raw`Conocimiento previo que descarta un diagnóstico entre los posibles de la clase.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Generalizar hasta lograr k',
         descripcion: 'Suba los niveles de generalización y observe cómo se juntan las clases de equivalencia. Active la supresión para eliminar las clases que quedan chicas.',
+        ayuda: String.raw`<p>La tabla muestra las filas agrupadas en clases de equivalencia, cada una de un color: las filas de una clase tienen los mismos cuasi-identificadores publicados. La lectura indica el tamaño de la clase menor y si se cumple k.</p>
+          <ul>
+          <li><strong>Niveles</strong>: al subirlos las clases se juntan y crecen; baja el riesgo de re-identificar, pero se pierde precisión.</li>
+          <li><strong>k objetivo</strong>: marca cuáles clases quedan por debajo de k.</li>
+          <li><strong>suprimir clases con menos de k filas</strong>: quita esas clases y se cumple k sin generalizar más.</li>
+          </ul>`,
         montar: montarK,
       },
       {
         titulo: 'Ataques de homogeneidad y de conocimiento previo',
         descripcion: 'El atacante sabe en qué clase está la víctima. Si la clase es homogénea en el diagnóstico, lo aprende igual; un poco de conocimiento previo puede eliminar las alternativas que quedaban.',
+        ayuda: String.raw`<p>Las barras muestran la probabilidad de cada diagnóstico para el atacante dentro de la clase de equivalencia de la víctima; la barra con probabilidad 1 es un diagnóstico revelado.</p>
+          <ul>
+          <li><strong>Víctima</strong>: cambia la clase y su distribución de diagnósticos.</li>
+          <li><strong>Niveles</strong>: una clase más grande no garantiza protección si todos tienen el mismo diagnóstico (homogeneidad): la probabilidad sigue en 1.</li>
+          <li><strong>el atacante sabe además que no tiene gripe</strong>: descarta ese diagnóstico, las probabilidades de los restantes suben y puede quedar uno solo.</li>
+          </ul>`,
         montar: montarAtaque,
       },
     ],

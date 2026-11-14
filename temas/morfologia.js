@@ -259,15 +259,33 @@
       <p>Combinando estas dos operaciones se limpia el resultado de una segmentación: se borran granos de ruido, se cierran
       grietas, se rellenan agujeros, se extrae el contorno para medir el perímetro y se reduce una forma a su
       <strong>esqueleto</strong>.</p>`,
+    parametros: [
+      ['Operación y Elemento estructurante B (Fig. 1)', String.raw`La operación aplicada (dilatar, erosionar, abrir, cerrar…) y la forma de la sonda B con la que se recorre la imagen. B decide qué detalles sobreviven o se rellenan.`],
+      ['Radio de B (Fig. 1)', String.raw`El tamaño de la sonda. Con radio mayor la operación afecta estructuras más grandes.`],
+      ['Área mínima (limpieza) (Fig. 1)', String.raw`Superficie bajo la cual se eliminan los objetos pequeños en la operación de limpieza.`],
+      ['Aplicar al original, Imagen nueva y Borrar todo (Fig. 1)', String.raw`Volver a partir del original, generar otra imagen o vaciar el lienzo para dibujar.`],
+      ['Operación y Elemento estructurante B (Fig. 2)', String.raw`La dilatación (unión de copias de A desplazadas) o la erosión (lo común a las copias desplazadas), y los píxeles de B que fijan los desplazamientos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Operaciones sobre una imagen binaria',
         descripcion: 'A la izquierda la imagen original, a la derecha el resultado con los cambios en color. Pruebe la apertura con radio 1: borra los granos sueltos sin cambiar las formas grandes.',
+        ayuda: String.raw`<p>A la izquierda la imagen original y a la derecha el resultado. Los píxeles de objeto están en su color; los agregados por la operación y los eliminados se distinguen por colores propios, y la segunda figura S aparece cuando la operación es una unión.</p>
+          <ul>
+          <li><strong>Radio de B</strong>: aumenta la cantidad de píxeles agregados (dilatación) o eliminados (erosión).</li>
+          <li><strong>Apertura con radio 1</strong>: elimina granos más pequeños que B sin alterar las formas grandes.</li>
+          <li><strong>Elemento estructurante B</strong>: su forma determina qué se redondea o se conserva en los bordes.</li>
+          </ul>`,
         montar: montarOperaciones,
       },
       {
         titulo: 'Dilatación como unión de traslaciones',
         descripcion: 'La dilatación junta copias de A desplazadas por cada píxel de B; la erosión se queda con lo común a todas las copias desplazadas en sentido contrario.',
+        ayuda: String.raw`<p>Se muestra el contorno de A, la traslación del paso actual, el resultado acumulado y el píxel b de B que produce ese desplazamiento.</p>
+          <ul>
+          <li><strong>Operación</strong>: en la dilatación el resultado crece con cada copia unida; en la erosión se reduce a lo que todas las copias comparten.</li>
+          <li><strong>Elemento estructurante B</strong>: cada píxel de B agrega un paso; una cruz de 5 píxeles genera 5 traslaciones.</li>
+          </ul>`,
         montar: montarTraslaciones,
       },
     ],

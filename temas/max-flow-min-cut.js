@@ -299,20 +299,44 @@
       arcos de retroceso con el flujo ya enviado.</p>
       <p>Cuando ya no hay camino, el conjunto de nodos aún alcanzables desde \(S\) define un <strong>corte</strong> cuya capacidad es exactamente el flujo logrado. Ese es el teorema del
       flujo máximo y corte mínimo: el mayor flujo posible es igual a la capacidad del corte más barato, y cada uno certifica al otro.</p>`,
+    parametros: [
+      ['Búsqueda del camino (Fig. 1)', String.raw`Cómo se elige el camino de aumento: el más corto (Edmonds–Karp) o en profundidad (Ford–Fulkerson). Cambia la cantidad de aumentos necesarios.`],
+      ['Nuevas capacidades y reproductor (Fig. 1)', String.raw`Nuevas capacidades sortea otra red. El reproductor avanza paso a paso, hasta el final o reinicia.`],
+      ['Enviar flujo por el camino, Camino más corto, Deshacer nodo y Reiniciar (Fig. 2)', String.raw`Enviar flujo envía el camino que usted armó, Camino más corto lo propone, Deshacer nodo quita su último nodo y Reiniciar vuelve a flujo cero.`],
+      ['Mostrar un flujo máximo (Fig. 3)', String.raw`Muestra el flujo óptimo sobre la red; su valor se compara con la capacidad de cada corte.`],
+      ['Nuevas capacidades, Ir al corte mínimo y Solo S en su lado (Fig. 3)', String.raw`Sortea otra red, coloca los nodos del corte mínimo o deja solo S del lado S.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Caminos de aumento paso a paso',
         descripcion: 'Reproduzca el algoritmo y observe cómo cada camino naranja aumenta el flujo en su cuello de botella. Cambie a búsqueda en profundidad y compare cuántos aumentos hacen falta; al final, los arcos rojos forman el corte mínimo.',
+        ayuda: String.raw`<p>Cada camino de aumento se dibuja y su cuello de botella fija cuánto flujo se agrega. Los retrocesos discontinuos cancelan flujo; al final, los arcos del corte mínimo y el lado S del corte se destacan.</p>
+          <ul>
+          <li><strong>Búsqueda del camino</strong>: en profundidad suele necesitar más aumentos que el camino más corto.</li>
+          <li><strong>Nuevas capacidades</strong>: otra red y otro flujo máximo, igual a la capacidad del corte mínimo.</li>
+          </ul>`,
         montar: montarAumento,
       },
       {
         titulo: 'La red residual y el arco de retroceso',
         descripcion: 'Construya usted los caminos. Envíe primero S → A → B → T (2 unidades) y luego complete: para llegar al máximo, el último camino tiene que cancelar flujo con el arco de retroceso B → A.',
+        ayuda: String.raw`<p>Muestra la red residual: los arcos con capacidad residual, los retrocesos discontinuos que representan flujo ya enviado y su camino, con origen S y destino T.</p>
+          <ul>
+          <li><strong>Enviar flujo por el camino</strong>: reduce la capacidad residual de los arcos y crea retrocesos.</li>
+          <li><strong>Camino más corto</strong>: propone el siguiente aumento.</li>
+          <li>Para llegar al máximo, el último camino usa el retroceso B → A.</li>
+          </ul>`,
         montar: montarResidual,
       },
       {
         titulo: 'Todos los cortes de una red',
         descripcion: 'Elija qué nodos quedan del lado S y compare la capacidad de su corte con el flujo máximo. Ningún corte baja del flujo, y al menos uno lo iguala: pruebe «Ir al corte mínimo».',
+        ayuda: String.raw`<p>Arriba, la red con el lado S del corte y los arcos que cruzan de S a T. Abajo, barras con la capacidad de todos los cortes ordenados: el corte cualquiera, el suyo y el mínimo.</p>
+          <ul>
+          <li><strong>Nodos del lado S</strong>: su corte nunca baja del flujo máximo.</li>
+          <li><strong>Ir al corte mínimo</strong>: su capacidad iguala el flujo máximo.</li>
+          <li><strong>Mostrar un flujo máximo</strong>: compara su valor con las barras.</li>
+          </ul>`,
         montar: montarCortes,
       },
     ],

@@ -282,15 +282,34 @@
       <p>Con ese registro hace tres cosas: <strong>descubrir</strong> un modelo sin conocimiento previo, <strong>verificar</strong> si la realidad
       cumple un modelo y <strong>mejorar</strong> el proceso enriqueciéndolo con tiempos, recursos y costos. Una brecha entre el modelo
       dibujado y el comportamiento observado casi siempre existe, y medirla es el primer resultado útil.</p>`,
+    parametros: [
+      ['Tarea de minería de procesos (Fig. 1)', String.raw`Elige entre descubrir, verificar o mejorar. Cambia en qué fases del ciclo BPM aporta la minería de procesos, siempre a partir de los registros de eventos.`],
+      ['Reproductor y fases (Fig. 1)', String.raw`Recorre las fases del ciclo BPM, o se selecciona una con un clic; la fase seleccionada se resalta y se explica en la lectura.`],
+      ['Proceso (Fig. 2)', String.raw`Cambia el proceso observado (gestión de pedidos o atención de reclamos) y con él el modelo de referencia contra el que se compara.`],
+      ['Casos observados (Fig. 2)', String.raw`Cantidad de casos simulados. Con más casos, las frecuencias observadas son más estables y se ven más pares de actividades poco comunes.`],
+      ['Desvíos en la práctica (Fig. 2)', String.raw`Porcentaje de comportamiento que se sale del modelo. Subirlo hace aparecer flechas observadas que el modelo no permite y baja la fracción de casos conformes.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra muestra aleatoria con los mismos ajustes, para ver cuánto varían los resultados por azar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El ciclo BPM y las tres tareas',
         descripcion: 'Recorra el ciclo de vida de un proceso con el reproductor o haga clic en una fase. Elija una tarea (descubrir, verificar, mejorar) y observe en qué fases aporta y cómo todas parten de los registros de eventos.',
+        ayuda: String.raw`<p>Las fases del ciclo BPM forman un anillo. Se resalta la fase seleccionada y las fases donde aporta la tarea elegida, según la leyenda.</p>
+          <ul>
+          <li><strong>Tarea de minería de procesos</strong>: cambia qué fases quedan marcadas; indica en qué momento del ciclo sirve descubrir, verificar o mejorar.</li>
+          <li><strong>Reproductor</strong>: pasa de fase en fase para ver el orden del ciclo y cómo cada fase alimenta a la siguiente.</li>
+          </ul>`,
         montar: montarCiclo,
       },
       {
         titulo: 'Modelo frente a comportamiento observado',
         descripcion: 'Subir el porcentaje de desvíos hace aparecer flechas rojas: pares de actividades que el modelo no permite. Cambie de proceso y compare qué fracción de casos sigue conforme.',
+        ayuda: String.raw`<p>Los nodos son actividades y las flechas, pares consecutivos. Las flechas del modelo que se observan van en un color, las observadas fuera del modelo se marcan como desvío y las del modelo no usadas aparecen aparte; se distingue también el inicio.</p>
+          <ul>
+          <li><strong>Desvíos en la práctica</strong>: al subirlo aparecen más flechas observadas fuera del modelo; significa que el modelo describe peor lo que ocurre.</li>
+          <li><strong>Casos observados</strong>: con pocos casos, algunas flechas del modelo quedan sin usar solo por falta de datos.</li>
+          <li><strong>Proceso</strong>: compara dos modelos distintos con la misma lógica de conformidad.</li>
+          </ul>`,
         montar: montarObservado,
       },
     ],

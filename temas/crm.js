@@ -228,15 +228,35 @@
       en qué etapa de la venta está. Con esos datos la organización deja de tratar a todos igual y decide a quién llamar, a quién ofrecer qué y a quién no insistir.</p>
       <p>Dos preguntas ordenan el tema: <em>¿a qué clientes vale más la pena cuidar?</em> (segmentación) y <em>¿cuánto vale una relación a lo largo del tiempo frente a lo que cuesta
       conseguirla?</em> (embudo y valor del cliente). De ahí sale una conclusión práctica: retener suele rendir más que adquirir.</p>`,
+    parametros: [
+      ['Recencia máxima de «reciente» (Fig. 1)', String.raw`Días desde la última compra hasta los que un cliente se considera reciente. Mover el umbral cambia qué clientes caen en cada cuadrante.`],
+      ['Frecuencia mínima de «frecuente» (Fig. 1)', String.raw`Compras al año desde las que un cliente se considera frecuente. Subirla deja menos clientes en los segmentos de alta frecuencia.`],
+      ['Nuevos clientes (Fig. 1)', String.raw`Genera otra cartera de clientes aleatoria.`],
+      ['Prospectos al mes (Fig. 2)', String.raw`Entrada del embudo. Con la misma conversión, más prospectos dan más clientes ganados y más costo comercial.`],
+      ['Gasto comercial mensual (Fig. 2)', String.raw`Inversión en captar clientes. Dividida entre los clientes ganados da el costo de adquisición (CAC).`],
+      ['Margen mensual por cliente (Fig. 2)', String.raw`Ganancia que deja cada cliente cada mes; fija la pendiente de la curva de margen acumulado.`],
+      ['Retención mensual (Fig. 2)', String.raw`Fracción de clientes que sigue comprando cada mes. Mayor retención alarga la vida del cliente y su valor (CLV).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Segmentación RFM de clientes',
         descripcion: 'Mueva los umbrales de recencia y frecuencia: los cuatro cuadrantes cambian de tamaño y la tabla muestra cuánto ingreso concentra cada segmento. Busque cuántos clientes «campeones» sostienen la mayor parte de las ventas y cuánto dinero está en el segmento en riesgo.',
+        ayuda: String.raw`<p>Cada círculo es un cliente: el eje horizontal es la recencia (días desde la última compra), el vertical las compras al año, y el tamaño crece con el monto comprado. Las líneas de los umbrales dividen el plano en cuatro segmentos, que la leyenda identifica por color.</p>
+          <ul>
+          <li><strong>Recencia máxima</strong>: desplaza la línea vertical; los clientes que la cruzan cambian de segmento.</li>
+          <li><strong>Frecuencia mínima</strong>: desplaza la línea horizontal con el mismo efecto.</li>
+          </ul>`,
         montar: montarRFM,
       },
       {
         titulo: 'Embudo de ventas y valor del cliente',
         descripcion: 'Suba la conversión de una etapa (haciendo clic en ella) y compare con subir la retención: observe cómo cambian el CAC, el CLV y los meses que tarda en recuperarse lo invertido. Pruebe una retención de 80 % y otra de 95 %.',
+        ayuda: String.raw`<p>Arriba, las etapas del embudo y los clientes ganados. Abajo, el valor acumulado por cliente (dólares) según los meses desde la adquisición, con el margen acumulado con la retención elegida, el mismo con 5 puntos más de retención y el CAC como línea de referencia.</p>
+          <ul>
+          <li><strong>Retención mensual</strong>: sube la curva de margen y la hace cruzar antes el CAC, lo que acorta la recuperación.</li>
+          <li><strong>Gasto comercial mensual</strong>: sube el CAC y la línea de referencia, retrasando el cruce.</li>
+          <li><strong>Margen mensual por cliente</strong>: aumenta la pendiente de ambas curvas.</li>
+          </ul>`,
         montar: montarEmbudo,
       },
     ],

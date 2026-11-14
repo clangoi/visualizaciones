@@ -107,15 +107,33 @@
       el resultado de cada unidad si recibe el tratamiento, \(Y(1)\), y si no lo recibe, \(Y(0)\). El efecto individual es \(Y(1) - Y(0)\).</p>
       <p>El <strong>problema fundamental de la inferencia causal</strong> es que nunca se observan ambos para la misma unidad. Todo el trabajo
       consiste en estimar promedios de efectos —ATE, ATT, ATC— comparando grupos que, idealmente, solo difieran en el tratamiento.</p>`,
+    parametros: [
+      ['Asignación del tratamiento (Fig. 1)', String.raw`Cómo se decide quién recibe el tratamiento: al azar o por autoselección (los más graves). Con autoselección, tratados y controles difieren desde antes.`],
+      ['mostrar el resultado contrafactual (Fig. 1)', String.raw`Muestra el resultado que no se observa de cada paciente (el del tratamiento que no recibió).`],
+      ['Nueva asignación y Nuevos pacientes (Fig. 1)', String.raw`Nueva asignación repite el sorteo con los mismos pacientes; Nuevos pacientes genera otra muestra.`],
+      ['Pacientes por estudio (Fig. 2)', String.raw`Tamaño de cada estudio. Con más pacientes la dispersión de la estimación baja.`],
+      ['Repetir 500 estudios (Fig. 2)', String.raw`Repite el estudio 500 veces para ver la distribución de la estimación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La tabla de resultados potenciales',
         descripcion: 'Catorce pacientes con sus dos resultados potenciales. Oculte o muestre el contrafactual y compare la diferencia ingenua con los efectos verdaderos según cómo se asigna el tratamiento.',
+        ayuda: String.raw`<p>Cada fila es un paciente con sus dos resultados potenciales; «?» marca el que no se observa. La lectura compara la diferencia ingenua de medias con los efectos verdaderos.</p>
+          <ul>
+          <li><strong>Asignación</strong> «al azar»: la diferencia ingenua se parece al efecto promedio verdadero.</li>
+          <li><strong>Asignación</strong> «autoselección»: la diferencia ingenua queda sesgada.</li>
+          <li><strong>mostrar el resultado contrafactual</strong>: revela las celdas «?» y el efecto individual.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'El estimador ingenuo en muchas repeticiones',
         descripcion: 'La diferencia de medias repetida en 500 estudios, con asignación al azar y con autoselección.',
+        ayuda: String.raw`<p>Densidad (vertical) de la diferencia de medias estimada (horizontal) en 500 estudios, con asignación al azar y con autoselección, y el ATE verdadero como referencia.</p>
+          <ul>
+          <li>Con asignación al azar la distribución se centra en el ATE verdadero; con autoselección, desplazada.</li>
+          <li><strong>Pacientes por estudio</strong> mayor: ambas se estrechan, pero la desplazada sigue desplazada.</li>
+          </ul>`,
         montar: montarRepeticiones,
       },
     ],

@@ -377,15 +377,31 @@
       <p>Algebraicamente, esa condición se llama <em>intervalo de optimalidad</em>: el rango de un coeficiente \(c_j\) para el que la base óptima
       sigue siendo óptima. Dentro del intervalo cambian el valor \(z^*\) y los precios, pero no las variables que están en la base ni el
       vértice; al cruzar el límite, el Simplex haría un pivote y el plan cambia.</p>`,
+    parametros: [
+      ['Utilidad c₁ y Utilidad c₂ (Fig. 1)', String.raw`Utilidad unitaria de cada producto, es decir, las componentes del vector objetivo \(c\). Cambiarlas gira el vector y su recta de nivel; el vértice óptimo solo cambia al salir del rango de optimalidad.`],
+      ['c₁ al límite superior, c₁ al límite inferior y Restablecer c = (3, 2) (Fig. 1)', String.raw`Llevan \(c_1\) justo al borde del rango en que la base actual sigue siendo óptima, o vuelven al valor original.`],
+      ['Utilidad c₂ (fija) (Fig. 2)', String.raw`Utilidad del segundo producto, que se mantiene constante mientras se explora \(c_1\).`],
+      ['Utilidad c₁ y Reproducir (Fig. 2)', String.raw`Elegir \(c_1\) marca el punto sobre la curva \(z^*(c_1)\); Reproducir lo recorre automáticamente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Girar la función objetivo',
         descripcion: 'Arrastre la punta del vector c sobre el plano y observe que el vértice óptimo (verde) no se mueve mientras c quede entre las dos normales (verdes agua) de las restricciones activas. Con «c₁ al límite superior» la recta de nivel queda sobre un lado completo, y un poco más allá el óptimo salta al vértice vecino.',
+        ayuda: String.raw`<p>El polígono es la región factible y las rectas, las restricciones. El vector \(c\) y su recta de nivel apuntan hacia donde crece la utilidad; las normales de las restricciones activas encierran el rango de direcciones para las que el vértice verde sigue siendo óptimo.</p>
+          <ul>
+          <li><strong>Utilidad c₁</strong>: mientras \(c\) quede entre las dos normales activas el óptimo no se mueve, aunque \(z^*\) cambie.</li>
+          <li><strong>c₁ al límite superior</strong>: \(c\) queda alineado con una normal y la recta de nivel coincide con una arista: hay óptimos alternativos.</li>
+          </ul>`,
         montar: montarRotacion,
       },
       {
         titulo: 'Valor óptimo y vértice ganador según c₁',
         descripcion: 'Cada recta fina es el valor \\(c_1x_1+c_2x_2\\) de un vértice como función de \\(c_1\\); el óptimo es la envolvente superior. Mueva \\(c_1\\) o pulse Reproducir: los puntos negros son los límites donde cambia la base, y la pendiente de \\(z^*\\) en cada tramo es \\(x_1^*\\).',
+        ayuda: String.raw`<p>Eje horizontal: \(c_1\); vertical: valor óptimo \(z^*\). Cada recta fina es el valor de un vértice como función de \(c_1\) y la envolvente superior (trazo grueso) es \(z^*(c_1)\). Los puntos negros son los límites donde cambia el vértice ganador.</p>
+          <ul>
+          <li><strong>Utilidad c₁</strong>: el punto sigue una sola recta fina hasta un quiebre, donde otro vértice pasa a ser el mejor.</li>
+          <li><strong>Utilidad c₂</strong>: cambia las pendientes en la envolvente y desplaza los quiebres.</li>
+          </ul>`,
         montar: montarEnvolvente,
       },
     ],

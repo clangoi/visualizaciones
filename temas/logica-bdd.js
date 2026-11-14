@@ -167,15 +167,34 @@
       aplicación invoca con <code>CALL</code>.</p>
       <p>Tener la lógica junto a los datos garantiza que se cumpla para <em>todas</em> las aplicaciones que usan la base y ahorra viajes
       por la red. El costo es que esa lógica es más difícil de versionar, probar y depurar que el código de la aplicación.</p>`,
+    parametros: [
+      ['Depositar, Retirar y Abrir cuenta (Fig. 1)', String.raw`Modifican la tabla base Cuentas (cambian un saldo o agregan a Elena) y con ello pueden entrar o salir filas de la vista.`],
+      ['REFRESH MATERIALIZED VIEW (Fig. 1)', String.raw`Vuelve a calcular y guardar el contenido de la vista materializada.`],
+      ['Reiniciar (Fig. 1)', String.raw`Devuelve las tres tablas a su estado inicial.`],
+      ['transferir(1 → 4, monto) (Fig. 2)', String.raw`Monto que mueve el procedimiento. El valor mayor que el saldo prueba qué ocurre cuando falta dinero.`],
+      ['trigger validar y trigger auditar (Fig. 2)', String.raw`El primero rechaza una transferencia que dejaría saldo negativo; el segundo registra cada cambio en la tabla de auditoría.`],
+      ['Reproductor (Fig. 2)', String.raw`Ejecuta el procedimiento línea por línea; Reiniciar lo vuelve al comienzo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Vista virtual y vista materializada',
         descripcion: 'Una vista virtual se recalcula en cada lectura; una materializada guarda el resultado y queda desactualizada hasta el próximo REFRESH.',
+        ayuda: String.raw`<p>Tres tablas: Cuentas (base), SaldosAltos (vista virtual) y SaldosAltosMat (materializada). Se resaltan las filas de la base que entran en la vista y las filas de la materializada que están desactualizadas.</p>
+          <ul>
+          <li><strong>Depositar, Retirar y Abrir cuenta</strong>: la virtual cambia de inmediato; la materializada queda desactualizada hasta el REFRESH.</li>
+          <li><strong>REFRESH MATERIALIZED VIEW</strong>: la materializada vuelve a coincidir con la virtual.</li>
+          </ul>`,
         montar: montarVistas,
       },
       {
         titulo: 'Procedimiento con disparadores',
         descripcion: 'Una transferencia entre cuentas, con un trigger que valida el saldo y otro que audita cada cambio. Avance línea por línea y pruebe el monto que deja saldo negativo.',
+        ayuda: String.raw`<p>Código del procedimiento con la línea que se ejecuta, y tablas de Cuentas y auditoría. Las filas modificadas sin confirmar se distinguen de las confirmadas y de los cambios deshechos.</p>
+          <ul>
+          <li><strong>transferir(1 → 4, monto)</strong>: con &#36;900.000 el saldo quedaría negativo.</li>
+          <li><strong>trigger validar</strong>: activado, la transferencia excesiva se rechaza y el cambio se deshace; sin él, el saldo queda negativo.</li>
+          <li><strong>trigger auditar</strong>: activado, cada cambio queda escrito en la auditoría.</li>
+          </ul>`,
         montar: montarProcedimiento,
       },
     ],

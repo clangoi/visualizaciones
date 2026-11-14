@@ -164,15 +164,33 @@
       de una dado un valor de la otra (quedarse con una fila de la tabla y renormalizarla).</p>
       <p>Estas tres operaciones —conjunta, marginalizar, condicionar— son todo lo que se necesita para el
       <a href="tema.html?id=bayes-theorem">teorema de Bayes</a>, las <a href="tema.html?id=bayesian-networks">redes bayesianas</a> y la inferencia probabilística.</p>`,
+    parametros: [
+      ['Dependencia entre clima y tráfico (Fig. 1)', String.raw`Cuánto se alejan clima y tráfico de ser independientes. En 0 la tabla conjunta es el producto de las marginales y la condicional no depende de la fila o columna elegida; al subirla, saber el clima cambia lo que se espera del tráfico.`],
+      ['Relación entre horas y nota (Fig. 2)', String.raw`Correlación entre horas de estudio y nota. Sus valores negativos o positivos inclinan la nube de puntos en un sentido u otro.`],
+      ['Condicionar en horas ≈ (Fig. 2)', String.raw`Posición de la franja: fija qué estudiantes se consideran, los que estudiaron cerca de ese valor.`],
+      ['Ancho de la franja (Fig. 2)', String.raw`Tamaño de la franja. Más ancha incluye más estudiantes pero mezcla valores de horas más distintos; más estrecha es más específica y más ruidosa.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otra muestra de 600 estudiantes con la misma relación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tabla conjunta',
         descripcion: 'Clima y tráfico: la tabla conjunta, sus marginales y la condicional de la fila o columna elegida. Lleve la dependencia a 0 y compare.',
+        ayuda: String.raw`<p>Los colores de las celdas muestran P(clima, tráfico). Los marginales son las sumas por fila y columna; al hacer clic se elige la fila o columna en la que se condiciona y se muestra la condicional.</p>
+          <ul>
+          <li><strong>Dependencia</strong> en 0: la condicional coincide con la marginal.</li>
+          <li><strong>Dependencia</strong> alta: la condicional se aleja claramente de la marginal.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Variables continuas',
         descripcion: 'Horas de estudio y nota de 600 estudiantes sintéticos. Mueva la franja y compare la distribución de la nota dentro de ella con la de todos.',
+        ayuda: String.raw`<p>Cada punto es un estudiante (horas en el eje horizontal, nota en el vertical). La franja marca el condicionamiento; arriba se compara la distribución de nota dentro de la franja (condicional) con la de todos (marginal).</p>
+          <ul>
+          <li><strong>Relación</strong> distinta de 0 y franja desplazada: la condicional se mueve respecto a la marginal.</li>
+          <li><strong>Relación</strong> cercana a 0: ambas distribuciones casi coinciden en cualquier posición de la franja.</li>
+          <li><strong>Ancho de la franja</strong> pequeño: menos estudiantes y una curva más irregular.</li>
+          </ul>`,
         montar: montarContinuas,
       },
     ],

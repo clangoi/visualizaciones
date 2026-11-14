@@ -437,15 +437,32 @@
       margen los recursos. Una actividad nueva conviene solo si lo que rinde supera el valor de los recursos que consumiría, valorados a esos precios.</p>
       <p>Esa comparación es el <em>costo reducido</em> de la nueva columna, \(d_j = c_j - y^\top a_j\). Si es positivo la actividad entra a la base y mejora el plan; si no, el plan actual sigue siendo óptimo.
       Agregar una restricción es el problema espejo: si el óptimo actual la cumple no pasa nada, y si la viola, el Simplex dual repara la solución con pocos pivotes.</p>`,
+    parametros: [
+      ['Utilidad unitaria c₃ (Fig. 1)', String.raw`Utilidad de la nueva actividad. Conviene producirla solo si supera el valor implícito de los recursos que consume.`],
+      ['Consumo de R1, R2 y R3 por unidad (Fig. 1)', String.raw`Cuánto de cada recurso usa una unidad de la actividad; multiplicado por el precio sombra da su aporte al costo.`],
+      ['Poner c₃ en el punto de equilibrio y Restablecer (Fig. 1)', String.raw`El primero iguala \(c_3\) al valor implícito total (costo reducido 0); el segundo vuelve a los datos originales.`],
+      ['Coeficiente de x₁, Coeficiente de x₂ y Lado derecho (Fig. 2)', String.raw`Definen la restricción nueva \(\alpha_1x_1+\alpha_2x_2\le g\) que se agrega al problema.`],
+      ['Reproductor (Fig. 2)', String.raw`Un paso aplica un pivote del Simplex dual; Reiniciar vuelve al óptimo anterior.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Costo reducido de una nueva actividad',
         descripcion: 'Cambie la utilidad y el consumo de la actividad: la barra superior suma lo que valen los recursos que usa (precio sombra por consumo) y la inferior su utilidad. Pulse «Poner c₃ en el punto de equilibrio»: ahí d₃ = 0 y, en la curva de abajo, justo en ese codo el valor óptimo empieza a subir.',
+        ayuda: String.raw`<p>La barra superior apila el valor implícito de cada recurso consumido (\(y_i a_i\)); la inferior es la utilidad \(c_3\), verde si conviene y rojiza si no. El segundo gráfico traza \(z^*\) con la nueva actividad frente a \(c_3\) y la referencia del \(z^*\) original.</p>
+          <ul>
+          <li><strong>c₃</strong>: si supera la suma de las barras, el costo reducido es positivo y \(z^*\) sube.</li>
+          <li><strong>Consumo</strong>: más consumo de un recurso caro eleva el costo implícito y vuelve menos atractiva la actividad.</li>
+          </ul>`,
         montar: montarColumna,
       },
       {
         titulo: 'Agregar una restricción y reoptimizar',
         descripcion: 'Con los valores iniciales la nueva restricción corta el óptimo (6, 4). Pulse Un paso para ver cómo el Simplex dual saca la holgura negativa y llega al nuevo óptimo; después suba el lado derecho hasta 10 o más y compruebe que el plan ya no cambia.',
+        ayuda: String.raw`<p>Región factible con la restricción nueva (el corte) y las originales. Un punto con holgura negativa es una solución básica infactible; el verde es el nuevo óptimo y el tableau marca el pivote del Simplex dual.</p>
+          <ul>
+          <li><strong>Coeficientes y lado derecho</strong>: si el óptimo viejo cumple la restricción no cambia nada; si no, el corte lo elimina y hay que pivotar.</li>
+          <li><strong>Un paso</strong>: el Simplex dual corrige la holgura negativa y llega al nuevo vértice.</li>
+          </ul>`,
         montar: montarRestriccion,
       },
     ],

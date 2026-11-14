@@ -71,9 +71,25 @@
       <p>Imagine que está conectado a su banco y abre otra pestaña con una página maliciosa. Si esa página pudiera pedir datos al banco y <em>leer</em> la respuesta, vería su saldo.
       Para impedirlo, los navegadores aplican la <strong>política del mismo origen</strong> (<em>Same-Origin Policy</em>): un script solo puede leer respuestas de su propio origen.</p>
       <p>A veces sí se necesita compartir recursos entre orígenes (una app en <code>app.ejemplo.com</code> y su API en <code>api.ejemplo.com</code>). <strong>CORS</strong> es el mecanismo con el que el <em>servidor</em> declara a quién autoriza.</p>`,
+    parametros: [
+      ['Página que ejecuta el script, URL a la que pide datos y Ejemplos (Fig. 1)', String.raw`Las dos URL que se comparan: desde dónde corre el script y a dónde pide datos. Solo hay mismo origen si coinciden esquema, host y puerto.`],
+      ['Tipo de petición (Fig. 2)', String.raw`Una petición simple (GET) se envía directo; una con PUT y JSON exige antes una verificación previa (OPTIONS) al servidor.`],
+      ['el servidor autoriza este origen (CORS) y con cookies (Fig. 2)', String.raw`Si el servidor responde con las cabeceras que permiten al origen de la página leer la respuesta, y si la petición incluye credenciales, lo que endurece la regla.`],
+    ],
     visualizaciones: [
-      { titulo: '¿Mismo origen o distinto?', descripcion: 'Compare esquema, host y puerto de dos URL. Pruebe cambiar solo el puerto, el esquema o el subdominio.', montar: montarOrigen },
-      { titulo: 'CORS y la verificación previa', descripcion: 'Alterne petición simple y con verificación previa, y autorice o no el origen: vea quién bloquea y si el servidor llegó a recibir algo.', montar: montarCors },
+      { titulo: '¿Mismo origen o distinto?', descripcion: 'Compare esquema, host y puerto de dos URL. Pruebe cambiar solo el puerto, el esquema o el subdominio.',
+        ayuda: String.raw`<p>La tabla descompone ambas URL en esquema, host y puerto y marca cuáles coinciden; las fichas dan el veredicto de si son del mismo origen.</p>
+          <ul>
+          <li><strong>Página que ejecuta el script</strong> y <strong>URL a la que pide datos</strong>: basta que difiera una de las tres partes (por ejemplo solo el puerto) para que el origen sea distinto.</li>
+          <li><strong>Ejemplos</strong> carga URL de prueba, como un host con aspecto de subdominio pero de otro dominio, para comprobar que el host decide el resultado.</li>
+          </ul>`, montar: montarOrigen },
+      { titulo: 'CORS y la verificación previa', descripcion: 'Alterne petición simple y con verificación previa, y autorice o no el origen: vea quién bloquea y si el servidor llegó a recibir algo.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre la página, el navegador y el servidor. Los colores distinguen la petición, la verificación previa, lo permitido y lo bloqueado por el navegador.</p>
+          <ul>
+          <li><strong>Tipo de petición</strong> con verificación previa: aparece primero el OPTIONS; si el servidor no autoriza, el navegador cancela y el PUT nunca llega al servidor.</li>
+          <li><strong>el servidor autoriza este origen</strong>: con la cabecera correcta el flujo continúa; sin ella, quien bloquea es el navegador, no el servidor.</li>
+          <li><strong>con cookies</strong>: el permiso debe ser explícito para ese origen; es una condición más para que se permita la lectura.</li>
+          </ul>`, montar: montarCors },
     ],
     teoria: String.raw`
       <h2>Origen</h2>

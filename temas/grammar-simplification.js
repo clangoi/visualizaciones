@@ -106,15 +106,28 @@
     intro: String.raw`
       <p>Una gramática puede tener <strong>símbolos inútiles</strong>: variables que nunca aparecen en la derivación de una palabra. Unas son <em>improductivas</em> (no pueden terminar nunca, como \(C \to aCb\) sin otra regla) y otras <em>inalcanzables</em> (no se pueden obtener desde el símbolo inicial). Sacarlas no cambia el lenguaje y hace la gramática más pequeña y fácil de analizar.</p>
       <p>Se detectan con dos cálculos de «punto fijo» muy parecidos a una búsqueda en un grafo, y deben aplicarse en el orden correcto.</p>`,
+    parametros: [
+      ['Gramática y O escriba la suya (Fig. 1 y 2)', String.raw`La gramática que se simplifica. De sus reglas depende qué variables son productivas, alcanzables o inútiles.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada ronda agrega las variables que ya se pueden demostrar productivas o alcanzables.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Productivas y alcanzables, ronda a ronda',
         descripcion: 'Avance paso a paso: en cada ronda se agregan las variables que ya se pueden demostrar productivas (o alcanzables). Cambie la gramática y observe qué se elimina.',
+        ayuda: String.raw`<p>Las variables aparecen como fichas: verdes si ya son productivas o alcanzables, neutras si aún no se sabe y rojas si son inútiles y se eliminan. Debajo se lista la gramática en este paso.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: una variable pasa a verde cuando una de sus reglas solo usa terminales o variables ya demostradas.</li>
+          <li><strong>Gramática</strong>: otra gramática cambia qué variables quedan sin demostrar y se eliminan.</li>
+          </ul>`,
         montar: montarAlgoritmo,
       },
       {
         titulo: 'El orden importa',
         descripcion: 'Compare los dos órdenes posibles de eliminación. Con S → AB | a, empezar por lo inalcanzable deja una variable inútil (A).',
+        ayuda: String.raw`<p>Dos listas de texto comparan los resultados de los dos órdenes de eliminación; los símbolos inútiles que quedan se marcan en rojo.</p>
+          <ul>
+          <li><strong>Gramática</strong>: con S → AB | a, empezar por lo inalcanzable deja una variable inútil (A); el orden correcto la elimina.</li>
+          </ul>`,
         montar: montarOrden,
       },
     ],

@@ -143,10 +143,22 @@
       arbitraria, por errores de hardware, software corrupto o ataques.</p>
       <p>Un comandante envía una orden a sus tenientes. Se pide que (IC1) todos los leales decidan lo mismo y (IC2) si el comandante es leal,
       decidan su orden. El resultado sorprendente es que con mensajes orales esto es posible si y solo si los traidores son menos de un tercio.</p>`,
+    parametros: [
+      ['Generales n (Fig. 1)', String.raw`Cantidad total de generales, el comandante incluido. El acuerdo exige \(n &gt; 3m\) para tolerar \(m\) traidores, de modo que más generales permiten tolerar más.`],
+      ['Algoritmo (Fig. 1)', String.raw`OM(1) o OM(2): cuántos traidores se pretende tolerar. A mayor \(m\), más rondas y muchos más mensajes.`],
+      ['El comandante ordena (Fig. 1)', String.raw`El valor que el comandante envía, atacar o retirarse. Si el comandante es leal, los tenientes leales deben cumplirlo.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza el algoritmo ronda a ronda y lo reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El algoritmo OM(m)',
         descripcion: 'Avance ronda a ronda y lea la tabla: cada teniente junta lo que le dijo el comandante y lo que cada otro teniente dice haber recibido, y toma la mayoría. Pruebe n = 3 con un traidor: no hay acuerdo posible. Con n = 4 sí.',
+        ayuda: String.raw`<p>Cada nodo es un general, con el comandante C. Los colores indican el valor (atacar o retirarse) y los traidores se marcan aparte; si un enlace lleva varios valores se señala con la marca de la leyenda. La tabla muestra qué recibió cada teniente y la mayoría que decide.</p>
+          <ul>
+          <li><strong>Generales n</strong> = 3 con un traidor: la mayoría no basta y los tenientes leales pueden discrepar.</li>
+          <li><strong>Generales n</strong> = 4 con <strong>OM(1)</strong> y un traidor: los tenientes leales coinciden.</li>
+          <li><strong>Algoritmo</strong> OM(2) con n ≥ 7: tolera dos traidores, pero con más rondas.</li>
+          </ul>`,
         montar,
       },
     ],

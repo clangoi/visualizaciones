@@ -90,9 +90,26 @@
     intro: String.raw`
       <p>Los programas no usan su memoria al azar: durante un tiempo trabajan con un grupo pequeño de páginas (una <strong>localidad</strong>: el bucle actual, las funciones que llama, los datos que recorre) y luego pasan a otro. Esa regularidad es lo que hace que la memoria virtual funcione.</p>
       <p>Si a un proceso se le dan menos marcos que su localidad, falla constantemente. Si el sistema admite demasiados procesos, todos quedan así y la CPU se queda esperando al disco: <strong>thrashing</strong>.</p>`,
+    parametros: [
+      ['Tamaño de cada localidad (páginas) (Fig. 1)', String.raw`Cuántas páginas usa el proceso en cada fase de su ejecución. Es el mínimo de marcos para que las fallas sean pocas.`],
+      ['Marcos asignados al proceso (Fig. 1)', String.raw`Cuántas páginas caben en memoria. Menos marcos que la localidad hace que casi cada referencia falle.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otra secuencia de fases.`],
+      ['Marcos totales (Fig. 2)', String.raw`La memoria disponible para todos los procesos. Más marcos permiten más procesos antes del colapso.`],
+      ['Conjunto de trabajo por proceso (Fig. 2)', String.raw`Marcos que necesita cada proceso. Mayores conjuntos reducen el grado de multiprogramación admisible.`],
+    ],
     visualizaciones: [
-      { titulo: 'Localidad y tasa de fallas', descripcion: 'Aumente los marcos hasta igualar el tamaño de la localidad y observe el «codo» en la tasa de fallas. Cambie el tamaño de la localidad.', montar: montarLocalidad },
-      { titulo: 'Thrashing al subir la multiprogramación', descripcion: 'Agregue procesos: la CPU mejora hasta cierto punto y luego se desploma. Mueva los marcos totales para desplazar el límite.', montar: montarMulti },
+      { titulo: 'Localidad y tasa de fallas', descripcion: 'Aumente los marcos hasta igualar el tamaño de la localidad y observe el «codo» en la tasa de fallas. Cambie el tamaño de la localidad.',
+        ayuda: String.raw`<p>Arriba, las páginas referenciadas en el tiempo (azul), con puntos rojos donde ocurre una falla con los marcos elegidos. Abajo, la curva naranja es la tasa de fallas según el número de marcos (LRU).</p>
+          <ul>
+          <li><strong>Tamaño de cada localidad</strong>: cambia la anchura de las fases y la posición del «codo» de la curva.</li>
+          <li><strong>Marcos asignados</strong>: por debajo de la localidad aparecen muchos puntos rojos; al igualarla casi desaparecen.</li>
+          </ul>`, montar: montarLocalidad },
+      { titulo: 'Thrashing al subir la multiprogramación', descripcion: 'Agregue procesos: la CPU mejora hasta cierto punto y luego se desploma. Mueva los marcos totales para desplazar el límite.',
+        ayuda: String.raw`<p>Eje horizontal, grado de multiprogramación n; vertical, CPU utilizada (curva azul). La línea gris marca n* = marcos / conjunto de trabajo, el punto donde dejan de caber los conjuntos de trabajo.</p>
+          <ul>
+          <li><strong>Marcos totales</strong>: desplaza n* a la derecha y retrasa el desplome de la CPU.</li>
+          <li><strong>Conjunto de trabajo por proceso</strong>: lo desplaza a la izquierda; pasado n*, los procesos paginan sin avanzar (thrashing).</li>
+          </ul>`, montar: montarMulti },
     ],
     teoria: String.raw`
       <h2>Conjunto de trabajo</h2>

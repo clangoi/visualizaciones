@@ -79,9 +79,27 @@
     intro: String.raw`
       <p>El <strong>control de flujo</strong> impide que un emisor rápido desborde a un receptor lento. El receptor de TCP tiene un búfer de tamaño limitado y, en cada ACK, anuncia cuánto espacio libre le queda: la <strong>ventana de recepción</strong> (<code>rwnd</code>). El emisor nunca tiene más de <code>rwnd</code> bytes sin confirmar.</p>
       <p>Esa misma ventana determina el rendimiento: como el emisor solo puede enviar una ventana por cada RTT, la velocidad máxima es \(W/\mathrm{RTT}\).</p>`,
+    parametros: [
+      ['Búfer del receptor (Fig. 1)', String.raw`Tamaño de la memoria donde el receptor guarda datos que la aplicación aún no leyó. Fija el máximo de la ventana anunciada.`],
+      ['Lectura de la aplicación (Fig. 1)', String.raw`Cuántos datos retira la aplicación del búfer por RTT. Si es menor que lo que llega, el búfer se llena.`],
+      ['Capacidad de la red (Fig. 1)', String.raw`Cuántos datos puede entregar la red por RTT al receptor; es el tope de lo que el emisor puede enviar.`],
+      ['RTT (Fig. 2)', String.raw`Tiempo de ida y vuelta. Con ventana fija, un RTT mayor reduce el rendimiento W/RTT y agranda el producto ancho de banda–retardo.`],
+      ['Velocidad del enlace (Fig. 2)', String.raw`Capacidad R del enlace en Mbps: es el techo del rendimiento y fija cuánta ventana hace falta para alcanzarlo.`],
+    ],
     visualizaciones: [
-      { titulo: 'La ventana anunciada y el búfer', descripcion: 'Haga que la aplicación lea más lento que la red: el búfer se llena y rwnd baja hasta igualar el ritmo de lectura. Con lectura 0 llega a cero.', montar: montarBuffer },
-      { titulo: 'Ventana y rendimiento', descripcion: 'Con RTT largos y enlaces rápidos, una ventana pequeña desperdicia el enlace. Busque cuánta ventana hace falta (BDP).', montar: montarVentana },
+      { titulo: 'La ventana anunciada y el búfer', descripcion: 'Haga que la aplicación lea más lento que la red: el búfer se llena y rwnd baja hasta igualar el ritmo de lectura. Con lectura 0 llega a cero.',
+        ayuda: String.raw`<p>El eje horizontal son los RTT y el vertical, KB. La curva azul es la ocupación del búfer, la naranja la ventana anunciada rwnd (lo libre del búfer) y la aguamarina lo que el emisor envía por RTT.</p>
+          <ul>
+          <li><strong>Lectura de la aplicación</strong> menor que la capacidad de la red: la ocupación sube hasta el tamaño del búfer y rwnd cae; el envío se ajusta al ritmo de lectura.</li>
+          <li>Con lectura 0, rwnd llega a cero y el emisor deja de enviar.</li>
+          <li><strong>Búfer del receptor</strong> mayor: tarda más en llenarse y rwnd empieza más alta.</li>
+          </ul>`, montar: montarBuffer },
+      { titulo: 'Ventana y rendimiento', descripcion: 'Con RTT largos y enlaces rápidos, una ventana pequeña desperdicia el enlace. Busque cuánta ventana hace falta (BDP).',
+        ayuda: String.raw`<p>El eje horizontal es la ventana W (KB) y el vertical, el rendimiento en Mbps. La curva azul es mín(W/RTT, R): crece con W hasta topar con el enlace. La curva gris marca el producto ancho de banda–retardo, la ventana necesaria para llenar el enlace.</p>
+          <ul>
+          <li><strong>RTT</strong> mayor: la pendiente baja y el producto ancho de banda–retardo se desplaza a ventanas más grandes.</li>
+          <li><strong>Velocidad del enlace</strong> mayor: el techo sube y se necesita más ventana para alcanzarlo.</li>
+          </ul>`, montar: montarVentana },
     ],
     teoria: String.raw`
       <h2>Ventana de recepción</h2>

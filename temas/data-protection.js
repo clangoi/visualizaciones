@@ -210,15 +210,38 @@
       no. A partir de esa <em>clasificación</em> se eligen controles: cifrar los datos guardados y los que viajan por la red, limitar quién accede y, sobre todo, <strong>no guardar lo que no hace falta</strong> (minimización).</p>
       <p>El cifrado transforma un mensaje legible en uno ilegible con una clave; una función <em>hash</em> produce una huella que cambia por completo si el archivo cambia, útil para comprobar integridad. Ambas ideas se pueden explorar con cifrados antiguos
       que ya no son seguros pero muestran bien por qué un cifrado debe esconder las frecuencias del lenguaje.</p>`,
+    parametros: [
+      ['Método (Fig. 1)', String.raw`Cifrado usado: César (desplazamiento fijo) o Vigenère (clave de varias letras). Determina qué tan fácil es romperlo por frecuencias.`],
+      ['Desplazamiento de César (Fig. 1)', String.raw`Cuántas letras se corre el alfabeto en César. Cambia el texto cifrado, pero no la forma del histograma, solo su posición.`],
+      ['Clave de Vigenère (Fig. 1)', String.raw`Palabra que fija un desplazamiento distinto para cada letra. Una clave más larga reparte mejor las frecuencias.`],
+      ['Mensaje y Atacar por frecuencias (Fig. 1)', String.raw`El texto a cifrar; el botón intenta descifrarlo comparando las frecuencias del cifrado con las típicas del español.`],
+      ['Cómo ocurre la filtración (Fig. 2)', String.raw`Escenario de la fuga: robo de discos o respaldos (el cifrado protege) o cuenta de administrador comprometida (el cifrado en reposo no ayuda).`],
+      ['Cifrar datos internos / confidenciales / restringidos (Fig. 2)', String.raw`Qué clases de datos se cifran. Cifrar las clases más sensibles reduce la mayor parte de la exposición.`],
+      ['Probabilidad de que la llave también se filtre (Fig. 2)', String.raw`Qué tan probable es que el atacante obtenga también la llave; si es alta, el cifrado protege poco.`],
+      ['Minimización: datos que se conservan (Fig. 2)', String.raw`Fracción de datos que la organización guarda. Conservar menos reduce lo que se puede filtrar.`],
+      ['Cifrar todo y minimizar (Fig. 2)', String.raw`Activa todas las casillas de cifrado y aplica la minimización de una vez.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Cifrado, frecuencias y hash',
         descripcion: 'Cifre con César y pulse «Atacar por frecuencias»: lo rompe. Cambie a Vigenère con clave de varias letras y repita: las barras se aplanan y el ataque falla. Mire también cómo un solo carácter cambia buena parte de los bits del hash.',
+        ayuda: String.raw`<p>El eje horizontal son las letras y el vertical, la frecuencia en porcentaje. Las barras azules son las letras del mensaje, las naranjas las del texto cifrado y la referencia es la frecuencia típica del español. Debajo se muestran mensaje y cifrado.</p>
+          <ul>
+          <li><strong>Método</strong> César: las barras naranjas son las azules corridas, por eso el ataque por frecuencias lo rompe. Con Vigenère se aplanan.</li>
+          <li><strong>Clave de Vigenère</strong>: con más letras distintas la distribución se aplana más y el ataque falla.</li>
+          <li><strong>Atacar por frecuencias</strong>: compara el cifrado con la referencia del español y propone un desplazamiento.</li>
+          </ul>`,
         montar: montarCifrado,
       },
       {
         titulo: 'Clasificación y exposición ante una filtración',
         descripcion: 'Cifre solo las clases confidencial y restringida, y compare la exposición. Cambie a «cuenta de administrador comprometida» y observe que el cifrado deja de ayudar; luego deje de recolectar un conjunto con clic.',
+        ayuda: String.raw`<p>Cada barra es un conjunto de datos clasificado por clase (pública, interna, confidencial o restringida) y su exposición en costo estimado ante la filtración. Se contrasta con la exposición sin controles.</p>
+          <ul>
+          <li><strong>Cifrar datos…</strong>: baja la exposición de esa clase si el escenario es robo de discos.</li>
+          <li><strong>Cómo ocurre la filtración</strong>: con la cuenta de administrador, el cifrado en reposo no reduce la exposición.</li>
+          <li><strong>Minimización</strong>: baja la barra de todos los conjuntos al guardar menos datos; un clic en una barra deja de recolectar ese conjunto.</li>
+          </ul>`,
         montar: montarExposicion,
       },
     ],

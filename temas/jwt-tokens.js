@@ -90,9 +90,28 @@
       <p>Un <strong>JSON Web Token</strong> (JWT) es una credencial que el servidor entrega al iniciar sesión y que el cliente presenta en cada petición. A diferencia de una sesión, el token <em>contiene</em>
       los datos (quién es, qué rol tiene, hasta cuándo vale) y está <strong>firmado</strong>: el servidor puede verificarlo sin consultar ningún almacén.</p>
       <p>Tiene tres partes separadas por puntos: <code>header.payload.signature</code>. La firma impide modificar el contenido sin conocer el secreto, pero el contenido no está oculto.</p>`,
+    parametros: [
+      ['Nombre (claim «sub») (Fig. 1)', String.raw`El sujeto que identifica el token. Forma parte del payload y, por tanto, de lo que se firma.`],
+      ['Rol que emite el servidor (Fig. 1)', String.raw`El rol que el servidor escribe en el payload (usuario o admin).`],
+      ['Secreto del servidor (Fig. 1)', String.raw`Clave con la que se calcula la firma. Quien no la conoce no puede producir una firma válida.`],
+      ['Tiempo transcurrido (Fig. 1)', String.raw`Minutos desde la emisión. Cuando supera los 30 min de vida del token, la verificación lo rechaza por expiración.`],
+      ['Un atacante cambia el rol a «admin» (Fig. 1)', String.raw`Altera el payload sin recalcular la firma, para comprobar que la verificación lo detecta.`],
+      ['El token de acceso ya expiró y El de refresco sigue vigente (Fig. 2)', String.raw`Estado de cada token al hacer la petición. Deciden si el servidor responde con datos, si se renueva el acceso o si hay que iniciar sesión de nuevo.`],
+    ],
     visualizaciones: [
-      { titulo: 'Anatomía y verificación de un JWT', descripcion: 'Cambie el rol, el secreto o el tiempo transcurrido, y active el ataque: vea por qué la firma delata un payload alterado.', montar: montarAnatomia },
-      { titulo: 'Token de acceso y de refresco', descripcion: 'Simule la expiración del token de acceso y compare qué ocurre si el de refresco aún es válido o también venció.', montar: montarRefresco },
+      { titulo: 'Anatomía y verificación de un JWT', descripcion: 'Cambie el rol, el secreto o el tiempo transcurrido, y active el ataque: vea por qué la firma delata un payload alterado.',
+        ayuda: String.raw`<p>El token se muestra dividido en cabecera, payload y firma, seguido del resultado de la verificación: firma válida o no, y vigencia.</p>
+          <ul>
+          <li><strong>Nombre</strong>, <strong>Rol</strong> y <strong>Secreto</strong>: cada cambio modifica el payload o la firma y, con ellos, el token completo.</li>
+          <li><strong>Tiempo transcurrido</strong>: pasado el límite de 30 min el token se rechaza por expirado aunque la firma sea correcta.</li>
+          <li><strong>Un atacante cambia el rol</strong>: el payload ya no corresponde a la firma, por lo que la verificación falla.</li>
+          </ul>`, montar: montarAnatomia },
+      { titulo: 'Token de acceso y de refresco', descripcion: 'Simule la expiración del token de acceso y compare qué ocurre si el de refresco aún es válido o también venció.',
+        ayuda: String.raw`<p>Diagrama de secuencia entre cliente, API y servicio de autenticación. Colores: petición con token, renovación, éxito y rechazo.</p>
+          <ul>
+          <li><strong>el token de acceso ya expiró</strong>: la API responde 401 y el cliente usa el de refresco para pedir uno nuevo.</li>
+          <li><strong>el token de refresco sigue vigente</strong> desmarcado, con el de acceso vencido: la renovación falla con 401 y se vuelve a la pantalla de login.</li>
+          </ul>`, montar: montarRefresco },
     ],
     teoria: String.raw`
       <h2>Estructura</h2>

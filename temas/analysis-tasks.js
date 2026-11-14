@@ -79,9 +79,23 @@
     intro: String.raw`
       <p>Una visualización existe para que alguien haga algo con ella. Describir esa actividad con palabras del dominio («detectar un brote») no ayuda a diseñar; hay que traducirla a <strong>tareas abstractas</strong>: buscar, comparar, resumir, ordenar, filtrar.</p>
       <p>Las tareas se describen con dos partes: una <strong>acción</strong> (el verbo) y un <strong>objetivo</strong> (sobre qué datos actúa). Con esa descripción común, se pueden reutilizar diseños entre áreas muy distintas.</p>`,
+    parametros: [
+      ['Tarea de búsqueda (Fig. 1)', String.raw`Combinación de qué se conoce del objetivo y de su ubicación: lookup, locate, browse o explore. Cambiarla muestra cuánta información previa tiene quien busca y, por tanto, cuánto esfuerzo le queda.`],
+      ['Consulta (Fig. 2)', String.raw`Alcance de la pregunta: identificar un ítem, comparar dos o más, o resumir todo el conjunto. Determina cuántas barras importan y qué se lee del resultado.`],
+      ['Limpiar selección (Fig. 2)', String.raw`Quita las barras marcadas para empezar una consulta nueva.`],
+    ],
     visualizaciones: [
-      { titulo: 'Buscar: cuatro casos', descripcion: 'Alterne entre lookup, locate, browse y explore, y note qué parte de la información se da por conocida.', montar: montarBusqueda },
-      { titulo: 'Consultar: identificar, comparar, resumir', descripcion: 'Seleccione barras según el alcance de la consulta y lea el resultado correspondiente.', montar: montarConsulta },
+      { titulo: 'Buscar: cuatro casos', descripcion: 'Alterne entre lookup, locate, browse y explore, y note qué parte de la información se da por conocida.',
+        ayuda: String.raw`<p>Cada punto es una ciudad, con la población en el eje horizontal y el ingreso en el vertical. Los puntos azules son ciudades comunes; el naranja es el objetivo conocido (Temuco) y el cuadro amarillo, una región de ubicación conocida. El texto de debajo resume la tarea elegida.</p>
+          <ul>
+          <li><strong>Tarea de búsqueda</strong>: cuando el objetivo y su lugar se conocen aparecen resaltados (naranja y cuadro); si no, todos los puntos son azules y hay que recorrerlos. Cuantas menos marcas ayudan, más exploración exige.</li>
+          </ul>`, montar: montarBusqueda },
+      { titulo: 'Consultar: identificar, comparar, resumir', descripcion: 'Seleccione barras según el alcance de la consulta y lea el resultado correspondiente.',
+        ayuda: String.raw`<p>Las barras son ocho ciudades con un valor cada una (eje vertical). Las azules no están seleccionadas y las naranjas sí. Debajo se escribe el resultado de la consulta.</p>
+          <ul>
+          <li><strong>Consulta</strong>: «Identificar» da el valor y la posición de una barra; «Comparar» exige al menos dos y da la diferencia entre mayor y menor; «Resumir» pinta todas las barras y traza la media con línea de trazos.</li>
+          <li><strong>Limpiar selección</strong> borra las barras naranjas y el resultado vuelve a pedir una elección.</li>
+          </ul>`, montar: montarConsulta },
     ],
     teoria: String.raw`
       <h2>Acciones</h2>

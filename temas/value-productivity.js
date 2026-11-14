@@ -190,15 +190,39 @@
       <p>Ese valor se convierte en <strong>ventaja competitiva</strong> solo si los rivales no pueden copiarlo con facilidad. Una plataforma
       que todos pueden comprar mejora a todos por igual; la ventaja duradera viene de lo que sí es difícil de imitar, como procesos,
       datos propios y cultura de uso.</p>`,
+    parametros: [
+      ['Curva de aprendizaje (el tiempo baja a… al duplicar la experiencia) (Fig. 1)', String.raw`Cuánto se reduce el tiempo por caso cada vez que el equipo duplica su experiencia. Un valor menor significa aprendizaje más rápido.`],
+      ['Alineación del sistema con el trabajo real (Fig. 1)', String.raw`Qué tanto el sistema encaja con cómo se hace el trabajo. Una alineación baja permite ir rápido, pero con más casos mal resueltos.`],
+      ['Horas de capacitación (Fig. 1)', String.raw`Capacitación del mes 1. Más horas mejoran la eficacia, pero restan tiempo productivo al comienzo.`],
+      ['Inversión inicial (Fig. 1)', String.raw`Costo inicial del sistema. Fija el punto de partida del flujo de caja y el tiempo de recuperación.`],
+      ['Ventaja inicial de costo (Fig. 2)', String.raw`Reducción de costo unitario que el sistema da al comienzo frente a los rivales.`],
+      ['Dificultad para copiar el sistema (Fig. 2)', String.raw`Qué tan lento o costoso es para los rivales imitarlo. Más dificultad mantiene la ventaja por más tiempo.`],
+      ['Complementos propios (procesos, datos, cultura) (Fig. 2)', String.raw`Activos propios que acompañan la tecnología y no se copian. Sostienen parte de la ventaja.`],
+      ['Ritmo de mejora continua propia (Fig. 2)', String.raw`Cuánto sigue mejorando la empresa por su cuenta, renovando la ventaja.`],
+      ['Otros competidores (Fig. 2)', String.raw`Genera otra muestra de momentos en que los rivales adoptan el sistema.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Productividad, eficacia y retorno',
         descripcion: 'Un equipo de analistas procesa 700 casos al mes. Suba la capacitación y observe la caída del mes 1 y la recuperación por aprendizaje; baje la alineación del sistema y compare eficiencia con eficacia. Mire cómo cambian el VPN y el plazo de recuperación.',
+        ayuda: String.raw`<p>Arriba, eje horizontal: meses desde la puesta en marcha; vertical: índice con antes = 100. Se muestran la eficiencia (casos por hora), la eficacia (% de casos bien resueltos) y la productividad efectiva (casos bien resueltos por hora). Abajo, el flujo de caja acumulado (&#36;, sin descontar) y una marca en el mes de recuperación.</p>
+          <ul>
+          <li><strong>Curva de aprendizaje</strong>: acelera o frena la recuperación de los índices tras la caída inicial.</li>
+          <li><strong>Alineación del sistema</strong>: una alineación baja separa la eficiencia de la eficacia.</li>
+          <li><strong>Horas de capacitación</strong>: profundizan la caída del mes 1 pero mejoran la recuperación.</li>
+          <li><strong>Inversión inicial</strong>: hunde el flujo acumulado y retrasa el mes de recuperación.</li>
+          </ul>`,
         montar: montarProductividad,
       },
       {
         titulo: 'Ventaja competitiva y copia',
         descripcion: 'Un sistema reduce su costo unitario, pero cinco rivales intentan copiarlo. Compare tecnología comercial (se copia en meses) con una solución difícil de imitar y con complementos propios; la ventaja sostenida aparece cuando la copia es lenta o incompleta.',
+        ayuda: String.raw`<p>Eje horizontal: meses desde la puesta en marcha; vertical: ventaja de costo frente al promedio de rivales (%). Una curva es su ventaja, otra la ventaja si todos copian en unos 2 meses (tecnología de libre acceso) y las marcas indican cuándo un competidor adopta un sistema equivalente.</p>
+          <ul>
+          <li><strong>Ventaja inicial de costo</strong>: sube el punto de partida de la curva.</li>
+          <li><strong>Dificultad para copiar</strong>: retrasa la erosión cuando llegan los competidores.</li>
+          <li><strong>Complementos propios</strong> y <strong>Ritmo de mejora continua</strong>: mantienen la ventaja por encima de la curva de libre acceso.</li>
+          </ul>`,
         montar: montarVentaja,
       },
     ],

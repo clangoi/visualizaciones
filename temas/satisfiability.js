@@ -102,15 +102,29 @@
       <p>Una fórmula es <strong>satisfacible</strong> si existe al menos una valuación que la hace verdadera; esa valuación es un <strong>modelo</strong>. Si no existe ninguna, es insatisfacible.
       Preguntar «¿hay una asignación que cumpla todas estas condiciones a la vez?» es el problema SAT, y aparece en verificación de hardware, planificación y criptografía.</p>
       <p>Probar todas las asignaciones cuesta \(2^n\). Los algoritmos modernos buscan inteligentemente: deciden una variable, propagan consecuencias y retroceden cuando chocan.</p>`,
+    parametros: [
+      ['Fórmula y Ejemplos (Fig. 1)', String.raw`La fórmula en CNF cuya satisfacibilidad se busca. Los ejemplos cargan casos satisfacibles (con retrocesos) e insatisfacibles; cambiarla cambia el árbol de decisiones de DPLL.`],
+      ['Variables n y Nuevo muestreo (Fig. 2)', String.raw`Cantidad de variables de las fórmulas 3-SAT aleatorias. Más variables vuelven la transición más abrupta y el costo mayor; Nuevo muestreo repite el experimento con otras fórmulas al azar.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Búsqueda de un modelo con DPLL',
         descripcion: 'Escriba una fórmula y mire el árbol de búsqueda: cada nodo es una decisión, y las ramas rojas son conflictos. Compare la cantidad de nodos con las filas de la tabla.',
+        ayuda: String.raw`<p>Cada nodo del árbol es una decisión o propagación de DPLL sobre una variable; las ramas rojas terminan en conflicto (alguna cláusula quedó vacía) y la asignación que satisface todas se marca aparte, según la leyenda. El registro y la lectura resumen el resultado.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: al editarla cambia la forma del árbol; si es insatisfacible, todas las ramas acaban en conflicto.</li>
+          <li><strong>Ejemplos</strong>: «satisfacible, con retrocesos» muestra ramas rojas y aun así un modelo; las «insatisfacible» no tienen ninguna hoja satisfactoria.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Transición de fase de 3-SAT',
         descripcion: 'Aumente la proporción de cláusulas por variable: de casi todo satisfacible a casi nada, con un salto brusco. Observe que el costo de DPLL es máximo justo en el salto.',
+        ayuda: String.raw`<p>El eje horizontal es la proporción \(m/n\) de cláusulas por variable. El primer panel muestra la fracción de fórmulas satisfacibles y el segundo, el costo medio (nodos de DPLL). La referencia marca el umbral teórico \(m/n \approx 4{,}27\).</p>
+          <ul>
+          <li><strong>Variables n</strong>: al aumentarlo, la caída de la fracción satisfacible se concentra más cerca del umbral y el pico de costo crece.</li>
+          <li><strong>Nuevo muestreo</strong>: redibuja con fórmulas nuevas; la forma general se mantiene y solo varía el ruido.</li>
+          </ul>`,
         montar: montarTransicion,
       },
     ],

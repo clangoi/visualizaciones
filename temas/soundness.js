@@ -285,15 +285,31 @@
       actividades que nunca podrán ejecutarse. La <em>corrección</em> (<em>soundness</em>) de una red de flujo de trabajo reúne exactamente tres garantías que evitan esos defectos.</p>
       <p>Se comprueba explorando todos los estados que la red puede alcanzar (su grafo de marcados): una propiedad de comportamiento, no de dibujo. Es el paso previo a medir
       cualquier otra cosa: un modelo no sound no sirve como referencia para comprobar la conformidad de un registro.</p>`,
+    parametros: [
+      ['Red de ejemplo (Fig. 1)', String.raw`Una de las cinco redes: correcta, correcta con bucle, bloqueo, fichas sobrantes o transición muerta. Cada una combina bifurcación y unión de manera distinta.`],
+      ['Disparo al azar y Reiniciar (Fig. 1)', String.raw`Disparo al azar dispara una transición habilitada; Reiniciar devuelve la ficha al inicio.`],
+      ['Bifurcación tras a, Unión antes de d y Agregar x (Fig. 2)', String.raw`Bifurcación tras a y Unión antes de d eligen si son Y (ambas ramas) u O (una sola); Agregar x añade una transición que exige las dos ramas a la vez. Definen qué propiedades de corrección se cumplen o fallan.`],
+      ['Reproductor del verificador (Fig. 2)', String.raw`Avanza la exploración del grafo de marcados y luego la evaluación de los criterios.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Juego de fichas y grafo de marcados',
         descripcion: 'Juegue con fichas sobre cinco redes (bifurcación + unión) y vea en qué marcado del grafo está. En «Bloqueo», dispare a, luego b o c, y llegará a un marcado en rojo sin salida; en «Fichas sobrantes», d se dispara dos veces y termina con fichas de más.',
+        ayuda: String.raw`<p>Arriba, la red de Petri y abajo su grafo de marcados. Se señalan la transición habilitada (clic para disparar), el marcado final [fin], el marcado actual, los marcados desde los que no se puede llegar a [fin] y las fichas de más en fin o junto a fin.</p>
+          <ul>
+          <li><strong>Red de ejemplo</strong>: en «Bloqueo» se llega a un marcado sin salida; en «Fichas sobrantes» queda una ficha de más junto a [fin].</li>
+          <li><strong>Disparo al azar</strong>: recorre una ejecución y el marcado actual se mueve en el grafo.</li>
+          </ul>`,
         montar: montarJuego,
       },
       {
         titulo: 'Verificador paso a paso',
         descripcion: 'Construya la red eligiendo cómo se bifurca y cómo se une, y ejecute la comprobación: primero se explora el grafo de marcados, luego se evalúan los tres criterios. Pruebe O con Y (se bloquea), Y con O (fichas de más) y O con O agregando x (transición muerta).',
+        ayuda: String.raw`<p>Red construida con las opciones y su grafo de marcados explorado: el marcado que se expande ahora, el borde (marcados en cola), marcados sin salida o transiciones muertas, terminación impropia y marcado final.</p>
+          <ul>
+          <li><strong>Bifurcación tras a</strong> y <strong>Unión antes de d</strong>: Y con Y es correcta; O con Y se bloquea porque d espera una rama que no se activó; Y con O deja fichas sobrantes.</li>
+          <li><strong>Agregar x</strong>: si x exige b y c a la vez pero la bifurcación es O, x queda como transición muerta.</li>
+          </ul>`,
         montar: montarVerificador,
       },
     ],

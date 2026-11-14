@@ -130,15 +130,31 @@
     intro: String.raw`
       <p>Las gramáticas pueden tener reglas de formas muy distintas: producciones vacías, cadenas de variables, mezclas de terminales y variables. La <strong>forma normal de Chomsky</strong> (CNF) las reduce a solo dos tipos: <code>A → B C</code> (dos variables) y <code>A → a</code> (un terminal). Todo lenguaje libre de contexto se puede generar con una gramática en CNF.</p>
       <p>Es una forma estándar, cómoda para demostrar teoremas y para algoritmos: los árboles de derivación se vuelven <em>binarios</em>, y con ellos funciona el algoritmo <strong>CYK</strong>, que decide si una palabra pertenece al lenguaje en tiempo \(O(n^3)\).</p>`,
+    parametros: [
+      ['Gramática y O escriba la suya (Fig. 1)', String.raw`La gramática que se transforma a forma normal de Chomsky.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso aplica una fase (START, DEL, UNIT, limpieza, TERM o BIN).`],
+      ['Gramática (se pasa a CNF) y Palabra (hasta 10) (Fig. 2)', String.raw`La gramática, convertida a CNF, y la palabra cuya pertenencia se decide con CYK.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza celda a celda por largos crecientes.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La transformación a CNF paso a paso',
         descripcion: 'Avance por los pasos START, DEL, UNIT, limpieza, TERM y BIN. Las reglas nuevas de cada paso aparecen resaltadas; la descripción explica qué se hizo y por qué.',
+        ayuda: String.raw`<p>Se lista la gramática tras cada fase. Las reglas nuevas del paso están resaltadas y las que ya existían, no.</p>
+          <ul>
+          <li><strong>Reproductor</strong>: cada fase elimina un tipo de regla (vacías, unitarias, terminales mezclados o cuerpos largos) y crea reglas equivalentes.</li>
+          <li><strong>Gramática</strong>: las que tienen reglas vacías o unitarias muestran más cambios.</li>
+          </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'Decidir pertenencia con CYK',
         descripcion: 'La gramática se lleva a CNF y se llena la tabla triangular de CYK por largos crecientes. Si el símbolo inicial llega a la celda superior, la palabra pertenece.',
+        ayuda: String.raw`<p>Tabla triangular de CYK: cada celda contiene las variables que generan el tramo de la palabra correspondiente. Se marcan la celda que se calcula, las dos partes de la partición y las celdas que contienen el símbolo inicial.</p>
+          <ul>
+          <li><strong>Palabra</strong>: si el símbolo inicial llega a la celda superior, la palabra pertenece al lenguaje.</li>
+          <li><strong>Reproductor</strong>: cada celda combina pares de celdas más cortas según las reglas binarias.</li>
+          </ul>`,
         montar: montarCYK,
       },
     ],

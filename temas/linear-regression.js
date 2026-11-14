@@ -200,15 +200,35 @@
       observado y lo predicho—. Ese problema tiene solución exacta (las <em>ecuaciones normales</em>) y también se puede resolver de
       a poco con <a href="tema.html?id=descenso-gradiente">descenso de gradiente</a>, que es lo que se usa cuando los datos son
       enormes.</p>`,
+    parametros: [
+      ['Pendiente w e Intercepto b (Fig. 1)', String.raw`Los dos parámetros de la recta \(\hat y = w x + b\): cuánto sube \(\hat y\) por cada unidad de \(x\), y dónde corta el eje vertical.`],
+      ['Mostrar los cuadrados de los residuos (Fig. 1)', String.raw`Dibuja un cuadrado sobre cada residuo; el error cuadrático medio es el área promedio de esos cuadrados.`],
+      ['Ajustar, Nuevos datos, Vaciar (Fig. 1)', String.raw`Llevan la recta a la solución de mínimos cuadrados, sortean otros puntos o los borran todos.`],
+      ['Tasa de aprendizaje η (Fig. 2)', String.raw`El tamaño de cada paso del descenso de gradiente. Muy pequeño avanza lento; muy grande oscila o diverge.`],
+      ['Centrar x (Fig. 2)', String.raw`Usa \(x - \bar x\) en lugar de \(x\). Hace que \(w\) y \(b\) dejen de estar acoplados y la superficie de error se vuelve redonda.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mínimos cuadrados',
         descripcion: 'Ajuste la recta a mano minimizando el área de los cuadrados y compare con la solución exacta. Agregue un punto muy alejado: un solo valor atípico tuerce la recta, porque el error crece con el cuadrado.',
+        ayuda: String.raw`<p>Los puntos negros son los datos; la recta azul es la suya, controlada por \(w\) y \(b\), y la gris punteada, la de mínimos cuadrados. Los segmentos naranjos son los <em>residuos</em>: la distancia vertical de cada punto a su recta.</p>
+          <ul>
+          <li>Mueva <strong>w</strong> y <strong>b</strong> intentando que «ECM de su recta» se acerque a «ECM mínimo». Con los cuadrados visibles, se trata de minimizar el área total.</li>
+          <li>Agregue con un clic un punto muy alejado: su cuadrado es enorme y la recta óptima se tuerce hacia él. Así se ve la sensibilidad a valores atípicos.</li>
+          <li>«R²» mide qué fracción de la variación de \(y\) explica su recta (1 es perfecto).</li>
+          </ul>`,
         montar: montarResiduos,
       },
       {
         titulo: 'La superficie de pérdida',
         descripcion: 'El error de una recta depende de (w, b) como un paraboloide. Ejecute el descenso de gradiente sin centrar x y luego centrándolo: el mismo η converge muchísimo más rápido.',
+        ayuda: String.raw`<p>Cada punto del plano es una recta posible: \(w\) en el eje horizontal y \(b\) en el vertical. El color es su error (claro: bajo; oscuro: alto) y el punto verde, el mínimo exacto. La línea naranja es la trayectoria del descenso de gradiente desde el punto inicial.</p>
+          <ul>
+          <li>Sin <strong>centrar x</strong>, las curvas de nivel son elipses muy alargadas e inclinadas: el gradiente zigzaguea y tarda muchas iteraciones.</li>
+          <li>Con <strong>centrar x</strong>, las elipses se enderezan y el mismo η llega al mínimo en pocas iteraciones.</li>
+          <li><strong>Tasa η</strong> demasiado grande: la trayectoria salta de un lado al otro del valle y el ECM se dispara (diverge).</li>
+          <li>Haga clic para elegir otro punto de partida.</li>
+          </ul>`,
         montar: montarSuperficie,
       },
     ],

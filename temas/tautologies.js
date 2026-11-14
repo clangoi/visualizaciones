@@ -104,15 +104,29 @@
       <p>Según su tabla de verdad, una fórmula puede ser de tres tipos. Una <strong>tautología</strong> es verdadera bajo toda valuación: es una verdad lógica, como «llueve o no llueve».
       Una <strong>contradicción</strong> es falsa bajo toda valuación. Y una <strong>contingencia</strong> es verdadera en algunas y falsa en otras: su valor depende de los hechos.</p>
       <p>Las tautologías son las leyes de la lógica: no dicen nada del mundo, pero son lo que se puede usar sin riesgo en cualquier razonamiento.</p>`,
+    parametros: [
+      ['Fórmula y Ejemplos (Fig. 1)', String.raw`La fórmula que se clasifica como tautología, contingencia o contradicción.`],
+      ['Variables disponibles (Fig. 2)', String.raw`Cuántas variables pueden usar las fórmulas aleatorias.`],
+      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otras 300 fórmulas aleatorias.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Clasifique una fórmula',
         descripcion: 'Elija un ejemplo o escriba una fórmula y mire su columna de resultados. Pruebe la conversa de una implicación: no es una tautología.',
+        ayuda: String.raw`<p>Cada celda es una valuación: la fórmula vale V o F ahí. Si todas son V es una tautología, si todas son F una contradicción y si hay mezcla una contingencia.</p>
+          <ul>
+          <li><strong>Fórmula</strong>: cambia la fila de resultados; la conversa de una implicación suele dejar de ser tautología.</li>
+          </ul>`,
         montar: montarClasificador,
       },
       {
         titulo: 'Qué tan raras son las tautologías',
         descripcion: 'En fórmulas aleatorias, casi todo es contingencia. Aumente las variables y las profundidades y vea desaparecer las tautologías.',
+        ayuda: String.raw`<p>Eje horizontal: profundidad máxima. Eje vertical: fracción de las 300 fórmulas que son tautología, contingencia o contradicción.</p>
+          <ul>
+          <li><strong>Variables disponibles</strong>: con más variables, casi todas las fórmulas son contingencias y las tautologías prácticamente desaparecen.</li>
+          <li><strong>Nuevo muestreo</strong>: cambia la muestra; las fracciones varían poco.</li>
+          </ul>`,
         montar: montarRarezas,
       },
     ],

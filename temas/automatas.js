@@ -326,15 +326,38 @@
       <em>local</em>: el nuevo estado depende solo del estado de la celda y de sus vecinas.</p>
       <p>Son uno de los ejemplos más claros de cómo reglas extremadamente simples pueden producir comportamiento complejo:
       patrones fractales, aparente aleatoriedad, estructuras que se desplazan e incluso computación universal.</p>`,
+    parametros: [
+      ['Regla (Fig. 1)', String.raw`Número de 0 a 255 cuyos 8 bits dicen si la celda vive o muere para cada uno de los 8 vecindarios posibles de tres celdas.`],
+      ['Ancho (celdas) (Fig. 1)', String.raw`Cuántas celdas tiene cada fila.`],
+      ['Condición inicial y Densidad inicial (Fig. 1)', String.raw`Si la primera fila tiene una sola celda viva al centro o celdas al azar, y en ese caso qué fracción está viva.`],
+      ['colorear según el vecindario (Fig. 1)', String.raw`Pinta cada celda viva del color del vecindario que la produjo.`],
+      ['Botones de reglas (Fig. 1)', String.raw`Atajos a reglas conocidas: 30 (caótica), 90 (triángulo de Sierpiński), 110 (compleja), 184 (tráfico), entre otras.`],
+      ['Patrón (Fig. 2)', String.raw`La configuración inicial del Juego de la vida: aleatoria o figuras conocidas como el planeador, el cañón de Gosper o el R-pentominó.`],
+      ['Reglas (Fig. 2)', String.raw`Con cuántas vecinas nace (B) o sobrevive (S) una celda. Conway es B3/S23.`],
+      ['Bordes (Fig. 2)', String.raw`Toroidales (lo que sale por un lado entra por el otro) o fijos (fuera de la cuadrícula todo está muerto).`],
+      ['Generaciones por segundo (Fig. 2)', String.raw`Velocidad de la simulación.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Autómatas celulares elementales',
         descripcion: 'Cada fila es una generación; el tiempo avanza hacia abajo. La regla especifica la salida para cada uno de los 8 vecindarios posibles de tres celdas. Pruebe la regla 30 (caótica), la 90 (triángulo de Sierpiński) y la 110 (Turing-completa).',
+        ayuda: String.raw`<p>Cada fila es una generación de una línea de celdas y el tiempo avanza hacia abajo. La tira superior es la regla: para cada uno de los 8 vecindarios de tres celdas (izquierda, centro, derecha), la celda de abajo dice si el centro vive en la generación siguiente.</p>
+          <ul>
+          <li><strong>Regla</strong>: cambiar un solo bit puede pasar de un patrón ordenado a uno caótico. La lectura indica la clase de Wolfram (fija, periódica, caótica o compleja).</li>
+          <li>Con <strong>una celda al centro</strong> se ve la estructura pura de la regla (la 90 dibuja el triángulo de Sierpiński); con condición <strong>aleatoria</strong> se ve cómo evoluciona el desorden.</li>
+          <li><strong>colorear</strong>: cada celda toma el color del vecindario de la tira que la produjo, así se lee qué parte de la regla genera cada estructura.</li>
+          </ul>`,
         montar: montarElemental,
       },
       {
         titulo: 'El Juego de la vida',
         descripcion: 'Una cuadrícula bidimensional donde cada celda mira a sus ocho vecinas. El color indica cuánto tiempo lleva viva cada celda; el gráfico inferior muestra la población.',
+        ayuda: String.raw`<p>Cada celda de la cuadrícula está viva o muerta y en cada generación mira a sus ocho vecinas: con la regla de Conway, una muerta nace con exactamente 3 vecinas vivas y una viva sobrevive con 2 o 3. El color indica cuánto tiempo lleva viva: naranja recién nacida, azul más oscuro cuanto más estable. Abajo, la población por generación.</p>
+          <ul>
+          <li><strong>Patrón</strong>: el planeador y la nave se desplazan; el púlsar oscila; el cañón de Gosper dispara planeadores sin fin; el R-pentominó y la bellota crecen caóticamente durante cientos de generaciones antes de estabilizarse.</li>
+          <li><strong>Reglas</strong> distintas cambian todo: HighLife tiene replicadores, Seeds explota y Laberinto dibuja pasillos.</li>
+          <li><strong>Bordes</strong> fijos hacen que los planeadores mueran al llegar al borde; toroidales, que reaparezcan del otro lado.</li>
+          </ul>`,
         montar: montarVida,
       },
     ],

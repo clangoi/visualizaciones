@@ -143,15 +143,29 @@
       <p>Para llegar a un recurso hacen falta dos cosas: <em>qué</em> se quiere y <em>dónde</em> está. Una <strong>URL</strong> responde a ambas con un texto legible
       (<code>https://www.ejemplo.com/ofertas?color=rojo</code>); el <strong>dominio</strong> se traduce a una <strong>dirección IP</strong>, que es lo que realmente entienden los enrutadores.</p>
       <p>Una dirección IPv4 son 32 bits repartidos en cuatro octetos. Una parte identifica la <em>red</em> y el resto al <em>equipo</em>; el prefijo CIDR (<code>/24</code>) dice dónde está la frontera.</p>`,
+    parametros: [
+      ['URL y Ejemplos (Fig. 1)', String.raw`El texto de la dirección que se descompone en partes. Editarlo o elegir un ejemplo cambia qué partes existen (puerto, parámetros, fragmento) y cómo se leen.`],
+      ['Dirección IPv4 y Prefijo /n (Fig. 2)', String.raw`La dirección de un equipo y cuántos de sus 32 bits identifican la red. Un prefijo mayor deja menos bits de host, es decir, una red más pequeña con menos equipos posibles.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Anatomía de una URL',
         descripcion: 'Edite la URL o elija un ejemplo y observe cómo se separan esquema, servidor, puerto, ruta, parámetros y fragmento. Pruebe quitar el puerto o cambiar el esquema.',
+        ayuda: String.raw`<p>La URL se separa en esquema, servidor, puerto, ruta, parámetros y fragmento, y cada parte se muestra por separado con su significado.</p>
+          <ul>
+          <li><strong>URL</strong>: al quitar el puerto o cambiar el esquema, la parte correspondiente cambia o aparece su valor por defecto; así se ve qué es obligatorio y qué es opcional.</li>
+          <li><strong>Ejemplos</strong>: cargan direcciones típicas para comparar cómo se reparten las partes.</li>
+          </ul>`,
         montar: montarURL,
       },
       {
         titulo: 'Direcciones IPv4 y prefijo CIDR',
         descripcion: 'Cambie el prefijo o haga clic en un bit: la máscara, el rango y la cantidad de equipos posibles se recalculan.',
+        ayuda: String.raw`<p>Los 32 bits de la dirección se dibujan en cuatro octetos. Los bits azules son de red (fijos para toda la subred) y los naranjas son de host (varían entre equipos).</p>
+          <ul>
+          <li><strong>Prefijo /n</strong>: mueve la frontera entre azul y naranja; la máscara, el rango y la cantidad de equipos se recalculan (\(2^{32-n}\) direcciones).</li>
+          <li><strong>Dirección IPv4</strong>: cambia los valores de los bits y el rango de la subred a la que pertenece.</li>
+          </ul>`,
         montar: montarCIDR,
       },
     ],

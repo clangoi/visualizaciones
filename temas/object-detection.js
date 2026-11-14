@@ -130,9 +130,25 @@
     intro: String.raw`
       <p>Clasificar una imagen responde <em>¿qué hay?</em>. <strong>Localizar</strong> añade <em>¿dónde?</em>, con una <strong>caja delimitadora</strong> (<em>bounding box</em>), pero para un solo objeto. <strong>Detectar</strong> responde ambas preguntas para <em>todos</em> los objetos, y no se sabe de antemano cuántos son.</p>
       <p>Los detectores modernos comparten un esqueleto: un <strong>backbone</strong> convolucional extrae características, y una <strong>cabeza de detección</strong> (<em>detection head</em>) convierte esas características en cajas y clases. La cabeza puede predecir sobre una rejilla (YOLO, SSD) o sobre propuestas de regiones (la familia R-CNN).</p>`,
+    parametros: [
+      ['Tarea (Fig. 1)', String.raw`Qué se pide a la red: solo la clase, clase más una caja, o clases y cajas de varios objetos. Cambia cuántos números debe producir.`],
+      ['Objetos en la escena (Fig. 1)', String.raw`Cantidad de objetos. Con varios, la clasificación de una sola etiqueta y la localización de una sola caja dejan de bastar.`],
+      ['Nueva escena (Fig. 1 y 2)', String.raw`Sortea otra disposición de objetos.`],
+      ['Rejilla S × S del mapa de características (Fig. 2)', String.raw`Número de celdas en que se divide la imagen. Una más fina permite repartir mejor objetos pequeños o cercanos.`],
+    ],
     visualizaciones: [
-      { titulo: 'Clasificar, localizar y detectar', descripcion: 'Alterne las tres tareas sobre la misma escena y mire cuántos números tiene cada salida. Aumente los objetos y vea quién deja de funcionar.', montar: montarTareas },
-      { titulo: 'Backbone, rejilla y cabeza', descripcion: 'Cambie el tamaño de la rejilla y haga clic en una celda: la celda que contiene el centro de un objeto es la responsable de predecirlo.', montar: montarCabeza },
+      { titulo: 'Clasificar, localizar y detectar', descripcion: 'Alterne las tres tareas sobre la misma escena y mire cuántos números tiene cada salida. Aumente los objetos y vea quién deja de funcionar.',
+        ayuda: String.raw`<p>La escena con sus objetos de varias clases y, según la tarea, la caja predicha en negro. A un lado se listan las salidas de la red.</p>
+          <ul>
+          <li><strong>Tarea</strong>: clasificación da una etiqueta, localización añade una caja y detección da una caja y clase por objeto.</li>
+          <li><strong>Objetos en la escena</strong>: al aumentarlos, clasificación y localización de un solo objeto dejan de describir la escena.</li>
+          </ul>`, montar: montarTareas },
+      { titulo: 'Backbone, rejilla y cabeza', descripcion: 'Cambie el tamaño de la rejilla y haga clic en una celda: la celda que contiene el centro de un objeto es la responsable de predecirlo.',
+        ayuda: String.raw`<p>La imagen con la rejilla del mapa de características, las cajas de los objetos y la celda responsable de cada uno, que es la que contiene su centro. Se resalta la celda elegida.</p>
+          <ul>
+          <li><strong>Rejilla S × S</strong>: con más celdas cada objeto tiene una celda más pequeña, y celdas muy grandes pueden contener varios centros.</li>
+          <li>Al hacer clic en una celda se ve si es responsable de algún objeto.</li>
+          </ul>`, montar: montarCabeza },
     ],
     teoria: String.raw`
       <h2>Qué predice una detección</h2>

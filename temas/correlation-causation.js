@@ -124,15 +124,34 @@
       bajan juntos, pero prohibir los helados no salvaría a nadie: ambos dependen del calor, una <strong>variable de confusión</strong>.</p>
       <p>Distinguir asociación de causalidad exige un <strong>modelo causal</strong>: supuestos explícitos sobre qué causa qué. Con él se
       puede decidir qué comparar y qué ajustar, y saber cuándo los datos observacionales bastan y cuándo hace falta un experimento.</p>`,
+    parametros: [
+      ['Calor → helados (Fig. 1)', String.raw`Cuánto influye el calor en el consumo de helados.`],
+      ['Calor → ahogamientos (Fig. 1)', String.raw`Cuánto influye el calor en los ahogamientos. Junto con el anterior crea una asociación sin causa directa.`],
+      ['Efecto real helados → ahogamientos (Fig. 1)', String.raw`Efecto causal verdadero de comer helados. Es la pendiente que un análisis correcto debería recuperar.`],
+      ['asignar los helados al azar (experimento) (Fig. 1)', String.raw`Rompe la dependencia entre calor y helados, como en un experimento.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otra muestra de días.`],
+      ['Fracción de casos graves que recibe A (Fig. 2)', String.raw`Cuánto se asigna el tratamiento A según la gravedad. A valores altos A se reserva para los casos graves, que se recuperan menos.`],
+      ['Ventaja real de A en cada grupo (Fig. 2)', String.raw`Efecto verdadero de A sobre la recuperación dentro de cada grupo.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Una causa común',
         descripcion: 'El calor causa helados y ahogamientos. Compare la pendiente observada con el efecto real, y vea qué pasa al controlar por el calor o al aleatorizar.',
+        ayuda: String.raw`<p>Cada punto es un día, frío o caluroso; ejes: helados (horizontal) y ahogamientos (vertical). Se compara la pendiente observada con el efecto causal real.</p>
+          <ul>
+          <li><strong>Calor → helados</strong> y <strong>Calor → ahogamientos</strong> altos: la pendiente observada es grande aunque el efecto real sea 0.</li>
+          <li><strong>asignar los helados al azar</strong>: la pendiente observada se acerca al efecto real.</li>
+          </ul>`,
         montar: montarConfusor,
       },
       {
         titulo: 'La paradoja de Simpson',
         descripcion: 'Un tratamiento mejor en cada subgrupo que parece peor en el total. Mueva la asignación de tratamientos según gravedad.',
+        ayuda: String.raw`<p>Tasa de recuperación (vertical) de los tratamientos A y B en el total y en cada grupo de gravedad.</p>
+          <ul>
+          <li><strong>Fracción de casos graves que recibe A</strong> alta con ventaja positiva: A gana en cada grupo pero puede perder en el total, porque trata a los más graves.</li>
+          <li><strong>Ventaja real de A</strong>: marca el signo de la diferencia dentro de los grupos.</li>
+          </ul>`,
         montar: montarSimpson,
       },
     ],

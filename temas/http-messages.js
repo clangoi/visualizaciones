@@ -117,15 +117,29 @@
       Ambas son texto con tres partes: una primera línea, encabezados (<em>headers</em>) y, a veces, un cuerpo.</p>
       <p>La solicitud dice <strong>qué hacer</strong> (el método: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>) y <strong>sobre qué recurso</strong>.
       La respuesta dice <strong>cómo salió</strong> mediante un código de estado de tres cifras.</p>`,
+    parametros: [
+      ['Método y Recurso (Fig. 1)', String.raw`La acción pedida (leer, crear, borrar…) y el recurso sobre el que actúa. Su combinación determina qué código devuelve el servidor.`],
+      ['Enviar token, Cuerpo JSON válido y Servidor con falla (Fig. 1)', String.raw`Tres condiciones de la petición: si lleva credenciales, si el cuerpo está bien formado y si el servidor falla. Cada una puede convertir un éxito en un error 4xx o 5xx.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Solicitud y respuesta HTTP',
         descripcion: 'Elija método y recurso, y active o desactive el token, el cuerpo válido y la falla del servidor: observe el código que devuelve y por qué.',
+        ayuda: String.raw`<p>A la izquierda está la solicitud del navegador (línea de petición, encabezados y cuerpo) y a la derecha la respuesta del servidor con su código de estado, encabezados y cuerpo.</p>
+          <ul>
+          <li><strong>Método</strong> y <strong>Recurso</strong>: cambian la primera línea de la solicitud y el código de la respuesta.</li>
+          <li><strong>enviar token</strong>: añade el encabezado de autorización; sin él, un recurso protegido responde con error de autenticación.</li>
+          <li><strong>servidor con falla</strong>: la respuesta pasa a la familia 5xx aunque la solicitud sea correcta.</li>
+          </ul>`,
         montar: montarPeticion,
       },
       {
         titulo: 'Mapa de códigos de estado',
         descripcion: 'Los códigos se agrupan por su primera cifra. Haga clic en varios y compare, por ejemplo, 401 con 403 o 502 con 504.',
+        ayuda: String.raw`<p>Los códigos se agrupan por primera cifra, cada familia con su color: información, éxito, redirección, error del cliente y error del servidor.</p>
+          <ul>
+          <li>Al hacer clic en un código se muestra su nombre y significado; compare 401 con 403 o 502 con 504 para ver quién tiene la falla.</li>
+          </ul>`,
         montar: montarCodigos,
       },
     ],

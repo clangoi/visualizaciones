@@ -467,20 +467,43 @@
       <p>Mientras se desciende se guardan dos números: la mejor solución entera hallada (el <em>incumbente</em>, una cota inferior en maximización) y la mayor
       relajación entre los nodos abiertos (la cota superior). Cuando se cruzan, el incumbente es óptimo. Esta página usa la versión para programación lineal entera mixta;
       el tema <a href="tema.html?id=branch-and-bound">Branch and Bound</a> presenta la idea general sobre otros problemas.</p>`,
+    parametros: [
+      ['Problema (Fig. 1 y 2)', String.raw`El modelo entero a resolver; determina la región, el objetivo y el árbol resultante.`],
+      ['Variable de ramificación (Fig. 1)', String.raw`Qué variable fraccionaria se divide en dos subproblemas: la más fraccionaria, x o y primero. Cambia las franjas que se descartan.`],
+      ['Ramificar nodo elegido / mejor abierto / Reiniciar (Fig. 1)', String.raw`Dividen el nodo seleccionado o el de mejor cota, o vuelven al nodo raíz.`],
+      ['Siguiente nodo (Fig. 2 y 3)', String.raw`Regla para elegir el siguiente nodo abierto: mejor cota o profundidad. Afecta cuántos nodos se crean y cuándo aparece el primer incumbente.`],
+      ['Variable (Fig. 2)', String.raw`Criterio para escoger la variable de ramificación: la más fraccionaria o la primera fraccionaria.`],
+      ['Reproductor y Nuevos datos (Fig. 2 y 3)', String.raw`Avanza el algoritmo nodo a nodo o genera otra instancia de seis variables.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ramifique usted el árbol',
         descripcion: 'Haga clic en un nodo para ver su región y pulse «Ramificar nodo elegido»: las franjas grises muestran el trozo fraccionario que se descarta sin perder ningún punto entero. Pruebe «Ramificar el mejor abierto» hasta que no queden nodos amarillos.',
+        ayuda: String.raw`<p>Arriba, la región factible del nodo seleccionado: las franjas grises son lo descartado al ramificar, el punto naranja es el óptimo LP del nodo y el verde el incumbente. Abajo, el árbol: azul abierto, ramificado, verde entero, rojo infactible y gris podado por cota.</p>
+          <ul>
+          <li><strong>Variable de ramificación</strong>: elige qué variable se parte; las dos ramas excluyen una franja sin perder puntos enteros.</li>
+          <li><strong>Ramificar el mejor abierto</strong>: expande el nodo con mejor cota, la que más puede mejorar la solución.</li>
+          </ul>`,
         montar: montarManual,
       },
       {
         titulo: 'Ramificación y acotamiento paso a paso',
         descripcion: 'Cambie la regla de selección de nodo y reproduzca el algoritmo en el mismo problema. Con «profundidad» se encuentra un incumbente pronto; con «mejor cota» se crean menos nodos en general. Observe qué nodos se podan por cota.',
+        ayuda: String.raw`<p>Región y árbol del mismo problema, con el nodo en proceso marcado con un anillo. Los colores de nodo son los de la leyenda; un incumbente verde permite podar por cota.</p>
+          <ul>
+          <li><strong>Siguiente nodo</strong>: con profundidad el primer entero aparece pronto; con mejor cota suele haber menos nodos.</li>
+          <li><strong>Variable</strong>: cambia las ramas y por tanto la forma del árbol.</li>
+          </ul>`,
         montar: montarAutomatico,
       },
       {
         titulo: 'Seis variables: relajaciones nodo a nodo',
         descripcion: 'Una mochila con dos recursos (peso y volumen) y seis objetos. Avance paso a paso y lea en la tabla la solución relajada de cada nodo: siempre hay a lo sumo unas pocas variables fraccionarias. Pulse «Nuevos datos» para otra instancia.',
+        ayuda: String.raw`<p>Árbol de una mochila con dos recursos y seis objetos; la tabla da la solución relajada de cada nodo, con pocas variables fraccionarias. Los colores son los de la leyenda.</p>
+          <ul>
+          <li><strong>Siguiente nodo</strong>: mejor cota o profundidad cambia el orden de exploración y el tamaño del árbol.</li>
+          <li><strong>Nuevos datos</strong>: otra instancia, con otro árbol.</li>
+          </ul>`,
         montar: montarSeisVariables,
       },
     ],

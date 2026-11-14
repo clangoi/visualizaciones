@@ -107,9 +107,23 @@
     intro: String.raw`
       <p>Una visualización no está terminada hasta que se comprueba que <strong>funciona para quienes la usan</strong>. Evaluar es medir si las personas logran sus tareas con rapidez, exactitud y comodidad, y detectar dónde se equivocan o se frustran.</p>
       <p>Hay dos grandes caminos: la <em>inspección</em> por expertos con listas de criterios (heurísticas), y el <em>estudio con usuarios</em>, que mide tiempos, errores y opiniones y exige estadística para no sacar conclusiones de la casualidad.</p>`,
+    parametros: [
+      ['Mejoras del gráfico (casillas) (Fig. 1)', String.raw`Seis casillas, una por problema del gráfico de barras. Activar cada una corrige ese problema y sube la puntuación heurística.`],
+      ['Personas por diseño (Fig. 2)', String.raw`Tamaño de la muestra por diseño. Con pocas personas, el azar puede ocultar o invertir la diferencia real.`],
+      ['Repetir el estudio (Fig. 2)', String.raw`Simula otro estudio con distintas personas y la misma diferencia verdadera, para ver cuánto varía la conclusión.`],
+    ],
     visualizaciones: [
-      { titulo: 'Inspección heurística de un gráfico', descripcion: 'Corrija seis problemas de un gráfico de barras y vea cómo cambia la razón de alturas dibujadas frente a la real.', montar: montarHeuristica },
-      { titulo: 'Estudio comparativo con usuarios', descripcion: 'Simule un estudio de dos diseños, cambie el tamaño de la muestra y repítalo para ver cuándo la diferencia deja de ser detectable.', montar: montarComparacion },
+      { titulo: 'Inspección heurística de un gráfico', descripcion: 'Corrija seis problemas de un gráfico de barras y vea cómo cambia la razón de alturas dibujadas frente a la real.',
+        ayuda: String.raw`<p>Un gráfico de barras comparando A y B, con una sola paleta salvo el arcoíris del caso defectuoso, que no codifica nada. La lectura indica la puntuación heurística y la razón entre alturas dibujadas frente a la real.</p>
+          <ul>
+          <li><strong>Casillas de mejora</strong>: al activarlas, la puntuación sube; las que afectan al eje acercan la razón de alturas dibujadas a la razón real de los valores.</li>
+          </ul>`, montar: montarHeuristica },
+      { titulo: 'Estudio comparativo con usuarios', descripcion: 'Simule un estudio de dos diseños, cambie el tamaño de la muestra y repítalo para ver cuándo la diferencia deja de ser detectable.',
+        ayuda: String.raw`<p>Cada punto es el tiempo de tarea (segundos, eje vertical) de una persona, azul con el diseño A (torta) y naranja con el B (barras). La línea negra es la media con su intervalo de confianza del 95 %.</p>
+          <ul>
+          <li><strong>Personas por diseño</strong>: con más personas los intervalos se estrechan y la diferencia real (A 12 s, B 10 s) se distingue mejor.</li>
+          <li><strong>Repetir el estudio</strong>: con pocas personas, los intervalos se solapan en algunas repeticiones y no se detecta el efecto.</li>
+          </ul>`, montar: montarComparacion },
     ],
     teoria: String.raw`
       <h2>Qué se evalúa</h2>

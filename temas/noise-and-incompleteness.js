@@ -197,15 +197,33 @@
       par observado es verdad y que todo par posible fue observado.</p>
       <p>Aquí se ve la consecuencia: un solo orden raro convierte una causalidad en paralelo, y unas pocas trazas de menos dejan un paralelo convertido
       en una secuencia. La pregunta práctica es cuántos casos hacen falta y cómo limpiar antes de descubrir.</p>`,
+    parametros: [
+      ['Casos en el registro (Fig. 1)', String.raw`Tamaño del registro. Más casos dan más evidencia de cada variante.`],
+      ['Ruido (casos alterados) (Fig. 1)', String.raw`Proporción de casos con trazas alteradas. Más ruido introduce pares de actividades falsos y plazas que no existen en el proceso real.`],
+      ['Filtrar variantes con menos de (Fig. 1)', String.raw`Descarta las variantes con menos casos que el umbral antes de aplicar α. Quita el ruido, pero un umbral alto también quita variantes reales.`],
+      ['Nuevo registro (Fig. 1)', String.raw`Genera otro registro aleatorio con los mismos ajustes.`],
+      ['Proceso real (Fig. 2)', String.raw`El proceso del que se simulan registros. Cambia cuántas variantes hay que ver para reconstruirlo.`],
+      ['Corridas simuladas y Nuevas corridas (Fig. 2)', String.raw`Cuántas simulaciones se promedian y una repetición con otras semillas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Ruido: una traza rara cambia la red',
         descripcion: 'Suba el ruido y mire cómo aparecen plazas que no existen en el proceso real y celdas erróneas en la huella. Luego suba el filtro de variantes raras para que α vuelva al modelo correcto.',
+        ayuda: String.raw`<p>Se comparan el proceso real, la huella y la red. Las variantes reales y las con ruido se distinguen en la leyenda, así como las filtradas antes de aplicar α. Las plazas o celdas que no están en el proceso real se marcan.</p>
+          <ul>
+          <li><strong>Ruido</strong>: al subirlo aparecen celdas erróneas y plazas que no existen en el modelo real.</li>
+          <li><strong>Filtrar variantes con menos de</strong>: al subirlo se quitan las variantes con ruido y α vuelve al modelo correcto.</li>
+          </ul>`,
         montar: montarRuido,
       },
       {
         titulo: 'Incompletitud: cuántos casos bastan',
         descripcion: 'Curva de pares a > b ya vistos y de corridas en que α ya reconstruye el modelo exacto. Compare una elección con paralelos de 3 y de 4 actividades.',
+        ayuda: String.raw`<p>El eje horizontal son los casos en el registro y el vertical, una fracción. Una serie es la fracción de pares a &gt; b ya vistos y otra, la fracción de corridas en que α ya reconstruye el modelo exacto.</p>
+          <ul>
+          <li><strong>Proceso real</strong>: con más actividades paralelas, hacen falta más casos para ver todos los pares.</li>
+          <li><strong>Corridas simuladas</strong>: más corridas suavizan las curvas.</li>
+          </ul>`,
         montar: montarCompletitud,
       },
     ],

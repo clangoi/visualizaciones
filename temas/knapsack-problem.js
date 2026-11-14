@@ -334,20 +334,43 @@
       <p>Aunque el enunciado es corto, la decisión no es evidente: el objeto de mejor valor por peso no siempre es el que conviene.
       Aquí compara su elección con el <em>óptimo entero</em>, con la cota que da la <em>relajación fraccionaria</em> (que sí permite partir objetos) y con la
       tabla de programación dinámica que encuentra el óptimo.</p>`,
+    parametros: [
+      ['Capacidad C (Fig. 1, 2 y 3)', String.raw`El peso máximo que cabe en la mochila. Subirla admite más objetos; el óptimo entero cambia de forma irregular, no proporcional.`],
+      ['Marcar el óptimo entero (Fig. 1)', String.raw`Superpone la mejor selección posible con objetos enteros para compararla con la suya.`],
+      ['Aplicar el óptimo, Vaciar y Nuevos objetos (Fig. 1, 2 y 3)', String.raw`Aplicar el óptimo elige la mejor selección, Vaciar la deja sin objetos y Nuevos objetos sortea otro conjunto de pesos y valores.`],
+      ['Objetos n (Fig. 3)', String.raw`Cantidad de objetos de la tabla. Cada objeto agrega una fila, por lo que el trabajo de la programación dinámica crece como n·C.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Llene la mochila',
         descripcion: 'Haga clic en los objetos para elegirlos y trate de alcanzar el mayor valor sin pasar la capacidad. Active «Marcar el óptimo entero» para comparar, y mueva C: el óptimo cambia de forma irregular.',
+        ayuda: String.raw`<p>Cada tarjeta es un objeto con su peso y su valor. Se distingue el objeto elegido del no elegido; los objetos del óptimo entero se resaltan si está marcado, y el peso que excede la capacidad se señala aparte según la leyenda.</p>
+          <ul>
+          <li><strong>Capacidad C</strong>: al subirla cabe más peso; si su selección la sobrepasa, aparece el exceso marcado.</li>
+          <li><strong>Marcar el óptimo entero</strong>: muestra qué objetos forman el mejor valor posible; la diferencia con su selección es lo que le falta ganar.</li>
+          <li><strong>Aplicar el óptimo</strong> reemplaza su selección por esa solución; <strong>Vaciar</strong> la limpia.</li>
+          </ul>`,
         montar: montarEleccion,
       },
       {
         titulo: 'Relajación fraccionaria',
         descripcion: 'Observe cómo el método voraz por valor/peso llena la mochila y fracciona el último objeto. Compare su cota z_LP con el óptimo entero: la brecha puede ser cero o no según C.',
+        ayuda: String.raw`<p>El método voraz ordena los objetos por valor por unidad de peso (eje vertical) y los acumula sobre el peso acumulado (eje horizontal). Los objetos se distinguen como metidos enteros, fraccionado, aún no considerados y pertenecientes al óptimo entero.</p>
+          <ul>
+          <li><strong>Capacidad C</strong>: desplaza el punto donde se llena la mochila; el objeto fraccionado cambia y con él la cota \(z_{LP}\).</li>
+          <li><strong>Nuevos objetos</strong>: otro conjunto; la brecha entre \(z_{LP}\) y el óptimo entero puede ser cero o positiva.</li>
+          </ul>`,
         montar: montarRelajacion,
       },
       {
         titulo: 'Tabla de programación dinámica',
         descripcion: 'Avance paso a paso y vea de qué dos celdas depende cada V[i][w]. Cambie n y C: el trabajo crece como n·C, y al final el camino verde muestra los objetos elegidos.',
+        ayuda: String.raw`<p>Es la tabla \(V[i][w]\): filas por objetos y columnas por capacidades. La celda en cálculo depende de dos anteriores: no tomar el objeto o tomarlo. Al final el camino de la solución marca los objetos elegidos.</p>
+          <ul>
+          <li><strong>Objetos n</strong>: más filas y más celdas por calcular.</li>
+          <li><strong>Capacidad C</strong>: más columnas; el costo total es proporcional a n·C.</li>
+          <li><strong>Nuevos objetos</strong>: cambian los pesos y valores y, con ellos, los valores de la tabla y el camino.</li>
+          </ul>`,
         montar: montarTabla,
       },
     ],

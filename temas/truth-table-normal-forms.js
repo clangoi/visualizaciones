@@ -139,15 +139,28 @@
       <p>La tabla de verdad de una función dice todo sobre ella, y de la tabla se lee directamente una fórmula. Cada fila donde la función vale V da un <strong>término</strong> que solo se cumple en esa fila;
       la disyunción de todos ellos es la <strong>forma normal disyuntiva canónica</strong>. Dualmente, cada fila donde vale F da una <strong>cláusula</strong> que solo se incumple en esa fila, y su conjunción es la CNF canónica.</p>
       <p>Las formas canónicas son correctas pero grandes. Agrupar términos vecinos permite obtener fórmulas equivalentes mucho más cortas.</p>`,
+    parametros: [
+      ['Función de partida y Función aleatoria (Fig. 1)', String.raw`La función booleana cuya columna f se edita en la tabla; el botón genera otra al azar. Define qué mintérminos y maxtérminos aparecen en las formas canónicas.`],
+      ['Función (Fig. 2)', String.raw`La función de 4 variables cuyo mapa de Karnaugh se muestra. Determina qué celdas valen V y qué grupos forman la DNF mínima.`],
+    ],
     visualizaciones: [
       {
         titulo: 'De la tabla a la fórmula',
         descripcion: 'Defina una función haciendo clic en las filas de la columna f y lea sus formas normales canónicas. Compruebe que la fórmula reproduce la tabla.',
+        ayuda: String.raw`<p>Cada fila de la tabla es una valuación y la columna f su valor. Debajo se leen la DNF canónica (una conjunción por cada fila con V) y la CNF canónica (una disyunción por cada fila con F).</p>
+          <ul>
+          <li><strong>Función de partida</strong>: elegir otra función cambia qué filas valen V y, con ello, cuántos términos tiene cada forma canónica.</li>
+          <li><strong>Función aleatoria</strong>: sortea la columna f; la fórmula se actualiza y sigue reproduciendo la tabla.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Forma mínima con un mapa de Karnaugh',
         descripcion: 'Mire cuántos literales ahorra una DNF mínima respecto de la canónica. Cambie celdas del mapa y observe qué grupos aparecen.',
+        ayuda: String.raw`<p>El mapa de Karnaugh tiene una celda por valuación, con V o F según la leyenda. Los puntos de colores indican qué término de la forma mínima cubre cada celda con V.</p>
+          <ul>
+          <li><strong>Función</strong>: cambia las celdas con V; los grupos adyacentes grandes dan términos con menos literales, y por eso la forma mínima ahorra respecto de la canónica.</li>
+          </ul>`,
         montar: montarMinimizacion,
       },
     ],

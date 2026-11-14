@@ -202,15 +202,36 @@
       quién es <strong>R</strong>esponsable de ejecutarla, quién es <strong>A</strong>probador (responde por el resultado), a quién se <strong>C</strong>onsulta y a quién solo se <strong>I</strong>nforma.</p>
       <p>Su valor está en las reglas: una sola A por actividad y al menos una R. Cuando faltan o sobran, el proceso tiene huérfanos, disputas o cuellos de botella en una persona.
       Por eso la matriz se valida como si fuera un dato y se construye entrevistando a las personas, sabiendo que cada una cuenta su versión.</p>`,
+    parametros: [
+      ['Máx. actividades R por persona (Fig. 1)', String.raw`Límite de actividades que puede realizar una persona. Una persona que lo excede se marca como sobrecargada.`],
+      ['Corregir automáticamente, Cargar con errores, Cargar correcta y Vaciar (Fig. 1)', String.raw`Cargan matrices de ejemplo o la dejan en blanco; Corregir automáticamente repara las filas que incumplen las reglas.`],
+      ['Sesgo de autoinforme (Fig. 2)', String.raw`Cuánto exagera cada persona su propio papel al declarar su columna. Más sesgo introduce más declaraciones distintas de la realidad.`],
+      ['Olvido de consultas (Fig. 2)', String.raw`Porcentaje de roles C e I que las personas no recuerdan. Más olvido hace desaparecer consultas e informes.`],
+      ['Entrevistar a cada persona y Entrevistar a todos (Fig. 2)', String.raw`Cada persona solo conoce su propia columna; entrevistar a más personas completa más de la matriz.`],
+      ['Contrastar con el registro de eventos y Mostrar la matriz real (Fig. 2)', String.raw`Comparan lo declarado con la evidencia o con la matriz verdadera para detectar errores.`],
+      ['Nueva muestra (Fig. 2)', String.raw`Genera otra realidad y otras declaraciones.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Edite la matriz y valide las reglas',
         descripcion: 'Parte de una matriz con errores: busque las filas sin A, con dos A o sin R, y a la persona sobrecargada. Corrija a mano, baje el límite de carga o pruebe «Corregir automáticamente».',
+        ayuda: String.raw`<p>Matriz de actividades (filas) por personas (columnas); cada celda lleva R (realiza), A (responde), AR (ambas), C (se consulta) o I (se informa). Las filas o personas que incumplen una regla se señalan.</p>
+          <ul>
+          <li><strong>Máx. actividades R por persona</strong>: bajarlo marca como sobrecargadas a más personas.</li>
+          <li><strong>Corregir automáticamente</strong>: deja cada fila con una sola A y al menos una R.</li>
+          </ul>`,
         montar: montarEditor,
       },
       {
         titulo: 'Descubrir el RACI con entrevistas',
         descripcion: 'Entreviste a una persona a la vez: cada una conoce solo su columna y la exagera. Entreviste a todos, active «Mostrar la matriz real» y vea qué errores aparecen; luego contraste con el registro de eventos.',
+        ayuda: String.raw`<p>La misma matriz construida solo con lo que declaran las personas entrevistadas. Se distinguen las celdas en que la declaración es distinta de la realidad.</p>
+          <ul>
+          <li><strong>Sesgo de autoinforme</strong>: más celdas con una R o A que no corresponde.</li>
+          <li><strong>Olvido de consultas</strong>: faltan C e I que sí existen.</li>
+          <li><strong>Entrevistar a todos</strong>: completa la matriz, pero con los errores de sesgo y olvido.</li>
+          <li><strong>Contrastar con el registro de eventos</strong>: corrige con evidencia lo que las entrevistas dicen mal.</li>
+          </ul>`,
         montar: montarEntrevistas,
       },
     ],

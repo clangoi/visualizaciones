@@ -109,15 +109,33 @@
     intro: String.raw`
       <p>Las <strong>expresiones regulares prácticas</strong> —las de <code>grep</code>, de los editores y de los lenguajes de programación— parten de la teoría (unión, concatenación, estrella) y le agregan comodidades: clases de caracteres, cuantificadores como <code>+</code>, <code>?</code> y <code>{n,m}</code>, grupos que capturan, anclas y escapes.</p>
       <p>Dos familias de sintaxis dominan: <strong>POSIX</strong> (la de <code>grep</code> y <code>sed</code>) y <strong>PCRE</strong> (Perl, Python, JavaScript, PHP…). La diferencia de fondo no es la sintaxis sino qué pasa cuando hay varias formas de coincidir: POSIX busca la coincidencia más larga; PCRE toma la primera que encuentra su orden de prioridades, voraz o perezoso.</p>`,
+    parametros: [
+      ['Ejemplos (Fig. 1)', String.raw`Combinaciones de patrón y texto de muestra. Cargarlas reemplaza ambos campos.`],
+      ['Patrón (Fig. 1)', String.raw`La expresión regular que se aplica. Las coincidencias y grupos dependen de sus operadores y de si son voraces o perezosos.`],
+      ['Texto (hasta 200 caracteres) (Fig. 1)', String.raw`La cadena donde se buscan coincidencias.`],
+      ['Ignorar mayúsculas (i) (Fig. 1)', String.raw`Si está activa, las letras mayúsculas y minúsculas se consideran iguales; las coincidencias pueden aumentar.`],
+      ['Clase de caracteres (un carácter) (Fig. 2)', String.raw`La clase que se evalúa contra cada carácter de una muestra. Define qué conjunto de caracteres acepta.`],
+      ['Ejemplos (Fig. 2)', String.raw`Clases de muestra como \d o [^aeiou] para cargar sin escribirlas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Probar un patrón sobre un texto',
         descripcion: 'Elija un ejemplo o escriba su patrón: se marcan las coincidencias y se muestran sus grupos. Compare «&lt;.+&gt;» (voraz) con «&lt;.+?&gt;» (perezoso).',
+        ayuda: String.raw`<p>Se muestra el texto con las coincidencias marcadas; los colores distinguen coincidencias consecutivas y una tabla las numera con sus grupos.</p>
+          <ul>
+          <li><strong>Patrón</strong>: «&lt;.+&gt;» (voraz) abarca de la primera a la última llave en una sola coincidencia, mientras «&lt;.+?&gt;» (perezoso) da una por etiqueta.</li>
+          <li><strong>Ignorar mayúsculas (i)</strong>: hace que, por ejemplo, «a» coincida también con «A».</li>
+          </ul>`,
         montar: montarProbador,
       },
       {
         titulo: 'Qué caracteres acepta una clase',
         descripcion: 'Escriba una clase como \\d, [^aeiou] o [a-f0-9] y vea cuáles caracteres de una muestra coinciden. Note los casos de las letras con tilde y del salto de línea.',
+        ayuda: String.raw`<p>Cada carácter de una muestra aparece como coincidente o no coincidente con la clase escrita.</p>
+          <ul>
+          <li><strong>Clase de caracteres</strong>: \d marca solo los dígitos; [^aeiou] marca todo salvo esas vocales.</li>
+          <li>Observe los casos de las letras con tilde y del salto de línea, que dependen de la definición de la clase.</li>
+          </ul>`,
         montar: montarClases,
       },
     ],

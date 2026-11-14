@@ -87,9 +87,26 @@
       <p>Una herramienta de dashboards como <strong>Looker Studio</strong> (antes Google Data Studio) no dibuja filas: <em>agrupa y resume</em>. Para eso separa cada columna de la fuente de datos en dos roles:
       las <strong>dimensiones</strong>, que dicen cómo cortar (región, mes, categoría), y las <strong>métricas</strong>, que son números que se agregan (ventas, pedidos).</p>
       <p>Un gráfico es una elección de dimensión, métrica y agregación. Entender ese trío evita los errores más comunes de los reportes.</p>`,
+    parametros: [
+      ['Dimensión (cómo se corta) (Fig. 1)', String.raw`El campo categórico por el que se agrupan las filas (por ejemplo región, categoría o mes). Define cuántas barras hay y qué representa cada una.`],
+      ['Métrica (qué se mide) (Fig. 1)', String.raw`La columna numérica que se resume en cada grupo (por ejemplo ventas o pedidos). Define la altura de las barras.`],
+      ['Agregación (Fig. 1)', String.raw`Cómo se combinan las filas de cada grupo: suma, promedio, máximo o conteo. El conteo solo cuenta filas, así que ignora la métrica elegida.`],
+      ['Cálculo del ticket promedio por región (Fig. 2)', String.raw`Elige entre dividir las ventas totales por los pedidos totales (cálculo correcto) o promediar el ticket de cada fila. El segundo da el mismo peso a filas pequeñas y grandes, y por eso distorsiona el resultado.`],
+    ],
     visualizaciones: [
-      { titulo: 'Dimensión, métrica y agregación', descripcion: 'Elija cómo cortar la tabla de ventas, qué medir y cómo agregar. Observe que «conteo» ignora la métrica.', montar: montarCubo },
-      { titulo: 'Un campo calculado que engaña', descripcion: 'Compare el ticket promedio calculado como razón de sumas y como promedio de razones fila a fila.', montar: montarRazones },
+      { titulo: 'Dimensión, métrica y agregación', descripcion: 'Elija cómo cortar la tabla de ventas, qué medir y cómo agregar. Observe que «conteo» ignora la métrica.',
+        ayuda: String.raw`<p>Cada barra es un grupo de la dimensión elegida y su altura es la métrica agregada. La lectura indica las filas agregadas (144), el número de grupos y las filas por grupo. Al pasar el cursor se ve el valor y la cantidad de filas del grupo.</p>
+          <ul>
+          <li><strong>Dimensión</strong>: cambia las barras (otra partición de las mismas 144 filas) y su cantidad.</li>
+          <li><strong>Métrica</strong>: cambia la magnitud que se resume y la escala del eje.</li>
+          <li><strong>Agregación</strong> «Conteo de filas»: las barras reflejan solo cuántas filas tiene cada grupo, igual para cualquier métrica.</li>
+          </ul>`, montar: montarCubo },
+      { titulo: 'Un campo calculado que engaña', descripcion: 'Compare el ticket promedio calculado como razón de sumas y como promedio de razones fila a fila.',
+        ayuda: String.raw`<p>Las barras azules son el ticket promedio de cada región según el cálculo elegido; la línea naranja sobre cada una marca el valor correcto. La lectura da el error relativo máximo y la región más afectada.</p>
+          <ul>
+          <li><strong>Cálculo</strong> «Σ ventas ÷ Σ pedidos»: cada barra coincide con su línea naranja y el error es 0.</li>
+          <li><strong>Cálculo</strong> como promedio de tickets por fila: las barras se separan de la línea; la distancia es el sesgo por tratar igual filas de distinto tamaño.</li>
+          </ul>`, montar: montarRazones },
     ],
     teoria: String.raw`
       <h2>Fuente de datos y campos</h2>

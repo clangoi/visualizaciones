@@ -236,15 +236,33 @@
       Se alinea cada caso con el modelo, se reúnen los movimientos que no coinciden (actividades <em>de más</em> y <em>omitidas</em>) y se muestran sobre el propio modelo.</p>
       <p>También se puede comparar con reglas de negocio escritas a mano, como «hay que cobrar antes de despachar», sin necesidad de un modelo completo. En ambos casos el resultado es un
       diagnóstico: qué se incumple, con qué frecuencia y en qué casos.</p>`,
+    parametros: [
+      ['Mostrar (Fig. 1)', String.raw`Qué desviaciones se cuentan por actividad: de más, omitidas o ambas.`],
+      ['Casos con ruido y Casos en el registro (Fig. 1 y 2)', String.raw`Fracción de trazas alteradas y tamaño del registro. Con 0 % de ruido no hay desviaciones.`],
+      ['Mostrar desde (Fig. 1)', String.raw`Cantidad mínima de casos con desviación para colorear una actividad; oculta las desviaciones menores.`],
+      ['Presión por despachar rápido (Fig. 2)', String.raw`Probabilidad de que se salte el orden correcto para despachar antes. Sube las infracciones de las reglas que dependen de ese orden.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otro registro.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Mapa de desviaciones sobre el modelo',
         descripcion: 'Cada actividad se tiñe según los casos en que sobra o falta. Con 0 % de ruido no hay color; con 30 % aparecen manchas en las actividades centrales. Cambie «Mostrar» para separar las de más de las omitidas y use el umbral para ocultar lo poco frecuente.',
+        ayuda: String.raw`<p>El modelo con cada actividad teñida según los casos en que sobra o falta (pocos casos o muchos). La insignia muestra «+» de más y «−» omitidas; la actividad elegida con clic se resalta.</p>
+          <ul>
+          <li><strong>Mostrar</strong>: separa las actividades que sobran de las que faltan.</li>
+          <li><strong>Casos con ruido</strong>: con 0 % no hay color; al subirlo aparecen manchas en las actividades centrales.</li>
+          <li><strong>Mostrar desde</strong>: oculta actividades con pocas desviaciones.</li>
+          </ul>`,
         montar: montarMapa,
       },
       {
         titulo: 'Incumplimiento de reglas de negocio',
         descripcion: 'Cinco reglas sobre un registro de pedidos. Suba la presión por despachar rápido a 50 %: R1 crece junto con R5, porque un mismo desvío (despachar antes de cobrar) rompe las dos. Con presión 0 sólo queda el ruido.',
+        ayuda: String.raw`<p>Cinco reglas de negocio (por ejemplo, cobrar antes de despachar) con los casos que las cumplen y los que las incumplen; la regla elegida con clic se resalta.</p>
+          <ul>
+          <li><strong>Presión por despachar rápido</strong>: al subirla, R1 y R5 crecen juntas porque un mismo desvío rompe ambas.</li>
+          <li><strong>Casos con ruido</strong>: agrega incumplimientos aleatorios que no dependen de la presión.</li>
+          </ul>`,
         montar: montarReglas,
       },
     ],

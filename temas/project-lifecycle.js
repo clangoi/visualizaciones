@@ -261,15 +261,33 @@
       Cada fase termina en entregables concretos, y pasar a la siguiente suele requerir una aprobación.</p>
       <p>Conocer el ciclo importa porque <strong>cambiar de idea cuesta más cuanto más avanzado está el proyecto</strong>: una corrección en el papel es barata;
       la misma corrección con el sistema ya programado, probado y capacitado puede costar decenas de veces más.</p>`,
+    parametros: [
+      ['Costo de un cambio en la preparación (Fig. 1)', String.raw`Horas que cuesta cambiar una decisión al comienzo del proyecto, cuando aún no hay nada construido.`],
+      ['Multiplicador al cierre (×) (Fig. 1)', String.raw`Cuántas veces más cuesta el mismo cambio al final. Hace la curva de costo más o menos empinada.`],
+      ['Valor del cambio (horas que ahorra) (Fig. 1)', String.raw`Las horas que ahorra hacer el cambio. Mientras supere el costo, conviene cambiar.`],
+      ['Tipo de proyecto y Duración total (Fig. 2)', String.raw`El tipo define qué entregables hay y la duración total (12 a 60 semanas) reparte las fases en ese tiempo.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza semana a semana y muestra qué se aprueba.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El costo de cambiar según el avance',
         descripcion: 'Recorra las fases o haga clic en cualquier punto para situar un cambio. Suba el valor del cambio y vea cómo crece la zona verde; suba el multiplicador y observe cómo la curva se hace más empinada.',
+        ayuda: String.raw`<p>Eje horizontal: avance del proyecto; eje vertical: horas por cambio. La curva es el costo de un cambio y una línea es su valor; la zona en que conviene cambiar es donde el valor supera al costo. Las fases (preparación, planificación, ejecución, monitoreo y cierre) se distinguen por color.</p>
+          <ul>
+          <li><strong>Multiplicador al cierre</strong> alto: la curva sube más y la zona de conveniencia se acorta hacia el inicio.</li>
+          <li><strong>Valor del cambio</strong> alto: la línea sube y la zona verde se extiende a fases más avanzadas.</li>
+          <li><strong>Costo de un cambio en la preparación</strong>: desplaza toda la curva hacia arriba o abajo.</li>
+          </ul>`,
         montar: montarCosto,
       },
       {
         titulo: 'Entregables y puertas de aprobación',
         descripcion: 'Reproduzca el proyecto semana a semana y observe qué fase está activa y qué entregables ya se aprobaron. Cambie el tipo de proyecto y la duración: las fases mantienen su orden pero cambian de proporción.',
+        ayuda: String.raw`<p>Un diagrama de fases con sus entregables. Cada entregable aparece como aprobado o pendiente según la semana, y se indica la fase activa.</p>
+          <ul>
+          <li><strong>Tipo de proyecto</strong>: cambia los entregables de cada fase.</li>
+          <li><strong>Duración total</strong>: estira o comprime las fases en semanas manteniendo su orden.</li>
+          </ul>`,
         montar: montarEntregables,
       },
     ],

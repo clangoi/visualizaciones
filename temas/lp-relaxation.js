@@ -276,15 +276,32 @@
       <p>Por eso la relajación es la pieza central de los resolvedores modernos: da una <em>cota</em> que se compara con la mejor solución entera conocida
       y que guía a la ramificación y a los cortes. Y por eso tampoco basta con <em>redondear</em> su solución: el punto redondeado puede violar las restricciones
       o quedar lejos del verdadero óptimo.</p>`,
+    parametros: [
+      ['Problema (Fig. 1)', String.raw`El modelo entero de partida: fija las restricciones y por tanto la región relajada y los puntos enteros posibles.`],
+      ['Ganancia c₁ y c₂ (Fig. 1)', String.raw`Coeficientes de la función objetivo de x e y. Cambiarlos gira la dirección de mejora y puede mover el óptimo relajado a otro vértice.`],
+      ['x entera, y entera (Fig. 1)', String.raw`Indican qué variables deben ser enteras. Quitar la exigencia amplía las soluciones factibles y acerca el óptimo entero al relajado.`],
+      ['Quitar punto elegido (Fig. 1)', String.raw`Borra la marca de redondeo que se eligió con un clic.`],
+      ['Capacidad C (Fig. 2)', String.raw`Capacidad de la mochila. Cambiarla mueve qué objeto queda fraccionado y la distancia entre la cota relajada y el óptimo entero.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otros objetos con pesos y valores distintos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Relajación y óptimo entero en el plano',
         descripcion: 'Elija un problema y cambie las ganancias \\(c_1, c_2\\): el óptimo relajado (rombo naranjo) salta de vértice en vértice mientras el óptimo entero (verde) se queda en un punto de la rejilla. Desmarque «x entera» o «y entera» para ver un problema mixto, y observe cuáles redondeos son infactibles.',
+        ayuda: String.raw`<p>Los ejes son x e y. El área sombreada es la región relajada; los puntos son soluciones enteras factibles. El rombo naranja es el óptimo relajado y el punto verde, el óptimo entero. Un redondeo factible o infactible se marca según la leyenda.</p>
+          <ul>
+          <li><strong>Ganancia c₁ / c₂</strong>: al variarlas el óptimo relajado salta de vértice; la diferencia de valor con el óptimo entero es la brecha de la relajación.</li>
+          <li><strong>x entera / y entera</strong>: al desmarcar una, los puntos enteros pasan a ser líneas o continuos en esa dirección y el óptimo entero se aproxima al relajado.</li>
+          </ul>`,
         montar: montarPlano,
       },
       {
         titulo: 'Mochila: cota fraccionaria frente a redondeo',
         descripcion: 'La relajación de la mochila toma una fracción del último objeto. Mueva la capacidad \\(C\\) y compare cuatro filas: relajación, redondeo hacia arriba (excede la capacidad), redondeo hacia abajo (queda corto) y el óptimo entero, que puede reordenar los objetos.',
+        ayuda: String.raw`<p>Cada fila compara una solución de la mochila: la relajación (con un objeto fraccionado), el redondeo hacia arriba (que excede la capacidad), el redondeo hacia abajo y el óptimo entero.</p>
+          <ul>
+          <li><strong>Capacidad C</strong>: al crecer, cambia el objeto fraccionado; el exceso o el desperdicio del redondeo muestra por qué redondear no da el óptimo.</li>
+          </ul>`,
         montar: montarMochila,
       },
     ],

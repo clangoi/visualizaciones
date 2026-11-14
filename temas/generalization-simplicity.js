@@ -290,15 +290,31 @@
       ¿reproducirá también las trazas nuevas del mismo proceso? Un registro casi nunca contiene todas las variantes posibles, así que un buen modelo debe aceptar algunas que no vio.</p>
       <p>La <strong>simplicidad</strong> es la cuarta dimensión: entre dos modelos que explican igual de bien los datos, conviene el más pequeño y fácil de leer (la navaja de Occam).
       Junto con el fitness y la precisión forman las cuatro dimensiones de calidad de un modelo de procesos.</p>`,
+    parametros: [
+      ['Casos con ruido (Fig. 1 y 2)', String.raw`Fracción de trazas alteradas. Con ruido, un modelo que memoriza todo el registro se ajusta a errores.`],
+      ['Casos mínimos por variante (Fig. 1)', String.raw`Cuántos casos debe tener una variante para incluirse en el modelo. Subirlo descarta variantes raras: simplifica el modelo y puede generalizar mejor.`],
+      ['Casos en el registro (Fig. 2)', String.raw`Tamaño del registro de entrenamiento.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otro registro.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Entrenamiento frente a prueba',
         descripcion: 'Con todas las variantes, el modelo de trazas ajusta 1 al registro que vio pero menos a casos nuevos: la brecha es mayor con pocos casos y se cierra al crecer n. La curva naranja estima esa prueba sin casos nuevos. Suba «Casos mínimos por variante» y vea cómo el modelo se simplifica a costa de generalizar peor.',
+        ayuda: String.raw`<p>Curva del fitness medio según los casos de entrenamiento n: el registro de entrenamiento, 300 casos nuevos (prueba real) y la validación cruzada que estima la prueba usando solo el registro.</p>
+          <ul>
+          <li><strong>Casos con ruido</strong>: sube la brecha entre entrenamiento y prueba, es decir, el sobreajuste.</li>
+          <li><strong>Casos mínimos por variante</strong>: al subirlo, la brecha se reduce porque el modelo ignora variantes raras, pero baja el fitness de entrenamiento.</li>
+          </ul>`,
         montar: montarCurva,
       },
       {
         titulo: 'Las cuatro dimensiones juntas',
         descripcion: 'Fitness, precisión, generalización (validación cruzada) y simplicidad de tres modelos sobre un mismo registro. Ninguno gana en todo: el de trazas ajusta y es preciso pero es enorme; el flower model es simple y no tiene brecha, pero poco preciso.',
+        ayuda: String.raw`<p>Para tres modelos se comparan cuatro dimensiones: fitness, precisión, generalización (validación cruzada) y simplicidad. Cada color de la leyenda es una dimensión.</p>
+          <ul>
+          <li><strong>Casos en el registro</strong>: con más casos mejora la generalización del modelo de trazas.</li>
+          <li><strong>Casos con ruido</strong>: con más ruido el modelo de trazas se vuelve más complejo y generaliza peor.</li>
+          </ul>`,
         montar: montarCuatro,
       },
     ],

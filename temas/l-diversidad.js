@@ -154,15 +154,30 @@
       equivalencia el atributo sensible tome al menos \(l\) valores «bien representados».</p>
       <p>Tampoco basta siempre. Si en la población hay 10 % de cáncer y en una clase hay 50 %, el atacante aprendió mucho aunque la clase
       tenga cuatro diagnósticos distintos. La <strong>t-cercanía</strong> pide que la distribución en cada clase se parezca a la global.</p>`,
+    parametros: [
+      ['Nivel de cp, Nivel de edad, Nivel de sexo (Fig. 1 y 2)', String.raw`Cuánto se generaliza cada cuasi-identificador. Más generalización forma clases de equivalencia más grandes y con más diagnósticos distintos. En la figura 2, cambiarlos deja sin clase elegida.`],
+      ['l objetivo (Fig. 1)', String.raw`El número mínimo de diagnósticos bien representados que debe tener cada clase para considerarse l-diversa.`],
+      ['Clase (Fig. 2)', String.raw`La clase de equivalencia cuya distribución de diagnósticos se compara con la de toda la tabla.`],
+    ],
     visualizaciones: [
       {
         titulo: 'l-diversidad por clase',
         descripcion: 'Diagnósticos dentro de cada clase de equivalencia, con su l distinta y su l entrópica. Busque niveles de generalización que hagan la tabla 2-diversa y luego 3-diversa.',
+        ayuda: String.raw`<p>Cada fila de la figura es una clase de equivalencia y sus segmentos de color muestran los diagnósticos que contiene, según la leyenda. La lectura da la l de cada clase y su l entrópica.</p>
+          <ul>
+          <li><strong>Niveles</strong>: al generalizar más, las clases engloban más filas y suele subir la diversidad de diagnósticos.</li>
+          <li><strong>l objetivo</strong>: indica qué clases no llegan a esa diversidad y siguen exponiendo el diagnóstico; busque niveles donde todas cumplan 2 y luego 3.</li>
+          </ul>`,
         montar: montarL,
       },
       {
         titulo: 't-cercanía',
         descripcion: 'Compare la distribución de diagnósticos de una clase con la de toda la tabla. La distancia entre ambas es el t de la clase.',
+        ayuda: String.raw`<p>Cada diagnóstico es una categoría del eje horizontal y el eje vertical es su proporción. Las barras comparan la distribución en toda la tabla con la de la clase elegida; la distancia entre ambas es el t de la clase.</p>
+          <ul>
+          <li><strong>Clase</strong>: una clase cuya distribución se parece a la global tiene t bajo; una muy distinta revela información sobre quien pertenece a ella.</li>
+          <li><strong>Niveles</strong>: más generalización acerca las distribuciones y baja t, a costa de precisión.</li>
+          </ul>`,
         montar: montarT,
       },
     ],

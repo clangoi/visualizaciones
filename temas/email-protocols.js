@@ -38,8 +38,16 @@
     intro: String.raw`
       <p>El correo electrónico usa tres piezas: el <strong>agente de usuario</strong> (el cliente donde se escribe y lee), los <strong>servidores de correo</strong> con los buzones, y los <strong>protocolos</strong>. <strong>SMTP</strong> sirve para <em>enviar</em> (de cliente a servidor y entre servidores); <strong>POP3</strong> e <strong>IMAP</strong> sirven para <em>leer</em> el buzón.</p>
       <p>SMTP es un protocolo de texto sobre TCP, de empuje: quien tiene el mensaje se lo entrega al siguiente hasta llegar al servidor del destinatario.</p>`,
+    parametros: [
+      ['Etapa (Fig. 1)', String.raw`Elige entre el recorrido completo del correo, de Ana a Beto, o solo el diálogo SMTP entre los servidores.`],
+      ['Reproductor (Fig. 1)', String.raw`Muestra los mensajes de uno en uno con su explicación.`],
+    ],
     visualizaciones: [
-      { titulo: 'El viaje de un correo', descripcion: 'Recorra el camino de un mensaje de Ana a Beto y luego el diálogo de comandos SMTP entre los servidores.', montar },
+      { titulo: 'El viaje de un correo', descripcion: 'Recorra el camino de un mensaje de Ana a Beto y luego el diálogo de comandos SMTP entre los servidores.',
+        ayuda: String.raw`<p>Las columnas son el cliente y el servidor de Ana y el servidor y el cliente de Beto. Las flechas azules son SMTP (envío), las violetas IMAP/POP3 (lectura), las naranjas respuestas del servidor y las aguamarina consultas DNS.</p>
+          <ul>
+          <li><strong>Etapa</strong>: «Recorrido completo» muestra de punta a punta quién usa SMTP, DNS (MX) e IMAP/POP3; «Diálogo SMTP» muestra los comandos HELO, MAIL FROM, RCPT TO y DATA con sus respuestas numéricas.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>SMTP</h2>

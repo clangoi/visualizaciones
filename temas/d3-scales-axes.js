@@ -103,9 +103,31 @@
       <p>Una <strong>escala</strong> es una función que convierte valores de los datos (el <em>dominio</em>) en valores visuales (el <em>rango</em>): euros en píxeles, categorías en posiciones, números en colores.
       Un <strong>eje</strong> es la escala hecha visible: sus marcas y rótulos le dicen a la persona cómo leer la posición.</p>
       <p>Separar la escala del dibujo es lo que permite cambiar el tamaño del gráfico, o el rango de datos, sin reescribir nada más.</p>`,
+    parametros: [
+      ['Tipo (Fig. 1)', String.raw`La forma de la función que lleva datos a píxeles: lineal (proporcional), raíz cuadrada (comprime los valores altos) o logarítmica (iguala razones, exige dominio positivo).`],
+      ['dominio: mínimo y dominio: máximo (Fig. 1)', String.raw`Los extremos del intervalo de datos que la escala cubre. Cambiarlos modifica a qué píxel va cada valor.`],
+      ['valor de entrada (Fig. 1)', String.raw`El dato cuya imagen se sigue de un eje al otro.`],
+      ['clamp(true) (Fig. 1)', String.raw`Si está activado, los valores fuera del dominio se recortan al extremo del rango; si no, la escala extrapola y sale del rango.`],
+      ['nice() (Fig. 1)', String.raw`Redondea el dominio a números «bonitos» para que los ticks queden en valores redondos.`],
+      ['Escala (Fig. 2)', String.raw`Elige entre scaleBand (cada categoría ocupa una banda con ancho, para barras) y scalePoint (sin ancho de banda, para puntos).`],
+      ['Categorías (Fig. 2)', String.raw`Cuántas categorías se reparten en el mismo rango: más categorías, bandas más angostas.`],
+      ['paddingInner y paddingOuter (Fig. 2)', String.raw`paddingInner es el espacio entre bandas contiguas; paddingOuter, el espacio en los extremos. Ambos son fracciones del paso.`],
+    ],
     visualizaciones: [
-      { titulo: 'Escala lineal, raíz y logarítmica', descripcion: 'Cambie el dominio, el tipo de escala, clamp y nice, y siga un valor hasta su píxel.', montar: montarLineal },
-      { titulo: 'Escalas de bandas para categorías', descripcion: 'Varíe la cantidad de categorías y los dos paddings; compare bandas con puntos.', montar: montarBandas },
+      { titulo: 'Escala lineal, raíz y logarítmica', descripcion: 'Cambie el dominio, el tipo de escala, clamp y nice, y siga un valor hasta su píxel.',
+        ayuda: String.raw`<p>La línea azul superior es el dominio (datos) con sus ticks y la naranja inferior es el rango (píxeles); las líneas amarillas unen el valor de entrada con su imagen. La lectura da entrada, salida en píxeles y si el valor está dentro del dominio.</p>
+          <ul>
+          <li><strong>Tipo</strong> «scaleLog»: los ticks quedan separados por potencias de 10 (cada década ocupa el mismo ancho).</li>
+          <li><strong>valor de entrada</strong> mayor que el máximo del dominio: con <strong>clamp</strong> la salida se queda en el extremo (la lectura dice «recortado»); sin él, «extrapola» y se pasa del rango.</li>
+          <li><strong>nice()</strong>: los extremos del dominio rotulado pasan a valores redondos.</li>
+          </ul>`, montar: montarLineal },
+      { titulo: 'Escalas de bandas para categorías', descripcion: 'Varíe la cantidad de categorías y los dos paddings; compare bandas con puntos.',
+        ayuda: String.raw`<p>Cada barra (o punto) es una categoría, ubicada por la escala. La línea naranja inferior mide el paso (step), es decir, el ancho de una banda más el espacio hasta la siguiente; el ancho de banda (bandwidth) aparece en la lectura. Al pasar el cursor se lee la posición en píxeles.</p>
+          <ul>
+          <li><strong>Escala</strong> «scalePoint»: las barras se vuelven puntos y el bandwidth vale 0.</li>
+          <li><strong>Categorías</strong>: más categorías reducen el step y el bandwidth.</li>
+          <li><strong>paddingInner</strong> mayor: las barras se adelgazan y se separan, pero el step no cambia; <strong>paddingOuter</strong> mueve los extremos hacia dentro y reduce el step.</li>
+          </ul>`, montar: montarBandas },
     ],
     teoria: String.raw`
       <h2>Escala lineal</h2>

@@ -89,9 +89,25 @@
       <p>En un sitio tradicional, cada clic pide al servidor un documento HTML completo y el navegador reemplaza la página. Una <strong>Single Page Application</strong> carga <em>una vez</em> el HTML
       y un paquete de JavaScript; después, cambia lo que se ve en pantalla sin recargar, pidiendo al servidor solo datos (normalmente JSON).</p>
       <p>Esto permite interfaces fluidas y con estado persistente, pero tiene un costo: una primera carga más pesada y la necesidad de gestionar en el cliente la navegación, el historial y el estado.</p>`,
+    parametros: [
+      ['Código JavaScript de la SPA, HTML completo de cada página y Datos JSON de cada vista (Fig. 1)', String.raw`Los tamaños que paga cada arquitectura: la SPA descarga el código una vez y luego solo datos; el sitio multipágina descarga HTML completo en cada visita.`],
+      ['Latencia (Fig. 1)', String.raw`El tiempo de ida y vuelta de cada petición. Pesa en cada visita nueva y favorece a quien hace menos peticiones.`],
+      ['Tipo de aplicación y Atrás (Fig. 2)', String.raw`Si la navegación se resuelve en el cliente o recarga el documento, y el retroceso del historial.`],
+    ],
     visualizaciones: [
-      { titulo: 'Costo acumulado de navegar', descripcion: 'Aumente el tamaño del JavaScript o la latencia y encuentre cuántas páginas hay que visitar para que la SPA compense su carga inicial.', montar: montarCosto },
-      { titulo: 'Enrutamiento en el cliente', descripcion: 'Navegue por las rutas y alterne entre SPA y multipágina: compare las peticiones y las recargas del documento.', montar: montarRouter },
+      { titulo: 'Costo acumulado de navegar', descripcion: 'Aumente el tamaño del JavaScript o la latencia y encuentre cuántas páginas hay que visitar para que la SPA compense su carga inicial.',
+        ayuda: String.raw`<p>Dos curvas: el sitio multipágina (MPA) y la aplicación de una página (SPA). El eje horizontal es el número de páginas visitadas y el vertical, el tiempo acumulado de espera en segundos.</p>
+          <ul>
+          <li><strong>Código JavaScript de la SPA</strong>: sube el punto de partida de la curva de la SPA, que tarda más en compensar su carga.</li>
+          <li><strong>HTML completo de cada página</strong> y <strong>Datos JSON</strong>: fijan la pendiente de cada curva; donde se cruzan, la SPA empieza a ahorrar.</li>
+          <li><strong>Latencia</strong>: encarece cada visita y mueve el punto de cruce.</li>
+          </ul>`, montar: montarCosto },
+      { titulo: 'Enrutamiento en el cliente', descripcion: 'Navegue por las rutas y alterne entre SPA y multipágina: compare las peticiones y las recargas del documento.',
+        ayuda: String.raw`<p>Se registran las peticiones al navegar: documentos HTML completos (la página se recarga) o solo datos JSON (la página sigue viva), según la leyenda.</p>
+          <ul>
+          <li><strong>Tipo de aplicación</strong>: en una SPA, cambiar de ruta pide solo JSON y no recarga; en la multipágina cada ruta descarga un documento completo.</li>
+          <li><strong>Atrás</strong>: la SPA cambia de vista con el historial sin recarga.</li>
+          </ul>`, montar: montarRouter },
     ],
     teoria: String.raw`
       <h2>Modelo de costo</h2>

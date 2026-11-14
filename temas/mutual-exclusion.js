@@ -287,15 +287,34 @@
       <p>Hay tres familias clásicas: pedir permiso a un <strong>coordinador</strong>, pedir permiso a <strong>todos</strong> y ordenarse por marcas
       de tiempo (Ricart–Agrawala), o hacer circular un <strong>token</strong> que autoriza a quien lo tiene. Se comparan por mensajes por entrada,
       demora y tolerancia a fallas.</p>`,
+    parametros: [
+      ['Algoritmo (Fig. 1)', String.raw`Servidor central, Ricart–Agrawala o anillo con token. Cambia quién concede la entrada a la sección crítica y cuántos mensajes cuesta.`],
+      ['Procesos (Fig. 1)', String.raw`Cantidad de procesos que pueden competir por la sección crítica.`],
+      ['Los pedidos llegan (Fig. 1)', String.raw`Si todos piden a la vez o escalonados. Juntos, hay más conflicto y más espera.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza o reinicia la ejecución paso a paso.`],
+      ['Proteger con un lock (Fig. 2)', String.raw`Con lock, un proceso espera si el otro está dentro de la sección que lee y escribe x. Sin él, las lecturas y escrituras se intercalan libremente.`],
+      ['P1 avanza, P2 avanza, Intercalado peligroso y Reiniciar (Fig. 2)', String.raw`Avanzar ejecuta una instrucción de ese proceso. Intercalado peligroso ejecuta un orden que provoca el fallo; Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tres algoritmos',
         descripcion: 'Avance paso a paso y compare los mensajes por entrada. En Ricart–Agrawala, cada pedido lleva (reloj de Lamport, id): gana la marca menor, y el perdedor difiere su permiso hasta salir.',
+        ayuda: String.raw`<p>Cada fila es un proceso. Las flechas son mensajes: pedido azul, permiso verde, liberación aguamarina y token violeta. Un punto amarillo es un proceso esperando y uno verde, dentro de la sección crítica.</p>
+          <ul>
+          <li><strong>Algoritmo</strong>: cambia quién emite los permisos y el número de flechas por entrada.</li>
+          <li><strong>Los pedidos llegan</strong> «todos a la vez»: aparecen más puntos amarillos, porque solo uno puede estar en verde.</li>
+          <li><strong>Procesos</strong>: más pedidos y más mensajes en total.</li>
+          </ul>`,
         montar: montarAlgoritmos,
       },
       {
         titulo: 'La actualización perdida',
         descripcion: 'Sin exclusión mutua, dos incrementos pueden producir x = 1. Pulse «Intercalado peligroso» con y sin lock y compare cuántas intercalaciones terminan mal.',
+        ayuda: String.raw`<p>Cada proceso (P1 azul, P2 naranja) lee x, la modifica y la escribe. Un punto amarillo indica que espera el lock; uno rojo, una actualización perdida.</p>
+          <ul>
+          <li><strong>Proteger con un lock</strong>: con lock, el segundo proceso espera y x termina bien; sin él, ambos leen el mismo valor y una actualización se pierde.</li>
+          <li><strong>Intercalado peligroso</strong>: ejecuta una intercalación que sin lock termina en rojo y con lock queda protegida.</li>
+          </ul>`,
         montar: montarCarrera,
       },
     ],

@@ -246,15 +246,29 @@
       Si no hubiera capacidades bastaría el camino más barato; con ellas, cuando el mejor camino se llena hay que recurrir a caminos más caros.</p>
       <p>La idea del método de <strong>caminos mínimos sucesivos</strong> es sencilla: enviar siempre por el camino más barato <em>de la red residual</em>. Ahí, un arco con flujo reaparece al revés con costo negativo, de modo que el algoritmo puede arrepentirse de un envío anterior si le conviene.
       El resultado es óptimo exactamente cuando la red residual no contiene ciclos de costo negativo.</p>`,
+    parametros: [
+      ['Unidades a enviar (Fig. 1 y 2)', String.raw`Cantidad total de flujo del origen al destino. Más unidades obligan a usar caminos más caros y a veces retrocesos.`],
+      ['Red aleatoria, Red de ejemplo y reproductor (Fig. 1 y 2)', String.raw`Red aleatoria sortea otra red y Red de ejemplo vuelve a la inicial. El reproductor avanza paso a paso, hasta el final o reinicia.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Caminos mínimos sucesivos',
         descripcion: 'Reproduzca el algoritmo con la red de ejemplo y 3 unidades: el último camino necesita un arco de retroceso, y la curva de abajo muestra que cada unidad adicional cuesta lo mismo o más que la anterior. Pruebe «Red aleatoria».',
+        ayuda: String.raw`<p>Arriba, la red con flujo por arco; en cada paso se destaca el camino mínimo y los retrocesos discontinuos cancelan flujo. Abajo, el costo total contra las unidades enviadas, con la curva del plan óptimo, la cota «todo por el camino más barato» y el estado actual.</p>
+          <ul>
+          <li><strong>Unidades a enviar</strong>: alarga la curva; cada unidad adicional cuesta lo mismo o más que la anterior.</li>
+          <li>El retroceso aparece cuando el camino mínimo necesita cancelar flujo previo.</li>
+          </ul>`,
         montar: montarSucesivos,
       },
       {
         titulo: 'Optimalidad: sin ciclos negativos',
         descripcion: 'Parta de un flujo que ignora los costos y cancele ciclos negativos uno a uno hasta no tener ninguno; el costo final coincide con el de los caminos sucesivos. Pruebe distintas cantidades de unidades.',
+        ayuda: String.raw`<p>La red muestra el flujo actual por arco y los ciclos de costo negativo de la residual, discontinuos, que cancelan flujo.</p>
+          <ul>
+          <li><strong>Unidades a enviar</strong>: parte de un flujo que ignora costos; cada ciclo cancelado lo abarata.</li>
+          <li>Sin ciclos negativos, el flujo es óptimo y su costo coincide con el de los caminos sucesivos.</li>
+          </ul>`,
         montar: montarCiclos,
       },
     ],

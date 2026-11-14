@@ -428,15 +428,33 @@
       caminos y atributos difieren de verdad entre ellos.</p>
       <p>La palabra clave es «de verdad»: con pocos casos, dos grupos siempre se ven distintos por azar. Por eso cada diferencia se acompaña de una prueba
       estadística sencilla que mide cuán sorprendente sería si los grupos fueran iguales.</p>`,
+    parametros: [
+      ['Comparar (Fig. 1 y 2)', String.raw`Cómo se forman los dos grupos: cliente nuevo o recurrente, canal web o sucursal, monto alto o bajo, rechazada o aprobada, o dos grupos formados al azar (sin diferencias reales).`],
+      ['Casos (Fig. 1)', String.raw`Tamaño de la muestra. Con más casos se detectan diferencias más pequeñas.`],
+      ['Corrección de Bonferroni (Fig. 1)', String.raw`Exige un valor p más estricto porque se prueban varias actividades a la vez. Reduce los falsos positivos.`],
+      ['Atributo (Fig. 2)', String.raw`Medida que se compara entre los dos grupos, por ejemplo la duración del caso o el puntaje.`],
+      ['Nuevos casos y reproductor (Fig. 1 y 2)', String.raw`Nuevos casos genera otra muestra. En la figura 2 el reproductor baraja las etiquetas de grupo y repite el experimento.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Actividades y variantes de dos grupos',
         descripcion: 'Compare clientes nuevos con recurrentes: «Verificar identidad» (B) destaca. Luego cambie a «dos grupos formados al azar»: no debería haber diferencias y, si alguna sale resaltada, es un falso positivo. Pulse «Nuevos casos» varias veces y active la corrección de Bonferroni.',
+        ayuda: String.raw`<p>Cada par de barras indica el porcentaje de casos de cada grupo que ejecutan una actividad (A–I). Una fila resaltada es una diferencia significativa según la prueba z de dos proporciones.</p>
+          <ul>
+          <li><strong>Comparar</strong> con «dos grupos formados al azar»: no debería haber filas resaltadas; si aparece alguna, es un falso positivo.</li>
+          <li><strong>Corrección de Bonferroni</strong>: al activarla desaparecen resaltados débiles que podían deberse al azar.</li>
+          <li><strong>Casos</strong>: con más casos, diferencias pequeñas llegan a ser significativas.</li>
+          </ul>`,
         montar: montarActividades,
       },
       {
         titulo: 'Diferencia de un atributo y prueba de permutación',
         descripcion: 'Compare un atributo entre dos grupos y pulse «Hasta el final» para barajar las etiquetas 2000 veces. Pruebe la duración del caso entre canal web y sucursal (se piden más documentos) y luego el puntaje, que no depende del canal. Observe dónde cae la línea de la diferencia real dentro de las diferencias al azar.',
+        ayuda: String.raw`<p>Arriba, la distribución del atributo en cada grupo (% del grupo). Abajo, un histograma de diferencias de medias de repartos al azar, con la diferencia real marcada y los repartos tan extremos como el real destacados.</p>
+          <ul>
+          <li><strong>Atributo</strong>: cambia lo que se compara; si la diferencia real cae en la cola del histograma, es poco probable que sea azar.</li>
+          <li><strong>Reproductor</strong>: cada barajado añade una diferencia al histograma; el valor p es la fracción de repartos tan extremos como el real.</li>
+          </ul>`,
         montar: montarPermutacion,
       },
     ],

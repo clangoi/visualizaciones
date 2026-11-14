@@ -275,15 +275,32 @@
       <p>Un hospital, una planta o una tienda necesitan que haya gente en cada turno de cada día. Cada persona puede hacer a lo sumo un turno diario, necesita descansar entre jornadas y tiene preferencias; la
       pregunta es <strong>quién hace qué turno</strong>. La decisión básica es una variable binaria por cada persona, día y turno: «¿trabaja o no?».</p>
       <p>Aquí lo interesante es la diferencia entre <em>factible</em> y <em>bueno</em>. Primero hay que cumplir la cobertura y las reglas de descanso; solo entre los calendarios que las cumplen se compara el costo de las preferencias. Y a veces no hay ninguno: con muy pocos turnos por persona, ningún calendario cubre todo.</p>`,
+    parametros: [
+      ['Turnos máximos por persona (Fig. 1)', String.raw`Tope de turnos semanales por persona. Bajarlo limita la cobertura posible; con 4 el problema no tiene solución.`],
+      ['Exigir descanso (sin T→M, N→M ni N→T) (Fig. 1)', String.raw`Prohíbe turnos consecutivos con descanso insuficiente. Elimina asignaciones baratas y casi siempre encarece la solución.`],
+      ['Asignaciones y Nuevas preferencias (Fig. 1 y 2)', String.raw`Asignar el óptimo calcula el mejor plan, Rotación hacia adelante y Rotación ingenua cargan patrones fijos, Vaciar limpia la tabla y Nuevas preferencias sortea otras.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Tabla de turnos de la semana',
         descripcion: 'Pinte turnos con clic y vea la cobertura de cada día; luego pulse «Rotación ingenua» y compárela con «Rotación hacia adelante». Baje el tope de turnos hasta 4: el óptimo deja de existir.',
+        ayuda: String.raw`<p>La tabla muestra personas contra días, con turnos M (06–14), T (14–22) y N (22–06). Se señalan el descanso insuficiente, los turnos sin cubrir y los cubiertos.</p>
+          <ul>
+          <li><strong>Turnos máximos por persona</strong>: al bajarlo, hay turnos que quedan sin cubrir.</li>
+          <li><strong>Exigir descanso</strong>: los pares T→M, N→M y N→T se marcan como descanso insuficiente y el óptimo los evita.</li>
+          <li><strong>Rotación ingenua</strong> suele violar el descanso; <strong>Rotación hacia adelante</strong> lo respeta.</li>
+          </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Qué cuestan el descanso y la carga',
         descripcion: 'Compare, para cada tope de turnos por persona, el costo óptimo con y sin la regla de descanso. Un tope de 4 es infactible, y la regla de descanso casi siempre encarece la solución.',
+        ayuda: String.raw`<p>Cada grupo de barras es un tope de turnos por persona (eje horizontal) y su altura es el costo de preferencias, con y sin regla de descanso. Si no hay solución, se marca infactible.</p>
+          <ul>
+          <li><strong>Nuevas preferencias</strong>: cambia las preferencias y con ellas los costos.</li>
+          <li>La barra con regla de descanso suele ser más alta: el descanso tiene un costo.</li>
+          <li>Con tope de 4, ambas son infactibles.</li>
+          </ul>`,
         montar: montarCosto,
       },
     ],

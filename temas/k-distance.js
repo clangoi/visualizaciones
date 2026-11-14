@@ -147,15 +147,33 @@
       <p>Es la pieza básica de varios métodos: la usa <a href="tema.html?id=dbscan">DBSCAN</a> para decidir qué es un punto
       núcleo, <a href="tema.html?id=local-outlier-factor">LOF</a> para definir la distancia de alcanzabilidad y
       <a href="tema.html?id=hdbscan">HDBSCAN</a> para la distancia núcleo; y por sí sola ya es un puntaje de anomalía.</p>`,
+    parametros: [
+      ['Datos (Fig. 1 y 2)', String.raw`El conjunto 2-D con zonas de densidad distinta (y ruido). Decide cómo se reparten las k-distancias.`],
+      ['k (Fig. 1)', String.raw`Cuántos vecinos se cuentan para medir la distancia: la k-distancia de un punto es la distancia a su k-ésimo vecino. Con k mayor se mide la densidad en una escala más amplia.`],
+      ['k (= MinPts − 1) (Fig. 2)', String.raw`El mismo k, expresado como MinPts − 1 de DBSCAN. Cambia la forma de la curva ordenada y la posición del codo.`],
+      ['Umbral ε (Fig. 2)', String.raw`Radio de vecindad candidato para DBSCAN. Los puntos con k-distancia mayor que ε quedarían como ruido.`],
+      ['Ir al codo y Nuevos datos (Fig. 2)', String.raw`Ir al codo fija ε en el quiebre de la curva; Nuevos datos sortea otra muestra (también en la Fig. 1).`],
+    ],
     visualizaciones: [
       {
         titulo: 'La k-distancia como densidad',
         descripcion: 'Cada punto coloreado por su k-distancia (escala logarítmica). Los puntos del ruido de fondo quedan claros; los de la mancha compacta, oscuros.',
+        ayuda: String.raw`<p>Cada punto se colorea por su k-distancia en escala logarítmica: color de zona densa (k-distancia chica) o de zona dispersa (grande). Al pasar el cursor sobre un punto se dibuja el círculo de radio k-dist(p) con sus k vecinos.</p>
+          <ul>
+          <li><strong>k</strong> mayor: los círculos crecen y los valores suben, pero la diferencia entre mancha compacta y ruido de fondo se mantiene.</li>
+          <li>Los puntos del ruido salen claros y los de la mancha compacta, oscuros.</li>
+          </ul>`,
         montar: montarDensidad,
       },
       {
         titulo: 'El gráfico de k-distancias ordenadas',
         descripcion: 'Mueva ε y vea qué puntos quedan sobre el umbral. «Ir al codo» lo pone en el quiebre de la curva.',
+        ayuda: String.raw`<p>El panel muestra las k-distancias de todos los puntos ordenadas de mayor a menor (eje horizontal: puntos ordenados). Los puntos con k-dist ≤ ε quedarían en un grupo denso y los que superan ε son candidatos a ruido. Se marca la línea del umbral ε y el codo, el punto de máxima distancia a la cuerda.</p>
+          <ul>
+          <li><strong>Umbral ε</strong> mayor: menos puntos quedan por encima, es decir, menos candidatos a ruido.</li>
+          <li><strong>Ir al codo</strong>: separa la cola plana (zonas densas) de la subida brusca (ruido); es la heurística clásica para elegir ε.</li>
+          <li><strong>k (= MinPts − 1)</strong> mayor: la curva sube y el codo se desplaza.</li>
+          </ul>`,
         montar: montarCodo,
       },
     ],

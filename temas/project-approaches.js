@@ -146,15 +146,30 @@
       (<em>goal-driven</em>). El punto de partida determina qué se extrae, qué se mide y cuándo se da por terminado el trabajo.</p>
       <p>Dicho de otro modo: el primer enfoque <em>explora</em>, el segundo <em>contrasta hipótesis</em> y el tercero <em>verifica el avance hacia una meta</em>.
       Cada uno tiene riesgos distintos, y los proyectos reales suelen combinarlos en el tiempo.</p>`,
+    parametros: [
+      ['Condiciones de su situación (Fig. 1)', String.raw`Las tres casillas (meta medible, preguntas concretas, registro de eventos) describen el punto de partida del proyecto. La regla de decisión las evalúa en ese orden para recomendar un enfoque.`],
+      ['Enfoques, Corregir y Reiniciar (Fig. 2)', String.raw`Los tres botones de enfoque asignan una clasificación al caso seleccionado. Corregir muestra aciertos y motivo; Reiniciar borra las respuestas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Los tres enfoques y cuándo elegir cada uno',
         descripcion: 'Cambie las condiciones de su situación y vea qué enfoque propone la regla de decisión y cómo se comparan sus riesgos y productos.',
+        ayuda: String.raw`<p>Cada punto del eje es uno de los tres enfoques y su color se identifica en la leyenda; el anillo marca el enfoque que recomienda la regla. Debajo, una tabla compara riesgos y productos de cada uno.</p>
+          <ul>
+          <li><strong>Hay una meta medible</strong>: si está marcada, el anillo se va al enfoque orientado a la meta sin importar las demás casillas.</li>
+          <li><strong>Hay preguntas concretas</strong>: sin meta, decide entre el enfoque guiado por preguntas y el exploratorio.</li>
+          <li><strong>Hay un registro de eventos disponible</strong>: sin meta ni preguntas, cambia si es posible explorar los datos o primero hay que obtenerlos.</li>
+          </ul>`,
         montar: montarComparar,
       },
       {
         titulo: 'Clasifique casos según su punto de partida',
         descripcion: 'Ocho situaciones reales: asigne a cada una un enfoque y compare con la corrección razonada.',
+        ayuda: String.raw`<p>Cada fila es un caso real. Tras corregir, la clasificación correcta se marca en verde y la incorrecta en rojo; los puntos de color indican el enfoque elegido.</p>
+          <ul>
+          <li><strong>Botones de enfoque</strong>: fijan su respuesta para el caso seleccionado y el cursor pasa al siguiente.</li>
+          <li><strong>Corregir</strong>: revela cuántos casos acertó y el motivo de cada uno, con la pista de mirar la primera frase.</li>
+          </ul>`,
         montar: montarClasificar,
       },
     ],

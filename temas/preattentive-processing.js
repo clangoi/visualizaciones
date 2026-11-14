@@ -116,9 +116,26 @@
     intro: String.raw`
       <p>Algunas diferencias visuales se detectan en una fracción de segundo, <strong>antes de que dirijamos la atención</strong>: una marca roja entre cien grises «salta» a la vista. Otras exigen buscar con la mirada, una por una. Lo primero es <em>procesamiento preatencional</em>.</p>
       <p>Para una visualización, esto indica qué canal usar para resaltar lo importante y por qué combinar dos rasgos para buscar un objetivo funciona mal.</p>`,
+    parametros: [
+      ['Tipo de búsqueda (Fig. 1)', String.raw`Qué hace distinta a la marca buscada: solo el color, solo la forma o la combinación de ambos (conjunción) entre distractores que comparten cada rasgo.`],
+      ['Cantidad de marcas (Fig. 1)', String.raw`Cuántas marcas hay en el campo. Mide cómo crece el tiempo de búsqueda con más distractores.`],
+      ['Nueva prueba y Borrar tiempos (Fig. 1)', String.raw`Nueva prueba reparte otro campo y reinicia el cronómetro; Borrar tiempos elimina los promedios del gráfico.`],
+      ['Mostrar dónde está la marca distinta (Fig. 2)', String.raw`Rodea con un círculo rojo la marca distinta de cada panel para comprobar su respuesta.`],
+      ['Otra posición (Fig. 2)', String.raw`Cambia el lugar de la marca distinta en cada panel.`],
+    ],
     visualizaciones: [
-      { titulo: 'Búsqueda visual cronometrada', descripcion: 'Encuentre la marca distinta con distintos rasgos y cantidades de marcas; su tiempo medio se grafica según la cantidad.', montar: montarBusqueda },
-      { titulo: 'Rasgos preatentivos', descripcion: 'Seis rasgos que destacan una marca entre distractores; busque la distinta y luego compruebe.', montar: montarRasgos },
+      { titulo: 'Búsqueda visual cronometrada', descripcion: 'Encuentre la marca distinta con distintos rasgos y cantidades de marcas; su tiempo medio se grafica según la cantidad.',
+        ayuda: String.raw`<p>Arriba, un campo de marcas azules con una distinta; abajo, el tiempo medio en segundos frente a la cantidad de marcas, con una curva por tipo de búsqueda (azul: color, naranja: forma, violeta: conjunción). Cada clic acertado agrega un punto.</p>
+          <ul>
+          <li><strong>Tipo de búsqueda</strong> «Conjunción»: el tiempo medio sube con la cantidad de marcas; con un solo rasgo la curva se mantiene casi plana (búsqueda preatentiva).</li>
+          <li><strong>Cantidad de marcas</strong>: mueve el punto a lo largo del eje horizontal del gráfico.</li>
+          </ul>`, montar: montarBusqueda },
+      { titulo: 'Rasgos preatentivos', descripcion: 'Seis rasgos que destacan una marca entre distractores; busque la distinta y luego compruebe.',
+        ayuda: String.raw`<p>Seis paneles de 30 marcas, uno por rasgo (color, tamaño, orientación, cierre, luminancia y movimiento simulado con estela). En cada uno hay una marca distinta que, en rasgos preatentivos, se detecta casi al instante.</p>
+          <ul>
+          <li><strong>Mostrar dónde está la marca distinta</strong>: marca con un círculo rojo cada objetivo para confirmar.</li>
+          <li><strong>Otra posición</strong>: la mueve en cada panel para repetir la búsqueda.</li>
+          </ul>`, montar: montarRasgos },
     ],
     teoria: String.raw`
       <h2>Búsqueda en paralelo y en serie</h2>

@@ -138,10 +138,22 @@
       <em>términos</em>, los guarda en un <strong>índice invertido</strong> y responde consultas combinando listas ordenadas.</p>
       <p>Un índice invertido es el índice de un libro: para cada término, la lista de documentos (y posiciones) donde aparece. Es la
       estructura detrás de Elasticsearch, Lucene, los motores web y el tipo <code>tsvector</code> de PostgreSQL.</p>`,
+    parametros: [
+      ['Consulta (Fig. 1)', String.raw`Texto buscado. Se procesa igual que los documentos y cada término produce una lista de postings.`],
+      ['Operador (Fig. 1)', String.raw`AND exige todos los términos (intersección de listas); OR basta con alguno (unión).`],
+      ['Minúsculas, quitar tildes, quitar palabras vacías y reducir a la raíz (Fig. 1)', String.raw`Pasos de normalización del texto. Cambiarlos modifica qué términos se indexan y cuáles coinciden.`],
+      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir, Un paso y Reiniciar controlan el avance de los punteros.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Índice invertido y consultas booleanas',
         descripcion: 'Siete documentos cortos, su índice y una consulta. Avance para ver la intersección (AND) o la unión (OR) de las listas de postings con un puntero por lista.',
+        ayuda: String.raw`<p>Se muestran las listas de postings de cada término de la consulta, con un puntero por lista, y más abajo el índice invertido. Se resalta el documento bajo el puntero, el que entra al resultado y el ya superado.</p>
+          <ul>
+          <li><strong>Operador</strong>: AND avanza el puntero menor y solo conserva documentos presentes en todas las listas; OR conserva los de cualquiera.</li>
+          <li><strong>Normalización</strong>: por ejemplo, quitar tildes o reducir a la raíz hace que más formas de una palabra apunten al mismo término.</li>
+          <li><strong>Consulta</strong>: cambia las listas y el resultado.</li>
+          </ul>`,
         montar: montarIndice,
       },
     ],

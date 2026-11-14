@@ -71,15 +71,30 @@
       <p>Dos fórmulas son <strong>lógicamente equivalentes</strong> si tienen el mismo valor de verdad bajo toda valuación: dicen lo mismo con otras palabras. Equivalencias como las <strong>leyes de De Morgan</strong>,
       la <strong>doble negación</strong> o la <strong>contrapositiva</strong> permiten reescribir una fórmula sin cambiar su significado.</p>
       <p>Hay dos maneras de establecerlas: comparar las tablas de verdad, o encadenar leyes conocidas. La primera es mecánica; la segunda es cómo se razona y simplifica a mano.</p>`,
+    parametros: [
+      ['Fórmulas y Pares conocidos (Fig. 1)', String.raw`Las dos fórmulas que se comparan; los pares conocidos cargan equivalencias o no equivalencias típicas.`],
+      ['Fórmula y Ley a aplicar (Fig. 2)', String.raw`La fórmula que se transforma y la ley de equivalencia que se usa en cada paso.`],
+      ['Aplicar la ley, Deshacer y Reiniciar (Fig. 2)', String.raw`Aplica la ley, revierte el último paso o vuelve a la fórmula original.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Compare dos fórmulas',
         descripcion: 'Elija un par conocido o escriba el suyo y mire en qué filas difieren. Compare la contrapositiva (equivalente) con la conversa (no lo es).',
+        ayuda: String.raw`<p>La tabla compara ambas fórmulas fila por fila y marca en cuáles difieren. Si no difieren en ninguna, son equivalentes.</p>
+          <ul>
+          <li><strong>Pares conocidos</strong>: la contrapositiva coincide en todas las filas; la conversa no.</li>
+          <li><strong>Fórmulas</strong>: cualquier cambio puede crear o eliminar filas donde difieren.</li>
+          </ul>`,
         montar: montarComparacion,
       },
       {
         titulo: 'Reescriba con leyes',
         descripcion: 'Aplique leyes una por una a una fórmula y vea cómo se transforma, sin que cambie su significado. Pruebe De Morgan, la implicación como disyunción y la doble negación.',
+        ayuda: String.raw`<p>El registro lista la fórmula tras cada ley aplicada; el significado se conserva en todos los pasos.</p>
+          <ul>
+          <li><strong>Ley a aplicar</strong>: elige la equivalencia (De Morgan, implicación como disyunción, doble negación, etc.) que reescribe una parte de la fórmula.</li>
+          <li><strong>Deshacer</strong> y <strong>Reiniciar</strong>: retroceden en la cadena de transformaciones.</li>
+          </ul>`,
         montar: montarReescritura,
       },
     ],

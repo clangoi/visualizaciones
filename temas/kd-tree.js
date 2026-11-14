@@ -177,15 +177,29 @@
       <strong>descartar sin mirar sus puntos</strong>.</p>
       <p>Es la estructura que usan por defecto muchas bibliotecas para <a href="tema.html?id=knn">k-NN</a>,
       <a href="tema.html?id=dbscan">DBSCAN</a> o <a href="tema.html?id=local-outlier-factor">LOF</a> en dimensiones bajas.</p>`,
+    parametros: [
+      ['Puntos n (Fig. 1 y 2)', String.raw`Cuántos puntos tiene el conjunto. Más puntos dan un árbol más profundo (altura \(\lceil\log_2(n+1)\rceil\)) y una búsqueda con más datos entre los que podar.`],
+      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otros puntos. El reproductor avanza o reinicia, paso a paso, la construcción del árbol (Fig. 1) o la búsqueda (Fig. 2).`],
+    ],
     visualizaciones: [
       {
         titulo: 'Construcción por medianas',
         descripcion: 'Cada nodo corta su región por la mediana en x o en y, alternando. Observe que el árbol queda balanceado: altura ⌈log₂(n + 1)⌉.',
+        ayuda: String.raw`<p>Los puntos son el conjunto y las líneas son los cortes por la mediana, alternando eje x y eje y. Se distinguen el corte del paso actual, los cortes anteriores, la región que se divide, los puntos mediana ya guardados en un nodo y los puntos aún sin nodo. El registro lista los pasos.</p>
+          <ul>
+          <li><strong>Puntos n</strong> mayor: más cortes y regiones más pequeñas; el árbol sigue balanceado porque cada corte parte los puntos por la mitad.</li>
+          <li>Pase el cursor sobre un punto para ver su profundidad en el árbol.</li>
+          </ul>`,
         montar: montarConstruccion,
       },
       {
         titulo: 'Búsqueda del vecino más cercano',
         descripcion: 'La búsqueda en profundidad con poda. Pruebe consultas en el centro y en una esquina, y suba n: las distancias calculadas crecen mucho más lento que n.',
+        ayuda: String.raw`<p>La estrella es la consulta. Se marcan los nodos visitados (con distancia calculada), el nodo actual, el mejor hasta ahora con su círculo y las regiones podadas sin mirar. El registro y la lectura cuentan las distancias calculadas.</p>
+          <ul>
+          <li><strong>Puntos n</strong> mayor: las distancias calculadas crecen mucho más lento que n, porque se podan regiones enteras.</li>
+          <li>Una consulta en una esquina o en el centro cambia cuántas regiones cruza el círculo del mejor y, por tanto, cuántas se visitan.</li>
+          </ul>`,
         montar: montarBusqueda,
       },
     ],

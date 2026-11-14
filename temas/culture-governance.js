@@ -167,15 +167,35 @@
     intro: String.raw`
       <p>La <strong>cultura organizacional</strong> es el conjunto de valores, hábitos y supuestos compartidos que explica por qué una empresa adopta o rechaza un sistema, aunque técnicamente funcione. La <strong>gobernanza de TI</strong> es el conjunto de reglas que fija <em>quién decide qué</em>: quién define los principios, la arquitectura, la infraestructura, las aplicaciones y las inversiones.</p>
       <p>Centralizar acelera el alineamiento y reduce duplicaciones, pero lentifica y ahoga la innovación local; descentralizar hace lo contrario. La mejor gobernanza no es una sola: se ajusta a cada decisión, y rinde solo si la cultura la acompaña.</p>`,
+    parametros: [
+      ['Punto de partida (Fig. 1)', String.raw`Matriz inicial de gobierno de TI (por ejemplo federal). Fija los arquetipos de las cinco decisiones.`],
+      ['Cultura: peso del alineamiento frente a la autonomía (Fig. 1)', String.raw`Cuánto valora la organización la coherencia frente a la libertad local. Cambia qué gobierno resulta más adecuado.`],
+      ['Tipo de decisión de TI (Fig. 2)', String.raw`Naturaleza de la decisión (por ejemplo, principios o infraestructura). Determina qué centralización conviene.`],
+      ['Gobernanza: centralización (Fig. 2)', String.raw`Qué tanta decisión se concentra arriba. Más centralización favorece el alineamiento pero puede frenar la adopción.`],
+      ['Cultura: apertura al cambio (Fig. 2)', String.raw`Disposición de la gente a adoptar lo decidido. Una apertura baja hace fracasar iniciativas bien alineadas.`],
+      ['Plazo para decidir (Fig. 2)', String.raw`Días máximos antes de que una iniciativa se considere tardía.`],
+      ['Nuevas iniciativas (Fig. 2)', String.raw`Genera otras 150 iniciativas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Matriz de derechos de decisión',
         descripcion: 'Asigne un arquetipo de gobierno a cada una de las cinco decisiones y compare con los extremos «todo centralizado» y «todo descentralizado». Pruebe el punto de partida federal, cambie una celda a la vez y mueva el peso cultural del alineamiento.',
+        ayuda: String.raw`<p>Matriz de derechos de decisión con cinco decisiones; se compara su matriz con las de todo centralizado y todo descentralizado.</p>
+          <ul>
+          <li><strong>Punto de partida</strong>: reemplaza su matriz por una de ejemplo.</li>
+          <li><strong>Cultura: peso del alineamiento</strong>: modifica el puntaje de cada configuración.</li>
+          </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Gobernanza y cultura frente a 150 iniciativas',
         descripcion: 'Cambie el tipo de decisión y busque la centralización que maximiza los éxitos; luego baje la apertura al cambio o acorte el plazo y observe cuándo la gobernanza correcta ya no alcanza.',
+        ayuda: String.raw`<p>Cada punto es una iniciativa: eje horizontal, tiempo de decisión (días); vertical, puntaje (alineamiento × adopción). Las exitosas se distinguen de las que fracasan por desalineación, rechazo o tardanza, con el umbral de éxito y el plazo trazados.</p>
+          <ul>
+          <li><strong>Gobernanza: centralización</strong>: desplaza puntos en puntaje y tiempo; hay un valor que maximiza los éxitos.</li>
+          <li><strong>Apertura al cambio</strong>: la baja hunde el puntaje.</li>
+          <li><strong>Plazo para decidir</strong>: mueve la línea del plazo y deja tardías más iniciativas.</li>
+          </ul>`,
         montar: montarSimulacion,
       },
     ],

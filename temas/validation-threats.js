@@ -90,9 +90,25 @@
     intro: String.raw`
       <p>Cada nivel del <a href="tema.html?id=munzner-nested-model">modelo anidado</a> puede fallar de una manera distinta, y cada falla se descubre con un tipo distinto de evidencia. Una <strong>amenaza de validez</strong> es una razón concreta para dudar de que el diseño de un nivel sea correcto.</p>
       <p>Validar es, entonces, elegir el método que corresponde al nivel: preguntarle a un usuario no sirve para medir la complejidad de un algoritmo, y medir tiempos no dice si el problema era el correcto.</p>`,
+    parametros: [
+      ['Error introducido en el nivel (Fig. 1)', String.raw`El nivel donde se supone que ocurre una falla. Los niveles anteriores siguen válidos y los siguientes quedan invalidados.`],
+      ['Validación (Fig. 1)', String.raw`Qué métodos se listan junto a cada nivel: los de validación inmediata (al terminar el nivel) o los posteriores (con el producto ya hecho).`],
+      ['Botones de nivel (1. Dominio … 4. Algoritmo) (Fig. 2)', String.raw`Su respuesta: en qué nivel del modelo cree que está la amenaza del escenario.`],
+      ['Siguiente escenario y Reiniciar puntaje (Fig. 2)', String.raw`Siguiente escenario pasa al próximo caso de los ocho; Reiniciar puntaje borra los aciertos y vuelve al primero.`],
+    ],
     visualizaciones: [
-      { titulo: 'Amenazas, métodos y propagación de errores', descripcion: 'Introduzca un error en un nivel y vea cuáles quedan invalidados; alterne entre validación inmediata y posterior.', montar: montarCascada },
-      { titulo: '¿En qué nivel está la amenaza?', descripcion: 'Clasifique ocho escenarios y compruebe su criterio con la explicación de cada uno.', montar: montarQuiz },
+      { titulo: 'Amenazas, métodos y propagación de errores', descripcion: 'Introduzca un error en un nivel y vea cuáles quedan invalidados; alterne entre validación inmediata y posterior.',
+        ayuda: String.raw`<p>Cuatro cajas, una por nivel. Verde es un nivel válido, rojo el que tiene el error y amarillo el que queda invalidado por un nivel superior. A la derecha se ven la amenaza de cada nivel y dos métodos para detectarla.</p>
+          <ul>
+          <li><strong>Error introducido en el nivel</strong> 2: el nivel 1 sigue verde, el 2 pasa a rojo y el 3 y 4 a amarillo, aunque estén bien hechos.</li>
+          <li><strong>Validación</strong>: cambia la lista de métodos de cada nivel entre inmediatos y posteriores.</li>
+          </ul>`, montar: montarCascada },
+      { titulo: '¿En qué nivel está la amenaza?', descripcion: 'Clasifique ocho escenarios y compruebe su criterio con la explicación de cada uno.',
+        ayuda: String.raw`<p>Un escenario en texto y cuatro botones, uno por nivel. Tras responder, el registro dice si acertó y cuál es la amenaza del nivel correcto. La lectura lleva los aciertos y el escenario actual.</p>
+          <ul>
+          <li>Los <strong>botones de nivel</strong> se bloquean tras la primera respuesta de cada escenario: solo cuenta el primer intento.</li>
+          <li><strong>Siguiente escenario</strong> y <strong>Reiniciar puntaje</strong> cambian el caso y el contador de aciertos.</li>
+          </ul>`, montar: montarQuiz },
     ],
     teoria: String.raw`
       <h2>Amenaza y validación por nivel</h2>

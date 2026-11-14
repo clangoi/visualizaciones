@@ -364,20 +364,50 @@
       <strong>dinero</strong> en ambos sentidos.</p>
       <p>Su problema clásico es el <strong>efecto látigo</strong>: una variación pequeña en la demanda del cliente se convierte en oscilaciones cada vez mayores en los pedidos aguas arriba, porque cada
       etapa pronostica con lo que ve y protege su inventario. Lo que lo reduce no es más inventario en todas partes, sino mejor información, plazos más cortos y pronósticos estables.</p>`,
+    parametros: [
+      ['Etapas de la cadena (Fig. 1)', String.raw`Cuántos eslabones hay entre el cliente y la fábrica. Cada uno añade una amplificación de la variabilidad de los pedidos.`],
+      ['Plazo de entrega por etapa (Fig. 1)', String.raw`Semanas que tarda llegar un pedido. Plazos largos obligan a pedir más para cubrir lo que viene en camino.`],
+      ['Ventana del pronóstico (Fig. 1)', String.raw`Semanas de historia que usa cada etapa para estimar la demanda. Una ventana corta reacciona con más fuerza al ruido.`],
+      ['Variabilidad de la demanda (σ) (Fig. 1)', String.raw`Dispersión de la demanda final del cliente.`],
+      ['Compartir la demanda final con toda la cadena (Fig. 1 y 3)', String.raw`Si todas las etapas ven la demanda real del cliente en vez de los pedidos de la etapa siguiente. Elimina la amplificación.`],
+      ['Nueva demanda (Fig. 1 y 2)', String.raw`Genera otra serie aleatoria de demanda.`],
+      ['Variabilidad diaria de la demanda (σ) (Fig. 2)', String.raw`Dispersión de la demanda cada día; cuanto mayor, más inventario de seguridad se necesita.`],
+      ['Plazo de reposición (días) (Fig. 2)', String.raw`Tiempo de reaprovisionamiento. A mayor plazo, más incertidumbre que cubrir.`],
+      ['Nivel de servicio objetivo (Fig. 2)', String.raw`Probabilidad de no quedarse sin producto durante el plazo. Subirlo exige inventario de seguridad creciente.`],
+      ['Plazo de entrega (semanas) (Fig. 3)', String.raw`Retraso entre pedir y recibir en cada etapa.`],
+      ['Demanda final tras el salto (Fig. 3)', String.raw`Nuevo nivel de demanda desde la semana 5. Mide cuánto se sobrerreacciona la cadena.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El efecto látigo',
         descripcion: 'Con cuatro etapas, plazo de 2 semanas y ventana de 6, la desviación de los pedidos se multiplica varias veces. Alargue el plazo, acorte la ventana y vea cómo crece; luego active «Compartir la demanda final» y compare las barras con la cota teórica.',
+        ayuda: String.raw`<p>Arriba, los pedidos por semana (unidades) de cada etapa; abajo, la desviación de esos pedidos (σ) por etapa, con una cota teórica del promedio móvil como referencia.</p>
+          <ul>
+          <li><strong>Etapas de la cadena</strong>: más etapas, más líneas y una σ que crece hacia la fábrica.</li>
+          <li><strong>Plazo de entrega</strong> y <strong>Ventana del pronóstico</strong>: alterarlos cambia cuánto se amplifica la σ respecto de la demanda del cliente.</li>
+          <li><strong>Compartir la demanda final</strong>: las σ de todas las etapas se acercan a la del cliente.</li>
+          </ul>`,
         montar: montarLatigo,
       },
       {
         titulo: 'Inventario de seguridad y nivel de servicio',
         descripcion: 'Suba el nivel de servicio de 90 a 99,5 %: el inventario de seguridad crece cada vez más rápido. Pruebe también σ y el plazo, haga clic en la curva para fijar el nivel y observe en la simulación los días con faltante (rojo).',
+        ayuda: String.raw`<p>Arriba, el inventario disponible al cierre de cada día (unidades en bodega), con los días de faltante marcados. Abajo, la curva del inventario de seguridad según el nivel de servicio (%), con el valor elegido señalado.</p>
+          <ul>
+          <li><strong>Nivel de servicio objetivo</strong>: mueve el punto sobre la curva y cambia el inventario de seguridad requerido; arriba, aparecen menos días con faltante si sube.</li>
+          <li><strong>Variabilidad diaria</strong> y <strong>Plazo de reposición</strong>: elevan toda la curva, es decir, más inventario para el mismo servicio.</li>
+          </ul>`,
         montar: montarSeguridad,
       },
       {
         titulo: 'Flujos de materiales e información',
         descripcion: 'Avance semana a semana mientras la demanda salta en la semana 5: el minorista pide, el mayorista reacciona, y así hasta la fábrica. Compare con y sin demanda compartida y con plazos de 1 y 3 semanas, mirando inventarios (azul) y pendientes (rojo).',
+        ayuda: String.raw`<p>Diagrama de flujos entre etapas: inventario, pedidos pendientes de entregar y el pedido hacia el proveedor (información), junto con la demanda del cliente. Abajo, un gráfico de los pedidos por semana (unidades) de cada etapa.</p>
+          <ul>
+          <li><strong>Demanda final tras el salto</strong>: tamaño del escalón en la semana 5 que luego cada etapa amplifica.</li>
+          <li><strong>Plazo de entrega</strong>: con plazos mayores la reacción llega más tarde y más fuerte.</li>
+          <li><strong>Compartir la demanda final</strong>: todas las etapas reaccionan a la misma demanda y los pedidos se suavizan.</li>
+          </ul>`,
         montar: montarFlujos,
       },
     ],

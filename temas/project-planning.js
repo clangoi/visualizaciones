@@ -244,15 +244,31 @@
       retraso en ella retrasa todo, mientras que las demás actividades tienen <em>holgura</em>.</p>
       <p>Ese cálculo es un programa lineal con una variable de inicio por actividad. Y si el plazo es demasiado largo, el mismo modelo decide
       qué actividades <em>acelerar</em> (con horas extra, más cuadrillas) para cumplir al menor costo.</p>`,
+    parametros: [
+      ['Actividad y Duración de la actividad (Fig. 1)', String.raw`La actividad que se modifica y sus días. Alargar una crítica retrasa el proyecto; una con holgura puede cambiar sin efecto hasta agotarla.`],
+      ['Restablecer duraciones (Fig. 1)', String.raw`Devuelve todas las duraciones a su valor original.`],
+      ['Plazo exigido (Fig. 2)', String.raw`Los días en que debe terminar el proyecto. Un plazo menor obliga a acelerar actividades con costo.`],
+      ['Plazo normal y Plazo mínimo (Fig. 2)', String.raw`Colocan el plazo en el valor sin aceleración o en el más corto posible.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Camino crítico y holguras',
         descripcion: 'Alargue o acorte una actividad crítica (naranja) y compruebe que el proyecto cambia igual que ella; haga lo mismo con una que tiene holgura y vea que no pasa nada hasta agotarla. La marca negra bajo cada barra es el inicio que devuelve el programa lineal.',
+        ayuda: String.raw`<p>Diagrama de barras por día con las actividades. Las críticas (holgura 0) se distinguen de las que tienen holgura, mostrada como tramo adicional; la marca negra indica el inicio que devuelve el programa lineal.</p>
+          <ul>
+          <li><strong>Duración de la actividad</strong>: en una crítica, la duración total cambia igual que ella; en una con holgura, no cambia hasta agotarla.</li>
+          <li>Al alargar una actividad con holgura más allá de ella, pasa a ser crítica.</li>
+          </ul>`,
         montar: montarCritico,
       },
       {
         titulo: 'Acelerar el proyecto al menor costo',
         descripcion: 'Baje el plazo día a día. Observe qué actividades se aceleran primero (las más baratas del camino crítico), cuándo aparece un segundo camino crítico y por qué cada día cuesta más que el anterior.',
+        ayuda: String.raw`<p>Arriba, el plan acelerado con las actividades críticas y con holgura, y la duración normal (días ganados). Abajo, la curva del costo mínimo de cumplir cada plazo, con el plazo elegido marcado.</p>
+          <ul>
+          <li><strong>Plazo exigido</strong>: al bajarlo se aceleran primero las actividades críticas más baratas; cada día adicional cuesta más.</li>
+          <li><strong>Plazo mínimo</strong>: lleva al límite, donde aparece más de un camino crítico.</li>
+          </ul>`,
         montar: montarAceleracion,
       },
     ],

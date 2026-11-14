@@ -79,15 +79,33 @@
     intro: String.raw`
       <p>Una <strong>expresión regular</strong> describe un lenguaje con una fórmula: los símbolos se describen a sí mismos y se combinan con tres operaciones —unión, concatenación y estrella—. La expresión \((a|b)^*abb\) denota «las palabras sobre \(\{a,b\}\) que terminan en \(abb\)».</p>
       <p>La definición es <em>recursiva</em>, así que cada expresión es un árbol y su lenguaje se calcula de las hojas hacia la raíz. Los lenguajes que se pueden describir así son exactamente los que reconoce un autómata finito (teorema de Kleene).</p>`,
+    parametros: [
+      ['Expresión regular (Fig. 1 y 2)', String.raw`La expresión que se analiza. Un cambio redefine el árbol y el lenguaje que denota; una sintaxis inválida muestra un error en lugar de árbol.`],
+      ['Ejemplos (Fig. 1 y 2)', String.raw`Expresiones de muestra para cargar en el campo sin escribirlas.`],
+      ['Palabra a probar (Fig. 1)', String.raw`La cadena cuya pertenencia al lenguaje se comprueba. Cambiarla no modifica el lenguaje, solo el veredicto.`],
+      ['Longitud máxima listada (Fig. 1)', String.raw`Hasta qué longitud se enumeran las palabras del lenguaje. Más longitud muestra más palabras, pero el lenguaje sigue siendo el mismo.`],
+      ['Longitud máxima (Fig. 2)', String.raw`Hasta qué longitud se enumeran las palabras de cada subexpresión; permite ver cómo la estrella genera las potencias sucesivas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Árbol de sintaxis y lenguaje',
         descripcion: 'Escriba una expresión: se dibuja su árbol, se listan sus palabras más cortas y se prueba si una palabra pertenece. Pruebe errores como «(a» o «*a».',
+        ayuda: String.raw`<p>El árbol de sintaxis de la expresión: las hojas son símbolos y los nodos internos son unión, concatenación o estrella. Debajo se listan las palabras más cortas del lenguaje y el veredicto sobre la palabra a probar.</p>
+          <ul>
+          <li><strong>Expresión regular</strong>: añadir una alternativa o una estrella cambia la forma del árbol y las palabras listadas.</li>
+          <li><strong>Palabra a probar</strong>: se acepta solo si pertenece al lenguaje de toda la expresión.</li>
+          <li><strong>Longitud máxima listada</strong>: limita el tamaño de las palabras mostradas.</li>
+          </ul>`,
         montar: montarArbol,
       },
       {
         titulo: 'Semántica operación por operación',
         descripcion: 'Cada subexpresión muestra el lenguaje que denota; compruebe cómo la estrella genera las potencias y la unión reúne las alternativas.',
+        ayuda: String.raw`<p>Para cada subexpresión se muestra el conjunto de palabras que denota, hasta la longitud elegida. Así se ve cómo cada operador construye su lenguaje a partir del de sus partes.</p>
+          <ul>
+          <li><strong>Longitud máxima</strong>: con la estrella, subirla agrega potencias del lenguaje interior (\(L^0, L^1, L^2,\dots\)) a la lista.</li>
+          <li><strong>Expresión regular</strong>: la unión reúne las palabras de ambas ramas; la concatenación las combina por pares.</li>
+          </ul>`,
         montar: montarSemantica,
       },
     ],

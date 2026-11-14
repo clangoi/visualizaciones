@@ -50,9 +50,24 @@
     intro: String.raw`
       <p>Un computador recién conectado no sabe qué dirección usar. <strong>DHCP</strong> se la presta: el cliente pregunta por difusión y un servidor le entrega una dirección, la máscara, la puerta de enlace y el servidor DNS durante un tiempo limitado.</p>
       <p>Pero las direcciones IPv4 públicas escasean, así que las redes domésticas y de empresas usan direcciones privadas (<code>192.168.x.x</code>) y un router con <strong>NAT</strong> traduce hacia una única dirección pública, distinguiendo las conexiones por el puerto.</p>`,
+    parametros: [
+      ['Un paso y reproductor (Fig. 1)', String.raw`Avanzan o reinician los cuatro mensajes DORA (Discover, Offer, Request, ACK) y la renovación del préstamo.`],
+      ['Host interno (Fig. 2)', String.raw`Qué equipo de la red privada inicia la conexión, A o B. Cada uno tiene su dirección privada y obtiene su propia entrada en la tabla.`],
+      ['Abrir conexión, Respuesta del servidor, Paquete no solicitado, Reiniciar (Fig. 2)', String.raw`Simulan una conexión saliente que crea una traducción, la respuesta que la usa, un paquete desde fuera sin entrada previa (se descarta) y el vaciado de la tabla.`],
+    ],
     visualizaciones: [
-      { titulo: 'DHCP: obtener una dirección', descripcion: 'Siga los cuatro mensajes (Discover, Offer, Request, ACK) y vea cuándo el cliente ya tiene dirección.', montar: montarDHCP },
-      { titulo: 'La tabla de traducción de un NAT', descripcion: 'Abra conexiones desde A y B, haga llegar respuestas y pruebe un paquete externo sin solicitud previa.', montar: montarNAT },
+      { titulo: 'DHCP: obtener una dirección', descripcion: 'Siga los cuatro mensajes (Discover, Offer, Request, ACK) y vea cuándo el cliente ya tiene dirección.',
+        ayuda: String.raw`<p>Las flechas azules son mensajes del cliente y las naranjas, del servidor DHCP. Muestra en orden cómo el cliente, sin dirección (0.0.0.0), la solicita por difusión, recibe una oferta, la acepta y recibe la confirmación.</p>
+          <ul>
+          <li>Cada paso avanza un mensaje; solo tras el ACK el cliente tiene dirección, y la última flecha punteada es la renovación a mitad del plazo.</li>
+          </ul>`, montar: montarDHCP },
+      { titulo: 'La tabla de traducción de un NAT', descripcion: 'Abra conexiones desde A y B, haga llegar respuestas y pruebe un paquete externo sin solicitud previa.',
+        ayuda: String.raw`<p>La tabla de traducción asocia (IP privada, puerto) con (IP pública, puerto externo). El registro explica el efecto de cada acción.</p>
+          <ul>
+          <li><strong>Abrir conexión a Internet</strong>: añade una fila para el host elegido con un puerto externo nuevo.</li>
+          <li><strong>Respuesta del servidor</strong>: se traduce de vuelta gracias a esa fila y llega al host interno.</li>
+          <li><strong>Paquete no solicitado desde fuera</strong>: no coincide con ninguna fila y se descarta; el NAT no deja entrar tráfico no iniciado desde dentro.</li>
+          </ul>`, montar: montarNAT },
     ],
     teoria: String.raw`
       <h2>DHCP</h2>

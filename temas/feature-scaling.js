@@ -161,15 +161,31 @@
       <p>El <strong>escalamiento</strong> pone todas las columnas en rangos comparables antes de medir distancias, entrenar
       un modelo por descenso de gradiente o aplicar <a href="tema.html?id=pca">PCA</a>. Hay varias formas, y difieren sobre todo en
       cómo reaccionan ante valores extremos.</p>`,
+    parametros: [
+      ['Escalamiento (Fig. 1)', String.raw`Cómo se transforman edad e ingreso antes de calcular distancias: sin escalar, min-max o z. Decide cuál de las dos variables pesa más al buscar vecinos.`],
+      ['Vecinos k (Fig. 1)', String.raw`Cuántos vecinos más cercanos se consideran alrededor del punto elegido.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra aleatoria de clientes o de valores.`],
+      ['Valores atípicos (Fig. 2)', String.raw`Cuántos valores extremos se agregan a la columna. Cada atípico estira el rango o la desviación que usan los escalamientos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Vecinos según la escala',
         descripcion: 'El segmento de cada cliente depende de su edad. Sin escalar, el ingreso domina la distancia y los vecinos salen de ambos segmentos; pruebe min-max o z.',
+        ayuda: String.raw`<p>Los puntos son clientes con edad e ingreso, coloreados según su segmento (A o B). Se resaltan el punto elegido y sus k vecinos más cercanos.</p>
+          <ul>
+          <li><strong>Escalamiento</strong>: sin escalar, el ingreso domina la distancia y los vecinos salen de ambos segmentos; con min-max o z, la edad vuelve a contar y los vecinos pertenecen al mismo segmento.</li>
+          <li><strong>Vecinos k</strong>: con k mayor entran puntos más lejanos, que pueden ser del otro segmento.</li>
+          </ul>`,
         montar: montarVecinos,
       },
       {
         titulo: 'El efecto de los valores atípicos',
         descripcion: 'La misma columna con tres escalamientos, sobre un eje común. La barra gris es el rango intercuartílico de los datos típicos: mire cuánto se angosta al agregar atípicos.',
+        ayuda: String.raw`<p>Una misma columna aparece con tres escalamientos sobre un eje común. Los puntos son datos típicos y valores atípicos, y la barra gris es el rango intercuartílico de los típicos.</p>
+          <ul>
+          <li><strong>Valores atípicos</strong>: al agregar atípicos, el min-max y el z comprimen los datos típicos en un tramo más angosto, y la barra gris se estrecha; el escalamiento con cuartiles casi no cambia.</li>
+          <li><strong>Nuevos datos</strong>: repite el experimento con otra muestra.</li>
+          </ul>`,
         montar: montarAtipicos,
       },
     ],

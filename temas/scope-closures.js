@@ -151,10 +151,32 @@
       las de la función que la contiene y las globales, buscando siempre de adentro hacia afuera.</p>
       <p>Una <strong>clausura</strong> (<em>closure</em>) aparece cuando una función recuerda el entorno donde nació, aunque la función externa ya haya terminado. Es la base de los contadores privados,
       de los manejadores de eventos y de los <em>hooks</em> de React.</p>`,
+    parametros: [
+      ['Variable que se busca y Se usa dentro de (Fig. 1)', String.raw`Qué nombre se resuelve y desde qué función. La búsqueda sube por la cadena de alcances hasta hallarlo.`],
+      ['interna() declara su propia x (sombreado) (Fig. 1)', String.raw`Si la función interna tiene una variable con el mismo nombre que otra exterior, que la oculta.`],
+      ['Crear contador y Reiniciar (Fig. 2)', String.raw`Cada contador nuevo es una clausura con su propia variable privada. Reiniciar borra todos.`],
+      ['Declaración del contador (Fig. 3)', String.raw`Si el bucle declara <code>i</code> con <code>var</code> (una sola variable compartida) o con <code>let</code> (una nueva por vuelta).`],
+      ['Reproductor (Fig. 1 y 3)', String.raw`Avanza o reinicia paso a paso la búsqueda o el bucle.`],
+    ],
     visualizaciones: [
-      { titulo: 'Cadena de alcances', descripcion: 'Elija una variable y desde dónde se usa, y avance paso a paso. Active el sombreado para ver cómo una <code>x</code> interna oculta a la global.', montar: montarAlcance },
-      { titulo: 'Contadores con estado privado', descripcion: 'Cree varios contadores y llámelos con un clic: cada clausura mantiene su propia variable, inaccesible desde fuera.', montar: montarContadores },
-      { titulo: 'var frente a let en un bucle', descripcion: 'Ejecute el clásico bucle con <code>setTimeout</code> y compare qué imprime con <code>var</code> y con <code>let</code>.', montar: montarBucle },
+      { titulo: 'Cadena de alcances', descripcion: 'Elija una variable y desde dónde se usa, y avance paso a paso. Active el sombreado para ver cómo una <code>x</code> interna oculta a la global.',
+        ayuda: String.raw`<p>Se ven los alcances anidados (global, externa e interna). El que se revisa, la variable encontrada, el error de referencia y los alcances aún sin revisar se distinguen por la leyenda.</p>
+          <ul>
+          <li><strong>Se usa dentro de</strong>: define desde qué alcance empieza la búsqueda.</li>
+          <li><strong>Variable que se busca</strong>: si no existe en ninguno se llega a ReferenceError.</li>
+          <li><strong>sombreado</strong>: la búsqueda se detiene en la x interna y no llega a la global.</li>
+          </ul>`, montar: montarAlcance },
+      { titulo: 'Contadores con estado privado', descripcion: 'Cree varios contadores y llámelos con un clic: cada clausura mantiene su propia variable, inaccesible desde fuera.',
+        ayuda: String.raw`<p>Cada función devuelta (el cierre) apunta a su variable privada capturada. Las llamadas incrementan solo la variable de su propio contador.</p>
+          <ul>
+          <li><strong>Crear contador</strong>: añade otra clausura con su propia variable, independiente de las anteriores.</li>
+          </ul>`, montar: montarContadores },
+      { titulo: 'var frente a let en un bucle', descripcion: 'Ejecute el clásico bucle con <code>setTimeout</code> y compare qué imprime con <code>var</code> y con <code>let</code>.',
+        ayuda: String.raw`<p>Se muestra la variable <code>i</code> del entorno, los callbacks creados y los valores que imprimen al ejecutarse.</p>
+          <ul>
+          <li><strong>var i</strong>: los tres callbacks comparten una sola <code>i</code> y al ejecutarse imprimen su valor final.</li>
+          <li><strong>let i</strong>: cada vuelta tiene su propia <code>i</code> y los callbacks imprimen 0, 1 y 2.</li>
+          </ul>`, montar: montarBucle },
     ],
     teoria: String.raw`
       <h2>Alcance léxico</h2>

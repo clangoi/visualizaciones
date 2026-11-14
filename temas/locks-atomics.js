@@ -58,8 +58,18 @@
     intro: String.raw`
       <p>Para evitar una <a href="tema.html?id=race-conditions">condición de carrera</a> hay que lograr <strong>exclusión mutua</strong>: un <em>lock</em> (o <em>mutex</em>) que un hilo toma antes de la sección crítica y suelta al salir. Pero un lock es en sí un dato compartido: si «mirar si está libre» y «tomarlo» son dos pasos separados, la carrera reaparece en el propio lock.</p>
       <p>La salida es una instrucción de hardware <strong>atómica</strong> que hace ambas cosas de una vez, como <em>test-and-set</em> o <em>compare-and-swap</em>.</p>`,
+    parametros: [
+      ['Usar test-and-set atómico (Fig. 1)', String.raw`Cambia el cerrojo: desmarcado, el hilo lee el cerrojo y luego lo fija en dos pasos separados; marcado, ambos ocurren como una sola operación indivisible.`],
+      ['Avanza A, Avanza B, 20 pasos al azar y Reiniciar (Fig. 1)', String.raw`Ejecutan un paso del hilo indicado o varios intercalados al azar, y vuelven al inicio.`],
+    ],
     visualizaciones: [
-      { titulo: 'Un lock mal hecho y uno atómico', descripcion: 'Sin atomicidad, avance A (leer), B (leer), A (fijar), B (fijar): ambos entran. Luego marque la casilla y repita.', montar },
+      { titulo: 'Un lock mal hecho y uno atómico', descripcion: 'Sin atomicidad, avance A (leer), B (leer), A (fijar), B (fijar): ambos entran. Luego marque la casilla y repita.',
+        ayuda: String.raw`<p>Cada hilo (A, B) recorre sus pasos hasta la sección crítica y se ve el estado del cerrojo. Si ambos hilos quedan dentro a la vez, se marca como «los dos en la sección crítica» y se pierde la exclusión mutua.</p>
+          <ul>
+          <li><strong>Usar test-and-set atómico</strong> desmarcado: con A (leer), B (leer), A (fijar), B (fijar) ambos ven el cerrojo libre y entran; el cerrojo no protege nada.</li>
+          <li><strong>Usar test-and-set atómico</strong> marcado: la lectura y la fijación son indivisibles, el segundo hilo ve el cerrojo ocupado y espera.</li>
+          <li><strong>20 pasos al azar</strong>: pruebe muchas intercalaciones; sin atomicidad tarde o temprano falla.</li>
+          </ul>`, montar },
     ],
     teoria: String.raw`
       <h2>Instrucciones atómicas</h2>

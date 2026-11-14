@@ -156,10 +156,23 @@
       o en arbitraje de divisas (usando \(-\log\) de las tasas de cambio).</p>
       <p>Su idea es simple y robusta: relajar <em>todas</em> las aristas, una y otra vez, \(|V|-1\) veces. Además, detecta si existe un
       <strong>ciclo de peso negativo</strong>, en cuyo caso los caminos más cortos no están definidos.</p>`,
+    parametros: [
+      ['Nodos y Densidad', String.raw`Tamaño del grafo y número medio de aristas por vértice.`],
+      ['terminar si una pasada no cambia nada', String.raw`Detiene el algoritmo en cuanto una pasada completa no mejora ninguna distancia, en vez de hacer siempre \(|V| - 1\) pasadas.`],
+      ['Nuevo grafo', String.raw`Genera otro grafo dirigido con pesos, algunos negativos.`],
+      ['Agregar un ciclo negativo', String.raw`Modifica pesos para que exista un ciclo cuya suma sea negativa; en ese caso las distancias no están definidas y el algoritmo lo detecta.`],
+      ['Velocidad y reproductor', String.raw`Reproducir avanza solo, Un paso relaja una arista, Hasta el final termina y Reiniciar vuelve al inicio.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Bellman-Ford pasada a pasada',
         descripcion: 'En cada pasada se recorren las aristas en el orden indicado y se intenta mejorar la distancia de su destino. Use «Agregar un ciclo negativo» para ver la detección.',
+        ayuda: String.raw`<p>El grafo es dirigido y con pesos, algunos negativos (en rojo). Cada pasada recorre todas las aristas en el orden que muestra la tira y relaja cada una (naranja): si \(d[u] + w &lt; d[v]\), se mejora \(d[v]\). La tabla guarda las distancias al final de cada pasada.</p>
+          <ul>
+          <li>Tras la pasada \(k\), están correctas las distancias de todos los caminos de hasta \(k\) aristas; por eso bastan \(|V| - 1\) pasadas.</li>
+          <li><strong>terminar si una pasada no cambia nada</strong>: muchas veces el algoritmo se estabiliza antes; compare «relajaciones» con la cota «|V|·|E|».</li>
+          <li><strong>Agregar un ciclo negativo</strong>: la pasada extra de verificación aún encuentra mejoras, y el ciclo se marca en rojo.</li>
+          </ul>`,
         montar,
       },
     ],

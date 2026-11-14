@@ -168,15 +168,35 @@
       <p>Funciona porque se juntaron tres cosas hacia 2012: muchos datos etiquetados, GPU para entrenar rápido, y técnicas que
       hicieron posible entrenar redes profundas sin que el gradiente se perdiera (ReLU, buena inicialización, normalización) ni que
       la red memorizara los datos (regularización).</p>`,
+    parametros: [
+      ['Capas ocultas (Fig. 1)', String.raw`Profundidad de la red. Con más capas los pliegues se componen y el número de regiones lineales crece rápido.`],
+      ['Neuronas por capa (Fig. 1)', String.raw`Anchura de cada capa. Más neuronas añaden más rectas de corte, pero el crecimiento es menor que al añadir capas.`],
+      ['Otros pesos (Fig. 1)', String.raw`Sortea nuevos pesos con la misma arquitectura: muestra que el número de regiones depende del azar además de la forma de la red.`],
+      ['Decaimiento de pesos λ (L2) (Fig. 2)', String.raw`Penaliza los pesos grandes. Un valor mayor suaviza la frontera y reduce el sobreajuste, pero un exceso la deja demasiado simple.`],
+      ['Ruido de los datos (Fig. 2)', String.raw`Proporción de puntos con la clase confundida. Con más ruido la red tiende a memorizarlo y la validación empeora.`],
+      ['parada temprana (Fig. 2)', String.raw`Muestra los pesos de la época con menor pérdida de validación en lugar de los últimos.`],
+      ['Entrenar, 100 épocas, Reiniciar y Nuevos datos (Fig. 2)', String.raw`Avanzan el entrenamiento, lo reinician con los mismos datos o generan otro conjunto de datos.`],
+    ],
     visualizaciones: [
       {
         titulo: 'La profundidad multiplica las regiones',
         descripcion: 'Una red ReLU es lineal por partes: corta el plano en regiones y en cada una calcula una función lineal. Mueva profundidad y anchura y cuente las regiones.',
+        ayuda: String.raw`<p>Plano de entrada con la salida de la red sombreada (más oscuro = mayor). Las rectas marcan el borde entre regiones lineales: dentro de cada una la red calcula una función lineal.</p>
+          <ul>
+          <li><strong>Capas ocultas</strong>: al subirlas aparecen muchas más regiones, con bordes que se doblan.</li>
+          <li><strong>Neuronas por capa</strong>: más rectas por capa, con más regiones pero de forma menos marcada.</li>
+          </ul>`,
         montar: montarRegiones,
       },
       {
         titulo: 'Sobreajuste y regularización',
         descripcion: 'Una red grande entrenada con pocos datos ruidosos. A la izquierda, la frontera aprendida; a la derecha, las pérdidas de entrenamiento y de validación por época.',
+        ayuda: String.raw`<p>A la izquierda, la frontera aprendida con los puntos de entrenamiento y los huecos que son datos de validación. A la derecha, la entropía cruzada por época: pérdida de entrenamiento, pérdida de validación y el mínimo de validación (parada temprana).</p>
+          <ul>
+          <li><strong>Decaimiento de pesos λ (L2)</strong>: al subirlo, la brecha entre entrenamiento y validación se estrecha y la frontera es más suave.</li>
+          <li><strong>Ruido de los datos</strong>: al subirlo, la pérdida de entrenamiento sigue bajando mientras la de validación sube.</li>
+          <li><strong>parada temprana</strong>: la frontera mostrada corresponde al mínimo de validación, no a la última época.</li>
+          </ul>`,
         montar: montarSobreajuste,
       },
     ],

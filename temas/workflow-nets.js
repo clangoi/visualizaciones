@@ -248,15 +248,30 @@
       que, cuando llegue, no quede nada atrás.</p>
       <p>Para decidir si una red cumple eso se construye su <strong>grafo de alcanzabilidad</strong>: cada nodo es un marcado posible y cada arco, el disparo
       de una transición. Con él se detectan bloqueos, fichas sobrantes y marcados desde los que ya no se puede terminar.</p>`,
+    parametros: [
+      ['Workflow net (Fig. 1)', String.raw`La red analizada. Cambia entre redes sanas y defectuosas, y por tanto qué marcados alcanzables aparecen.`],
+      ['Marcar estados que no pueden terminar (Fig. 1)', String.raw`Resalta los marcados desde los cuales ya no se puede llegar al marcado final: bloqueos o estados con ficha sobrante.`],
+      ['Reproductor (Fig. 1)', String.raw`Expande el grafo de alcanzabilidad de a un marcado.`],
+      ['Ramas en paralelo (resaltadas) (Fig. 2)', String.raw`Número de ramas concurrentes. La red crece linealmente y los marcados alcanzables, exponencialmente.`],
+    ],
     visualizaciones: [
       {
         titulo: 'Grafo de alcanzabilidad paso a paso',
         descripcion: 'Expanda marcados uno a uno y haga clic en cualquiera para verlo sobre la red. Compare las redes sanas con las defectuosas: los nodos rojos y violetas delatan el problema.',
+        ayuda: String.raw`<p>Arriba está la red, y abajo el grafo de alcanzabilidad, donde cada nodo es un marcado. Se distinguen el marcado inicial y el final [f], los descubiertos pendientes de expandir, los bloqueos o estados que no pueden terminar, y los que tienen ficha sobrante en f. El marcado elegido se muestra sobre la red.</p>
+          <ul>
+          <li><strong>Workflow net</strong>: en una red sana todos los marcados pueden terminar; en una defectuosa aparecen nodos de bloqueo o de ficha sobrante.</li>
+          <li><strong>Marcar estados que no pueden terminar</strong>: los señala aunque no sean un bloqueo inmediato.</li>
+          </ul>`,
         montar: montarAlcanzabilidad,
       },
       {
         titulo: 'Cuántos marcados tiene un paralelismo',
         descripcion: 'Aumente las ramas en paralelo: la red crece linealmente y el grafo de marcados exponencialmente. Pase el cursor por los puntos para ver el conteo exacto.',
+        ayuda: String.raw`<p>El eje horizontal es el número n de ramas en paralelo y el vertical, los marcados alcanzables. Cada serie corresponde a una variante de la red; el cursor muestra el conteo exacto.</p>
+          <ul>
+          <li><strong>Ramas en paralelo</strong>: resalta un valor de n; al subirlo, el crecimiento exponencial de marcados se vuelve evidente frente al lineal de la red.</li>
+          </ul>`,
         montar: montarEscala,
       },
     ],

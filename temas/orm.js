@@ -152,15 +152,33 @@
       <p>La comodidad tiene un costo: los dos mundos no encajan del todo (<em>impedance mismatch</em>). Los objetos tienen identidad, herencia
       y navegación por punteros; las tablas tienen conjuntos, claves y juntas. Entender qué SQL se genera es la diferencia entre una página
       que carga en 20 ms y una que hace mil consultas.</p>`,
+    parametros: [
+      ['Estrategia (Fig. 1)', String.raw`Cómo carga el ORM los libros de cada autor: perezosa (1 + n consultas), con JOIN (1) o con IN (2).`],
+      ['Autores (Fig. 1)', String.raw`Cantidad de autores listados. Con carga perezosa el número de consultas crece con él.`],
+      ['Latencia por consulta (Fig. 1)', String.raw`Tiempo de ida y vuelta de cada consulta al servidor. Multiplicado por el número de consultas, da el costo total.`],
+      ['Estrategia (Fig. 2)', String.raw`Forma de guardar la jerarquía Persona, Alumno y Profesor: tabla única, tabla por clase concreta o tablas unidas.`],
+    ],
     visualizaciones: [
       {
         titulo: 'El problema de las N + 1 consultas',
         descripcion: 'Listar autores con su número de libros. Con carga perezosa el ORM hace una consulta por autor; con carga ansiosa, una o dos en total. Suba la latencia para ver el efecto en un servidor remoto.',
+        ayuda: String.raw`<p>Eje horizontal: número de autores n. Eje vertical: consultas emitidas. Una curva por estrategia (perezosa 1 + n, JOIN 1, IN 2). Abajo se muestra el SQL que genera el ORM.</p>
+          <ul>
+          <li><strong>Estrategia</strong>: perezosa sube una consulta por autor; JOIN e IN quedan casi constantes.</li>
+          <li><strong>Autores</strong>: desplaza la marca a lo largo de las curvas; solo la perezosa empeora con él.</li>
+          <li><strong>Latencia por consulta</strong>: sube el tiempo total estimado, que se nota más cuantas más consultas haya.</li>
+          </ul>`,
         montar: montarN1,
       },
       {
         titulo: 'Herencia en tablas',
         descripcion: 'Tres formas de guardar la jerarquía Persona → Alumno, Profesor. Cada una cambia los NULL, las juntas y lo que cuesta pedir «todas las personas».',
+        ayuda: String.raw`<p>Se muestran las tablas resultantes de la estrategia elegida. Las celdas NULL, marcadas según la leyenda, son columnas que no aplican a esa clase.</p>
+          <ul>
+          <li><strong>Estrategia</strong> tabla única: una sola tabla con muchos NULL.</li>
+          <li><strong>Estrategia</strong> tabla por clase concreta: no hay NULL, pero se duplican columnas y consultar todas las personas exige un UNION.</li>
+          <li><strong>Estrategia</strong> tablas unidas: no hay NULL, pero cargar un alumno exige una junta.</li>
+          </ul>`,
         montar: montarHerencia,
       },
     ],
