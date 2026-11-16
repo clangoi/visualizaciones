@@ -587,28 +587,48 @@ window.VIZ = (function () {
       alCambiar: (v) => { vel = Math.pow(2, v); },
     });
     const bPlay = ctl.boton('Reproducir', () => {
+      cancelarFinal();
       if (bucle.activo) return bucle.detener();
       if (terminado) api.reiniciar();
       acum = 1;
       bPlay.textContent = 'Pausar';
       bucle.iniciar();
     }, { primario: true });
-    ctl.boton('Un paso', () => { bucle.detener(); paso(); op.dibujar(); });
+    ctl.boton('Un paso', () => { cancelarFinal(); bucle.detener(); paso(); op.dibujar(); });
+    // «Hasta el final» avanza en tramos de ~40 ms y dibuja entre tramos, para no congelar
+    // la página cuando cada paso es costoso (p. ej. entrenar redes). Si termina en el
+    // primer tramo, el efecto es el mismo que ejecutar todo de una vez.
+    let corrida = 0;
+    const cancelarFinal = () => { corrida++; };
     ctl.boton('Hasta el final', () => {
       bucle.detener();
-      for (let k = 0; k < 5e6 && paso(); k++);
-      op.dibujar();
+      const id = ++corrida;
+      let total = 0;
+      (function tramo() {
+        if (id !== corrida) return;
+        const t0 = performance.now();
+        while (total < 5e6 && paso()) {
+          total++;
+          if (performance.now() - t0 > 40) {
+            op.dibujar();
+            requestAnimationFrame(tramo);
+            return;
+          }
+        }
+        op.dibujar();
+      })();
     });
     ctl.boton('Reiniciar', () => api.reiniciar());
 
     const api = {
       reiniciar() {
+        cancelarFinal();
         bucle.detener();
         gen = op.iniciar();
         terminado = false;
         op.dibujar();
       },
-      detener() { bucle.detener(); },
+      detener() { cancelarFinal(); bucle.detener(); },
       paso,
       get terminado() { return terminado; },
       get activo() { return bucle.activo; },
