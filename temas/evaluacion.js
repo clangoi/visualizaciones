@@ -238,33 +238,36 @@
       <strong>validación cruzada</strong>, lo segundo. Toda estimación es una variable aleatoria: con otro conjunto de datos daría otro
       número.</p>`,
     parametros: [
-      ['Separación entre clases (d′) (Fig. 1)', String.raw`Qué tan lejos están las distribuciones de puntaje de positivos y negativos. Con d′ mayor el clasificador discrimina mejor.`],
-      ['Fracción de positivos (Fig. 1)', String.raw`La proporción de positivos en los datos. Cambia la matriz de confusión sin cambiar la curva ROC.`],
-      ['Umbral de decisión (Fig. 1)', String.raw`El puntaje desde el cual se predice positivo. Mueve el punto de operación sobre la curva ROC.`],
-      ['Nuevos datos (Fig. 1)', String.raw`Regenera la muestra.`],
-      ['Datos y Clasificador (Fig. 2)', String.raw`El problema y el modelo (5 vecinos más cercanos o LDA) cuya exactitud se estima.`],
-      ['Muestras n (Fig. 2)', String.raw`Tamaño del conjunto. Con menos muestras, cada estimación varía más.`],
-      ['Repetir con otros datos (Fig. 2)', String.raw`Genera treinta conjuntos nuevos de la misma distribución.`],
+      ['Separación entre clases (d′) (Fig. 1)', String.raw`Qué tan lejos están las distribuciones de puntaje de positivos y negativos (0 a 4). Con d′ mayor el clasificador discrimina mejor y la curva ROC se acerca a la esquina superior izquierda. Regenera los datos.`],
+      ['Fracción de positivos (Fig. 1)', String.raw`La proporción de positivos entre los 400 objetos (0,02 a 0,5). Cambia las cuentas de la matriz de confusión, la exactitud y la precisión; la curva ROC casi no cambia, porque usa tasas dentro de cada clase.`],
+      ['Umbral de decisión (Fig. 1)', String.raw`El puntaje desde el cual se predice positivo (de −3 a 6). Mueve la línea vertical del histograma y el punto amarillo sobre la ROC. También puede fijarse haciendo clic sobre la curva ROC.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Cambia la semilla y regenera la muestra de puntajes.`],
+      ['Datos (Fig. 2)', String.raw`El problema de clasificación de las muestras: Dos manchas, Separable linealmente, Dos lunas, Círculos concéntricos o XOR (cuatro cuadrantes). Recalcula las estimaciones.`],
+      ['Clasificador (Fig. 2)', String.raw`5 vecinos más cercanos o LDA, el modelo cuya exactitud se estima. Cambia la exactitud real y qué métodos la sobreestiman.`],
+      ['Muestras n (Fig. 2)', String.raw`Tamaño de cada conjunto (20 a 200). Con menos muestras, cada estimación varía más. Se recalcula al soltar el control.`],
+      ['Repetir con otros datos (Fig. 2)', String.raw`Cambia la semilla y genera treinta conjuntos nuevos de la misma distribución.`],
     ],
     visualizaciones: [
       {
         titulo: 'Matriz de confusión y curva ROC',
         descripcion: 'Puntajes de un clasificador para positivos y negativos. Cada umbral da una matriz de confusión y un punto de la curva ROC.',
-        ayuda: String.raw`<p>Arriba, histogramas del puntaje del clasificador (eje X) para positivos y negativos, con el umbral: a su derecha se predice positivo. Abajo, la curva ROC (tasa de falsos positivos frente a tasa de verdaderos positivos) con el punto de operación.</p>
+        ayuda: String.raw`<p>Arriba, histogramas del puntaje del clasificador (eje X): azul (C.s1) los negativos y naranja (C.s2) los positivos; la línea negra vertical es el umbral y a su derecha se predice positivo. Abajo, a la izquierda, la curva ROC (tasa de falsos positivos en X, de verdaderos positivos en Y) con la diagonal punteada del azar y el punto amarillo de operación; a la derecha, la matriz de confusión (VP, FN, FP, VN) y debajo las métricas: exactitud, precisión, exhaustividad, especificidad, F1 y área bajo la ROC.</p>
           <ul>
-          <li><strong>Umbral de decisión</strong>: al bajarlo, más positivos se detectan, pero también más falsos positivos; el punto se mueve hacia arriba y a la derecha.</li>
-          <li><strong>Separación entre clases (d′)</strong>: con mayor separación, la curva se acerca a la esquina superior izquierda.</li>
-          <li><strong>Fracción de positivos</strong>: cambia las cuentas de la matriz de confusión.</li>
+          <li><strong>Umbral de decisión</strong>: al bajarlo, se detectan más positivos pero también más falsos positivos; el punto se mueve hacia arriba y a la derecha.</li>
+          <li><strong>Separación entre clases (d′)</strong>: con mayor separación, la curva se acerca a la esquina superior izquierda y el área sube.</li>
+          <li><strong>Fracción de positivos</strong>: cambia las cuentas de la matriz y las métricas que dependen de ella.</li>
+          <li>Pasar el cursor sobre el histograma muestra las cuentas para ese umbral; sobre la ROC, el umbral de cada punto de la curva.</li>
           </ul>`,
         montar: montarROC,
       },
       {
         titulo: 'Cuánto varía la estimación',
         descripcion: 'Treinta conjuntos de n datos de la misma distribución, cada uno evaluado con cinco métodos. La línea negra es la exactitud real del clasificador.',
-        ayuda: String.raw`<p>Eje X: exactitud estimada. Cada punto es uno de treinta conjuntos de datos, evaluado con cinco métodos de estimación; la línea negra es la exactitud real medida con 1000 datos nuevos.</p>
+        ayuda: String.raw`<p>Eje X: exactitud estimada. Cada fila corresponde a un método de estimación y cada punto a uno de treinta conjuntos de datos: rojo (C.s8) medida en entrenamiento, azul hold-out 70/30, naranja validación cruzada de 5 pliegues, aguamarina validación cruzada de 10 pliegues y violeta dejar uno fuera. La marca vertical corta de cada fila es la media; la línea negra discontinua es la exactitud real, medida con 1000 datos nuevos y promediada.</p>
           <ul>
           <li><strong>Muestras n</strong>: con n pequeño, los puntos se dispersan más alrededor de la línea; la medida en entrenamiento queda sesgada.</li>
-          <li><strong>Clasificador</strong>: cambia la exactitud real y qué métodos la sobreestiman.</li>
+          <li><strong>Clasificador</strong> y <strong>Datos</strong>: cambian la exactitud real y qué métodos la sobreestiman.</li>
+          <li>El panel de lecturas da el sesgo y la desviación de cada método respecto de la exactitud real, en puntos porcentuales.</li>
           </ul>`,
         montar: montarVariabilidad,
       },

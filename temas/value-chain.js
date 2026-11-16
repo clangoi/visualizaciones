@@ -172,30 +172,31 @@
       <p>La <strong>cadena de valor</strong> de Michael Porter descompone una empresa en las actividades que agregan valor a lo que vende. Las <em>primarias</em> llevan el producto del proveedor al cliente (logística de entrada, operaciones, logística de salida, marketing y ventas, servicio); las de <em>apoyo</em> las hacen posibles (infraestructura, recursos humanos, desarrollo tecnológico, aprovisionamiento). Lo que queda del ingreso después de pagar todas las actividades es el <em>margen</em>.</p>
       <p>Para un sistema de información la pregunta útil es dónde conviene instalarlo: no donde la tecnología es más vistosa, sino donde el costo evitado o el ingreso adicional supera el costo del propio sistema.</p>`,
     parametros: [
-      ['Reducción de costo máxima del SI (Fig. 1)', String.raw`Mayor ahorro que un sistema puede lograr en una actividad. Más ahorro hace rentables más actividades.`],
-      ['Costo anual de cada SI (Fig. 1)', String.raw`Costo de instalar un sistema en cada actividad. Si supera el ahorro, el margen cae.`],
-      ['Digitalizar la mejor, Todas las rentables y Limpiar (Fig. 1)', String.raw`Instalan el SI en la actividad de mayor ganancia, en todas las que dan ganancia o lo quitan de todas.`],
-      ['Estrategia de TI (Fig. 2)', String.raw`Qué tipo de uso de TI se aplica (automatizar, conocer al cliente, integrar proveedores o plataforma completa). Cambia qué costos baja o qué ingresos sube.`],
-      ['Éxito de la implementación (Fig. 2)', String.raw`Qué parte de los beneficios se logra. Un éxito bajo deja el margen en su valor anterior o peor.`],
+      ['Reducción de costo máxima del SI (Fig. 1)', String.raw`Fracción del costo de una actividad que un sistema podría ahorrar en el mejor caso (10 % a 50 %). El ahorro real de cada actividad es su costo × esta reducción × su potencial propio; subirla hace rentables más actividades.`],
+      ['Costo anual de cada SI (Fig. 1)', String.raw`Costo anual, en millones, de instalar un sistema en una actividad (2 a 30; el mismo valor para todas). Si supera el ahorro de esa actividad, instalarlo reduce el margen.`],
+      ['Digitalizar la mejor, Todas las rentables y Limpiar (Fig. 1)', String.raw`«Digitalizar la mejor» deja el SI solo en la actividad de mayor ahorro neto (ahorro menos costo del SI); «Todas las rentables» lo instala en todas las de ahorro neto positivo; «Limpiar» quita todos los SI. También puede hacer clic en una barra para instalar o quitar el SI de esa actividad.`],
+      ['Estrategia de TI (Fig. 2)', String.raw`Elige entre automatizar operaciones y logística, conocer al cliente (CRM y comercio electrónico), integrar proveedores y distribución, o una plataforma digital integral. Cada una reduce el costo de actividades distintas, puede subir el ingreso (4 % en conocer al cliente y en la plataforma) y tiene su propio costo de SI.`],
+      ['Éxito de la implementación (Fig. 2)', String.raw`Fracción de los beneficios previstos que realmente se logra (20 % a 120 %). Escala las reducciones de costo y el aumento de ingreso, pero no el costo del SI: con un éxito bajo el margen queda por debajo del original.`],
     ],
     visualizaciones: [
       {
         titulo: 'Dónde instalar un sistema de información',
         descripcion: 'Haga clic en las actividades de una distribuidora ficticia y vea cómo cambian sus costos y el margen. Pruebe «Digitalizar la mejor», suba el costo del SI hasta que servicio o infraestructura dejen de convenir y compare con operaciones.',
-        ayuda: String.raw`<p>Cadena de valor de una distribuidora con actividades primarias y de apoyo. Cada una muestra el costo anual del SI, el margen y el costo o margen antes del SI.</p>
+        ayuda: String.raw`<p>Barras verticales por actividad de una distribuidora ficticia (ingreso de 1000 millones al año), con el costo anual en el eje vertical: azul (C.s1) para las actividades primarias, aguamarina (C.s3) para las de apoyo. La última barra, verde (C.s6), es el margen. Al instalar un SI, la barra baja por el ahorro y se le apila encima un tramo naranja (C.s2) con el costo del SI; un contorno punteado gris marca el costo (o margen) antes del SI.</p>
           <ul>
-          <li><strong>Reducción de costo máxima</strong>: más ahorro en las actividades con SI.</li>
-          <li><strong>Costo anual de cada SI</strong>: si sube, servicio o infraestructura dejan de ser rentables.</li>
+          <li><strong>Clic en una barra</strong>: instala o quita el SI en esa actividad; el margen de la última barra se recalcula.</li>
+          <li><strong>Reducción de costo máxima</strong> y <strong>Costo anual de cada SI</strong>: ajustan la altura del ahorro y del tramo naranja; compárelos para ver dónde el SI se paga.</li>
+          <li><strong>Digitalizar la mejor</strong>, <strong>Todas las rentables</strong> y <strong>Limpiar</strong>: fijan de una vez qué actividades tienen SI.</li>
           </ul>`,
         montar: montarDonde,
       },
       {
         titulo: 'Cascada del margen según la estrategia de TI',
         descripcion: 'Elija una estrategia (automatizar, conocer al cliente, integrar proveedores o una plataforma completa) y baje el éxito de la implementación hasta encontrar el punto en que el margen vuelve a ser el de partida.',
-        ayuda: String.raw`<p>Cascada del ingreso al margen: ingreso, costos primarios, costos de apoyo, costo del SI y margen, con una marca de la posición antes del SI.</p>
+        ayuda: String.raw`<p>Cascada horizontal con una fila por concepto: ingreso (negro), las nueve actividades (azul las primarias, aguamarina las de apoyo), costo del SI (naranja) y margen (verde). Cada barra empieza donde termina la anterior; el contorno punteado gris muestra su posición antes del SI y el número a la derecha, su valor actual en millones.</p>
           <ul>
-          <li><strong>Estrategia de TI</strong>: cambia qué barras de costo bajan o suben.</li>
-          <li><strong>Éxito de la implementación</strong>: al bajarlo el margen vuelve al de antes del SI.</li>
+          <li><strong>Estrategia de TI</strong>: cambia qué actividades reducen su costo, si el ingreso sube y cuánto cuesta el SI.</li>
+          <li><strong>Éxito de la implementación</strong>: a menor éxito las barras se acercan a su posición original y el margen cae; el panel de lectura indica el éxito mínimo para recuperar el costo del SI.</li>
           </ul>`,
         montar: montarCascada,
       },

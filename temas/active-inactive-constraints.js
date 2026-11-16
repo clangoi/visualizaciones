@@ -299,28 +299,32 @@
       activo, el problema se vuelve un sistema de ecuaciones que se sabe resolver; el resto es probar combinaciones y descartar las que no cuadran.</p>
       <p>Esa es la lógica de los métodos de <em>conjunto activo</em>, y también la de los vértices en el Simplex: cada conjunto activo propone un punto, y KKT decide si es el correcto.</p>`,
     parametros: [
-      ['Escenario (Fig. 1)', String.raw`Problema con tres restricciones, incluido un caso degenerado.`],
-      ['Probar los ocho conjuntos (Fig. 1)', String.raw`Revisa una a una las combinaciones de activas e inactivas.`],
-      ['Trayectoria del mínimo libre (Fig. 2)', String.raw`Camino que sigue el mínimo sin restricciones.`],
-      ['Posición a lo largo de la trayectoria (Fig. 2)', String.raw`Punto del camino; cambia el óptimo y los multiplicadores.`],
-      ['Ir al primer cambio de conjunto activo (Fig. 2)', String.raw`Salta al punto donde una restricción se activa o se libera.`],
+      ['Escenario (Fig. 1)', String.raw`Selector con dos escenarios de tres restricciones: «Triángulo (restricciones independientes)» y «Tres rectas por un mismo punto (degenerado)». También se puede arrastrar sobre el gráfico para mover el mínimo libre.`],
+      ['Un paso / Reproducir (Fig. 1)', String.raw`Control del reproductor que prueba los conjuntos activos de a uno, en orden. También se puede hacer clic en una fila de la tabla.`],
+      ['Probar los ocho conjuntos (Fig. 1)', String.raw`Botón que marca como probadas las ocho combinaciones de activas e inactivas y muestra todos los resultados a la vez.`],
+      ['Trayectoria del mínimo libre (Fig. 2)', String.raw`Selector con tres caminos rectos del mínimo libre: «Salir por g₁ (x + y ≤ 3)», «Salir por g₃ (y ≥ 0)» y «Salir hacia la esquina de g₁ y g₃».`],
+      ['Posición a lo largo de la trayectoria (Fig. 2)', String.raw`Deslizador de 0 a 100 % que mueve el mínimo libre por la trayectoria; cambia el óptimo y los multiplicadores. También se puede hacer clic en el gráfico inferior.`],
+      ['Ir al primer cambio de conjunto activo (Fig. 2)', String.raw`Botón que salta a la primera posición donde el conjunto de restricciones activas deja de ser el inicial, es decir, donde una restricción se activa o se libera.`],
     ],
     visualizaciones: [
       {
         titulo: 'Probar conjuntos activos',
         descripcion: 'Recorra con «Un paso» las ocho combinaciones y vea cuál produce el punto KKT; luego arrastre el mínimo libre y repita. Pruebe el escenario degenerado y observe conjuntos distintos que dan el mismo punto.',
-        ayuda: String.raw`<p>Región factible, restricciones supuestas activas e inactivas (μ = 0), mínimo sin restricciones y resultado de cada conjunto: punto KKT o rechazado.</p>
+        ayuda: String.raw`<p>Región factible en aguamarina tenue, con las restricciones \(g_1\), \(g_2\), \(g_3\) rotuladas: líneas negras gruesas las que se suponen activas en el conjunto en prueba y líneas grises finas las supuestas inactivas (\(\mu = 0\)). El círculo hueco es el mínimo libre (centro de las circunferencias grises). La solución de cada conjunto se marca con un punto verde si es KKT y rojo si se rechaza, con una flecha naranja que indica \(-\nabla f\); los puntos KKT ya hallados quedan como puntos verdes menores. Debajo, una tabla da, por conjunto, x, los multiplicadores y el veredicto.</p>
           <ul>
-          <li><strong>Probar los ocho conjuntos</strong>: solo un conjunto da un punto KKT; los demás son rechazados.</li>
+          <li><strong>Probar los ocho conjuntos</strong>: en el triángulo solo un conjunto da un punto KKT; los demás se rechazan por infactibles, por \(\mu < 0\) o por sistema singular.</li>
+          <li><strong>Escenario degenerado</strong>: varios conjuntos pueden dar el mismo punto, con algún \(\mu = 0\) aunque \(g = 0\).</li>
+          <li><strong>Mínimo libre</strong>: al arrastrarlo cambia qué conjunto es el correcto.</li>
           </ul>`,
         montar: montarEnumeracion,
       },
       {
         titulo: 'Cuándo se activa cada restricción',
         descripcion: 'Mueva el mínimo libre fuera de la región y mire los multiplicadores: cada μ nace en 0 justo cuando la holgura de su restricción se agota. Use el botón para saltar al primer cambio de conjunto activo.',
-        ayuda: String.raw`<p>Arriba, la región, x* y g₁, g₂, g₃. Abajo, los multiplicadores de cada restricción según la posición.</p>
+        ayuda: String.raw`<p>Arriba, la región factible del triángulo con \(g_1: x + y \le 3\), \(g_2: x \ge 0\), \(g_3: y \ge 0\), el mínimo libre (círculo hueco) en la trayectoria, el segmento naranja punteado hasta el óptimo \(x^*\) (punto verde) y la trayectoria en gris discontinuo; las restricciones activas se dibujan gruesas. Abajo, el eje horizontal es la posición del mínimo libre; cada restricción tiene un color (\(g_1\) azul, \(g_2\) naranja, \(g_3\) violeta): la línea continua es su multiplicador \(\mu\) y la discontinua, su holgura \(-g\). Una línea negra vertical marca la posición actual.</p>
           <ul>
-          <li><strong>Posición</strong>: cada μ nace en 0 justo cuando la holgura de su restricción se agota.</li>
+          <li><strong>Posición</strong>: cada \(\mu\) nace en 0 justo cuando la holgura de su restricción se agota, y nunca son positivos a la vez.</li>
+          <li><strong>Trayectoria</strong>: cambia qué restricciones se activan y en qué orden.</li>
           </ul>`,
         montar: montarBarrido,
       },

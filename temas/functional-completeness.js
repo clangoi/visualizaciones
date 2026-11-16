@@ -120,27 +120,27 @@
       Un conjunto de conectivos es <strong>funcionalmente completo</strong> si con él se puede expresar <em>cualquier</em> función booleana.</p>
       <p>Sorprende cuán poco hace falta: \(\{\neg, \land\}\), \(\{\neg, \to\}\) e incluso un solo conectivo, NAND, bastan. En electrónica por eso todo circuito digital puede construirse con compuertas NAND.</p>`,
     parametros: [
-      ['Conectivos disponibles (Fig. 1)', String.raw`El conjunto de conectivos permitidos. Define cuántas de las 16 funciones de dos variables se alcanzan.`],
-      ['Solo se permite usar (Fig. 2)', String.raw`Los únicos conectivos que puede usar la construcción.`],
-      ['Función que se quiere construir (Fig. 2)', String.raw`La función objetivo, dada por su tabla de verdad.`],
+      ['Conectivos disponibles (Fig. 1)', String.raw`Selector con doce conjuntos: completos como {¬, ∧}, {¬, ∨}, {¬, →}, {↑}, {↓} y {→, ⊥}, e incompletos como {↔, ⊕, ⊤}, {∧, ∨}, {∧, →}, {⊕, ∧}, {¬} y {↔, ¬}. Define con qué conectivos (y, a veces, qué constante) se arman las expresiones a partir de p y q.`],
+      ['Solo se permite usar (Fig. 2)', String.raw`Selector con los seis conjuntos completos: {¬, ∧}, {¬, ∨}, {¬, →}, {↑}, {↓} y {→, ⊥}. La construcción solo puede emplear esos conectivos.`],
+      ['Función que se quiere construir (Fig. 2)', String.raw`Selector con las 16 funciones de p y q (⊥, ⊤, p, q, ¬p, ¬q, p ∧ q, p ∨ q, p ↑ q, p ↓ q, p → q, q → p, p ↔ q, p ⊕ q, p ∧ ¬q y ¬p ∧ q). Es la función objetivo.`],
     ],
     visualizaciones: [
       {
         titulo: 'Qué funciones se pueden expresar',
         descripcion: 'Elija un conjunto de conectivos y mire cuántas de las 16 funciones de dos variables alcanza. Compare conjuntos completos con otros como \\(\\{\\land, \\lor\\}\\).',
-        ayuda: String.raw`<p>Cada función de dos variables se colorea según se pueda expresar con los conectivos elegidos o no; las filas de la tabla donde vale V se marcan aparte.</p>
+        ayuda: String.raw`<p>Una cuadrícula de 16 casillas, una por función de dos variables, con su nombre arriba. Cada casilla tiene cuatro puntos que son las filas VV, VF, FV y FF de izquierda a derecha: un punto azul relleno es V y uno vacío es F. Una casilla con relleno y borde azul se puede expresar con los conectivos elegidos; una gris, no. Al pasar el cursor se muestra la expresión más corta (en profundidad). El registro y la lectura dicen cuántas funciones se alcanzan, si el conjunto es completo y cuáles faltan.</p>
           <ul>
-          <li><strong>Conectivos disponibles</strong>: un conjunto completo (como \(\{\lnot, \land\}\)) alcanza las 16 funciones; otros, como \(\{\land, \lor\}\), alcanzan menos.</li>
+          <li><strong>Conectivos disponibles</strong>: un conjunto completo (como {¬, ∧} o {↑}) pinta las 16 casillas de azul; uno incompleto (como {∧, ∨}) deja grises las que no alcanza.</li>
           </ul>`,
         montar: montarClausura,
       },
       {
         titulo: 'Construya un conectivo con otros',
         descripcion: 'Elija la función que quiere y los únicos conectivos permitidos. Vea el árbol de la construcción y compruebe en la tabla que coincide.',
-        ayuda: String.raw`<p>El árbol es la construcción de la función con los conectivos permitidos y la tabla confirma que coincide con la función buscada.</p>
+        ayuda: String.raw`<p>El árbol de sintaxis de la expresión más corta en profundidad que construye la función pedida con los conectivos permitidos, con p y q como hojas (y ⊥ si el conjunto es {→, ⊥}). Debajo, una tabla de verdad con dos columnas: la expresión construida y la función objetivo; coinciden en las cuatro filas. El registro escribe la equivalencia.</p>
           <ul>
-          <li><strong>Solo se permite usar</strong>: restringe qué nodos puede tener el árbol.</li>
-          <li><strong>Función que se quiere construir</strong>: cambia la tabla objetivo y el tamaño del árbol necesario.</li>
+          <li><strong>Solo se permite usar</strong>: cambia los nodos posibles del árbol; con {↑} o {↓} todo es del mismo conectivo y el árbol crece.</li>
+          <li><strong>Función que se quiere construir</strong>: cambia la columna objetivo y el árbol necesario.</li>
           </ul>`,
         montar: montarConstruccion,
       },

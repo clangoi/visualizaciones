@@ -177,32 +177,33 @@
       dos decisiones: cuántos vecinos mirar y cómo medir la distancia. Y clasificar es caro, porque hay que comparar con todos
       los datos guardados.</p>`,
     parametros: [
-      ['Datos y Ruido (Fig. 1 y 2)', String.raw`La forma de las clases y cuántos puntos quedan en el lado equivocado. Con ruido, k pequeño memoriza errores.`],
-      ['Vecinos k (Fig. 1)', String.raw`Cuántos vecinos votan. k pequeño da fronteras irregulares; k grande, fronteras suaves que pueden ignorar detalles.`],
-      ['Distancia (Fig. 1)', String.raw`La forma de medir cercanía (Euclidiana, Manhattan, Chebyshev). Cambia qué puntos son vecinos y la forma de las fronteras.`],
-      ['voto ponderado por 1/distancia (Fig. 1)', String.raw`Los vecinos cercanos pesan más que los lejanos en la votación.`],
-      ['Muestras (Fig. 2)', String.raw`Cuántos puntos hay para entrenar. Con más datos, las curvas de error se estabilizan.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Regenera los datos.`],
+      ['Datos y Ruido (Fig. 1 y 2)', String.raw`Datos elige la forma de las clases (Dos manchas, Separable linealmente, Dos lunas, Círculos concéntricos, XOR o Tres clases); el ruido (de 0 a 1) escala su dispersión y mezcla los puntos entre clases. Con ruido, k pequeño memoriza errores.`],
+      ['Vecinos k (Fig. 1)', String.raw`Cuántos vecinos votan (impares, de 1 a 41). k pequeño da fronteras irregulares; k grande, fronteras suaves que pueden ignorar detalles.`],
+      ['Distancia (Fig. 1)', String.raw`Euclidiana (L2), Manhattan (L1) o Chebyshev (L∞). Cambia qué puntos son vecinos y la forma de las fronteras. La figura 2 usa la euclidiana.`],
+      ['voto ponderado por 1/distancia (Fig. 1)', String.raw`Casilla: cada vecino pesa 1/distancia en lugar de valer un voto, de modo que los cercanos influyen más.`],
+      ['Muestras (Fig. 2)', String.raw`Total de puntos generados (de 40 a 400), de los que el 60 % entrena y el resto valida. La curva se recalcula al soltar el control.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Regenera los datos con otra semilla.`],
     ],
     visualizaciones: [
       {
         titulo: 'Regiones de decisión',
         descripcion: 'El color de cada zona es la clase que ganaría la votación. Mueva k y cambie la distancia: con Manhattan o Chebyshev las fronteras toman tramos horizontales, verticales o diagonales.',
-        ayuda: String.raw`<p>El color de cada zona es la clase que ganaría la votación; los puntos son los datos de entrenamiento. Se marcan los k vecinos del punto de consulta, y los huecos son datos de validación.</p>
+        ayuda: String.raw`<p>El color de cada zona es la clase que ganaría la votación y su intensidad, la proporción de votos. Los puntos rellenos son de entrenamiento y los huecos, de validación. La estrella es el punto de consulta, coloreada con la clase que le toca; sus k vecinos tienen un anillo amarillo (C.s4) y una línea hacia la consulta, y el contorno discontinuo amarillo es la «bola» hasta el k-ésimo vecino en la distancia elegida. Un clic mueve la consulta.</p>
           <ul>
           <li><strong>Vecinos k</strong>: con k = 1 la frontera rodea cada punto; al subir k se alisa.</li>
-          <li><strong>Distancia</strong>: con Manhattan o Chebyshev, las fronteras adoptan tramos horizontales, verticales o diagonales.</li>
-          <li><strong>voto ponderado por 1/distancia</strong>: los vecinos cercanos desempatan.</li>
+          <li><strong>Distancia</strong>: cambia la forma del contorno amarillo (círculo, rombo o cuadrado) y qué puntos son vecinos.</li>
+          <li><strong>voto ponderado por 1/distancia</strong>: los vecinos cercanos pesan más en la votación.</li>
           </ul>`,
         montar: montarRegiones,
       },
       {
         titulo: 'Error según k',
         descripcion: 'Error de entrenamiento y de validación para cada k impar. El mejor k equilibra el ruido (k chico) y el exceso de suavizado (k grande).',
-        ayuda: String.raw`<p>Eje X: k (vecinos); eje Y: error. Se muestran el error de entrenamiento (con y sin el propio punto), el de validación y el k con menor error de validación.</p>
+        ayuda: String.raw`<p>El eje X es k y el eje Y, el error (%). La línea azul (C.s1) es el error de entrenamiento incluyendo al propio punto, la aguamarina (C.s3) es el de entrenamiento dejando el punto fuera, la naranja (C.s2) es el de validación y el punto verde (C.s6) marca el k con menor error de validación.</p>
           <ul>
-          <li><strong>Ruido</strong>: al subirlo, el error de validación se eleva y el mejor k se desplaza a valores más grandes.</li>
-          <li><strong>Muestras</strong>: con más muestras, la curva de validación es más estable y se acerca a la de entrenamiento.</li>
+          <li><strong>Ruido</strong>: al subirlo, el error de validación aumenta y la curva se vuelve más irregular.</li>
+          <li><strong>Muestras</strong>: con más datos, las curvas se estiman con menos variación.</li>
+          <li><strong>Nuevos datos</strong>: cambian las curvas y el mejor k.</li>
           </ul>`,
         montar: montarCurva,
       },

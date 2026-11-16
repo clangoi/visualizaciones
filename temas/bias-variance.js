@@ -125,15 +125,15 @@
       <p>Lo mismo vale para cualquier estimación en minería de datos: un efecto causal, un agrupamiento o una regla. Una estimación
       <strong>estable</strong> tiene poca varianza; una <strong>insesgada</strong> acierta en promedio. Reducir una suele aumentar la otra.</p>`,
     parametros: [
-      ['Vecinos k (Fig. 1)', String.raw`La complejidad inversa del modelo: con k pequeño el modelo sigue cada punto (más complejo, más varianza); con k grande promedia mucho y aplana la curva (menos varianza, más sesgo).`],
-      ['Otros conjuntos (Fig. 1)', String.raw`Vuelve a entrenar los modelos con conjuntos de datos nuevos, para ver cuánto cambian las líneas.`],
-      ['Recalcular (Fig. 2)', String.raw`Repite la estimación de sesgo², varianza y error total con nuevos conjuntos de entrenamiento; las curvas varían un poco por azar.`],
+      ['Vecinos k (Fig. 1)', String.raw`Deslizador de 1 a 40, la complejidad inversa del modelo: con k pequeño el modelo sigue cada punto (más complejo, más varianza); con k grande promedia mucho y aplana la curva (menos varianza, más sesgo).`],
+      ['Otros conjuntos (Fig. 1)', String.raw`Botón que vuelve a entrenar los modelos con conjuntos de datos nuevos, para ver cuánto cambian las líneas.`],
+      ['Recalcular (Fig. 2)', String.raw`Botón que repite la estimación de sesgo², varianza y error total con nuevos conjuntos de entrenamiento; las curvas varían un poco por azar.`],
     ],
     visualizaciones: [
       {
         titulo: 'Muchos modelos, un promedio',
         descripcion: 'Regresión por k vecinos entrenada con muchos conjuntos distintos. Compare la dispersión de las líneas con la distancia entre su promedio y la verdad.',
-        ayuda: String.raw`<p>Cada línea es un modelo de k vecinos ajustado a uno de los conjuntos de entrenamiento; la línea del promedio de los modelos se compara con la función verdadera. La dispersión entre las líneas es la varianza; la distancia entre su promedio y la verdad es el sesgo.</p>
+        ayuda: String.raw`<p>Cada línea azul tenue es una regresión por k vecinos ajustada a uno de 60 conjuntos de entrenamiento de 40 puntos (se dibujan 25). La línea naranja gruesa es el promedio de los 60 modelos y la verde discontinua, la función verdadera. La dispersión entre las líneas azules es la varianza; la distancia entre la naranja y la verde es el sesgo. Debajo se leen sesgo², varianza, ruido σ² y error esperado; al pasar el cursor se ve la desviación entre modelos en ese x.</p>
           <ul>
           <li><strong>Vecinos k</strong>: con k = 1 las líneas siguen el ruido y son muy distintas entre sí (varianza alta); con k grande son casi iguales pero el promedio se aleja de la función verdadera (sesgo alto).</li>
           <li><strong>Otros conjuntos</strong>: si las líneas cambian mucho, es varianza; si el promedio sigue lejos de la verdad, es sesgo.</li>
@@ -143,7 +143,7 @@
       {
         titulo: 'La curva en U',
         descripcion: 'Sesgo², varianza y error total según la complejidad del modelo.',
-        ayuda: String.raw`<p>El eje horizontal es la complejidad (k vecinos en escala logarítmica invertida: a la derecha, modelos más complejos) y el vertical, el error cuadrático. Las curvas son sesgo², varianza y error total (su suma más el ruido σ²); la línea del ruido es el piso que no se puede bajar, y el punto marca el mínimo del error.</p>
+        ayuda: String.raw`<p>El eje horizontal es la complejidad (k de 40 a 1 en escala logarítmica invertida: a la derecha, modelos más complejos) y el vertical, el error cuadrático. Las curvas son sesgo² (naranja), varianza (azul) y error total (negra; sesgo² + varianza + σ²). La línea gris discontinua es el ruido σ², el piso que no se puede bajar, y el punto verde marca el mínimo del error total. Al pasar el cursor se leen los tres valores para ese k.</p>
           <ul>
           <li><strong>Recalcular</strong>: las curvas se mueven poco, pero el mínimo se mantiene en una complejidad intermedia: ahí el sesgo y la varianza están equilibrados.</li>
           </ul>`,

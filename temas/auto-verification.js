@@ -130,26 +130,29 @@
       y mirar si aparece \(\Box\). Toda la lógica de las secciones anteriores se junta en esta tubería.</p>
       <p>Para comprobar que el resultado es de fiar se puede contrastar con una tabla de verdad. La comparación también muestra cuándo la resolución <em>gana</em> a la tabla, y cuándo no.</p>`,
     parametros: [
-      ['Premisas, Conclusión, Ejemplos y Verificar (Fig. 1)', String.raw`El argumento a comprobar: premisas separadas por «;» y la conclusión. Verificar corre la tubería (negación, cláusulas, resolución, veredicto) y la contrasta con la tabla de verdad.`],
-      ['Familia de problemas (Fig. 2)', String.raw`Qué familia se compara: cuánto trabajo exige la resolución frente a la tabla de verdad al crecer \(n\).`],
+      ['Premisas y Conclusión (Fig. 1)', String.raw`Cajas de texto con el argumento a comprobar: premisas separadas por «;» y una conclusión. La figura se recalcula al escribir; si una fórmula no se entiende, el panel muestra el mensaje de error.`],
+      ['Ejemplos (Fig. 1)', String.raw`Selector con seis argumentos: cadena de implicaciones, casos, afirmar el consecuente, exportación, transitividad de ↔ y conversa. Al elegir uno se reemplazan las premisas y la conclusión.`],
+      ['Verificar (Fig. 1)', String.raw`Botón que vuelve a ejecutar la tubería con el texto actual (negación, cláusulas, resolución, veredicto) y la contrasta con la tabla de verdad. La figura también se recalcula sola al escribir.`],
+      ['Familia de problemas (Fig. 2)', String.raw`Selector con dos familias: la cadena de implicaciones \(p_1, p_1 \to p_2, \dots, \neg p_n\) y el principio del palomar con \(n+1\) palomas en \(n\) nidos. Cambia la serie de valores de \(n\) que se compara.`],
     ],
     visualizaciones: [
       {
         titulo: 'De las premisas al veredicto',
         descripcion: 'Escriba premisas y conclusión. Siga la tubería completa: negación, cláusulas, resolución y veredicto, contrastado con la tabla de verdad.',
-        ayuda: String.raw`<p>Se muestran las etapas de la tubería con su resultado: la conclusión negada, las cláusulas, los pasos de resolución y el veredicto (válido o no), junto con el control por tabla de verdad.</p>
+        ayuda: String.raw`<p>Es una figura de texto, sin lienzo: un panel numerado muestra las etapas de la tubería y debajo una lectura con cuatro cifras. Los pasos son: 1) negar la conclusión, 2) pasar cada fórmula a cláusulas (la negada aparece como ¬φ), 3) resolución dando prioridad a las cláusulas cortas, con el número de cláusulas y de pares resueltos, 4) veredicto por resolución (válido si se derivó □; inválido si se saturó sin □; «sin veredicto» si se alcanzó el tope de 5000 pasos). Si hay 10 variables o menos, se añaden 5) la comprobación por tabla de verdad (con un contraejemplo si es inválido) y 6) si ambos métodos coinciden.</p>
           <ul>
-          <li><strong>Premisas / Conclusión</strong>: al cambiarlas cambia el conjunto de cláusulas y si se llega a □.</li>
-          <li><strong>Verificar</strong>: ejecuta la tubería; el veredicto de la resolución debe coincidir con la tabla.</li>
+          <li><strong>Premisas / Conclusión</strong>: al cambiarlas cambian las cláusulas de partida, los pares resueltos y el veredicto.</li>
+          <li><strong>Ejemplos</strong>: carga un argumento ya escrito, válido o no, para ver ambos veredictos.</li>
+          <li><strong>Verificar</strong>: reejecuta el cálculo; en la lectura, «coincide con la tabla» muestra ✓ o ✗ (o — si hay más de 10 variables y no se hace la tabla).</li>
           </ul>`,
         montar: montarTuberia,
       },
       {
         titulo: 'Resolución frente a tabla de verdad',
         descripcion: 'En una cadena de implicaciones la resolución es muy superior a la tabla. En el principio del palomar la ventaja se pierde: allí toda refutación crece exponencialmente.',
-        ayuda: String.raw`<p>El eje horizontal es \(n\) y el vertical, el trabajo. Una curva cuenta las filas de la tabla de verdad (\(2^n\)) y otra los pares resueltos hasta derivar □; un círculo vacío indica que se alcanzó el tope sin □.</p>
+        ayuda: String.raw`<p>El eje horizontal es \(n\) y el vertical el trabajo, en escala logarítmica. La línea naranja (con cuadrados) cuenta las filas de la tabla de verdad, \(2^{\text{variables}}\); la línea azul cuenta los pares resueltos hasta derivar □. Cada punto azul es un círculo lleno si se derivó □ y vacío (relleno del fondo) si se alcanzó el tope sin □. Debajo hay una tabla con n, variables, cláusulas, filas, pares resueltos y si llegó a □, y una lectura con los valores del mayor \(n\). Al pasar el puntero se ve el \(n\) más cercano con sus dos cifras.</p>
           <ul>
-          <li><strong>Familia de problemas</strong>: en una cadena de implicaciones la resolución crece mucho menos que la tabla; en el palomar ambas explotan.</li>
+          <li><strong>Familia de problemas</strong>: en la cadena (\(n\) de 2 a 18) la curva azul crece mucho menos que la naranja; en el palomar (\(n\) de 1 a 3, con \(n(n+1)\) variables) ambas crecen con rapidez y la ventaja de la resolución se estrecha.</li>
           </ul>`,
         montar: montarComparacion,
       },

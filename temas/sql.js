@@ -172,32 +172,33 @@
       <p>Su sintaxis engaña: una consulta empieza con <code>SELECT</code>, pero eso es casi lo último que se evalúa. Entender el
       <strong>orden lógico</strong> explica la mayoría de los errores comunes.</p>`,
     parametros: [
-      ['WHERE (Fig. 1)', String.raw`Filtro de filas antes de agrupar: sin filtro, nota mayor o igual a 5,0 o carrera Informática. Cambia cuántas filas entran a los grupos.`],
-      ['GROUP BY (Fig. 1)', String.raw`Atributo por el que se forman los grupos: cada valor distinto da una fila del resultado.`],
-      ['Agregado (Fig. 1)', String.raw`Función calculada sobre cada grupo (por ejemplo, conteo o promedio).`],
-      ['HAVING COUNT(*) >= 2 (Fig. 1)', String.raw`Filtra grupos ya formados, conservando los que tienen al menos dos filas.`],
-      ['ORDER BY agregado DESC (Fig. 1)', String.raw`Ordena el resultado por el valor del agregado, de mayor a menor.`],
-      ['Reproductor (Fig. 1)', String.raw`Recorre las cláusulas en su orden lógico de evaluación, una por paso.`],
-      ['Tipo de junta (Fig. 2)', String.raw`Qué filas de Cursos y Profesores se conservan: solo parejas (INNER), también las sin pareja de un lado o de ambos (LEFT, RIGHT, FULL) o todas las combinaciones (CROSS).`],
+      ['WHERE (Fig. 1)', String.raw`Selector del filtro de filas antes de agrupar: «(sin filtro)», «nota >= 5.0» (valor inicial) o «carrera = 'Informática'». Cambia cuántas filas entran a los grupos. Cualquier cambio reinicia el recorrido.`],
+      ['GROUP BY (Fig. 1)', String.raw`Selector del atributo de agrupación: carrera (inicial), sigla o nombre. Cada valor distinto forma un grupo y da una fila del resultado.`],
+      ['Agregado (Fig. 1)', String.raw`Selector de la función calculada en SELECT por grupo: COUNT(*), AVG(nota) (inicial) o MAX(nota).`],
+      ['HAVING COUNT(*) >= 2 (Fig. 1)', String.raw`Casilla (activa al inicio): después de agrupar, elimina los grupos con menos de dos filas, aunque el agregado elegido sea otro.`],
+      ['ORDER BY agregado DESC (Fig. 1)', String.raw`Casilla (activa al inicio): al final ordena las filas del resultado por el agregado, de mayor a menor.`],
+      ['Reproductor (Fig. 1)', String.raw`Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar: cada paso evalúa una cláusula en su orden lógico (FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY), omitiendo las que no estén activas.`],
+      ['Tipo de junta (Fig. 2)', String.raw`Selector: INNER JOIN, LEFT OUTER JOIN (inicial), RIGHT OUTER JOIN, FULL OUTER JOIN o CROSS JOIN. Decide qué filas de Cursos y Profesores se conservan.`],
     ],
     visualizaciones: [
       {
         titulo: 'Orden lógico de una consulta',
         descripcion: 'Arme la consulta con los controles y avance cláusula por cláusula. Observe la diferencia entre WHERE (filtra filas) y HAVING (filtra grupos).',
-        ayuda: String.raw`<p>La consulta se escribe con las opciones elegidas y se marca la cláusula que se evalúa. Las tablas muestran el estado de los datos tras cada cláusula, hasta el resultado.</p>
+        ayuda: String.raw`<p>Arriba está la consulta escrita; la cláusula que se evalúa se marca con un fondo naranja claro. Debajo se muestra una tabla con el estado de los datos tras cada paso: la junta de Alumnos con Inscripciones, el filtrado, y luego los grupos, cada uno en su propia tabla con un color de la paleta (leyenda «grupo …»); tras SELECT y ORDER BY, la tabla de resultado con la columna de agrupación y el agregado. La lectura da la etapa, las filas y los grupos.</p>
           <ul>
-          <li><strong>WHERE</strong> actúa antes de agrupar y quita filas; <strong>HAVING COUNT(*) &gt;= 2</strong> actúa después y quita grupos completos.</li>
+          <li><strong>WHERE</strong> actúa antes de agrupar y quita filas; <strong>HAVING</strong> actúa después y quita grupos completos.</li>
           <li><strong>GROUP BY</strong> y <strong>Agregado</strong>: definen cuántas filas tiene el resultado y qué valor muestra cada una.</li>
-          <li><strong>ORDER BY agregado DESC</strong>: solo reordena el resultado final.</li>
+          <li><strong>ORDER BY</strong>: solo reordena el resultado final y puede usar el alias del agregado porque se evalúa después de SELECT.</li>
           </ul>`,
         montar: montarConsulta,
       },
       {
         titulo: 'Tipos de JOIN',
         descripcion: 'Cursos y Profesores con filas sin pareja en ambos lados. Cambie el tipo de junta y vea qué filas se conservan y cuáles se rellenan con NULL.',
-        ayuda: String.raw`<p>Se ven las tablas Cursos y Profesores y debajo el resultado de la junta. Se marcan los pares que cumplen \(c.prof = p.id\) y las filas solo de la izquierda o solo de la derecha, rellenadas con NULL.</p>
+        ayuda: String.raw`<p>Arriba están la consulta y las tablas de entrada Cursos (4 filas) y Profesores (4 filas); debajo, el resultado. Azul marca los pares que cumplen \(c.prof = p.id\); naranja, las filas solo de la izquierda (Cursos sin pareja, rellenas con NULL en las columnas de Profesores); aguamarina, las solo de la derecha. En las tablas de entrada se tiñen igual las filas con pareja o sin ella, según el tipo. La lectura da filas, pares, solo izquierda y solo derecha.</p>
           <ul>
-          <li><strong>Tipo de junta</strong>: INNER deja solo los pares; LEFT añade los cursos sin profesor con NULL; RIGHT, los profesores sin curso; FULL ambos; CROSS combina todas las filas.</li>
+          <li><strong>Tipo de junta</strong>: INNER deja solo los pares; LEFT añade los cursos sin profesor; RIGHT, los profesores sin curso; FULL ambos; CROSS combina todas las filas (16), sin condición, y solo resalta en azul las que casualmente cumplen la igualdad.</li>
+          <li>El curso Privacidad tiene prof NULL, así que nunca forma par; Úrsula y Víctor no dictan cursos.</li>
           </ul>`,
         montar: montarJoins,
       },

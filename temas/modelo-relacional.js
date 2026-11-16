@@ -170,30 +170,32 @@
       punteros: una inscripción sabe a qué alumno pertenece porque guarda su rol. Las <strong>claves</strong> y las
       <strong>restricciones de integridad</strong> son las reglas que mantienen ese vínculo coherente.</p>`,
     parametros: [
-      ['Casillas de atributos y botones Probar (Fig. 1)', String.raw`Eligen el conjunto X de atributos que se prueba como clave. Los botones Probar {nombre, ingreso} y Probar {rol, nombre} marcan dos conjuntos de ejemplo: si X distingue todas las filas, es superclave; si además ninguna parte suya basta, es clave candidata.`],
-      ['ON DELETE (Fig. 2)', String.raw`Política que aplica la base cuando se borra un alumno al que otras filas hacen referencia: rechazar el borrado, propagarlo a las inscripciones o poner NULL en la clave foránea. Cambiarla restablece el estado.`],
-      ['Botones de borrar e inscribir (Fig. 2)', String.raw`Cada botón intenta una operación (borrar alumno 106 o 105, inscribir 999 o 105, repetir el alumno 101) para ver qué restricción de integridad la acepta o la rechaza.`],
-      ['Restablecer (Fig. 2)', String.raw`Devuelve las tablas a su contenido inicial.`],
+      ['Casillas de atributos (Fig. 1)', String.raw`Una casilla por atributo de Alumnos (rol, rut, nombre, carrera, ingreso); las marcadas forman el conjunto X que se prueba como clave. Inicialmente solo está marcado nombre.`],
+      ['Probar {nombre, ingreso} y Probar {rol, nombre} (Fig. 1)', String.raw`Cada botón fija X en ese conjunto y marca las casillas. {nombre, ingreso} es una clave candidata (identifica cada fila y ningún atributo solo lo hace); {rol, nombre} es solo superclave, porque rol ya basta.`],
+      ['ON DELETE (Fig. 2)', String.raw`Política cuando se borra un alumno con inscripciones: RESTRICT (rechazar), CASCADE (propagar el borrado a las inscripciones) o SET NULL (poner rol en NULL en ellas). Cambiarla restablece las tablas.`],
+      ['Botones de operaciones (Fig. 2)', String.raw`Borrar alumno 106 (tiene inscripciones), Borrar alumno 105 (no tiene), Inscribir 999 en IIC2413 (alumno inexistente: siempre se rechaza), Insertar alumno 101 otra vez (clave primaria repetida: siempre se rechaza) e Inscribir 105 en IIC2413 (se acepta si el alumno 105 existe y la inscripción es nueva).`],
+      ['Restablecer (Fig. 2)', String.raw`Devuelve Alumnos e Inscripciones a su contenido inicial.`],
     ],
     visualizaciones: [
       {
         titulo: 'Superclaves y claves candidatas',
         descripcion: 'Elija un conjunto de atributos X y vea si distingue todas las filas. Observe que {nombre} falla porque hay dos Ana, y que {rol, nombre} identifica pero no es minimal.',
-        ayuda: String.raw`<p>Tabla de alumnos con las filas resaltadas según su relación con el conjunto X: atributos elegidos X y filas que coinciden en X (si hay filas repetidas en X, X no es superclave). El registro y la lectura dicen si X es superclave, y si es minimal.</p>
+        ayuda: String.raw`<p>Se muestra la tabla Alumnos con seis filas. Las columnas de X se tiñen de azul; las filas que repiten los mismos valores en X se tiñen de rojo. Si hay filas en rojo, X no es superclave. El texto y la lectura dan |X|, cuántos valores distintos tiene X, si es superclave, si es clave candidata y todas las claves candidatas de la instancia.</p>
           <ul>
-          <li><strong>Casillas de atributos</strong>: añadir un atributo hace que menos filas coincidan; {nombre} falla porque hay dos Ana.</li>
-          <li><strong>Probar {rol, nombre}</strong>: identifica a cada fila, pero es superclave y no clave candidata, porque {rol} basta solo.</li>
+          <li><strong>Casillas de atributos</strong>: agregar atributos reduce las coincidencias. {nombre} falla porque hay dos Ana.</li>
+          <li><strong>Probar {rol, nombre}</strong>: identifica a cada fila, pero no es minimal: quitando nombre, {rol} sigue siendo clave.</li>
+          <li>Una instancia puede refutar que X sea clave, pero no demostrarlo.</li>
           </ul>`,
         montar: montarClaves,
       },
       {
         titulo: 'Integridad referencial',
         descripcion: 'Inserte y borre filas bajo las tres políticas de ON DELETE. Pruebe a borrar al alumno 106 con RESTRICT, CASCADE y SET NULL.',
-        ayuda: String.raw`<p>Tablas Alumnos e Inscripciones. Verde (fila insertada), rojo (fila que causa el rechazo) y el marcado de la clave foránea puesta en NULL muestran el efecto de cada operación; el mensaje explica qué regla se aplicó.</p>
+        ayuda: String.raw`<p>Dos tablas: Alumnos (clave primaria rol) e Inscripciones (clave primaria {rol, sigla}, con rol como clave foránea hacia Alumnos). Una fila verde es una inscripción recién insertada; una fila roja es la que causa el rechazo (o las referenciadas por el borrado rechazado); una fila amarilla es una inscripción cuya clave foránea quedó en NULL. Un texto explica qué regla se aplicó y la lectura cuenta alumnos, inscripciones, filas con rol NULL y la política activa.</p>
           <ul>
-          <li><strong>ON DELETE</strong>: con RESTRICT borrar al alumno 106 se rechaza; con CASCADE desaparecen también sus inscripciones; con SET NULL quedan con la clave foránea en NULL.</li>
-          <li><strong>Inscribir 999 en IIC2413</strong>: se rechaza porque no hay alumno 999 (clave foránea).</li>
-          <li><strong>Insertar alumno 101 otra vez</strong>: se rechaza por repetir la clave primaria.</li>
+          <li><strong>ON DELETE</strong>: al borrar al alumno 106, RESTRICT lo rechaza, CASCADE borra también sus inscripciones y SET NULL las deja con rol NULL.</li>
+          <li><strong>Inscribir 999 en IIC2413</strong>: se rechaza porque no existe el alumno 999 (clave foránea); las tablas no cambian.</li>
+          <li><strong>Insertar alumno 101 otra vez</strong>: se rechaza por repetir la clave primaria; la fila 101 existente se marca en rojo.</li>
           </ul>`,
         montar: montarIntegridad,
       },

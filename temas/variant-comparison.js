@@ -429,20 +429,21 @@
       <p>La palabra clave es «de verdad»: con pocos casos, dos grupos siempre se ven distintos por azar. Por eso cada diferencia se acompaña de una prueba
       estadística sencilla que mide cuán sorprendente sería si los grupos fueran iguales.</p>`,
     parametros: [
-      ['Comparar (Fig. 1 y 2)', String.raw`Cómo se forman los dos grupos: cliente nuevo o recurrente, canal web o sucursal, monto alto o bajo, rechazada o aprobada, o dos grupos formados al azar (sin diferencias reales).`],
-      ['Casos (Fig. 1)', String.raw`Tamaño de la muestra. Con más casos se detectan diferencias más pequeñas.`],
-      ['Corrección de Bonferroni (Fig. 1)', String.raw`Exige un valor p más estricto porque se prueban varias actividades a la vez. Reduce los falsos positivos.`],
-      ['Atributo (Fig. 2)', String.raw`Medida que se compara entre los dos grupos, por ejemplo la duración del caso o el puntaje.`],
-      ['Nuevos casos y reproductor (Fig. 1 y 2)', String.raw`Nuevos casos genera otra muestra. En la figura 2 el reproductor baraja las etiquetas de grupo y repite el experimento.`],
+      ['Comparar (Fig. 1 y 2)', String.raw`Cómo se forman los dos grupos: clientes nuevos o recurrentes, canal web o sucursal, monto alto (&gt; 20) o bajo, solicitudes rechazadas o aprobadas, o dos grupos formados al azar (sin diferencias reales). Cada figura tiene su propio selector.`],
+      ['Casos (Fig. 1)', String.raw`De 100 a 1000 solicitudes simuladas. Con más casos se detectan diferencias más pequeñas.`],
+      ['Corrección de Bonferroni (Fig. 1)', String.raw`Divide el umbral 0,05 por las 9 actividades probadas (0,0056) para que una fila sea significativa. Reduce los falsos positivos al probar muchas actividades a la vez.`],
+      ['Atributo (Fig. 2)', String.raw`Medida cuya diferencia de medias se prueba: monto, puntaje, ingreso, carga del analista (%), duración del caso (h) o eventos del caso.`],
+      ['Nuevos casos (Fig. 1 y 2)', String.raw`Genera otra muestra de solicitudes (en la Fig. 2 reinicia el experimento).`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Cada paso baraja las etiquetas de grupo 25 veces y agrega esas diferencias al histograma inferior; hay 80 pasos (2000 repartos) y la velocidad inicial es de 4 pasos por segundo.`],
     ],
     visualizaciones: [
       {
         titulo: 'Actividades y variantes de dos grupos',
         descripcion: 'Compare clientes nuevos con recurrentes: «Verificar identidad» (B) destaca. Luego cambie a «dos grupos formados al azar»: no debería haber diferencias y, si alguna sale resaltada, es un falso positivo. Pulse «Nuevos casos» varias veces y active la corrección de Bonferroni.',
-        ayuda: String.raw`<p>Cada par de barras indica el porcentaje de casos de cada grupo que ejecutan una actividad (A–I). Una fila resaltada es una diferencia significativa según la prueba z de dos proporciones.</p>
+        ayuda: String.raw`<p>Cada actividad (A a I) tiene dos barras: el porcentaje de casos del primer grupo (azul, C.s1) y del segundo (naranja, C.s2) que la ejecutan. Una fila con fondo amarillo (C.s4) es una diferencia significativa según la prueba z de dos proporciones (p &lt; 0,05, o &lt; 0,0056 con Bonferroni). Debajo, una tabla compara las seis variantes más frecuentes (secuencias de letras) en cada grupo, y al pasar el cursor por una fila se ven los conteos, z y p.</p>
           <ul>
           <li><strong>Comparar</strong> con «dos grupos formados al azar»: no debería haber filas resaltadas; si aparece alguna, es un falso positivo.</li>
-          <li><strong>Corrección de Bonferroni</strong>: al activarla desaparecen resaltados débiles que podían deberse al azar.</li>
+          <li><strong>Corrección de Bonferroni</strong>: endurece el umbral y deja resaltadas solo las diferencias más claras.</li>
           <li><strong>Casos</strong>: con más casos, diferencias pequeñas llegan a ser significativas.</li>
           </ul>`,
         montar: montarActividades,
@@ -450,10 +451,10 @@
       {
         titulo: 'Diferencia de un atributo y prueba de permutación',
         descripcion: 'Compare un atributo entre dos grupos y pulse «Hasta el final» para barajar las etiquetas 2000 veces. Pruebe la duración del caso entre canal web y sucursal (se piden más documentos) y luego el puntaje, que no depende del canal. Observe dónde cae la línea de la diferencia real dentro de las diferencias al azar.',
-        ayuda: String.raw`<p>Arriba, la distribución del atributo en cada grupo (% del grupo). Abajo, un histograma de diferencias de medias de repartos al azar, con la diferencia real marcada y los repartos tan extremos como el real destacados.</p>
+        ayuda: String.raw`<p>Arriba, el histograma del atributo en cada grupo (azul C.s1 y naranja C.s2, en % del grupo), con una línea punteada en la media de cada uno. Abajo, un histograma de las diferencias de medias obtenidas al barajar las etiquetas: las barras aguamarina (C.s3) son repartos al menos tan extremos como el real y las grises, los demás. La línea negra marca la diferencia real y la punteada su simétrica.</p>
           <ul>
-          <li><strong>Atributo</strong>: cambia lo que se compara; si la diferencia real cae en la cola del histograma, es poco probable que sea azar.</li>
-          <li><strong>Reproductor</strong>: cada barajado añade una diferencia al histograma; el valor p es la fracción de repartos tan extremos como el real.</li>
+          <li><strong>Atributo</strong>: cambia lo que se compara; si la diferencia real cae en la cola del histograma, es improbable que sea azar.</li>
+          <li><strong>Reproductor</strong>: cada paso suma 25 repartos; el valor p es la fracción de repartos tan extremos como el real. El panel de lectura da también el p de Welch y el tamaño del efecto.</li>
           </ul>`,
         montar: montarPermutacion,
       },

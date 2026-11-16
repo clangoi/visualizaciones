@@ -119,22 +119,24 @@
     intro: String.raw`
       <p>Para construir las tablas de reenvío, los routers deben conocer los caminos de costo mínimo hacia todos los destinos. Hay dos grandes familias. En <strong>estado de enlaces</strong> (OSPF), cada router difunde a toda la red el estado de sus enlaces, todos tienen el mismo mapa completo y cada uno calcula sus caminos con el algoritmo de Dijkstra. En <strong>vector de distancias</strong> (RIP), cada router solo habla con sus vecinos y les cuenta lo que cree saber de todos los destinos; los caminos se construyen por consenso, con Bellman–Ford distribuido.</p>`,
     parametros: [
-      ['Tabla del router (Fig. 1)', String.raw`Qué router se examina. Muestra la distancia y el siguiente salto que ese router conoce hacia cada destino.`],
-      ['Tras converger, el costo B–C sube de 1 a 20 (Fig. 1)', String.raw`Simula que el enlace B–C se encarece. Los routers deben corregir sus tablas, y en el camino pueden anunciar rutas viejas.`],
-      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza ronda por ronda (vector de distancias) o paso por paso (Dijkstra), o reinicia.`],
-      ['Origen (Fig. 2)', String.raw`Nodo desde el que Dijkstra calcula los caminos más cortos al resto de la red.`],
+      ['Tabla del router (Fig. 1)', String.raw`Selector con los routers A a E: el que se examina. Cambia qué tabla se ve y desde qué router se miden las distancias escritas sobre el grafo; no altera el cálculo.`],
+      ['Tras converger, el costo B–C sube de 1 a 20 (Fig. 1)', String.raw`Casilla. Si está marcada, al iniciar el reproductor los routers convergen primero con el costo original (1) y luego el enlace B–C pasa a 20, de modo que debe reconverger. Cambiarla reinicia la simulación.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 1 y 2)', String.raw`Controles del reproductor: una ronda de anuncios entre vecinos por paso (vector de distancias) o un nodo fijado por paso (Dijkstra). «Velocidad» fija los pasos por segundo.`],
+      ['Origen (Fig. 2)', String.raw`Selector A a E: nodo desde el que Dijkstra calcula los caminos más cortos al resto. Cambiarlo reinicia el algoritmo.`],
     ],
     visualizaciones: [
       { titulo: 'Vector de distancias', descripcion: 'Avance ronda a ronda y observe cómo se propaga el conocimiento desde los vecinos. Luego suba el costo de B–C y vea la reconvergencia. Cambie de router para ver su tabla.',
-        ayuda: String.raw`<p>El grafo muestra los routers y el costo de cada enlace; el punto verde marca el router cuya tabla se ve abajo. La tabla lista, por destino, el costo y el siguiente salto, que se actualizan con cada ronda de anuncios entre vecinos.</p>
+        ayuda: String.raw`<p>Grafo de cinco routers (A a E) con el costo de cada enlace escrito sobre él. El router elegido se rellena de verde y sobre cada nodo se lee su distancia desde ese router (∞ si aún no lo conoce). Debajo, la tabla del router: destino, costo y siguiente salto. El registro cuenta cuántas entradas cambiaron en cada ronda.</p>
           <ul>
-          <li><strong>Tabla del router</strong>: cambia de vista, no el cálculo. Compare cómo cada router llega al mismo destino por distinto vecino.</li>
-          <li><strong>Costo B–C sube a 20</strong>: la tabla se recalcula en varias rondas; los costos que dependían de B–C aumentan de a poco hasta estabilizarse.</li>
+          <li><strong>Tabla del router</strong>: muestra la visión de otro router en la misma ronda. Compare por qué vecino llega cada uno al mismo destino.</li>
+          <li><strong>Costo B–C sube a 20</strong>: el enlace B–C empieza en 1; tras el cambio, las rutas que lo usaban se corrigen en varias rondas hasta que «nada cambió».</li>
+          <li><strong>Un paso</strong>: ejecuta una ronda; en la ronda 0 cada router solo conoce a sus vecinos directos.</li>
           </ul>`, montar: montarDV },
       { titulo: 'Estado de enlaces con Dijkstra', descripcion: 'Elija un origen y avance: se fija el nodo más cercano y se relajan sus aristas. Al final aparece el árbol de caminos y la tabla de reenvío.',
-        ayuda: String.raw`<p>El nodo verde es el origen; los amarillos, la frontera con su distancia provisoria; los de tinta, los definitivos; las líneas naranjas forman el árbol de caminos más cortos. La tabla da distancias y estado.</p>
+        ayuda: String.raw`<p>El mismo grafo, con el origen dibujado con un contorno grueso. Los nodos son blancos si no se alcanzaron, amarillos si están en la frontera (distancia provisoria), y negros si ya son definitivos; el origen es amarillo hasta fijarse. Las líneas gruesas naranjas forman el árbol de caminos más cortos. La tabla da distancia, predecesor y siguiente salto (…, mientras el nodo no es definitivo).</p>
           <ul>
-          <li><strong>Origen</strong>: otro origen produce otro árbol y otra tabla de reenvío, porque los caminos más cortos parten de ese nodo.</li>
+          <li><strong>Origen</strong>: otro origen produce otro árbol y otra tabla de reenvío.</li>
+          <li><strong>Un paso</strong>: el primero solo muestra la situación inicial; cada uno siguiente fija el nodo no definitivo más cercano y mejora, si puede, las distancias de sus vecinos.</li>
           </ul>`, montar: montarDijkstra },
     ],
     teoria: String.raw`

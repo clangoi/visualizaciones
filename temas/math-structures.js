@@ -125,26 +125,27 @@
       los racionales son parejas de enteros, y así sucesivamente. No hace falta aceptar nada nuevo: solo se <em>define</em> cada estructura con las anteriores.</p>
       <p>Construir en vez de postular tiene una ventaja: cada propiedad de la nueva estructura se demuestra a partir de las anteriores, y la base de todo es el conjunto vacío.</p>`,
     parametros: [
-      ['Hasta el número (Fig. 1)', String.raw`Hasta qué número natural (2 a 8) se construye la figura. Cada número es el conjunto de los anteriores.`],
-      ['Restablecer (Fig. 2)', String.raw`Devuelve las parejas P y Q a sus valores iniciales.`],
+      ['Hasta el número (Fig. 1)', String.raw`Deslizador de 2 a 8: hasta qué número natural se dibuja la fila de números (de 0 a ese valor). Cada número es el conjunto de los anteriores. Si el número elegido era mayor, pasa a ser el último.`],
+      ['Restablecer (Fig. 2)', String.raw`Devuelve P a (5, 2) y Q a (1, 4) y hace que el siguiente clic vuelva a fijar P.`],
     ],
     visualizaciones: [
       {
         titulo: 'Los naturales como conjuntos',
         descripcion: 'Elija un número y vea que sus elementos son exactamente los números menores. Observe cómo el sucesor agrega al propio número como elemento.',
-        ayuda: String.raw`<p>Cada número k es un conjunto cuyos elementos son los números menores que k. La leyenda distingue los elementos del número elegido (j ∈ k), el sucesor \(S(k) = k \cup \{k\}\) y el número elegido.</p>
+        ayuda: String.raw`<p>Fila de círculos numerados de 0 a n. El número elegido (se cambia con un clic) va en verde; los menores, que son sus elementos, tienen contorno azul y arcos azules que van desde el elegido hasta cada uno de ellos; las flechas naranjas de abajo unen cada número con el siguiente (el sucesor \(S(k)=k\cup\{k\}\)). El registro escribe, hasta el 5, cada número como conjunto (0 = ∅, 1 = {∅}, …) y la lectura da el número elegido, cuántos elementos tiene y cuáles son.</p>
           <ul>
-          <li><strong>Hasta el número</strong>: al subirlo aparecen más números y el sucesor de cada uno agrega a k como elemento.</li>
-          <li>El número elegido tiene exactamente k elementos.</li>
+          <li><strong>Hasta el número</strong>: al subirlo aparecen más números y los siguientes contienen a todos los anteriores como elementos.</li>
+          <li><strong>Clic en un número</strong>: lo elige; el número k tiene exactamente k elementos (0, 1, …, k − 1).</li>
           </ul>`,
         montar: montarVonNeumann,
       },
       {
         titulo: 'Los enteros como parejas',
         descripcion: 'Marque dos parejas y sume sus componentes. Compruebe que parejas distintas de una misma diagonal producen el mismo resultado: la suma está bien definida.',
-        ayuda: String.raw`<p>Cada pareja (a, b) representa el entero a − b, y las parejas con la misma diferencia están en una misma diagonal (misma clase). Se muestran las parejas P y Q y su suma \(P + Q = (a + c, b + d)\).</p>
+        ayuda: String.raw`<p>Rejilla de puntos con a en el eje horizontal y b en el vertical (0 a 8). Una pareja (a, b) representa el entero a − b, así que las parejas de una misma diagonal son el mismo entero; la banda ancha traza la diagonal de cada pareja. P es azul, Q naranja y su suma \(P + Q = (a + c, b + d)\) verde (no se dibuja si cae fuera de la rejilla). La lectura da cada pareja con su entero y cuántas parejas de la clase de P caben en la figura. Al pasar el cursor, un punto indica qué entero representa.</p>
           <ul>
-          <li>Al mover P o Q a otra pareja de su diagonal, la suma cambia de pareja pero cae en la misma clase: la suma está bien definida.</li>
+          <li><strong>Clic en un punto</strong>: el primer clic fija P, el siguiente Q, y así alternando.</li>
+          <li>Si se mueve P o Q a otra pareja de su misma diagonal, la suma cambia de pareja pero cae en la misma diagonal: la suma está bien definida sobre las clases.</li>
           <li><strong>Restablecer</strong>: vuelve a la configuración inicial.</li>
           </ul>`,
         montar: montarEnteros,

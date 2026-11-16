@@ -243,33 +243,38 @@
       <p>Una tecnología nueva, un proceso rediseñado o un cambio de estructura solo generan valor cuando las personas los adoptan. La <strong>gestión del cambio</strong> es el conjunto de prácticas (comunicación, capacitación, patrocinio directivo, apoyo a quienes dudan) que acompañan a la organización desde el estado actual hasta el nuevo. La <strong>innovación organizacional</strong> es el cambio mismo: nuevas formas de trabajar, decidir o relacionarse con los clientes.</p>
       <p>Las personas no adoptan al mismo tiempo. Según Everett Rogers, hay innovadores, adoptantes tempranos, mayoría temprana, mayoría tardía y rezagados, cada uno con distinto <em>umbral</em> de exposición. Las figuras simulan una organización de 200 personas para ver cómo se propaga el cambio y qué intervención mueve a cada grupo.</p>`,
     parametros: [
-      ['Patrocinio de la dirección (Fig. 1)', String.raw`Cuánta presión e impulso aplica la dirección. Más patrocinio hace que más personas adopten el cambio.`],
-      ['Capacitación (baja el umbral) (Fig. 1)', String.raw`Cuánta preparación reciben las personas. Reduce lo que cada una necesita ver en su entorno antes de adoptar.`],
-      ['Personas resistentes (Fig. 1 y 2)', String.raw`Cuántas personas se oponen al cambio. Frenan la curva y pueden dejarla detenida.`],
-      ['Peso del boca a boca global (Fig. 1)', String.raw`Cuánto influye lo que hace toda la organización frente a lo que hace el círculo cercano.`],
-      ['Nuevas personas (Fig. 1 y 2)', String.raw`Genera otra población con otra distribución de umbrales y resistentes.`],
-      ['Intensidad de la capacitación y del patrocinio (Fig. 2)', String.raw`Qué tan fuerte es cada intervención en los cuatro escenarios que se comparan.`],
+      ['Patrocinio de la dirección (Fig. 1)', String.raw`De 0 a 0,30. Exposición que la dirección suma a todas las personas cada semana; cuanto más alto, más personas superan su umbral y adoptan.`],
+      ['Capacitación (baja el umbral) (Fig. 1)', String.raw`De 0 a 0,30. Resta ese valor al umbral de cada persona (la exposición que necesita para adoptar), por lo que adopta antes.`],
+      ['Personas resistentes (Fig. 1 y 2)', String.raw`De 0 a 50 % de la población. A las personas resistentes se les suma 0,3 a su umbral, por lo que adoptan tarde o nunca.`],
+      ['Peso del boca a boca global (Fig. 1)', String.raw`De 0 a 1. Con 0, cada persona solo se contagia de sus seis vecinos cercanos; con 1, solo importa la fracción de toda la organización que ya adoptó.`],
+      ['Nuevas personas (Fig. 1 y 2)', String.raw`Genera otra población aleatoria (otros umbrales, resistentes y vecinos). En la Fig. 1 también borra los campeones elegidos.`],
+      ['Intensidad de la capacitación (Fig. 2)', String.raw`De 0 a 0,30. Valor de capacitación aplicado en los escenarios «Solo capacitación» y «Ambas».`],
+      ['Intensidad del patrocinio (Fig. 2)', String.raw`De 0 a 0,30. Valor de patrocinio aplicado en los escenarios «Solo patrocinio» y «Ambas».`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la simulación semana a semana (52 semanas). Incluye Velocidad, Un paso, Hasta el final y Reiniciar.`],
     ],
     visualizaciones: [
       {
         titulo: 'La difusión del cambio en la organización',
         descripcion: 'Reproduzca las 52 semanas y observe en qué orden adopta cada grupo. Convierta a algunas personas en campeones con clic, o aumente la resistencia, y compruebe que la curva en S se retrasa o se detiene.',
-        ayuda: String.raw`<p>Cada círculo es una persona, coloreada por grupo (innovadores, adoptantes tempranos, mayoría temprana, mayoría tardía, rezagados). Vacío significa que aún no adopta y un anillo grueso, que es campeón del cambio. El segundo panel es la curva de adopción por semana, por grupo y para toda la organización.</p>
+        ayuda: String.raw`<p>Arriba, 200 personas como círculos en una cuadrícula de 20 por 10, coloreadas por grupo de adopción: innovadores (azul), adoptantes tempranos (naranja), mayoría temprana (aguamarina), mayoría tardía (amarillo) y rezagados (violeta). Un círculo vacío es una persona que aún no adopta; uno relleno ya adoptó; un anillo grueso negro marca a un campeón del cambio. Abajo, eje horizontal: semana (0 a 52); eje vertical: adopción (0 a 100 %). Una curva por grupo, con su color, y una negra gruesa para toda la organización.</p>
           <ul>
-          <li><strong>Patrocinio de la dirección</strong> y <strong>Capacitación</strong> altos: más círculos se llenan y la curva en S se adelanta.</li>
-          <li><strong>Personas resistentes</strong> altas: quedan círculos vacíos y la curva se aplana sin llegar al 100 %.</li>
-          <li><strong>Peso del boca a boca global</strong>: define si el cambio se propaga por vecindad o por toda la organización.</li>
+          <li><strong>Patrocinio y Capacitación</strong>: valores altos llenan más círculos y adelantan la curva en forma de S.</li>
+          <li><strong>Personas resistentes</strong>: más resistentes dejan círculos vacíos y la curva se aplana por debajo del 100 %.</li>
+          <li><strong>Peso del boca a boca global</strong>: define si el cambio se propaga sobre todo por vecindad (valor bajo) o según toda la organización (valor alto).</li>
+          <li><strong>Clic en un círculo</strong>: lo convierte (o deja de ser) campeón, que adopta desde la semana 0; al pasar el cursor se ve su grupo y umbral.</li>
+          <li><strong>Nuevas personas</strong>: cambia la población y quita los campeones.</li>
           </ul>`,
         montar: montarDifusion,
       },
       {
         titulo: 'Qué intervención mueve a cada grupo',
         descripcion: 'Compare cuatro escenarios con las mismas personas: sin intervención, con capacitación, con patrocinio y con ambas. Fíjese en las barras por grupo: cada intervención alcanza a segmentos distintos.',
-        ayuda: String.raw`<p>Cuatro escenarios con las mismas personas: sin intervención, con capacitación, con patrocinio y con ambas. Un panel muestra la adopción total por semana y otro, la adopción por grupo.</p>
+        ayuda: String.raw`<p>Arriba, eje horizontal: semana (0 a 52); eje vertical: adopción total. Cuatro curvas, una por escenario con las mismas personas: sin intervención (azul), solo capacitación (naranja), solo patrocinio (aguamarina) y ambas (amarillo). Abajo, barras agrupadas por grupo de adopción con la adopción alcanzada en la semana 52 en cada escenario, con los mismos cuatro colores.</p>
           <ul>
-          <li><strong>Intensidad de la capacitación</strong>: mejora sobre todo a los grupos que necesitan preparación antes de adoptar.</li>
-          <li><strong>Intensidad del patrocinio</strong>: llega a grupos distintos; compare qué barras suben en cada escenario.</li>
-          <li><strong>Personas resistentes</strong> más numerosas: ninguna intervención llega a todos.</li>
+          <li><strong>Intensidad de la capacitación</strong>: modifica las curvas naranja y amarilla; al bajar los umbrales ayuda sobre todo a quienes están a medio camino.</li>
+          <li><strong>Intensidad del patrocinio</strong>: modifica las curvas aguamarina y amarilla.</li>
+          <li><strong>Personas resistentes</strong>: más resistentes bajan las cuatro curvas y las barras de los grupos tardíos; ninguna intervención llega a todos.</li>
+          <li><strong>Nuevas personas</strong>: repite la comparación con otra población.</li>
           </ul>`,
         montar: montarIntervenciones,
       },

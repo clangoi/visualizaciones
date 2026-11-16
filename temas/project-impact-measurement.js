@@ -270,52 +270,57 @@
       <p>Para separar el efecto se usa una <strong>línea base</strong>, un <strong>grupo de control</strong> que no recibió el proyecto y la <strong>diferencia en diferencias</strong>. Luego se pregunta si
       lo medido supera lo que el azar produciría por sí solo. Esta es la base de decir, con honestidad, «el proyecto redujo el tiempo de atención en tantos minutos».</p>`,
     parametros: [
-      ['Efecto real del proyecto (Fig. 1, 2 y 3)', String.raw`Cambio verdadero en el tiempo de atención que produce el proyecto. Es lo que cada método intenta estimar.`],
-      ['Tendencia general sin proyecto (Fig. 1)', String.raw`Cambio que ocurriría igual sin proyecto. Si no es cero, el «antes y después» lo atribuye al proyecto.`],
-      ['Ruido de cada medición (Fig. 1)', String.raw`Variación aleatoria de cada medida. Con más ruido la mejora se confunde con el azar.`],
-      ['Sucursales con el proyecto (Fig. 1)', String.raw`Número de sucursales observadas. Más sucursales hacen más estable el promedio.`],
-      ['Mostrar qué habría pasado sin proyecto (Fig. 1)', String.raw`Dibuja la trayectoria contrafactual para comparar con lo observado.`],
-      ['Nuevas sucursales, Nuevos datos y Nuevo experimento (Fig. 1, 2 y 3)', String.raw`Sortean otra muestra para ver cuánto varía el resultado por azar.`],
-      ['Tendencia común por mes (Fig. 2)', String.raw`Cambio mensual que afecta por igual a ambos grupos. La diferencia en diferencias lo resta.`],
-      ['Diferencia de nivel inicial (Fig. 2)', String.raw`Distancia de partida entre grupo con proyecto y control. No sesga el estimador si es constante.`],
-      ['Tendencia extra del grupo con proyecto (Fig. 2)', String.raw`Cambio propio del grupo con proyecto que no es del proyecto. Rompe las tendencias paralelas y sesga la estimación.`],
-      ['Ruido de los promedios (Fig. 2)', String.raw`Variación aleatoria de los promedios por mes.`],
-      ['Mes de implantación y Tendencias paralelas (Fig. 2)', String.raw`El mes en que empieza el proyecto (se cambia con clic); Tendencias paralelas elimina la tendencia extra.`],
-      ['Variabilidad del cambio por sucursal (Fig. 3)', String.raw`Qué tan distintos son los cambios entre sucursales. Más variabilidad ensancha las dos distribuciones y las superpone.`],
-      ['Sucursales por grupo (Fig. 3)', String.raw`Tamaño de cada grupo. Más sucursales estrechan las distribuciones y dan más potencia.`],
+      ['Efecto real del proyecto (Fig. 1)', String.raw`De −8 a 0 minutos. Cambio verdadero que el proyecto produce en el tiempo de atención de cada sucursal; es lo que el método intenta estimar.`],
+      ['Tendencia general sin proyecto (Fig. 1)', String.raw`De −6 a +6 minutos. Cambio que habría ocurrido de todos modos entre el antes y el después. Si no es cero, el «antes y después» lo atribuye al proyecto.`],
+      ['Ruido de cada medición (Fig. 1)', String.raw`De 0,5 a 6 minutos. Variación aleatoria de cada medida; con más ruido las líneas se dispersan y la mejora se confunde con el azar.`],
+      ['Sucursales con el proyecto (Fig. 1)', String.raw`De 6 a 40 sucursales observadas. Más sucursales dan un promedio más estable y un intervalo más estrecho.`],
+      ['Mostrar qué habría pasado sin proyecto (Fig. 1)', String.raw`Casilla que dibuja u oculta la línea punteada gris: el promedio de antes más solo la tendencia.`],
+      ['Nuevas sucursales (Fig. 1)', String.raw`Sortea otro conjunto de sucursales con los mismos parámetros.`],
+      ['Efecto real del proyecto (Fig. 2)', String.raw`De −8 a 0 minutos. Se suma al grupo con proyecto desde el mes de implantación.`],
+      ['Tendencia común por mes (Fig. 2)', String.raw`De −0,4 a +0,4 minutos por mes. Afecta por igual a ambos grupos; la diferencia en diferencias la elimina.`],
+      ['Diferencia de nivel inicial (Fig. 2)', String.raw`De −8 a +8 minutos. Distancia de partida entre el grupo con proyecto y el de control. Si es constante, no sesga la estimación.`],
+      ['Tendencia extra del grupo con proyecto (Fig. 2)', String.raw`De −0,3 a +0,3 minutos por mes. Cambio propio del grupo con proyecto que no se debe al proyecto; rompe las tendencias paralelas y sesga la estimación.`],
+      ['Ruido de los promedios (Fig. 2)', String.raw`De 0 a 3 minutos. Variación aleatoria de cada promedio mensual.`],
+      ['Mes de implantación (Fig. 2)', String.raw`Del mes 6 al 18. Mes desde el cual rige el proyecto; también se cambia con clic en el gráfico.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otro ruido mensual con los mismos parámetros.`],
+      ['Tendencias paralelas (Fig. 2)', String.raw`Pone en cero la tendencia extra del grupo con proyecto.`],
+      ['Efecto real del proyecto (Fig. 3)', String.raw`De −6 a 0 minutos. Es el efecto con el que se simulan las 600 repeticiones naranjas y el resultado observado.`],
+      ['Variabilidad del cambio por sucursal (Fig. 3)', String.raw`De 1 a 8 minutos. Qué tan distintos son los cambios entre sucursales; más variabilidad ensancha las dos distribuciones y las superpone.`],
+      ['Sucursales por grupo (Fig. 3)', String.raw`De 5 a 60 sucursales en cada grupo. Más sucursales estrechan las distribuciones y dan más potencia al estudio.`],
+      ['Nuevo experimento (Fig. 3)', String.raw`Sortea otro resultado observado; las 600 repeticiones de referencia no cambian.`],
     ],
     visualizaciones: [
       {
         titulo: 'Antes y después con una sola cohorte',
         descripcion: 'Cada línea es una sucursal. Con una tendencia general distinta de cero, el cambio observado no coincide con el efecto real; active la línea «sin proyecto» y compárelas. Suba el ruido y vea cuándo la mejora deja de ser significativa.',
-        ayuda: String.raw`<p>Cada línea es una sucursal y su tiempo de atención antes y después. Se distingue si la sucursal mejora (baja el tiempo) o empeora; el promedio y la trayectoria sin proyecto (solo tendencia) se comparan.</p>
+        ayuda: String.raw`<p>Gráfico de pendientes con dos columnas, ANTES a la izquierda y DESPUÉS a la derecha, y el tiempo por atención (min) en el eje vertical. Cada línea une una sucursal: verde (C.s6) si mejora (baja el tiempo) y roja (C.s8) si empeora. La línea azul gruesa (C.s1) es el promedio. La línea punteada gris une el promedio de antes con ese mismo promedio más solo la tendencia.</p>
           <ul>
-          <li><strong>Efecto real</strong> y <strong>Tendencia general</strong>: el cambio observado es la suma de ambos; con tendencia −2 y efecto −3, el «antes y después» atribuye unos −5 min al proyecto.</li>
-          <li><strong>Ruido de cada medición</strong>: dispersa las líneas hasta que la mejora no se distingue del azar.</li>
-          <li><strong>Mostrar qué habría pasado sin proyecto</strong>: separa el efecto de la tendencia.</li>
+          <li><strong>Efecto real</strong> y <strong>Tendencia general</strong>: el cambio observado es la suma de ambos; con tendencia −2 y efecto −3, el «antes y después» atribuye al proyecto unos −5 min.</li>
+          <li><strong>Ruido de cada medición</strong> y <strong>Sucursales</strong>: más ruido dispersa las líneas; más sucursales estrechan el intervalo al 95 %.</li>
+          <li><strong>Mostrar qué habría pasado sin proyecto</strong>: muestra la distancia entre la línea azul y la punteada, que es el efecto.</li>
           </ul>`,
         montar: montarAntesDespues,
       },
       {
         titulo: 'Grupo de control y diferencia en diferencias',
         descripcion: 'Con un grupo de control la tendencia común se resta. Mueva la implantación con un clic, cambie la diferencia de nivel y la tendencia común, y vea que la estimación sigue acertada; luego dé una tendencia extra al grupo con proyecto para romper el supuesto.',
-        ayuda: String.raw`<p>Eje horizontal en meses y vertical, tiempo de atención (min). Se compara el promedio de las sucursales con proyecto y de control, con la versión punteada de lo que habría pasado sin proyecto y la marca de implantación.</p>
+        ayuda: String.raw`<p>Eje horizontal: mes; vertical: tiempo de atención (min). Línea naranja (C.s2): promedio de sucursales con el proyecto; azul (C.s1): promedio de sucursales de control. La línea naranja punteada es lo que habría pasado sin proyecto (el control desplazado por la diferencia previa). La línea negra vertical y la zona gris a la derecha marcan la implantación.</p>
           <ul>
-          <li><strong>Mes de implantación</strong>: desplaza el momento en que se separa la línea con proyecto.</li>
-          <li><strong>Tendencia común</strong> y <strong>Diferencia de nivel inicial</strong>: mueven ambas líneas sin dañar la estimación.</li>
-          <li><strong>Tendencia extra</strong>: separa la línea del grupo con proyecto y la diferencia en diferencias deja de ser confiable.</li>
-          <li><strong>Tendencias paralelas</strong>: quita esa tendencia extra.</li>
+          <li><strong>Efecto real</strong>: separa la línea naranja de la punteada después de la implantación.</li>
+          <li><strong>Tendencia común</strong> y <strong>Diferencia de nivel inicial</strong>: inclinan o desplazan las líneas sin dañar la diferencia en diferencias.</li>
+          <li><strong>Tendencia extra</strong>: separa progresivamente las dos líneas; la estimación se sesga hasta que se pulsa <strong>Tendencias paralelas</strong>.</li>
+          <li><strong>Mes de implantación</strong>: desplaza la línea negra.</li>
           </ul>`,
         montar: montarDiD,
       },
       {
         titulo: '¿Efecto del proyecto o azar?',
         descripcion: 'Compare su resultado con lo que saldría por azar sin efecto (gris) y con el efecto real (naranja). Pruebe «Nuevo experimento» varias veces: con pocas sucursales el resultado cae a veces dentro del gris aunque el efecto exista.',
-        ayuda: String.raw`<p>Histograma de la diferencia en diferencias (min) con sus repeticiones. Gris: lo que saldría si el proyecto no hiciera nada (600 repeticiones); naranja: lo que saldría con el efecto real. Se marcan su resultado y los límites al 5 %.</p>
+        ayuda: String.raw`<p>Histograma de la diferencia en diferencias (min; eje horizontal) y su número de repeticiones (eje vertical). Barras grises (C.inactivo): 600 repeticiones en las que el proyecto no hace nada; barras naranjas (C.s2): 600 con el efecto real. La línea negra gruesa es su resultado y las dos punteadas grises, los límites al 5 % de la distribución gris.</p>
           <ul>
-          <li><strong>Efecto real</strong>: aleja la distribución naranja de la gris.</li>
-          <li><strong>Variabilidad</strong> y <strong>Sucursales por grupo</strong>: más variabilidad o menos sucursales superponen ambas distribuciones y le restan potencia.</li>
-          <li><strong>Nuevo experimento</strong>: muestra que, con pocas sucursales, su resultado a veces cae dentro del gris.</li>
+          <li><strong>Efecto real</strong>: desplaza la distribución naranja respecto de la gris.</li>
+          <li><strong>Variabilidad</strong> y <strong>Sucursales por grupo</strong>: más variabilidad o menos sucursales ensanchan las dos y las superponen, bajando la potencia.</li>
+          <li><strong>Nuevo experimento</strong>: cambia su resultado; con pocas sucursales a veces cae dentro de la zona gris.</li>
           </ul>`,
         montar: montarAzar,
       },

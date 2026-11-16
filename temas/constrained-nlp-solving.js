@@ -196,28 +196,31 @@
       que sí se saben resolver. La idea más simple es la <strong>penalización</strong>: sumar a \(f\) un castigo proporcional al cuadrado de la violación. Su defecto es que necesita un castigo cada vez más grande.</p>
       <p>El <strong>Lagrangiano aumentado</strong> añade además un término con multiplicadores estimados que se corrigen en cada ronda. Así converge sin que el castigo crezca sin límite y, de paso, entrega los multiplicadores.</p>`,
     parametros: [
-      ['Problema (Fig. 1 y 2)', String.raw`Problema con restricciones h = 0 y g = 0 que se resuelve.`],
-      ['Parámetro de penalización ρ (Fig. 1 y 2)', String.raw`Peso del castigo por violar las restricciones. Mayor ρ acerca la solución a la región factible.`],
-      ['Crecimiento de ρ en la penalización (Fig. 1 y 2)', String.raw`Factor con que ρ aumenta en cada iteración del método de penalización.`],
-      ['Error a mostrar (Fig. 2)', String.raw`Distancia al óptimo o error del multiplicador.`],
+      ['Problema (Fig. 1 y 2)', String.raw`Selector con tres problemas: «Lineal sobre un círculo (h = 0)», «Distancia a un punto sobre un disco (g ≤ 0)» y «Mixto: recta (h = 0) y cota (g ≤ 0)». Cada uno tiene solución exacta conocida.`],
+      ['Parámetro de penalización ρ (Fig. 1)', String.raw`Deslizador de 1 a 40: peso del castigo por violar las restricciones. En la penalización es el valor inicial y luego crece; en el Lagrangiano aumentado se mantiene fijo.`],
+      ['ρ (Fig. 2)', String.raw`Mismo parámetro que en la Fig. 1, de 1 a 40: ρ inicial de la penalización y ρ fijo del Lagrangiano aumentado.`],
+      ['Crecimiento de ρ en la penalización (Fig. 1 y 2)', String.raw`Deslizador de ×1,5 a ×6: factor con que ρ se multiplica en cada iteración del método de penalización (no afecta al Lagrangiano aumentado).`],
+      ['Reproducir o paso (Fig. 1)', String.raw`Control del reproductor que avanza las 8 iteraciones, una por paso, y las revela en la trayectoria.`],
+      ['Error a mostrar (Fig. 2)', String.raw`Selector entre «Distancia al óptimo ‖x − x*‖» y «Error del multiplicador ‖λ − λ*‖».`],
     ],
     visualizaciones: [
       {
         titulo: 'Penalización frente a Lagrangiano aumentado',
         descripcion: 'Avance paso a paso y compare las dos trayectorias hacia el punto verde: la naranja llega desde fuera de la región factible y la azul mejora aunque \\(\\rho\\) no crezca. Pruebe otro problema y otros valores de \\(\\rho\\).',
-        ayuda: String.raw`<p>Restricciones, trayectoria de penalización (con ρ creciente), trayectoria del Lagrangiano aumentado con ρ fijo y óptimo exacto.</p>
+        ayuda: String.raw`<p>Las líneas negras son las restricciones y las grises, niveles de f. El círculo hueco es el punto de partida y el punto verde, el óptimo exacto. La trayectoria naranja es la penalización (ρ crece en cada iteración) y la azul, el Lagrangiano aumentado (ρ fijo); cada punto es el resultado de una iteración, y se revelan hasta la iteración actual. Debajo se leen los errores y los multiplicadores estimados.</p>
           <ul>
-          <li><strong>ρ</strong>: la penalización llega desde fuera de la región factible; el Lagrangiano aumentado mejora aunque ρ no crezca.</li>
+          <li><strong>ρ</strong>: la penalización se acerca al óptimo desde fuera de la región factible; el Lagrangiano aumentado mejora aunque ρ no crezca.</li>
+          <li><strong>Crecimiento de ρ</strong>: cambia solo la trayectoria naranja.</li>
           </ul>`,
         montar: montarTrayectoria,
       },
       {
         titulo: 'Convergencia y estimación de multiplicadores',
         descripcion: 'Observe el error por iteración en escala logarítmica. Cambie \\(\\rho\\) y el crecimiento, y alterne entre el error en \\(x\\) y el error en el multiplicador.',
-        ayuda: String.raw`<p>Eje horizontal: iteración; vertical: error en escala logarítmica, para la penalización y el Lagrangiano aumentado.</p>
+        ayuda: String.raw`<p>El eje horizontal es la iteración (0 a 8) y el vertical, el error en escala logarítmica: naranja para la penalización y azul para el Lagrangiano aumentado. Al pasar el cursor se leen ambos errores y el ρ de la penalización en esa iteración.</p>
           <ul>
-          <li><strong>Error a mostrar</strong>: alterna entre error en x y en el multiplicador.</li>
-          <li><strong>ρ</strong> y <strong>Crecimiento</strong>: un ρ grande acelera la convergencia pero empeora el condicionamiento.</li>
+          <li><strong>Error a mostrar</strong>: alterna entre el error en x y el error en los multiplicadores.</li>
+          <li><strong>ρ</strong> y <strong>Crecimiento</strong>: un ρ grande acelera la convergencia pero empeora el condicionamiento; con crecimiento bajo la penalización avanza más lento.</li>
           </ul>`,
         montar: montarConvergencia,
       },

@@ -120,26 +120,28 @@
       deciden qué par resolver primero y qué pares ignorar.</p>
       <p>Una estrategia buena llega a la cláusula vacía con pocas resolventes. Pero hay una disyuntiva: restringir la búsqueda ahorra trabajo, a costa de perder <em>completitud</em> —la garantía de encontrar \(\Box\) siempre que exista—.</p>`,
     parametros: [
-      ['Problema (Fig. 1 y 2)', String.raw`Qué conjunto de cláusulas se refuta. Cada problema favorece a una estrategia distinta.`],
-      ['Medida (Fig. 1)', String.raw`Qué se cuenta como trabajo en las barras, por ejemplo los pares de cláusulas resueltos.`],
+      ['Problema (Fig. 1 y 2)', String.raw`Selector con cuatro conjuntos de cláusulas insatisfacibles: cadena de implicaciones (Horn), palomar con 3 palomas en 2 nidos, cuatro cláusulas y 3-SAT aleatorio (5 variables, 26 cláusulas). Cada uno favorece a estrategias distintas.`],
+      ['Medida (Fig. 1)', String.raw`Qué se mide en la altura de las barras: pares de cláusulas resueltos, resolventes generadas o cláusulas guardadas al final.`],
+      ['Casillas de estrategias (Fig. 2)', String.raw`Una casilla por estrategia (ancho, cláusulas cortas, conjunto de apoyo, entrada), con su color. Al desmarcar una se oculta su curva y el eje se reajusta a las que quedan.`],
     ],
     visualizaciones: [
       {
         titulo: 'Cuánto trabaja cada estrategia',
         descripcion: 'Compare cuatro estrategias en cuatro problemas, con distintas medidas de trabajo. Busque dónde una estrategia restringida no llega a \\(\\Box\\).',
-        ayuda: String.raw`<p>Cada barra es el trabajo de una estrategia (ancho, cláusulas cortas, conjunto de apoyo, entrada), con el color de la leyenda.</p>
+        ayuda: String.raw`<p>Cuatro barras, una por estrategia, con los colores de la leyenda: azul, ancho (en orden); naranja, preferir cláusulas cortas; aguamarina, conjunto de apoyo; amarillo, resolución de entrada. Sobre cada barra está su valor y, en rojo, «sin □» si esa estrategia no derivó la cláusula vacía. Bajo el gráfico un texto indica cuál llegó a □ con menos pares; al pasar el puntero se ven pares, resolventes, cláusulas y si llegó a □.</p>
           <ul>
-          <li><strong>Problema</strong>: cambia qué estrategia resulta más barata y cuáles no llegan a □.</li>
-          <li><strong>Medida</strong>: cambia la magnitud contada; permite ver si el orden entre estrategias depende de lo que se mida.</li>
+          <li><strong>Problema</strong>: cambia qué estrategia resulta más barata y cuáles quedan «sin □» (las restringidas pueden ser incompletas).</li>
+          <li><strong>Medida</strong>: cambia la magnitud de las barras; permite ver si el orden entre estrategias depende de lo que se cuente.</li>
           </ul>`,
         montar: montarBarras,
       },
       {
         titulo: 'Cómo crece el conjunto de cláusulas',
         descripcion: 'Siga el tamaño del conjunto paso a paso. Apague estrategias para ver las demás y cotejar sus finales.',
-        ayuda: String.raw`<p>El eje horizontal son los pasos (pares resueltos) y el vertical, las cláusulas en el conjunto. Cada curva es una estrategia; un círculo lleno marca que llegó a □.</p>
+        ayuda: String.raw`<p>El eje horizontal son los pasos (pares resueltos) y el vertical, el número de cláusulas del conjunto tras cada paso. Cada curva tiene el color de su estrategia y termina en un círculo; el círculo es verde si la estrategia llegó a □ y vacío (contorno del color de la estrategia) si no. La lectura lista, por estrategia, en cuántos pasos llegó a □ o cuántos hizo sin lograrlo.</p>
           <ul>
-          <li><strong>Problema</strong>: cambia la rapidez de crecimiento de cada curva y cuáles terminan en círculo lleno.</li>
+          <li><strong>Problema</strong>: cambia la rapidez de crecimiento de cada curva y cuáles terminan en círculo verde.</li>
+          <li><strong>Casillas de estrategias</strong>: muestran u ocultan curvas para comparar solo algunas; la lectura sigue listando las cuatro.</li>
           </ul>`,
         montar: montarCurvas,
       },

@@ -335,44 +335,47 @@
       <p>La parte delicada no es mover datos, sino decidir qué hacer con los que no sirven. Un buen ETL rechaza lo inválido, deja registro de por qué y concilia los totales; uno descuidado
       carga errores silenciosos que luego contaminan todos los informes.</p>`,
     parametros: [
-      ['Defectos en las fuentes (Fig. 1 y 3)', String.raw`Proporción de registros con problemas. Con más defectos aparecen más rechazos y más riesgo de errores silenciosos.`],
-      ['Reglas de transformación (Fig. 1)', String.raw`Cada regla (convertir fechas, mapear regiones, normalizar montos, rechazar nulos, eliminar duplicados) se activa o apaga. Sin ellas, algunos defectos se cargan sin aviso.`],
-      ['Nuevos datos (Fig. 1 y 3)', String.raw`Genera otros registros de origen.`],
-      ['Filas nuevas por día (Fig. 2)', String.raw`Altas diarias; engordan tanto la carga completa como la incremental.`],
-      ['Filas antiguas modificadas por día (Fig. 2)', String.raw`Cambios en filas ya cargadas; la carga incremental debe procesarlos.`],
-      ['Borrados en el origen por día (Fig. 2)', String.raw`Filas eliminadas en el origen; la carga incremental no las ve y deja filas fantasma en el almacén.`],
-      ['Velocidad de carga (Fig. 2)', String.raw`Filas por minuto que procesa el ETL.`],
-      ['Ventana nocturna disponible (Fig. 2)', String.raw`Minutos disponibles cada noche; es el límite que la carga no debe superar.`],
-      ['Rechazo tolerado antes de detener la carga (Fig. 3)', String.raw`Porcentaje de rechazos a partir del cual se detiene la carga para revisar las fuentes.`],
+      ['Defectos en las fuentes (Fig. 1 y 3)', String.raw`Multiplicador de la frecuencia de registros defectuosos (fechas inexistentes, regiones fuera de catálogo, montos nulos o negativos, claves repetidas): de 0× a 3× en la Fig. 1 y de 0,5× a 4× en la Fig. 3.`],
+      ['Reglas de transformación (Fig. 1)', String.raw`Cinco casillas: convertir y validar fechas, mapear regiones al catálogo, normalizar montos y unidades, rechazar montos nulos o negativos y eliminar claves duplicadas. Al apagar una, los defectos que ella detectaba pueden cargarse con valores equivocados.`],
+      ['Reproductor y Nuevos datos (Fig. 1)', String.raw`El reproductor procesa un registro por paso; Nuevos datos (Fig. 1 y 3) genera otros registros. Cambiar los defectos reinicia la ejecución.`],
+      ['Filas nuevas por día (Fig. 2)', String.raw`De 50.000 a 1.000.000 de filas que se agregan cada noche. Aumentan el tamaño del almacén, de modo que la carga completa crece cada noche; la incremental crece solo con las filas nuevas.`],
+      ['Filas antiguas modificadas por día (Fig. 2)', String.raw`De 0 % a 2 % de las filas ya cargadas que cambian cada día; la carga incremental debe procesarlas además de las nuevas.`],
+      ['Borrados en el origen por día (Fig. 2)', String.raw`De 0 % a 0,3 % de filas que se eliminan en el origen. La carga incremental no las ve y acumula filas fantasma, que se informan en la lectura y el cursor.`],
+      ['Velocidad de carga (Fig. 2)', String.raw`De 500 a 5.000 filas por segundo que procesa el ETL.`],
+      ['Ventana nocturna disponible (Fig. 2)', String.raw`De 1 a 6 horas; fija la línea roja discontinua que la carga no debe superar.`],
+      ['Rechazo tolerado antes de detener la carga (Fig. 3)', String.raw`De 2 % a 30 %. Si la fracción de filas rechazadas supera este valor, el registro indica que la carga se detiene para revisar las fuentes.`],
     ],
     visualizaciones: [
       {
         titulo: 'ETL registro a registro',
         descripcion: 'Ejecute el ETL y observe cuáles registros se cargan o se rechazan. Apague «Normalizar montos y unidades» o «Eliminar claves duplicadas» y vuelva a mirar: aparecen cargas equivocadas sin aviso.',
-        ayuda: String.raw`<p>Registros por etapa: pendientes, cargados correctos, cargados con error silencioso, rechazados y el registro que se procesa ahora.</p>
+        ayuda: String.raw`<p>Tres filas de cuadros, una por fuente (Tienda, Web, ERP), cada una con su formato de fecha, región y monto. Cada cuadro es un registro: gris pendiente, verde cargado correcto, naranja cargado con error silencioso, rojo rechazado; un borde azul marca el que se procesa y «=» una copia repetida. Debajo, una tabla con los últimos 8 registros y su resultado.</p>
           <ul>
-          <li><strong>Defectos en las fuentes</strong> más altos: aumentan los registros rechazados y los cargados con error.</li>
-          <li>Apagar <strong>Normalizar montos y unidades</strong> o <strong>Eliminar claves duplicadas</strong>: quedan registros con error silencioso en vez de rechazados o corregidos.</li>
+          <li><strong>Defectos en las fuentes</strong>: más defectos, más cuadros rojos y naranjas.</li>
+          <li><strong>Reglas</strong>: al apagar, por ejemplo, la normalización de montos, los registros ya no se corrigen y se cargan mal (naranja).</li>
+          <li>Cursor sobre un cuadro: muestra el registro crudo, su resultado y el valor real.</li>
           </ul>`,
         montar: montarEtl,
       },
       {
         titulo: 'Carga completa frente a incremental',
         descripcion: 'Reproduzca 30 noches y suba las filas nuevas hasta que la carga completa se salga de la ventana; luego aumente los borrados en el origen y vea crecer las filas fantasma del incremental.',
-        ayuda: String.raw`<p>Minutos de carga por noche según el día, para la carga completa y la incremental, con una línea del límite de la ventana nocturna.</p>
+        ayuda: String.raw`<p>Líneas de minutos de carga por noche a lo largo de 30 días: naranja (C.s2) la carga completa de todas las filas, azul (C.s1) la incremental, y una línea roja discontinua (C.s8) con el límite de la ventana. Un marcador rojo señala la primera noche en que la completa no cabe. Las filas fantasma no se dibujan; se leen en la lectura y el cursor.</p>
           <ul>
-          <li><strong>Filas nuevas por día</strong> más altas: la carga completa crece hasta salirse de la ventana.</li>
-          <li><strong>Borrados en el origen</strong>: la incremental sigue en la ventana, pero acumula filas fantasma.</li>
+          <li><strong>Filas nuevas por día</strong> y <strong>Velocidad de carga</strong>: la línea naranja sube con las primeras y baja con la segunda.</li>
+          <li><strong>Ventana nocturna</strong>: mueve la línea roja.</li>
+          <li><strong>Borrados en el origen</strong>: no cambian las líneas, pero sí el contador de filas fantasma.</li>
           </ul>`,
         montar: montarCarga,
       },
       {
         titulo: 'Rechazos y auditoría',
         descripcion: 'Suba los defectos de las fuentes y mire qué motivo de rechazo domina y de qué fuente viene. Baje la tolerancia hasta que la carga se detenga y haga clic en una barra para ver ejemplos.',
-        ayuda: String.raw`<p>Barras de rechazos por fuente y por motivo de rechazo; un clic en una barra muestra ejemplos.</p>
+        ayuda: String.raw`<p>Cinco barras horizontales, una por motivo de rechazo (fecha inexistente, región fuera de catálogo, monto nulo, monto negativo, clave duplicada), apiladas por fuente: azul Caja de tiendas, naranja Comercio electrónico, aguamarina ERP de facturación. Al final de cada barra figura el total. Sobre 300 registros con todas las reglas activas.</p>
           <ul>
-          <li><strong>Defectos en las fuentes</strong> más altos: crecen las barras y domina un motivo concreto.</li>
-          <li><strong>Rechazo tolerado</strong> bajo: la carga se detiene cuando el rechazo supera el límite.</li>
+          <li><strong>Defectos en las fuentes</strong>: más defectos alargan las barras.</li>
+          <li><strong>Rechazo tolerado</strong>: cambia solo el mensaje del registro (carga aprobada o detenida).</li>
+          <li><strong>Clic en una barra</strong>: muestra hasta 6 ejemplos de filas rechazadas por ese motivo.</li>
           </ul>`,
         montar: montarAuditoria,
       },

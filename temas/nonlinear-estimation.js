@@ -239,27 +239,32 @@
       <a href="tema.html?id=descenso-gradiente">descenso de gradiente</a> siempre baja, pero lento. <strong>Levenberg-Marquardt</strong>
       interpola entre ambos y es el método estándar.</p>`,
     parametros: [
-      ['Modelo (Fig. 1)', String.raw`La función que se ajusta a los datos y sus parámetros. Cambia la superficie de costo \(S(\theta)\).`],
-      ['Método (Fig. 1)', String.raw`El algoritmo de optimización: Gauss-Newton, Levenberg-Marquardt o descenso de gradiente. Determina cómo avanza el recorrido de θ.`],
-      ['Ruido σ y Nuevos datos (Fig. 1 y 2)', String.raw`Cuánto se dispersan los datos y su regeneración. Con más ruido, el mínimo se desplaza de los parámetros verdaderos.`],
+      ['Modelo (Fig. 1)', String.raw`Selecciona qué función se ajusta: Decaimiento y = a·e^(−b·x) u Oscilación y = sen(ω·x + φ), cada una con sus dos parámetros. Cambia los datos, la superficie de costo \(S(\theta)\) y reinicia el recorrido. También afecta a la Fig. 2.`],
+      ['Método (Fig. 1)', String.raw`El algoritmo de optimización: Gauss-Newton, Levenberg-Marquardt o Descenso de gradiente. Determina cómo avanza el recorrido de θ. Reinicia la animación.`],
+      ['Ruido σ (Fig. 1)', String.raw`Desviación del ruido de los datos (0 a 0,4). Con más ruido, el mínimo del costo se desplaza de los parámetros verdaderos. Regenera los datos y también afecta a la Fig. 2.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Cambia la semilla y regenera los datos con el mismo modelo y ruido.`],
+      ['Reproducir, Un paso, Hasta el final, Reiniciar y Velocidad (Fig. 1)', String.raw`Controlan la animación de las iteraciones: reproducir o pausar, avanzar una iteración, saltar a la última, volver al punto de partida y ajustar la rapidez.`],
+      ['Punto de partida (Fig. 1)', String.raw`Se elige con un clic sobre la superficie de costo; el recorrido de cualquier método parte desde ahí. La Fig. 2 usa el mismo punto.`],
     ],
     visualizaciones: [
       {
         titulo: 'Iteraciones sobre la superficie de costo',
         descripcion: 'A la izquierda, los datos y el modelo actual; a la derecha, el costo para cada par de parámetros y el recorrido del método. Ejecute paso a paso con cada método.',
-        ayuda: String.raw`<p>A la izquierda, los datos, el modelo en la iteración actual y el modelo verdadero. A la derecha, el costo \(S(\theta)\) para cada par de parámetros (más oscuro es mayor, escala logarítmica), el recorrido de θ y los parámetros verdaderos.</p>
+        ayuda: String.raw`<p>A la izquierda (arriba en pantallas angostas), los datos (puntos azules, C.s1), el modelo en la iteración actual (curva naranja, C.s2) y el modelo verdadero (curva gris punteada). A la derecha, la superficie de costo \(S(\theta)\) para cada par de parámetros, en escala de azules (más oscuro es mayor, escala logarítmica), con el recorrido de θ en amarillo (C.s4) y los parámetros verdaderos como punto verde (C.s6). Debajo, un registro de la iteración con θ y el costo (y λ en Levenberg-Marquardt).</p>
           <ul>
-          <li><strong>Método</strong>: cambia la trayectoria: Gauss-Newton y Levenberg-Marquardt dan pasos grandes; el gradiente sigue la pendiente con pasos pequeños.</li>
+          <li><strong>Método</strong>: cambia la trayectoria. Gauss-Newton y Levenberg-Marquardt usan la curvatura y dan pasos grandes; el gradiente sigue la pendiente con pasos pequeños.</li>
           <li><strong>Ruido σ</strong>: el mínimo del costo se separa del punto de parámetros verdaderos.</li>
+          <li>Pasar el cursor sobre la superficie muestra los valores de los parámetros y el costo; un clic fija allí el punto de partida.</li>
           </ul>`,
         montar: montarIteraciones,
       },
       {
         titulo: 'Velocidad de convergencia',
         descripcion: 'Cuánto falta para el mínimo en cada iteración. Gauss-Newton y Levenberg-Marquardt convergen casi cuadráticamente cerca de la solución; el gradiente, linealmente.',
-        ayuda: String.raw`<p>Eje X: iteración; eje Y: \(S(\theta)-S_{\min}\), lo que falta para el mínimo, una curva por método.</p>
+        ayuda: String.raw`<p>Eje X: iteración (0 a 60); eje Y: \(S(\theta)-S_{\min}\) en escala logarítmica, es decir, el costo menos el menor costo hallado por cualquiera de los métodos. Una curva por método: azul Gauss-Newton, naranja Levenberg-Marquardt y aguamarina descenso de gradiente. El panel de lecturas indica en cuántas iteraciones converge cada método (o si diverge o se detiene).</p>
           <ul>
-          <li>Las curvas usan el modelo y datos de la figura 1: cambiarlos allí modifica la rapidez con que cada método baja.</li>
+          <li>Las curvas usan el modelo, los datos y el punto de partida de la Fig. 1: cambiarlos allí modifica la rapidez con que cada método baja.</li>
+          <li>Pasar el cursor sobre una iteración muestra el costo de cada método en ella.</li>
           </ul>`,
         montar: montarConvergencia,
       },

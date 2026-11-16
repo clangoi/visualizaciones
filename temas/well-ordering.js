@@ -146,27 +146,28 @@
       <p>Es obvio solo para los naturales. En los enteros hay subconjuntos que bajan para siempre, y en los racionales positivos también. Esa propiedad especial es la que
       garantiza que los algoritmos con una «medida que decrece» terminan, y es equivalente a la inducción.</p>`,
     parametros: [
-      ['Subconjunto (Fig. 1)', String.raw`Qué subconjunto de un universo (ℕ, ℤ o racionales) se examina, incluido el vacío. De él depende si existe un mínimo.`],
-      ['Proceso (Fig. 2)', String.raw`Cuál proceso se ejecuta (por ejemplo Euclides o Collatz) y, con él, qué medida se vigila.`],
-      ['n (o a) y b (solo Euclides) (Fig. 2)', String.raw`Valores iniciales del proceso. b solo se usa en el algoritmo de Euclides.`],
+      ['Subconjunto (Fig. 1)', String.raw`Nueve opciones: en ℕ, los pares mayores que 10, los múltiplos de 7, los n con n² &gt; 200, los primos mayores que 20 y el conjunto vacío; en ℤ, los negativos, los x ≥ −5 y los x con x² &lt; 30; y en los racionales, el intervalo (0, 1]. De cada uno depende si existe un mínimo.`],
+      ['Proceso (Fig. 2)', String.raw`Cinco procesos: Euclides (a, b) → (b, a mod b) con medida b; n → ⌊n/2⌋; n → n − 3 mientras n ≥ 3; Collatz (par → n/2, impar → 3n + 1); y x → x/2 en los racionales positivos. La medida es lo que se grafica en cada paso.`],
+      ['n (o a) y b (solo Euclides) (Fig. 2)', String.raw`Cajas numéricas: n (o a) de 1 a 999 y b de 0 a 999. En Euclides n es a y b es el segundo número; en los otros procesos solo cuenta n, y en el de racionales ninguno (siempre parte de 1).`],
     ],
     visualizaciones: [
       {
         titulo: 'El mínimo de un subconjunto',
         descripcion: 'Cambie de subconjunto y de universo: en ℕ siempre aparece un mínimo (salvo en el vacío); en ℤ y en los racionales hay subconjuntos que no lo tienen.',
-        ayuda: String.raw`<p>Cada punto es un elemento del subconjunto; el mínimo se marca aparte y una cadena descendente sin fin aparece como señal de que no hay mínimo.</p>
+        ayuda: String.raw`<p>Para los subconjuntos de ℕ o ℤ hay una tira de casillas numeradas (0 a 29 en ℕ, −15 a 14 en ℤ): las azules pertenecen al subconjunto, las grises no, y la verde es el mínimo (rotulado debajo). Para ℤ sin mínimo, una flecha roja a la izquierda indica la cadena descendente sin fin. Para el intervalo (0, 1] se dibuja un segmento azul con 1, 1/2, 1/4, … y flechas rojas que bajan sin llegar a 0. El registro explica si hay mínimo y la lectura da universo, si tiene mínimo y cuál.</p>
           <ul>
-          <li><strong>Subconjunto</strong>: en ℕ todo subconjunto no vacío muestra un mínimo; en ℤ o en los racionales algunos tienen una cadena que baja sin fin.</li>
+          <li><strong>Subconjunto</strong>: todos los subconjuntos no vacíos de ℕ muestran una casilla verde; los negativos de ℤ y el intervalo racional no tienen mínimo; con el conjunto vacío no hay casillas azules ni mínimo.</li>
+          <li>Con un cota inferior en ℤ (x ≥ −5, x² &lt; 30) sí aparece el mínimo (−5).</li>
           </ul>`,
         montar: montarMinimo,
       },
       {
         titulo: 'Cadenas descendentes y terminación',
         descripcion: 'Si una medida natural baja en cada paso, el proceso termina. Pruebe Euclides con distintos \\(a, b\\) y compare con Collatz, que no garantiza descenso.',
-        ayuda: String.raw`<p>Eje horizontal: paso; eje vertical: medida del proceso. Cada tramo se colorea según la medida baje o suba respecto del paso anterior.</p>
+        ayuda: String.raw`<p>Gráfico de barras: eje horizontal, el paso; eje vertical, la medida del proceso. Cada barra es la medida en ese paso; es negra si bajó respecto del paso anterior y roja si subió o se mantuvo (la primera siempre es negra, y en la opción de racionales todas lo son). Al pasar el cursor aparece el paso y la medida. La lectura da los pasos, el valor final, si la medida sube alguna vez y si el proceso termina (se corta a los 60 pasos).</p>
           <ul>
-          <li><strong>Proceso</strong>: Euclides baja siempre y por eso termina; Collatz puede subir, así que la medida no garantiza el fin.</li>
-          <li><strong>n (o a)</strong> y <strong>b</strong>: cambian la longitud y la forma de la trayectoria.</li>
+          <li><strong>Proceso</strong>: Euclides, ⌊n/2⌋ y n − 3 bajan siempre y terminan; Collatz tiene barras rojas cuando sube; en los racionales la medida baja siempre pero nunca termina.</li>
+          <li><strong>n (o a)</strong> y <strong>b</strong>: cambian el punto de partida y por tanto la longitud y forma de la trayectoria; b solo interviene en Euclides.</li>
           </ul>`,
         montar: montarDescenso,
       },

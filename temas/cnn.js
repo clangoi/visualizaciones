@@ -241,35 +241,36 @@
       capas, cada unidad «ve» una zona cada vez mayor de la imagen —su <strong>campo receptivo</strong>— y responde a patrones cada vez
       más complejos: bordes, después texturas, después partes de objetos.</p>`,
     parametros: [
-      ['Imagen de entrada (Fig. 1)', String.raw`La imagen de 4 posibles (siete, cruz, anillo, escalera) sobre la que se aplica el filtro.`],
-      ['Filtro (núcleo 3×3) (Fig. 1)', String.raw`Los nueve pesos que se multiplican con cada ventana de la imagen. Cada filtro responde a un patrón distinto (bordes, líneas, etc.).`],
-      ['Sesgo b (Fig. 1)', String.raw`Valor sumado a cada salida antes de la ReLU. Subirlo deja pasar más respuestas; bajarlo anula más.`],
-      ['Velocidad y reproductor (Fig. 1)', String.raw`Controla cuántas posiciones de la ventana se recorren por segundo y permite pausar, avanzar o reiniciar.`],
-      ['Capas convolucionales (Fig. 2)', String.raw`Cuántas convoluciones se encadenan. Cada una amplía la zona de la entrada de la que depende una unidad.`],
-      ['Tamaño del filtro (Fig. 2)', String.raw`Lado del núcleo de cada convolución: filtros mayores abarcan más píxeles por capa.`],
-      ['max pooling 2×2 después de cada 2 capas (Fig. 2)', String.raw`Agrega un resumen por bloques que reduce el mapa y hace crecer más rápido el campo receptivo.`],
-      ['convolución dilatada (×2 por capa) (Fig. 2)', String.raw`Separa los puntos del filtro con huecos que se duplican por capa, ampliando el campo sin más parámetros.`],
+      ['Imagen de entrada (Fig. 1)', String.raw`Selector con cuatro imágenes de 24×24 píxeles: un siete, una cruz, un anillo y una escalera. Cambiarla reinicia el recorrido.`],
+      ['Filtro (núcleo 3×3) (Fig. 1)', String.raw`Selector con cinco núcleos: borde vertical (Sobel x), borde horizontal (Sobel y), diagonal, promedio 3×3 y realce (laplaciano). Son los nueve pesos que se multiplican con cada ventana de 3×3 píxeles. Reinicia el recorrido.`],
+      ['Sesgo b (Fig. 1)', String.raw`Deslizador de −2,0 a 2,0. Se suma a cada salida antes de la ReLU: subirlo hace positivas más respuestas; bajarlo hace que la ReLU anule más. Reinicia el recorrido.`],
+      ['Reproductor (Fig. 1)', String.raw`Control con cinco partes: Velocidad (deslizador de posiciones por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Cada paso calcula una posición de la ventana, de izquierda a derecha y de arriba abajo; la figura parte mostrando el mapa ya completo.`],
+      ['Capas convolucionales (Fig. 2)', String.raw`Deslizador de 1 a 6: cuántas convoluciones se encadenan. Cada una amplía la zona de la entrada de la que depende una unidad.`],
+      ['Tamaño del filtro (Fig. 2)', String.raw`Selector 3 o 5: lado del núcleo de cada convolución. Un filtro mayor abarca más posiciones de la capa anterior.`],
+      ['max pooling 2×2 después de cada 2 capas (Fig. 2)', String.raw`Casilla. Activada, tras la segunda, cuarta y sexta convolución se inserta una capa de pooling (ventana 2, paso 2) que reduce a la mitad el número de unidades y hace crecer más rápido el campo receptivo.`],
+      ['convolución dilatada (×2 por capa) (Fig. 2)', String.raw`Casilla. Activada, la capa l usa una separación de 2^(l−1) entre los puntos del filtro (1, 2, 4, …): el campo crece más sin agregar parámetros.`],
     ],
     visualizaciones: [
       {
         titulo: 'Convolución, ReLU y max pooling',
         descripcion: 'Un filtro 3×3 recorre la imagen y produce un mapa de características; la ReLU se queda con la parte positiva y el pooling resume cada bloque 2×2 en su máximo.',
-        ayuda: String.raw`<p>Se ven la imagen, el mapa de características y el resultado tras ReLU y pooling. La ventana 3×3 y la salida que produce se marcan sobre la imagen y el mapa; las respuestas positivas y negativas (que la ReLU anula) tienen colores distintos, y el máximo elegido por el pooling se resalta.</p>
+        ayuda: String.raw`<p>Cuatro paneles en fila: la entrada (24×24), la convolución (22×22), la ReLU (22×22) y el max pooling 2×2 (11×11). En los tres últimos, el azul (C.s1) marca respuestas positivas y el rojo (C.s8) negativas, con intensidad proporcional al valor; las posiciones aún no calculadas se ven neutras. Un cuadro naranja (C.s2) marca la ventana 3×3 actual sobre la entrada y su salida en los mapas de convolución y ReLU; un cuadro violeta (C.s7) marca la celda de pooling correspondiente y el máximo elegido dentro de su bloque 2×2. Bajo la figura, el registro muestra la suma exacta de la posición actual.</p>
           <ul>
           <li><strong>Imagen de entrada</strong>: cambia el patrón que recorre el filtro y dónde aparecen respuestas.</li>
-          <li><strong>Filtro (núcleo 3×3)</strong>: un filtro responde fuerte donde la imagen coincide con su patrón y da respuestas negativas donde no.</li>
+          <li><strong>Filtro</strong>: un filtro responde fuerte donde la imagen coincide con su patrón y da respuestas negativas donde no; la ReLU solo deja pasar las positivas.</li>
           <li><strong>Sesgo b</strong>: desplaza todas las respuestas; con sesgo negativo la ReLU anula más posiciones.</li>
+          <li><strong>Reproductor</strong>: vuelve a recorrer la imagen posición por posición.</li>
           </ul>`,
         montar: montarCapa,
       },
       {
         titulo: 'El campo receptivo',
         descripcion: 'De qué píxeles de la entrada depende una unidad de cada capa, según el tamaño del filtro, el pooling y la dilatación.',
-        ayuda: String.raw`<p>Cortes de la entrada y de cada capa. Una unidad elegida se marca; sus píxeles de dependencia (campo receptivo) tienen otro color y el resto de unidades, el color de fondo.</p>
+        ayuda: String.raw`<p>Corte de una dimensión de la red sobre una entrada de 40 unidades: cada fila es una capa (entrada abajo, conv 1, conv 2, … arriba; las de pooling con cuadrados). La unidad elegida va en naranja (C.s2), las unidades de las que depende en azul (C.s1, unidas por líneas azules tenues) y las demás en gris (C.inactivo). Al hacer clic en una unidad de cualquier capa se la elige. Las lecturas dan las capas, el campo receptivo de la última capa, el de la unidad elegida y el salto entre unidades vecinas.</p>
           <ul>
-          <li><strong>Capas convolucionales</strong>: más capas, mayor zona marcada en la entrada.</li>
-          <li><strong>Tamaño del filtro</strong>: un filtro mayor agranda el campo receptivo en cada capa.</li>
-          <li><strong>max pooling</strong> y <strong>convolución dilatada</strong>: ambos hacen crecer el campo receptivo mucho más rápido que apilar capas.</li>
+          <li><strong>Capas convolucionales</strong>: más capas, más unidades azules en la entrada.</li>
+          <li><strong>Tamaño del filtro</strong>: con 5 cada unidad se conecta a cinco unidades de la capa anterior en vez de tres.</li>
+          <li><strong>max pooling</strong> y <strong>convolución dilatada</strong>: ambos hacen crecer el campo receptivo mucho más rápido que apilar capas; el pooling además aumenta el salto entre unidades.</li>
           </ul>`,
         montar: montarCampo,
       },

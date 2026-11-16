@@ -239,20 +239,21 @@
       sí, y comunica la decisión. Su debilidad es conocida: si el coordinador cae en el momento equivocado, los participantes quedan
       <strong>bloqueados</strong>.</p>`,
     parametros: [
-      ['Escenario (Fig. 1)', String.raw`Qué falla durante la transacción: nada, un voto negativo, la caída de un participante o la del coordinador (antes de decidir o a mitad del envío). Determina si el resultado es COMMIT, ABORT o bloqueo.`],
-      ['Participantes (Fig. 1)', String.raw`Cantidad de participantes que votan. Con más participantes hay más mensajes y más oportunidades de que alguien vote no o caiga.`],
-      ['Preguntar a otros participantes (Fig. 1)', String.raw`Activa el protocolo de consulta entre participantes cuando falta el coordinador. Si alguno conoce la decisión, los demás pueden salir del bloqueo.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza el protocolo evento por evento y lo reinicia al cambiar de escenario.`],
+      ['Escenario (Fig. 1)', String.raw`«Todos votan sí»; «Un participante vota no» (P2); «Un participante cae antes de votar» (el último, que no recibe PREPARE); «El coordinador cae antes de decidir» (tras recibir todos los votos); «El coordinador cae a mitad del envío» (alcanza a enviar la decisión solo a P1). Determina si el resultado es COMMIT, ABORT o bloqueo.`],
+      ['Participantes (Fig. 1)', String.raw`De 2 a 5 participantes además del coordinador. Cambia el número de filas y de mensajes de cada tipo.`],
+      ['Preguntar a otros participantes (Fig. 1)', String.raw`Si está marcada, un participante que queda en READY sin decisión consulta a los demás vivos (mensaje «¿decisión?»). Si alguno ya la conoce, se la responde y se desbloquea; si ninguno la conoce, sigue bloqueado.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Recorren los eventos del protocolo, uno por paso, a la velocidad elegida (por defecto 1 por segundo). Cambiar escenario, participantes o la casilla reinicia la ejecución.`],
     ],
     visualizaciones: [
       {
         titulo: 'Commit en dos fases con fallas',
         descripcion: 'Recorra cada escenario evento por evento. En «El coordinador cae a mitad del envío», marque «Preguntar a otros participantes»: P1 conoce la decisión y desbloquea al resto. En «El coordinador cae antes de decidir», ni eso alcanza.',
-        ayuda: String.raw`<p>El coordinador y los participantes se conectan con flechas que son mensajes: PREPARE, voto sí, voto no, COMMIT o ABORT y la consulta entre participantes, según la leyenda. Un participante marcado como esperando o bloqueado no puede decidir por sí solo. Debajo se muestra la máquina de estados del coordinador y la del participante.</p>
+        ayuda: String.raw`<p>Arriba, una fila por proceso (el coordinador y P1, P2, …) con el tiempo hacia la derecha. Las flechas son mensajes: azul (C.s1) PREPARE, aguamarina (C.s3) voto sí, rojo (C.s8) voto no o ABORT, verde (C.s6) COMMIT, violeta (C.s7) consulta entre participantes y su respuesta, gris el ack. Cada punto es un cambio de estado rotulado (WAIT, READY, COMMIT, ABORT, CAÍDO); el anillo naranja marca el evento actual. Un mensaje perdido termina en una cruz roja. El tramo grueso amarillo (C.s4) es un participante en READY esperando sin decisión (bloqueado), y la línea punteada gris, un proceso caído. Abajo, las máquinas de estado del coordinador y del participante marcan el estado actual (en el participante, con los números de quienes están en él).</p>
           <ul>
-          <li><strong>Escenario</strong> «El coordinador cae antes de decidir»: los participantes que votaron sí quedan esperando, es decir, bloqueados.</li>
-          <li><strong>Preguntar a otros participantes</strong> con «El coordinador cae a mitad del envío»: quien ya recibió la decisión se la comunica a los demás y se desbloquean.</li>
-          <li><strong>Participantes</strong>: cambia cuántos mensajes de cada tipo se envían.</li>
+          <li><strong>Escenario</strong> «El coordinador cae antes de decidir»: los participantes que votaron sí quedan en READY, bloqueados, y la decisión es «desconocida».</li>
+          <li><strong>Escenario</strong> «El coordinador cae a mitad del envío»: P1 recibe la decisión y los demás quedan bloqueados salvo que se active la consulta, con la que P1 se la comunica.</li>
+          <li><strong>Preguntar a otros participantes</strong> con el coordinador caído antes de decidir: nadie conoce la decisión y el bloqueo persiste.</li>
+          <li><strong>Participantes</strong>: cambia el número de mensajes y de procesos que pueden quedar bloqueados.</li>
           </ul>`,
         montar,
       },

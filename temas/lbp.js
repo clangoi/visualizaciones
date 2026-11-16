@@ -241,30 +241,31 @@
       <p>El histograma de esos códigos sobre una región es un descriptor de textura simple, rápido y robusto a cambios de
       iluminación: sumar una constante o multiplicar la imagen por un factor positivo no cambia ninguna comparación.</p>`,
     parametros: [
-      ['Textura y Ruido σ (Fig. 1)', String.raw`La textura muestreada y el ruido que se le suma. El ruido puede invertir comparaciones entre un vecino y el centro y así cambiar el código.`],
-      ['Muestra de prueba y Otra muestra (Fig. 2)', String.raw`La textura que se quiere clasificar. Cada muestra produce su propio histograma de códigos.`],
-      ['Rotación de la muestra y Ruido σ (Fig. 2)', String.raw`Giro y ruido aplicados a la muestra. El giro cambia los códigos del LBP básico; el ruido altera comparaciones entre vecinos.`],
-      ['Descriptor (Fig. 2)', String.raw`El tipo de LBP del que se hace el histograma; la versión uniforme e invariante a la rotación agrupa códigos equivalentes por giro en 10 clases.`],
+      ['Textura y Ruido σ (Fig. 1)', String.raw`Textura elige entre Rayas, Puntos, Tablero y Granulado; el ruido σ (de 0 a 0,15) se suma a la imagen. El ruido puede invertir la comparación entre un vecino y el centro y así cambiar el código.`],
+      ['Muestra de prueba y Otra muestra (Fig. 2)', String.raw`La textura que se quiere clasificar (Rayas, Puntos, Tablero o Granulado). «Otra muestra» genera una nueva con otra semilla de ruido.`],
+      ['Rotación de la muestra y Ruido σ (Fig. 2)', String.raw`Giro (de 0° a 90°) y ruido (de 0 a 0,20) aplicados a la muestra. El giro cambia los códigos del LBP básico; el ruido altera comparaciones entre vecinos.`],
+      ['Descriptor (Fig. 2)', String.raw`Dos opciones: LBP básico (256 códigos) o LBP uniforme invariante a rotación (10 clases). La segunda agrupa los patrones con a lo más dos transiciones 0-1 según su número de unos (clases 0 a 8) y deja el resto en la clase 9.`],
     ],
     visualizaciones: [
       {
         titulo: 'El código de un píxel',
         descripcion: 'El vecindario 3×3 del píxel elegido, umbralizado por su valor central. Recorra las rayas: los códigos se repiten con la misma periodicidad que la textura.',
-        ayuda: String.raw`<p>Se ve el vecindario 3×3 del píxel elegido: el central \(g_c\), los vecinos con valor mayor o igual (bit 1) y los menores (bit 0). Esos bits forman el código del píxel, que se anota en el registro.</p>
+        ayuda: String.raw`<p>Hay tres paneles: la textura, la imagen LBP (en gris el código de cada píxel, de 0 negro a 255 blanco) y el vecindario 3×3 ampliado del píxel marcado con un cuadro naranja. En el vecindario, el centro \(g_c\) tiene borde naranja (C.s2), los vecinos mayores o iguales (bit 1) borde azul (C.s1) y los menores (bit 0) borde gris (C.inactivo); cada casilla muestra su valor y su número de bit. Debajo aparece el código binario, su valor decimal y las transiciones U.</p>
           <ul>
-          <li><strong>Textura</strong>: define cómo se repiten los códigos al recorrer la imagen (por ejemplo, rayas dan códigos periódicos).</li>
-          <li><strong>Ruido σ</strong>: al subirlo, vecinos cercanos al valor central cambian de bit y los códigos se vuelven irregulares.</li>
+          <li><strong>Textura</strong>: define cómo se repiten los códigos al recorrer la imagen.</li>
+          <li><strong>Ruido σ</strong>: al subirlo, vecinos cercanos al valor central cambian de bit y los códigos se vuelven más irregulares.</li>
+          <li><strong>Elegir el píxel</strong>: pase el cursor o haga clic sobre la textura o la imagen LBP.</li>
           </ul>`,
         montar: montarCodigo,
       },
       {
         titulo: 'Clasificar texturas por su histograma',
         descripcion: 'La muestra se asigna a la referencia con menor distancia χ² entre histogramas. Compare el descriptor básico con el invariante a la rotación.',
-        ayuda: String.raw`<p>Se muestran la muestra y el histograma (eje Y: fracción de píxeles) junto al de la referencia más cercana por distancia \(\chi^2\). La clase asignada se indica, y se marca si es un error de clasificación.</p>
+        ayuda: String.raw`<p>Arriba hay cuatro texturas de referencia sin rotar, cada una con su distancia \(\chi^2\) a la muestra, y a la derecha la muestra (con su ángulo). La referencia más cercana lleva un marco verde (C.s6) si es la clase correcta o rojo (C.s8) si es un error. Abajo, el histograma (eje X: clase riu2 o código LBP; eje Y: fracción de píxeles) compara la muestra (naranja, C.s2) con la referencia asignada (azul, C.s1).</p>
           <ul>
-          <li><strong>Rotación de la muestra</strong> con el descriptor básico: el histograma se desplaza y puede asignarse a una clase equivocada.</li>
-          <li><strong>Descriptor</strong> invariante a la rotación: el histograma casi no cambia al girar la muestra.</li>
-          <li><strong>Ruido σ</strong>: al subirlo, el histograma se aplana y aumentan los errores.</li>
+          <li><strong>Rotación de la muestra</strong>: con el descriptor básico, el histograma cambia y la clase asignada puede ser errónea.</li>
+          <li><strong>Descriptor</strong>: con el uniforme invariante a la rotación, el histograma cambia mucho menos al girar la muestra.</li>
+          <li><strong>Ruido σ</strong>: altera el histograma y puede aumentar los errores.</li>
           </ul>`,
         montar: montarClasificar,
       },

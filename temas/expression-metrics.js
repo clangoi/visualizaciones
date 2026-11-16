@@ -142,29 +142,33 @@
       Se calculan siguiendo la estructura: el valor de un nodo sale de los valores de sus hijos.</p>
       <p>Ese estilo de definición se llama <strong>recursión estructural</strong>. Es seguro —siempre termina porque las partes son más pequeñas que el todo— y es la base de casi todo lo que se hace con árboles sintácticos: evaluar, traducir, simplificar.</p>`,
     parametros: [
-      ['Fórmula y Función (Fig. 1)', String.raw`La fórmula cuyo árbol se recorre y la función (por ejemplo, tamaño o profundidad) que se calcula de hojas a raíz con su ecuación recursiva.`],
-      ['Profundidad máxima (Fig. 2)', String.raw`Altura máxima permitida de las fórmulas aleatorias generadas.`],
-      ['Solo conectivos binarios (sin ¬) (Fig. 2)', String.raw`Si se excluye la negación, cada nodo interno tiene dos hijos y las fórmulas se vuelven más anchas.`],
-      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otra muestra aleatoria de fórmulas.`],
+      ['Fórmula (Fig. 1)', String.raw`Fórmula proposicional cuyo árbol sintáctico se recorre; admite los símbolos de conectivos de los botones del campo. Si tiene un error, el registro lo indica y el árbol anterior se conserva. Al cambiarla, el cálculo se reinicia.`],
+      ['Función (Fig. 1)', String.raw`Cuatro funciones definidas por recursión estructural: profundidad, tamaño (nodos), número de hojas y conectivos binarios. Cambia la ecuación que se aplica en cada nodo y los valores mostrados.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final, Reiniciar (Fig. 1)', String.raw`Controlan el recorrido de hojas a raíz: pasos por segundo, avanzar un nodo, saltar al final o volver al principio.`],
+      ['Profundidad máxima (Fig. 2)', String.raw`Valor entre 2 y 8. Cada una de las 600 fórmulas aleatorias recibe una profundidad objetivo al azar entre 1 y este valor; subirlo extiende los puntos hacia la derecha.`],
+      ['Solo conectivos binarios (sin ¬) (Fig. 2)', String.raw`Si se marca, las fórmulas usan solo ∧, ∨, → y ↔; si no, también ¬ (con doble peso en el sorteo).`],
+      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otras 600 fórmulas aleatorias con una semilla distinta.`],
     ],
     visualizaciones: [
       {
         titulo: 'De las hojas a la raíz',
         descripcion: 'Escriba una fórmula, elija una función y avance paso a paso: cada nodo se calcula con la ecuación recursiva correspondiente a su conectivo.',
-        ayuda: String.raw`<p>Cada nodo del árbol se marca como el que se calcula ahora, ya calculado (con su valor debajo) o pendiente.</p>
+        ayuda: String.raw`<p>El árbol de la fórmula se recorre desde las hojas hacia la raíz. El nodo que se calcula en este paso tiene borde y anillo naranja; los ya calculados tienen borde negro y relleno claro, con su valor escrito debajo; los pendientes son grises. El registro muestra la ecuación aplicada en el último nodo (por ejemplo, \(\mathrm{tam}(A \circ B) = 1 + a + b\)) y debajo se leen la fórmula, la función, cuántos nodos van calculados y el valor en la raíz.</p>
           <ul>
-          <li><strong>Fórmula</strong>: cambia el árbol y los valores.</li>
-          <li><strong>Función</strong>: cambia la ecuación recursiva aplicada en cada nodo según su conectivo.</li>
+          <li><strong>Fórmula</strong>: cambia el árbol y, con él, el orden y los valores.</li>
+          <li><strong>Función</strong>: cambia la ecuación de las hojas (0 o 1), de la negación y de los conectivos binarios.</li>
+          <li><strong>Reproducir, Un paso, Hasta el final, Reiniciar</strong>: avanzan el cálculo un nodo por vez, hasta el final, o lo vuelven a empezar.</li>
           </ul>`,
         montar: montarRecursion,
       },
       {
         titulo: 'Cotas entre profundidad y tamaño',
         descripcion: 'Fórmulas aleatorias dibujadas por (profundidad, tamaño). Quite las negaciones y compruebe que se pegan a la curva superior; con ellas, aparecen cadenas más largas.',
-        ayuda: String.raw`<p>Cada fórmula aleatoria es un punto en (profundidad, tamaño); el área indica cuántas hay. Las cotas son profundidad + 1 ≤ tamaño ≤ \(2^{\text{profundidad}+1} - 1\).</p>
+        ayuda: String.raw`<p>Eje horizontal: profundidad (0 a 8); eje vertical: tamaño en escala logarítmica. Cada burbuja azul es un par (profundidad, tamaño) que aparece entre las 600 fórmulas; su área crece con la cantidad de fórmulas que lo comparten, y al pasar el cursor se ven los valores exactos y el conteo. Las dos curvas grises de trazos son las cotas \(d + 1\) (inferior) y \(2^{d+1} - 1\) (superior). Debajo se leen los pares distintos, la mayor profundidad y el mayor tamaño vistos, y la cota superior para esa profundidad.</p>
           <ul>
-          <li><strong>Profundidad máxima</strong>: amplía el rango horizontal de los puntos.</li>
-          <li><strong>Solo conectivos binarios</strong>: los puntos se acercan a la cota superior, pues no hay cadenas de negaciones.</li>
+          <li><strong>Profundidad máxima</strong>: amplía o reduce el rango horizontal de las burbujas.</li>
+          <li><strong>Solo conectivos binarios</strong>: quita las negaciones; los tamaños se acercan a la cota superior porque ya no hay nodos con un solo hijo.</li>
+          <li><strong>Nuevo muestreo</strong>: cambia las burbujas, pero siempre quedan entre las dos curvas.</li>
           </ul>`,
         montar: montarCotas,
       },

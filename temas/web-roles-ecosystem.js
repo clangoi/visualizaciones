@@ -112,20 +112,23 @@
       —frontend, backend, full stack, DevOps, QA, arquitectura— cuyos límites cambian según el equipo.</p>
       <p>Además, el ecosistema evoluciona muy rápido: lenguajes, protocolos y herramientas aparecen, se consolidan y reemplazan a otras. Entender de dónde viene cada pieza ayuda a decidir qué aprender y qué descartar.</p>`,
     parametros: [
-      ['Roles del equipo (Fig. 1)', String.raw`Las casillas son los perfiles que se incorporan al equipo. Cada rol cubre ciertas capas de la aplicación.`],
-      ['Año (Fig. 2)', String.raw`Un año de la línea de tiempo entre 1991 y 2024; distingue las tecnologías que ya existían de las posteriores.`],
+      ['Casillas de roles: Frontend, Backend, Full Stack, DevOps, QA, Arquitectura (Fig. 1)', String.raw`Cada casilla incorpora o retira un rol del equipo; al abrir la figura están marcados Frontend y Backend. Cada rol cubre un conjunto fijo de capas, de modo que cambiar el equipo cambia qué capas tienen responsable.`],
+      ['Año (Fig. 2)', String.raw`Deslizador de 1991 a 2024 (inicia en 2013). Fija el año de corte: los hitos de ese año o anteriores se consideran ya existentes y los posteriores, aún no.`],
     ],
     visualizaciones: [
       { titulo: 'Roles y capas de una aplicación', descripcion: 'Arme un equipo eligiendo roles y vea qué capas quedan cubiertas y cuáles sin responsable; pase el cursor por una capa para ver qué incluye.',
-        ayuda: String.raw`<p>Cada fila es una capa de la aplicación. Las marcas de colores indican qué roles la cubren (el color es el de la leyenda del rol) y un borde rojo señala una capa sin ningún responsable.</p>
+        ayuda: String.raw`<p>Cada fila es una capa de la aplicación (interfaz y estilos, lógica del cliente, servidor y API, datos, infraestructura y entrega, calidad y pruebas). Los círculos de la derecha son los roles marcados que cubren esa capa, con el color del rol: Frontend azul, Backend naranja, Full Stack violeta, DevOps aguamarina, QA verde y Arquitectura amarillo. Una capa sin ningún rol tiene borde y rótulo rojos («sin responsable»).</p>
           <ul>
-          <li>Al <strong>marcar un rol</strong> aparecen sus marcas en las capas que cubre.</li>
-          <li>Al <strong>desmarcar</strong> un rol, las capas que solo él cubría quedan con borde rojo: sin responsable.</li>
+          <li><strong>Casillas de roles</strong>: marcar un rol agrega sus círculos en las capas que cubre; desmarcarlo los quita y puede dejar capas en rojo.</li>
+          <li><strong>Cursor sobre una fila</strong>: muestra la descripción de la capa y los roles que la cubren.</li>
+          <li><strong>Lectura</strong>: cuenta roles elegidos, capas cubiertas y capas con más de un rol; el texto inferior nombra las capas sin responsable.</li>
           </ul>`, montar: montarCapas },
       { titulo: 'Evolución del ecosistema web', descripcion: 'Mueva el año por la línea de tiempo de 1991 a 2024 y haga clic en los hitos para leer qué aportó cada uno.',
-        ayuda: String.raw`<p>Línea de tiempo de 1991 a 2024 con hitos coloreados por tipo (según la leyenda). Los alcanzados aparecen rellenos y los posteriores, vacíos.</p>
+        ayuda: String.raw`<p>Línea de tiempo horizontal de 1991 a 2024 con marcas de década cada cinco años (1995 a 2020). Cada hito es un círculo en lo alto de una barra vertical de altura variable, con una sigla. Colores: amarillo fundamentos, azul lenguajes, naranja plataformas y herramientas, aguamarina protocolos. Una pequeña marca negra sobre el eje señala el año elegido.</p>
           <ul>
-          <li><strong>Año</strong>: al avanzar se van rellenando hitos; el cursor sobre un hito o un clic muestra qué aportó.</li>
+          <li><strong>Año</strong>: los hitos con año menor o igual al elegido se dibujan rellenos y con barra de color; los posteriores quedan vacíos y en gris.</li>
+          <li><strong>Clic en un hito</strong>: lo resalta y muestra su descripción en el texto inferior; un clic en vacío lo deselecciona. El cursor sobre un hito muestra su año y nombre.</li>
+          <li><strong>Lectura</strong>: año, hitos alcanzados de los 13 y un dato fijo (2009 a 2018 como período de más novedades).</li>
           </ul>`, montar: montarEvolucion },
     ],
     teoria: String.raw`

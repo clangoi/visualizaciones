@@ -101,24 +101,25 @@
       <p>Una red entrega una respuesta, pero no una razón. Cuando decide sobre un crédito, un diagnóstico o una condena, quien la usa necesita poder entender —y quien resulta afectado, poder discutir— por qué se decidió así. La <strong>interpretabilidad</strong> busca modelos que se entiendan por construcción; la <strong>explicabilidad</strong>, métodos que explican a posteriori modelos complejos.</p>
       <p>Hay dos preguntas distintas: <em>global</em> («¿qué variables usa el modelo en general?») y <em>local</em> («¿por qué decidió esto para este caso?»). Y una advertencia: una explicación bonita no es lo mismo que una explicación fiel.</p>`,
     parametros: [
-      ['Imagen (Fig. 1)', String.raw`La imagen que clasifica la red. Cada figura tiene una forma distinta y por tanto otra zona decisiva.`],
-      ['Tamaño del parche que se tapa (Fig. 1)', String.raw`Lado de la región que el método de oclusión borra para medir su efecto. Un parche grande da mapas gruesos; uno pequeño, mapas detallados pero más débiles.`],
-      ['Solicitante (Fig. 2)', String.raw`La persona cuya decisión se explica. Cambia el aporte de cada variable porque cambian sus valores.`],
-      ['Otros datos (Fig. 2)', String.raw`Genera otro conjunto de solicitantes y de modelo para comprobar que la explicación no depende de un caso.`],
+      ['Imagen (Fig. 1)', String.raw`Una de las seis figuras de 12×12 píxeles: cruz, cuadrado, diagonal, anillo, letra T o letra L. La red la clasifica y los mapas se recalculan para ella.`],
+      ['Tamaño del parche que se tapa (Fig. 1)', String.raw`De 1×1 a 5×5. Lado del cuadrado que la oclusión pone en cero para medir cuánto cae la probabilidad de la clase predicha. El valor de cada píxel es el promedio de las caídas de todos los parches que lo cubren: parches grandes dan mapas más borrosos; pequeños, más detallados pero con valores más débiles. No afecta al mapa de gradiente.`],
+      ['Solicitante (Fig. 2)', String.raw`Deslizador de 1 a 20. Elige uno de los solicitantes de los datos y muestra el aporte de cada variable a su puntaje. El modelo y la importancia global no cambian.`],
+      ['Otros datos (Fig. 2)', String.raw`Genera un conjunto nuevo de 600 solicitantes y vuelve a ajustar el modelo; cambian las barras de ambos paneles (el solicitante elegido se conserva por su número).`],
     ],
     visualizaciones: [
       { titulo: 'Dónde mira una CNN', descripcion: 'Compare los mapas de oclusión y de gradiente para cada figura. Cambie el tamaño del parche y vea cómo cambia el mapa.',
-        ayuda: String.raw`<p>Cada mapa marca qué píxeles pesan en la clase predicha: el azul es importante a favor de la clase predicha y el naranja, en contra. Se comparan los mapas de oclusión y de gradiente.</p>
+        ayuda: String.raw`<p>Hay tres mapas de 12×12 y un panel de barras. «Imagen» es la entrada en grises. «Oclusión (caída de probabilidad)» y «gradiente respecto de cada píxel» usan escala divergente: azul (C.s1) donde el píxel favorece a la clase predicha (al taparlo la probabilidad baja; al aumentarlo sube) y naranja donde la perjudica; más intenso, más efecto. Las barras muestran la probabilidad de cada clase: la predicha va en verde y las demás en azul. El registro indica la clase, la confianza y la casilla cuya oclusión más la afecta. Al pasar el cursor sobre un mapa se ve el valor de cada píxel.</p>
           <ul>
-          <li><strong>Imagen</strong>: la zona azul se ubica sobre los trazos que distinguen esa figura.</li>
-          <li><strong>Tamaño del parche</strong>: afecta el mapa de oclusión; con parches mayores, las manchas son más grandes y menos precisas.</li>
+          <li><strong>Imagen</strong>: cambia la imagen y la clase predicha; la zona azul suele ubicarse sobre los trazos que distinguen esa figura.</li>
+          <li><strong>Tamaño del parche</strong>: solo modifica el mapa de oclusión (manchas más grandes cuanto mayor es el parche).</li>
+          <li>El mapa de gradiente se obtiene variando cada píxel en 0,1; ambos mapas muestran dónde «mira» la red, sin probar por qué decide así.</li>
           </ul>`, montar: montarSaliencia },
       { titulo: 'Explicar un modelo de crédito', descripcion: 'Elija solicitantes y mire cuánto aporta cada variable a su decisión; compare con la importancia global. El dato irrelevante debe pesar casi nada.',
-        ayuda: String.raw`<p>A la izquierda, barras con el aporte \(w\cdot x\) de cada variable al solicitante: las azules empujan hacia «aprobar» y las naranjas hacia «rechazar». A la derecha, la importancia global es la caída de exactitud al barajar la columna.</p>
+        ayuda: String.raw`<p>Panel izquierdo, «aporte de cada variable al puntaje» del solicitante elegido: cada barra es \(w\cdot x\) para ingreso, deuda, antigüedad y dato irrelevante, partiendo de una línea central; verde hacia la derecha empuja hacia «aprobar» y rojo hacia la izquierda hacia «rechazar». Panel derecho, «Importancia global (permutación)»: barras azules con la caída de exactitud del modelo al barajar cada columna. El registro da el puntaje, la probabilidad de aprobar y la variable más influyente en ese caso; la lectura añade la exactitud del modelo.</p>
           <ul>
-          <li><strong>Solicitante</strong>: cambian las barras locales, no las globales.</li>
-          <li>La cuarta variable es ruido: su aporte y su importancia global son casi nulos.</li>
-          <li><strong>Otros datos</strong>: renueva ambos paneles.</li>
+          <li><strong>Solicitante</strong>: cambian solo las barras de la izquierda (local); las de la derecha (global) no.</li>
+          <li>La cuarta variable es ruido en los datos: su aporte local y su importancia global son casi nulos.</li>
+          <li><strong>Otros datos</strong>: renueva los datos y el modelo, y por tanto ambos paneles.</li>
           </ul>`, montar: montarTabular },
     ],
     teoria: String.raw`

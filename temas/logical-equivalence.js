@@ -72,28 +72,32 @@
       la <strong>doble negación</strong> o la <strong>contrapositiva</strong> permiten reescribir una fórmula sin cambiar su significado.</p>
       <p>Hay dos maneras de establecerlas: comparar las tablas de verdad, o encadenar leyes conocidas. La primera es mecánica; la segunda es cómo se razona y simplifica a mano.</p>`,
     parametros: [
-      ['Fórmulas y Pares conocidos (Fig. 1)', String.raw`Las dos fórmulas que se comparan; los pares conocidos cargan equivalencias o no equivalencias típicas.`],
-      ['Fórmula y Ley a aplicar (Fig. 2)', String.raw`La fórmula que se transforma y la ley de equivalencia que se usa en cada paso.`],
-      ['Aplicar la ley, Deshacer y Reiniciar (Fig. 2)', String.raw`Aplica la ley, revierte el último paso o vuelve a la fórmula original.`],
+      ['Fórmula A y Fórmula B (Fig. 1)', String.raw`Dos campos con las fórmulas a comparar; el de A tiene botones de símbolos. Entre ambas pueden usar hasta 5 variables distintas. Si hay un error, el registro lo explica.`],
+      ['Pares conocidos (Fig. 1)', String.raw`Selector con diez pares, entre ellos De Morgan, contrapositiva, distributiva y doble negación (equivalentes) y la conversa, la inversa y «¬(p → q) frente a ¬p → ¬q» (no equivalentes). Carga el par en los dos campos.`],
+      ['Fórmula (Fig. 2)', String.raw`Fórmula inicial que se reescribe. Al cambiarla se descarta el historial y se empieza de nuevo.`],
+      ['Ley a aplicar (Fig. 2)', String.raw`Selector con once leyes: doble negación, dos De Morgan, A → B ≡ ¬A ∨ B, contrapositiva, ¬(A → B) ≡ A ∧ ¬B, bicondicional, dos distributivas y dos de cuantificadores (¬∀, ¬∃). Se aplica a la primera subfórmula donde encaja, de arriba hacia abajo.`],
+      ['Aplicar la ley (Fig. 2)', String.raw`Reescribe la fórmula actual con la ley elegida y agrega un paso. Si la ley no encaja en ninguna subfórmula, el registro lo avisa y no cambia nada.`],
+      ['Deshacer (Fig. 2)', String.raw`Elimina el último paso.`],
+      ['Reiniciar (Fig. 2)', String.raw`Vuelve a la fórmula inicial y borra los pasos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Compare dos fórmulas',
         descripcion: 'Elija un par conocido o escriba el suyo y mire en qué filas difieren. Compare la contrapositiva (equivalente) con la conversa (no lo es).',
-        ayuda: String.raw`<p>La tabla compara ambas fórmulas fila por fila y marca en cuáles difieren. Si no difieren en ninguna, son equivalentes.</p>
+        ayuda: String.raw`<p>Una tabla de verdad con las variables de ambas fórmulas y tres columnas: A, B y A ↔ B. Las filas en rojo son valuaciones en que A y B difieren, y son contraejemplos de la equivalencia. El registro da cuántas filas difieren y un ejemplo; la lectura, las variables, las filas, las filas distintas y si A ≡ B.</p>
           <ul>
-          <li><strong>Pares conocidos</strong>: la contrapositiva coincide en todas las filas; la conversa no.</li>
-          <li><strong>Fórmulas</strong>: cualquier cambio puede crear o eliminar filas donde difieren.</li>
+          <li><strong>Pares conocidos</strong>: la contrapositiva no tiene filas rojas; la conversa, sí.</li>
+          <li><strong>Fórmula A y Fórmula B</strong>: cualquier cambio crea o elimina filas rojas; sin ninguna, A ↔ B es una tautología.</li>
           </ul>`,
         montar: montarComparacion,
       },
       {
         titulo: 'Reescriba con leyes',
         descripcion: 'Aplique leyes una por una a una fórmula y vea cómo se transforma, sin que cambie su significado. Pruebe De Morgan, la implicación como disyunción y la doble negación.',
-        ayuda: String.raw`<p>El registro lista la fórmula tras cada ley aplicada; el significado se conserva en todos los pasos.</p>
+        ayuda: String.raw`<p>Una lista numerada de fórmulas: la inicial (paso 0) y la que resulta de cada ley, con el nombre de la ley entre corchetes; el último paso aparece resaltado. La lectura da el número de pasos, si la fórmula actual es equivalente a la inicial (verificado con una tabla de verdad) y el tamaño inicial y actual.</p>
           <ul>
-          <li><strong>Ley a aplicar</strong>: elige la equivalencia (De Morgan, implicación como disyunción, doble negación, etc.) que reescribe una parte de la fórmula.</li>
-          <li><strong>Deshacer</strong> y <strong>Reiniciar</strong>: retroceden en la cadena de transformaciones.</li>
+          <li><strong>Ley a aplicar y Aplicar la ley</strong>: agregan un paso; el significado se conserva, pero el tamaño puede crecer (por ejemplo, al distribuir).</li>
+          <li><strong>Deshacer y Reiniciar</strong>: retroceden un paso o hasta la fórmula inicial.</li>
           </ul>`,
         montar: montarReescritura,
       },

@@ -108,21 +108,24 @@
       <p>Una visualización no está terminada hasta que se comprueba que <strong>funciona para quienes la usan</strong>. Evaluar es medir si las personas logran sus tareas con rapidez, exactitud y comodidad, y detectar dónde se equivocan o se frustran.</p>
       <p>Hay dos grandes caminos: la <em>inspección</em> por expertos con listas de criterios (heurísticas), y el <em>estudio con usuarios</em>, que mide tiempos, errores y opiniones y exige estadística para no sacar conclusiones de la casualidad.</p>`,
     parametros: [
-      ['Mejoras del gráfico (casillas) (Fig. 1)', String.raw`Seis casillas, una por problema del gráfico de barras. Activar cada una corrige ese problema y sube la puntuación heurística.`],
-      ['Personas por diseño (Fig. 2)', String.raw`Tamaño de la muestra por diseño. Con pocas personas, el azar puede ocultar o invertir la diferencia real.`],
-      ['Repetir el estudio (Fig. 2)', String.raw`Simula otro estudio con distintas personas y la misma diferencia verdadera, para ver cuánto varía la conclusión.`],
+      ['Seis casillas de mejora (Fig. 1)', String.raw`Todas parten desmarcadas: «El eje y comienza en cero», «Las barras están ordenadas por valor», «Un solo color, sin arcoíris», «Tiene título y unidades», «Valores rotulados directamente» y «Texto de tamaño legible». Cada una corrige un defecto y suma una heurística satisfecha (de 6).`],
+      ['Personas por diseño (Fig. 2)', String.raw`Deslizador de 4 a 80 (inicia en 12): cuántas personas prueban cada diseño. Al cambiarlo se corre un estudio nuevo; con pocas personas el azar puede ocultar o invertir la diferencia real.`],
+      ['Repetir el estudio (Fig. 2)', String.raw`Botón que simula otro estudio con personas distintas y la misma diferencia verdadera, para ver cuánto varía la conclusión.`],
     ],
     visualizaciones: [
       { titulo: 'Inspección heurística de un gráfico', descripcion: 'Corrija seis problemas de un gráfico de barras y vea cómo cambia la razón de alturas dibujadas frente a la real.',
-        ayuda: String.raw`<p>Un gráfico de barras comparando A y B, con una sola paleta salvo el arcoíris del caso defectuoso, que no codifica nada. La lectura indica la puntuación heurística y la razón entre alturas dibujadas frente a la real.</p>
+        ayuda: String.raw`<p>Gráfico de barras de ventas de seis productos (Café, Té, Pan, Leche, Jugo, Agua), con eje vertical numérico. Mientras no se marque «un solo color», cada barra tiene un color distinto (rojo, naranja, amarillo, aguamarina, azul, violeta) que no codifica nada; al marcarlo, todas pasan a azul. Un eje que no parte de cero exagera las diferencias.</p>
           <ul>
-          <li><strong>Casillas de mejora</strong>: al activarlas, la puntuación sube; las que afectan al eje acercan la razón de alturas dibujadas a la razón real de los valores.</li>
+          <li><strong>Eje en cero</strong>: el eje pasa de comenzar en 60 a comenzar en 0; la lectura compara la razón Té ÷ Café real con la de las alturas dibujadas.</li>
+          <li><strong>Orden, título, rótulos y texto</strong>: ordenan las barras de mayor a menor, agregan el título con unidades, escriben el valor sobre cada barra y agrandan las letras.</li>
+          <li><strong>Cursor sobre una barra</strong>: muestra su producto y valor. El texto inferior enumera las heurísticas pendientes.</li>
           </ul>`, montar: montarHeuristica },
       { titulo: 'Estudio comparativo con usuarios', descripcion: 'Simule un estudio de dos diseños, cambie el tamaño de la muestra y repítalo para ver cuándo la diferencia deja de ser detectable.',
-        ayuda: String.raw`<p>Cada punto es el tiempo de tarea (segundos, eje vertical) de una persona, azul con el diseño A (torta) y naranja con el B (barras). La línea negra es la media con su intervalo de confianza del 95 %.</p>
+        ayuda: String.raw`<p>Eje horizontal con dos columnas, A (torta) y B (barras); eje vertical: tiempo de tarea en segundos (0 a 28). Cada punto semitransparente es una persona (azul con A, naranja con B, dispersos horizontalmente solo para verse). La raya negra horizontal es la media y la barra vertical negra con topes, el intervalo de confianza del 95 %.</p>
           <ul>
-          <li><strong>Personas por diseño</strong>: con más personas los intervalos se estrechan y la diferencia real (A 12 s, B 10 s) se distingue mejor.</li>
-          <li><strong>Repetir el estudio</strong>: con pocas personas, los intervalos se solapan en algunas repeticiones y no se detecta el efecto.</li>
+          <li><strong>Personas por diseño</strong>: más puntos y barras de confianza más cortas; la diferencia verdadera es de 12 s para A y 10 s para B, con desviación de 4 s.</li>
+          <li><strong>Repetir el estudio</strong>: nueva muestra; con pocas personas los intervalos se solapan a veces y la prueba t no resulta significativa.</li>
+          <li><strong>Cursor sobre un punto</strong>: muestra el diseño y el tiempo. La lectura da medias, diferencia, intervalos y d de Cohen; el texto inferior dice si la diferencia es significativa.</li>
           </ul>`, montar: montarComparacion },
     ],
     teoria: String.raw`

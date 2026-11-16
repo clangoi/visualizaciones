@@ -97,22 +97,27 @@
       <p>Una visualización web no es una imagen fija: reacciona. Para eso JavaScript <strong>crea, modifica y elimina elementos</strong> del documento a medida que cambian los datos o actúa la persona.</p>
       <p>La pregunta de diseño es cuánto tocar. Reconstruir todo es simple pero caro; actualizar solo la diferencia exige llevar la cuenta de qué elementos existen. Esa idea es la base de librerías como D3 y React.</p>`,
     parametros: [
-      ['Estrategia (Fig. 1)', String.raw`Reconstruir todo (innerHTML) o actualizar solo lo que cambió. Decide cuántos nodos del DOM se tocan por cada cambio.`],
-      ['Agregar barra, Quitar la primera, Cambiar un valor y Ordenar (Fig. 1)', String.raw`Cuatro modificaciones de los datos. Sirven para comparar el costo de cada estrategia ante un mismo cambio.`],
-      ['Borrar registro (Fig. 2)', String.raw`Vacía la lista de eventos para empezar una observación nueva.`],
+      ['Estrategia (Fig. 1)', String.raw`Selector con dos opciones: «Reconstruir todo (innerHTML)» y «Actualizar solo lo que cambió». Cambiarlo reinicia los contadores de operaciones y vuelve a dibujar las barras.`],
+      ['Agregar barra (Fig. 1)', String.raw`Botón que añade una barra con un valor aleatorio entre 10 y 90.`],
+      ['Quitar la primera (Fig. 1)', String.raw`Botón que elimina la primera barra de la lista.`],
+      ['Cambiar un valor (Fig. 1)', String.raw`Botón que da un valor nuevo, aleatorio, a una barra elegida al azar.`],
+      ['Ordenar (Fig. 1)', String.raw`Botón que ordena las barras de menor a mayor valor.`],
+      ['Borrar registro (Fig. 2)', String.raw`Botón que vacía la lista de eventos mostrada bajo la figura; no cambia la barra seleccionada.`],
     ],
     visualizaciones: [
       { titulo: 'Reconstruir o actualizar solo la diferencia', descripcion: 'Agregue, quite, cambie y ordene barras con cada estrategia y compare el número de operaciones sobre el DOM.',
-        ayuda: String.raw`<p>Se muestra el panel de barras y el código; el contorno naranja marca los nodos que el navegador tuvo que crear o modificar, y la lectura da el número de operaciones.</p>
+        ayuda: String.raw`<p>Un panel con una fila por barra (nombre y barra con su valor; empieza con tres) y, debajo, un recuadro de código con las operaciones del último cambio sobre el DOM. El contorno naranja marca los nodos que el código creó o modificó. Abajo se leen la cantidad de barras, las operaciones del último cambio y las acumuladas desde que se eligió la estrategia.</p>
           <ul>
-          <li><strong>Estrategia</strong> «Reconstruir todo»: cualquier cambio rodea todas las barras de naranja, aunque solo una haya cambiado.</li>
-          <li>Con «Actualizar solo lo que cambió», <strong>Cambiar un valor</strong> marca una barra; <strong>Ordenar</strong> mueve nodos existentes.</li>
+          <li><strong>Estrategia</strong>: con «Reconstruir todo» se vacía el contenedor y se crean todas las filas en cada cambio, así que todas llevan contorno; con «Actualizar solo lo que cambió» solo se marcan las filas nuevas o con valor cambiado, y se eliminan las quitadas.</li>
+          <li><strong>Agregar barra</strong>, <strong>Quitar la primera</strong> y <strong>Cambiar un valor</strong>: modifican los datos; el costo depende de la estrategia.</li>
+          <li><strong>Ordenar</strong>: reordena las filas; en «Actualizar» solo las mueve y el recuadro dice «sin cambios en el DOM», mientras que en «Reconstruir» las crea de nuevo.</li>
           </ul>`, montar: montarActualizar },
       { titulo: 'Del evento al nuevo dibujo', descripcion: 'Pase el cursor y haga clic en las barras; el registro muestra la cadena evento → estado → dibujo.',
-        ayuda: String.raw`<p>Barras azules; la que está bajo el cursor es amarilla (pointermove) y la seleccionada con clic, naranja. Debajo, el registro lista la cadena evento, estado, dibujo.</p>
+        ayuda: String.raw`<p>Gráfico de seis barras verticales (productos) con escala hasta 100: azules, la que está bajo el cursor en amarillo y la seleccionada con clic en naranja. Al pasar el puntero se ve el nombre y el valor. Debajo, una lista con los últimos cinco eventos registrados (pointermove y click) y el cambio de estado que provocan, o «sin eventos todavía».</p>
           <ul>
-          <li>Cada movimiento y clic agrega una línea al registro: el evento cambia el estado y esto provoca un nuevo dibujo.</li>
-          <li><strong>Borrar registro</strong> limpia la lista, no el estado de selección.</li>
+          <li><strong>Mover el cursor</strong> sobre una barra: pone la barra en amarillo y agrega una línea «pointermove → estado.hover».</li>
+          <li><strong>Clic</strong>: selecciona la barra (naranja) y agrega «click → estado.sel»; un clic sobre la ya seleccionada la deselecciona.</li>
+          <li><strong>Borrar registro</strong>: vacía la lista sin tocar el estado de selección.</li>
           </ul>`, montar: montarEventos },
     ],
     teoria: String.raw`

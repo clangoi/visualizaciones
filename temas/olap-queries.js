@@ -270,42 +270,48 @@
       Sus operaciones básicas son agregar o desagregar siguiendo una jerarquía (<em>roll-up</em> y <em>drill-down</em>), recortar el cubo (<em>slice</em> y <em>dice</em>) y rotarlo para mirarlo desde otro eje (<em>pivot</em>).</p>
       <p>Las tres figuras usan el mismo cubo de ventas simuladas, con 24 meses, 3 regiones, 3 productos y 2 canales. Todos los totales se calculan de verdad desde las 336 filas de hechos, de modo que los subtotales siempre suman.</p>`,
     parametros: [
-      ['Medida (Fig. 1 y 3)', String.raw`Magnitud que se agrega, p. ej. ingreso o unidades.`],
-      ['Subtotales por (Fig. 1)', String.raw`Dimensión por la que se divide cada barra, para comprobar que las partes suman el total.`],
-      ['Roll-up y Nuevos datos (Fig. 1)', String.raw`Roll-up sube un nivel de la jerarquía (de mes a trimestre, de trimestre a año); Nuevos datos genera otras cifras.`],
-      ['Filtros de dimensión y Cubo completo (Fig. 2)', String.raw`Fijan una dimensión en uno o dos valores (slice y dice); Cubo completo quita los filtros.`],
-      ['Filas y Columnas (Fig. 3)', String.raw`Dimensiones que forman las filas y las columnas de la tabla dinámica.`],
-      ['Mostrar como % del total (Fig. 3)', String.raw`Cambia los valores absolutos por su peso en el total.`],
-      ['Intercambiar ejes (pivot) (Fig. 3)', String.raw`Cambia filas por columnas sin alterar los datos.`],
+      ['Medida (Fig. 1 y 3)', String.raw`Ingreso, unidades o margen bruto: la magnitud que se suma en cada barra o celda.`],
+      ['Subtotales por (Fig. 1)', String.raw`Ninguna, región, producto o canal. Divide cada barra en segmentos de colores cuya suma es la barra.`],
+      ['Roll-up (subir un nivel) (Fig. 1)', String.raw`Sube un nivel de la jerarquía (mes a trimestre, trimestre a año). El drill-down se hace con clic en una barra (año a trimestres, trimestre a meses).`],
+      ['Nuevos datos (Fig. 1)', String.raw`Genera otras ventas y vuelve al nivel de año.`],
+      ['Región, Producto, Canal y Año (Fig. 2)', String.raw`Cada selector fija una dimensión en «todos» o en un valor (slice si es una sola dimensión fija; dice si hay varias restricciones). También se incluyen o excluyen valores con clic en los rótulos del dibujo; entonces el selector muestra «(varios)».`],
+      ['Cubo completo (Fig. 2)', String.raw`Quita todas las restricciones.`],
+      ['Filas y Columnas (Fig. 3)', String.raw`Dimensión de las filas y de las columnas de la tabla dinámica: región, producto, canal, año o trimestre. No pueden ser iguales.`],
+      ['Mostrar como % del total (Fig. 3)', String.raw`Muestra cada celda y total como porcentaje del total general.`],
+      ['Intercambiar ejes (pivot) (Fig. 3)', String.raw`Intercambia la dimensión de filas con la de columnas.`],
     ],
     visualizaciones: [
       {
         titulo: 'Roll-up y drill-down',
         descripcion: 'Haga clic en un año para bajar a sus trimestres y en un trimestre para bajar a sus meses; con «Roll-up» regresa. Agregue subtotales por región y compruebe que las partes suman la barra.',
-        ayuda: String.raw`<p>Barras de la medida por nivel de la jerarquía de tiempo (año, trimestre, mes). Con subtotales, cada barra se divide por región.</p>
+        ayuda: String.raw`<p>Barras de la medida por nivel de la jerarquía de tiempo: año, luego trimestre, luego mes. Sin subtotales las barras son azules (C.s1); con subtotales cada barra se apila en segmentos de color por región, producto o canal, según la leyenda. El registro muestra la ruta (p. ej. Todos los años › 2024).</p>
           <ul>
-          <li><strong>Roll-up</strong>: agrupa las barras en el nivel superior sin perder el total.</li>
-          <li><strong>Subtotales por</strong>: segmentos cuya suma es la barra completa.</li>
+          <li><strong>Clic en una barra</strong>: drill-down al nivel siguiente.</li>
+          <li><strong>Roll-up</strong>: vuelve al nivel superior con el total conservado.</li>
+          <li><strong>Subtotales por</strong>: los segmentos suman la barra completa.</li>
           </ul>`,
         montar: montarJerarquia,
       },
       {
         titulo: 'Slice y dice',
         descripcion: 'Fije una dimensión en un solo valor (slice) y luego deje dos valores en otra (dice). Haga clic en una región o producto del dibujo para incluirlo o excluirlo y mire cuánto del ingreso total queda.',
-        ayuda: String.raw`<p>Cubo de celdas por dimensión. Las celdas del corte son más oscuras mientras más ingreso tienen; las que quedan fuera del corte se ven aparte.</p>
+        ayuda: String.raw`<p>El cubo de ventas como un panel por canal (2 canales); filas son regiones y columnas productos, con 18 celdas en total. Las celdas dentro del corte se pintan en la escala de azules, más oscura con más ingreso; las que quedan fuera, en gris tenue. La lectura da operación (cubo completo, slice o dice), celdas y filas de hechos, e ingreso del corte.</p>
           <ul>
-          <li><strong>Filtros de dimensión</strong>: dejan menos celdas dentro del corte y el ingreso total del corte baja.</li>
-          <li><strong>Cubo completo</strong>: todas las celdas vuelven a estar dentro y se ve el ingreso total.</li>
+          <li><strong>Región</strong>, <strong>Producto</strong>, <strong>Canal</strong>, <strong>Año</strong>: dejan menos celdas dentro del corte; el año cambia los valores de cada celda.</li>
+          <li><strong>Clic en un rótulo</strong> (canal, producto o región): lo incluye o excluye.</li>
+          <li><strong>Cubo completo</strong>: las 18 celdas vuelven a estar dentro.</li>
           </ul>`,
         montar: montarCorte,
       },
       {
         titulo: 'Tabla dinámica (pivot)',
         descripcion: 'Cambie las dimensiones de filas y columnas, o intercambie los ejes. Pruebe año contra trimestre y active el porcentaje del total: los totales de fila y columna no cambian de lugar, sino de lectura.',
-        ayuda: String.raw`<p>Tabla con una dimensión en filas, otra en columnas, y totales de fila y columna.</p>
+        ayuda: String.raw`<p>Tabla dinámica con una dimensión en filas, otra en columnas, una columna de totales de fila, una fila de totales de columna y el total general en la esquina. El fondo de cada celda es azul más intenso cuanto mayor es su valor; al hacer clic en una celda se enmarca y el registro cuenta los hechos que la forman.</p>
           <ul>
-          <li><strong>Filas</strong> y <strong>Columnas</strong>: eligen qué dimensiones se cruzan.</li>
-          <li><strong>Mostrar como % del total</strong>: las celdas cambian de unidades a proporción; los totales se leen como pesos relativos.</li>
+          <li><strong>Filas</strong> y <strong>Columnas</strong>: eligen qué dimensiones se cruzan; si coinciden, la otra cambia.</li>
+          <li><strong>Medida</strong>: ingreso, unidades o margen bruto.</li>
+          <li><strong>Mostrar como % del total</strong>: valores y totales pasan a porcentaje del total general.</li>
+          <li><strong>Intercambiar ejes</strong>: transpone la tabla.</li>
           </ul>`,
         montar: montarPivot,
       },

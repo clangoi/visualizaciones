@@ -310,48 +310,55 @@
       todo lo que el cliente no valora (esperas, repetición de trabajo, controles redundantes); <strong>Six Sigma</strong> reduce la variabilidad y los defectos con datos; y la <strong>reingeniería</strong> rediseña el proceso desde cero, a menudo apoyada en automatización.</p>
       <p>Aquí se aplican todas al mismo proceso, el pago de reclamos de un seguro, y se calcula el efecto de cada una: cuánto bajan el tiempo de ciclo y los defectos, y cuánto tardan en mostrar resultados.</p>`,
     parametros: [
-      ['Palancas Lean (Fig. 1)', String.raw`Reducción de esperas, eliminar la revisión duplicada, captura única de datos y trabajo estándar. Cada una ataca un tipo de desperdicio distinto; Aplicar todo las combina.`],
-      ['Media del tiempo de respuesta (Fig. 2)', String.raw`Centro de la distribución de tiempos. Alejarla del centro de los límites aumenta los defectos aunque la variabilidad sea pequeña.`],
-      ['Variabilidad (desviación estándar σ) (Fig. 2)', String.raw`Dispersión de los tiempos. Reducirla estrecha la campana y deja menos casos fuera de los límites.`],
-      ['Desplazamiento de largo plazo de 1,5σ (Fig. 2)', String.raw`Supone que la media deriva 1,5σ con el tiempo, como en la convención de Six Sigma. Aumenta los defectos esperados.`],
-      ['Fase DMAIC y botones (Fig. 2)', String.raw`Avanzar fase DMAIC muestra la etapa del método; Nueva muestra y Valores iniciales regeneran los casos o restauran el punto de partida.`],
-      ['Qué medir (Fig. 3)', String.raw`Métrica que se compara entre enfoques (por ejemplo defectos u horas evitadas).`],
-      ['Ciclos PDCA por año (Fig. 3)', String.raw`Cuántas veces al año se repite planificar-hacer-verificar-actuar. Más ciclos suman mejoras pequeñas con más frecuencia.`],
-      ['Reducción de esperas con Lean (Fig. 3)', String.raw`Cuánto recorta Lean las esperas del proceso.`],
-      ['Reducción de defectos con Six Sigma (Fig. 3)', String.raw`Cuánto recorta Six Sigma los defectos del proceso.`],
-      ['Mes de puesta en marcha de la reingeniería (Fig. 3)', String.raw`Cuándo se lanza el rediseño radical. Retrasarlo alarga el periodo en que el proceso empeora antes de mejorar.`],
+      ['Reducción de esperas (flujo continuo) (Fig. 1)', String.raw`Deslizador de 0 a 80 % (inicia en 60 %): cuánto se acortan los tiempos de espera entre actividades en la barra «Con Lean».`],
+      ['Eliminar la revisión duplicada (Fig. 1)', String.raw`Casilla: quita la actividad «Revisión duplicada» (un desperdicio) en la barra «Con Lean».`],
+      ['Captura única de datos (Fig. 1)', String.raw`Casilla: reduce a un cuarto el trabajo de «Digitar datos».`],
+      ['Trabajo estándar (reproceso 7 %) (Fig. 1)', String.raw`Casilla: baja la fracción de casos que vuelven de «Evaluar daño» a «Verificar póliza» de 15 % a 7 %.`],
+      ['Aplicar todo (Fig. 1)', String.raw`Activa las tres casillas y deja las esperas en 60 %.`],
+      ['Media del tiempo de respuesta (Fig. 2)', String.raw`Deslizador de 14 a 34 h (inicia en 28 h). Centro de la distribución; el objetivo es 24 h y la especificación va de 12 a 36 h. Acercarla al objetivo reduce los defectos aunque σ no cambie.`],
+      ['Variabilidad (desviación estándar σ) (Fig. 2)', String.raw`Deslizador de 1 a 8 h (inicia en 4 h). Dispersión de los tiempos: reducirla estrecha la campana y deja menos casos fuera de los límites.`],
+      ['Desplazamiento de largo plazo de 1,5σ (Fig. 2)', String.raw`Casilla: corre la media efectiva 1,5σ alejándola del objetivo de 24 h, como en la convención de Six Sigma. Aumenta los defectos esperados.`],
+      ['Avanzar fase DMAIC, Nueva muestra y Valores iniciales (Fig. 2)', String.raw`Avanzar fase DMAIC recorre Definir, Medir, Analizar, Mejorar y Controlar: Definir restablece 28 h y 4 h, Mejorar reduce σ a la mitad y Controlar centra la media en 24 h. Nueva muestra sortea otros 300 casos. Valores iniciales restablece media y σ.`],
+      ['Qué medir (Fig. 3)', String.raw`Selector: tiempo de ciclo (h), casos con reproceso (%) u horas de espera evitadas acumuladas. Define el eje vertical.`],
+      ['Ciclos PDCA por año (Fig. 3)', String.raw`Deslizador de 1 a 12. Cada ciclo reduce las esperas 7 %, el reproceso 8 % y el trabajo 1 %; más ciclos por año dan más mejoras pequeñas.`],
+      ['Reducción de esperas con Lean (Fig. 3)', String.raw`Deslizador de 20 a 80 %. Recorte de esperas que aplican Lean y Lean Six Sigma desde el mes 3 (junto con eliminar la revisión duplicada y la captura única).`],
+      ['Reducción de defectos con Six Sigma (Fig. 3)', String.raw`Deslizador de 30 a 90 %. Recorte del reproceso que aplican Six Sigma y Lean Six Sigma desde el mes 6.`],
+      ['Mes de puesta en marcha de la reingeniería (Fig. 3)', String.raw`Deslizador del mes 5 al 20. Desde cuatro meses antes, el proceso empeora un 10 %; en ese mes se aplican esperas, trabajo y reproceso mucho menores.`],
     ],
     visualizaciones: [
       {
         titulo: 'Lean: valor agregado frente a espera',
         descripcion: 'Un reclamo pasa más de 19 horas en el sistema para recibir apenas 65 minutos de trabajo que el cliente valora. Elimine la revisión duplicada y reduzca las esperas: observe qué palanca acorta más la barra.',
-        ayuda: String.raw`<p>Eje horizontal: horas desde que llega el reclamo. La barra se divide en trabajo que agrega valor, trabajo necesario sin valor para el cliente, desperdicio (redundancia y reproceso) y espera.</p>
+        ayuda: String.raw`<p>Dos barras horizontales, «Hoy» y «Con Lean», que muestran el recorrido de un reclamo en horas. Cada barra alterna esperas (gris) y actividades, y termina con el reproceso esperado. Colores: azul trabajo que agrega valor, amarillo necesario sin valor para el cliente, rojo desperdicio (revisión duplicada y reproceso). La cifra al final es el tiempo total y el cursor sobre un tramo da su duración.</p>
           <ul>
-          <li><strong>Reducción de esperas</strong>: acorta los tramos de espera.</li>
-          <li><strong>Eliminar la revisión duplicada</strong> y <strong>Captura única de datos</strong>: quitan tramos de desperdicio.</li>
-          <li><strong>Trabajo estándar</strong>: reduce el reproceso del 7 %.</li>
+          <li><strong>Reducción de esperas</strong>: acorta los tramos grises de la barra «Con Lean».</li>
+          <li><strong>Eliminar la revisión duplicada</strong>: quita un tramo rojo.</li>
+          <li><strong>Captura única de datos</strong>: acorta «Digitar datos» (amarillo).</li>
+          <li><strong>Trabajo estándar</strong>: reduce el tramo rojo de reproceso final.</li>
           </ul>`,
         montar: montarLean,
       },
       {
         titulo: 'Six Sigma: variabilidad y defectos',
         descripcion: 'Con la media centrada, reduzca σ y vea cómo desaparecen los defectos y sube el nivel sigma. Pruebe a descentrar la media: con σ pequeña igual hay defectos. Active el desplazamiento de 1,5σ para obtener los 3,4 DPMO de seis sigma.',
-        ayuda: String.raw`<p>Histograma de horas de respuesta (casos por intervalo). Las barras dentro de los límites de especificación se distinguen de los defectos, con la curva normal esperada y los límites trazados.</p>
+        ayuda: String.raw`<p>Histograma de 300 casos simulados con intervalos de 2 h (horas de respuesta en el eje horizontal, número de casos en el vertical). Las barras azules están dentro de la especificación y las rojas son defectos; la curva gris oscuro es la normal esperada. Dos líneas negras marcan los límites LIE (12 h) y LSE (36 h) y una línea punteada gris, el objetivo (24 h). La lectura da Cp, Cpk, nivel sigma, DPMO y rendimiento.</p>
           <ul>
           <li><strong>Media</strong>: al descentrarla aparecen defectos aunque σ sea pequeña.</li>
-          <li><strong>Variabilidad σ</strong>: al reducirla desaparecen defectos y sube el nivel sigma.</li>
-          <li><strong>Desplazamiento de 1,5σ</strong>: la curva se corre y aparecen defectos adicionales.</li>
+          <li><strong>Variabilidad σ</strong>: al reducirla desaparecen barras rojas y sube el nivel sigma.</li>
+          <li><strong>Desplazamiento de 1,5σ</strong>: corre la curva y aparecen defectos adicionales.</li>
+          <li><strong>Avanzar fase DMAIC</strong>: el registro explica cada etapa y algunas aplican una mejora.</li>
           </ul>`,
         montar: montarSigma,
       },
       {
         titulo: 'Los cuatro enfoques en el tiempo',
         descripcion: 'Compare 24 meses de PDCA, Lean, Six Sigma, Lean Six Sigma y reingeniería. Retrase la reingeniería y vea que empeora antes de mejorar; cambie la métrica a defectos o a horas evitadas.',
-        ayuda: String.raw`<p>Eje horizontal: meses. Una curva por enfoque (PDCA, Lean, Six Sigma, Lean Six Sigma y reingeniería) frente a la referencia sin cambios, en la métrica elegida.</p>
+        ayuda: String.raw`<p>Eje horizontal: meses (0 a 24). Eje vertical: la métrica elegida. Cada línea es un enfoque: azul PDCA/Kaizen, naranja Lean, aguamarina Six Sigma, amarilla Lean Six Sigma y violeta reingeniería; la línea gris punteada es el proceso sin cambios. Al pasar el cursor por un mes se ven los valores de cada enfoque.</p>
           <ul>
-          <li><strong>Ciclos PDCA por año</strong>: acelera la mejora gradual de PDCA.</li>
-          <li><strong>Reducción con Lean / Six Sigma</strong>: baja las curvas correspondientes y la combinada.</li>
-          <li><strong>Mes de puesta en marcha de la reingeniería</strong>: cuanto más tarde, más tarde mejora, y empeora antes.</li>
+          <li><strong>Qué medir</strong>: cambia la métrica del eje vertical.</li>
+          <li><strong>Ciclos PDCA por año</strong>: acelera la mejora gradual de la línea azul.</li>
+          <li><strong>Reducción con Lean / Six Sigma</strong>: mueve las líneas naranja, aguamarina y amarilla (esta última combina ambas).</li>
+          <li><strong>Mes de la reingeniería</strong>: la línea violeta empeora antes de ese mes y después mejora de golpe.</li>
           </ul>`,
         montar: montarComparacion,
       },

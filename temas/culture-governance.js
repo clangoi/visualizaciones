@@ -168,33 +168,35 @@
       <p>La <strong>cultura organizacional</strong> es el conjunto de valores, hábitos y supuestos compartidos que explica por qué una empresa adopta o rechaza un sistema, aunque técnicamente funcione. La <strong>gobernanza de TI</strong> es el conjunto de reglas que fija <em>quién decide qué</em>: quién define los principios, la arquitectura, la infraestructura, las aplicaciones y las inversiones.</p>
       <p>Centralizar acelera el alineamiento y reduce duplicaciones, pero lentifica y ahoga la innovación local; descentralizar hace lo contrario. La mejor gobernanza no es una sola: se ajusta a cada decisión, y rinde solo si la cultura la acompaña.</p>`,
     parametros: [
-      ['Punto de partida (Fig. 1)', String.raw`Matriz inicial de gobierno de TI (por ejemplo federal). Fija los arquetipos de las cinco decisiones.`],
-      ['Cultura: peso del alineamiento frente a la autonomía (Fig. 1)', String.raw`Cuánto valora la organización la coherencia frente a la libertad local. Cambia qué gobierno resulta más adecuado.`],
-      ['Tipo de decisión de TI (Fig. 2)', String.raw`Naturaleza de la decisión (por ejemplo, principios o infraestructura). Determina qué centralización conviene.`],
-      ['Gobernanza: centralización (Fig. 2)', String.raw`Qué tanta decisión se concentra arriba. Más centralización favorece el alineamiento pero puede frenar la adopción.`],
-      ['Cultura: apertura al cambio (Fig. 2)', String.raw`Disposición de la gente a adoptar lo decidido. Una apertura baja hace fracasar iniciativas bien alineadas.`],
-      ['Plazo para decidir (Fig. 2)', String.raw`Días máximos antes de que una iniciativa se considere tardía.`],
-      ['Nuevas iniciativas (Fig. 2)', String.raw`Genera otras 150 iniciativas.`],
+      ['Punto de partida (Fig. 1)', String.raw`Selector con cuatro matrices: Centralizado (todo en TI, monarquía de TI), Descentralizado (todo feudal), Federal recomendado y Personalizada. Elegir una de las tres primeras reemplaza la matriz; al hacer clic en una celda pasa a Personalizada.`],
+      ['Cultura: peso del alineamiento frente a la autonomía (Fig. 1)', String.raw`Deslizador de 0 a 100 %. Pondera, en el índice de éxito, alineamiento y eficiencia de costos frente a velocidad e innovación local. No cambia las barras, solo el índice.`],
+      ['Tipo de decisión de TI (Fig. 2)', String.raw`Selector con sistema corporativo (necesita estándar común), aplicación de terreno (necesita autonomía local) y mezcla de iniciativas. Fija la centralización que cada iniciativa necesita y sortea de nuevo las 150.`],
+      ['Gobernanza: centralización (Fig. 2)', String.raw`Deslizador de 0 a 100 %. Cuanto más cerca esté de lo que necesita cada iniciativa, mayor su alineamiento; además, centralizar más alarga el tiempo de decisión.`],
+      ['Cultura: apertura al cambio (Fig. 2)', String.raw`Deslizador de 0 a 100 %. Una apertura baja reduce el puntaje de todas las iniciativas, aun las bien alineadas.`],
+      ['Plazo para decidir (Fig. 2)', String.raw`Deslizador de 10 a 80 días. Una iniciativa solo es exitosa si se decide dentro de este plazo.`],
+      ['Nuevas iniciativas (Fig. 2)', String.raw`Sortea otra muestra de 150 iniciativas con el mismo tipo de decisión.`],
     ],
     visualizaciones: [
       {
         titulo: 'Matriz de derechos de decisión',
         descripcion: 'Asigne un arquetipo de gobierno a cada una de las cinco decisiones y compare con los extremos «todo centralizado» y «todo descentralizado». Pruebe el punto de partida federal, cambie una celda a la vez y mueva el peso cultural del alineamiento.',
-        ayuda: String.raw`<p>Matriz de derechos de decisión con cinco decisiones; se compara su matriz con las de todo centralizado y todo descentralizado.</p>
+        ayuda: String.raw`<p>Arriba, una tabla con cinco decisiones (Principios de TI, Arquitectura, Infraestructura, Aplicaciones de negocio, Inversión y prioridades) y seis arquetipos de gobierno (Monarquía de negocio, Monarquía de TI, Feudal, Federal, Duopolio y Anarquía); el círculo lleno marca el arquetipo elegido en cada fila. Abajo, barras agrupadas por criterio (Velocidad, Alineamiento, Innovación local, Eficiencia de costos): gris es todo centralizado, azul su matriz y naranja todo descentralizado.</p>
           <ul>
-          <li><strong>Punto de partida</strong>: reemplaza su matriz por una de ejemplo.</li>
-          <li><strong>Cultura: peso del alineamiento</strong>: modifica el puntaje de cada configuración.</li>
+          <li><strong>Clic en una celda</strong>: asigna ese arquetipo a la decisión y mueve las barras azules.</li>
+          <li><strong>Punto de partida</strong>: reemplaza la matriz completa por una de ejemplo.</li>
+          <li><strong>Cultura: peso del alineamiento</strong>: cambia el índice de éxito y la comparación de la lectura entre su matriz y los extremos, no las barras.</li>
           </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Gobernanza y cultura frente a 150 iniciativas',
         descripcion: 'Cambie el tipo de decisión y busque la centralización que maximiza los éxitos; luego baje la apertura al cambio o acorte el plazo y observe cuándo la gobernanza correcta ya no alcanza.',
-        ayuda: String.raw`<p>Cada punto es una iniciativa: eje horizontal, tiempo de decisión (días); vertical, puntaje (alineamiento × adopción). Las exitosas se distinguen de las que fracasan por desalineación, rechazo o tardanza, con el umbral de éxito y el plazo trazados.</p>
+        ayuda: String.raw`<p>Cada punto es una de las 150 iniciativas: eje horizontal, tiempo de decisión en días (0 a 70); eje vertical, puntaje (alineamiento × adopción, 0 a 1). Los puntos son verdes si tienen éxito y rojos si no; la línea negra horizontal es el umbral de éxito (0,55) y la vertical, el plazo.</p>
           <ul>
-          <li><strong>Gobernanza: centralización</strong>: desplaza puntos en puntaje y tiempo; hay un valor que maximiza los éxitos.</li>
-          <li><strong>Apertura al cambio</strong>: la baja hunde el puntaje.</li>
-          <li><strong>Plazo para decidir</strong>: mueve la línea del plazo y deja tardías más iniciativas.</li>
+          <li><strong>Gobernanza: centralización</strong>: desplaza los puntos hacia la derecha al subir y los sube o baja según se acerque a lo que cada iniciativa necesita; hay un valor que maximiza los éxitos (el registro lo indica).</li>
+          <li><strong>Apertura al cambio</strong>: al bajarla, hunde los puntajes.</li>
+          <li><strong>Plazo para decidir</strong>: mueve la línea vertical; los puntos a su derecha fracasan aunque superen el umbral.</li>
+          <li><strong>Tipo de decisión</strong> y <strong>Nuevas iniciativas</strong>: cambian la muestra de puntos.</li>
           </ul>`,
         montar: montarSimulacion,
       },

@@ -73,24 +73,26 @@
       si usted está conectado a su banco y visita una página maliciosa, esta puede hacer que su navegador envíe una petición al banco <em>con su cookie de sesión</em>.</p>
       <p>Eso es <strong>CSRF</strong> (<em>Cross-Site Request Forgery</em>): el atacante no roba la sesión, la <em>usa</em> sin que usted lo sepa. Afecta a las acciones que cambian datos.</p>`,
     parametros: [
-      ['Atributo SameSite de la cookie (Fig. 1)', String.raw`Regla que indica al navegador cuándo adjuntar la cookie de sesión a peticiones originadas en otros sitios. Cuanto más estricta, menos probable que el ataque llegue con sesión.`],
-      ['Token anti-CSRF y verificación de Origin (Fig. 1)', String.raw`Defensas del servidor: exigir un secreto por sesión que evil.com no puede leer, o comprobar que la petición venga del propio dominio. Cada una corta el ataque en un paso distinto.`],
-      ['SameSite de la cookie de sesión (Fig. 2)', String.raw`El mismo atributo aplicado a cinco situaciones de navegación; muestra cuáles envían la cookie y cuáles no.`],
+      ['Atributo SameSite de la cookie (Fig. 1)', String.raw`Selector con tres opciones: «None (sin protección)», «Lax» y «Strict». Define si el navegador adjunta la cookie a la petición POST que nace en evil.com; con Lax o Strict no la adjunta. Parte en «None».`],
+      ['token anti-CSRF en el formulario (Fig. 1)', String.raw`Casilla (desmarcada por defecto). Marcada, el banco exige un token secreto por sesión que evil.com no puede leer, y rechaza la petición con 403.`],
+      ['el servidor verifica la cabecera Origin (Fig. 1)', String.raw`Casilla (desmarcada por defecto). Marcada, el banco compara el origen de la petición con su dominio y la rechaza con 403 si no coincide. Con ambas casillas marcadas, el diagrama muestra solo la verificación de Origin.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Reproducen la secuencia: «Reproducir» avanza sola (se vuelve «Pausar»), «Un paso» avanza un mensaje, «Hasta el final» los muestra todos y «Reiniciar» vuelve al comienzo. Cambiar cualquier defensa también reinicia la secuencia.`],
+      ['SameSite de la cookie de sesión (Fig. 2)', String.raw`Selector con tres opciones: «None», «Lax (valor por omisión de los navegadores)» y «Strict». Parte en Lax. Se aplica a cinco situaciones de navegación y cambia en cuáles se envía la cookie.`],
     ],
     visualizaciones: [
       { titulo: 'Un ataque CSRF y sus defensas', descripcion: 'Recorra el ataque contra un banco y active una defensa a la vez (SameSite, token anti-CSRF, verificación de Origin) para ver dónde se corta.',
-        ayuda: String.raw`<p>Diagrama de secuencia entre Ana, el banco y evil.com: cada flecha es un mensaje (login, visita al sitio malicioso, formulario oculto, respuesta del banco). Los colores distinguen acción legítima, trampa del atacante, ataque exitoso y ataque bloqueado.</p>
+        ayuda: String.raw`<p>Diagrama de secuencia con tres actores: Navegador (el de Ana), banco.com y evil.com, con el tiempo hacia abajo. Colores: azul acción legítima, naranja trampa del atacante, rojo ataque exitoso y verde ataque bloqueado. Abajo se leen el paso, el resultado («transferencia no autorizada» o «ataque bloqueado») y la cantidad de defensas activas.</p>
           <ul>
-          <li><strong>Atributo SameSite</strong> en «None»: la cookie viaja en el envío cruzado y el ataque termina en «transferencia hecha». Con un valor más estricto, el banco recibe la petición sin sesión y responde «401».</li>
-          <li><strong>token anti-CSRF</strong>: el formulario de evil.com no puede incluir el token, y el banco rechaza con «403» aunque la cookie sea válida.</li>
-          <li><strong>verifica la cabecera Origin</strong>: el banco detecta que el origen no es el suyo y rechaza; el corte ocurre en un paso distinto al del token.</li>
+          <li><strong>Atributo SameSite</strong>: en «None» el POST lleva la cookie (flecha roja); en Lax o Strict va «sin cookie» (flecha aguamarina) y el banco responde «401 sin sesión».</li>
+          <li><strong>token anti-CSRF</strong>: con SameSite en «None», aparece «falta el token CSRF» y un «403 rechazada».</li>
+          <li><strong>verifica la cabecera Origin</strong>: con SameSite en «None», aparece «Origin ≠ banco.com» y un «403 rechazada». Si ninguna defensa lo impide, termina en «200 transferencia hecha».</li>
           </ul>`, montar: montarAtaque },
       { titulo: 'Cuándo se envía la cookie según SameSite', descripcion: 'Cambie el valor de SameSite y compare cinco situaciones: cuáles permiten el ataque y cuáles dejan sin sesión al usuario legítimo.',
-        ayuda: String.raw`<p>Cada fila de la tabla es una situación de navegación; las columnas indican si la cookie se envía y si eso permite el ataque o deja sin sesión al usuario legítimo.</p>
+        ayuda: String.raw`<p>Tabla con cinco situaciones de navegación y cuatro columnas: Situación, ¿Entre sitios?, ¿Se envía la cookie? (ficha naranja «sí» o azul «no») y Efecto (ficha roja «ATAQUE POSIBLE», verde «ataque bloqueado» o «funciona», o naranja «se pierde la sesión»). Las situaciones son escribir banco.com en la barra, hacer clic en un enlace a banco.com desde otro sitio (GET), un formulario POST desde evil.com, una imagen o fetch de evil.com hacia el banco, y una página del banco que llama a su propia API. Abajo se leen los ataques posibles, los usos legítimos afectados y el valor de SameSite.</p>
           <ul>
-          <li><strong>SameSite</strong> en «None»: la cookie se envía en todas las situaciones, incluidas las del atacante.</li>
-          <li>En «Lax» sigue viajando en la navegación segura (clic en un enlace) pero no en envíos POST ni cargas ocultas de otro sitio.</li>
-          <li>En «Strict» no viaja en ninguna situación entre sitios, a costa de dejar sin sesión también a quien llega por un enlace legítimo.</li>
+          <li><strong>SameSite</strong> en «None»: la cookie se envía en las cinco situaciones, así que los dos ataques son posibles.</li>
+          <li>En «Lax» no se envía en el POST ni en la carga oculta de evil.com, pero sí en el clic en un enlace.</li>
+          <li>En «Strict» no se envía en ninguna situación entre sitios: bloquea los dos ataques y también el clic en un enlace, que se marca como pérdida de sesión.</li>
           </ul>`, montar: montarMatriz },
     ],
     teoria: String.raw`

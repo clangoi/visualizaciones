@@ -129,28 +129,29 @@
       en términos del caso \(k\), usar la hipótesis y llegar al lado derecho que se quería.</p>
       <p>Hay un detalle sutil: en las desigualdades el caso base no siempre es 0 o 1, y el paso puede ser «cierto» incluso donde la propiedad es falsa. Por eso importa elegir bien el punto de partida.</p>`,
     parametros: [
-      ['Enunciado P(n) (Fig. 1 y 2)', String.raw`La propiedad que se quiere demostrar para todo n. Cambiarla cambia qué fórmula o desigualdad se comprueba y dónde falla o funciona el paso.`],
-      ['k (hipótesis P(k) ⇒ P(k + 1)) (Fig. 1)', String.raw`El caso concreto sobre el que se arma el paso: se supone P(k) y se deduce P(k + 1).`],
-      ['Caso base elegido n₀ (Fig. 2)', String.raw`Desde dónde arranca la cadena. Solo importa si P(n₀) es verdadera y el paso se cumple a partir de ahí.`],
+      ['Enunciado P(n) (Fig. 1)', String.raw`Selector con seis enunciados: 1 + 2 + … + n = n(n + 1)/2; 1 + 2 + 4 + … + 2ⁿ = 2ⁿ⁺¹ − 1; 2ⁿ &gt; n²; n! &gt; 2ⁿ; 6 divide a n³ − n; y 3 divide a 4ⁿ − 1. Cambia la propiedad, la tabla y el paso inductivo escrito con números.`],
+      ['k (hipótesis P(k) ⇒ P(k + 1)) (Fig. 1)', String.raw`De 0 a 18 (no baja del caso base del enunciado). Es el valor sobre el que se arma el paso: se supone P(k) y se deduce P(k + 1).`],
+      ['Enunciado P(n) (Fig. 2)', String.raw`Selector con cinco propiedades: 2ⁿ &gt; n²; 3ⁿ &gt; n³; 2ⁿ &gt; 2n + 1; n² &gt; 3n; n! &gt; 2ⁿ. Cambia dónde es verdadera P(n) y dónde lo es el paso.`],
+      ['Caso base elegido n₀ (Fig. 2)', String.raw`De 0 a 12 (inicial: 5). Desde dónde arranca la cadena; solo sirve si P(n₀) es verdadera y los pasos siguientes también lo son.`],
     ],
     visualizaciones: [
       {
         titulo: 'La propiedad, el caso k y el caso k + 1',
         descripcion: 'Elija un enunciado y un \\(k\\). Mire cómo el caso \\(k+1\\) se arma con el caso \\(k\\) más un término, y qué fichas P(n) son verdaderas.',
-        ayuda: String.raw`<p>Se muestra el caso k, el caso k + 1 armado a partir de él con un término más, y las fichas P(n) verdaderas o falsas.</p>
+        ayuda: String.raw`<p>No hay lienzo. Arriba, una fila de fichas P(n) para n de 0 a 18: gris si n es menor que el caso base del enunciado, naranja para k y k + 1, negra si P(n) es verdadera (con ✓) y roja si es falsa (con ✗). Debajo, una tabla con el lado izquierdo y el derecho (o valor y cociente, en los enunciados de divisibilidad) para n = k y n = k + 1, y un recuadro con el paso inductivo escrito con los números de ese k.</p>
           <ul>
-          <li><strong>Enunciado P(n)</strong>: cambia las expresiones de los lados del caso k y del caso k + 1.</li>
-          <li><strong>k</strong>: desplaza el caso en que se aplica la hipótesis; el término que se añade al pasar a k + 1 cambia con él.</li>
+          <li><strong>Enunciado P(n)</strong>: cambia las expresiones de los dos lados y el paso algebraico; la lectura muestra el caso base n₀.</li>
+          <li><strong>k</strong>: desplaza el par de casos k y k + 1; la lectura indica si P(k), P(k + 1) y la implicación son verdaderas o falsas.</li>
           </ul>`,
         montar: montarEnunciados,
       },
       {
         titulo: '¿Desde dónde funciona el paso?',
         descripcion: 'Cambie el caso base para un enunciado de desigualdad: la cadena solo arranca donde \\(P(n_0)\\) es verdadera y no se rompe después.',
-        ayuda: String.raw`<p>Una fila de casos n con los colores de la leyenda: P(n) verdadera, paso P(n) ⇒ P(n + 1) verdadero o falso, y los casos demostrados por la cadena desde n₀.</p>
+        ayuda: String.raw`<p>Tres franjas con los casos n de 0 a 24. «P(n)»: verde (C.s6) si P(n) es verdadera y gris si no. «paso»: negro con ✓ si P(n) ⇒ P(n + 1) es verdadera y rojo con ✗ si es falsa (se cumple cuando P(n) es falsa o P(n + 1) es verdadera). «cadena»: azul (C.s1) desde n₀ hasta donde el primer paso falso la corta; no se dibuja nada si P(n₀) es falsa.</p>
           <ul>
-          <li><strong>Caso base elegido n₀</strong>: la cadena demostrada empieza en n₀; los casos anteriores no quedan demostrados.</li>
-          <li><strong>Enunciado P(n)</strong>: un paso falso corta la cadena en ese punto y deja sin demostrar los casos siguientes.</li>
+          <li><strong>Caso base elegido n₀</strong>: la cadena azul empieza en n₀; los casos anteriores no quedan demostrados.</li>
+          <li><strong>Enunciado P(n)</strong>: un paso rojo posterior a n₀ corta la cadena; si P(n₀) es falsa, la cadena no arranca.</li>
           </ul>`,
         montar: montarPaso,
       },

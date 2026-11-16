@@ -74,27 +74,27 @@
       En lógica, \(\neg\) liga más que \(\land\), este más que \(\lor\), luego \(\to\) y por último \(\leftrightarrow\).</p>
       <p>Las reglas son convenciones: sirven para reconstruir <em>un único</em> árbol sintáctico a partir del texto abreviado. Cuando no alcanzan —por ejemplo, con la misma operación repetida— hay ambigüedad, y a veces importa y a veces no.</p>`,
     parametros: [
-      ['Fórmula (Fig. 1)', String.raw`La cadena con pocos o ningún paréntesis. Las reglas de precedencia deciden cómo se agrupa.`],
-      ['Conectivo repetido (Fig. 2)', String.raw`El conectivo que se repite en la cadena \(x_1 \circ x_2 \circ \cdots\).`],
-      ['Variables (Fig. 2)', String.raw`Cuántas variables hay en la cadena; con más variables hay más lecturas posibles.`],
+      ['Fórmula (Fig. 1)', String.raw`Cadena con pocos o ningún paréntesis, con botones para insertar símbolos. La precedencia (¬, ∧, ∨, →, ↔ de mayor a menor ligadura) decide cómo se agrupa y qué árbol se dibuja. Si hay un error, el registro lo explica.`],
+      ['Conectivo repetido (Fig. 2)', String.raw`Selector con ∧, ∨, →, ↔ y ↑ (nand): el conectivo que se repite en la cadena \(x_1 \circ x_2 \circ \cdots \circ x_n\).`],
+      ['Variables (Fig. 2)', String.raw`Deslizador de 2 a 6: cuántas variables \(x_i\) tiene la cadena. Más variables multiplican las formas de poner paréntesis (números de Catalan) y las filas de la tabla de verdad.`],
     ],
     visualizaciones: [
       {
         titulo: 'Los paréntesis que no se escriben',
         descripcion: 'Escriba una fórmula sin paréntesis y vea el árbol y la versión totalmente parentizada. Pruebe \\(p \\to q \\to r\\) y \\(p \\lor q \\land r\\).',
-        ayuda: String.raw`<p>El árbol muestra la agrupación elegida y el número bajo cada conectivo es su orden de ligadura (1 = se aplica primero). El registro da la versión totalmente parentizada.</p>
+        ayuda: String.raw`<p>El árbol de sintaxis de la fórmula escrita. El número bajo cada conectivo es su orden de ligadura: 1 para ¬, 2 para ∧ (y ↑), 3 para ∨, 4 para →, 5 para ↔; un conectivo con número menor se agrupa antes. El registro muestra la fórmula como se escribió y totalmente parentizada, y la lectura da el conectivo principal, los paréntesis que faltaban y el número de nodos.</p>
           <ul>
-          <li><strong>Fórmula</strong>: al añadir paréntesis cambia el orden de ligadura y la forma del árbol.</li>
+          <li><strong>Fórmula</strong>: al añadir o quitar paréntesis cambia el árbol; con los mismos símbolos, un paréntesis puede mover cuál conectivo queda en la raíz.</li>
           </ul>`,
         montar: montarPrecedencia,
       },
       {
         titulo: 'Cuántas lecturas tiene una cadena',
         descripcion: 'Una cadena \\(x_1 \\circ x_2 \\circ \\cdots \\circ x_n\\) admite números de Catalan de lecturas. Compare cuántas funciones distintas producen con \\(\\land\\) y con \\(\\to\\).',
-        ayuda: String.raw`<p>Se cuentan las lecturas posibles de la cadena (números de Catalan) y cuántas funciones distintas producen.</p>
+        ayuda: String.raw`<p>Una tabla con una fila por cada forma de parentizar la cadena. Sus columnas son el número de la lectura, la lectura totalmente parentizada, cuántas filas de la tabla de verdad valen V y si es igual a la lectura 1. La lectura muestra cuántas lecturas hay (número de Catalan), cuántas funciones distintas producen, si la cadena es ambigua y cuántas filas tiene la tabla de verdad (\(2^n\)).</p>
           <ul>
-          <li><strong>Conectivo repetido</strong>: con \(\land\) todas las lecturas dan la misma función; con \(\to\) dan varias distintas.</li>
-          <li><strong>Variables</strong>: más variables multiplican las lecturas.</li>
+          <li><strong>Conectivo repetido</strong>: con ∧, ∨ y ↔ todas las lecturas dan la misma función (asociativos); con → y ↑ dan varias, y los paréntesis son necesarios.</li>
+          <li><strong>Variables</strong>: más variables aumentan rápidamente el número de lecturas.</li>
           </ul>`,
         montar: montarAmbiguedad,
       },

@@ -292,34 +292,38 @@
       <p>La causa suele ser la forma de asignar el trabajo (todos piden a quien conocen) más que la falta de gente. Por eso se mide la desigualdad de carga y se prueban
       redistribuciones antes de contratar.</p>`,
     parametros: [
-      ['Proceso (Fig. 1 y 2)', String.raw`El proceso del que se generan casos y personas por rol.`],
-      ['Casos que llegan por hora (Fig. 1 y 2)', String.raw`Ritmo de llegada; al subirlo aumenta la utilización de cada persona.`],
-      ['Polivalencia (Fig. 1)', String.raw`Probabilidad de que alguien haga actividades fuera de su rol; reparte mejor la carga y reduce la especialización.`],
-      ['Medida y Ordenar de mayor a menor (Fig. 1)', String.raw`Medida elige qué se grafica por persona (p. ej. carga, utilización o especialización); Ordenar pone a las más cargadas primero.`],
-      ['Personas en el rol clave (Fig. 2)', String.raw`Cuántas personas hay en el rol (bodega o soporte) que es cuello de botella.`],
-      ['Asignación del trabajo (Fig. 2)', String.raw`Regla para repartir casos: sesgada (todos piden a la primera persona) u otras que reparten mejor, como a quien quedaría libre antes.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra simulación.`],
+      ['Proceso (Fig. 1 y 2)', String.raw`Selector: Gestión de pedidos o Atención de reclamos. Determina el proceso simulado y qué personas participan. En la Fig. 2 también reajusta los casos por hora y las personas del rol clave a valores típicos del proceso.`],
+      ['Casos que llegan por hora (Fig. 1 y 2)', String.raw`Ritmo de llegada de casos (0,6 a 6 en la Fig. 1; 0,8 a 6 en la Fig. 2). Al subirlo aumenta la carga de cada persona.`],
+      ['Polivalencia (Fig. 1)', String.raw`Deslizador de 0 a 60 %: probabilidad de que cada evento lo ejecute una persona elegida al azar entre todas, sin importar su rol. Reparte la carga pero reduce la especialización.`],
+      ['Medida (Fig. 1)', String.raw`Selector con cuatro opciones: Eventos ejecutados, Minutos de trabajo, Utilización y Especialización. Define la longitud de las barras.`],
+      ['Ordenar de mayor a menor (Fig. 1)', String.raw`Casilla: ordena las barras por la medida elegida, de mayor a menor, en vez de por persona.`],
+      ['Personas en el rol clave (bodega o soporte) (Fig. 2)', String.raw`Deslizador de 1 a 5: cuántas personas atienden el rol de bodega (pedidos) o de soporte (reclamos). Las personas sobre las del equipo original son refuerzos.`],
+      ['Asignación del trabajo (Fig. 2)', String.raw`Selector con tres reglas: sesgada (la mitad de las veces se pide a la primera persona del rol y el resto al azar entre las demás), al azar entre el equipo, y a quien quedaría libre antes.`],
+      ['Reproductor (Fig. 2)', String.raw`Control con cinco partes: Velocidad (deslizador de pasos por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Avanza el reloj de la simulación en 90 pasos.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Botón que genera otra simulación con distinta semilla.`],
     ],
     visualizaciones: [
       {
         titulo: 'Carga, utilización y especialización',
         descripcion: 'Barras por persona, coloreadas por rol. Suba los casos por hora hasta que alguien supere el 100 % y cambie a «Especialización»; haga clic en una barra para ver su perfil de actividades.',
-        ayuda: String.raw`<p>Una barra por persona, coloreada por rol, con una línea de referencia (la media o el límite de utilización). Una barra sobre 100 % indica que la persona no alcanza a cubrir su carga.</p>
+        ayuda: String.raw`<p>Una barra horizontal por persona, coloreada según su rol: ventas azul (C.s1), bodega naranja (C.s2), finanzas aguamarina (C.s3), soporte amarillo (C.s4) y gerencia rosado (C.s5). La línea punteada gris (C.apagado) es la referencia: para Utilización marca 80 % y 100 %; para las demás medidas, la media. El valor de utilización sobre 100 % se escribe en rojo (C.s8). Al hacer clic en una barra se muestran las actividades de esa persona y su especialización; al pasar el cursor, un detalle.</p>
           <ul>
-          <li><strong>Casos que llegan por hora</strong>: las barras crecen y quienes superan el límite quedan sobrecargados.</li>
+          <li><strong>Casos que llegan por hora</strong>: las barras crecen y más personas superan el 80 %.</li>
           <li><strong>Medida</strong>: cambia lo que mide cada barra.</li>
-          <li><strong>Polivalencia</strong>: al subirla, la carga se reparte entre más personas.</li>
+          <li><strong>Polivalencia</strong>: al subirla aparecen más personas con trabajo fuera de su rol y la carga se reparte.</li>
+          <li><strong>Ordenar de mayor a menor</strong>: pone arriba a las personas con más valor en la medida elegida.</li>
           </ul>`,
         montar: montarCarga,
       },
       {
         titulo: 'Colas y efecto de redistribuir',
         descripcion: 'Simulación de colas por persona. Con asignación sesgada se forma una cola frente a una sola persona aunque el equipo tenga holgura; pruebe «A quien quedaría libre antes» o agregue gente y compare esperas.',
-        ayuda: String.raw`<p>Simulación de colas por persona: se indica quién está trabajando o libre, cuántos casos esperan a esa persona y la cola máxima de toda la simulación.</p>
+        ayuda: String.raw`<p>Una fila por persona, con un cuadrado del color de su rol. El círculo a la izquierda es azul (C.s1) si la persona está trabajando y gris (C.inactivo) si está libre. Los cuadros amarillos (C.s4) son casos esperando a esa persona en el instante simulado; la marca roja punteada (C.s8) indica la cola máxima que tuvo esa persona en toda la simulación; a la derecha se lee el número en cola. Al pasar el cursor sobre una fila aparecen sus actividades, utilización, espera media y cola máxima.</p>
           <ul>
-          <li><strong>Asignación del trabajo</strong>: con la sesgada se forma una cola frente a una sola persona aunque el equipo tenga holgura; repartir la reduce.</li>
+          <li><strong>Asignación del trabajo</strong>: con la sesgada se forma cola frente a la primera persona aunque el equipo tenga holgura; las otras reglas la reducen.</li>
           <li><strong>Personas en el rol clave</strong>: más personas acortan las colas.</li>
           <li><strong>Casos que llegan por hora</strong>: más llegadas alargan las colas.</li>
+          <li><strong>Reproductor</strong>: avanza el reloj; las lecturas muestran la espera media y el cuello de botella.</li>
           </ul>`,
         montar: montarCola,
       },

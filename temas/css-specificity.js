@@ -112,29 +112,33 @@
       Esa decisión no es el azar ni el orden alfabético, sino un algoritmo con tres ingredientes: <strong>importancia</strong>, <strong>especificidad</strong> y <strong>orden</strong>.</p>
       <p>Además, algunas propiedades (como el color del texto) se <strong>heredan</strong> de padres a hijos, mientras que otras (como el borde) no.</p>`,
     parametros: [
-      ['Casillas de reglas, estilo en línea y regla «p» con !important (Fig. 1)', String.raw`Cada casilla enciende o apaga una regla candidata para el color de un mismo elemento. Al quitarlas se ve qué ingrediente (importancia, origen en línea, especificidad u orden) decide al ganador.`],
-      ['Propiedad y Valor (Fig. 2)', String.raw`La propiedad CSS que se aplica y el valor que se asigna a un elemento del árbol. Su tipo decide si el valor viaja a los descendientes (heredada) o se queda en el elemento.`],
-      ['Limpiar (Fig. 2)', String.raw`Quita los valores asignados y devuelve el árbol a su estado inicial.`],
+      ['Casillas de selectores (Fig. 1)', String.raw`Seis casillas, una por regla que puede apuntar al elemento: <code>p</code> (violeta), <code>.nota</code> (azul), <code>p.nota</code> (verde), <code>#aviso</code> (naranja), <code>.nota.urgente</code> (rojo) y <code>body p</code> (amarillo). Apagar una la saca de la competencia.`],
+      ['Estilo en línea (Fig. 1)', String.raw`Casilla que agrega un atributo <code>style</code> con color azul al elemento; supera a las reglas de la hoja de estilo, salvo a una importante.`],
+      ['Regla «p» con !important (Fig. 1)', String.raw`Casilla que marca como importante la regla <code>p</code> (violeta). Como la importancia pesa antes que todo, gana incluso al estilo en línea y a <code>#aviso</code>.`],
+      ['Propiedad (Fig. 2)', String.raw`<code>color</code> y <code>font-size</code> se heredan; <code>border</code> y <code>background</code> no. Al cambiarla se borran los valores fijados.`],
+      ['Valor (Fig. 2)', String.raw`Valor que se aplica con clic en un elemento, según la propiedad: colores (violeta, azul, verde, naranjo), tamaños (1,5rem, 1rem, 0,8rem), borde (2px o punteado) o fondo (amarillo, aguamarina).`],
+      ['Limpiar (Fig. 2)', String.raw`Quita todos los valores fijados.`],
     ],
     visualizaciones: [
       {
         titulo: 'La cascada: quién gana',
         descripcion: 'Desactive reglas una por una, active el estilo en línea o <code>!important</code> y compruebe qué ingrediente decide el color final.',
-        ayuda: String.raw`<p>La tabla enumera las reglas que apuntan al elemento <code>p</code> con id y clase, con su especificidad; abajo se ve el color resultante. Las reglas desactivadas no participan.</p>
+        ayuda: String.raw`<p>Una tabla con una fila por regla que podría aplicarse al elemento <code>&lt;p id="aviso" class="nota urgente"&gt;</code>, con su color, su especificidad (identificadores, clases, etiquetas), su orden y su estado: GANA, pierde, no coincide o desactivada. Debajo se muestra el color final. No hay canvas.</p>
           <ul>
-          <li><strong>Casillas de reglas</strong>: al apagar la ganadora, gana la siguiente con mayor especificidad o la última escrita en caso de empate.</li>
-          <li><strong>estilo en línea</strong>: supera a las reglas de hoja de estilo normales.</li>
-          <li><strong>regla «p» con !important</strong>: gana incluso a la regla más específica, salvo que haya otra importante.</li>
+          <li><strong>Casillas de selectores</strong>: las desactivadas se tachan; si no gana ninguna, el color es heredado o por omisión.</li>
+          <li><strong>Estilo en línea</strong>: aparece como una fila extra que supera a las demás reglas normales.</li>
+          <li><strong>Regla «p» con !important</strong>: la regla <code>p</code> pasa a ganar sobre todo lo demás, incluido el estilo en línea.</li>
           </ul>`,
         montar: montarCascada,
       },
       {
         titulo: 'Herencia de propiedades',
         descripcion: 'Aplique un color en <code>main</code> y mire hasta dónde llega; luego pruebe con <code>border</code> y vea que no se propaga.',
-        ayuda: String.raw`<p>Es el árbol de elementos (body, header, h1, nav, a, main, article, p, span). Se marca dónde se fijó un valor y cómo queda el valor de cada nodo; los que no tienen regla muestran el valor inicial.</p>
+        ayuda: String.raw`<p>Árbol de elementos: body con header (h1 y nav con a) y main (article con p y span). Un nodo con borde y relleno del color del valor tiene un valor propio (borde continuo) o heredado (borde punteado); los demás conservan el valor inicial. La leyenda lista los valores de la propiedad.</p>
           <ul>
-          <li><strong>Propiedad</strong>: con una heredada (como color) el valor llega a los descendientes; con una no heredada (como border) solo afecta al nodo elegido.</li>
-          <li><strong>Valor</strong>: lo que se escribe al hacer clic en un nodo.</li>
+          <li><strong>Propiedad</strong>: con <code>color</code> o <code>font-size</code> el valor llega a los descendientes; con <code>border</code> o <code>background</code> solo afecta al nodo elegido.</li>
+          <li><strong>Valor</strong>: el que se aplicará al hacer clic en un nodo; otro clic igual lo quita.</li>
+          <li><strong>Limpiar</strong>: borra todo.</li>
           </ul>`,
         montar: montarHerencia,
       },

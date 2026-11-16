@@ -438,30 +438,34 @@
       <p>Esa comparación es el <em>costo reducido</em> de la nueva columna, \(d_j = c_j - y^\top a_j\). Si es positivo la actividad entra a la base y mejora el plan; si no, el plan actual sigue siendo óptimo.
       Agregar una restricción es el problema espejo: si el óptimo actual la cumple no pasa nada, y si la viola, el Simplex dual repara la solución con pocos pivotes.</p>`,
     parametros: [
-      ['Utilidad unitaria c₃ (Fig. 1)', String.raw`Utilidad de la nueva actividad. Conviene producirla solo si supera el valor implícito de los recursos que consume.`],
-      ['Consumo de R1, R2 y R3 por unidad (Fig. 1)', String.raw`Cuánto de cada recurso usa una unidad de la actividad; multiplicado por el precio sombra da su aporte al costo.`],
-      ['Poner c₃ en el punto de equilibrio y Restablecer (Fig. 1)', String.raw`El primero iguala \(c_3\) al valor implícito total (costo reducido 0); el segundo vuelve a los datos originales.`],
-      ['Coeficiente de x₁, Coeficiente de x₂ y Lado derecho (Fig. 2)', String.raw`Definen la restricción nueva \(\alpha_1x_1+\alpha_2x_2\le g\) que se agrega al problema.`],
-      ['Reproductor (Fig. 2)', String.raw`Un paso aplica un pivote del Simplex dual; Reiniciar vuelve al óptimo anterior.`],
+      ['Utilidad unitaria c₃ (Fig. 1)', String.raw`De 0 a 10. Utilidad de una unidad de la nueva actividad (barra inferior). Conviene incluirla solo si supera el valor de los recursos que consume.`],
+      ['Consumo de R1, R2 y R3 por unidad (Fig. 1)', String.raw`De 0 a 5 cada uno. Cuánto de cada recurso usa una unidad de la actividad; multiplicado por su precio sombra da la longitud del tramo de color de la barra superior.`],
+      ['Poner c₃ en el punto de equilibrio (Fig. 1)', String.raw`Iguala c₃ al costo yᵀa₃ (hasta un máximo de 10), de modo que el costo reducido valga 0.`],
+      ['Restablecer (Fig. 1)', String.raw`Vuelve a c₃ = 3 y a los consumos (1, 1, 2).`],
+      ['Coeficiente de x₁, Coeficiente de x₂ y Lado derecho (Fig. 2)', String.raw`Coeficientes de 0 a 4 y lado derecho de 0 a 40 de la restricción nueva \(\alpha_1x_1+\alpha_2x_2\le g\). Cambiarlos reinicia la reoptimización.`],
+      ['Clic en el plano (Fig. 2)', String.raw`Ajusta el lado derecho para que la restricción nueva pase por el punto elegido, sin cambiar los coeficientes.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Cada paso aplica un pivote del Simplex dual (por defecto 1 por segundo); Reiniciar vuelve al óptimo original (paso 0).`],
     ],
     visualizaciones: [
       {
         titulo: 'Costo reducido de una nueva actividad',
         descripcion: 'Cambie la utilidad y el consumo de la actividad: la barra superior suma lo que valen los recursos que usa (precio sombra por consumo) y la inferior su utilidad. Pulse «Poner c₃ en el punto de equilibrio»: ahí d₃ = 0 y, en la curva de abajo, justo en ese codo el valor óptimo empieza a subir.',
-        ayuda: String.raw`<p>La barra superior apila el valor implícito de cada recurso consumido (\(y_i a_i\)); la inferior es la utilidad \(c_3\), verde si conviene y rojiza si no. El segundo gráfico traza \(z^*\) con la nueva actividad frente a \(c_3\) y la referencia del \(z^*\) original.</p>
+        ayuda: String.raw`<p>La barra superior apila lo que valen los recursos que consume una unidad: azul (C.s1) R1, naranja (C.s2) R2, aguamarina (C.s3) R3 (precio sombra por consumo, \(y_i a_i\)); la línea punteada marca su suma, el costo \(y^\top a_3\). La barra inferior es la utilidad \(c_3\): verde (C.s6) si supera el costo, roja (C.s8) si no, gris si son iguales. Una tabla da precios, consumos y d₃. El segundo gráfico traza en violeta (C.s7) \(z^*\) con la nueva actividad frente a \(c_3\), con una línea gris discontinua en el \(z^*\) original; una guía vertical marca \(c_3 = y^\top a_3\).</p>
           <ul>
-          <li><strong>c₃</strong>: si supera la suma de las barras, el costo reducido es positivo y \(z^*\) sube.</li>
-          <li><strong>Consumo</strong>: más consumo de un recurso caro eleva el costo implícito y vuelve menos atractiva la actividad.</li>
+          <li><strong>c₃</strong>: si supera la suma de las barras, el costo reducido es positivo y \(z^*\) sube; por debajo, la curva es plana en el valor original.</li>
+          <li><strong>Consumo</strong>: más consumo de un recurso caro alarga su tramo, eleva el costo y vuelve menos atractiva la actividad.</li>
+          <li>Al pasar el cursor por la curva o por cada tramo se ven los valores exactos.</li>
           </ul>`,
         montar: montarColumna,
       },
       {
         titulo: 'Agregar una restricción y reoptimizar',
         descripcion: 'Con los valores iniciales la nueva restricción corta el óptimo (6, 4). Pulse Un paso para ver cómo el Simplex dual saca la holgura negativa y llega al nuevo óptimo; después suba el lado derecho hasta 10 o más y compruebe que el plan ya no cambia.',
-        ayuda: String.raw`<p>Región factible con la restricción nueva (el corte) y las originales. Un punto con holgura negativa es una solución básica infactible; el verde es el nuevo óptimo y el tableau marca el pivote del Simplex dual.</p>
+        ayuda: String.raw`<p>Plano (x₁, x₂) con las tres restricciones originales (líneas grises) y la nueva en naranja (C.s2). El relleno azul claro es la región factible con la restricción nueva. Los puntos numerados son los vértices que visita el Simplex dual, unidos por flechas violetas (C.s7): un punto blanco con borde rojo es una solución básica infactible (alguna variable negativa) y uno verde (C.s6) es factible. Debajo, el tableau del paso actual indica la fila y la columna del pivote.</p>
           <ul>
-          <li><strong>Coeficientes y lado derecho</strong>: si el óptimo viejo cumple la restricción no cambia nada; si no, el corte lo elimina y hay que pivotar.</li>
-          <li><strong>Un paso</strong>: el Simplex dual corrige la holgura negativa y llega al nuevo vértice.</li>
+          <li><strong>Coeficientes y lado derecho</strong>: si el óptimo viejo (6, 4) cumple la restricción, no cambia nada y no hay pivotes; si la viola, el corte lo elimina y hay que pivotar.</li>
+          <li><strong>Un paso</strong>: el Simplex dual saca de la base la variable negativa y se mueve a un nuevo vértice, hasta que ninguna es negativa.</li>
+          <li>El panel de lectura compara los pivotes del dual con los que haría el primal desde cero.</li>
           </ul>`,
         montar: montarRestriccion,
       },

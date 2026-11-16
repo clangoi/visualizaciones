@@ -51,22 +51,24 @@
       <p>Un computador recién conectado no sabe qué dirección usar. <strong>DHCP</strong> se la presta: el cliente pregunta por difusión y un servidor le entrega una dirección, la máscara, la puerta de enlace y el servidor DNS durante un tiempo limitado.</p>
       <p>Pero las direcciones IPv4 públicas escasean, así que las redes domésticas y de empresas usan direcciones privadas (<code>192.168.x.x</code>) y un router con <strong>NAT</strong> traduce hacia una única dirección pública, distinguiendo las conexiones por el puerto.</p>`,
     parametros: [
-      ['Un paso y reproductor (Fig. 1)', String.raw`Avanzan o reinician los cuatro mensajes DORA (Discover, Offer, Request, ACK) y la renovación del préstamo.`],
-      ['Host interno (Fig. 2)', String.raw`Qué equipo de la red privada inicia la conexión, A o B. Cada uno tiene su dirección privada y obtiene su propia entrada en la tabla.`],
-      ['Abrir conexión, Respuesta del servidor, Paquete no solicitado, Reiniciar (Fig. 2)', String.raw`Simulan una conexión saliente que crea una traducción, la respuesta que la usa, un paquete desde fuera sin entrada previa (se descarta) y el vaciado de la tabla.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Controles del reproductor: avanzan los mensajes DORA (Discover, Offer, Request, ACK) y la renovación del préstamo, uno por paso. «Velocidad» fija los pasos por segundo; «Reiniciar» vuelve al principio.`],
+      ['Host interno (Fig. 2)', String.raw`Selector entre A (192.168.0.2) y B (192.168.0.3): el equipo de la red privada al que se refieren «Abrir conexión a Internet» y «Respuesta del servidor». Por sí solo no cambia la figura.`],
+      ['Abrir conexión, Respuesta del servidor, Paquete no solicitado, Reiniciar (Fig. 2)', String.raw`Abrir conexión añade una fila a la tabla para el host elegido (hacia 93.184.216.34:80). Respuesta del servidor muestra cómo se traduce de vuelta la última conexión de ese host. Paquete no solicitado simula un paquete externo a 203.0.113.9:6000 sin fila, que se descarta. Reiniciar vacía la tabla.`],
     ],
     visualizaciones: [
       { titulo: 'DHCP: obtener una dirección', descripcion: 'Siga los cuatro mensajes (Discover, Offer, Request, ACK) y vea cuándo el cliente ya tiene dirección.',
-        ayuda: String.raw`<p>Las flechas azules son mensajes del cliente y las naranjas, del servidor DHCP. Muestra en orden cómo el cliente, sin dirección (0.0.0.0), la solicita por difusión, recibe una oferta, la acepta y recibe la confirmación.</p>
+        ayuda: String.raw`<p>Dos columnas, «Cliente nuevo» y «Servidor DHCP», con el tiempo hacia abajo. Las flechas azules son mensajes del cliente y las naranjas, del servidor; cada una lleva su nombre y algunas una nota. El registro explica el mensaje actual y la lectura muestra el paso, la dirección y el préstamo.</p>
           <ul>
-          <li>Cada paso avanza un mensaje; solo tras el ACK el cliente tiene dirección, y la última flecha punteada es la renovación a mitad del plazo.</li>
+          <li><strong>Un paso</strong>: dibuja el siguiente mensaje: Discover (difusión desde 0.0.0.0), Offer (ofrece 192.168.0.23 por 1 hora), Request y ACK.</li>
+          <li>Solo tras el ACK la lectura muestra la dirección 192.168.0.23/24 y el préstamo de 1 hora.</li>
+          <li>La quinta flecha, punteada y del cliente, es la renovación a mitad del plazo.</li>
           </ul>`, montar: montarDHCP },
       { titulo: 'La tabla de traducción de un NAT', descripcion: 'Abra conexiones desde A y B, haga llegar respuestas y pruebe un paquete externo sin solicitud previa.',
-        ayuda: String.raw`<p>La tabla de traducción asocia (IP privada, puerto) con (IP pública, puerto externo). El registro explica el efecto de cada acción.</p>
+        ayuda: String.raw`<p>Tabla con dos columnas: «lado LAN (IP:puerto)», con la dirección privada y el puerto de origen, y «lado WAN (IP:puerto)», siempre con la única dirección pública 203.0.113.9 y un puerto externo propio (desde 5001). El registro explica cada acción y la lectura da entradas, direcciones públicas (1) y puertos disponibles.</p>
           <ul>
-          <li><strong>Abrir conexión a Internet</strong>: añade una fila para el host elegido con un puerto externo nuevo.</li>
-          <li><strong>Respuesta del servidor</strong>: se traduce de vuelta gracias a esa fila y llega al host interno.</li>
-          <li><strong>Paquete no solicitado desde fuera</strong>: no coincide con ninguna fila y se descarta; el NAT no deja entrar tráfico no iniciado desde dentro.</li>
+          <li><strong>Abrir conexión a Internet</strong>: añade una fila, aun si el mismo host ya tenía otra, con un puerto externo nuevo.</li>
+          <li><strong>Respuesta del servidor</strong>: no cambia la tabla; el registro describe la traducción inversa con la fila más reciente del host elegido. Si ese host no tiene conexión, lo avisa.</li>
+          <li><strong>Paquete no solicitado desde fuera</strong>: no coincide con ninguna fila y se descarta; tampoco cambia la tabla.</li>
           </ul>`, montar: montarNAT },
     ],
     teoria: String.raw`

@@ -154,31 +154,33 @@
       <p>Hay que decidir qué es «parecido»: la <strong>distancia</strong> entre covariables, cuántos controles usar, cuánta diferencia tolerar
       (el <em>caliper</em>) y si el matching es <strong>exacto</strong> (mismas categorías) o <strong>inexacto</strong> (vecinos cercanos).</p>`,
     parametros: [
-      ['Distancia (Fig. 1)', String.raw`Cómo se mide la cercanía entre pacientes: euclidiana o Mahalanobis, que tiene en cuenta escalas y correlación de las covariables.`],
-      ['Controles por tratado k (Fig. 1)', String.raw`Cuántos controles se emparejan con cada tratado. Más controles bajan la varianza pero aceptan parejas más lejanas.`],
-      ['Caliper (distancia máxima) (Fig. 1)', String.raw`Distancia máxima aceptada. Un caliper chico deja tratados sin pareja.`],
-      ['con reemplazo (Fig. 1)', String.raw`Permite que un control sea pareja de varios tratados.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada.`],
-      ['Cortes por covariable (Fig. 2)', String.raw`Número de intervalos por covariable que define la rejilla. Más cortes dan estratos más finos y menos tratados conservados.`],
+      ['Distancia (Fig. 1)', String.raw`Selector con dos opciones: Euclidiana (distancia recta en edad y gravedad estandarizadas) o Mahalanobis, que tiene en cuenta escalas y correlación entre covariables.`],
+      ['Controles por tratado k (Fig. 1)', String.raw`De 1 a 5 controles por cada tratado. Más controles reducen la varianza pero aceptan parejas más lejanas.`],
+      ['Caliper (distancia máxima) (Fig. 1)', String.raw`De 0,05 a 2; en 2 se muestra «∞» y no hay límite. Un caliper chico deja tratados sin pareja.`],
+      ['con reemplazo (Fig. 1)', String.raw`Casilla: permite que un mismo control sea pareja de varios tratados.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra simulada (160 pacientes en la Fig. 1, 500 en la Fig. 2).`],
+      ['Cortes por covariable (Fig. 2)', String.raw`De 1 a 14 intervalos por covariable, que definen la rejilla de celdas. Más cortes dan celdas más finas y menos tratados conservados.`],
     ],
     visualizaciones: [
       {
         titulo: 'Vecino más cercano',
         descripcion: 'Cada tratado (cuadrado naranjo) unido a sus controles más cercanos. Cambie la distancia, k y el caliper y compare el ATT estimado con el verdadero.',
-        ayuda: String.raw`<p>Cada punto es un paciente (edad estandarizada horizontal, gravedad vertical): tratados, controles, parejas unidas por líneas, tratados sin pareja fuera del caliper y controles no usados. La lectura compara el ATT estimado con el verdadero.</p>
+        ayuda: String.raw`<p>Cada punto es un paciente, con la edad estandarizada en el eje horizontal y la gravedad en el vertical. Los tratados son cuadrados naranja y los controles, círculos azules (grises si no fueron usados). Una línea amarilla une a cada tratado con sus controles; un anillo rojo marca un tratado sin pareja dentro del caliper. Al pasar el cursor se ve el resultado Y del paciente y la media de los controles de su pareja. La lectura compara el ATT estimado con el verdadero de los emparejados y con la diferencia ingenua.</p>
           <ul>
-          <li><strong>Caliper</strong> pequeño: aparecen tratados sin pareja y el sesgo baja a costa de perder tratados.</li>
-          <li><strong>Controles por tratado k</strong> mayor: cada tratado se une a más controles.</li>
-          <li><strong>con reemplazo</strong>: menos controles sin usar y parejas repetidas.</li>
+          <li><strong>Distancia</strong>: cambia qué controles se consideran más cercanos, sobre todo si las covariables están correlacionadas.</li>
+          <li><strong>Caliper</strong> pequeño: aparecen anillos rojos; se pierden tratados y el sesgo suele bajar.</li>
+          <li><strong>Controles por tratado k</strong> mayor: salen más líneas amarillas desde cada tratado.</li>
+          <li><strong>con reemplazo</strong>: un control puede recibir varias líneas; sin reemplazo, hay más controles repartidos y más tratados sin pareja.</li>
           </ul>`,
         montar: montarVecinos,
       },
       {
         titulo: 'Matching exacto por estratos',
         descripcion: 'Coarsened exact matching: la rejilla define los estratos. El segundo gráfico muestra el sesgo y la fracción de tratados conservados según el número de cortes.',
-        ayuda: String.raw`<p>La rejilla marca celdas con tratados y controles (usadas) y celdas descartadas. El gráfico inferior muestra, según los cortes, el |sesgo| del ATT estimado y la fracción de tratados conservados.</p>
+        ayuda: String.raw`<p>A la izquierda (o arriba), los pacientes sobre una rejilla de celdas: se tiñen de aguamarina las celdas con tratados y controles (se usan) y quedan grises las descartadas. A la derecha, dos curvas según el número de cortes: roja, |sesgo| del ATT estimado; azul, fracción de tratados conservados (escalada al eje); los puntos marcan el valor con los cortes elegidos y, al pasar el cursor, se resalta cada número de cortes.</p>
           <ul>
-          <li><strong>Cortes por covariable</strong> mayores: el sesgo baja, pero también la fracción de tratados conservados.</li>
+          <li><strong>Cortes por covariable</strong> mayor: la rejilla se afina y suele bajar el sesgo (curva roja), pero también la fracción conservada (curva azul).</li>
+          <li><strong>Nuevos datos</strong>: recalcula ambas curvas con otra muestra.</li>
           </ul>`,
         montar: montarCEM,
       },

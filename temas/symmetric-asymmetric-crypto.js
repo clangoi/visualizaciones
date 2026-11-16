@@ -102,29 +102,35 @@
       pero obliga a compartir esa clave en secreto de antemano.</p>
       <p>En el <strong>cifrado asimétrico</strong> cada persona tiene un <em>par</em> de claves: una pública (para que cualquiera le cifre mensajes) y una privada (para leerlos y para firmar). Resuelve el reparto de claves, a costa de ser mucho más lento.</p>`,
     parametros: [
-      ['Mensaje, clave de quien cifra (Ana) y clave de quien descifra (Beto) (Fig. 1)', String.raw`El texto a proteger y las claves de ambos extremos. Solo si las dos claves coinciden Beto recupera el mensaje.`],
-      ['Primos p y q, Exponente público e (Fig. 2)', String.raw`Los dos primos generan el módulo \(n = pq\) y las claves; e es el exponente de la clave pública. Con números pequeños se pueden seguir las cuentas, pero no son seguros.`],
-      ['Mensaje, firmar y descifrar con una clave equivocada (Fig. 2)', String.raw`El texto a cifrar con la pública; firmar lo cifra con la privada (cualquiera puede verificarlo) y la clave equivocada muestra que sin la privada no se recupera.`],
-      ['Personas que se comunican (Fig. 3)', String.raw`El número de interlocutores para los que se cuentan las claves necesarias.`],
+      ['Mensaje (Fig. 1)', String.raw`Campo de texto (por defecto «HOLA MUNDO»). Se usan sus primeros 12 caracteres; cada columna de la tabla es uno de ellos.`],
+      ['Clave de quien cifra (Ana) y Clave de quien descifra (Beto) (Fig. 1)', String.raw`Dos campos de texto, ambos «sol» al inicio (si queda vacío se usa «k»). Ana cifra con la primera y Beto descifra con la segunda; ambas se repiten a lo largo del mensaje. Solo si son idénticas Beto recupera el mensaje.`],
+      ['Primo p y Primo q (Fig. 2)', String.raw`Dos selectores con los primos 17, 19, 23, 29, 31, 37, 41 y 43 (por defecto 23 y 29). Generan el módulo \(n = pq\), \(\varphi(n) = (p-1)(q-1)\) y la clave privada d. Son números pequeños, por lo que no son seguros.`],
+      ['Exponente público e (Fig. 2)', String.raw`Selector con 3, 5, 7, 11 y 13 (por defecto 5). Es el exponente de la clave pública; si no es coprimo con \(\varphi(n)\), el programa usa el primer valor compatible de 3, 5, 7, 11, 13, 17, 19 y 23.`],
+      ['Mensaje (≤ 8 caracteres) (Fig. 2)', String.raw`Campo de texto (por defecto «HOLA»); solo se usan los primeros 8 caracteres. Cada carácter se convierte en su código y se cifra por separado.`],
+      ['firmar (cifrar con la clave privada) (Fig. 2)', String.raw`Casilla (desmarcada por defecto). Marcada, se opera con la clave privada y se verifica con la pública, al revés que cifrar.`],
+      ['descifrar con una clave equivocada (Fig. 2)', String.raw`Casilla (desmarcada por defecto). Marcada, el último paso usa una clave desplazada en 2 en lugar de la correcta, y el mensaje no se recupera.`],
+      ['Personas que se comunican (Fig. 3)', String.raw`Control de 5 a 200 (paso 5; parte en 100) con el número de personas \(n\) para el que se cuentan las claves. Mueve los marcadores sobre las curvas; los ejes no cambian.`],
     ],
     visualizaciones: [
       { titulo: 'Cifrado simétrico: una clave compartida', descripcion: 'Cifre un mensaje y descífrelo con la misma clave y con otra distinta; vea cómo cambia el resultado.',
-        ayuda: String.raw`<p>Se muestra el mensaje cifrado con la clave de Ana y el resultado de descifrarlo con la clave de Beto, byte a byte.</p>
+        ayuda: String.raw`<p>Tabla con una columna por carácter del mensaje (hasta 12) y cuatro filas: el código del texto en hexadecimal, la clave repetida en hexadecimal, el cifrado XOR (fichas naranjas) y el descifrado con la clave de Beto (fichas verdes si las claves coinciden y rojas si no; los caracteres no imprimibles se muestran como «·»). Abajo se lee si las claves son distintas y si el mensaje se recuperó.</p>
           <ul>
-          <li><strong>Clave de quien descifra (Beto)</strong> igual a la de Ana: se recupera el mensaje original.</li>
-          <li>Con una clave distinta, el resultado es texto ilegible: la misma clave sirve para cifrar y descifrar.</li>
+          <li><strong>Mensaje</strong>: cambia las columnas y todos los valores de la tabla.</li>
+          <li><strong>Clave de quien cifra (Ana)</strong>: cambia la fila de la clave y el cifrado.</li>
+          <li><strong>Clave de quien descifra (Beto)</strong>: solo cambia la última fila; igual a la de Ana devuelve el mensaje, distinta da caracteres ilegibles.</li>
           </ul>`, montar: montarSimetrico },
       { titulo: 'RSA con números pequeños', descripcion: 'Elija primos y vea cómo se obtienen las claves; cifre con la pública, firme con la privada y pruebe una clave equivocada.',
-        ayuda: String.raw`<p>Se muestran los valores de RSA (módulo, clave pública, clave privada) y el mensaje convertido en números, cifrado y descifrado.</p>
+        ayuda: String.raw`<p>Arriba, tres fichas con las claves: pública (e, n) en azul, privada (d, n) en naranja y \(\varphi(n)\) en gris. Debajo, una tabla con una fila por carácter: el carácter, su código m, el cifrado \(m^e \bmod n\) (ficha naranja; con firmar se titula «firma m^d mod n») y el descifrado, en verde con «código → carácter» si coincide o en rojo con ✕ si no. Abajo se leen \(n\), \(\varphi(n)\), \(e \cdot d \bmod \varphi(n)\) (siempre 1) y si el mensaje se recuperó.</p>
           <ul>
-          <li><strong>Primo p</strong> y <strong>Primo q</strong>: al cambiarlos cambian \(n\) y la clave privada; la pública y la privada son un par.</li>
-          <li><strong>firmar</strong> usa la clave privada y se verifica con la pública, al revés que cifrar.</li>
-          <li><strong>descifrar con una clave equivocada</strong> da basura en lugar del mensaje.</li>
+          <li><strong>Primo p y Primo q</strong>: cambian \(n\), \(\varphi(n)\) y d, y con ellos todos los valores cifrados.</li>
+          <li><strong>Exponente público e</strong>: cambia la clave pública y la privada d, que deben ser inversos módulo \(\varphi(n)\).</li>
+          <li><strong>firmar</strong>: intercambia los papeles de las claves: la privada produce los valores y la pública los verifica.</li>
+          <li><strong>descifrar con una clave equivocada</strong>: la columna de descifrado se vuelve roja.</li>
           </ul>`, montar: montarRsa },
       { titulo: 'Cuántas claves hacen falta', descripcion: 'Compare el número de claves de ambos modelos al crecer el número de personas que se comunican.',
-        ayuda: String.raw`<p>Eje horizontal: personas (n). Eje vertical: claves necesarias. La curva roja es el modelo simétrico (una clave por pareja, \(n(n-1)/2\)) y la azul el asimétrico (un par por persona, \(2n\)).</p>
+        ayuda: String.raw`<p>Gráfico de líneas. Eje horizontal: personas (n), de 2 a 200. Eje vertical: claves necesarias. La curva roja es el modelo simétrico (una clave por pareja, \(n(n-1)/2\)) y la azul el asimétrico (un par de claves por persona, \(2n\)). Un punto sobre cada curva marca el valor elegido y, al pasar el puntero, se ven ambos valores para ese n. Abajo se leen n, las claves de cada modelo y su razón.</p>
           <ul>
-          <li><strong>Personas que se comunican</strong> mueve los marcadores sobre las curvas: la roja crece de forma cuadrática y la azul linealmente, por eso el modelo simétrico se vuelve inmanejable.</li>
+          <li><strong>Personas que se comunican</strong>: desplaza los dos puntos a lo largo de las curvas y actualiza las cifras; la roja crece de forma cuadrática y la azul linealmente.</li>
           </ul>`, montar: montarClaves },
     ],
     teoria: String.raw`

@@ -143,18 +143,19 @@
       anterior y su valor nuevo, <em>antes</em> de que llegue a los datos. Con ella se puede <strong>rehacer</strong> lo confirmado y
       <strong>deshacer</strong> lo que no.</p>`,
     parametros: [
-      ['Caída después del LSN (Fig. 1)', String.raw`Número de registro de la bitácora tras el cual se corta el sistema. Define qué transacciones quedaron confirmadas (ganadoras) y cuáles no (perdedoras).`],
-      ['punto de control en el LSN 6 (Fig. 1)', String.raw`Si está activo, la bitácora contiene un punto de control en el LSN 6, desde el que el análisis puede empezar.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza la recuperación (análisis, rehacer, deshacer) paso a paso; Reiniciar vuelve a la caída.`],
+      ['Caída después del LSN (Fig. 1)', String.raw`Deslizador de 2 a 12: último registro de la bitácora que alcanzó a escribirse antes de la caída. Los registros posteriores no existen; con ello cambia qué transacciones llegaron a su commit (ganadoras) y cuáles no (perdedoras). Reinicia la recuperación.`],
+      ['punto de control en el LSN 6 (Fig. 1)', String.raw`Casilla. Activada, la bitácora incluye el registro CHECKPOINT en el LSN 6 (si la caída es posterior a él), y el análisis y el rehacer empiezan desde ahí, con lo anterior ya volcado a disco. Desactivada, se recorre desde el LSN 1. Reinicia la recuperación.`],
+      ['Reproductor (Fig. 1)', String.raw`Control con cinco partes: Velocidad (deslizador de pasos por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Cada paso lee un registro en las fases de análisis, rehacer y deshacer.`],
     ],
     visualizaciones: [
       {
         titulo: 'Análisis, rehacer y deshacer',
         descripcion: 'Tres transacciones y una caída. Ejecute la recuperación y observe que al final cada dato tiene el valor de la última transacción confirmada.',
-        ayuda: String.raw`<p>A la izquierda la bitácora en disco, con el registro que se lee; a la derecha los datos en disco. Las transacciones ganadoras (con commit) y perdedoras (sin commit) tienen colores distintos, y se marca el dato que se rehace o se deshace en ese momento.</p>
+        ayuda: String.raw`<p>A la izquierda, «Bitácora en disco»: un registro por línea, con el que se lee resaltado. Tras el análisis, el texto de las transacciones ganadoras (con commit) se pinta verde (C.s6) y el de las perdedoras rojo (C.s8). Al deshacer se agregan registros CLR y abort marcados «← nuevo». A la derecha, «Datos en disco»: una tabla con las columnas dato, valor y correcto; la fila del dato que se rehace o deshace en ese paso se tiñe de naranja (C.s2), y al terminar se tiñe de rojo si el valor difiere del correcto. Las lecturas muestran fase, registros leídos, rehechos, deshechos y datos distintos del correcto.</p>
           <ul>
-          <li><strong>Caída después del LSN</strong>: moverla cambia qué transacciones alcanzaron su commit y por tanto qué se rehace y qué se deshace.</li>
-          <li><strong>punto de control en el LSN 6</strong>: el análisis arranca desde él en lugar de recorrer toda la bitácora.</li>
+          <li><strong>Caída después del LSN</strong>: moverla cambia qué commits existen y por tanto qué se rehace y qué se deshace.</li>
+          <li><strong>punto de control en el LSN 6</strong>: reduce los registros leídos, pues el análisis y el rehacer empiezan en el LSN 6; el deshacer puede retroceder más allá.</li>
+          <li><strong>Reproductor</strong>: recorre las fases análisis, rehacer y deshacer hasta que los datos coinciden con el último valor confirmado.</li>
           </ul>`,
         montar: montarRecuperacion,
       },

@@ -95,24 +95,28 @@
       sobre todo, que varias personas trabajen a la vez en <strong>ramas</strong> separadas que luego se <strong>fusionan</strong>.</p>
       <p>Para que lo que entra a la rama principal sea bueno, los equipos añaden una <strong>revisión de código</strong>: otra persona lee el cambio (en un <em>pull request</em>) antes de aprobarlo.</p>`,
     parametros: [
-      ['Rama actual (HEAD) (Fig. 1)', String.raw`La rama en la que se hacen los siguientes commits. Cambiarla mueve HEAD a otra rama.`],
-      ['git commit, git switch -c feature, git merge feature → main y Reiniciar (Fig. 1)', String.raw`Cada botón ejecuta esa orden sobre el repositorio dibujado: agregar un commit a la rama actual, crear <code>feature</code>, fusionarla en <code>main</code> o volver al estado inicial.`],
-      ['Las pruebas pasan a la primera (Fig. 2)', String.raw`Si el CI aprueba el primer push o si falla y exige una corrección.`],
-      ['El revisor pide cambios (Fig. 2)', String.raw`Si la revisión humana aprueba de inmediato o solicita ajustes, lo que agrega otra ronda.`],
-      ['Reproductor (Fig. 2)', String.raw`Avanza el recorrido paso a paso o solo; Reiniciar vuelve al comienzo.`],
+      ['Rama actual (HEAD) (Fig. 1)', String.raw`Selector con las ramas existentes (al inicio solo «main»; aparece «feature» al crearla). Elegir una mueve HEAD y los commits siguientes se agregan a esa rama.`],
+      ['git commit (Fig. 1)', String.raw`Botón que agrega un commit a la rama donde está HEAD y avanza esa rama.`],
+      ['git switch -c feature (Fig. 1)', String.raw`Botón que crea la rama «feature» en el commit actual, sin copiar nada, y pasa HEAD a ella. Si ya existe, avisa y no hace nada.`],
+      ['git merge feature → main (Fig. 1)', String.raw`Botón que fusiona «feature» en «main»; HEAD debe estar en «main» y «feature» debe existir. Si main no tiene nada nuevo, solo mueve el puntero (avance rápido); si ambas ramas divergieron, crea un commit de fusión con dos padres; si main ya contiene todo, avisa que no hay nada que fusionar.`],
+      ['Reiniciar (Fig. 1)', String.raw`Vuelve al repositorio inicial con un solo commit en main.`],
+      ['las pruebas pasan a la primera (Fig. 2)', String.raw`Casilla (marcada por defecto). Desmarcada, el CI falla, la autora sube una corrección y el CI corre otra vez.`],
+      ['el revisor pide cambios (Fig. 2)', String.raw`Casilla (marcada por defecto). Marcada, el revisor comenta, la autora sube ajustes y el CI corre de nuevo antes de aprobar; desmarcada, aprueba de inmediato.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Reproducen la secuencia: «Reproducir» avanza sola (se vuelve «Pausar»), «Un paso» avanza un mensaje, «Hasta el final» muestra todos y «Reiniciar» vuelve al inicio. La velocidad se da en pasos por segundo.`],
     ],
     visualizaciones: [
       { titulo: 'Commits, ramas y fusiones', descripcion: 'Haga commits, cree <code>feature</code> y fusione. Compare lo que ocurre cuando main no avanzó (avance rápido) y cuando las ramas divergieron (commit de fusión).',
-        ayuda: String.raw`<p>Grafo de commits. Las ramas <code>main</code> y <code>feature</code> tienen colores propios; el commit de fusión tiene dos padres y un marcador señala HEAD, la rama actual.</p>
+        ayuda: String.raw`<p>Grafo de commits de izquierda a derecha: los de main van en el carril superior (azul), los de feature en el inferior (naranja) y un commit de fusión (violeta) tiene dos líneas hacia sus padres. Cada círculo lleva su identificador; una caja junto al commit más reciente de cada rama muestra su nombre, y la de la rama actual dice «← HEAD» y tiene borde oscuro. Al pasar el puntero se ven el mensaje y los padres. Abajo se leen la cantidad de commits, las ramas, HEAD y los commits de fusión; un texto explica la última operación.</p>
           <ul>
-          <li><strong>git commit</strong>: agrega un commit a la rama donde está HEAD.</li>
-          <li><strong>git merge</strong> con <code>main</code> sin cambios: la rama solo avanza (avance rápido). Si <code>main</code> avanzó, aparece un commit de fusión con dos padres.</li>
+          <li><strong>git commit</strong>: añade un círculo al carril de la rama actual, unido al anterior.</li>
+          <li><strong>git switch -c feature</strong>: aparece la caja «feature ← HEAD» sobre el mismo commit, sin commits nuevos.</li>
+          <li><strong>git merge</strong>: avance rápido mueve la caja de main sin crear commit; con ramas divergentes aparece un círculo violeta con dos padres.</li>
           </ul>`, montar: montarGit },
       { titulo: 'Pull request y revisión', descripcion: 'Recorra el ciclo de un PR; haga fallar el CI o pida cambios en la revisión y vea cuántas rondas se agregan.',
-        ayuda: String.raw`<p>Diagrama de secuencia de un pull request: acciones de la autora, automatización (CI), revisión humana, aprobación, fallo y fusión, cada una con su color.</p>
+        ayuda: String.raw`<p>Diagrama de secuencia de un pull request con cuatro actores (Autora, Repositorio, CI, Revisor); cada flecha es un mensaje y el texto bajo la figura explica el paso actual. Colores: azul acciones de la autora, aguamarina automatización, naranja revisión humana, verde aprobado, rojo fallo y violeta fusión; los comentarios de cambios usan amarillo, que no figura en la leyenda. Abajo se leen el paso, las rondas de CI y las de revisión (2 si el revisor pide cambios, 1 si no).</p>
           <ul>
-          <li><strong>las pruebas pasan a la primera</strong> desmarcada: el CI marca fallo y se añade una ronda de corrección y nueva ejecución.</li>
-          <li><strong>el revisor pide cambios</strong> marcada: se agregan comentarios, nuevos commits y otra pasada del CI antes de aprobar y fusionar.</li>
+          <li><strong>las pruebas pasan a la primera</strong>: desmarcada, tras la primera ejecución aparece «pruebas fallan», un push con la corrección y otra ejecución del CI.</li>
+          <li><strong>el revisor pide cambios</strong>: marcada, se añaden «comentarios: cambios pedidos», «push con ajustes» y otra ejecución del CI antes de «aprobar» y del merge final.</li>
           </ul>`, montar: montarRevision },
     ],
     teoria: String.raw`

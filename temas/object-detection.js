@@ -131,23 +131,27 @@
       <p>Clasificar una imagen responde <em>¿qué hay?</em>. <strong>Localizar</strong> añade <em>¿dónde?</em>, con una <strong>caja delimitadora</strong> (<em>bounding box</em>), pero para un solo objeto. <strong>Detectar</strong> responde ambas preguntas para <em>todos</em> los objetos, y no se sabe de antemano cuántos son.</p>
       <p>Los detectores modernos comparten un esqueleto: un <strong>backbone</strong> convolucional extrae características, y una <strong>cabeza de detección</strong> (<em>detection head</em>) convierte esas características en cajas y clases. La cabeza puede predecir sobre una rejilla (YOLO, SSD) o sobre propuestas de regiones (la familia R-CNN).</p>`,
     parametros: [
-      ['Tarea (Fig. 1)', String.raw`Qué se pide a la red: solo la clase, clase más una caja, o clases y cajas de varios objetos. Cambia cuántos números debe producir.`],
-      ['Objetos en la escena (Fig. 1)', String.raw`Cantidad de objetos. Con varios, la clasificación de una sola etiqueta y la localización de una sola caja dejan de bastar.`],
-      ['Nueva escena (Fig. 1 y 2)', String.raw`Sortea otra disposición de objetos.`],
-      ['Rejilla S × S del mapa de características (Fig. 2)', String.raw`Número de celdas en que se divide la imagen. Una más fina permite repartir mejor objetos pequeños o cercanos.`],
+      ['Tarea (Fig. 1)', String.raw`Selector con tres opciones: Clasificación de la imagen (un vector de 3 probabilidades), Clasificación + localización (1 objeto) (una clase y una caja para el objeto de mayor área) y Detección (varios objetos) (una lista con clase, confianza y caja por objeto).`],
+      ['Objetos en la escena (Fig. 1)', String.raw`De 1 a 5 objetos; se genera una escena nueva. Con varios, la clasificación de una sola etiqueta y la caja única dejan de describir la escena.`],
+      ['Nueva escena (Fig. 1 y 2)', String.raw`Sortea otra disposición de objetos (3 en la Fig. 2).`],
+      ['Rejilla S × S del mapa de características (Fig. 2)', String.raw`De 3 a 8 celdas por lado. Cambia en cuántas celdas se divide la imagen y cuántas predicciones se hacen de una vez.`],
+      ['Clic en una celda (Fig. 2)', String.raw`Selecciona una celda para ver su vector de salida a la derecha.`],
     ],
     visualizaciones: [
       { titulo: 'Clasificar, localizar y detectar', descripcion: 'Alterne las tres tareas sobre la misma escena y mire cuántos números tiene cada salida. Aumente los objetos y vea quién deja de funcionar.',
-        ayuda: String.raw`<p>La escena con sus objetos de varias clases y, según la tarea, la caja predicha en negro. A un lado se listan las salidas de la red.</p>
+        ayuda: String.raw`<p>A la izquierda, la escena con objetos de tres clases: caja (azul), balón (naranja) y cono (aguamarina). Las cajas negras con etiqueta y confianza son predicciones simuladas (la caja real con un pequeño error). A la derecha, el panel «Salida del modelo» lista lo que devuelve cada tarea. Al pasar el cursor sobre un objeto se ve su clase y su caja real.</p>
           <ul>
-          <li><strong>Tarea</strong>: clasificación da una etiqueta, localización añade una caja y detección da una caja y clase por objeto.</li>
-          <li><strong>Objetos en la escena</strong>: al aumentarlos, clasificación y localización de un solo objeto dejan de describir la escena.</li>
+          <li><strong>Clasificación de la imagen</strong>: no se dibuja ninguna caja; la salida son 3 probabilidades y no dice dónde está nada.</li>
+          <li><strong>Clasificación + localización</strong>: una sola caja negra, y la salida ignora los demás objetos.</li>
+          <li><strong>Detección</strong>: una caja por objeto y una lista de tamaño variable.</li>
+          <li><strong>Objetos en la escena</strong>: cambia cuántos hay que describir y el tamaño de la lista.</li>
           </ul>`, montar: montarTareas },
       { titulo: 'Backbone, rejilla y cabeza', descripcion: 'Cambie el tamaño de la rejilla y haga clic en una celda: la celda que contiene el centro de un objeto es la responsable de predecirlo.',
-        ayuda: String.raw`<p>La imagen con la rejilla del mapa de características, las cajas de los objetos y la celda responsable de cada uno, que es la que contiene su centro. Se resalta la celda elegida.</p>
+        ayuda: String.raw`<p>A la izquierda, la escena con una rejilla S × S superpuesta. Las celdas verdes contienen el centro de algún objeto (celda responsable); la celda elegida lleva borde naranja. A la derecha, el esquema Imagen → backbone → mapa de características → cabeza, y debajo el vector de salida de la celda elegida (si hay un objeto, su presencia, posición del centro y tamaño). Si la pantalla es angosta, este panel se omite. Bajo la figura se indica cuántas predicciones hace el modelo y cuántas celdas son responsables.</p>
           <ul>
-          <li><strong>Rejilla S × S</strong>: con más celdas cada objeto tiene una celda más pequeña, y celdas muy grandes pueden contener varios centros.</li>
-          <li>Al hacer clic en una celda se ve si es responsable de algún objeto.</li>
+          <li><strong>Rejilla S × S</strong>: con más celdas hay más predicciones de una pasada; con pocas, dos objetos pueden caer en la misma celda y solo uno se detecta.</li>
+          <li><strong>Clic en una celda</strong>: muestra su vector de salida, o que no hay objeto en ella.</li>
+          <li><strong>Nueva escena</strong>: cambia dónde caen los centros y borra la selección.</li>
           </ul>`, montar: montarCabeza },
     ],
     teoria: String.raw`

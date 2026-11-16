@@ -375,34 +375,39 @@ const yRama = (c) => c.r1;
       <p>Hay varias formas de medir la importancia de un atributo, y no siempre coinciden. Además, un factor que «predice» una ruta no es necesariamente
       su causa: un atributo correlacionado con el verdadero motivo parece importante sin serlo.</p>`,
     parametros: [
-      ['Punto de decisión (Fig. 1)', String.raw`Qué decisión del proceso se explica: 1, tras evaluar el riesgo, o 2, tras la revisión manual.`],
-      ['Profundidad del árbol (Fig. 1)', String.raw`Profundidad del modelo con que se mide la importancia. Un árbol más profundo captura más relaciones entre atributos.`],
-      ['Barajados por atributo (Fig. 1)', String.raw`Cuántas veces se baraja cada atributo para medir la pérdida de exactitud. Más barajados dan una estimación más estable.`],
-      ['Desvíos de la regla (Fig. 1)', String.raw`Porcentaje de decisiones que no siguen la regla. Más desvíos reducen la importancia de todos los atributos.`],
-      ['Quitar «puntaje» del modelo (Fig. 1)', String.raw`Excluye el atributo que decide. Otros atributos que se mueven con él pasan a parecer importantes.`],
-      ['Monto, Puntaje, Ingreso, Carga, Cliente nuevo y Canal web (Fig. 2)', String.raw`Datos del caso que se predice. Cada uno mueve el caso por el árbol y puede cambiar la ruta y la decisión predicha.`],
-      ['Atributos del modelo (Fig. 2)', String.raw`Con qué atributos se entrena el árbol: todos, sin puntaje (queda el ingreso) o solo canal y carga.`],
-      ['Ingreso típico del puntaje y Nuevos datos (Fig. 2)', String.raw`El primero fija el ingreso que corresponde al puntaje actual; el segundo genera otra muestra.`],
+      ['Punto de decisión (Fig. 1)', String.raw`«1 · tras evaluar el riesgo» explica la ruta entre aprobar directo, revisión manual y rechazar (tres clases). «2 · tras la revisión manual» explica aprobar o rechazar solo entre los casos que pasaron a revisión (dos clases).`],
+      ['Profundidad del árbol (Fig. 1)', String.raw`De 1 a 6. Es la profundidad máxima del árbol entrenado cuyo desempeño se mide al barajar atributos; uno más profundo puede usar más atributos y combinaciones.`],
+      ['Barajados por atributo (Fig. 1)', String.raw`De 1 a 30. Cuántas veces se baraja la columna de cada atributo en los casos de prueba; la importancia por permutación es el promedio de las caídas de exactitud, y más repeticiones la estabilizan.`],
+      ['Desvíos de la regla (Fig. 1)', String.raw`De 0 a 30 %. Probabilidad de que la decisión real se aparte de la regla de negocio en cada caso simulado; con más ruido el árbol acierta menos y las barras de permutación suelen bajar.`],
+      ['Quitar «puntaje» del modelo (Fig. 1)', String.raw`Entrena el árbol sin el atributo puntaje, que sigue apareciendo en la figura marcado «(fuera del modelo)» con su ganancia pero sin importancia por permutación. El ingreso, correlacionado con el puntaje, pasa a ocupar su papel.`],
+      ['Nuevos casos (Fig. 1)', String.raw`Simula otras 600 solicitudes y recalcula todo.`],
+      ['Monto, Puntaje, Ingreso, Carga del analista, Cliente nuevo y Canal web (Fig. 2)', String.raw`Valores del caso cuya ruta se predice. Cada cambio mueve el caso por el árbol (solo importan los que el árbol usa para cortar) y puede cambiar la hoja alcanzada.`],
+      ['Atributos del modelo (Fig. 2)', String.raw`Con qué atributos se entrena el árbol (profundidad máxima 3, criterio Gini): «todos», «sin puntaje (queda el ingreso)» o «solo canal y carga». Reentrena el árbol.`],
+      ['Ingreso típico del puntaje (Fig. 2)', String.raw`Fija el ingreso en el valor esperado para el puntaje actual (15 + 0,1 por cada punto sobre 300, en miles). Sirve para ver el efecto del puntaje sin que el ingreso lo contradiga.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Simula otras solicitudes y reentrena el árbol.`],
+      ['Clic en una hoja (Fig. 2)', String.raw`Carga un caso típico de esa hoja (promedios de sus casos de entrenamiento) en los controles.`],
     ],
     visualizaciones: [
       {
         titulo: 'Importancia de cada factor',
         descripcion: 'Compara dos medidas de importancia. Con todos los atributos, «puntaje» domina; active «Quitar puntaje» y observe cómo el ingreso, que no decide nada pero se mueve con el puntaje, ocupa su lugar.',
-        ayuda: String.raw`<p>Cada atributo tiene dos barras: la ganancia de información (fracción de la entropía que explica el atributo solo) y la importancia por permutación (puntos de exactitud que se pierden al barajarlo).</p>
+        ayuda: String.raw`<p>Cada atributo, ordenado por importancia por permutación, tiene dos barras horizontales en porcentaje: azul (C.s1) la ganancia de información (fracción de la entropía de la decisión que explica por sí solo) y naranja (C.s2) la importancia por permutación (puntos de exactitud que pierde el árbol en los casos de prueba al barajar ese atributo). Un atributo excluido aparece en gris como «(fuera del modelo)», con solo la barra azul. Al pasar el cursor por una fila aparece el detalle, con la desviación de la permutación y el momento en que se conoce el atributo.</p>
           <ul>
-          <li><strong>Quitar «puntaje» del modelo</strong>: el ingreso, que se mueve con el puntaje sin decidir nada, ocupa el lugar del puntaje.</li>
-          <li><strong>Barajados por atributo</strong>: más repeticiones estabilizan la barra de permutación.</li>
-          <li><strong>Desvíos de la regla</strong>: más desvíos hacen más bajas las barras.</li>
+          <li><strong>Quitar «puntaje»</strong>: sin él, el ingreso, que se mueve con el puntaje sin decidir nada, ocupa su lugar y se ve como importante.</li>
+          <li><strong>Barajados por atributo</strong>: estabilizan la barra naranja.</li>
+          <li><strong>Desvíos de la regla</strong>: más desvíos reducen la exactitud del árbol y, con ella, las barras.</li>
+          <li>El panel de lectura da exactitud en prueba, entropía y hojas del árbol.</li>
           </ul>`,
         montar: montarImportancia,
       },
       {
         titulo: 'Predecir la ruta de un caso nuevo',
         descripcion: 'Elija los atributos del modelo y mueva los datos de un caso: el árbol lo lleva a una ruta. Con «sin puntaje», suba el ingreso sin cambiar el puntaje y vea que la predicción cambia pero la regla de negocio no.',
-        ayuda: String.raw`<p>Es el árbol aprendido con las decisiones aprobar directo, revisión manual o rechazar. El camino de este caso se resalta desde la raíz hasta la hoja con la decisión predicha.</p>
+        ayuda: String.raw`<p>Es un árbol de decisión aprendido con los tres destinos posibles. Los nodos internos muestran el corte (atributo ≤ umbral, o el atributo binario); las aristas están rotuladas sí/no. Las hojas están coloreadas por la ruta mayoritaria: verde (C.s6) aprobar directo, azul (C.s1) revisión manual, rojo (C.s8) rechazar, con el porcentaje de esa clase. El camino del caso actual se resalta en naranja (C.s2) desde la raíz hasta su hoja.</p>
           <ul>
-          <li><strong>Puntaje</strong> o <strong>Monto</strong>: al cruzar un umbral del árbol, el camino cambia de rama.</li>
+          <li><strong>Puntaje</strong> o <strong>Monto</strong>: al cruzar un umbral del árbol el camino cambia de rama.</li>
           <li><strong>Atributos del modelo</strong> «sin puntaje»: subir el ingreso sin cambiar el puntaje cambia la predicción aunque la regla de negocio no cambie.</li>
+          <li><strong>Clic en una hoja</strong>: carga un caso típico; el panel de lectura compara la ruta predicha con la regla de negocio y da la exactitud del modelo.</li>
           </ul>`,
         montar: montarPrediccion,
       },

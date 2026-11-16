@@ -241,27 +241,29 @@
       condiciones sobre ellas que garantizan que no haya redundancia. Normalizar es descomponer la tabla en otras más pequeñas sin perder
       información.</p>`,
     parametros: [
-      ['Esquema (Fig. 1 y 2)', String.raw`Relación con sus atributos y dependencias funcionales (abstracta o con nombres concretos). Cambiarlo cambia las dependencias que se examinan y la descomposición resultante.`],
-      ['Casillas de atributos X (Fig. 1)', String.raw`El conjunto inicial X cuya clausura \(X^+\) se calcula. Si \(X^+\) contiene todos los atributos, X es superclave.`],
-      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza el algoritmo un paso a la vez (una dependencia examinada o una división); Reiniciar lo vuelve al principio.`],
+      ['Esquema (Fig. 1 y 2)', String.raw`Selector con cuatro relaciones y sus dependencias funcionales: Inscripción, Empleados, Dirección y la abstracta R(A, B, C, D, E, G). En la Fig. 1 se reinicia con X igual al primer atributo; en la Fig. 2 cambia la relación que se descompone.`],
+      ['Casillas de atributos X (Fig. 1)', String.raw`Una casilla por atributo del esquema; los marcados forman el conjunto X cuya clausura \(X^+\) se calcula. Inicialmente X es solo el primer atributo. Si \(X^+\) contiene todos los atributos, X es superclave. Cambiarlas reinicia el cálculo.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. En la Fig. 1 cada paso examina una dependencia; en la Fig. 2 cada paso divide una relación que viola BCNF.`],
     ],
     visualizaciones: [
       {
         titulo: 'Clausura de un conjunto de atributos',
         descripcion: 'El algoritmo que calcula X⁺, todo lo que X determina. Pruebe en el esquema abstracto con X = {B, C} o {C, E}, y compare con las claves candidatas.',
-        ayuda: String.raw`<p>Las dependencias aparecen como una lista y como un grafo; el resultado en construcción es \(X^+\). Se resalta la dependencia que se examina; los atributos tienen color según estén en X (inicio), agregados en este paso o agregados antes.</p>
+        ayuda: String.raw`<p>Se muestra la lista de dependencias funcionales (la que se examina se resalta con fondo azul claro) y, debajo, las fichas de \(X^+\) (los atributos alcanzados hasta ahora). Una ficha de borde verde es un atributo de X (inicio); una naranja rellena, un atributo agregado en este paso; una negra con borde simple, uno agregado antes. El texto explica cada paso (si la dependencia agrega algo o aún no se aplica) y la lectura da |X<sup>+</sup>|, si X es superclave, las claves candidatas y la forma normal del esquema. No hay un grafo: son la lista y las fichas.</p>
           <ul>
-          <li><strong>Casillas de atributos X</strong>: con X = {B, C} o {C, E} se ve qué dependencias se disparan y hasta dónde crece \(X^+\).</li>
+          <li><strong>Casillas de atributos X</strong>: en el esquema abstracto, X = {B, C} o {C, E} muestra qué dependencias se disparan y hasta dónde crece \(X^+\).</li>
           <li><strong>Esquema</strong>: otro conjunto de dependencias, con otras claves candidatas.</li>
+          <li><strong>Un paso</strong>: examina la siguiente dependencia; termina cuando una vuelta completa no agrega nada.</li>
           </ul>`,
         montar: montarClausura,
       },
       {
         titulo: 'Descomposición en BCNF',
         descripcion: 'Mientras alguna relación tenga una dependencia X → Y con X no superclave, se divide en dos. Observe qué dependencias sobreviven a la descomposición.',
-        ayuda: String.raw`<p>Árbol de la descomposición: la relación que se acaba de crear, la dependencia \(X \to Y\) que viola BCNF (X no es superclave) y las relaciones que ya están en BCNF.</p>
+        ayuda: String.raw`<p>No es un árbol dibujado: es una lista con sangría que parte de la relación R. Cada relación aparece con sus atributos; si se dividió, se muestra en rojo la dependencia que la viola (X no es superclave) y debajo, con sangría, las dos relaciones nuevas, que se resaltan con fondo azul claro en el paso en que se crean. Las que no se dividen muestran en verde BCNF (o su forma normal, en gris, si no lo es). La lectura da el número de relaciones finales, la forma normal inicial y cuántas dependencias se preservan.</p>
           <ul>
-          <li><strong>Esquema</strong>: según las dependencias, la descomposición termina en más o menos relaciones, y alguna dependencia puede dejar de verificarse dentro de una sola relación.</li>
+          <li><strong>Esquema</strong>: según las dependencias, la descomposición termina en más o menos relaciones. En Dirección se pierde la dependencia calle ciudad → cp: las dependencias preservadas bajan.</li>
+          <li><strong>Un paso</strong>: aplica una división \(R_1 = X \cup Y\), \(R_2 = R - Y\) a la primera relación con violación.</li>
           </ul>`,
         montar: montarBCNF,
       },

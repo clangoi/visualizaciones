@@ -83,27 +83,30 @@
       Dada la valuación, el valor de cualquier fórmula queda determinado, calculándolo de las hojas hacia la raíz con las tablas de los conectivos.</p>
       <p>Como con \(n\) variables hay \(2^n\) valuaciones, se pueden listar todas: eso es la <strong>tabla de verdad</strong>. Es el método más directo para decidir qué es verdad siempre, a veces o nunca.</p>`,
     parametros: [
-      ['Fórmula (Fig. 1 y 2)', String.raw`La expresión que se evalúa; sus variables determinan las filas y sus subfórmulas las columnas.`],
-      ['Valuación (Fig. 1 y 2)', String.raw`Una fila de la tabla o los valores fijados en las variables: asigna V o F a cada variable.`],
+      ['Fórmula (Fig. 1)', String.raw`Fórmula cuya tabla se calcula, con botones para insertar símbolos; admite hasta 5 variables. Sus variables fijan las filas (\(2^n\)) y sus subfórmulas con conectivos, las columnas. Si hay un error, el registro lo indica.`],
+      ['Clic en una fila (Fig. 1)', String.raw`Selecciona una valuación: la fila queda resaltada y el registro indica el valor que toma la fórmula en ella.`],
+      ['Fórmula (Fig. 2)', String.raw`Fórmula cuyo árbol se evalúa. Al cambiarla se reinicia el recorrido.`],
+      ['Clic en una variable del árbol (Fig. 2)', String.raw`Cambia de V a F (o al revés) la valuación de esa variable y reinicia la evaluación.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final, Reiniciar (Fig. 2)', String.raw`Controlan la evaluación de abajo hacia arriba: pasos por segundo, avanzar un nodo, saltar al final o volver al principio.`],
     ],
     visualizaciones: [
       {
         titulo: 'La tabla de verdad',
         descripcion: 'Escriba una fórmula y lea su tabla con una columna por cada subfórmula. Haga clic en una fila para fijar una valuación.',
-        ayuda: String.raw`<p>Una columna por cada subfórmula, desde las variables hasta la fórmula completa; cada fila es una valuación posible.</p>
+        ayuda: String.raw`<p>Una tabla de verdad. A la izquierda están las variables; a continuación, una columna por cada subfórmula con conectivos, de la más simple a la fórmula completa, que es la última y se destaca. Cada fila es una valuación, de «todo V» a «todo F», y las celdas muestran V o F. El registro dice el valor en la fila elegida y la lectura da las variables, el número de filas, las filas verdaderas y la clasificación.</p>
           <ul>
-          <li><strong>Fórmula</strong>: añade o quita variables y subfórmulas; con n variables hay \(2^n\) filas.</li>
-          <li><strong>Clic en una fila</strong>: fija esa valuación y muestra el valor de la fórmula en ella.</li>
+          <li><strong>Fórmula</strong>: más variables duplican las filas; más conectivos agregan columnas.</li>
+          <li><strong>Clic en una fila</strong>: la resalta y muestra qué valor toma la fórmula en esa valuación.</li>
           </ul>`,
         montar: montarTabla,
       },
       {
         titulo: 'Evaluación recursiva sobre el árbol',
         descripcion: 'Fije una valuación haciendo clic en las variables y reproduzca la evaluación: cada nodo se calcula cuando ya se conocen sus hijos.',
-        ayuda: String.raw`<p>El árbol se colorea: verdadero (V), falso (F), sin evaluar y el nodo que se evalúa ahora.</p>
+        ayuda: String.raw`<p>El árbol de sintaxis de la fórmula evaluado bajo una valuación. Un nodo con relleno y borde azul vale V; uno gris, F; con relleno claro y borde gris tenue, no se ha evaluado; el nodo del paso actual tiene borde y anillo naranja. Los nodos ya evaluados muestran su V o F debajo. Las hojas siempre muestran su valor. La lectura da la valuación, los nodos evaluados y el valor de la fórmula.</p>
           <ul>
-          <li><strong>Valuación</strong>: al cambiar el valor de una variable cambian los nodos que dependen de ella.</li>
-          <li><strong>Reproductor</strong>: cada nodo se calcula cuando ya se conocen sus hijos.</li>
+          <li><strong>Clic en una variable</strong>: invierte su valor; los nodos que dependen de ella cambian al evaluarse de nuevo.</li>
+          <li><strong>Reproducir, Un paso, Hasta el final, Reiniciar</strong>: cada nodo interno se calcula cuando ya se conocen sus hijos.</li>
           </ul>`,
         montar: montarEvaluacion,
       },

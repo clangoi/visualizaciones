@@ -232,29 +232,33 @@
       <p>Tres palabras que suelen usarse como si fueran una sola, y que describen cambios muy distintos. La <strong>digitización</strong> convierte información analógica en digital (escanear un contrato). La <strong>digitalización</strong> usa lo digital para rehacer un proceso (facturar, aprobar y registrar sin papel). La <strong>transformación digital</strong> cambia el modelo de negocio: qué se ofrece, a quién y cómo se cobra, apoyándose en datos y tecnología.</p>
       <p>Confundirlas lleva a decisiones caras: una empresa puede gastar años en digitizar archivos y creer que se transformó. Las dos figuras ayudan a distinguirlas: primero clasificando ejemplos reales y luego viendo por qué cada nivel depende del anterior y por qué el valor grande está en el último.</p>`,
     parametros: [
-      ['Botones de nivel y Mezclar y reiniciar (Fig. 1)', String.raw`Asignan la iniciativa elegida a digitización, digitalización o transformación. Mezclar y reiniciar borra las respuestas y cambia el orden.`],
-      ['Presupuesto a cada nivel (Fig. 2)', String.raw`Cuánto del esfuerzo de cada trimestre se destina a digitización, a digitalización y a transformación. Importa la proporción entre los tres.`],
-      ['Todo en transformación y Reparto equilibrado (Fig. 2)', String.raw`Atajos que fijan los tres presupuestos: todo al nivel superior, o un reparto parejo.`],
-      ['Reproductor (Fig. 2)', String.raw`Avanza los 40 trimestres de la simulación.`],
+      ['Digitización, Digitalización y Transformación (Fig. 1)', String.raw`Tres botones que asignan la iniciativa elegida (la que tiene el anillo) a ese nivel. Tras pulsar uno, el registro dice si acertó y por qué, y la selección pasa a la siguiente iniciativa sin clasificar. También puede hacer clic en la columna del nivel.`],
+      ['Mezclar y reiniciar (Fig. 1)', String.raw`Borra todas las respuestas y cambia el orden en que aparecen las doce iniciativas.`],
+      ['Presupuesto a digitización, a digitalización y a transformación (Fig. 2)', String.raw`Tres deslizadores de 0 a 10 (valor inicial 3 en cada uno). Fijan cómo se reparte el esfuerzo de cada trimestre; solo importa la proporción entre los tres. Cambiar uno reinicia la simulación.`],
+      ['Todo en transformación (Fig. 2)', String.raw`Fija los presupuestos en 0, 0 y 10: todo el esfuerzo a transformación.`],
+      ['Reparto equilibrado (Fig. 2)', String.raw`Fija los presupuestos en 3, 3 y 3: el mismo esfuerzo a los tres niveles.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza trimestre a trimestre, hasta 40, y dibuja el progreso acumulado.`],
     ],
     visualizaciones: [
       {
         titulo: 'Clasifique iniciativas por lo que cambian',
         descripcion: 'Clasifique las doce iniciativas en digitización, digitalización o transformación. Equivóquese a propósito con alguna y lea la explicación; los casos de frontera, como el PDF que se imprime, son los más instructivos.',
-        ayuda: String.raw`<p>Cada iniciativa es un elemento numerado dispuesto en una columna según su clasificación. Gris es sin clasificar, y los colores de «bien» y «mal clasificada» indican si coincide con la respuesta correcta. Un anillo marca la iniciativa elegida.</p>
+        ayuda: String.raw`<p>Arriba, las doce iniciativas como círculos numerados bajo «Sin clasificar»; abajo, tres columnas: Digitización (cambia el formato), Digitalización (cambia el proceso) y Transformación (cambia el negocio). Un círculo gris está sin clasificar, verde si está bien clasificado y rojo si no; un anillo negro rodea la iniciativa elegida. Bajo la figura, una tabla numerada con el texto de cada iniciativa.</p>
           <ul>
-          <li><strong>Botones de nivel</strong>: ubican la iniciativa elegida en la columna de ese nivel y, al hacerlo, muestra si acertó.</li>
-          <li><strong>Mezclar y reiniciar</strong>: vuelve todo a sin clasificar.</li>
+          <li><strong>Botones de nivel</strong>: mueven la iniciativa elegida a esa columna; el registro explica la respuesta correcta y la lectura cuenta clasificadas, bien clasificadas, intentos y porcentaje de aciertos.</li>
+          <li><strong>Clic en un círculo o en una fila de la tabla</strong>: elige esa iniciativa; se puede reclasificar cuantas veces quiera.</li>
+          <li><strong>Mezclar y reiniciar</strong>: devuelve todo a gris y reordena.</li>
           </ul>`,
         montar: montarClasificar,
       },
       {
         titulo: 'Madurez: cada nivel apoya al siguiente',
         descripcion: 'Reparta el esfuerzo entre los tres niveles y reproduzca 40 trimestres. Compare «Reparto equilibrado» con «Todo en transformación» y observe cuánto presupuesto se pierde cuando se salta un nivel.',
-        ayuda: String.raw`<p>Eje horizontal: trimestre; eje vertical: porcentaje completado. Tres curvas muestran el avance de digitización, digitalización y transformación, y otra, el valor creado (índice 0–100).</p>
+        ayuda: String.raw`<p>Eje horizontal: trimestre (0 a 40); eje vertical: porcentaje completado (0 a 100). Tres curvas muestran el avance de digitización (azul), digitalización (naranja) y transformación (violeta); la línea negra gruesa es el valor creado (índice 0 a 100, que pesa 1, 3 y 8 a los tres niveles). Al pasar el cursor se leen los valores de cada trimestre.</p>
           <ul>
-          <li><strong>Presupuesto</strong> a transformación sin presupuesto a los niveles inferiores: su curva casi no avanza, porque depende de los niveles que la sostienen.</li>
-          <li><strong>Reparto equilibrado</strong>: las tres curvas avanzan y el valor creado crece más.</li>
+          <li><strong>Presupuestos</strong>: cada nivel solo puede avanzar hasta donde lo permite el que lo sostiene (la digitalización hasta la digitización más un 10 %; la transformación, hasta la digitalización). El esfuerzo que excede ese límite se pierde y el registro lo avisa.</li>
+          <li><strong>Todo en transformación</strong>: ningún nivel inferior avanza, por lo que la curva violeta queda en 0 y el valor creado no sube.</li>
+          <li><strong>Reparto equilibrado</strong>: los tres niveles avanzan, aunque con 40 trimestres la digitización y las demás no llegan a completarse; el valor creado crece de forma sostenida.</li>
           </ul>`,
         montar: montarMadurez,
       },

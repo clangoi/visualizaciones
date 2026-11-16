@@ -264,31 +264,34 @@
       <p>La <strong>visualización centrada en objetos</strong> dibuja en un mismo grafo una ruta por tipo de objeto, con un color por tipo. Las actividades que tocan varios tipos son los puntos de
       encuentro, y ahí se ven las dependencias: la evaluación que no se califica retrasa las notas de todo un curso, la cama que no se limpia detiene el ingreso del paciente siguiente.</p>`,
     parametros: [
-      ['Curso (Fig. 1)', String.raw`Qué curso del modelo se muestra, o todos. Filtra los objetos que entran.`],
-      ['Mínimo de objetos por arista (Fig. 1)', String.raw`Cuántos objetos deben recorrer una arista para dibujarla. Subirlo deja solo las relaciones más frecuentes.`],
-      ['Casillas de tipos de objeto (Fig. 1)', String.raw`Muestran u ocultan cada tipo de objeto en el modelo.`],
-      ['Objeto a seguir (Fig. 2)', String.raw`Cama, paciente o examen cuya ruta se destaca. Cada tipo muestra una vista distinta del hospital.`],
-      ['Nuevos datos (Fig. 2)', String.raw`Genera otra asignación de quién usa cada cama.`],
+      ['Curso (Fig. 1)', String.raw`«Todos los cursos», «curso c1» o «curso c2». Deja solo los eventos que tocan al curso elegido (y con ellos los estudiantes y la evaluación de ese curso). También quita la actividad seleccionada.`],
+      ['Mínimo de objetos por arista (Fig. 1)', String.raw`De 1 a 6. Una arista solo se dibuja si al menos ese número de objetos pasaron por ella; subirlo deja el esqueleto más frecuente del proceso.`],
+      ['Estudiantes, cursos y evaluaciones (Fig. 1)', String.raw`Casillas que muestran u ocultan las aristas de cada tipo de objeto (azul, naranja y aguamarina). Los nodos de actividad no desaparecen.`],
+      ['Clic en una actividad (Fig. 1 y 2)', String.raw`Selecciona o deselecciona una actividad (nodo) y lista los objetos de cada tipo que participan en ella.`],
+      ['Objeto a seguir (Fig. 2)', String.raw`Cualquier objeto del registro (camas, pacientes y exámenes). Resalta con trazo grueso su ruta por el grafo y lista los objetos con que comparte eventos.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Genera otro registro hospitalario (otras duraciones y número de exámenes por paciente, y otra asignación de camas) y actualiza la lista de objetos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Procesos de un curso universitario',
         descripcion: 'Un modelo con tres tipos de objeto: estudiante, curso y evaluación. Filtre por curso, apague tipos y suba el mínimo de objetos por arista; haga clic en «Publicar notas»: toca al curso, a la evaluación y a todos sus estudiantes.',
-        ayuda: String.raw`<p>Modelo con tres tipos de objeto (estudiante, curso y evaluación), cada uno en su color, y actividades como nodos. La actividad seleccionada se resalta.</p>
+        ayuda: String.raw`<p>Cada nodo es una actividad, con las veces que ocurre (×n). Cada arista conecta dos actividades consecutivas para un tipo de objeto, con el color de ese tipo: azul (C.s1) estudiantes, naranja (C.s2) cursos, aguamarina (C.s3) evaluaciones; su etiqueta y grosor son cuántos objetos hicieron ese paso. La actividad seleccionada se resalta con un contorno naranja. Bajo el grafo se listan los objetos de cada tipo que toca la actividad elegida.</p>
           <ul>
-          <li><strong>Curso</strong>: limita el modelo a un curso.</li>
-          <li><strong>Mínimo de objetos por arista</strong>: oculta aristas poco recorridas y deja el esqueleto del proceso.</li>
-          <li><strong>Casillas de tipos</strong>: quitan un tipo y las aristas que dependían de él.</li>
+          <li><strong>Curso</strong>: limita los eventos a los que tocan ese curso.</li>
+          <li><strong>Mínimo de objetos por arista</strong>: oculta aristas poco recorridas.</li>
+          <li><strong>Casillas de tipos</strong>: quitan las aristas de un tipo.</li>
+          <li>El panel de lectura da eventos, objetos, aristas visibles y objetos por evento.</li>
           </ul>`,
         montar: montarEducacion,
       },
       {
         titulo: 'Seguir una cama, un paciente o un examen',
         descripcion: 'En un hospital con tres tipos de objeto, elija una cama: su ruta es un ciclo entre pacientes. Luego elija un paciente o un examen y compare cómo se entrelazan; «Nuevos datos» cambia quién usa cada cama.',
-        ayuda: String.raw`<p>Modelo del hospital con tres tipos de objeto. El trazo grueso es la ruta del objeto elegido, con n× las veces que la recorre.</p>
+        ayuda: String.raw`<p>Mismo tipo de grafo para un hospital: azul (C.s1) pacientes, naranja (C.s2) exámenes, aguamarina (C.s3) camas. El objeto elegido se destaca con trazo grueso en las aristas de su propio tipo, rotuladas con n× (las veces que las recorre); el resto del modelo se atenúa. Bajo el grafo aparecen su ruta de actividades y los objetos con que comparte eventos.</p>
           <ul>
-          <li><strong>Objeto a seguir</strong>: una cama traza un ciclo entre pacientes; un paciente o un examen se entrelazan con otros objetos.</li>
-          <li><strong>Nuevos datos</strong>: cambia quién usa cada cama y, con ello, las rutas.</li>
+          <li><strong>Objeto a seguir</strong>: una cama traza un ciclo (Admitir, Dar de alta, Limpiar cama) a través de varios pacientes; un paciente o un examen se cruzan con otros objetos, por ejemplo en «Informar resultado».</li>
+          <li><strong>Clic en una actividad</strong>: indica cuántas veces participa el objeto elegido en ella y con qué otros objetos.</li>
+          <li><strong>Nuevos datos</strong>: cambia el registro y con él las rutas.</li>
           </ul>`,
         montar: montarSalud,
       },

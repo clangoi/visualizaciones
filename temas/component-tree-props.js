@@ -96,24 +96,27 @@
       Un componente pequeño se reutiliza, se compone dentro de otros y se prueba por separado.</p>
       <p>Lo que cambia con el tiempo es el <strong>estado</strong>. La regla central es el flujo <em>unidireccional</em>: los datos bajan por las props y los eventos suben por callbacks hasta el componente que posee el estado. React vuelve a renderizar lo afectado: la interfaz es una función del estado.</p>`,
     parametros: [
-      ['Elemento que se marca (Fig. 1)', String.raw`Qué elemento de la lista se marca con un clic. Fija qué estado cambia y qué componentes dependen de él.`],
-      ['React.memo en los componentes (Fig. 1)', String.raw`Si cada componente omite renderizarse cuando sus props no cambian. Reduce renderizados innecesarios.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza paso a paso desde el clic hasta el nuevo render.`],
-      ['input value={nombre} onChange (Fig. 2)', String.raw`El campo controlado: su valor viene siempre del estado y cada tecla lo actualiza.`],
-      ['El manejador convierte a mayúsculas y Borrar estado (Fig. 2)', String.raw`Transforma el texto antes de guardarlo en el estado y restablece el estado.`],
+      ['Elemento que se marca (Fig. 1)', String.raw`Item 1, Item 2 o Item 3: el ítem que se marca como hecho. Define qué ítem recibe el evento y cuál se renderiza cuando hay memo.`],
+      ['React.memo en los componentes (Fig. 1)', String.raw`Casilla. Sin ella, App vuelve a renderizar todos sus hijos; con ella, Header y los ítems no marcados omiten el render porque sus props no cambiaron.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza por las etapas: clic en el ítem, el evento sube por los callbacks, App actualiza el estado y se renderiza de nuevo, y luego los hijos. Se reinicia al cambiar el ítem o memo.`],
+      ['Campo de texto «input value={nombre} onChange» (Fig. 2)', String.raw`Campo controlado: su valor viene del estado <code>nombre</code>, y cada tecla llama a <code>setNombre</code> y produce un nuevo renderizado.`],
+      ['El manejador convierte a mayúsculas (Fig. 2)', String.raw`Casilla: el manejador guarda el texto en mayúsculas en el estado, de modo que el campo lo muestra transformado.`],
+      ['Borrar estado (Fig. 2)', String.raw`Deja <code>nombre</code> vacío; cuenta como un renderizado más.`],
     ],
     visualizaciones: [
       { titulo: 'Datos que bajan, eventos que suben', descripcion: 'Avance paso a paso desde el clic en un elemento hasta el nuevo renderizado. Active <code>React.memo</code> y cuente qué componentes se evitan.',
-        ayuda: String.raw`<p>Es el árbol App, Header, Lista y Resumen. Los datos bajan como props y el evento sube por callbacks. Los colores de la leyenda indican quién se vuelve a renderizar, quién actualiza el estado y quién no se renderiza.</p>
+        ayuda: String.raw`<p>Árbol de componentes: App con Header, Lista (con Item 1, 2 y 3) y Resumen. Colores: naranja el ítem donde ocurre el evento (que sube por flechas naranjas hasta App), verde App cuando se actualiza el estado, azul los componentes que se vuelven a renderizar y gris los que no. La lectura muestra el estado de App y cuántos componentes se renderizan.</p>
           <ul>
-          <li><strong>Elemento que se marca</strong>: cambia qué ítem dispara el evento y qué datos nuevos bajan.</li>
-          <li><strong>React.memo</strong>: los componentes cuyas props no cambiaron pasan a «no se renderiza», lo que se refleja en la cuenta de renderizados.</li>
+          <li><strong>Elemento que se marca</strong>: cambia el ítem naranja y cuál ítem sigue renderizándose con memo.</li>
+          <li><strong>React.memo</strong>: sin memo se renderizan todos; con memo solo App, Lista, el ítem marcado y Resumen.</li>
+          <li>Cursor sobre un componente: muestra sus props.</li>
           </ul>`, montar: montarFlujo },
       { titulo: 'Formulario controlado y renderizado condicional', descripcion: 'Escriba en el campo: el valor sale del estado y una expresión condicional decide qué mostrar. Active la conversión a mayúsculas.',
-        ayuda: String.raw`<p>El campo muestra lo que está en el estado y una expresión condicional decide qué texto o mensaje se presenta.</p>
+        ayuda: String.raw`<p>No hay canvas: se ve el código del componente Saludo, el campo, y debajo el resultado: una ficha verde con <code>&lt;h2&gt;Hola, …&lt;/h2&gt;</code> si el estado no está vacío, o una ficha gris con <code>&lt;p&gt;Escriba su nombre&lt;/p&gt;</code> si lo está. La lectura muestra el estado, el número de renderizados y la rama elegida.</p>
           <ul>
-          <li><strong>Escribir en el campo</strong>: cada tecla actualiza el estado y la vista se renderiza con ese valor.</li>
-          <li><strong>convierte a mayúsculas</strong>: el estado guarda el texto transformado, no el que se teclea.</li>
+          <li><strong>Escribir en el campo</strong>: cada tecla actualiza el estado y suma un renderizado.</li>
+          <li><strong>Mayúsculas</strong>: el estado guarda el texto transformado.</li>
+          <li><strong>Borrar estado</strong>: vuelve a la rama alternativa.</li>
           </ul>`, montar: montarControlado },
     ],
     teoria: String.raw`

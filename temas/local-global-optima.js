@@ -408,34 +408,35 @@
       <p>Los algoritmos de descenso solo ven lo que hay a su alrededor, así que terminan en el valle donde empezaron. Aquí lo comprobará lanzándolos
       desde distintos puntos de partida, y verá cuándo el problema es tan amable que local y global son lo mismo.</p>`,
     parametros: [
-      ['Rugosidad del paisaje (Fig. 1)', String.raw`Cuántas ondulaciones tiene f(x). En 0 es una parábola con un solo mínimo; al subirla aparecen más valles locales.`],
-      ['Tamaño de paso η (Fig. 1 y 2)', String.raw`Cuánto avanza el descenso por iteración. Pasos chicos siguen la pendiente de cerca; pasos grandes pueden saltar de valle o no converger.`],
-      ['Radio de la vecindad ε (Fig. 1)', String.raw`El tamaño del entorno donde se compara el punto: un mínimo local es el mejor dentro de ese radio, no necesariamente en todo el dominio.`],
-      ['Inicios al azar y reproductor (Fig. 1)', String.raw`Inicios al azar elige otros cinco puntos de partida; el reproductor avanza el descenso desde cada uno.`],
-      ['Paisaje (Fig. 2)', String.raw`La función de dos variables: cuatro pozos, dos pozos o un cuenco convexo.`],
-      ['Colorear las cuencas de atracción (Fig. 2)', String.raw`Pinta cada punto del plano según el mínimo al que llegaría el descenso desde allí.`],
-      ['Multiarranque (16) y Nuevo paisaje (Fig. 2)', String.raw`Multiarranque lanza 16 descensos desde puntos al azar; Nuevo paisaje cambia la función. El reproductor avanza el descenso del punto elegido.`],
+      ['Rugosidad del paisaje (Fig. 1)', String.raw`Deslizador de 0 a 1,6 que multiplica las ondulaciones sumadas a una parábola suave. En 0 hay un único mínimo; al subirlo aparecen más valles locales. Reinicia los descensos.`],
+      ['Tamaño de paso η (Fig. 1 y 2)', String.raw`Deslizador del paso del descenso (0,01 a 0,2 en la Fig. 1; 0,02 a 0,5 en la Fig. 2). Con paso pequeño sigue la pendiente de cerca; en la Fig. 2 cada paso se limita a una longitud máxima de 0,6, y en ambas el cambio recalcula las cuencas.`],
+      ['Radio de la vecindad ε (Fig. 1)', String.raw`Deslizador de 0,05 a 3. Dibuja una franja alrededor de cada mínimo: si dentro de ella ningún punto es más bajo, el mínimo es válido con ese radio (marcador lleno); si no, el marcador queda hueco.`],
+      ['Inicios al azar y controles de reproducción (Fig. 1 y 2)', String.raw`Inicios al azar sortea cinco puntos de partida nuevos (Fig. 1); también puede hacer clic sobre la curva para agregar uno (hasta 6) o arrastrarlos. Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar avanzan el descenso.`],
+      ['Paisaje (Fig. 2)', String.raw`Selector con tres opciones: «Cuatro pozos», «Dos pozos» y «Cuenco convexo» (un solo mínimo).`],
+      ['Colorear las cuencas de atracción (Fig. 2)', String.raw`Casilla que pinta cada celda del plano con el color del mínimo al que llega el descenso desde ella (gris si no llega a ninguno).`],
+      ['Multiarranque (16) y Nuevo paisaje (Fig. 2)', String.raw`Multiarranque lanza 16 descensos desde puntos al azar y marca dónde termina cada uno. Nuevo paisaje sortea otra posición de los pozos. El punto de partida del descenso principal (círculo vacío) se elige con clic o arrastre.`],
     ],
     visualizaciones: [
       {
         titulo: 'Valles en una dimensión',
         descripcion: 'Agregue puntos de partida con clic y pulse Reproducir: cada uno cae en el valle más cercano. Suba la rugosidad para crear más valles, baje a 0 y quedará una parábola con un solo mínimo; con η grande los saltos cambian de valle y la franja inferior se fragmenta.',
-        ayuda: String.raw`<p>Curva de f(x) contra x, con puntos de partida y los iterados del descenso (los que no convergen se distinguen). Cada punto cae en el valle más cercano, que puede ser local y no global.</p>
+        ayuda: String.raw`<p>Eje horizontal x, vertical f(x). La curva negra es la función. Los mínimos se marcan con puntos: el global en verde y cada mínimo local con otro color. Las franjas translúcidas de cada mínimo son su vecindad ε, y la franja inferior pinta cada x del color del mínimo al que llega el descenso (gris si no converge). Los puntos numerados son los inicios, con sus iterados en gris.</p>
           <ul>
-          <li><strong>Rugosidad del paisaje</strong>: más rugosidad, más valles y más posibilidad de terminar en un mínimo local peor.</li>
-          <li><strong>Tamaño de paso η</strong>: con η grande, el punto puede saltar un valle o quedar sin converger.</li>
-          <li><strong>Radio de la vecindad ε</strong>: cambia la zona en que un mínimo se declara local.</li>
+          <li><strong>Rugosidad del paisaje</strong>: más rugosidad, más valles y más riesgo de terminar en un mínimo local peor.</li>
+          <li><strong>Tamaño de paso η</strong>: un paso grande puede saltar de valle; cambia las cuencas de la franja inferior.</li>
+          <li><strong>Radio de la vecindad ε</strong>: decide qué mínimos se consideran válidos como mínimos locales con ese radio.</li>
+          <li><strong>Inicios</strong>: cada punto cae en el mínimo cuya cuenca lo contiene.</li>
           </ul>`,
         montar: montarUno,
       },
       {
         titulo: 'Cuencas de atracción en el plano',
         descripcion: 'Elija el punto de partida (clic o arrastre) y observe el descenso por las curvas de nivel; las zonas coloreadas muestran a qué mínimo llega el descenso desde cada punto. Pruebe «Cuenco convexo»: ahí hay un solo mínimo y todos los caminos llegan a él.',
-        ayuda: String.raw`<p>Mapa de curvas de nivel en \(x_1\), \(x_2\). Las trayectorias muestran el descenso, y las que no llegan a un mínimo se señalan como sin converger. Con cuencas activadas, cada color agrupa los puntos que van al mismo mínimo.</p>
+        ayuda: String.raw`<p>Mapa de curvas de nivel con ejes x₁ y x₂. Los puntos son los mínimos (global en verde, locales de otros colores), la línea naranja es la trayectoria del descenso desde el círculo vacío y las trayectorias grises finas, las del multiarranque. Con las cuencas activadas, cada color agrupa los puntos que van al mismo mínimo y el gris, los que no llegan a ninguno.</p>
           <ul>
-          <li><strong>Paisaje</strong> «Cuenco convexo»: todas las cuencas se unen y cualquier inicio llega al único mínimo.</li>
-          <li><strong>Colorear las cuencas</strong>: sus fronteras muestran dónde un pequeño cambio de inicio cambia el destino.</li>
-          <li><strong>Multiarranque (16)</strong>: la proporción de descensos que llegan al mejor pozo mide la dificultad global.</li>
+          <li><strong>Paisaje</strong>: con «Cuenco convexo» hay un único mínimo y todos los inicios llegan a él.</li>
+          <li><strong>Colorear las cuencas</strong>: las fronteras entre colores muestran dónde un pequeño cambio de inicio cambia el destino.</li>
+          <li><strong>Multiarranque (16)</strong>: la lectura indica cuántos de los 16 descensos llegan al mínimo global.</li>
           </ul>`,
         montar: montarDos,
       },

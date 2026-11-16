@@ -105,27 +105,29 @@
       Una <strong>contradicción</strong> es falsa bajo toda valuación. Y una <strong>contingencia</strong> es verdadera en algunas y falsa en otras: su valor depende de los hechos.</p>
       <p>Las tautologías son las leyes de la lógica: no dicen nada del mundo, pero son lo que se puede usar sin riesgo en cualquier razonamiento.</p>`,
     parametros: [
-      ['Fórmula y Ejemplos (Fig. 1)', String.raw`La fórmula que se clasifica como tautología, contingencia o contradicción.`],
-      ['Variables disponibles (Fig. 2)', String.raw`Cuántas variables pueden usar las fórmulas aleatorias.`],
-      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otras 300 fórmulas aleatorias.`],
+      ['Fórmula (Fig. 1)', String.raw`Fórmula a clasificar, con botones para insertar símbolos; admite hasta 5 variables. Si tiene un error, el registro lo explica.`],
+      ['Ejemplos (Fig. 1)', String.raw`Selector con ocho fórmulas (tercero excluido, no contradicción, ley de Peirce, De Morgan, una contingente, la conversa, etc.); copia la elegida al campo.`],
+      ['Variables disponibles (Fig. 2)', String.raw`Deslizador de 1 a 4: las fórmulas aleatorias usan las variables p, q, r, s, en ese orden, hasta el número elegido. Al cambiarlo se vuelve a muestrear.`],
+      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otras fórmulas aleatorias con una semilla distinta (300 por cada profundidad de 1 a 5).`],
     ],
     visualizaciones: [
       {
         titulo: 'Clasifique una fórmula',
         descripcion: 'Elija un ejemplo o escriba una fórmula y mire su columna de resultados. Pruebe la conversa de una implicación: no es una tautología.',
-        ayuda: String.raw`<p>Cada celda es una valuación: la fórmula vale V o F ahí. Si todas son V es una tautología, si todas son F una contradicción y si hay mezcla una contingencia.</p>
+        ayuda: String.raw`<p>Una fila de celdas, una por valuación, ordenadas de «todo V» a «todo F». Una celda verde con una V vale V en esa valuación; una celda gris con una F, vale F. Al pasar el cursor sobre una celda se ven los valores de las variables y el resultado. El registro y la lectura dan la clasificación, las variables, cuántas valuaciones dan V, y si la fórmula es satisfacible y válida.</p>
           <ul>
-          <li><strong>Fórmula</strong>: cambia la fila de resultados; la conversa de una implicación suele dejar de ser tautología.</li>
+          <li><strong>Fórmula</strong>: cambia la fila de resultados y el número de celdas (\(2^n\) para \(n\) variables); todas verdes es tautología, todas grises contradicción y con mezcla contingencia.</li>
+          <li><strong>Ejemplos</strong>: cargan fórmulas de cada clase; la conversa de una implicación suele ser contingente.</li>
           </ul>`,
         montar: montarClasificador,
       },
       {
         titulo: 'Qué tan raras son las tautologías',
         descripcion: 'En fórmulas aleatorias, casi todo es contingencia. Aumente las variables y las profundidades y vea desaparecer las tautologías.',
-        ayuda: String.raw`<p>Eje horizontal: profundidad máxima. Eje vertical: fracción de las 300 fórmulas que son tautología, contingencia o contradicción.</p>
+        ayuda: String.raw`<p>Eje horizontal: profundidad máxima de las fórmulas (1 a 5). Eje vertical: fracción de las 300 fórmulas de cada profundidad, como porcentaje. Cada barra se apila con azul para tautologías (abajo), aguamarina para contingencias y naranja para contradicciones (arriba); al pasar el cursor se ven las cantidades exactas. La lectura suma las tres clases sobre las 1500 fórmulas.</p>
           <ul>
-          <li><strong>Variables disponibles</strong>: con más variables, casi todas las fórmulas son contingencias y las tautologías prácticamente desaparecen.</li>
-          <li><strong>Nuevo muestreo</strong>: cambia la muestra; las fracciones varían poco.</li>
+          <li><strong>Variables disponibles</strong>: con pocas variables, las tautologías y contradicciones ocupan una fracción apreciable; con más, casi todo es contingencia.</li>
+          <li><strong>Nuevo muestreo</strong>: cambia las barras, que varían poco.</li>
           </ul>`,
         montar: montarRarezas,
       },

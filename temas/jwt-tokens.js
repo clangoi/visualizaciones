@@ -91,26 +91,28 @@
       los datos (quién es, qué rol tiene, hasta cuándo vale) y está <strong>firmado</strong>: el servidor puede verificarlo sin consultar ningún almacén.</p>
       <p>Tiene tres partes separadas por puntos: <code>header.payload.signature</code>. La firma impide modificar el contenido sin conocer el secreto, pero el contenido no está oculto.</p>`,
     parametros: [
-      ['Nombre (claim «sub») (Fig. 1)', String.raw`El sujeto que identifica el token. Forma parte del payload y, por tanto, de lo que se firma.`],
-      ['Rol que emite el servidor (Fig. 1)', String.raw`El rol que el servidor escribe en el payload (usuario o admin).`],
-      ['Secreto del servidor (Fig. 1)', String.raw`Clave con la que se calcula la firma. Quien no la conoce no puede producir una firma válida.`],
-      ['Tiempo transcurrido (Fig. 1)', String.raw`Minutos desde la emisión. Cuando supera los 30 min de vida del token, la verificación lo rechaza por expiración.`],
-      ['Un atacante cambia el rol a «admin» (Fig. 1)', String.raw`Altera el payload sin recalcular la firma, para comprobar que la verificación lo detecta.`],
-      ['El token de acceso ya expiró y El de refresco sigue vigente (Fig. 2)', String.raw`Estado de cada token al hacer la petición. Deciden si el servidor responde con datos, si se renueva el acceso o si hay que iniciar sesión de nuevo.`],
+      ['Nombre (claim «sub») (Fig. 1)', String.raw`Campo de texto con el sujeto del token (por defecto «ana»; si lo deja vacío se usa «ana»). Va en el payload, que es lo que se firma; cambiarlo cambia el payload y la firma.`],
+      ['Rol que emite el servidor (Fig. 1)', String.raw`Selector con dos opciones, «usuario» y «admin». Es el valor del claim <code>rol</code> que el servidor escribe en el payload antes de firmar.`],
+      ['Secreto del servidor (Fig. 1)', String.raw`Campo de texto (por defecto «clave-secreta»; vacío se reemplaza por «x»). Es la clave con la que se calcula la firma: cambiarlo cambia la firma, y sin conocerlo no se puede producir una válida.`],
+      ['Tiempo transcurrido (Fig. 1)', String.raw`Control de 0 a 60 min desde la emisión. El token dura 30 min: con 30 min o más el servidor lo rechaza por expirado, aunque la firma sea correcta.`],
+      ['un atacante cambia el rol a «admin» en el payload (Fig. 1)', String.raw`Casilla que sustituye en el token enviado el rol por «admin» sin recalcular la firma, que sigue siendo la del payload original. Si el rol emitido ya es «admin», el payload no cambia y la verificación no detecta nada.`],
+      ['el token de acceso ya expiró (Fig. 2)', String.raw`Casilla (desmarcada por defecto). Desmarcada, la API acepta el token y responde 200. Marcada, responde 401 y el cliente intenta renovar.`],
+      ['el token de refresco sigue vigente (Fig. 2)', String.raw`Casilla (marcada por defecto) que solo importa si el de acceso expiró. Marcada, Auth emite un acceso nuevo y la petición se repite con éxito; desmarcada, la renovación falla con 401 y se pasa al login.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Reproducen la secuencia de mensajes: «Reproducir» avanza sola (se vuelve «Pausar» mientras corre) a la velocidad elegida, «Un paso» avanza un mensaje, «Hasta el final» muestra todos y «Reiniciar» vuelve al inicio.`],
     ],
     visualizaciones: [
       { titulo: 'Anatomía y verificación de un JWT', descripcion: 'Cambie el rol, el secreto o el tiempo transcurrido, y active el ataque: vea por qué la firma delata un payload alterado.',
-        ayuda: String.raw`<p>El token se muestra dividido en cabecera, payload y firma, seguido del resultado de la verificación: firma válida o no, y vigencia.</p>
+        ayuda: String.raw`<p>Arriba se ve el token como tres tramos separados por puntos: cabecera sobre fondo azul, payload sobre naranja y firma sobre aguamarina. Debajo, dos paneles con la cabecera y el payload decodificados. Después, tres fichas con el resultado del servidor: firma válida o no (verde o rojo), vigente o expirado, y ACEPTADO o RECHAZADO (401). Abajo se leen el tamaño del token, el rol aceptado y las consultas a base de datos (siempre 0). La firma usa un hash de demostración, no HMAC real.</p>
           <ul>
-          <li><strong>Nombre</strong>, <strong>Rol</strong> y <strong>Secreto</strong>: cada cambio modifica el payload o la firma y, con ellos, el token completo.</li>
-          <li><strong>Tiempo transcurrido</strong>: pasado el límite de 30 min el token se rechaza por expirado aunque la firma sea correcta.</li>
-          <li><strong>Un atacante cambia el rol</strong>: el payload ya no corresponde a la firma, por lo que la verificación falla.</li>
+          <li><strong>Nombre</strong>, <strong>Rol</strong> y <strong>Secreto</strong>: el nombre y el rol cambian el payload (naranja) y la firma (aguamarina); el secreto cambia solo la firma.</li>
+          <li><strong>Tiempo transcurrido</strong>: a partir de 30 min la ficha pasa a «expirado» y el token se rechaza con la firma intacta.</li>
+          <li><strong>Un atacante cambia el rol</strong>: el payload enviado dice «admin» pero la firma no se recalcula, por lo que la ficha muestra «firma NO coincide» y el token se rechaza.</li>
           </ul>`, montar: montarAnatomia },
       { titulo: 'Token de acceso y de refresco', descripcion: 'Simule la expiración del token de acceso y compare qué ocurre si el de refresco aún es válido o también venció.',
-        ayuda: String.raw`<p>Diagrama de secuencia entre cliente, API y servicio de autenticación. Colores: petición con token, renovación, éxito y rechazo.</p>
+        ayuda: String.raw`<p>Diagrama de secuencia con tres actores (Cliente, API, Auth) y el tiempo hacia abajo; cada flecha es un mensaje y, al avanzar, el texto bajo la figura explica el paso actual. Colores: azul petición con token, naranja renovación, verde éxito y rojo rechazo. Abajo se leen el paso actual, y las duraciones fijas: acceso 15 minutos y refresco 7 días.</p>
           <ul>
-          <li><strong>el token de acceso ya expiró</strong>: la API responde 401 y el cliente usa el de refresco para pedir uno nuevo.</li>
-          <li><strong>el token de refresco sigue vigente</strong> desmarcado, con el de acceso vencido: la renovación falla con 401 y se vuelve a la pantalla de login.</li>
+          <li><strong>el token de acceso ya expiró</strong>: desmarcada, la secuencia es solo la petición y un 200; marcada, aparece el 401 y la petición de renovación.</li>
+          <li><strong>el token de refresco sigue vigente</strong>: marcada, llega un acceso nuevo, se repite la petición y recibe 200; desmarcada, llega «401 refresco expirado» y «ir a la pantalla de login».</li>
           </ul>`, montar: montarRefresco },
     ],
     teoria: String.raw`

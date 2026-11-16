@@ -185,31 +185,36 @@
       Con eso se decide qué recuperar primero y qué inversión se justifica.</p>
       <p>Frente a cada riesgo hay cuatro respuestas: <strong>evitar</strong> la actividad, <strong>reducir</strong> la probabilidad o el impacto con controles, <strong>transferir</strong> la pérdida (un seguro, un contrato) o <strong>aceptar</strong> el riesgo. La mejor depende de comparar su costo con la pérdida esperada que deja.</p>`,
     parametros: [
-      ['Botones de orden de recuperación (Fig. 1)', String.raw`Ordenan la restauración por tolerancia (MTD), por costo por hora, por costo ÷ duración o según la lista. Cada orden cambia cuántos procesos pasan su MTD y cuánta pérdida se acumula.`],
-      ['Recargo de la prima del seguro (Fig. 2)', String.raw`Multiplica el costo de transferir el riesgo. Si sube mucho, transferir deja de ser la opción más barata.`],
-      ['Riesgo residual tolerable por riesgo (Fig. 2)', String.raw`Umbral de pérdida que se acepta después de la estrategia. Un residual mayor se marca como no tolerable.`],
-      ['Elegir la más barata y Aceptar todo (Fig. 2)', String.raw`La primera selecciona para cada riesgo la estrategia de menor costo anual total; la segunda elige aceptar en todos.`],
+      ['Por tolerancia (MTD menor primero) (Fig. 1)', String.raw`Restaura primero los procesos con menor MTD (caída máxima tolerable).`],
+      ['Por costo por hora (Fig. 1)', String.raw`Restaura primero los procesos que cuestan más por cada hora caídos.`],
+      ['Óptimo (costo ÷ duración) (Fig. 1)', String.raw`Restaura primero los procesos con mayor razón entre su costo por hora y las horas que tarda recuperarlos. Es el orden de menor pérdida total.`],
+      ['Orden de la lista (Fig. 1)', String.raw`Restaura en el orden original del listado (pagos, facturación, atención, nómina, correo y reportes).`],
+      ['Recargo de la prima del seguro (Fig. 2)', String.raw`De ×1 a ×3 sobre la pérdida esperada cubierta. Encarece la estrategia de transferir; con recargos altos, deja de ser la más barata.`],
+      ['Riesgo residual tolerable por riesgo (Fig. 2)', String.raw`De 5 a 100 mil USD. Si la pérdida que queda con una estrategia supera este valor, su celda recibe un punto rojo.`],
+      ['Elegir la más barata de cada riesgo (Fig. 2)', String.raw`Selecciona, en cada fila, la estrategia con menor costo total (costo de la estrategia más pérdida que queda).`],
+      ['Aceptar todo (Fig. 2)', String.raw`Selecciona «Aceptar» en todos los riesgos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Impacto y orden de recuperación',
         descripcion: 'Pruebe los cuatro órdenes de recuperación: por tolerancia evita pasar el MTD, pero el orden «costo ÷ duración» minimiza la pérdida total. Suba una barra con clic y vea el efecto.',
-        ayuda: String.raw`<p>Cada barra es un proceso de negocio, restaurado uno tras otro por un solo equipo. Se pinta según se restaure dentro de su MTD o después, y la marca indica la caída máxima tolerable de cada proceso.</p>
+        ayuda: String.raw`<p>Una fila por proceso en el orden de restauración, con el eje horizontal en horas desde el desastre. Cada barra va del inicio al final de la restauración de ese proceso (un equipo, uno tras otro): verde (C.s6) si termina dentro de su MTD y roja (C.s8) si termina después. La marca negra vertical es el MTD del proceso. Un clic en una barra la sube una posición.</p>
           <ul>
-          <li><strong>Por tolerancia</strong>: evita pasar el MTD, pero no minimiza la pérdida total.</li>
-          <li><strong>Óptimo (costo ÷ duración)</strong>: minimiza la pérdida total acumulada.</li>
-          <li><strong>Por costo por hora</strong> y <strong>Orden de la lista</strong>: sirven de comparación; la lista no considera ni costo ni MTD.</li>
+          <li><strong>Por tolerancia</strong>: ordena por MTD creciente; no garantiza que ninguno se pase ni minimiza la pérdida.</li>
+          <li><strong>Por costo por hora</strong>: ordena por el costo de cada hora caída, de mayor a menor.</li>
+          <li><strong>Óptimo (costo ÷ duración)</strong>: minimiza la pérdida total acumulada; el panel de lectura muestra el exceso de cada orden sobre este mínimo.</li>
+          <li><strong>Orden de la lista</strong>: restituye el orden de origen, útil como comparación.</li>
           </ul>`,
         montar: montarBia,
       },
       {
         titulo: 'Evitar, reducir, transferir o aceptar',
         descripcion: 'Elija una estrategia por riesgo con clic y compare el total anual con el mínimo posible. Suba el recargo del seguro a ×3 y observe cómo transferir deja de ser la mejor opción.',
-        ayuda: String.raw`<p>Filas son los riesgos y columnas, las estrategias (evitar, reducir, transferir, aceptar). Cada celda muestra el costo anual total: costo de la estrategia más la pérdida esperada que queda. Se marca la elegida, la más barata y las que dejan el residual sobre lo tolerable.</p>
+        ayuda: String.raw`<p>Matriz con un riesgo por fila y una estrategia por columna (evitar, reducir, transferir, aceptar). Cada celda muestra el costo anual total (costo de la estrategia más la pérdida esperada que queda) y se tiñe con la escala de azules: más oscuro, más caro. El contorno azul grueso (C.s1) marca la estrategia elegida; el verde (C.s6), la más barata del riesgo; un punto rojo (C.s8) indica residual sobre lo tolerable. Un clic en una celda elige esa estrategia.</p>
           <ul>
-          <li><strong>Recargo de la prima</strong>: encarece la celda de transferir y puede cambiar cuál es la más barata.</li>
-          <li><strong>Riesgo residual tolerable</strong>: marca las celdas que no lo cumplen.</li>
-          <li><strong>Elegir la más barata</strong>: lleva el total anual al mínimo posible.</li>
+          <li><strong>Recargo de la prima</strong>: sube el costo de la columna transferir y puede mover el contorno verde.</li>
+          <li><strong>Riesgo residual tolerable</strong>: añade o quita puntos rojos según la pérdida que queda en cada celda.</li>
+          <li><strong>Elegir la más barata</strong> y <strong>Aceptar todo</strong>: fijan la elección de todas las filas de una vez.</li>
           </ul>`,
         montar: montarEstrategias,
       },

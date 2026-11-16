@@ -156,33 +156,35 @@
       <p>El resultado no es un número sino una distribución completa, de la que salen estimaciones puntuales e intervalos que
       se interpretan directamente como probabilidades sobre el parámetro.</p>`,
     parametros: [
-      ['Prior a y Prior b (Fig. 1)', String.raw`Los «pseudo-conteos» de caras y sellos previos a los datos, más uno. Describen la creencia inicial sobre p: valores grandes expresan un prior fuerte.`],
-      ['p real de la moneda (Fig. 1)', String.raw`La probabilidad verdadera de cara que genera los lanzamientos. No la conoce el estimador: sirve para comprobar si el posterior se acerca.`],
-      ['Lanzar 1, 10 y 100 y Reiniciar (Fig. 1)', String.raw`Añaden lanzamientos y, con ellos, evidencia. Reiniciar borra los datos y vuelve al prior.`],
-      ['Media del prior μ₀ y Desviación del prior τ₀ (Fig. 2)', String.raw`Creencia inicial sobre la media: dónde se centra y con cuánta seguridad. Un τ₀ chico es un prior seguro.`],
-      ['μ real (Fig. 2)', String.raw`La media verdadera de la que se sortean los datos.`],
-      ['Nuevos datos (Fig. 2)', String.raw`Sortea otra secuencia de datos.`],
+      ['Prior a (caras previas + 1) y Prior b (sellos previos + 1) (Fig. 1)', String.raw`Dos deslizadores de 0,5 a 30, de 0,5 en 0,5 (inicial 2). Parámetros de la distribución Beta(a, b) previa, que equivalen a a − 1 caras y b − 1 sellos imaginarios antes de ver datos; valores grandes expresan un prior fuerte.`],
+      ['p real de la moneda (Fig. 1)', String.raw`Deslizador de 0,05 a 0,95 (inicial 0,70). La probabilidad verdadera de cara con la que se generan los lanzamientos siguientes. El estimador no la conoce; sirve para comprobar si el posterior se acerca. Cambiarlo no altera los lanzamientos ya hechos.`],
+      ['Lanzar 1, Lanzar 10 y Lanzar 100 (Fig. 1)', String.raw`Agregan ese número de lanzamientos y, con ellos, evidencia.`],
+      ['Reiniciar (Fig. 1)', String.raw`Borra los lanzamientos y vuelve al prior; los siguientes lanzamientos usan otra secuencia aleatoria.`],
+      ['Media del prior μ₀ (Fig. 2)', String.raw`Deslizador de −4 a 6. Dónde se centra la creencia inicial sobre la media.`],
+      ['Desviación del prior τ₀ (Fig. 2)', String.raw`Deslizador de 0,1 a 5. Con cuánta seguridad se cree en μ₀: un τ₀ chico es un prior seguro.`],
+      ['μ real (Fig. 2)', String.raw`Deslizador de −2 a 5. La media verdadera de la que se sortean los datos, con desviación conocida 2.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otra secuencia de 100 datos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Una moneda con prior beta',
         descripcion: 'Lance la moneda y vea cómo el posterior se angosta alrededor de la proporción real. Cambie el prior para ver cuánto pesa con pocos datos.',
-        ayuda: String.raw`<p>El eje horizontal es p (probabilidad de cara) y el vertical, la densidad. Se superponen el prior Beta(a, b), la verosimilitud normalizada, el posterior Beta(a + caras, b + sellos) y la línea del p real.</p>
+        ayuda: String.raw`<p>El eje horizontal es p (probabilidad de cara) y el vertical, la densidad. Curva gris discontinua: prior Beta(a, b). Curva naranja: verosimilitud normalizada (aparece tras el primer lanzamiento). Curva azul: posterior Beta(a + caras, b + sellos), con el intervalo creíble del 95 % sombreado. Línea verde punteada: el p real. La lectura da caras y sellos, el MLE, la media posterior y el MAP.</p>
           <ul>
           <li><strong>Lanzar 10 / 100</strong>: el posterior se angosta alrededor de la proporción observada y se aleja del prior.</li>
           <li><strong>Prior a y b</strong> grandes (por ejemplo a = 30, b = 2 con p real 0,3): con pocos lanzamientos el posterior queda cerca del prior, aunque esté equivocado.</li>
-          <li><strong>p real</strong>: cambia hacia dónde converge la verosimilitud.</li>
+          <li><strong>p real</strong>: cambia hacia dónde converge la verosimilitud en los lanzamientos siguientes.</li>
           </ul>`,
         montar: montarMoneda,
       },
       {
         titulo: 'La media con varianza conocida',
         descripcion: 'Estimación bayesiana y MLE de una media a medida que llegan los datos, con sus intervalos del 95 %.',
-        ayuda: String.raw`<p>El eje horizontal es n (datos observados) y el vertical, la estimación de μ. Se comparan la media posterior con su intervalo creíble del 95 %, el MLE (media muestral) con su intervalo de confianza del 95 % y la línea del μ real.</p>
+        ayuda: String.raw`<p>El eje horizontal es n (datos observados, de 1 a 100) y el vertical, la estimación de μ. En azul, la media posterior con su intervalo creíble del 95 % (banda); en naranja, el MLE (media muestral) con su intervalo de confianza del 95 %; línea verde punteada, el μ real. La curva azul parte de μ₀ en n = 0. Al pasar el puntero se marcan ambas estimaciones en ese n.</p>
           <ul>
           <li><strong>Desviación del prior τ₀</strong> chica: la estimación bayesiana se mueve más despacio hacia los datos; con n grande ambos métodos coinciden.</li>
           <li><strong>Media del prior μ₀</strong> lejos de μ real: el sesgo inicial se nota con pocos datos.</li>
-          <li>Con pocos datos el intervalo creíble es más estrecho que el del MLE si el prior es informativo.</li>
+          <li><strong>μ real</strong>: desplaza los datos; la lectura da el peso de los datos con n = 5 y el n equivalente del prior.</li>
           </ul>`,
         montar: montarMedia,
       },

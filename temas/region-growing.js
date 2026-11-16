@@ -239,31 +239,32 @@
       <strong>conexa</strong> y el criterio puede ser local: sirve en imágenes binarias, en tonos de gris y en color, con solo cambiar
       la medida de parecido.</p>`,
     parametros: [
-      ['Imagen, Ruido σ y Nueva imagen (Fig. 1)', String.raw`La imagen de partida y su ruido. Con más ruido, los píxeles de un mismo objeto difieren más entre sí y cuesta más crecer sin salirse.`],
-      ['Tolerancia τ (Fig. 1 y 2)', String.raw`Qué tanto puede diferir un vecino para ser aceptado. Valores pequeños detienen la región pronto; grandes la dejan invadir otras zonas.`],
-      ['Comparar con (Fig. 1)', String.raw`Si cada vecino se compara con el valor de la semilla o con el del píxel que lo alcanza. Con el segundo criterio la región puede derivar poco a poco a través de degradados.`],
-      ['Vecindad (Fig. 1)', String.raw`Cuáles píxeles cuentan como vecinos: 4 (arriba, abajo, izquierda, derecha) o también las diagonales. Con más vecinos la región atraviesa contornos finos.`],
-      ['Región mínima (px) (Fig. 2)', String.raw`Tamaño bajo el cual una región se considera residuo. Subirlo marca como residuo los fragmentos pequeños.`],
+      ['Imagen, Ruido σ y Nueva imagen (Fig. 1 y 2)', String.raw`Imagen elige el tipo de escena (en la figura 1: Binaria, Tonos de gris o Color; en la 2: Tonos de gris o Color). En la figura 1, Ruido σ (de 0 a 0,15) agrega ruido, de modo que los píxeles de un mismo objeto difieren más entre sí; la figura 2 usa un ruido fijo de 0,05. «Nueva imagen» genera otra escena.`],
+      ['Tolerancia τ (Fig. 1 y 2)', String.raw`Cuánto puede diferir un vecino del valor de comparación para ser aceptado. Valores pequeños detienen la región pronto; grandes la dejan invadir otras zonas. En la figura 1, cambiar la imagen restablece τ a un valor de partida (0,5 en binaria, 0,12 en grises, 0,2 en color).`],
+      ['Comparar con (Fig. 1)', String.raw`Selector con dos opciones: «el valor de la semilla» (límite fijo) o «la media de la región» (el valor medio de lo que ya se ha incluido). La figura 2 usa siempre la media de la región.`],
+      ['Vecindad (Fig. 1)', String.raw`Selector de 4 vecinos (arriba, abajo, izquierda y derecha) o 8 vecinos (con las diagonales). Con 8 la región puede cruzar contactos diagonales.`],
+      ['Región mínima (px) (Fig. 2)', String.raw`Tamaño (de 1 a 40 píxeles) bajo el cual una región se pinta en gris en lugar de con su color medio.`],
     ],
     visualizaciones: [
       {
         titulo: 'Crecimiento desde una semilla',
         descripcion: 'Cada paso saca un píxel de la cola y examina sus vecinos. Pruebe la misma semilla con tolerancias distintas y con los dos criterios de comparación.',
-        ayuda: String.raw`<p>Cada píxel coloreado como región pertenece ya al conjunto crecido. Los de la cola son la frontera por examinar, el que se expande es el que se procesa en este paso, los rechazados superaron la tolerancia y la semilla es el punto inicial. Debajo hay un registro de pasos.</p>
+        ayuda: String.raw`<p>La imagen se muestra por píxeles. Un píxel de la región se ve mezclado con azul (C.s1); los de la cola, es decir la frontera por examinar, son amarillos (C.s4); el que se expande en este paso es naranja (C.s2); los vecinos rechazados por superar la tolerancia se mezclan con rojo (C.s8); la semilla es un punto verde (C.s6). Debajo hay un registro del paso y la lectura con píxeles en la región, en la cola, rechazados y media de la región. Un clic en la imagen mueve la semilla y al pasar el cursor se ve la posición, el valor y la distancia del píxel.</p>
           <ul>
-          <li><strong>Tolerancia τ</strong>: al subirla aparecen menos píxeles rechazados y la región se extiende, hasta desbordar el objeto.</li>
-          <li><strong>Comparar con</strong>: con «el valor de la semilla» la región tiene un límite fijo; con el píxel vecino, puede seguir un degradado.</li>
+          <li><strong>Tolerancia τ</strong>: al subirla aparecen menos píxeles rojos y la región se extiende, hasta desbordar el objeto.</li>
+          <li><strong>Comparar con</strong>: con la semilla el criterio es fijo; con la media de la región depende menos de que la semilla haya caído en un píxel atípico.</li>
           <li><strong>Vecindad</strong>: con 8 vecinos la región se cuela por contactos diagonales.</li>
+          <li><strong>Controles de reproducción</strong>: la región crece paso a paso o de corrido; cambiar cualquier parámetro reinicia el crecimiento.</li>
           </ul>`,
         montar: montarSemilla,
       },
       {
         titulo: 'Segmentar toda la imagen',
         descripcion: 'Se pone una semilla en el primer píxel sin región, se hace crecer, y se repite hasta cubrir la imagen. Mueva τ para pasar de sobresegmentar a subsegmentar.',
-        ayuda: String.raw`<p>La imagen segmentada por completo: cada región se pinta con un color propio, los bordes entre regiones se marcan y las regiones menores que el mínimo se señalan aparte.</p>
+        ayuda: String.raw`<p>A la izquierda está la imagen original y a la derecha la segmentación de toda la imagen: cada región crece desde una semilla hasta que no queda ningún píxel libre y se pinta con su color medio. Los bordes entre regiones son negros (C.tinta) y las regiones con menos píxeles que el mínimo se pintan en gris (C.inactivo). El rótulo y la lectura dan el número de regiones; al pasar el cursor se ven el tamaño y la media de la región.</p>
           <ul>
           <li><strong>Tolerancia τ</strong>: baja, produce muchas regiones pequeñas (sobresegmentación); alta, funde objetos distintos (subsegmentación).</li>
-          <li><strong>Región mínima (px)</strong>: cambia qué fragmentos se marcan como regiones menores que el mínimo.</li>
+          <li><strong>Región mínima (px)</strong>: cambia qué regiones se pintan en gris y cuántas cuentan como regiones con al menos ese tamaño.</li>
           </ul>`,
         montar: montarCompleta,
       },

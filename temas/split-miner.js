@@ -265,30 +265,33 @@
       <p>El resultado es un modelo <a href="tema.html?id=bpmn-gateways">BPMN</a> pequeño y muy preciso, algo más permisivo que el del
       <a href="tema.html?id=inductive-miner">Inductive Miner</a> (que garantiza bloques) pero mucho menos enredado que un DFG sin filtrar.</p>`,
     parametros: [
-      ['Proceso (Fig. 1 y 2)', String.raw`Elige el modelo de origen del registro; define qué estructura de concurrencia y bucles debe recuperar el algoritmo.`],
-      ['Percentil de frecuencia (Fig. 1 y 2)', String.raw`Umbral de frecuencia bajo el cual se eliminan aristas del DFG, salvo la mejor entrante y la mejor saliente de cada actividad. Subirlo simplifica el grafo.`],
-      ['Tolerancia de concurrencia ε (Fig. 1)', String.raw`Margen para decidir que dos actividades son concurrentes según el balance de sus órdenes observados. Con ε alto más pares pasan a concurrencia.`],
-      ['Ruido y Nuevo registro (Fig. 1 y 2)', String.raw`Ruido es la fracción de trazas alteradas, que añade aristas espurias; Nuevo registro genera otro registro. El reproductor de la Fig. 2 avanza las decisiones de compuertas.`],
+      ['Proceso (Fig. 1 y 2)', String.raw`Selector: «Solicitud con ramas paralelas» (Validar y Evaluar son concurrentes, seguidas de una elección entre Aprobar, Rechazar o Escalar) o «Reclamos con bucle de revisión». Define el registro del que se descubre el modelo. En la Fig. 1 genera un registro nuevo.`],
+      ['Percentil de frecuencia (Fig. 1 y 2)', String.raw`Deslizador de 0 a 100 %. Las aristas candidatas con frecuencia menor que ese percentil se eliminan, salvo la mejor entrante y la mejor saliente de cada actividad. Subirlo deja un grafo más simple.`],
+      ['Tolerancia de concurrencia ε (Fig. 1)', String.raw`Deslizador de 0 a 1. Dos actividades se consideran concurrentes si se observan en ambos órdenes y la diferencia relativa entre ambas frecuencias es menor que ε. Con ε alto más pares pasan a concurrencia. La Fig. 2 usa ε = 0,4 fijo.`],
+      ['Ruido (Fig. 1 y 2)', String.raw`Deslizador de 0 a 30 %: fracción de trazas alteradas del registro, que agrega aristas espurias. Genera un registro nuevo.`],
+      ['Reproductor (Fig. 2)', String.raw`Control con cinco partes: Velocidad (deslizador de pasos por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Cada paso decide una compuerta (un split o un join).`],
+      ['Nuevo registro (Fig. 1 y 2)', String.raw`Botón que genera otro registro con distinta semilla.`],
     ],
     visualizaciones: [
       {
         titulo: 'Filtro del DFG por percentil',
         descripcion: 'Suba el percentil y observe qué aristas se eliminan y cuáles sobreviven por ser el mejor entrante o saliente de una actividad; con ε alto las ramas paralelas pasan a concurrencia. Pruebe el proceso con bucle.',
-        ayuda: String.raw`<p>DFG filtrado: aristas conservadas por el percentil, conservadas por ser mejor entrante o saliente, eliminadas por el percentil, concurrencias (se quitan del grafo) y bucles cortos (se conservan aparte).</p>
+        ayuda: String.raw`<p>Grafo de sucesión directa (DFG) con las actividades como letras (una lista debajo indica qué actividad es cada letra), el nodo de inicio (verde) y el de fin. Las aristas tienen colores según su estado: negro, conservada por el percentil; azul (C.s1), conservada por ser la mejor entrante o saliente; rojo punteado (C.s8), eliminada por el percentil; aguamarina punteado (C.s3), concurrencia (se quita del grafo); violeta (C.s7), bucle corto (se conserva aparte). Las conservadas llevan su frecuencia y su grosor crece con ella. Al pasar el cursor sobre una arista se ve su frecuencia y estado.</p>
           <ul>
-          <li><strong>Percentil de frecuencia</strong>: al subirlo se eliminan más aristas, pero algunas sobreviven como mejor entrante o saliente para mantener el grafo conexo.</li>
-          <li><strong>Tolerancia de concurrencia ε</strong>: al subirla, ramas paralelas pasan a concurrencia y salen del grafo.</li>
-          <li><strong>Proceso</strong>: cambia las concurrencias y bucles que existen en origen.</li>
+          <li><strong>Percentil de frecuencia</strong>: al subirlo pasan a rojo más aristas, pero algunas siguen azules para que ninguna actividad quede aislada.</li>
+          <li><strong>Tolerancia de concurrencia ε</strong>: al subirla, más pares de ramas paralelas (como Validar y Evaluar) pasan a aguamarina y salen del grafo.</li>
+          <li><strong>Proceso</strong> y <strong>Ruido</strong>: cambian las concurrencias, los bucles y las aristas poco frecuentes.</li>
           </ul>`,
         montar: montarFiltro,
       },
       {
         titulo: 'Descubrir splits y joins',
         descripcion: 'Avance paso a paso: en la solicitud verá un AND tras a, un XOR tras d y sus joins. Con ruido alto aparecen compuertas dudosas que el percentil elimina.',
-        ayuda: String.raw`<p>Grafo con compuertas descubiertas: × XOR (sucesoras exclusivas), + AND (todas concurrentes), ×+ (elige entre grupos paralelos) y «o» (OR, mezcla). Se resalta la compuerta recién decidida; también se marcan bucles cortos y actividades inicial y final.</p>
+        ayuda: String.raw`<p>Grafo con las compuertas ya decididas. Cada compuerta es un rombo con su símbolo: × XOR (azul, C.s1), + AND (aguamarina, C.s3), ×+ elección entre grupos paralelos (violeta, C.s7) y «o» OR (amarillo, C.s4). El rombo recién decidido lleva un anillo naranja (C.s2). Las actividades iniciales tienen relleno verde, las finales relleno gris, y los bucles cortos se dibujan en violeta. Un panel de texto indica el split o join decidido y, para cada pareja de actividades vecinas, si son concurrentes o exclusivas.</p>
           <ul>
-          <li><strong>Ruido</strong>: más ruido produce compuertas dudosas (OR).</li>
-          <li><strong>Percentil de frecuencia</strong>: al subirlo elimina las aristas ruidosas y las compuertas dudosas se aclaran.</li>
+          <li><strong>Reproductor</strong>: añade una compuerta por paso hasta decidir todas.</li>
+          <li><strong>Ruido</strong>: más ruido produce compuertas OR espurias.</li>
+          <li><strong>Percentil de frecuencia</strong>: al subirlo se eliminan aristas ruidosas y desaparecen algunas compuertas dudosas.</li>
           </ul>`,
         montar: montarCompuertas,
       },

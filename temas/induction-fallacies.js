@@ -110,26 +110,26 @@
       <p>El ejemplo más famoso es la «prueba» de que todos los caballos son del mismo color. Cada línea suena razonable; el defecto está en un único paso, y aprender a encontrarlo
       es la mejor forma de entender qué hace realmente la inducción.</p>`,
     parametros: [
-      ['Paso de k a k + 1 caballos: k = (Fig. 1)', String.raw`Cuántos caballos tiene el grupo del que se parte. Con k = 1 los grupos A y B no comparten caballo y el argumento deja de valer.`],
-      ['Intento de demostración (Fig. 2)', String.raw`Elige cuál de los cuatro enunciados se intenta demostrar, cada uno con una pieza defectuosa distinta.`],
+      ['Paso de k a k + 1 caballos: k = (Fig. 1)', String.raw`De 1 a 8. Cuántos caballos tiene cada uno de los dos grupos A y B del grupo de k + 1 caballos del que se parte. Con k = 1, A y B no comparten caballo y el argumento deja de valer.`],
+      ['Intento de demostración (Fig. 2)', String.raw`Selector con cuatro enunciados, cada uno con una pieza defectuosa distinta: sin caso base (1 + … + n = n(n + 1)/2 + 1), paso falso (n &lt; 100), pocos casos (n² + n + 41 es primo) y base insuficiente (2ⁿ &gt; n² desde n = 0).`],
     ],
     visualizaciones: [
       {
         titulo: 'Todos los caballos son del mismo color',
         descripcion: 'Varíe \\(k\\) y mire cuántos caballos comparten los grupos A y B. Con \\(k = 1\\) no hay ninguno: ahí se rompe el argumento.',
-        ayuda: String.raw`<p>Se arma un grupo de k + 1 caballos con dos grupos de k: A (los primeros k) y B (los últimos k). Se señalan los caballos comunes a A y B; si no hay ninguno, el argumento falla.</p>
+        ayuda: String.raw`<p>Los k + 1 caballos se dibujan como círculos numerados. El grupo A (los primeros k) se marca con un corchete azul (C.s1) arriba, y el grupo B (los últimos k) con uno naranja (C.s2) abajo. Los caballos comunes a A y B aparecen con relleno y borde aguamarina (C.s3). Si no hay ninguno, un texto rojo (C.s8) dice «sin caballos comunes».</p>
           <ul>
-          <li><strong>k</strong> mayor que 1: A y B comparten caballos, por lo que el color se transmite.</li>
-          <li><strong>k = 1</strong>: no hay caballo común; el paso de 1 a 2 es falso y por eso la «demostración» es inválida.</li>
+          <li><strong>k</strong> mayor que 1: A y B comparten k − 1 caballos y el color se transmite.</li>
+          <li><strong>k = 1</strong>: A = {1} y B = {2} no comparten caballo; el paso de 1 a 2 es falso y la «demostración» no vale.</li>
           </ul>`,
         montar: montarCaballos,
       },
       {
         titulo: 'Cuatro maneras de fallar',
         descripcion: 'Cada enunciado rompe una pieza distinta: caso base, paso, verificación empírica o punto de partida. Compare las filas de P(n) y de los pasos.',
-        ayuda: String.raw`<p>Filas con la validez de P(n), la de cada paso P(n) ⇒ P(n + 1) y la cadena válida que arranca en n = 0.</p>
+        ayuda: String.raw`<p>Tres franjas con los casos n de 0 a 46. «P(n)»: verde (C.s6) si P(n) es verdadera y gris si no. «paso»: negro si P(n) ⇒ P(n + 1) es verdadera y rojo (C.s8) si es falsa. «cadena»: azul (C.s1) desde n = 0 hasta que un paso falso la corta; si P(0) es falsa, no hay cadena. Abajo, el registro explica el defecto y la lectura da P(0), el primer n con P falsa, los pasos falsos y hasta dónde llega la cadena.</p>
           <ul>
-          <li><strong>Intento de demostración</strong>: según el enunciado, falla el caso base, el paso, o la verificación empírica no basta; compare dónde aparece un paso falso o una cadena que no arranca.</li>
+          <li><strong>Intento de demostración</strong>: en «sin caso base» P es falsa en todas partes, aunque todos los pasos son verdaderos y no hay cadena; en «paso falso» todo lo dibujado es verdadero y la cadena llega al borde, porque el paso roto (de 99 a 100) queda fuera del rango; en «pocos casos» P falla recién en n = 40; en «base insuficiente» P(2) es falsa y el paso de 1 a 2 se rompe.</li>
           </ul>`,
         montar: montarFallas,
       },

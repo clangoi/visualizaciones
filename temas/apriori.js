@@ -138,26 +138,29 @@
       <p>La idea descansa en el <strong>principio de monotonía</strong>: si \(\{\text{pan}, \text{leche}\}\) no es frecuente, ningún
       superconjunto suyo puede serlo, así que toda esa rama se descarta sin mirar los datos.</p>`,
     parametros: [
-      ['Soporte mínimo (Fig. 1 y 2)', String.raw`Umbral que decide qué itemsets son frecuentes. Bajarlo hace que sobrevivan más candidatos, el algoritmo llegue a niveles más profundos y la poda tenga más trabajo.`],
-      ['Nuevas canastas y reproductor (Fig. 1 y 2)', String.raw`Nueva muestra de canastas y control del avance nivel por nivel. Los resultados dependen de la muestra.`],
+      ['Soporte mínimo (Fig. 1)', String.raw`Deslizador de 3 a 40 %: fracción mínima de las 200 canastas en que debe aparecer un itemset para ser frecuente. Subirlo hace que más candidatos resulten infrecuentes y el algoritmo termine antes. Reinicia el recorrido.`],
+      ['Soporte mínimo (Fig. 2)', String.raw`Deslizador de 2 a 30 %: mismo significado, sobre 400 canastas de 20 productos. Bajarlo deja más candidatos que contar y más niveles.`],
+      ['Reproductor (Fig. 1)', String.raw`Control con cinco partes: Velocidad (deslizador de pasos por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Cada nivel k avanza en tres pasos: generar candidatos, podar y contar.`],
+      ['Nuevas canastas (Fig. 1 y 2)', String.raw`Botón que genera otras canastas con distinta semilla; los resultados dependen de la muestra.`],
     ],
     visualizaciones: [
       {
         titulo: 'Apriori nivel por nivel',
         descripcion: 'Generación de candidatos, poda y conteo en cada nivel. Baje el soporte mínimo para ver niveles más profundos y más podas.',
-        ayuda: String.raw`<p>Cada nivel k lista sus candidatos. Se marcan los frecuentes (pasan a L_k), los contados e infrecuentes, los podados sin contar porque algún subconjunto no es frecuente, y los aún sin contar. El registro describe el paso actual.</p>
+        ayuda: String.raw`<p>Una fila por nivel k (C1, C2, …) con una ficha por candidato. Al generar, todas son grises (C.inactivo). En la poda, las que tienen algún subconjunto infrecuente se marcan con ✂ y se apagan (C.tenue). Al contar, cada candidato contado muestra su soporte: verde (C.s6) si alcanza el mínimo (pasa a L_k) y rojo (C.s8) si no. El registro describe el paso actual y las lecturas cuentan niveles, itemsets frecuentes y candidatos contados frente a los 255 posibles.</p>
           <ul>
-          <li><strong>Soporte mínimo</strong> bajo: más candidatos frecuentes y más niveles.</li>
-          <li><strong>Soporte mínimo</strong> alto: aparecen podas ya en el nivel 2 o 3 y el algoritmo termina antes.</li>
+          <li><strong>Soporte mínimo</strong>: con valores bajos hay más fichas verdes y más niveles; con altos aparecen podas desde el nivel 2 o 3 y termina antes.</li>
+          <li><strong>Reproductor</strong>: muestra una fase por paso.</li>
           </ul>`,
         montar: montarNiveles,
       },
       {
         titulo: 'Cuánto ahorra la poda',
         descripcion: 'Por tamaño k: itemsets posibles, candidatos generados, los que de verdad se cuentan y los frecuentes.',
-        ayuda: String.raw`<p>Por tamaño k (eje horizontal) se comparan, en escala logarítmica, los itemsets posibles, los candidatos generados, los realmente contados y los frecuentes.</p>
+        ayuda: String.raw`<p>Gráfico de barras en escala logarítmica por tamaño k (eje horizontal), con cuatro barras por k: todos los k-itemsets posibles C(20, k) en gris (C.inactivo), candidatos generados en amarillo (C.s4), contados tras la poda en azul (C.s1) y frecuentes en verde (C.s6). Al pasar el cursor sobre un k se ven los cuatro valores. Las lecturas suman los itemsets contados, los podados sin contar y los frecuentes, frente a 2²⁰ − 1.</p>
           <ul>
-          <li><strong>Soporte mínimo</strong>: al subirlo, las curvas de contados y frecuentes caen respecto a la de posibles; la distancia entre ellas es lo que la poda ahorra.</li>
+          <li><strong>Soporte mínimo</strong>: al subirlo, las barras de contados y frecuentes bajan respecto de la gris; la distancia es lo que la poda ahorra.</li>
+          <li><strong>Nuevas canastas</strong>: regenera las 400 canastas con cinco patrones plantados.</li>
           </ul>`,
         montar: montarAhorro,
       },

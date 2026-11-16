@@ -116,28 +116,34 @@
       <em>casos base</em> (los objetos más simples) y las <em>reglas de construcción</em> que arman objetos nuevos a partir de otros.</p>
       <p>Cada objeto se corresponde con un <strong>árbol de derivación</strong> que registra cómo se construyó. Ese árbol es lo que permite después definir funciones y demostrar propiedades siguiendo la estructura.</p>`,
     parametros: [
-      ['Base: x, y, 2, 3 (Fig. 1)', String.raw`Agregan una hoja: un caso base de la gramática de expresiones.`],
-      ['Negar, Sumar, Multiplicar (Fig. 1)', String.raw`Aplican una regla recursiva a las expresiones ya construidas, formando un árbol más grande.`],
-      ['Ejemplo y Vaciar (Fig. 1)', String.raw`Cargan una expresión de muestra o descartan lo construido.`],
-      ['Expresión (Fig. 2)', String.raw`El texto a derivar con la gramática; su estructura determina el árbol de derivación.`],
+      ['Base: x, y, 2, 3 (Fig. 1)', String.raw`Cuatro botones que agregan a la pila una hoja nueva (x, y, 2 o 3) con la regla E → x, E → y, E → 2 o E → 3. Son los casos base de la gramática.`],
+      ['Negar (Fig. 1)', String.raw`Toma la última expresión de la pila y la envuelve en una negación (regla E → −E). No hace nada si la pila está vacía.`],
+      ['Sumar, Multiplicar (Fig. 1)', String.raw`Toman las dos últimas expresiones de la pila y las unen bajo un nodo nuevo + o × (regla E → (E + E) o E → (E × E)). No hacen nada si hay menos de dos expresiones.`],
+      ['Ejemplo (Fig. 1)', String.raw`Reemplaza la pila por una sola expresión de muestra, ((x + 2) × −y).`],
+      ['Vaciar (Fig. 1)', String.raw`Elimina todas las expresiones construidas y el registro.`],
+      ['Expresión (Fig. 2)', String.raw`Texto a derivar; admite variables de una letra minúscula, números, +, × (o *), − (o -) y paréntesis. Si está mal formado, el registro muestra el error en vez del árbol nuevo. Al cambiarla, la derivación se reinicia.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final, Reiniciar (Fig. 2)', String.raw`Controlan la derivación: cuántos pasos por segundo se reproducen, avanzar un solo paso, saltar al final o volver al principio.`],
     ],
     visualizaciones: [
       {
         titulo: 'Construya una expresión con las reglas',
         descripcion: 'Use las bases y las reglas para armar expresiones. Observe que el árbol crece con la misma forma que la construcción, y que tamaño y profundidad se leen directamente de él.',
-        ayuda: String.raw`<p>Cada nodo es una expresión: las hojas (caso base) y los nodos construidos con una regla. El registro muestra la regla aplicada.</p>
+        ayuda: String.raw`<p>Cada árbol de la pila es una expresión construida; se dibujan de izquierda a derecha, separados por una línea vertical, y el último es el que usan Negar, Sumar y Multiplicar. Las hojas (casos base) se muestran con relleno y borde verdes; los nodos construidos con una regla tienen borde gris oscuro. El registro lista las últimas seis reglas aplicadas y debajo se leen el número de expresiones, la última expresión escrita, su tamaño en nodos y su profundidad.</p>
           <ul>
-          <li><strong>Base</strong>: agrega una hoja nueva.</li>
-          <li><strong>Negar, Sumar, Multiplicar</strong>: unen una o dos expresiones bajo un nodo nuevo; el tamaño y la profundidad se leen del árbol.</li>
+          <li><strong>Base: x, y, 2, 3</strong>: agrega un árbol de un solo nodo (verde) a la derecha de la pila.</li>
+          <li><strong>Negar</strong>: el último árbol queda como único hijo de un nodo −; la pila no cambia de tamaño.</li>
+          <li><strong>Sumar, Multiplicar</strong>: los dos últimos árboles pasan a ser hijos izquierdo y derecho de un nodo nuevo; la pila se acorta en uno.</li>
+          <li><strong>Ejemplo, Vaciar</strong>: cargan la expresión de muestra o dejan la pila vacía.</li>
           </ul>`,
         montar: montarConstruccion,
       },
       {
         titulo: 'Derivación de una expresión',
         descripcion: 'Escriba una expresión y reproduzca su derivación por la izquierda. Pruebe agregar o quitar paréntesis y vea cómo cambia el árbol.',
-        ayuda: String.raw`<p>El árbol de derivación se expande desde el símbolo E: sin expandir, expansión de este paso y ya expandido.</p>
+        ayuda: String.raw`<p>El árbol de derivación de la expresión escrita; cada nodo es un símbolo E expandido con una regla. Un nodo gris claro con borde gris es un E todavía sin expandir; el de borde naranja es la expansión de este paso; los de borde negro y relleno claro ya fueron expandidos. El registro muestra, línea por línea, la forma de la cadena tras cada paso (⇒) con la regla aplicada entre corchetes; siempre se expande el E más a la izquierda.</p>
           <ul>
-          <li><strong>Expresión</strong>: cada paréntesis o cambio de operador modifica la forma del árbol y la secuencia de pasos.</li>
+          <li><strong>Expresión</strong>: otro texto da otro árbol y otra secuencia de pasos; los paréntesis y la precedencia (× antes que +) determinan qué nodo cuelga de cuál.</li>
+          <li><strong>Velocidad, Reproducir, Un paso, Hasta el final, Reiniciar</strong>: avanzan o retroceden al inicio la derivación paso a paso.</li>
           </ul>`,
         montar: montarDerivacion,
       },

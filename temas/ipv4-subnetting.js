@@ -75,22 +75,22 @@
       <p>Una dirección <strong>IPv4</strong> tiene 32 bits, escritos como cuatro números de 0 a 255 (<code>192.168.10.77</code>). Se divide en dos partes: los primeros <em>n</em> bits identifican la <strong>red</strong> y los restantes, el <strong>host</strong> dentro de ella. El número <em>n</em> es el prefijo (<code>/26</code>) y la <strong>máscara de subred</strong> es el patrón de n unos seguidos de ceros.</p>
       <p>Dividir una red en <strong>subredes</strong> (subnetting) permite usar bien las direcciones y aislar el tráfico: cada subred se comunica con las demás a través de un router.</p>`,
     parametros: [
-      ['Dirección IPv4 (Fig. 1)', String.raw`La dirección que se analiza, en notación de cuatro números. Junto con el prefijo determina a qué red pertenece.`],
-      ['Longitud del prefijo /n (Fig. 1)', String.raw`Cuántos de los 32 bits identifican la red; el resto identifica al host. Un prefijo mayor da subredes más pequeñas con menos hosts.`],
-      ['Hosts en Ventas, Soporte, Laboratorio y Enlace al ISP (Fig. 2)', String.raw`Cantidad de hosts que necesita cada departamento. Define el tamaño de la subred que se le asigna y, por tanto, cuánto del /24 consume.`],
+      ['Dirección IPv4 (Fig. 1)', String.raw`Cuadro de texto con la dirección a analizar (cuatro números de 0 a 255). Junto con el prefijo determina la dirección de red, la difusión y el rango de hosts; si no es válida, la figura no se actualiza.`],
+      ['Longitud del prefijo /n (Fig. 1)', String.raw`Deslizador de /8 a /30: cuántos de los 32 bits identifican la red; el resto identifica al host. Un prefijo mayor da subredes más pequeñas con menos hosts.`],
+      ['Hosts en Ventas, Soporte, Laboratorio y Enlace al ISP (Fig. 2)', String.raw`Cuatro campos numéricos (de 1 a 120, inicialmente 50, 25, 10 y 2) con los hosts que necesita cada subred. Fijan el tamaño del bloque que se le asigna dentro de 192.168.1.0/24.`],
     ],
     visualizaciones: [
       { titulo: 'Red, host y máscara', descripcion: 'Mueva el prefijo y observe cómo cambian la dirección de red, la difusión y el número de hosts. Pruebe /24, /26 y /30.',
-        ayuda: String.raw`<p>Las fichas son los 32 bits de la dirección: los azules son los bits de red (los primeros \(n\)) y los naranjas, los de host. La tabla da máscara, dirección de red, difusión y rango de hosts.</p>
+        ayuda: String.raw`<p>Fila de 32 fichas, una por bit de la dirección, separadas en cuatro grupos de ocho: las azules son los primeros \(n\) bits, de red, y las naranjas, los de host. Abajo, una tabla con dirección, máscara, dirección de red (con /n), difusión, primer y último host; la lectura añade bits de red y host, número de direcciones, hosts utilizables y clase histórica.</p>
           <ul>
-          <li><strong>Longitud del prefijo</strong>: al aumentarla pasan fichas de naranja a azul; la red se achica y bajan las direcciones y los hosts utilizables (\(2^{32-n}-2\)).</li>
-          <li><strong>Dirección IPv4</strong>: cambiarla mueve la dirección de red y la difusión a otro bloque, sin cambiar el número de hosts.</li>
+          <li><strong>Longitud del prefijo</strong>: al aumentarla pasan fichas de naranja a azul; bajan las direcciones (\(2^{32-n}\)) y los hosts utilizables (\(2^{32-n}-2\)).</li>
+          <li><strong>Dirección IPv4</strong>: cambia la dirección de red, la difusión y el rango de hosts; el número de hosts depende solo del prefijo.</li>
           </ul>`, montar: montarCalc },
       { titulo: 'Repartir un /24 con máscaras variables', descripcion: 'Dé el número de hosts de cada departamento: se asignan subredes alineadas, de la más grande a la más pequeña. Haga crecer una hasta que no quepan.',
-        ayuda: String.raw`<p>La barra representa el /24 completo y cada tramo coloreado es una subred asignada: azul Ventas, naranja Soporte, aguamarina Laboratorio y amarillo Enlace al ISP; el gris es espacio sin usar.</p>
+        ayuda: String.raw`<p>La barra horizontal representa las 256 direcciones del /24 (de .0 a .255). Cada tramo es una subred con su prefijo escrito dentro: azul Ventas, naranja Soporte, aguamarina Laboratorio y amarillo Enlace al ISP; el gris es espacio sin asignar. Debajo, una tabla con subred, hosts pedidos, prefijo, red, rango de hosts y difusión; al pasar el cursor por un tramo aparece su detalle.</p>
           <ul>
-          <li><strong>Hosts en un departamento</strong> mayor: su tramo se ensancha (potencia de 2 que cubra hosts + 2) y puede crecer de a saltos.</li>
-          <li>Si la suma de bloques supera las 256 direcciones, ya no caben y la asignación falla.</li>
+          <li><strong>Hosts de un departamento</strong>: se asigna el bloque de potencia de 2 que cubra hosts + 2 (mínimo 4 direcciones); su tramo se ensancha a saltos. Los bloques se colocan del mayor al menor número de hosts, alineados a su tamaño.</li>
+          <li>Si el total de direcciones asignadas supera 256, el registro indica que no caben y la lectura marca «¿caben en el /24?» como no.</li>
           </ul>`, montar: montarVLSM },
     ],
     teoria: String.raw`

@@ -257,30 +257,34 @@
       <p>Los dos extremos tienen nombre: el <em>modelo de trazas</em> (restrictivo) y el <em>flower model</em> (permisivo). Las figuras los comparan con el modelo exacto y muestran
       de dónde sale la precisión, prefijo por prefijo.</p>`,
     parametros: [
-      ['Variantes del restrictivo (Fig. 1 y 2)', String.raw`Cuántas variantes del registro admite el modelo restrictivo. Con pocas, todo lo que permite ocurrió (precisión alta) pero no reproduce el resto del registro (fitness bajo).`],
-      ['Casos con ruido y Casos en el registro (Fig. 1 y 2)', String.raw`Fracción de trazas alteradas y tamaño del registro. El ruido hace que un modelo exacto ya no reproduzca todas las trazas.`],
-      ['Modelo (Fig. 2)', String.raw`Elige el modelo (restrictivo, exacto o permisivo) cuyas aristas que escapan se analizan.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otro registro.`],
+      ['Variantes del modelo restrictivo (Fig. 1)', String.raw`Deslizador de 1 a 8: cuántas variantes del registro (de la más frecuente a la menos) admite el modelo restrictivo. Con pocas, lo que permite ocurrió (precisión alta) pero deja fuera casos (fitness bajo).`],
+      ['Variantes del restrictivo (Fig. 2)', String.raw`Deslizador de 1 a 8, con el mismo efecto sobre el modelo restrictivo; solo se nota si se elige ese modelo.`],
+      ['Casos con ruido (Fig. 1 y 2)', String.raw`Fracción de casos con desvíos respecto del proceso (hasta 40 % en la Fig. 1 y hasta 30 % en la Fig. 2). El modelo exacto deja de reproducir esas trazas.`],
+      ['Casos en el registro (Fig. 2)', String.raw`Deslizador de 3 a 40: tamaño del registro del que se arma el árbol de prefijos (la Fig. 1 usa siempre 100 casos).`],
+      ['Modelo (Fig. 2)', String.raw`Selector: Restrictivo, Exacto o Permisivo. Es el modelo cuyas aristas que escapan se calculan.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Botón que genera otro registro con distinta semilla.`],
     ],
     visualizaciones: [
       {
         titulo: 'Restrictivo, exacto y permisivo',
         descripcion: 'Tres modelos frente a un registro de 100 casos. Con 1 variante el restrictivo tiene precisión 1 y fitness cercano a 0,82; súbala hasta 4 y llega a 1. Luego agregue ruido: el exacto ya no tiene fitness 1, y el permisivo sigue en 1 con precisión baja.',
-        ayuda: String.raw`<p>Fitness (¿el modelo reproduce el registro?) y precisión (¿el modelo evita permitir de más?) de tres modelos frente al mismo registro: restrictivo, exacto y permisivo.</p>
+        ayuda: String.raw`<p>Para cada modelo (restrictivo, exacto y permisivo) hay dos barras: fitness en azul (C.s1) y precisión en naranja (C.s2), con escala de 0 a 1 en el eje vertical. Al hacer clic en un modelo se lo marca con un borde violeta (C.s7) y el registro describe qué permite; las lecturas muestran su fitness, precisión, media armónica y el número de variantes (si no hay selección, se muestran las del exacto).</p>
           <ul>
-          <li><strong>Variantes del modelo restrictivo</strong>: al subirlas, el fitness del restrictivo crece hasta 1 mientras su precisión se mantiene.</li>
-          <li><strong>Casos con ruido</strong>: el modelo exacto pierde fitness y el permisivo conserva fitness alto con precisión baja.</li>
+          <li><strong>Variantes del modelo restrictivo</strong>: al subirlas, el fitness del restrictivo crece hacia 1 y su precisión se mantiene alta.</li>
+          <li><strong>Casos con ruido</strong>: el registro incluye desvíos que el modelo exacto no permite, y su fitness baja.</li>
+          <li><strong>Nuevos datos</strong>: regenera el registro.</li>
           </ul>`,
         montar: montarComparacion,
       },
       {
         titulo: 'Aristas que escapan por prefijo',
         descripcion: 'La precisión se calcula sobre el árbol de prefijos del registro: en cada nodo, el modelo habilita ciertas actividades y el registro hizo otras. Cambie al modelo permisivo y observe cuántos nodos acumulan escapes; con el restrictivo ninguno.',
-        ayuda: String.raw`<p>Árbol de prefijos del registro: cada nodo es un prefijo; en cada uno se compara lo que el modelo habilita con lo que el registro hizo. Se distinguen prefijos sin aristas que escapan, con aristas que escapan (el modelo permite algo que no ocurrió) y prefijos que el modelo no reproduce.</p>
+        ayuda: String.raw`<p>Árbol de prefijos del registro: cada nodo es un prefijo (la letra es la última actividad; el nodo raíz es el inicio) y el grosor de las flechas crece con su frecuencia. Un nodo blanco no tiene aristas que escapan; uno teñido de rojo (C.s8) tiene aristas que escapan y una insignia roja «+n» con su número (más intenso cuanto mayor); uno gris (C.neutro) es un prefijo que el modelo no puede reproducir y no se evalúa. Un clic marca un nodo con anillo azul (C.s1) y el registro detalla qué habilita el modelo y qué hizo el registro. Las lecturas dan la precisión, los prefijos distintos y las aristas habilitadas y las que escapan.</p>
           <ul>
-          <li><strong>Modelo</strong>: con el permisivo se acumulan nodos con aristas que escapan, es decir, baja la precisión.</li>
-          <li><strong>Variantes del restrictivo</strong>: más variantes reducen los prefijos que el restrictivo no puede reproducir.</li>
-          <li><strong>Casos con ruido</strong>: añade prefijos nuevos al árbol.</li>
+          <li><strong>Modelo</strong>: el permisivo tiñe casi todos los nodos de rojo (baja precisión); el restrictivo apenas tiene escapes.</li>
+          <li><strong>Variantes del restrictivo</strong>: más variantes admitidas, menos prefijos grises.</li>
+          <li><strong>Casos en el registro</strong>: más casos, más prefijos en el árbol.</li>
+          <li><strong>Casos con ruido</strong>: añade prefijos nuevos que el modelo exacto no reproduce.</li>
           </ul>`,
         montar: montarPrefijos,
       },

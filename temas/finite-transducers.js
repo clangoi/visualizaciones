@@ -145,29 +145,30 @@
       <p>Un autómata responde sí o no. Un <strong>transductor finito</strong> hace algo más útil: además de leer una palabra, <em>escribe</em> otra. Cada transición lleva una etiqueta «entrada / salida», y la traducción de la palabra es la concatenación de las salidas del camino.</p>
       <p>Con memoria finita se pueden sumar uno a un número binario, reemplazar símbolos, comprimir repeticiones o normalizar texto. Son la base de los analizadores morfológicos, de la normalización de texto y de buena parte de los circuitos secuenciales.</p>`,
     parametros: [
-      ['Transductor (Fig. 1 y 2)', String.raw`La traducción que se estudia (por ejemplo incrementar, paridad, comprimir o una relación). Define qué se escribe por cada símbolo leído.`],
-      ['Entrada (Fig. 1)', String.raw`La palabra que se traduce. La cinta de salida crece según ella.`],
-      ['Reproductor (Fig. 1)', String.raw`Cada paso lee un símbolo y escribe su salida; Reiniciar vacía la salida.`],
-      ['Longitud de la entrada (Fig. 2)', String.raw`Hasta qué longitud se listan las entradas. Más longitud agrega filas y permite ver si la longitud se conserva o si hay varias salidas.`],
+      ['Transductor (Fig. 1 y 2)', String.raw`Selector con cuatro traducciones: «Incrementar un binario (bit menos significativo primero)» (inicial), «Paridad acumulada de los unos», «Comprimir «aa» en «A»» y «No determinista: cada a se escribe x o y». En la Fig. 1 también carga la entrada de ejemplo y su nota.`],
+      ['Entrada (Fig. 1)', String.raw`Campo de texto con la palabra que se traduce (por omisión 1011 para el incremento). Los símbolos ajenos al alfabeto del transductor se ignoran. Al editarla o pulsar Enter se reinicia la ejecución.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Cada paso lee un símbolo y escribe su salida; hay un paso final que agrega la salida propia del estado en que se termina. «Reiniciar» vacía la salida. Con el transductor no determinista se sigue siempre la primera alternativa (x).`],
+      ['Longitud de la entrada (Fig. 2)', String.raw`Deslizador de 0 a 5 (inicia en 3): se listan solo las entradas de exactamente esa longitud, hasta 32 filas. Permite ver si el transductor conserva la longitud o si una entrada tiene varias salidas.`],
     ],
     visualizaciones: [
       {
         titulo: 'Leer y escribir a la vez',
         descripcion: 'Ejecute un transductor paso a paso y mire cómo crece la cinta de salida. Pruebe «incrementar» con 111 (acarreo hasta el final) y «comprimir» con aaaa.',
-        ayuda: String.raw`<p>El transductor con su estado actual resaltado y la transición recién usada con la salida que escribió. La cinta de salida muestra los símbolos de salida acumulados.</p>
+        ayuda: String.raw`<p>Arriba, dos cintas: «entrada» (celdas grises las ya leídas; borde naranja la que se lee) y «salida» (celdas verdes con lo escrito). Abajo, el diagrama del transductor, con transiciones etiquetadas entrada/salida (ε si no se escribe nada). El estado actual tiene relleno azul y la última transición usada, trazo naranja.</p>
           <ul>
-          <li><strong>Entrada</strong>: «incrementar» con 111 propaga el acarreo y al final añade un 1; «comprimir» con aaaa produce una salida más corta.</li>
-          <li><strong>Transductor</strong>: cambia la regla de traducción y la relación entre longitud de entrada y de salida.</li>
+          <li><strong>Entrada</strong>: por ejemplo, «incrementar» con 111 propaga el acarreo y al final añade un 1; «comprimir» con aaaa produce una salida más corta.</li>
+          <li><strong>Transductor</strong>: cambia la regla y la relación entre el largo de entrada y de salida.</li>
+          <li><strong>Lectura</strong>: entrada, salida, estado actual y largos.</li>
           </ul>`,
         montar: montarEjecucion,
       },
       {
         titulo: 'La traducción de todas las entradas',
         descripcion: 'Tabla de entradas de una longitud y su salida. Compruebe qué transductores conservan la longitud, cuáles son inyectivos y cuándo una entrada tiene varias salidas.',
-        ayuda: String.raw`<p>Tabla con todas las entradas de la longitud elegida y su salida. Si una entrada tiene varias salidas, el transductor define una relación y no una función.</p>
+        ayuda: String.raw`<p>Tabla de texto con tres columnas: Entrada, Salida(s) y Largo de salida. Cada fila es una entrada de la longitud elegida (si hay varias salidas, se separan con «·»). La lectura indica si el transductor es determinista, si conserva la longitud y si es inyectivo en esa longitud.</p>
           <ul>
-          <li><strong>Longitud de la entrada</strong>: permite comprobar si la salida conserva la longitud o si dos entradas dan la misma salida.</li>
-          <li><strong>Transductor</strong>: cambiarlo muestra cuáles son inyectivos y cuáles producen varias traducciones.</li>
+          <li><strong>Longitud de la entrada</strong>: más longitud, más filas (2 elevado a la longitud, con tope de 32).</li>
+          <li><strong>Transductor</strong>: al elegir el no determinista, las entradas con a muestran varias salidas y la tabla es una relación y no una función.</li>
           </ul>`,
         montar: montarTabla,
       },

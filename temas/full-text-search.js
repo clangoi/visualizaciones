@@ -139,20 +139,22 @@
       <p>Un índice invertido es el índice de un libro: para cada término, la lista de documentos (y posiciones) donde aparece. Es la
       estructura detrás de Elasticsearch, Lucene, los motores web y el tipo <code>tsvector</code> de PostgreSQL.</p>`,
     parametros: [
-      ['Consulta (Fig. 1)', String.raw`Texto buscado. Se procesa igual que los documentos y cada término produce una lista de postings.`],
-      ['Operador (Fig. 1)', String.raw`AND exige todos los términos (intersección de listas); OR basta con alguno (unión).`],
-      ['Minúsculas, quitar tildes, quitar palabras vacías y reducir a la raíz (Fig. 1)', String.raw`Pasos de normalización del texto. Cambiarlos modifica qué términos se indexan y cuáles coinciden.`],
-      ['Velocidad y reproductor (Fig. 1)', String.raw`Reproducir, Un paso y Reiniciar controlan el avance de los punteros.`],
+      ['Consulta (Fig. 1)', String.raw`Texto buscado (inicial: «consultas SQL»). Se normaliza igual que los documentos y cada término produce una lista de postings. Se aplica al escribir o con Enter, y reinicia la simulación.`],
+      ['Operador (Fig. 1)', String.raw`AND (todos los términos) exige que el documento esté en todas las listas (intersección); OR (alguno) basta con una (unión).`],
+      ['Minúsculas, quitar tildes, quitar palabras vacías y reducir a la raíz (Fig. 1)', String.raw`Cuatro casillas, todas activas al inicio. Cada una agrega un paso de normalización a la consulta y a los 7 documentos; cambiarlas modifica qué términos se indexan y cuáles coinciden, y reinicia la simulación.`],
+      ['Velocidad (Fig. 1)', String.raw`Controla cuántos pasos por segundo avanza la reproducción.`],
+      ['Reproducir, Un paso y Hasta el final (Fig. 1)', String.raw`Reproducir (que pasa a Pausar) avanza los punteros automáticamente; Un paso ejecuta una sola comparación; Hasta el final termina de una vez la intersección o unión. El botón de reinicio vuelve al comienzo.`],
     ],
     visualizaciones: [
       {
         titulo: 'Índice invertido y consultas booleanas',
         descripcion: 'Siete documentos cortos, su índice y una consulta. Avance para ver la intersección (AND) o la unión (OR) de las listas de postings con un puntero por lista.',
-        ayuda: String.raw`<p>Se muestran las listas de postings de cada término de la consulta, con un puntero por lista, y más abajo el índice invertido. Se resalta el documento bajo el puntero, el que entra al resultado y el ya superado.</p>
+        ayuda: String.raw`<p>Arriba están los 7 documentos ya normalizados (d1 a d7); los que ya están en el resultado se resaltan. Luego, una fila de fichas por cada término de la consulta con su lista de postings. Una ficha azul (C.s1) es el documento bajo el puntero, una verde (C.s6) está en el resultado y una gris ya fue superada. Un mensaje explica cada paso. Más abajo, una tabla del índice invertido completo con término, df y postings (documento:posiciones); los términos de la consulta se resaltan en azul.</p>
           <ul>
-          <li><strong>Operador</strong>: AND avanza el puntero menor y solo conserva documentos presentes en todas las listas; OR conserva los de cualquiera.</li>
-          <li><strong>Normalización</strong>: por ejemplo, quitar tildes o reducir a la raíz hace que más formas de una palabra apunten al mismo término.</li>
+          <li><strong>Operador</strong>: AND avanza los punteros que están bajo el mayor y solo agrega un documento cuando todos coinciden; OR agrega siempre el menor y avanza las listas que lo tienen.</li>
+          <li><strong>Normalización</strong>: por ejemplo, sin la raíz «consultas» y «consultar» dejan de coincidir.</li>
           <li><strong>Consulta</strong>: cambia las listas y el resultado.</li>
+          <li><strong>Lectura</strong>: términos distintos, tokens indexados, comparaciones y documentos encontrados.</li>
           </ul>`,
         montar: montarIndice,
       },

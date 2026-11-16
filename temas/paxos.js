@@ -147,18 +147,19 @@
       una primera fase obtienen de una mayoría de <em>aceptadores</em> la promesa de ignorar números menores y averiguan si ya se aceptó algún valor; en la segunda,
       piden aceptar un valor, que debe ser el ya aceptado si lo hay. Nunca se eligen dos valores distintos, aunque, con mala suerte, puede no terminar.</p>`,
     parametros: [
-      ['Escenario (Fig. 1)', String.raw`Qué situación se simula: un proponente, un aceptador caído, un segundo proponente que llega tarde o dos proponentes en duelo. Muestra cómo Paxos conserva un valor ya aceptado o reintenta tras ser rechazado.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza la simulación evento por evento y la reinicia.`],
+      ['Escenario (Fig. 1)', String.raw`Cuatro opciones: «Un proponente», «Un aceptador caído» (A3 no recibe nada), «Un segundo proponente llega tarde» (P2 empieza cuando P1 aún no termina) y «Proponentes en duelo» (ambos empiezan casi a la vez). Muestra cómo Paxos conserva un valor ya aceptado o reintenta tras ser rechazado. Cambiarlo reinicia la simulación.`],
+      ['Reproductor (Fig. 1)', String.raw`Cada paso avanza hasta el siguiente evento rotulado (una promesa, una aceptación, un rechazo, etc.); también reproduce solo o reinicia la simulación. Al final el registro dice qué valor se eligió.`],
     ],
     visualizaciones: [
       {
         titulo: 'Las dos fases de Paxos',
         descripcion: 'Avance evento por evento. En «Un segundo proponente llega tarde», P2 descubre que A1 ya aceptó X y propone X en lugar de Y. En «Proponentes en duelo», cada uno anula al otro hasta que uno espera más.',
-        ayuda: String.raw`<p>Los proponentes y los aceptadores se unen con flechas cuyo color indica el tipo de mensaje: prepare, promise, accept, accepted o nack (rechazo), según la leyenda. El registro y la lectura describen el evento actual.</p>
+        ayuda: String.raw`<p>Diagrama espacio-tiempo: cinco líneas horizontales (P1, P2, A1, A2, A3) y el tiempo avanzando hacia la derecha. Las flechas son mensajes, de color según el tipo: prepare en azul, promise en aguamarina, accept en naranja, accepted en verde y nack (rechazo) en rojo. Los puntos rotulados sobre las líneas son eventos (por ejemplo «prom 1» o «acepta (1,X)»); el último lleva un anillo. En «Un aceptador caído», la línea de A3 está en gris y los mensajes que le llegan, discontinuos, se pierden a medio camino. El registro explica el evento actual y la lectura da el valor elegido, los mensajes enviados y las propuestas iniciadas.</p>
           <ul>
-          <li><strong>Escenario</strong> «Un segundo proponente llega tarde»: P2 recibe promesas que informan de un valor ya aceptado y por eso propone ese valor, no el suyo.</li>
-          <li><strong>Escenario</strong> «Un aceptador caído»: con la mayoría restante el acuerdo se alcanza igual.</li>
-          <li><strong>Escenario</strong> «Proponentes en duelo»: aparecen nack porque cada prepare con número mayor anula al anterior.</li>
+          <li><strong>Un proponente</strong>: P1 pide promesas, luego pide aceptar su valor X y recibe la aceptación de una mayoría (2 de 3).</li>
+          <li><strong>Un aceptador caído</strong>: con los dos aceptadores restantes el acuerdo se alcanza igual.</li>
+          <li><strong>Un segundo proponente llega tarde</strong>: si las promesas que recibe P2 informan de un valor ya aceptado, P2 propone ese valor y no el suyo (Y).</li>
+          <li><strong>Proponentes en duelo</strong>: un prepare con número mayor puede hacer que un aceptador rechace al otro proponente (nack en rojo); este reintenta con un número más alto.</li>
           </ul>`,
         montar,
       },

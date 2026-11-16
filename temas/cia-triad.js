@@ -244,31 +244,34 @@
       <p>Lo difícil es que reforzar una propiedad suele debilitar otra: bloquear una cuenta tras tres intentos protege contra adivinadores, pero también permite
       que un atacante deje a un usuario legítimo sin acceso. Elegir controles es repartir el esfuerzo según lo que la organización más necesita proteger.</p>`,
     parametros: [
-      ['Perfil de la organización (Fig. 1)', String.raw`Define la meta de cada propiedad (confidencialidad, integridad, disponibilidad) según el tipo de organización. Cambiarlo no altera los controles, solo qué tan lejos se está de lo que ese negocio necesita.`],
-      ['Controles y Quitar todos (Fig. 1)', String.raw`Cada casilla es un control de seguridad que suma o resta puntos a C, I y D. Activarlo muestra qué propiedades refuerza; Quitar todos devuelve al nivel base.`],
-      ['Resaltar propiedad (Fig. 2)', String.raw`Elige la columna (confidencialidad, integridad o disponibilidad) que se destaca en la tabla de incidentes para ver cuáles la violan.`],
-      ['Modo práctica y Revisar respuestas (Fig. 2)', String.raw`Oculta la clasificación para que usted marque qué propiedades viola cada incidente. Revisar respuestas compara su juicio con el de la tabla.`],
+      ['Perfil de la organización (Fig. 1)', String.raw`Elige entre banco, hospital, estudio jurídico y medio de prensa. Cada perfil fija una meta (de 0 a 100) para confidencialidad, integridad y disponibilidad. Cambiarlo no altera los controles, solo la meta con la que se compara el nivel alcanzado.`],
+      ['Casillas de controles (Fig. 1)', String.raw`Nueve controles (cifrado, autenticación multifactor, firmas y hashes, respaldos, servidores redundantes, registros de auditoría, bloqueo tras intentos fallidos, prevención de fuga de datos y aprobación doble). Cada uno suma o resta puntos a C, I y D sobre una base de 30; por ejemplo, el cifrado sube C pero baja D.`],
+      ['Quitar todos (Fig. 1)', String.raw`Desmarca todos los controles y devuelve cada propiedad al nivel base de 30 puntos.`],
+      ['Resaltar propiedad (Fig. 2)', String.raw`Elige Todas, Confidencialidad, Integridad o Disponibilidad. Las columnas no elegidas se atenúan para ver qué incidentes afectan la propiedad elegida.`],
+      ['Modo práctica (Fig. 2)', String.raw`Oculta la clasificación de las celdas. Al activarlo, usted marca con clic las propiedades que cree violadas de forma principal o importante en cada incidente.`],
+      ['Revisar respuestas (Fig. 2)', String.raw`Con el modo práctica activo, muestra la clasificación y contornea cada celda en verde si su marca coincidió o en rojo si no, con el número de incidentes acertados.`],
     ],
     visualizaciones: [
       {
         titulo: 'Balance de la tríada con controles',
         descripcion: 'Active controles y observe cómo se mueve el triángulo frente a la meta del perfil. Pruebe «Banco» con solo respaldos y redundancia: la disponibilidad sube pero la confidencialidad queda baja.',
-        ayuda: String.raw`<p>El triángulo tiene un vértice por propiedad: confidencialidad, integridad y disponibilidad. El nivel alcanzado con los controles activos se compara con la meta del perfil; una propiedad bajo su meta se marca aparte en la leyenda.</p>
+        ayuda: String.raw`<p>Triángulo con un vértice por propiedad (confidencialidad arriba, integridad abajo a la derecha, disponibilidad abajo a la izquierda) y anillos de 25, 50, 75 y 100 puntos. El polígono azul (C.s1) es el nivel alcanzado con los controles activos; el polígono punteado gris es la meta del perfil. Un vértice se pinta en rojo (C.s8) y su cifra «nivel / meta» también cuando queda bajo su meta.</p>
           <ul>
-          <li><strong>Perfil de la organización</strong>: cambia la meta de cada vértice; el mismo conjunto de controles puede bastar para un perfil y quedarse corto para otro.</li>
-          <li><strong>Casillas de controles</strong>: cada control sube (o baja) los vértices que protege; por ejemplo, solo respaldos y redundancia elevan la disponibilidad pero dejan baja la confidencialidad.</li>
-          <li><strong>Quitar todos</strong>: todas las propiedades vuelven al nivel base, útil para medir cuánto aporta cada control.</li>
+          <li><strong>Perfil de la organización</strong>: mueve el polígono punteado de la meta.</li>
+          <li><strong>Casillas de controles</strong>: cada control mueve los vértices que toca; los que restan (por ejemplo, el cifrado sobre D) encogen otro vértice.</li>
+          <li><strong>Quitar todos</strong>: los tres vértices vuelven a 30.</li>
+          <li><strong>Cursor sobre un vértice</strong>: lista los controles activos que lo suben (verde) o lo bajan (rojo).</li>
           </ul>`,
         montar: montarBalance,
       },
       {
         titulo: 'Incidentes según la propiedad violada',
         descripcion: 'Cada incidente real viola una o varias propiedades. Resalte una columna, haga clic en las filas para leer el control que habría ayudado, o active la práctica y clasifique usted.',
-        ayuda: String.raw`<p>Cada fila es un incidente y cada columna una propiedad de la tríada. El color de la celda indica si la violación es principal, importante, secundaria o no afecta esa propiedad. En práctica, las celdas marcadas por usted se pintan como respuesta correcta o errónea.</p>
+        ayuda: String.raw`<p>Tabla de diez incidentes (filas) por las tres propiedades C, I y D (columnas). El color de cada celda va de la escala de azules: más oscuro para violación principal, intermedio para importante, claro para secundaria; blanco si no afecta esa propiedad. Un clic en la fila muestra qué ocurrió y qué control lo habría evitado.</p>
           <ul>
-          <li><strong>Resaltar propiedad</strong>: destaca una columna y atenúa las otras; muestra qué incidentes atacan esa propiedad.</li>
-          <li><strong>Modo práctica</strong>: oculta la clasificación; usted decide qué propiedad es la violación principal de cada incidente.</li>
-          <li><strong>Revisar respuestas</strong>: revela los aciertos y errores de sus marcas frente a la clasificación.</li>
+          <li><strong>Resaltar propiedad</strong>: deja la columna elegida con su color y atenúa las otras dos.</li>
+          <li><strong>Modo práctica</strong>: las celdas quedan en blanco; cada clic marca o desmarca una propiedad (borde azul).</li>
+          <li><strong>Revisar respuestas</strong>: revela la clasificación y contornea cada celda en verde (C.s6) si su marca fue correcta o en rojo (C.s8) si no.</li>
           </ul>`,
         montar: montarIncidentes,
       },

@@ -291,30 +291,32 @@
       de ellas que lo demuestra (lema de Farkas). Verificar cualquiera de los dos cuesta unas pocas multiplicaciones de matrices,
       aunque encontrarlos haya costado un algoritmo entero.</p>`,
     parametros: [
-      ['x₁, x₂, y₁, y₂ y y₃ (Fig. 1)', String.raw`Candidato primal \(x\) y candidato dual \(y\). Un par es certificado de óptimo solo si ambos son factibles y \(c^Tx=b^Ty\).`],
-      ['Par óptimo, Factible no óptimo, y con una violación y Perturbar (Fig. 1)', String.raw`Cargan ejemplos para ver qué condición falla: el óptimo, un \(x\) factible con \(y\) que no certifica, un \(y\) que viola una restricción y una perturbación del par actual.`],
-      ['Mínimo t de x₁ + x₂ (restricción 2) (Fig. 2)', String.raw`Fija una cota de la segunda restricción; con \(t=6\) el sistema se vuelve contradictorio y con \(t\le 4\) deja de serlo.`],
-      ['y₁, y₂ y y₃ (Fig. 2)', String.raw`Pesos con que se combinan las restricciones para buscar un certificado de infactibilidad.`],
-      ['Buscar certificado, y = (1, 1, 0) e y = 0 (Fig. 2)', String.raw`Buscar certificado resuelve un LP para hallar \(y\); los otros dos cargan ejemplos.`],
+      ['x₁, x₂, y₁, y₂ y y₃ (Fig. 1)', String.raw`Deslizadores del candidato primal \(x\) (de 0 a 11) y del candidato dual \(y\) (de 0 a 8), con paso 0,25. También puede pulsar o arrastrar sobre la región para fijar \(x\). Un par certifica el óptimo solo si ambos son factibles y \(c^Tx=b^Ty\).`],
+      ['Par óptimo, Factible, no óptimo, y con una violación y Perturbar (Fig. 1)', String.raw`Cargan pares de ejemplo. Par óptimo: \(x\) e \(y\) óptimos. Factible, no óptimo: \(x=(6,4)\), \(y=(5,0,0)\), ambos factibles pero con brecha. y con una violación: \(x\) óptimo con \(y=(1,1,0)\), que incumple una restricción dual. Perturbar: suma 0,5 a cada coordenada de \(x\) y deja \(y\) igual.`],
+      ['Mínimo t de x₁ + x₂ (restricción 2) (Fig. 2)', String.raw`Deslizador de 0 a 8 (paso 0,5). El sistema exige \(x_1+x_2\le 4\), \(x_1+x_2\ge t\) y \(x_1\le 3\). Con \(t=6\) es contradictorio; con \(t\le 4\) tiene solución.`],
+      ['y₁, y₂ y y₃ (Fig. 2)', String.raw`Pesos (de 0 a 3, paso 0,05) con que se suman las tres restricciones. Un certificado de infactibilidad exige \(y\ge 0\), \(A^Ty\ge 0\) y \(b^Ty<0\).`],
+      ['Buscar certificado (LP), y = (1, 1, 0) e y = 0 (Fig. 2)', String.raw`Buscar certificado resuelve un programa lineal para hallar \(y\); si el sistema es factible informa que no existe. Los otros dos botones cargan esos valores de \(y\).`],
     ],
     visualizaciones: [
       {
         titulo: 'Verificar un par primal-dual',
         descripcion: 'Mueva x y y y observe cuáles de las condiciones se cumplen; solo cuando las tres lo hacen aparece un certificado. Compare la última fila de abajo con la fila z del tablero del Simplex: los costos reducidos son las holguras duales.',
-        ayuda: String.raw`<p>Región factible del primal con el punto \(x\) (hueco si es infactible) y la curva de nivel \(c^Tx=b^Ty\). Debajo se verifican las condiciones: factibilidad primal, factibilidad dual e igualdad de valores.</p>
+        ayuda: String.raw`<p>Ejes x₁ y x₂. La región azul es el primal factible; las rectas punteadas grises son las restricciones. La recta gris punteada más fina es la curva de nivel \(c^Tx=b^Ty\). El punto azul es \(x\) (hueco con borde rojo si no es factible) y el punto verde pequeño es el óptimo. Debajo, una tabla indica si cada condición cumple o falla, y otra compara la fila z del tablero óptimo con las holguras del dual.</p>
           <ul>
-          <li><strong>Par óptimo</strong>: las tres condiciones se cumplen y aparece el certificado.</li>
-          <li><strong>y con una violación</strong>: una restricción dual falla y el valor ya no es una cota válida.</li>
+          <li><strong>x</strong>: al sacarlo de la región, el punto pasa a hueco rojo y falla la factibilidad primal.</li>
+          <li><strong>y</strong>: cambia \(b^Ty\) (la curva de nivel) y la factibilidad dual.</li>
+          <li><strong>Par óptimo</strong>: se cumplen las tres condiciones y la lectura dice «certificado».</li>
+          <li><strong>y con una violación</strong>: falla una restricción dual y \(b^Ty\) deja de ser cota válida.</li>
           </ul>`,
         montar: montarVerificar,
       },
       {
         titulo: 'Certificado de infactibilidad (Farkas)',
         descripcion: 'Con t = 6 el sistema es contradictorio. Pulse «Buscar certificado», o pruebe y = (1, 1, 0): la combinación de restricciones queda a la izquierda de los ejes. Luego baje t hasta 4 o menos y vea que no existe ningún y.',
-        ayuda: String.raw`<p>Se dibuja el conjunto factible (si existe), cada restricción y la combinación \(\sum y_i\cdot\)(restricción i), que debe quedar fuera del cuadrante no negativo para certificar la infactibilidad.</p>
+        ayuda: String.raw`<p>Ejes x₁ y x₂. Si existe, el conjunto factible se muestra en azul; las restricciones son rectas punteadas grises y la combinación \(\sum y_i\cdot\)(restricción i) es una recta roja. Debajo, una tabla marca si se cumplen \(y\ge 0\), \(A^Ty\ge 0\) y \(b^Ty<0\).</p>
           <ul>
-          <li><strong>t</strong>: con valores altos la región se vacía y existe un certificado de Farkas; con \(t\le 4\) hay puntos factibles y no existe.</li>
-          <li><strong>y</strong>: con \(y=(1,1,0)\) la combinación contradice \(x\ge 0\) cuando \(t=6\).</li>
+          <li><strong>t</strong>: con valores altos la región queda vacía (aparece «conjunto factible vacío») y existe certificado; con \(t\le 4\) hay puntos factibles y no existe.</li>
+          <li><strong>y</strong>: con \(y=(1,1,0)\) y \(t=6\) la suma de las dos primeras restricciones da \(0\le -2\), una contradicción.</li>
           </ul>`,
         montar: montarFarkas,
       },

@@ -180,28 +180,30 @@
       mejor aproximación de rango \(k\) de los datos, y es exactamente lo que calcula <a href="tema.html?id=pca">PCA</a>
       sobre la matriz centrada.</p>`,
     parametros: [
-      ['a₁₁, a₁₂, a₂₁, a₂₂ (Fig. 1)', String.raw`Las cuatro entradas de la matriz 2 × 2 \(A\) que transforma el plano. Cambiarlas deforma el círculo en otra elipse y cambia los valores singulares.`],
-      ['Etapa y Animar (Fig. 1)', String.raw`Qué parte de la factorización \(A = U\Sigma V^T\) se ha aplicado: 0 es el círculo original, 1 tras \(V^T\), 2 tras \(\Sigma\) y 3 tras \(U\) (es decir, \(Ax\)). Animar recorre las etapas automáticamente.`],
-      ['Rango k (Fig. 2)', String.raw`Cuántos términos \(\sigma_i u_i v_i^T\) se usan para reconstruir la imagen. Más términos acercan la reconstrucción a la imagen original.`],
+      ['a₁₁, a₁₂, a₂₁, a₂₂ (Fig. 1)', String.raw`Cuatro deslizadores, de −2 a 2, con las entradas de la matriz 2 × 2 \(A\) que transforma el plano. Cambiarlas deforma el círculo en otra elipse y cambia los valores singulares.`],
+      ['Etapa (Fig. 1)', String.raw`Deslizador continuo de 0 a 3 que indica cuánto de la factorización \(A = U\Sigma V^T\) se ha aplicado: 0 es el círculo original (\(x\)), 1 tras \(V^T\), 2 tras \(\Sigma\) y 3 tras \(U\) (es decir, \(Ax\)). Los valores intermedios interpolan entre etapas.`],
+      ['Animar (Fig. 1)', String.raw`Lleva la etapa de 0 a 3 automáticamente, en unos 3 segundos.`],
+      ['Rango k (Fig. 2)', String.raw`Deslizador de 1 a 40. Cuántos términos \(\sigma_i u_i v_i^T\) se usan para reconstruir la imagen de 40 × 40. Más términos acercan la reconstrucción a la original.`],
     ],
     visualizaciones: [
       {
         titulo: 'Girar, estirar, girar',
         descripcion: 'El círculo unitario bajo una matriz 2 × 2, en las tres etapas de la SVD. Los vectores v₁, v₂ terminan en σ₁u₁ y σ₂u₂: los ejes de la elipse.',
-        ayuda: String.raw`<p>La curva gris es el círculo unitario original y la violeta, su imagen transformada. Los segmentos azul y naranja son \(v_1\to\sigma_1u_1\) y \(v_2\to\sigma_2u_2\): los semiejes de la elipse final.</p>
+        ayuda: String.raw`<p>La curva gris clara es el círculo unitario original y la violeta (C.s7), su imagen en la etapa elegida, con una cuadrícula violeta tenue transformada. Los segmentos desde el origen son la imagen de \(v_1\) (azul) y de \(v_2\) (naranja); en la etapa 3 son \(\sigma_1u_1\) y \(\sigma_2u_2\), los semiejes de la elipse final. La lectura da \(\sigma_1,\sigma_2\), \(|\det A|\), el número de condición y el rango.</p>
           <ul>
-          <li><strong>Etapa</strong> de 0 a 3: primero el círculo gira (\(V^T\)), luego se estira a una elipse con ejes alineados (\(\Sigma\)) y al final gira a su posición definitiva (\(U\)).</li>
-          <li><strong>a₁₁ … a₂₂</strong>: si hace \(a_{11}a_{22}=a_{12}a_{21}\) la matriz es singular, \(\sigma_2=0\) y el círculo se aplasta en un segmento.</li>
+          <li><strong>Etapa</strong> de 0 a 3: primero \(V^T\) gira (o refleja) el círculo, luego \(\Sigma\) lo estira a una elipse con ejes alineados y al final \(U\) la gira a su posición definitiva.</li>
+          <li><strong>a₁₁ … a₂₂</strong>: si \(a_{11}a_{22}=a_{12}a_{21}\) la matriz es singular, \(\sigma_2=0\) y el círculo se aplasta en un segmento.</li>
+          <li><strong>Animar</strong>: reproduce las tres transformaciones en orden desde la etapa 0.</li>
           </ul>`,
         montar: montarGeometria,
       },
       {
         titulo: 'Aproximación de rango bajo',
         descripcion: 'Reconstruya una imagen con los k primeros términos σᵢuᵢvᵢᵀ y compare la energía retenida con el error.',
-        ayuda: String.raw`<p>Se muestra la imagen original y su reconstrucción de rango k, junto con las barras de los valores singulares: azules los usados (\(\sigma_1\ldots\sigma_k\)) y grises los descartados. El brillo del píxel es su intensidad.</p>
+        ayuda: String.raw`<p>Dos imágenes en escala de grises (negro es intensidad 1, blanco 0): la original y su reconstrucción de rango k. A su lado, una barra por valor singular \(\sigma_i\), con altura proporcional a \(\sqrt{\sigma_i/\sigma_1}\): azules (C.s1) los usados (\(\sigma_1\ldots\sigma_k\)) y grises los descartados; la barra bajo el puntero se pinta naranja y su tooltip da \(\sigma_i\) y la energía acumulada.</p>
           <ul>
-          <li><strong>Rango k</strong> pequeño: solo quedan las formas grandes, porque los primeros \(\sigma_i\) dominan. Al subirlo reaparecen detalles finos (diagonal, franjas) y el error baja.</li>
-          <li>Cuando las barras descartadas son pequeñas, la energía retenida ya es casi total: más términos casi no cambian la imagen.</li>
+          <li><strong>Rango k</strong> pequeño: solo quedan las formas grandes; al subirlo reaparecen detalles finos (diagonal, franjas) y el error baja.</li>
+          <li>La lectura informa la energía retenida, el error de Frobenius y cuántos números se guardan frente a los 1&nbsp;600 de la imagen.</li>
           </ul>`,
         montar: montarRangoBajo,
       },

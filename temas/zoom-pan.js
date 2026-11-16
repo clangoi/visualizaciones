@@ -108,22 +108,26 @@
       <p>Con muchos datos, ninguna imagen cabe entera con suficiente detalle. <strong>Zoom</strong> (acercar) y <strong>pan</strong> (desplazar) permiten recorrer un espacio grande por partes. El riesgo es perderse: por eso se acompañan de un <em>panorama</em> que muestra dónde se está.</p>
       <p>Hay dos clases de zoom. El <em>geométrico</em> solo agranda lo que ya hay; el <em>semántico</em> cambia lo que se muestra según el nivel de acercamiento.</p>`,
     parametros: [
-      ['Zoom (Fig. 1 y 2)', String.raw`Factor de ampliación de la vista. Muestra una parte más pequeña de los datos, con más detalle.`],
-      ['Restablecer (Fig. 1)', String.raw`Vuelve a 1× y recentra la vista.`],
-      ['Tipo de zoom (Fig. 2)', String.raw`Geométrico solo agranda el dibujo; semántico cambia qué se dibuja según el nivel de acercamiento.`],
+      ['Zoom (Fig. 1)', String.raw`Deslizador de 1× a 8× (paso 0,1). Muestra una parte más pequeña del plano de 100 × 100, con más detalle. También se cambia con la rueda del ratón.`],
+      ['Restablecer (Fig. 1)', String.raw`Vuelve a 1× y recentra la vista en (50; 50). El doble clic sobre la figura hace lo mismo.`],
+      ['Tipo de zoom (Fig. 2)', String.raw`Selector: «geométrico: solo se agranda» o «semántico: cambia la representación» (inicial).`],
+      ['Zoom (Fig. 2)', String.raw`Deslizador de 1× a 10× (paso 0,1). Define cuánto se acerca la vista; con el tipo semántico, el cambio de representación ocurre al llegar a 3,5×.`],
     ],
     visualizaciones: [
       { titulo: 'Zoom y desplazamiento con panorama', descripcion: 'Acerque con la rueda o el control, desplace arrastrando y mueva el rectángulo del panorama.',
-        ayuda: String.raw`<p>Vista principal con puntos azules y un panorama pequeño de todo el conjunto. El rectángulo naranja del panorama marca la ventana visible. La lectura da el punto bajo el cursor.</p>
+        ayuda: String.raw`<p>Vista principal con 500 puntos azules y rejilla (ejes de 0 a 100), y un panorama del conjunto completo (a la derecha o, en pantallas angostas, abajo). El rectángulo naranja del panorama es la ventana que ve la vista principal. Arrastrar la vista grande la desplaza; la rueda del ratón cambia el zoom; arrastrar o hacer clic en el panorama recentra la ventana.</p>
           <ul>
-          <li><strong>Zoom</strong>: al subirlo el rectángulo naranja se reduce, porque la vista ve menos del conjunto.</li>
-          <li><strong>Restablecer</strong>: el rectángulo cubre todo el panorama de nuevo.</li>
+          <li><strong>Zoom</strong>: al subirlo, el rectángulo naranja se reduce y los puntos se dibujan algo más grandes.</li>
+          <li><strong>Restablecer</strong>: el rectángulo vuelve a cubrir todo el panorama.</li>
+          <li><strong>Cursor sobre un punto</strong>: indica su número, su grupo (hay cuatro) y sus coordenadas.</li>
+          <li><strong>Lectura</strong>: zoom, centro, puntos visibles y porción del plano mostrada (100 / zoom² por ciento).</li>
           </ul>`, montar: montarFocoContexto },
       { titulo: 'Zoom geométrico y semántico', descripcion: 'Alterne entre ambos zooms y compare qué se ve a distintos niveles de acercamiento.',
-        ayuda: String.raw`<p>Un mapa de puntos. Las celdas azules resumen muchos puntos con su conteo; los puntos naranja son individuales y con etiqueta.</p>
+        ayuda: String.raw`<p>Mapa de los mismos 500 puntos, sin ejes. Con zoom semántico y menos de 3,5×, se dibujan celdas con un tono de la escala de azules según cuántos puntos agrupan (más oscuro, más puntos) y su conteo escrito; desde 3,5×, puntos naranja individuales, rotulados con su número a partir de 6,5×. Con zoom geométrico siempre se ven puntos azules, que solo crecen con el aumento.</p>
           <ul>
-          <li><strong>Tipo de zoom</strong> «semántico»: al alejar los puntos se agrupan en celdas con conteo y al acercar aparecen individuales y rotulados; «geométrico» solo escala el dibujo.</li>
-          <li><strong>Zoom</strong>: define el nivel de acercamiento en que cambia la representación.</li>
+          <li><strong>Tipo de zoom</strong>: semántico cambia la representación según el nivel; geométrico solo escala el dibujo y no agrega información.</li>
+          <li><strong>Zoom</strong> (o la rueda del ratón): arrastrar sobre la figura la desplaza.</li>
+          <li><strong>Cursor sobre un punto</strong>: muestra su número y grupo. El texto inferior dice qué representación se usa.</li>
           </ul>`, montar: montarSemantico },
     ],
     teoria: String.raw`

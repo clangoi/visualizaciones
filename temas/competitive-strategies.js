@@ -158,31 +158,33 @@
       <p>Según Michael Porter, una empresa obtiene ventaja competitiva de dos maneras genéricas: ofreciendo lo mismo a menor <strong>costo</strong> (liderazgo en costos) o ofreciendo algo <strong>distinto</strong> por lo que el cliente paga más (diferenciación). Ambas pueden aplicarse a todo el mercado o a un segmento acotado, lo que se llama <em>enfoque</em>. La empresa que no logra ninguna queda «atascada en el medio»: sin la eficiencia del primero ni la prima del segundo.</p>
       <p>Los sistemas de información sostienen cada estrategia de manera distinta: los de eficiencia (ERP, automatización, compras electrónicas) abaratan; los de conocimiento del cliente (CRM, datos, personalización) permiten diferenciar y cobrar más. Elegir mal el sistema para la estrategia es una forma de desalinearse.</p>`,
     parametros: [
-      ['La empresa elegida atiende un segmento acotado (enfoque) (Fig. 1)', String.raw`Si la empresa se concentra en un nicho. Se marca con un anillo y redefine su estrategia.`],
-      ['Mover al polo más cercano (Fig. 1)', String.raw`Lleva la empresa elegida al extremo de costo o de diferenciación, para salir del medio.`],
-      ['Guerra de precios (Fig. 2)', String.raw`Intensidad de la baja de precios en el mercado. Reduce márgenes, en especial de quien no tiene bajo costo.`],
-      ['TI de eficiencia (ERP, automatización) (Fig. 2)', String.raw`Reduce costos, y favorece al líder en costos.`],
-      ['TI de clientes y datos (CRM, personalización) (Fig. 2)', String.raw`Mejora la diferenciación y favorece a quien se diferencia.`],
-      ['Nueva simulación (Fig. 2)', String.raw`Repite los 24 meses con otra aleatoriedad.`],
+      ['La empresa elegida atiende un segmento acotado (enfoque) (Fig. 1)', String.raw`Casilla que marca la empresa seleccionada como enfocada en un nicho y le dibuja un anillo negro. No mueve el punto ni cambia su color; solo cambia su etiqueta (por ejemplo «Enfoque en costos»), salvo que siga atascada en el medio.`],
+      ['Mover al polo más cercano (Fig. 1)', String.raw`Si la empresa seleccionada está atascada en el medio, la lleva a la zona de liderazgo en costos o a la de diferenciación, según la más cercana. Si ya está en una zona, no hace nada.`],
+      ['Guerra de precios (Fig. 2)', String.raw`Intensidad de la baja de precios (0 a 100 %). Recorta el precio de las tres empresas, pero mucho más el de la atascada en el medio que el del líder en costos y, sobre todo, el de la diferenciada.`],
+      ['TI de eficiencia (ERP, automatización) (Fig. 2)', String.raw`Nivel de inversión (0 a 100 %) que baja el costo variable y el fijo, más en el líder en costos. Tiene un costo mensual para todas las empresas.`],
+      ['TI de clientes y datos (CRM, personalización) (Fig. 2)', String.raw`Nivel de inversión (0 a 100 %) que sube el precio de todas y el volumen de la diferenciada, que es la más favorecida. También tiene costo mensual para todas.`],
+      ['Nueva simulación (Fig. 2)', String.raw`Cambia la semilla aleatoria y repite los 24 meses con otras variaciones de volumen; los parámetros se mantienen.`],
     ],
     visualizaciones: [
       {
         titulo: 'Ubique empresas en el plano costo–diferenciación',
         descripcion: 'Arrastre las empresas y observe cómo cambia su estrategia efectiva y los sistemas que la sostienen. Saque a «Cadena Intermedia» del medio hacia cada polo y active el enfoque para ver cómo se redefine la etiqueta.',
-        ayuda: String.raw`<p>Eje horizontal: costo unitario relativo (menor = mejor); vertical: diferenciación percibida. Zonas de liderazgo en costos y de diferenciación, y las empresas atascadas en el medio; un anillo marca el enfoque.</p>
+        ayuda: String.raw`<p>Plano con el costo unitario relativo en el eje horizontal (40 a 100; menor es mejor) y la diferenciación percibida en el vertical (0 a 100). El rectángulo azul (C.s1) abajo a la izquierda es la zona de liderazgo en costos; la franja violeta (C.s7) arriba es la de diferenciación; el resto es «atascadas en el medio». Cada punto es una empresa, coloreado por su estrategia (azul, violeta o gris); la seleccionada lleva un anillo naranja (C.s2) y la que tiene enfoque, un anillo negro.</p>
           <ul>
-          <li><strong>Enfoque</strong>: añade el anillo y cambia la estrategia efectiva.</li>
-          <li><strong>Mover al polo más cercano</strong>: saca la empresa del medio.</li>
+          <li><strong>Arrastrar o clic en un punto</strong>: selecciona la empresa y la mueve; su color cambia al entrar o salir de una zona.</li>
+          <li><strong>Casilla de enfoque</strong>: activa o quita el anillo negro de la empresa seleccionada.</li>
+          <li><strong>Mover al polo más cercano</strong>: lleva la empresa seleccionada a la zona más próxima si estaba en el medio.</li>
           </ul>`,
         montar: montarPlano,
       },
       {
         titulo: 'Simulación de márgenes por estrategia',
         descripcion: 'Suba la guerra de precios y compare el margen de las tres estrategias en 24 meses; luego active la TI de eficiencia y la de datos por separado para ver a quién favorece cada una.',
-        ayuda: String.raw`<p>Eje horizontal: mes; vertical: utilidad acumulada (miles). Una línea por estrategia.</p>
+        ayuda: String.raw`<p>Utilidad acumulada (miles) en 24 meses: eje horizontal, el mes; vertical, la utilidad acumulada. Una línea por estrategia: azul (C.s1) liderazgo en costos, naranja (C.s2) diferenciación y aguamarina (C.s3) atascada en el medio. La línea negra horizontal marca utilidad cero y, al pasar el cursor, se ven los valores de cada mes.</p>
           <ul>
-          <li><strong>Guerra de precios</strong>: baja sobre todo la de quien está atascado.</li>
-          <li><strong>TI de eficiencia</strong> y <strong>TI de clientes y datos</strong>: elevan cada una la curva de la estrategia a la que favorecen.</li>
+          <li><strong>Guerra de precios</strong>: baja las líneas, sobre todo la aguamarina.</li>
+          <li><strong>TI de eficiencia</strong> y <strong>TI de clientes y datos</strong>: pueden subir la curva de la estrategia que favorecen, pero su costo mensual desplaza hacia abajo a todas.</li>
+          <li><strong>Nueva simulación</strong>: cambia las oscilaciones mensuales, no la tendencia.</li>
           </ul>`,
         montar: montarMargenes,
       },

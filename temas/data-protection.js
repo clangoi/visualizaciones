@@ -211,36 +211,39 @@
       <p>El cifrado transforma un mensaje legible en uno ilegible con una clave; una función <em>hash</em> produce una huella que cambia por completo si el archivo cambia, útil para comprobar integridad. Ambas ideas se pueden explorar con cifrados antiguos
       que ya no son seguros pero muestran bien por qué un cifrado debe esconder las frecuencias del lenguaje.</p>`,
     parametros: [
-      ['Método (Fig. 1)', String.raw`Cifrado usado: César (desplazamiento fijo) o Vigenère (clave de varias letras). Determina qué tan fácil es romperlo por frecuencias.`],
-      ['Desplazamiento de César (Fig. 1)', String.raw`Cuántas letras se corre el alfabeto en César. Cambia el texto cifrado, pero no la forma del histograma, solo su posición.`],
-      ['Clave de Vigenère (Fig. 1)', String.raw`Palabra que fija un desplazamiento distinto para cada letra. Una clave más larga reparte mejor las frecuencias.`],
-      ['Mensaje y Atacar por frecuencias (Fig. 1)', String.raw`El texto a cifrar; el botón intenta descifrarlo comparando las frecuencias del cifrado con las típicas del español.`],
-      ['Cómo ocurre la filtración (Fig. 2)', String.raw`Escenario de la fuga: robo de discos o respaldos (el cifrado protege) o cuenta de administrador comprometida (el cifrado en reposo no ayuda).`],
-      ['Cifrar datos internos / confidenciales / restringidos (Fig. 2)', String.raw`Qué clases de datos se cifran. Cifrar las clases más sensibles reduce la mayor parte de la exposición.`],
-      ['Probabilidad de que la llave también se filtre (Fig. 2)', String.raw`Qué tan probable es que el atacante obtenga también la llave; si es alta, el cifrado protege poco.`],
-      ['Minimización: datos que se conservan (Fig. 2)', String.raw`Fracción de datos que la organización guarda. Conservar menos reduce lo que se puede filtrar.`],
-      ['Cifrar todo y minimizar (Fig. 2)', String.raw`Activa todas las casillas de cifrado y aplica la minimización de una vez.`],
+      ['Método (Fig. 1)', String.raw`Elige entre César (desplazamiento fijo) y Vigenère (clave con varias letras). Con César las barras del cifrado son las del mensaje desplazadas; con Vigenère se aplanan.`],
+      ['Desplazamiento de César (Fig. 1)', String.raw`De 1 a 25 letras. Solo se usa con César; cambia qué letras reciben las frecuencias del mensaje, no la forma del histograma.`],
+      ['Clave de Vigenère (Fig. 1)', String.raw`Campo de texto: cada letra de la clave fija un desplazamiento distinto, en ciclo. Solo se usa con Vigenère; con una clave de una sola letra equivale a César.`],
+      ['Mensaje (Fig. 1)', String.raw`Campo de texto con el mensaje a cifrar (se ignoran tildes y se pasa a mayúsculas). Sirve también para calcular el hash que se muestra en el panel de lectura.`],
+      ['Atacar por frecuencias (Fig. 1)', String.raw`Prueba los 26 desplazamientos de César y elige el que más se parece a la frecuencia típica del español. Lo escribe en el registro: con César descifra el mensaje; con Vigenère el resultado no es legible.`],
+      ['Cómo ocurre la filtración (Fig. 2)', String.raw`Elige entre copia de discos o respaldos robados (el cifrado en reposo protege según la probabilidad de que la llave también se filtre) y cuenta de administrador comprometida (la llave está disponible y el cifrado en reposo no reduce nada).`],
+      ['Cifrar datos internos, confidenciales y restringidos (Fig. 2)', String.raw`Tres casillas, una por clase de dato cifrada en reposo (la clase pública no tiene casilla). Cifrar una clase multiplica su exposición por la probabilidad de filtración de la llave, salvo en el escenario del administrador.`],
+      ['Probabilidad de que la llave también se filtre (Fig. 2)', String.raw`De 0 a 100 %. Es la fracción de exposición que queda en las clases cifradas cuando se roban discos o respaldos.`],
+      ['Minimización: datos que se conservan (Fig. 2)', String.raw`De 10 a 100 % de los registros que la organización guarda. Reduce proporcionalmente la exposición de todos los conjuntos.`],
+      ['Cifrar todo y minimizar (Fig. 2)', String.raw`Marca las tres casillas de cifrado. No modifica el deslizador de minimización.`],
     ],
     visualizaciones: [
       {
         titulo: 'Cifrado, frecuencias y hash',
         descripcion: 'Cifre con César y pulse «Atacar por frecuencias»: lo rompe. Cambie a Vigenère con clave de varias letras y repita: las barras se aplanan y el ataque falla. Mire también cómo un solo carácter cambia buena parte de los bits del hash.',
-        ayuda: String.raw`<p>El eje horizontal son las letras y el vertical, la frecuencia en porcentaje. Las barras azules son las letras del mensaje, las naranjas las del texto cifrado y la referencia es la frecuencia típica del español. Debajo se muestran mensaje y cifrado.</p>
+        ayuda: String.raw`<p>Histograma de las 26 letras del alfabeto (eje horizontal) con su frecuencia en porcentaje (eje vertical). Cada letra tiene dos barras: azul (C.s1) para el mensaje y naranja (C.s2) para el texto cifrado. La marca negra horizontal sobre cada letra es la frecuencia típica del español. Debajo, el registro muestra el texto cifrado y el panel de lectura da el índice de coincidencia y un hash de ejemplo.</p>
           <ul>
-          <li><strong>Método</strong> César: las barras naranjas son las azules corridas, por eso el ataque por frecuencias lo rompe. Con Vigenère se aplanan.</li>
-          <li><strong>Clave de Vigenère</strong>: con más letras distintas la distribución se aplana más y el ataque falla.</li>
-          <li><strong>Atacar por frecuencias</strong>: compara el cifrado con la referencia del español y propone un desplazamiento.</li>
+          <li><strong>Método</strong> y <strong>Desplazamiento</strong>: con César, las barras naranjas son las azules corridas; con Vigenère se reparten más parejas.</li>
+          <li><strong>Clave de Vigenère</strong>: más letras distintas aplanan el histograma y bajan el índice de coincidencia.</li>
+          <li><strong>Mensaje</strong>: cambia las barras azules y el hash.</li>
+          <li><strong>Atacar por frecuencias</strong>: informa si el desplazamiento encontrado recupera el mensaje.</li>
           </ul>`,
         montar: montarCifrado,
       },
       {
         titulo: 'Clasificación y exposición ante una filtración',
         descripcion: 'Cifre solo las clases confidencial y restringida, y compare la exposición. Cambie a «cuenta de administrador comprometida» y observe que el cifrado deja de ayudar; luego deje de recolectar un conjunto con clic.',
-        ayuda: String.raw`<p>Cada barra es un conjunto de datos clasificado por clase (pública, interna, confidencial o restringida) y su exposición en costo estimado ante la filtración. Se contrasta con la exposición sin controles.</p>
+        ayuda: String.raw`<p>Una barra horizontal por conjunto de datos, con su clase de dato y su número de registros. La barra exterior blanca con borde gris es la exposición sin controles; la barra interior de color es la exposición actual en USD, coloreada por clase: aguamarina (C.s3) pública, azul (C.s1) interna, amarilla (C.s4) confidencial, roja (C.s8) restringida.</p>
           <ul>
-          <li><strong>Cifrar datos…</strong>: baja la exposición de esa clase si el escenario es robo de discos.</li>
-          <li><strong>Cómo ocurre la filtración</strong>: con la cuenta de administrador, el cifrado en reposo no reduce la exposición.</li>
-          <li><strong>Minimización</strong>: baja la barra de todos los conjuntos al guardar menos datos; un clic en una barra deja de recolectar ese conjunto.</li>
+          <li><strong>Cómo ocurre la filtración</strong>: con la cuenta de administrador, cifrar no acorta las barras.</li>
+          <li><strong>Cifrar clases</strong> y <strong>Probabilidad de que la llave también se filtre</strong>: acortan las barras de las clases cifradas; con una probabilidad de 100 % no ayudan.</li>
+          <li><strong>Minimización</strong>: acorta todas las barras en proporción.</li>
+          <li><strong>Clic en una barra</strong>: deja de recolectar ese conjunto (exposición cero, «no se recolecta»); otro clic lo restituye.</li>
           </ul>`,
         montar: montarExposicion,
       },

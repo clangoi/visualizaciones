@@ -256,32 +256,38 @@
       <p>Después de la puesta en marcha hay que evaluar el éxito con varios criterios a la vez: plazo, presupuesto, <em>uso real</em> frente al esperado, beneficios efectivamente obtenidos y satisfacción. Un proyecto puede cumplir plazo y
       presupuesto y aun así fracasar si nadie adopta la tecnología. Las figuras simulan una implementación y el cuadro de evaluación del resultado.</p>`,
     parametros: [
-      ['Estrategia (Fig. 1)', String.raw`Cómo se cambia al sistema nuevo: big bang, paralelo, piloto o por fases. Decide el ritmo y dónde se concentra el costo.`],
-      ['Defectos latentes del sistema (Fig. 1)', String.raw`Cuántos defectos hay sin descubrir. Se manifiestan cuando más usuarios usan el sistema.`],
-      ['Capacitación previa (Fig. 1)', String.raw`Cuánta formación se da antes del cambio. Reduce la productividad perdida mientras se aprende.`],
-      ['Retraso de la puesta en marcha y Sobrecosto de la inversión (Fig. 2)', String.raw`Qué tanto se desvían el plazo y el presupuesto del plan.`],
-      ['Techo de adopción real y Velocidad de adopción (Fig. 2)', String.raw`Hasta qué fracción de usuarios llega a usar el sistema y qué tan rápido. Determinan el uso real y los beneficios.`],
-      ['Satisfacción de los usuarios (Fig. 2)', String.raw`Qué tan conformes están los usuarios. Es un criterio de éxito aparte del plazo y el costo.`],
+      ['Estrategia (Fig. 1)', String.raw`Selector con cuatro opciones: «Big bang (todos a la vez)», «Paralelo (ambos sistemas por 6 semanas)», «Piloto (una unidad y luego todas)» y «Por fases (grupos cada 3 semanas)». Cambia en qué semana pasa cada una de las ocho unidades al sistema nuevo y si hay doble operación.`],
+      ['Defectos latentes del sistema (Fig. 1)', String.raw`De 1 a 12 defectos sin descubrir. Se van descubriendo a medida que más usuarios trabajan en el sistema, y cada uno afecta a los usuarios que ya lo usan.`],
+      ['Capacitación previa (Fig. 1)', String.raw`De 0 a 100 %. Reduce la productividad que se pierde las primeras semanas mientras las personas aprenden el sistema nuevo.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la simulación semana a semana (30 semanas; la puesta en marcha es en la semana 6). Incluye Velocidad, Un paso, Hasta el final y Reiniciar.`],
+      ['Retraso de la puesta en marcha (Fig. 2)', String.raw`De +0 a +100 %. Alarga el mes en que se pone en marcha el sistema respecto del plan (mes 6).`],
+      ['Sobrecosto de la inversión (Fig. 2)', String.raw`De +0 a +100 %. Aumenta la inversión respecto de los 1 000 mil USD planificados.`],
+      ['Techo de adopción real (Fig. 2)', String.raw`De 20 a 100 %. Fracción máxima de los usuarios que llega a usar el sistema (el plan supone 90 %).`],
+      ['Velocidad de adopción (Fig. 2)', String.raw`De 0,2 a 1,2. Qué tan rápido sube el uso tras la puesta en marcha; el plan supone 0,8.`],
+      ['Satisfacción de los usuarios (Fig. 2)', String.raw`De 1 a 5, en pasos de 0,5. Solo afecta la barra «Satisfacción»; la meta es 4 de 5.`],
     ],
     visualizaciones: [
       {
         titulo: 'Cuatro estrategias de implementación',
         descripcion: 'Reproduzca la implementación de un sistema en ocho unidades. Compare big bang, paralelo, piloto y por fases: suba los defectos latentes y vea cómo el big bang concentra el costo en incidentes, mientras el paralelo paga doble operación.',
-        ayuda: String.raw`<p>Arriba, eje horizontal: semana, con los usuarios en el sistema nuevo. Abajo, el costo por semana apilado: productividad perdida mientras aprenden, doble operación (ambos sistemas) e incidentes por defectos.</p>
+        ayuda: String.raw`<p>Dos paneles con el mismo eje de semanas (0 a 30). Arriba, la línea azul muestra el porcentaje de usuarios que ya trabajan en el sistema nuevo (700 usuarios en ocho unidades); la parte futura se ve tenue. Abajo, el costo acumulado de la transición en miles de USD, en capas apiladas: naranja, productividad perdida mientras aprenden; amarillo, doble operación (ambos sistemas funcionando); rojo, incidentes por defectos. Una línea vertical discontinua marca la semana actual.</p>
           <ul>
-          <li><strong>Estrategia</strong> big bang: todos pasan a la vez, el costo se concentra en incidentes y productividad perdida.</li>
-          <li><strong>Estrategia</strong> paralelo: aparece doble operación durante más tiempo.</li>
-          <li><strong>Defectos latentes</strong> altos: crece el costo de incidentes, sobre todo cuando muchos usuarios ya usan el sistema.</li>
+          <li><strong>Estrategia</strong>: el big bang pasa todas las unidades en la semana 6; el paralelo también, pero agrega la capa amarilla durante 6 semanas y reduce los incidentes en ese lapso; el piloto pasa primero RR. HH. y las demás seis semanas después; por fases pasa dos unidades cada 3 semanas.</li>
+          <li><strong>Defectos latentes</strong>: más defectos engrosan la capa roja, sobre todo cuando muchos usuarios ya están en el sistema.</li>
+          <li><strong>Capacitación previa</strong>: más capacitación adelgaza la capa naranja.</li>
+          <li><strong>Reproductor</strong>: la lectura compara el costo final de las cuatro estrategias y nombra la más barata con estos parámetros.</li>
           </ul>`,
         montar: montarEstrategias,
       },
       {
         titulo: 'Adopción y evaluación del éxito',
         descripcion: 'Baje el techo de adopción manteniendo plazo y presupuesto: las barras de plazo y costo siguen verdes pero el uso, los beneficios y el VPN se ponen rojos. Luego pruebe un proyecto atrasado con alta adopción.',
-        ayuda: String.raw`<p>Arriba, eje horizontal: mes; el uso esperado en el plan frente al uso real. Abajo, una evaluación por criterio con color: verde cumple (95 % o más), en riesgo (75 a 95 %) o fracaso parcial (menos de 75 %).</p>
+        ayuda: String.raw`<p>Arriba, eje horizontal: mes (0 a 36); eje vertical: porcentaje de usuarios que usan el sistema. La línea gris discontinua es el uso esperado según el plan; la azul es el uso real. Abajo, seis barras horizontales con el porcentaje de lo planificado que se logra en plazo, presupuesto, uso a los 18 meses, beneficios realizados, valor presente neto y satisfacción. Verde: cumple (95 % o más); amarillo: en riesgo (75 a 95 %); rojo: fracaso parcial (menos de 75 %). Una línea discontinua marca el 100 % del plan.</p>
           <ul>
-          <li><strong>Techo de adopción real</strong> bajo: la curva de uso real queda bajo la esperada y las barras de uso, beneficios y VPN se ponen rojas aunque plazo y costo sigan verdes.</li>
-          <li><strong>Retraso de la puesta en marcha</strong> y <strong>Sobrecosto de la inversión</strong>: afectan sobre todo las barras de plazo y costo.</li>
+          <li><strong>Retraso de la puesta en marcha</strong>: baja la barra de plazo y también desplaza la curva azul, con efecto sobre uso, beneficios y valor presente neto.</li>
+          <li><strong>Sobrecosto de la inversión</strong>: baja la barra de presupuesto y la del valor presente neto.</li>
+          <li><strong>Techo de adopción real y Velocidad de adopción</strong>: bajan la curva azul y las barras de uso, beneficios y valor presente neto, aunque plazo y presupuesto sigan en verde.</li>
+          <li><strong>Satisfacción de los usuarios</strong>: solo mueve la última barra, que llega a 100 % con 4 de 5.</li>
           </ul>`,
         montar: montarExito,
       },

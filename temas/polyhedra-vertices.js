@@ -488,46 +488,48 @@
       <p>Tres hechos guían todo el tema: más restricciones no siempre dan más vértices (algunas son redundantes), un poliedro puede ser no acotado (y entonces tiene
       semirrectas además de aristas), y el número de vértices puede crecer muy rápido con la dimensión, aunque en el plano nunca supera el de restricciones.</p>`,
     parametros: [
-      ['Restricciones iniciales (Fig. 1)', String.raw`El conjunto de partida de restricciones. Define qué región se forma antes de agregar o quitar.`],
-      ['Incluir x₁, x₂ ≥ 0 (Fig. 1)', String.raw`Incluye o quita los límites de no negatividad. Sin ellos la región puede abrirse hacia otros lados.`],
-      ['Nuevas restricciones, Quitar la última y Quitar todas (Fig. 1)', String.raw`Sortean otro conjunto, eliminan la última agregada o dejan solo el plano.`],
-      ['Corte 1, Corte 2… (Fig. 2)', String.raw`Activan o desactivan cada plano que corta el sólido. Cada corte quita un trozo y cambia vértices, aristas y caras.`],
-      ['b del corte 1 (Fig. 2)', String.raw`Posición del primer corte. Con b = 6 aparecen vértices degenerados, donde se anulan más de tres restricciones.`],
-      ['Giro e Inclinación (Fig. 2)', String.raw`El ángulo de vista del sólido; no cambian el poliedro.`],
-      ['Resaltar cara (Fig. 2)', String.raw`Colorea una cara para ver qué vértices y aristas la forman.`],
-      ['Ángulo de la normal de R (Fig. 3)', String.raw`Orientación de la restricción móvil R. Cambia cuánto se abre el poliedro y qué direcciones extremas tiene.`],
-      ['Dirección del objetivo c (Fig. 3)', String.raw`Dirección en que se mejora el objetivo. El problema es no acotado si c tiene componente positiva en alguna dirección extrema.`],
+      ['Restricciones iniciales (Fig. 1)', String.raw`Cuántas restricciones aleatorias (2 a 9) forman el conjunto de partida. Al cambiarla se sortean de nuevo. Se agregan más con un clic en el gráfico.`],
+      ['Incluir x₁, x₂ ≥ 0 (Fig. 1)', String.raw`Agrega o quita las cotas de no negatividad. Sin ellas la región puede abrirse hacia otros lados o quedar vacía.`],
+      ['Nuevas restricciones (Fig. 1)', String.raw`Sortea otro conjunto con el mismo número de restricciones.`],
+      ['Quitar la última (Fig. 1)', String.raw`Elimina la última restricción de la lista (no las cotas x₁, x₂ ≥ 0, que se controlan con la casilla).`],
+      ['Quitar todas (Fig. 1)', String.raw`Elimina todas las restricciones de la lista; quedan solo las cotas si la casilla sigue marcada.`],
+      ['Corte 1, Corte 2, Corte 3 y Corte 4 (Fig. 2)', String.raw`Casillas que activan o desactivan cada plano que corta el cubo [0, 3]³ (por ejemplo x₁ + x₂ + x₃ ≤ b). Cada corte quita un trozo y cambia vértices, aristas y caras. Solo el corte 1 está activo al inicio.`],
+      ['b del corte 1 (Fig. 2)', String.raw`Posición del primer corte (2 a 9). Con b = 6 el plano pasa justo por tres vértices del cubo y aparecen vértices degenerados, donde se anulan más de tres restricciones.`],
+      ['Giro e Inclinación (Fig. 2)', String.raw`El ángulo de vista del sólido (también se gira arrastrando); no cambian el poliedro.`],
+      ['Resaltar cara (Fig. 2)', String.raw`Elige una restricción de la lista y sombrea su cara, para ver qué vértices y aristas la forman. Las restricciones sin cara figuran como «sin cara».`],
+      ['Ángulo de la normal de R (Fig. 3)', String.raw`Orientación (0° a 180°) de la restricción móvil R, que pasa siempre por (3, 2). Cambia cuánto se abre la región y qué direcciones extremas tiene.`],
+      ['Dirección del objetivo c (Fig. 3)', String.raw`Ángulo de c (0° a 90°). El problema es no acotado si c·d &gt; 0 para alguna dirección extrema d.`],
     ],
     visualizaciones: [
       {
         titulo: 'Edite las restricciones y cuente',
         descripcion: 'Haga clic para agregar restricciones y quitarlas con los botones; observe cuáles son redundantes y que, en un politopo plano, vértices y aristas son siempre iguales en número.',
-        ayuda: String.raw`<p>El eje horizontal es x₁ y el vertical x₂. La región factible es el poliedro; sus vértices se marcan y las restricciones se distinguen entre las que forman una arista y las redundantes. Las aristas no acotadas se señalan con su dirección.</p>
+        ayuda: String.raw`<p>El eje horizontal es x₁ y el vertical x₂. La región factible es el poliedro verde; sus vértices son puntos negros. Las restricciones que forman una arista se dibujan en azul (C.s1), las redundantes en gris punteado, y las aristas no acotadas terminan en una flecha naranja (C.s2) con su dirección. Debajo se lista cada restricción como «arista» o «redundante».</p>
           <ul>
-          <li><strong>Incluir x₁, x₂ ≥ 0</strong>: agrega dos aristas y puede acotar la región.</li>
+          <li><strong>Incluir x₁, x₂ ≥ 0</strong>: agrega dos restricciones y puede acotar la región.</li>
           <li><strong>Quitar la última</strong>: una restricción redundante no cambia la región.</li>
-          <li>En un politopo plano, vértices y aristas son siempre iguales en número.</li>
+          <li>Un clic agrega una restricción que pasa por ese punto; pasar el cursor sobre un vértice indica cuántas restricciones están activas.</li>
           </ul>`,
         montar: montarEditar,
       },
       {
         titulo: 'Un poliedro en 3-D',
         descripcion: 'Gire el cubo, active cortes y compruebe la fórmula de Euler \\(V - E + F = 2\\); con el corte 1 en b = 6 aparecen vértices degenerados, donde se anulan más de tres restricciones.',
-        ayuda: String.raw`<p>Es un sólido 3-D con vértices (3 restricciones activas), vértices degenerados (más de 3), aristas, más claras cuanto más lejos, y la cara resaltada. Se cumple \(V - E + F = 2\).</p>
+        ayuda: String.raw`<p>Es un cubo cortado, proyectado en 3-D, con vértices (negros: 3 restricciones activas), vértices degenerados (violeta, C.s7: más de 3), aristas más claras cuanto más lejos, la cara resaltada (azul claro) y, al hacer clic en un vértice, sus aristas en naranja (C.s2). Las lecturas dan V, E, F y V − E + F, que vale 2.</p>
           <ul>
-          <li><strong>Cortes</strong>: cada uno agrega una cara y cambia V, E y F.</li>
+          <li><strong>Cortes</strong>: cada uno puede agregar una cara y cambia V, E y F.</li>
           <li><strong>b del corte 1</strong>: con b = 6 se forman vértices degenerados.</li>
-          <li><strong>Giro</strong> e <strong>Inclinación</strong> sólo giran la vista.</li>
+          <li><strong>Giro</strong> e <strong>Inclinación</strong> solo giran la vista (arrastrar el sólido hace lo mismo).</li>
           </ul>`,
         montar: montarSolido,
       },
       {
         titulo: 'Regiones no acotadas y direcciones',
         descripcion: 'Gire la restricción móvil y observe cómo el politopo se abre y gana direcciones extremas; después gire c y busque cuándo el objetivo deja de estar acotado.',
-        ayuda: String.raw`<p>Se dibujan la restricción móvil R (por el punto (3, 2)), las cotas x₁ ≥ 0 y x₂ ≥ 0, la región factible, las direcciones extremas d, el objetivo c y el óptimo de max c·x.</p>
+        ayuda: String.raw`<p>Se dibujan la restricción móvil R (azul, C.s1) que pasa por (3, 2), las cotas x₁ ≥ 0 y x₂ ≥ 0 (gris oscuro), la región factible (verde), las direcciones extremas d (flechas naranjas, C.s2), el objetivo c (flecha violeta, C.s7) y el óptimo de max c·x (vértice verde).</p>
           <ul>
-          <li><strong>Ángulo de la normal de R</strong>: cuando la región se abre, aparecen direcciones extremas d.</li>
-          <li><strong>Dirección del objetivo c</strong>: si c·d &gt; 0 para alguna d, no hay óptimo finito.</li>
+          <li><strong>Ángulo de la normal de R</strong>: entre 0° y 90° sin llegar a los extremos la región es un triángulo; en los demás ángulos se abre y aparecen direcciones extremas d.</li>
+          <li><strong>Dirección del objetivo c</strong>: si c·d &gt; 0 para alguna d, no hay óptimo finito (max c·x = +∞).</li>
           </ul>`,
         montar: montarNoAcotado,
       },

@@ -458,32 +458,35 @@
       <p>Aquí se ejecutan varios mineros sobre el <em>mismo</em> registro y se miden las mismas dimensiones: fitness (¿reproduce lo observado?), precisión (¿evita comportamiento no observado?),
       simplicidad (¿cuántos elementos tiene?) y tiempo. Variar el ruido muestra por qué la elección depende de los datos.</p>`,
     parametros: [
-      ['Casos y Ruido (Fig. 1 y 2)', String.raw`Casos es el tamaño del registro y Ruido la probabilidad de alterar una traza. Más ruido pone a prueba la robustez de cada algoritmo.`],
-      ['Umbral heurístico τ (Fig. 1 y 2)', String.raw`Umbral de dependencia del Heuristics Miner: más alto da un modelo más simple pero con menos fitness.`],
-      ['Filtro inductivo η y Filtro IMf η (Fig. 1 y 2)', String.raw`Fracción de comportamiento infrecuente que descarta el Inductive Miner. Mayor η da modelos más precisos y simples a costa de algo de fitness.`],
-      ['Métrica (Fig. 2)', String.raw`Qué medida se grafica contra el ruido: F-score de fitness y precisión u otra disponible.`],
-      ['Nuevo registro (Fig. 1 y 2)', String.raw`Genera otro registro con los mismos parámetros.`],
+      ['Casos (Fig. 1 y 2)', String.raw`Tamaño del registro. En la Fig. 1 va de 60 a 300 casos; en la Fig. 2 de 60 a 240 y es el número de casos de cada punto de las curvas.`],
+      ['Ruido (Fig. 1)', String.raw`Deslizador de 0 a 30 %: probabilidad de alterar una traza del registro. En la Fig. 2 el ruido es el eje horizontal y no hay control.`],
+      ['Umbral heurístico τ (Fig. 1 y 2)', String.raw`Deslizador de 0,30 a 0,98: valor mínimo de la medida de dependencia para que el Heuristic Miner acepte un arco. Solo afecta al modelo heurístico.`],
+      ['Filtro inductivo η (Fig. 1)', String.raw`Deslizador de 0 a 0,5: fracción de comportamiento infrecuente que descarta el Inductive Miner con filtro (IMf). Solo afecta a la barra del inductivo.`],
+      ['Filtro IMf η (Fig. 2)', String.raw`Deslizador de 0,05 a 0,5, con el mismo significado; solo mueve la curva del inductivo con filtro (el básico usa η = 0).`],
+      ['Métrica (Fig. 2)', String.raw`Selector con cuatro opciones: F-score (fitness y precisión), Fitness, Precisión y Simplicidad. Define lo que mide el eje vertical.`],
+      ['Nuevo registro (Fig. 1 y 2)', String.raw`Botón que genera otro registro con distinta semilla.`],
     ],
     visualizaciones: [
       {
         titulo: 'Cuatro modelos sobre el mismo registro',
         descripcion: 'Compare fitness, precisión y simplicidad de Alfa, un grafo heurístico, el inductivo con filtro y el modelo flor. Haga clic en un grupo para ver qué variantes no reproduce; pruebe subir el ruido y luego η.',
-        ayuda: String.raw`<p>Barras por modelo (Alfa, grafo heurístico, inductivo con filtro y modelo flor) con tres medidas: fitness (casos que el modelo reproduce), precisión (estimada por muestreo) y simplicidad (1 = sin arcos de más).</p>
+        ayuda: String.raw`<p>Cuatro grupos de barras (Alfa, Heurístico, Inductivo con filtro y Flor), cada uno con tres: fitness en azul (C.s1, fracción de casos que el modelo reproduce), precisión en naranja (C.s2, estimada con 300 trazas muestreadas del modelo) y simplicidad en aguamarina (C.s3, 1 si no tiene arcos de más). Los valores van de 0 a 1 y se rotulan en porcentaje. Debajo hay una tabla con las mismas cifras, el F-score, nodos + arcos y milisegundos; un clic en un grupo o en una fila lo selecciona y lista las variantes que ese modelo no reproduce y las trazas que inventa.</p>
           <ul>
-          <li><strong>Ruido</strong>: al subirlo, Alfa pierde fitness primero y el flor mantiene fitness 1 pero con precisión mínima.</li>
-          <li><strong>Umbral heurístico τ</strong>: cambia fitness, precisión y simplicidad solo del modelo heurístico.</li>
-          <li><strong>Filtro inductivo η</strong>: cambia solo las barras del modelo inductivo.</li>
+          <li><strong>Ruido</strong>: al subirlo cambian fitness y precisión de cada algoritmo; la lectura indica cuál logra el mejor F-score.</li>
+          <li><strong>Umbral heurístico τ</strong>: cambia las barras del modelo heurístico.</li>
+          <li><strong>Filtro inductivo η</strong>: cambia las barras del inductivo.</li>
+          <li><strong>Casos</strong>: más casos dan una estimación más estable.</li>
           </ul>`,
         montar: montarComparacion,
       },
       {
         titulo: 'Efecto del ruido en cada algoritmo',
         descripcion: 'Curvas de calidad según el nivel de ruido. Alfa cae primero; el inductivo básico mantiene fitness pero pierde precisión, y el filtro IMf o el umbral heurístico recuperan el equilibrio.',
-        ayuda: String.raw`<p>Cada curva es la calidad de un algoritmo en función del ruido (eje horizontal, probabilidad de alterar una traza); el eje vertical es la métrica elegida.</p>
+        ayuda: String.raw`<p>Gráfico de líneas con el ruido en el eje horizontal (0 a 30 %, siete niveles) y la métrica elegida en el vertical. Cada curva, con su marcador, es un algoritmo: Alfa azul (C.s1), Heurístico naranja (C.s2), Inductivo básico aguamarina (C.s3), Inductivo con filtro IMf amarillo (C.s4) y Flor rosado (C.s5). Al pasar el cursor se marca un nivel de ruido y se leen los valores de cada algoritmo.</p>
           <ul>
-          <li><strong>Métrica</strong>: cambia lo que mide el eje vertical, por ejemplo mostrar fitness y precisión combinados en F-score.</li>
-          <li><strong>Umbral heurístico τ</strong> y <strong>Filtro IMf η</strong>: mueven las curvas del heurístico y del inductivo; subirlos recupera equilibrio con ruido alto.</li>
-          <li><strong>Casos</strong>: más casos suavizan las curvas.</li>
+          <li><strong>Métrica</strong>: cambia lo que mide el eje vertical; permite separar fitness y precisión.</li>
+          <li><strong>Umbral heurístico τ</strong> y <strong>Filtro IMf η</strong>: mueven las curvas del heurístico y del inductivo con filtro.</li>
+          <li><strong>Casos</strong>: más casos por punto dan curvas más estables.</li>
           </ul>`,
         montar: montarRuido,
       },

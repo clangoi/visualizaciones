@@ -281,42 +281,45 @@
       <strong>PaaS</strong> (plataforma) y <strong>SaaS</strong> (software) es hasta dónde llega lo que administra el proveedor: cuantas más capas asume, menos trabajo le queda a usted, pero también menos libertad para decidir.</p>
       <p>A eso se suma el <em>dónde</em> se despliega: nube pública, privada o híbrida. Elegir bien es una decisión de gestión que equilibra trabajo disponible, control necesario, sensibilidad de los datos y costo.</p>`,
     parametros: [
-      ['Modelo de servicio (Fig. 1)', String.raw`IaaS, PaaS o SaaS: cuántas capas administra el proveedor y cuántas su organización.`],
-      ['Capas a cargo del proveedor (Fig. 1)', String.raw`Posición de la línea de responsabilidad. Más capas del proveedor significan menos trabajo propio.`],
-      ['Situación (Fig. 2)', String.raw`Caso predefinido (p. ej. banco, pyme, empresa nueva) que fija las restricciones.`],
-      ['Control mínimo necesario (Fig. 2)', String.raw`Porcentaje de control sobre la solución que se exige. Descarta los modelos que ceden demasiado.`],
-      ['Horas de TI disponibles al mes (Fig. 2)', String.raw`Tiempo disponible para administrar. Descarta los modelos que exigen más.`],
-      ['Sensibilidad máxima permitida en nube pública (Fig. 3)', String.raw`Nivel de sensibilidad de datos que la política deja en la nube pública. Las cargas más sensibles deben quedar en casa.`],
-      ['Todo local, Todo en la nube y Mejor combinación (Fig. 3)', String.raw`Reparten las ocho cargas todas en local, todas en la nube pública o con la combinación más barata que cumple la política.`],
+      ['Modelo de servicio (Fig. 1)', String.raw`Local (propio), IaaS, PaaS, SaaS o Mixto (a medida): coloca la línea de responsabilidad de 0, 4, 7 o 9 capas a cargo del proveedor. Mixto aparece al mover el deslizador a otra posición.`],
+      ['Capas a cargo del proveedor (Fig. 1)', String.raw`De 0 a 9 capas contadas desde la red hacia arriba. Cada capa que pasa al proveedor quita horas de administración y también control sobre la solución. También se mueve con clic en una capa.`],
+      ['Situación (Fig. 2)', String.raw`Ajuste manual, empresa nueva, banco, universidad o pyme. Cada caso fija el control mínimo y las horas disponibles; al mover cualquiera de los dos deslizadores vuelve a «Ajuste manual».`],
+      ['Control mínimo necesario (Fig. 2)', String.raw`De 0 % a 100 %: control sobre la solución que se exige. Los modelos con menos control quedan fuera de la zona verde.`],
+      ['Horas de TI disponibles al mes (Fig. 2)', String.raw`De 0 a 200 h/mes de administración posibles. Los modelos que exigen más horas quedan fuera de la zona verde.`],
+      ['Sensibilidad máxima permitida en nube pública (Fig. 3)', String.raw`De 1 a 5. Una carga con sensibilidad mayor que este valor incumple la política si está en la nube pública.`],
+      ['Todo local, Todo en la nube y Mejor combinación (Fig. 3)', String.raw`Ponen las ocho cargas en la nube privada o local, todas en la pública, o en la combinación más barata que cumple la política (entre las 256 posibles). También puede pasar una carga de lado con clic.`],
     ],
     visualizaciones: [
       {
         titulo: 'La línea de responsabilidad',
         descripcion: 'Haga clic en una capa para mover la línea entre su organización y el proveedor, o elija IaaS, PaaS y SaaS. Observe cómo cae el trabajo en horas al mes cuando el proveedor asume más capas.',
-        ayuda: String.raw`<p>Pila de capas con la línea de responsabilidad: unas las administra su organización y otras el proveedor, según la leyenda.</p>
+        ayuda: String.raw`<p>Pila de 9 capas, desde Aplicaciones (arriba) hasta Redes y centro de datos (abajo). Las capas azules (C.s1) las administra su organización y se rotulan con sus horas al mes; las aguamarina (C.s3) las administra el proveedor. Una línea negra discontinua marca la línea de responsabilidad.</p>
           <ul>
-          <li><strong>Modelo de servicio</strong>: SaaS sube la línea y deja casi todo al proveedor; IaaS la baja.</li>
-          <li>Más <strong>capas a cargo del proveedor</strong>: bajan las horas de trabajo al mes.</li>
+          <li><strong>Modelo de servicio</strong>: SaaS sube la línea hasta dejar todo al proveedor; el modelo local la baja hasta el fondo.</li>
+          <li><strong>Capas a cargo del proveedor</strong>: mueve la línea de a una capa; la lectura da horas y control que le quedan.</li>
+          <li>Cursor sobre una capa: ejemplo de lo que implica y su peso en horas y control.</li>
           </ul>`,
         montar: montarLinea,
       },
       {
         titulo: 'Control frente a esfuerzo',
         descripcion: 'Exija un nivel de control y fije las horas de TI que tiene. Pruebe las situaciones predefinidas (banco, pyme, empresa nueva) y vea qué modelo cumple ambas condiciones con el menor trabajo.',
-        ayuda: String.raw`<p>Cada punto es un modelo: horizontal, trabajo de administración (h/mes); vertical, control sobre la solución (%). Una zona sombreada cumple ambas restricciones y se resalta el modelo recomendado.</p>
+        ayuda: String.raw`<p>Cada punto es una posición de la línea (0 a 9 capas del proveedor), unidos por una línea gris. Horizontal: trabajo de administración (h/mes); vertical: control sobre la solución (%). Una zona verde translúcida marca lo que cumple ambas restricciones; los puntos son verdes si es el modelo recomendado (el de menos horas), azules si cumplen y grises si no.</p>
           <ul>
-          <li><strong>Control mínimo necesario</strong>: sube la frontera y deja fuera los modelos de menor control.</li>
-          <li><strong>Horas de TI disponibles</strong>: mueve el límite horizontal; con pocas horas solo cumplen los modelos de baja administración.</li>
+          <li><strong>Situación</strong>: carga valores típicos de control y horas.</li>
+          <li><strong>Control mínimo necesario</strong>: baja el borde superior de la zona verde.</li>
+          <li><strong>Horas de TI disponibles</strong>: mueve el borde derecho de la zona verde.</li>
           </ul>`,
         montar: montarControl,
       },
       {
         titulo: 'Nube pública, privada o híbrida',
         descripcion: 'Reparta ocho cargas entre su centro de datos y la nube pública. Baje la sensibilidad permitida y vea cuáles deben volver a casa; luego pida la combinación más barata que cumple la política.',
-        ayuda: String.raw`<p>Ocho cargas repartidas entre la nube privada o local y la nube pública; se marcan las que incumplen la política de sensibilidad.</p>
+        ayuda: String.raw`<p>Dos paneles, nube privada o local (borde azul) y nube pública (borde aguamarina), con las ocho cargas como tarjetas que indican sensibilidad y vCPU de pico y medio. Una tarjeta con borde rojo grueso es una carga en la nube pública que incumple la política de sensibilidad.</p>
           <ul>
-          <li><strong>Sensibilidad máxima permitida</strong> más baja: más cargas quedan marcadas como incumplimiento si siguen en la nube pública.</li>
-          <li><strong>Mejor combinación</strong>: reparte solo lo permitido en la nube pública al menor costo.</li>
+          <li><strong>Sensibilidad máxima permitida</strong>: mientras más baja, más cargas incumplen si están en la nube pública.</li>
+          <li><strong>Todo local</strong>, <strong>Todo en la nube</strong> y <strong>Mejor combinación</strong>: reparten las cargas; la lectura muestra costo anual e incumplimientos.</li>
+          <li><strong>Clic en una tarjeta</strong>: la pasa al otro lado.</li>
           </ul>`,
         montar: montarDespliegue,
       },

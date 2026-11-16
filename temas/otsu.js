@@ -217,31 +217,32 @@
       con el que deja las dos clases lo más separadas posible, es decir, con la mayor <em>varianza entre clases</em>.
       Funciona muy bien cuando el histograma tiene dos montes claros, y falla de maneras predecibles cuando no.</p>`,
     parametros: [
-      ['Imagen, Ruido σ e Iluminación no uniforme (Fig. 1)', String.raw`La escena de partida y su degradación. El ruido ensancha los picos del histograma y la iluminación desigual los desplaza según la zona, hasta mezclar fondo y objeto.`],
-      ['Umbral t, Umbral de Otsu y Nueva imagen (Fig. 1)', String.raw`El umbral t separa los píxeles en dos clases; «Umbral de Otsu» lo coloca donde la varianza entre clases es máxima y «Nueva imagen» regenera el ruido.`],
-      ['Proporción de objeto p y Separación de medias (Fig. 2)', String.raw`Cuánto pesa el objeto frente al fondo y qué tan lejos están sus intensidades medias. Con poco objeto o medias cercanas las dos campanas se solapan.`],
-      ['σ del fondo y σ del objeto (Fig. 2)', String.raw`La dispersión de cada clase. Una clase más ancha se solapa más con la otra y desplaza el mejor umbral hacia ella.`],
+      ['Imagen, Ruido σ e Iluminación no uniforme (Fig. 1)', String.raw`Imagen elige la escena (Monedas, Células o Trazos oscuros). El ruido σ (0 a 0,20) agrega ruido a los píxeles y la iluminación no uniforme (0 a 1) añade un gradiente de brillo; ambos regeneran la imagen y su histograma.`],
+      ['Umbral t, Umbral de Otsu y Nueva imagen (Fig. 1)', String.raw`El umbral t (también se fija con un clic sobre el histograma) separa los píxeles en dos clases. «Umbral de Otsu» lo coloca en el máximo de la varianza entre clases; «Nueva imagen» cambia la semilla del ruido y vuelve a ubicar t en el umbral de Otsu.`],
+      ['Proporción de objeto p y Separación de medias (Fig. 2)', String.raw`La proporción p (de 0,02 a 0,50) es el peso de la campana del objeto frente a la del fondo; la separación es la distancia entre sus medias (de 0,1 a 0,6), centradas en 0,5.`],
+      ['σ del fondo y σ del objeto (Fig. 2)', String.raw`La desviación de cada campana (de 0,03 a 0,15). Una campana más ancha se solapa más con la otra.`],
     ],
     visualizaciones: [
       {
         titulo: 'Umbral de Otsu en una imagen',
         descripcion: 'La curva naranja es la varianza entre clases para cada umbral; Otsu toma su máximo. Mueva el umbral y compare la segmentación.',
-        ayuda: String.raw`<p>Arriba, el histograma de intensidades (eje X: intensidad; eje Y: píxeles) y la curva naranja de la varianza entre clases \(\sigma_B^2(t)\), con la marca del umbral elegido. La segunda imagen muestra como objeto los píxeles con intensidad mayor que t.</p>
+        ayuda: String.raw`<p>Arriba hay dos paneles: la imagen en grises y la segmentación, donde los píxeles blancos son los de intensidad mayor que t. Abajo, el histograma (barras grises; eje X: intensidad, eje Y: píxeles), la curva naranja de la varianza entre clases \(\sigma_B^2(t)\) (C.s2) escalada a la altura del histograma, una línea negra en el umbral elegido y una línea verde discontinua en el umbral de Otsu.</p>
           <ul>
-          <li><strong>Umbral t</strong>: la marca se mueve sobre el histograma y la segmentación cambia; en el máximo de la curva naranja la separación entre clases es la mejor.</li>
-          <li><strong>Ruido σ</strong>: los picos se ensanchan y el valle entre ellos se llena; el máximo de \(\sigma_B^2\) se aplana y la segmentación se llena de puntos sueltos.</li>
-          <li><strong>Iluminación no uniforme</strong>: un solo umbral global deja de servir porque el fondo oscuro de un lado vale lo mismo que el objeto del otro.</li>
+          <li><strong>Umbral t</strong>: la línea negra y el punto naranja se mueven y la segmentación cambia; cuando coincide con la línea verde, \(\sigma_B^2\) está en su máximo.</li>
+          <li><strong>Ruido σ</strong>: regenera la imagen con más ruido; la lectura muestra cómo cambian la separabilidad y el umbral de Otsu, y la segmentación se llena de puntos sueltos.</li>
+          <li><strong>Iluminación no uniforme</strong>: el brillo varía por zonas y el histograma deja de separar bien fondo y objeto, de modo que un solo umbral global puede segmentar mal.</li>
+          <li><strong>Umbral de Otsu</strong>: lleva la línea negra a la verde.</li>
           </ul>`,
         montar: montarImagen,
       },
       {
         titulo: 'Cuando las clases no están equilibradas',
         descripcion: 'Un histograma modelado como mezcla de dos gaussianas. Las zonas sombreadas son el error de Otsu: fondo tomado como objeto y objeto tomado como fondo.',
-        ayuda: String.raw`<p>Dos campanas (fondo ponderado por \(1-p\) y objeto por \(p\)), su suma como histograma total, y los umbrales de Otsu y de error mínimo. Las zonas sombreadas son los píxeles mal clasificados.</p>
+        ayuda: String.raw`<p>El eje X es la intensidad y el eje Y, la densidad. La curva azul (C.s1) es el fondo ponderado por \(1-p\); la naranja (C.s2), el objeto ponderado por \(p\); la negra punteada, el histograma total. Las líneas verticales discontinuas son el umbral de Otsu (verde) y el de error mínimo (violeta). Con el umbral de Otsu, la zona azul clara bajo el fondo a su derecha y la naranja clara bajo el objeto a su izquierda son los píxeles mal clasificados; la lectura da el error de ambos umbrales.</p>
           <ul>
-          <li><strong>Proporción de objeto p</strong>: si p es pequeño, la campana del objeto casi desaparece y el umbral de Otsu se aleja del de error mínimo.</li>
-          <li><strong>Separación de medias</strong>: al acercar las campanas crece el área sombreada, es decir, el error inevitable.</li>
-          <li><strong>σ del fondo</strong> y <strong>σ del objeto</strong>: más dispersión significa más solapamiento; con anchos distintos, Otsu tiende a quedar en el punto medio y el de error mínimo se corre hacia la clase más estrecha.</li>
+          <li><strong>Proporción de objeto p</strong>: con p pequeño la campana del objeto casi desaparece y Otsu puede alejarse del umbral de error mínimo.</li>
+          <li><strong>Separación de medias</strong>: al acercar las campanas crece el solapamiento y con él el error inevitable.</li>
+          <li><strong>σ del fondo</strong> y <strong>σ del objeto</strong>: más dispersión significa más solapamiento; compare en la lectura el error con Otsu y el error mínimo.</li>
           </ul>`,
         montar: montarMezcla,
       },

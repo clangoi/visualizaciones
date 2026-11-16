@@ -259,36 +259,40 @@
       <p>Un buen tablero también dice <em>cuándo</em> actuar. Un valor en rojo puede ser ruido; una tendencia sostenida, aunque aún esté en verde, puede ser la señal. Las reglas de intervención
       convierten el seguimiento del tiempo en decisiones: cuántos periodos de caída son demasiados, o cuándo un punto está fuera de lo esperable.</p>`,
     parametros: [
-      ['Nivel de la audiencia (Fig. 1)', String.raw`A quién se dirige el tablero (dirección, mesa de ayuda, etc.). Cambia qué indicadores y con qué periodicidad se muestran.`],
-      ['Indicadores en el tablero (Fig. 1)', String.raw`Cuántos indicadores se muestran. Más indicadores dan más detalle pero menos foco.`],
-      ['Periodo del corte (Fig. 1)', String.raw`Fecha hasta la cual se ve el tablero; permite verlo en un periodo anterior.`],
-      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otras series; el reproductor de la Fig. 2 avanza el tiempo periodo a periodo.`],
-      ['Deriva por periodo (Fig. 2)', String.raw`Cuántas desviaciones estándar baja el indicador en cada periodo una vez que empieza a derivar. Mayor deriva se detecta antes.`],
-      ['La deriva empieza en el periodo (Fig. 2)', String.raw`Momento desde el cual el indicador deja de estar estable. Todo aviso anterior es una falsa alarma.`],
-      ['N de la regla de tendencia (Fig. 2)', String.raw`Cuántos puntos seguidos en la misma dirección disparan la regla. Con N pequeño avisa antes pero da más falsos avisos.`],
-      ['Reglas activas (Fig. 2)', String.raw`Casillas para encender o apagar cada regla y comparar cuál avisa primero.`],
+      ['Nivel de la audiencia (Fig. 1)', String.raw`Elige entre Dirección (estratégico), Gerencia de TI (táctico) y Mesa de ayuda (operativo). Cada uno trae sus seis indicadores y periodicidad (mensual o semanal).`],
+      ['Indicadores en el tablero (Fig. 1)', String.raw`De 3 a 6. Muestra solo los primeros indicadores de la lista del nivel elegido.`],
+      ['Periodo del corte (Fig. 1)', String.raw`Del periodo 12 al 24. Fija el periodo al que se refiere el valor de cada cuadro; la línea sigue mostrando los 24 periodos, con lo posterior al corte sombreado.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Sortea otras series para los indicadores del nivel actual.`],
+      ['Deriva por periodo (Fig. 2)', String.raw`De 0 a 1 desviación estándar por periodo. Cuánto baja el indicador en cada periodo una vez que empieza la deriva.`],
+      ['La deriva empieza en el periodo (Fig. 2)', String.raw`Del periodo 22 al 40. Desde allí el indicador baja de forma sostenida. Todo aviso en o antes de ese periodo es una falsa alarma.`],
+      ['N de la regla de tendencia (Fig. 2)', String.raw`De 3 a 8. Número de periodos seguidos a la baja que dispara la regla de tendencia; con N pequeño avisa antes pero con más falsas alarmas.`],
+      ['Reglas activas (Fig. 2)', String.raw`Cuatro casillas con el color de cada regla: un punto fuera de ±3σ, N periodos seguidos a la baja, 7 periodos del mismo lado de la media y 2 de 3 puntos bajo −2σ. Desmarcarlas permite comparar cuál avisa primero.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza el tiempo periodo a periodo desde el 21 hasta el 48 y permite reiniciarlo.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otro ruido y reinicia la reproducción.`],
     ],
     visualizaciones: [
       {
         titulo: 'Tablero por nivel de la organización',
         descripcion: 'Cambie el nivel de la audiencia y la cantidad de indicadores; mueva el periodo del corte y vea cómo cambian colores y variaciones. Pase el cursor sobre una línea para ver cada periodo.',
-        ayuda: String.raw`<p>Cada cuadro es un indicador del tablero con su valor al corte y una línea con los 24 periodos. El color indica si cumple la meta (cumple), si está dentro de 5 % de la meta o fuera de tolerancia; la marca muestra la meta.</p>
+        ayuda: String.raw`<p>Cuadrícula de cuadros, uno por indicador. Cada cuadro muestra su nombre, el valor al corte, la variación frente al periodo anterior (▲ o ▼, verde si mejora según el sentido del indicador y roja si empeora) y la meta. La barra vertical izquierda lleva el color de estado: verde (C.s6) si cumple la meta, amarillo (C.s4) si está dentro de 5 % de ella y rojo (C.s8) si está fuera. La línea azul (C.s1) es la serie de 24 periodos, la línea punteada negra es la meta y la zona gris es lo posterior al corte.</p>
           <ul>
-          <li><strong>Nivel de la audiencia</strong>: cambia el conjunto de indicadores y su periodicidad.</li>
+          <li><strong>Nivel de la audiencia</strong>: cambia los indicadores, las metas y la periodicidad.</li>
           <li><strong>Indicadores en el tablero</strong>: agrega o quita cuadros.</li>
-          <li><strong>Periodo del corte</strong>: cambia colores y variaciones al mover la fecha.</li>
+          <li><strong>Periodo del corte</strong>: cambia valores, colores y variaciones al mover el corte.</li>
+          <li><strong>Clic en un cuadro</strong>: lo selecciona (borde azul) y muestra su detalle en el registro.</li>
           </ul>`,
         montar: montarTablero,
       },
       {
         titulo: 'Cuándo intervenir: reglas sobre la tendencia',
         descripcion: 'Reproduzca el tiempo con una deriva suave y compare cuál regla avisa primero. Suba la deriva para detectar antes; baje N y verá alertas falsas antes de que empiece la deriva.',
-        ayuda: String.raw`<p>Serie del indicador con la media de la línea base (20 periodos) y las bandas de ±2σ y ±3σ. Cada regla activa tiene su color y marca el periodo en que avisa.</p>
+        ayuda: String.raw`<p>Serie del indicador (línea azul, C.s1) por periodo. La línea negra es la media de la línea base (primeros 20 periodos, zona gris) y las punteadas grises marcan ±2σ y ±3σ. Cada alerta es un anillo alrededor del punto, con el color y la forma de su regla: rojo (C.s8) fuera de ±3σ, naranja (C.s2) tendencia a la baja, violeta (C.s7) siete del mismo lado, amarillo (C.s4) dos de tres bajo −2σ. La línea punteada negra vertical marca el primer aviso de cualquier regla activa («intervenir»).</p>
           <ul>
           <li><strong>Deriva por periodo</strong>: más pendiente hace cruzar las reglas antes.</li>
-          <li><strong>La deriva empieza en el periodo</strong>: los avisos anteriores a ese punto son falsos.</li>
-          <li><strong>N de la regla de tendencia</strong>: un N bajo avisa antes pero con más falsas alarmas.</li>
-          <li><strong>Reglas activas</strong>: permiten comparar cuál avisa primero.</li>
+          <li><strong>La deriva empieza en el periodo</strong>: los avisos anteriores a ese punto son falsos, y el panel de lectura los rotula.</li>
+          <li><strong>N de la regla de tendencia</strong>: solo afecta a la regla naranja.</li>
+          <li><strong>Reglas activas</strong>: apagan los anillos de las reglas desmarcadas.</li>
+          <li><strong>Reproductor</strong>: avanza el tiempo; los puntos aparecen de a uno.</li>
           </ul>`,
         montar: montarReglas,
       },

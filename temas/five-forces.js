@@ -171,28 +171,32 @@
       <p>El modelo de las <strong>cinco fuerzas</strong> de Michael Porter explica por qué unas industrias son más rentables que otras. La rentabilidad media de un sector depende de cinco presiones: la rivalidad entre competidores, la amenaza de nuevos entrantes, la amenaza de productos sustitutos, el poder de negociación de los clientes y el de los proveedores. Cuanto más fuertes son, más del valor creado se lo llevan otros y menos queda en la industria.</p>
       <p>La tecnología de información modifica estas fuerzas: abarata la entrada, vuelve transparentes los precios, crea plataformas con efectos de red y habilita sustitutos. Calificar las fuerzas antes y después de una tecnología ayuda a decidir si conviene adoptarla, defenderse de ella o aprovecharla.</p>`,
     parametros: [
-      ['Industria de partida (Fig. 1)', String.raw`Ejemplo de industria que fija las intensidades iniciales. También se ajustan con los controles o con un clic en un eje.`],
-      ['Industria (Fig. 2)', String.raw`Industria sobre la cual se analiza el efecto de la tecnología.`],
-      ['Tecnología (Fig. 2)', String.raw`Qué tecnología se introduce (por ejemplo internet o una plataforma con efectos de red). Cada una desplaza fuerzas distintas.`],
-      ['Grado de adopción en la industria (Fig. 2)', String.raw`Qué parte de la industria usa la tecnología. Más adopción amplía el cambio.`],
+      ['Industria de partida (Fig. 1)', String.raw`Elige una de cinco industrias de ejemplo (aerolíneas, supermercados, video por streaming, agua potable regulada, software para nichos) y carga la intensidad inicial de cada fuerza. Al cambiarla se reemplazan los valores que haya ajustado.`],
+      ['Una barra por fuerza: rivalidad, nuevos entrantes, sustitutos, clientes y proveedores (Fig. 1)', String.raw`Cinco controles de 1 (muy débil) a 5 (muy fuerte), uno por fuerza. Subir una fuerza agranda el polígono y reduce el atractivo de la industria; también puede fijarla con un clic sobre su eje en el gráfico.`],
+      ['Industria (Fig. 2)', String.raw`Elige la misma lista de cinco industrias; su perfil de fuerzas es el punto de partida «antes» de la tecnología.`],
+      ['Tecnología (Fig. 2)', String.raw`Elige entre internet y comercio electrónico, plataforma con efectos de red, nube y software como servicio, automatización e IA, datos propios de clientes, o intercambio electrónico con proveedores. Cada una suma o resta una cantidad distinta a cada fuerza.`],
+      ['Grado de adopción en la industria (Fig. 2)', String.raw`Escala el cambio de la tecnología de 0 % a 150 %. Con 0 % no hay cambio; sobre 100 % se exagera el efecto. Las fuerzas quedan siempre entre 1 y 5.`],
     ],
     visualizaciones: [
       {
         titulo: 'Califique las cinco fuerzas de una industria',
         descripcion: 'Parta de una industria y cambie las intensidades con los controles o haciendo clic sobre un eje. Compare aerolíneas (polígono grande, poco atractiva) con agua potable regulada (polígono pequeño) y busque qué fuerza explica la diferencia.',
-        ayuda: String.raw`<p>Polígono radial con una fuerza por eje; 5 es la más hostil para la rentabilidad. Un polígono grande indica industria poco atractiva y uno pequeño, atractiva.</p>
+        ayuda: String.raw`<p>Radar de cinco ejes, con la rivalidad arriba y los demás en sentido horario; los anillos concéntricos van de 1 (centro) a 5 (borde, la más hostil para la rentabilidad). El polígono azul (C.s1) une las intensidades. Un polígono grande indica una industria poco atractiva y uno pequeño, atractiva.</p>
           <ul>
-          <li><strong>Industria de partida</strong>: cambia la forma; aerolíneas da un polígono grande y agua regulada, pequeño.</li>
+          <li><strong>Industria de partida</strong>: reemplaza la forma del polígono por la de la industria elegida.</li>
+          <li><strong>Controles por fuerza</strong>: mueven el vértice de su eje y recalculan el atractivo.</li>
+          <li><strong>Clic sobre un eje</strong>: fija esa fuerza según la distancia al centro; el punto naranja (C.s2) marca el eje bajo el cursor.</li>
           </ul>`,
         montar: montarCalificar,
       },
       {
         titulo: 'Qué hace una tecnología con el equilibrio',
         descripcion: 'Elija una industria y una tecnología y varíe el grado de adopción. Observe qué fuerzas suben (rojo) y cuáles bajan (verde): internet intensifica clientes y entrantes; una plataforma con efectos de red hace lo contrario.',
-        ayuda: String.raw`<p>Dos polígonos, antes de la tecnología y después. Abajo, el cambio por fuerza: se intensifica (rojo) o se debilita (verde).</p>
+        ayuda: String.raw`<p>Arriba, radar con el polígono punteado gris (C.apagado) de la industria antes de la tecnología y el polígono naranja (C.s2) relleno después de ella. Abajo, un gráfico de barras horizontales con el cambio de cada fuerza respecto del centro: a la derecha en rojo (C.s8) si se intensifica y a la izquierda en verde (C.s6) si se debilita, con el valor numérico.</p>
           <ul>
-          <li><strong>Tecnología</strong>: internet intensifica la fuerza de clientes y de entrantes.</li>
-          <li><strong>Grado de adopción</strong>: a más adopción, mayor diferencia entre antes y después.</li>
+          <li><strong>Industria</strong>: cambia el polígono de partida.</li>
+          <li><strong>Tecnología</strong>: cambia qué fuerzas se mueven y en qué sentido.</li>
+          <li><strong>Grado de adopción</strong>: alarga o acorta las barras y separa más los dos polígonos.</li>
           </ul>`,
         montar: montarTecnologia,
       },

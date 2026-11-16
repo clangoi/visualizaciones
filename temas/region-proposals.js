@@ -153,23 +153,26 @@
       <p>La forma más simple de detectar objetos es probar una ventana en todas las posiciones, tamaños y proporciones posibles y clasificar cada una. Es correcta, pero astronómicamente cara: una imagen pequeña genera cientos de miles de ventanas, cada una con una pasada por la red.</p>
       <p>Las <strong>propuestas de regiones</strong> (<em>region proposals</em>) resuelven esto con un primer filtro barato que sugiere unos pocos miles de cajas «con pinta de objeto». <em>Selective Search</em> las obtiene agrupando regiones parecidas; la <em>Region Proposal Network</em> de Faster R-CNN las aprende con la misma red.</p>`,
     parametros: [
-      ['Escalas de ventana (Fig. 1)', String.raw`Cuántos tamaños de ventana se prueban. Más escalas cubren más tamaños de objeto pero multiplican las ventanas.`],
-      ['Proporciones (1, 2, 0,5) (Fig. 1)', String.raw`Formas de ventana (cuadrada, ancha, alta). Más formas ajustan mejor, a costa de más ventanas.`],
-      ['Paso (píxeles) (Fig. 1)', String.raw`Separación entre ventanas vecinas. Un paso pequeño genera muchísimas ventanas.`],
-      ['Escala que se dibuja (Fig. 1)', String.raw`Qué tamaño de ventanas se muestra; no cambia el conteo.`],
-      ['Nueva escena y reproductor (Fig. 2)', String.raw`Sortean otra escena y reproducen las fusiones de regiones.`],
+      ['Escalas de ventana (Fig. 1)', String.raw`De 1 a 5 tamaños de ventana, cada uno 1,5 veces mayor que el anterior (el primero mide unos 48 píxeles en una imagen de 224×224). Más escalas cubren más tamaños de objeto pero multiplican las ventanas.`],
+      ['Proporciones (1, 2, 0,5) (Fig. 1)', String.raw`De 1 a 3 formas de ventana: con 1, cuadrada; con 2, cuadrada y ancha; con 3, cuadrada, ancha y alta. Más formas ajustan mejor a los objetos, a costa de más ventanas.`],
+      ['Paso (píxeles) (Fig. 1)', String.raw`De 4 a 64 píxeles entre ventanas vecinas. Un paso pequeño genera muchísimas ventanas.`],
+      ['Escala que se dibuja (Fig. 1)', String.raw`Elige cuál de las escalas se dibuja sobre la escena (se limita al número de escalas). No cambia el total de ventanas, solo cuáles se ven y cuántas cumplen IoU ≥ 0,5.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza la fusión de regiones de a un paso, la reproduce sola con control de velocidad, o la reinicia.`],
+      ['Nueva escena (Fig. 2)', String.raw`Sortea otra escena, con otros objetos y colores, y reinicia la fusión.`],
     ],
     visualizaciones: [
       { titulo: 'Cuántas ventanas hay', descripcion: 'Aumente escalas y proporciones y reduzca el paso: el conteo se dispara. Compare con las propuestas de los métodos de dos etapas.',
-        ayuda: String.raw`<p>Se dibujan las ventanas de la escala elegida (cada una es una pasada por la red), las que tienen IoU ≥ 0,5 con un objeto, y las propuestas de un método selectivo o las anclas de una RPN.</p>
+        ayuda: String.raw`<p>A la izquierda, la escena con las ventanas de la escala elegida: azules (tenues si son muchas) y, en verde grueso, las que tienen IoU ≥ 0,5 con algún objeto. A la derecha, barras horizontales en escala logarítmica con la cantidad de regiones a evaluar: dos barras azules de ventana deslizante (la configuración actual y una fina de paso 8, 5 escalas y 3 proporciones) y dos naranjas, Selective Search (2.000) y las anclas de una RPN (14×14×9). Si la pantalla es angosta, este panel se omite. Al pasar el cursor se ve cuántas ventanas de esa escala cubren el punto.</p>
           <ul>
-          <li><strong>Escalas de ventana</strong>, <strong>Proporciones</strong> y <strong>Paso</strong>: el número total de ventanas crece al aumentar los primeros y al reducir el último.</li>
-          <li>Las propuestas de dos etapas son pocas frente a las ventanas deslizantes.</li>
+          <li><strong>Escalas de ventana</strong> y <strong>Proporciones</strong>: aumentan el total de ventanas (primera barra).</li>
+          <li><strong>Paso</strong>: al reducirlo, crece mucho el número de ventanas por escala.</li>
+          <li><strong>Escala que se dibuja</strong>: pasa de ventanas pequeñas a grandes sobre la imagen.</li>
           </ul>`, montar: montarVentanas },
       { titulo: 'Agrupar regiones para proponer cajas', descripcion: 'Reproduzca las fusiones y vea aparecer, en verde, cajas que cubren a los objetos sin haber probado ventanas al azar.',
-        ayuda: String.raw`<p>La escena segmentada: las líneas marcan la frontera entre regiones y las cajas son las propuestas de cada región. Las verdes tienen IoU ≥ 0,5 con un objeto.</p>
+        ayuda: String.raw`<p>La escena queda dividida en una cuadrícula de 14×14 celdas coloreadas; las líneas oscuras marcan la frontera entre regiones. En cada fusión se unen las dos regiones vecinas más parecidas (por color y tamaño) y, si la región tiene al menos 3 celdas, se agrega su caja como propuesta: azul tenue, o verde gruesa si tiene IoU ≥ 0,5 con algún objeto. Bajo la figura, el registro describe cada fusión y la lectura cuenta regiones, propuestas, objetos cubiertos y el mejor IoU por objeto. Al pasar el cursor se ve el tamaño de la región de esa celda.</p>
           <ul>
-          <li>Al reproducir, las regiones vecinas se fusionan y aparecen cajas verdes que cubren objetos sin probar ventanas al azar.</li>
+          <li><strong>Reproductor</strong>: cada paso fusiona un par de regiones; las fronteras desaparecen y las propuestas se acumulan.</li>
+          <li><strong>Nueva escena</strong>: reinicia con otra imagen.</li>
           </ul>`, montar: montarAgrupacion },
     ],
     teoria: String.raw`

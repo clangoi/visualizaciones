@@ -215,33 +215,34 @@
       <p>La idea es convertir cada prefijo histórico en una fila de datos (qué actividad fue la última, cuánto tiempo pasó, cuántos eventos van) con su tiempo restante
       conocido, y ajustar un regresor. Lo interesante es cómo mejora la predicción a medida que el caso avanza y cuánta incertidumbre queda, que se expresa con un intervalo.</p>`,
     parametros: [
-      ['Modelo con intervalo (Fig. 1)', String.raw`Qué predictor muestra su intervalo del 10 al 90 %. Las curvas de todos los modelos siguen visibles.`],
-      ['Eventos ya vistos (prefijo) (Fig. 1)', String.raw`Hasta qué evento del caso se conoce el prefijo. Fija k, el momento en que se hace la predicción.`],
-      ['Otro caso (Fig. 1)', String.raw`Cambia el caso que se observa.`],
-      ['Métrica (Fig. 2)', String.raw`Qué se mide en cada modelo: el error absoluto medio en minutos, o la cobertura del intervalo 10–90 %.`],
-      ['Casos de entrenamiento (Fig. 2)', String.raw`Cuántos casos usan los modelos para aprender. Con pocos, los modelos más finos son menos fiables.`],
-      ['Espera media entre actividades (Fig. 2)', String.raw`Espera media del proceso simulado. Más espera hace más variable el tiempo restante y más difícil de predecir.`],
-      ['Casillas de modelos (Fig. 2)', String.raw`Muestran u ocultan la curva de cada modelo.`],
+      ['Modelo con intervalo (Fig. 1)', String.raw`Elige cuál de los tres predictores (media global, media por actividad actual o regresión lineal) se dibuja con trazo continuo y con su banda del 10 al 90 %. Los otros dos siguen visibles con trazo discontinuo y sin banda.`],
+      ['Eventos ya vistos (prefijo) (Fig. 1)', String.raw`Fija k, cuántos eventos del caso se conocen al predecir (de 1 hasta el penúltimo evento del caso). Equivale a hacer clic sobre el gráfico en ese valor de k; el panel inferior da los números de ese punto.`],
+      ['Otro caso (Fig. 1)', String.raw`Pasa a otro pedido del conjunto de prueba, conservando k (recortado si el caso es más corto).`],
+      ['Métrica (Fig. 2)', String.raw`«Error absoluto medio (min)»: promedio de la diferencia entre lo predicho y el tiempo restante real, menor es mejor. «Cobertura del intervalo 10–90 %»: fracción de casos cuyo tiempo real cae dentro del intervalo; la línea punteada marca el 80 % nominal.`],
+      ['Casos de entrenamiento (Fig. 2)', String.raw`De 10 a 500 pedidos con que se entrenan los tres modelos; la evaluación siempre usa los mismos 200 pedidos de prueba.`],
+      ['Espera media entre actividades (Fig. 2)', String.raw`De 0 a 40 min. Espera media entre una actividad y la siguiente en el proceso simulado; con más espera el tiempo restante varía más y es más difícil de predecir. Regenera los datos de entrenamiento y prueba.`],
+      ['Casillas de modelos (Fig. 2)', String.raw`Muestran u ocultan la curva de cada uno de los tres modelos. El texto inferior nombra el mejor entre los visibles.`],
     ],
     visualizaciones: [
       {
         titulo: 'Un caso visto prefijo a prefijo',
         descripcion: 'Compare los tres predictores contra el tiempo restante real, evento a evento. Cambie de modelo (la banda es su intervalo 10–90 %) y haga clic en distintos k: las predicciones se ajustan a medida que el caso avanza.',
-        ayuda: String.raw`<p>Eje horizontal: eventos vistos k; eje vertical: minutos restantes. La línea negra es el tiempo restante real y cada color es la predicción de un modelo; la banda es el intervalo 10–90 % del modelo elegido.</p>
+        ayuda: String.raw`<p>Eje horizontal: eventos vistos k (prefijos del mismo caso); eje vertical: minutos restantes. La línea negra gruesa es el tiempo restante real. Las otras son las predicciones de cada modelo: azul (C.s1) media global, naranja (C.s2) media por actividad actual, aguamarina (C.s3) regresión lineal. La banda sombreada es el intervalo 10–90 % del modelo elegido. El punto grande y la línea vertical punteada marcan el k seleccionado; al pasar el cursor se ve el detalle de cada modelo.</p>
           <ul>
-          <li><strong>Modelo con intervalo</strong>: cambia la banda sombreada; un intervalo ancho indica incertidumbre.</li>
-          <li><strong>Eventos ya vistos (prefijo)</strong>: al avanzar k, los modelos que usan el prefijo se acercan a la línea negra.</li>
+          <li><strong>Modelo con intervalo</strong>: cambia qué curva es continua y de quién es la banda; una banda ancha indica más incertidumbre.</li>
+          <li><strong>Eventos ya vistos / clic en el gráfico</strong>: mueve k; el panel de lectura muestra tiempo transcurrido, predicción, real, error absoluto, intervalo y si lo contiene.</li>
+          <li>La media global es una línea casi horizontal porque ignora el prefijo; los otros dos modelos sí lo usan.</li>
           </ul>`,
         montar: montarCaso,
       },
       {
         titulo: 'Error frente al avance del caso',
         descripcion: 'Los modelos que usan el prefijo ven caer su error al avanzar el caso; la media global no, porque ignora el avance. Reduzca los casos de entrenamiento o suba la espera entre actividades y vea qué modelo se degrada más; cambie a cobertura para ver si el intervalo cumple su 80 % nominal.',
-        ayuda: String.raw`<p>Eje horizontal: avance del caso k / n; eje vertical: la métrica elegida. Cada curva es un modelo.</p>
+        ayuda: String.raw`<p>Eje horizontal: avance del caso k / n, agrupado en diez tramos (0 a 100 %); eje vertical: la métrica elegida, evaluada sobre 200 pedidos de prueba. Cada curva es un modelo: azul (C.s1) media global, naranja (C.s2) media por actividad actual, aguamarina (C.s3) regresión lineal. El panel inferior da el error medio y la cobertura globales de cada uno.</p>
           <ul>
-          <li><strong>Métrica</strong>: con el error absoluto medio, menor es mejor; con la cobertura, lo esperado es que se acerque al 80 % del intervalo.</li>
-          <li><strong>Casos de entrenamiento</strong> y <strong>Espera media entre actividades</strong>: ver cuándo cada modelo se degrada.</li>
-          <li>La media global no mejora al avanzar el caso porque ignora el prefijo.</li>
+          <li><strong>Métrica</strong>: con el error absoluto medio, menor es mejor; con la cobertura, lo ideal es acercarse a la línea del 80 %.</li>
+          <li><strong>Casos de entrenamiento</strong> y <strong>Espera media</strong>: permiten ver con cuántos datos y con cuánto ruido cada modelo se degrada.</li>
+          <li>La media global no mejora al avanzar el caso porque ignora el prefijo, mientras que los otros dos sí tienden a bajar su error.</li>
           </ul>`,
         montar: montarError,
       },

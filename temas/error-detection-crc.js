@@ -87,24 +87,25 @@
       <p>Un ruido eléctrico puede cambiar bits de una trama durante su paso por el enlace. La capa de enlace agrega <strong>bits de redundancia</strong> que permiten al receptor <em>detectar</em> (y a veces <em>corregir</em>) el daño. A más redundancia, mayor protección, pero también mayor sobrecosto.</p>
       <p>Tres técnicas de complejidad creciente: la <strong>paridad</strong> (un bit), la <strong>suma de verificación</strong> (Internet) y el <strong>CRC</strong> (<em>cyclic redundancy check</em>), que es el que usa Ethernet.</p>`,
     parametros: [
-      ['Código (Fig. 1)', String.raw`Esquema de paridad: un bit por fila (detecta errores impares) o paridad bidimensional, que además ubica y corrige un bit alterado.`],
-      ['Datos nuevos y Restaurar (Fig. 1)', String.raw`Datos nuevos genera otra matriz de bits; Restaurar deshace las alteraciones hechas con clic.`],
-      ['Datos (bits) (Fig. 2)', String.raw`Mensaje D al que se le calcula el CRC. Su longitud y contenido determinan los bits de resto que se agregan.`],
-      ['Generador G (Fig. 2)', String.raw`Polinomio divisor. Su grado fija cuántos bits de CRC se agregan y qué ráfagas de error se detectan con seguridad.`],
-      ['Posiciones a invertir (Fig. 2)', String.raw`Bits de la trama transmitida que se alteran para simular errores; muestra si el receptor los detecta.`],
+      ['Código (Fig. 1)', String.raw`Selector con dos opciones: «Un bit de paridad por fila» (agrega una columna de paridad, detecta una fila con número impar de bits alterados) o «Paridad bidimensional» (agrega además una fila de paridad por columna, de modo que un error simple se ubica y se corrige).`],
+      ['Datos nuevos y Restaurar (Fig. 1)', String.raw`Datos nuevos sortea una matriz de 5 × 5 bits. Restaurar deshace las alteraciones hechas con clic sobre los bits.`],
+      ['Datos (bits) (Fig. 2)', String.raw`Cuadro de texto con el mensaje D; solo se aceptan 0 y 1, hasta 24 bits. Su longitud fija la de la trama; el CRC agregado depende de D y de G.`],
+      ['Generador G (Fig. 2)', String.raw`Selector con tres polinomios: x⁴ + x + 1 (10011, r = 4), x³ + x² + 1 (1101, r = 3) y CRC-8 (100000111, r = 8). Su grado r es la cantidad de bits de CRC agregados y de bits de ráfaga que se detectan con seguridad.`],
+      ['Posiciones a invertir (Fig. 2)', String.raw`Cuadro de texto con posiciones separadas por comas (la primera es 1) dentro de la trama enviada (datos + CRC). Esos bits se invierten en la trama recibida para simular ruido; se ignoran las posiciones fuera de la trama.`],
     ],
     visualizaciones: [
       { titulo: 'Paridad simple y bidimensional', descripcion: 'Invierta un bit: con paridad 2D se ubica y corrige. Invierta dos en la misma fila (con 1D no se detecta) o cuatro en un rectángulo.',
-        ayuda: String.raw`<p>La matriz son los bits: azules los de dato, aguamarina los de paridad y rojos los alterados o las filas y columnas cuya paridad resulta incorrecta.</p>
+        ayuda: String.raw`<p>Matriz de 5 × 5 bits. Los cuadros azules son bits de dato y los aguamarina, bits de paridad (una columna a la derecha y, en la paridad bidimensional, una fila abajo con su esquina). El rojo marca un bit de dato alterado y también la paridad de una fila o columna que ya no coincide. Haga clic en un bit de dato para invertirlo.</p>
           <ul>
-          <li><strong>Código</strong> 1D: al alterar un bit solo se marca su fila; con dos bits en la misma fila la paridad coincide y el error pasa sin detectar.</li>
-          <li>Con paridad 2D se marcan una fila y una columna, cuya intersección es el bit erróneo que se puede corregir.</li>
+          <li><strong>Código</strong>: con paridad por fila solo se marca la fila; dos bits alterados en la misma fila mantienen la paridad y el error pasa sin detectar. Con paridad bidimensional un solo error marca una fila y una columna, y su cruce es el bit a corregir.</li>
+          <li><strong>Datos nuevos</strong> cambia la matriz y <strong>Restaurar</strong> la devuelve a como estaba antes de sus clics. La lectura cuenta bits alterados, filas y columnas incorrectas y el sobrecosto.</li>
           </ul>`, montar: montarParidad },
       { titulo: 'CRC: división módulo 2', descripcion: 'Calcule el CRC de unos datos, invierta bits de la trama e intente engañar al código. Pruebe ráfagas más largas que el grado del generador.',
-        ayuda: String.raw`<p>Se muestra el texto de bits del cálculo: los datos, el resto R que agrega el emisor, la trama enviada y el resto que obtiene el receptor al dividirla entre G.</p>
+        ayuda: String.raw`<p>Una tabla de texto con los datos D, el generador G, el grado r, el CRC (resto de D·2ʳ entre G), la trama enviada (D + CRC) y la trama recibida (la enviada con los bits invertidos, en negrita si hay alguno). El registro y la lectura dicen si el receptor detecta el error.</p>
           <ul>
-          <li><strong>Generador G</strong> de mayor grado: el CRC es más largo y detecta ráfagas más largas.</li>
-          <li><strong>Posiciones a invertir</strong>: con alguna posición el resto del receptor deja de ser 0 y se detecta el error; una ráfaga que sea múltiplo de G pasaría inadvertida.</li>
+          <li><strong>Datos</strong>: cambian el CRC y la longitud de la trama.</li>
+          <li><strong>Generador G</strong>: de mayor grado, el CRC es más largo y se garantiza la detección de ráfagas de hasta r bits (valor que da la lectura).</li>
+          <li><strong>Posiciones a invertir</strong>: sin posiciones el receptor no ve errores; con alguna, normalmente se detecta, salvo que el patrón alterado sea múltiplo de G.</li>
           </ul>`, montar: montarCRC },
     ],
     teoria: String.raw`

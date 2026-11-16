@@ -117,29 +117,32 @@
       <p>Hay dos formas de ejecutar una expresión regular. Un motor con <strong>retroceso</strong> (backtracking) prueba una alternativa tras otra y, cuando una falla, vuelve atrás para ensayar la siguiente. Un motor de <strong>autómata</strong> sigue todas las alternativas a la vez, como en la simulación de un AFN.</p>
       <p>Para la mayoría de los patrones dan lo mismo. Pero para ciertos patrones, un motor con retroceso necesita un tiempo <em>exponencial</em> en el tamaño del texto, mientras que el autómata sigue siendo lineal. Es una causa real de caídas de servicios (ataques <em>ReDoS</em>).</p>`,
     parametros: [
-      ['Patrón (Fig. 1)', String.raw`Qué expresión se ejecuta con el motor de retroceso. Los patrones con cuantificadores anidados admiten muchas maneras de repartir las a.`],
-      ['El texto termina en b (sí coincide) (Fig. 1)', String.raw`Si el texto de a termina con una b y por tanto coincide. Sin la b final, el motor agota todas las alternativas antes de fallar.`],
-      ['Patrón y Texto (hasta 12) (Fig. 2)', String.raw`La expresión y la cadena cuyos intentos se registran uno a uno.`],
-      ['Reproductor (Fig. 2)', String.raw`Cada paso es un intento o retroceso del motor; Reiniciar vuelve al inicio de la traza.`],
+      ['Patrón (Fig. 1)', String.raw`Selector con cinco expresiones: (a+)+b, (a|aa)+b y (a*)*b (exponenciales), a*a*a*b (cúbico) y (a|b)*abb (lineal). Cambiarlo recalcula las dos curvas para ese patrón.`],
+      ['El texto termina en b (sí coincide) (Fig. 1)', String.raw`Casilla que decide si el texto de prueba es aⁿ (desmarcada, no coincide) o aⁿb (marcada, sí coincide). Sin la b final, el motor con retroceso debe agotar todas las maneras de repartir las a antes de fallar.`],
+      ['Patrón (Fig. 2)', String.raw`Campo de texto con la expresión regular cuya búsqueda se registra. Se aplica al salir del campo o con Enter; si tiene un error de sintaxis se indica la posición.`],
+      ['Texto (hasta 12) (Fig. 2)', String.raw`Campo de texto con la cadena a emparejar (se recorta a 12 caracteres). Cambiarlo alarga o acorta la traza según cuántos intentos se hagan.`],
+      ['Reproductor (Fig. 2)', String.raw`Avanza la traza un intento de emparejar un símbolo por vez; la casilla resaltada sobre el texto es la posición probada, y al cambiar patrón o texto la traza vuelve al inicio.`],
     ],
     visualizaciones: [
       {
         titulo: 'Retroceso frente a autómata',
         descripcion: 'Aumenta n en un texto de a: con (a+)+b el motor con retroceso explora un número exponencial de maneras de repartir las a; el autómata lee cada símbolo una vez.',
-        ayuda: String.raw`<p>Eje horizontal: n, la cantidad de a. Eje vertical: pasos. Una curva cuenta las llamadas del motor con retroceso y la otra los estados activos examinados por la simulación del autómata.</p>
+        ayuda: String.raw`<p>Eje horizontal: n, la cantidad de letras a del texto (1 a 26). Eje vertical: pasos, en escala logarítmica (una recta ascendente indica crecimiento exponencial). La curva naranja cuenta las llamadas del motor con retroceso, con un punto por cada n (rojo si superó el tope); la curva azul cuenta los estados activos examinados por la simulación del autómata. La línea roja discontinua marca el tope de 300 000 pasos, donde se corta el motor con retroceso.</p>
           <ul>
-          <li><strong>Patrón</strong>: con (a+)+b la curva del retroceso crece exponencialmente y la del autómata, linealmente.</li>
-          <li><strong>El texto termina en b</strong>: si desmarca, no hay coincidencia posible y el motor prueba todas las divisiones, por lo que la curva se dispara.</li>
+          <li><strong>Patrón</strong>: con (a+)+b, (a|aa)+b o (a*)*b la curva naranja sube casi en línea recta en esta escala y llega al tope; con a*a*a*b crece como un polinomio y con (a|b)*abb apenas se separa de la azul.</li>
+          <li><strong>El texto termina en b</strong>: al marcarla hay coincidencia y el motor suele encontrarla pronto; al desmarcarla no hay coincidencia posible, prueba todas las divisiones y la curva se dispara.</li>
+          <li>Al pasar el cursor sobre el gráfico se resalta un valor de n y se leen los pasos de cada método.</li>
           </ul>`,
         montar: montarCrecimiento,
       },
       {
         titulo: 'La traza de un retroceso',
         descripcion: 'Siga cada intento del motor sobre un texto corto. Con (a|ab)c y «abc» verá cómo la primera elección (a) debe deshacerse para que la coincidencia aparezca con «ab».',
-        ayuda: String.raw`<p>Cada línea es un intento del motor: se marca si el carácter coincide, si no coincide y cuándo hay un retroceso porque lo emparejado no sirvió.</p>
+        ayuda: String.raw`<p>Arriba, una fila de casillas con los caracteres del texto; la casilla en la posición probada se pinta de verde si el carácter coincide y de rojo si no, con la pregunta «¿«c» en la posición i?». Debajo, la lista numerada de los últimos 8 intentos: en verde claro los que coinciden, en rojo los que no, y en naranja los que coinciden pero provocan un retroceso porque el resto no encajó.</p>
           <ul>
-          <li><strong>Patrón</strong>: con (a|ab)c y «abc», la primera elección (a) falla y se deshace para probar «ab».</li>
-          <li><strong>Texto</strong>: cambiarlo alarga o acorta la traza según cuántos intentos fallidos se produzcan.</li>
+          <li><strong>Patrón</strong>: con (a|ab)c y «abc», la primera elección (a) coincide, pero luego falla la c; el motor retrocede y prueba «ab».</li>
+          <li><strong>Texto</strong>: cambia la cadena y con ella el número de intentos, retrocesos y el resultado final (coincide o no).</li>
+          <li><strong>Reproductor</strong>: la lectura muestra cuántos intentos se han mostrado, las llamadas totales del motor y los retrocesos.</li>
           </ul>`,
         montar: montarTraza,
       },

@@ -85,25 +85,27 @@
       tras iniciar sesión, el servidor guarda los datos del usuario y entrega al navegador una <strong>cookie</strong> con un identificador que este reenvía en cada petición.</p>
       <p>La cookie es solo el «ticket del guardarropa»: el abrigo (los datos) queda en el servidor.</p>`,
     parametros: [
-      ['Segunda petición (Fig. 1)', String.raw`Qué trae la petición posterior al login: la cookie correcta, ninguna, una inventada o una sesión expirada. Decide si el servidor reconoce al usuario.`],
-      ['Terminar con cierre de sesión (Fig. 1)', String.raw`Agrega un <code>POST /logout</code> que borra la sesión del servidor y ordena al navegador eliminar la cookie.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza mensaje a mensaje o solo; Reiniciar vuelve al inicio.`],
-      ['Duración de la sesión (Fig. 2)', String.raw`Minutos que dura una sesión antes de expirar.`],
-      ['Expiración (Fig. 2)', String.raw`Si el plazo se renueva con cada petición (por inactividad) o cuenta desde el inicio de sesión (absoluta).`],
-      ['Otra actividad (Fig. 2)', String.raw`Genera otra secuencia de peticiones para probar la misma configuración.`],
+      ['Segunda petición (Fig. 1)', String.raw`Selector con cuatro opciones: «cookie válida», «sesión expirada en el servidor», «cookie inventada o manipulada» y «el navegador no envía cookies». Cambia el GET /perfil posterior al login y por tanto la respuesta (200 o 401). Al cambiarlo, el diagrama vuelve al inicio.`],
+      ['terminar con cierre de sesión (Fig. 1)', String.raw`Casilla. Agrega POST /logout, el borrado del sid en el almacén y un Set-Cookie con Max-Age=0; solo tiene efecto cuando la segunda petición es «cookie válida».`],
+      ['Reproductor (Fig. 1)', String.raw`Controla los mensajes mostrados: «Velocidad», «Reproducir»/«Pausar», «Un paso», «Hasta el final» y «Reiniciar». El texto bajo la figura explica el mensaje actual.`],
+      ['Duración de la sesión (Fig. 2)', String.raw`Minutos que dura la sesión (5 a 90, de 5 en 5) antes de expirar.`],
+      ['Expiración (Fig. 2)', String.raw`Selector con dos opciones: «por inactividad (se renueva con cada uso)», donde cada petición atendida extiende el plazo, o «absoluta (desde el inicio de sesión)», donde el plazo no se mueve.`],
+      ['Otra actividad (Fig. 2)', String.raw`Botón que cambia la semilla y genera otra secuencia de peticiones, con la misma duración y modo.`],
     ],
     visualizaciones: [
       { titulo: 'Inicio de sesión con cookie', descripcion: 'Recorra el login y la segunda petición; pruebe una cookie inventada, una sesión expirada o la ausencia de cookie.',
-        ayuda: String.raw`<p>Diagrama de secuencia entre navegador y servidor. Los colores separan la petición del navegador, el trabajo del servidor, la cookie, el éxito, el rechazo y el cierre.</p>
+        ayuda: String.raw`<p>Diagrama de secuencia con tres columnas: Navegador, Servidor y Almacén (de sesiones). El tiempo corre hacia abajo y cada flecha es un mensaje. Colores: azul, petición del navegador; aguamarina, trabajo del servidor; naranja, cookie; verde, éxito; rojo, rechazo; violeta, cierre de sesión. Las lecturas muestran el paso actual.</p>
           <ul>
-          <li><strong>Segunda petición</strong>: con cookie válida el servidor encuentra el <code>sid</code> y responde 200; sin cookie, con una inventada o expirada responde 401.</li>
-          <li><strong>terminar con cierre de sesión</strong>: añade el borrado del <code>sid</code> y de la cookie, de modo que una cookie robada deja de servir.</li>
+          <li><strong>Segunda petición</strong> «cookie válida»: el servidor busca el sid en el almacén, lo encuentra y responde 200 con el perfil de Ana.</li>
+          <li><strong>Segunda petición</strong> «sin cookies»: el servidor responde 401 sin consultar el almacén. Con una cookie inventada o una sesión expirada sí lo consulta, no encuentra la sesión y rechaza, con redirección a /login.</li>
+          <li><strong>terminar con cierre de sesión</strong>: añade en violeta POST /logout, borrar sid y Set-Cookie vacío, de modo que una cookie robada deja de servir.</li>
           </ul>`, montar: montarLogin },
       { titulo: 'Expiración de la sesión', descripcion: 'Cambie la duración y compare la expiración por inactividad con la absoluta frente a una misma secuencia de peticiones.',
-        ayuda: String.raw`<p>Línea de tiempo con tramos de sesión vigente y expirada y las peticiones sobre ella: atendidas o rechazadas por tener que iniciar sesión.</p>
+        ayuda: String.raw`<p>Línea de tiempo de 0 a 240 min. La barra «sesión» es verde mientras la sesión está vigente y roja desde que expira. En «peticiones», cada marca es una petición del usuario: azul si se atendió y naranja si se rechazó por tener que iniciar sesión de nuevo. El texto bajo la figura da el minuto de expiración.</p>
           <ul>
-          <li><strong>Duración de la sesión</strong>: acorta o alarga los tramos vigentes; con valores bajos más peticiones se rechazan.</li>
-          <li><strong>Expiración</strong> por inactividad: cada petición atendida renueva el plazo; en la absoluta, la sesión termina en el mismo punto aunque haya actividad.</li>
+          <li><strong>Duración de la sesión</strong>: acorta o alarga el tramo verde; con valores bajos más peticiones quedan rechazadas.</li>
+          <li><strong>Expiración</strong> por inactividad: cada petición atendida renueva el plazo, así que la sesión dura mientras no haya una pausa mayor que la duración. En la absoluta, termina a los minutos indicados aunque haya actividad.</li>
+          <li><strong>Lecturas</strong>: peticiones atendidas, rechazadas y minuto de expiración.</li>
           </ul>`, montar: montarExpiracion },
     ],
     teoria: String.raw`

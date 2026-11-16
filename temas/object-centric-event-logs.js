@@ -246,36 +246,40 @@
       <p>Si se insiste en la vista clásica hay que elegir un tipo de objeto como «caso» y <em>aplanar</em> el registro. Ahí aparecen dos distorsiones: la <strong>convergencia</strong>, donde un evento se copia en
       varios casos, y la <strong>divergencia</strong>, donde actividades que ocurren una vez por objeto parecen repetirse dentro de un caso. Las figuras muestran ambas sobre el mismo registro de dieciséis eventos.</p>`,
     parametros: [
-      ['Casillas de tipos de objeto (Fig. 1 y 3)', String.raw`Muestran u ocultan las filas de cada tipo de objeto. Permiten ver qué eventos quedan al quitar un tipo.`],
-      ['Objeto que hace de «caso» (Fig. 2)', String.raw`Qué tipo de objeto se usa para aplanar el registro. Cada elección da un registro distinto del mismo proceso.`],
-      ['Reproductor (Fig. 3)', String.raw`Avanza los dieciséis eventos y va trazando el recorrido de cada tipo de objeto.`],
+      ['Casillas de tipos de objeto (Fig. 1)', String.raw`Casillas pedidos, ítems y facturas: muestran u ocultan las filas de cada tipo. Los eventos se mantienen como columnas, pero solo se ven sus marcas en los tipos activos.`],
+      ['Clic en una columna o en el nombre de un objeto (Fig. 1)', String.raw`Una columna selecciona ese evento y resalta los objetos que toca; el nombre de una fila (columna izquierda) selecciona un objeto y resalta los eventos de su traza. Un segundo clic deselecciona.`],
+      ['Objeto que hace de «caso» (Fig. 2)', String.raw`«pedido», «ítem» o «factura»: tipo de objeto con el que se aplana el registro. Se crea un caso por objeto de ese tipo, copiando en él cada evento que lo toca.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 3)', String.raw`Avanzan los dieciséis eventos de uno en uno (por defecto 1 por segundo) y van sumando aristas al grafo; Reiniciar lo vacía.`],
     ],
     visualizaciones: [
       {
         titulo: 'Un evento, varios objetos',
         descripcion: 'Cada columna es un evento y cada fila un objeto. Haga clic en el evento 13 («Enviar paquete»): toca dos pedidos y dos ítems. Haga clic en el objeto o2 para ver su vida, y oculte tipos para ver qué quedaría en una vista clásica.',
-        ayuda: String.raw`<p>Cada columna es un evento y cada fila un objeto, agrupados por tipo y con el color de su tipo. Un evento toca todos los objetos en los que está marcado.</p>
+        ayuda: String.raw`<p>Cada columna es un evento (numerado del 1 al 16, en orden de tiempo) y cada fila un objeto, agrupados por tipo: azul (C.s1) pedidos, naranja (C.s2) ítems, aguamarina (C.s3) facturas, cada tipo con una forma de marca distinta. Los puntos de una misma columna, unidos por una línea vertical, son los objetos que ese evento toca. Al pasar el cursor por una columna se ve la actividad y sus objetos.</p>
           <ul>
-          <li><strong>Casillas de tipos</strong>: al ocultar un tipo desaparecen sus filas, y se ve qué eventos dependían de él.</li>
+          <li><strong>Casillas de tipos</strong>: al ocultar un tipo desaparecen sus filas, y se ve qué eventos siguen tocando a los demás.</li>
+          <li><strong>Clic en una columna</strong>: resalta el evento y los objetos que involucra.</li>
+          <li><strong>Clic en el nombre de un fila</strong>: resalta los eventos de ese objeto y muestra su traza de actividades.</li>
           </ul>`,
         montar: montarLinea,
       },
       {
         titulo: 'Aplanar: convergencia y divergencia',
         descripcion: 'Elija qué objeto hace de caso. Con «pedido», «Recoger ítem» parece un bucle aunque nada se repita; con «ítem», «Enviar paquete» y «Crear pedido» se copian y la factura desaparece; con «factura», la mayoría de los eventos no existe.',
-        ayuda: String.raw`<p>Es el modelo aplanado, con las actividades y sus sucesiones directas (etiqueta: casos). Se distinguen las actividades con más ocurrencias (×n) que eventos reales (convergencia), las de frecuencia igual a la real y las repeticiones dentro de un caso (divergencia).</p>
+        ayuda: String.raw`<p>Es el grafo de sucesión directa del registro aplanado: cada nodo es una actividad con sus ocurrencias (×n) y cada arista, con el número de casos que hacen ese paso. Un nodo rojo (C.s8) tiene más ocurrencias que eventos reales (convergencia: un evento se copió en varios casos); uno negro coincide con la frecuencia real. Una arista naranja (C.s2) que vuelve sobre el mismo nodo es una repetición dentro de un caso (divergencia); las grises son sucesiones normales. Bajo el grafo se listan las variantes con sus frecuencias, y al pasar el cursor por un nodo se compara el registro original con el aplanado.</p>
           <ul>
-          <li><strong>Objeto que hace de «caso»</strong>: con «pedido», «Recoger ítem» parece un bucle aunque nada se repita; con «ítem», actividades de pedido se copian y la factura desaparece.</li>
+          <li><strong>Objeto que hace de «caso»</strong>: con «pedido», «Recoger ítem» parece un bucle aunque nada se repite; con «ítem», las actividades de pedido se copian y algunos eventos, como las facturas y los pagos, desaparecen porque no tocan ítems.</li>
+          <li>El panel de lectura cuenta casos, eventos aplanados, copias, eventos que desaparecen y variantes.</li>
           </ul>`,
         montar: montarAplanar,
       },
       {
         titulo: 'Grafo con un camino por tipo de objeto',
         descripcion: 'Reproduzca los dieciséis eventos y observe cómo cada tipo de objeto traza su propia ruta por las mismas actividades. Fíjese en «Enviar paquete»: es el punto donde se cruzan los pedidos y los ítems.',
-        ayuda: String.raw`<p>Cada tipo de objeto traza su propia ruta por las mismas actividades, en el color de su tipo; se marca la actividad del evento actual.</p>
+        ayuda: String.raw`<p>Un grafo con una arista de color por tipo de objeto sobre las mismas actividades: azul (C.s1) pedidos, naranja (C.s2) ítems, aguamarina (C.s3) facturas. Cada etiqueta cuenta los objetos que hicieron ese paso. La actividad del evento actual se contornea en naranja, y las aristas que ese evento acaba de añadir o reforzar se dibujan más gruesas. Las actividades aún no vistas se muestran atenuadas.</p>
           <ul>
-          <li><strong>Reproductor</strong>: cada paso suma una arista al camino de los objetos del evento; «Enviar paquete» es donde se cruzan pedidos e ítems.</li>
-          <li><strong>Casillas de tipos</strong>: dejan solo los caminos de los tipos elegidos.</li>
+          <li><strong>Un paso</strong> o <strong>Reproducir</strong>: procesan un evento más; «Enviar paquete» es donde se cruzan los caminos de pedidos e ítems.</li>
+          <li>Al pasar el cursor por una actividad se listan los eventos y objetos que la han tocado hasta ahora.</li>
           </ul>`,
         montar: montarGrafo,
       },

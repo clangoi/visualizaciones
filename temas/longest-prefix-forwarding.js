@@ -33,15 +33,16 @@
       <p>Un <strong>router</strong> hace dos cosas distintas. El <strong>enrutamiento</strong> (<em>routing</em>) es construir la tabla de rutas, con algoritmos que corren cada pocos segundos. El <strong>reenvío</strong> (<em>forwarding</em>) es lo que hace con cada paquete: mirar la dirección de destino, buscarla en la tabla y sacar el paquete por la interfaz correspondiente, en nanosegundos.</p>
       <p>Como la tabla guarda <em>prefijos</em> (no direcciones sueltas), una dirección puede coincidir con varios. Se aplica la regla del <strong>prefijo más largo</strong>.</p>`,
     parametros: [
-      ['Dirección de destino (Fig. 1)', String.raw`Dirección del datagrama que el router debe reenviar. Se compara contra el prefijo de cada entrada de la tabla.`],
-      ['Ejemplos (Fig. 1)', String.raw`Direcciones de muestra que rellenan el campo anterior, elegidas para mostrar coincidencias múltiples, por defecto o con diferencias en el último byte.`],
+      ['Dirección de destino (Fig. 1)', String.raw`Cuadro de texto con la dirección IPv4 del datagrama que el router debe reenviar. Se compara con el prefijo de cada fila de la tabla; si no es una dirección válida, la figura no se actualiza y el registro avisa.`],
+      ['Ejemplos (Fig. 1)', String.raw`Selector con seis direcciones de muestra: 200.23.18.200, 200.23.18.20, 200.23.17.5, 200.23.99.1, 10.1.2.3 y 8.8.8.8. Cada una cae en una ruta distinta de la tabla (de la más específica a la ruta por omisión).`],
     ],
     visualizaciones: [
       { titulo: 'Buscar en una tabla de reenvío', descripcion: 'Elija o escriba una dirección. Observe qué entradas coinciden y cuál gana. Pruebe 200.23.18.200 y 200.23.18.20, que solo difieren en el último byte.',
-        ayuda: String.raw`<p>La tabla de reenvío lista cada prefijo con su interfaz de salida. Se marcan las entradas cuyo prefijo coincide con el destino; gana la de prefijo más largo y de ella sale el datagrama. El registro indica la ruta elegida.</p>
+        ayuda: String.raw`<p>La figura es una tabla de seis rutas con las columnas «prefijo», «salida», «¿coincide?» y «largo». La fila ganadora (la coincidencia de prefijo más largo) lleva «▸» y su prefijo en verde y negrita; las demás filas que coinciden se ven en negro y las que no coinciden, en gris. Debajo, el registro y la lectura resumen cuántas filas coinciden, el prefijo elegido y la salida.</p>
           <ul>
-          <li><strong>Dirección de destino</strong>: un cambio en el último byte puede mover la coincidencia a otra entrada más o menos específica.</li>
-          <li>Una dirección sin coincidencias específicas se reenvía por la ruta por defecto.</li>
+          <li><strong>Dirección de destino</strong>: al escribir otra dirección se recalcula qué filas coinciden. 200.23.18.200 y 200.23.18.20 solo difieren en el último byte, pero la primera cae en 200.23.18.128/25 y la segunda en 200.23.18.0/24.</li>
+          <li><strong>Ejemplos</strong>: 200.23.17.5 gana con 200.23.16.0/20, 200.23.99.1 con 200.23.0.0/16, 10.1.2.3 con 10.0.0.0/8 y 8.8.8.8 solo coincide con 0.0.0.0/0 (ruta por omisión, hacia el ISP).</li>
+          <li>La fila 0.0.0.0/0 siempre coincide, pero solo gana cuando ninguna otra lo hace.</li>
           </ul>`, montar },
     ],
     teoria: String.raw`

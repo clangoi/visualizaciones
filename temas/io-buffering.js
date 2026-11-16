@@ -97,24 +97,27 @@
       <p>Los dispositivos de entrada/salida (discos, redes, teclados) son lentos y de ritmo irregular comparados con la CPU. El sistema operativo los oculta tras <strong>controladores</strong> (<em>drivers</em>) y usa <strong>búferes</strong>: zonas de memoria donde los datos esperan mientras el otro lado se pone al día.</p>
       <p>Con un solo búfer, productor y consumidor se turnan; con <strong>doble búfer</strong> uno llena mientras el otro vacía, y ambos trabajan a la vez. Además, la CPU puede dejar que el dispositivo copie datos solo, por <strong>DMA</strong>.</p>`,
     parametros: [
-      ['Búferes (1 = sin solapamiento) (Fig. 1)', String.raw`Cuántos bloques puede tener el sistema en memoria a la vez entre el dispositivo y la CPU. Con uno, leer y procesar no pueden solaparse; con más, sí.`],
-      ['Tiempo de leer un bloque y Tiempo de procesar un bloque (Fig. 1)', String.raw`Duración de la lectura del dispositivo y del procesamiento por la CPU. El total queda fijado por el más lento cuando hay solapamiento.`],
-      ['Tiempos de lectura variables (Fig. 1)', String.raw`Hace que cada lectura tarde distinto. Un búfer mayor absorbe las rachas lentas.`],
-      ['Nuevos datos (Fig. 1)', String.raw`Genera otra secuencia de tiempos variables.`],
-      ['Datos a transferir (KB) (Fig. 2)', String.raw`El volumen de la transferencia. Determina cuánto tiempo de CPU consume cada método.`],
+      ['Búferes (1 = sin solapamiento) (Fig. 1)', String.raw`Número de búferes, de 1 a 4. Con uno, el dispositivo no puede leer el bloque siguiente hasta que la CPU termina el actual; con 2 o más, lectura y procesamiento se solapan.`],
+      ['Tiempo de leer un bloque (dispositivo) (Fig. 1)', String.raw`Unidades de tiempo (1 a 10) que tarda el dispositivo en leer cada bloque; la figura simula 8 bloques.`],
+      ['Tiempo de procesar un bloque (CPU) (Fig. 1)', String.raw`Unidades de tiempo (1 a 10) que tarda la CPU en procesar cada bloque. Con solapamiento, el tiempo total lo fija sobre todo el más lento de los dos.`],
+      ['Tiempos de lectura variables (Fig. 1)', String.raw`Casilla: cada lectura dura entre 30 % y 200 % aproximado del tiempo de leer (al menos 1), con valores aleatorios fijos para una semilla. Un búfer mayor absorbe las lecturas lentas.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Botón que cambia la semilla y genera otra secuencia de tiempos de lectura; solo se nota con «Tiempos de lectura variables» activa.`],
+      ['Datos a transferir (KB) (Fig. 2)', String.raw`Volumen de la transferencia, de 1 a 1 024 KB. Cambia el tiempo de CPU ocupado de cada método respecto de la duración de la transferencia.`],
     ],
     visualizaciones: [
       { titulo: 'Uno, dos o más búferes', descripcion: 'Con un búfer los tiempos se suman; con dos se solapan y el total baja al del lado más lento. Active tiempos variables para ver cómo un búfer mayor absorbe las rachas.',
-        ayuda: String.raw`<p>Eje horizontal, el tiempo. Una fila muestra al dispositivo (azul, leyendo el bloque i) y otra a la CPU (naranja, procesándolo). Los cuadros amarillos son tiempo en que uno espera por un búfer libre o por un dato.</p>
+        ayuda: String.raw`<p>Eje horizontal, el tiempo (8 bloques). La fila superior es el dispositivo (azul, leyendo cada bloque numerado) y la inferior la CPU (naranja, procesándolo). Las tiras amarillas delgadas son esperas: bajo la fila del dispositivo, espera por un búfer libre; bajo la de la CPU, espera por un dato aún no leído. Pasar el cursor sobre un bloque muestra su inicio y fin.</p>
           <ul>
-          <li><strong>Búferes</strong>: con 1 los tramos azul y naranja se alternan sin cruzarse; con 2 o más se solapan y el total baja.</li>
-          <li><strong>Tiempo de leer</strong> y <strong>Tiempo de procesar</strong>: el más largo domina el tiempo total y el otro acumula esperas.</li>
-          <li><strong>Tiempos de lectura variables</strong>: aparecen esperas irregulares que más búferes reducen.</li>
+          <li><strong>Búferes</strong>: con 1 los tramos azul y naranja se alternan sin cruzarse; con 2 o más se solapan y el tiempo total baja.</li>
+          <li><strong>Tiempo de leer</strong> y <strong>Tiempo de procesar</strong>: el más largo domina el tiempo total y el otro lado acumula esperas.</li>
+          <li><strong>Tiempos de lectura variables</strong>: las lecturas son irregulares y más búferes reducen las esperas del dispositivo.</li>
+          <li><strong>Lecturas</strong>: tiempo total, tiempo sin solapar (serie), aceleración y espera del dispositivo por búfer.</li>
           </ul>`, montar: montarBufer },
       { titulo: 'Quién copia los datos', descripcion: 'Compare qué fracción de la transferencia mantiene ocupada a la CPU con espera activa, con interrupciones y con DMA.',
-        ayuda: String.raw`<p>Cada fila es un método (espera activa, interrupciones, DMA); la parte roja de la barra es la fracción de la duración de la transferencia en que la CPU está ocupada, con el porcentaje a la derecha. El cursor da el detalle en µs.</p>
+        ayuda: String.raw`<p>Cada fila es un método: espera activa (polling), interrupciones y DMA. La barra gris es la duración de la transferencia y la parte roja, la fracción de ese tiempo en que la CPU está ocupada; a la derecha figura el porcentaje (tope 100 %). Pasar el cursor sobre una fila da el tiempo de CPU y la duración en µs.</p>
           <ul>
-          <li><strong>Datos a transferir</strong>: cambia la fracción de CPU ocupada de cada método; con DMA es la menor porque la CPU solo prepara la transferencia.</li>
+          <li><strong>Datos a transferir</strong>: con espera activa la CPU está ocupada todo el tiempo; con interrupciones paga 5 µs por cada 4 KB; con DMA solo 10 µs de preparación más 5 µs de la interrupción final, así que su fracción es la menor y baja al crecer los datos.</li>
+          <li><strong>Lecturas</strong>: duración de la transferencia, CPU con DMA y porcentaje de CPU libre con DMA.</li>
           </ul>`, montar: montarTransferencia },
     ],
     teoria: String.raw`

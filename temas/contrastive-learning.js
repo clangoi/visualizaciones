@@ -119,24 +119,25 @@
       <p>El <strong>aprendizaje contrastivo</strong> aprende representaciones sin etiquetas de clase: solo se necesita saber qué pares de datos «van juntos». Dos vistas del mismo ejemplo (una imagen recortada y girada de dos maneras, una frase y su traducción, una foto y su descripción) forman un <strong>par positivo</strong>; el resto de ejemplos del lote son <strong>negativos</strong>.</p>
       <p>La pérdida acerca los positivos y aleja los negativos en el espacio de representaciones. Para lograrlo, la red tiene que descartar lo que cambia entre vistas (ruido, recorte) y conservar lo que se mantiene (el contenido), y de paso agrupa lo parecido.</p>`,
     parametros: [
-      ['Temperatura τ (Fig. 1 y 2)', String.raw`Escala de las similitudes en la softmax de la pérdida. Con τ baja la pérdida castiga con dureza a los negativos más parecidos; con τ alta los trata a todos casi igual.`],
-      ['Fuerza de la aumentación σ (Fig. 1)', String.raw`Cuánto se perturba cada ejemplo para crear su pareja positiva. Con σ pequeña las parejas son casi idénticas; con σ grande el problema es más difícil.`],
-      ['Reproductor y Otra semilla (Fig. 1)', String.raw`Entrena la red y la reinicia con otros datos.`],
-      ['Ejemplos en el lote (Fig. 2)', String.raw`Número de ejemplos del lote; todos los demás sirven de negativos.`],
-      ['Otros vectores (Fig. 2)', String.raw`Sortea nuevos vectores.`],
+      ['Temperatura τ (Fig. 1 y 2)', String.raw`Divide las similitudes coseno antes de la softmax de la pérdida (0,05 a 1 en la Fig. 1; 0,05 a 2 en la Fig. 2). Con τ baja la pérdida castiga con dureza a los negativos más parecidos; con τ alta los trata casi igual. En la Fig. 1 reinicia el entrenamiento.`],
+      ['Fuerza de la aumentación σ (Fig. 1)', String.raw`Deslizador de 0,02 a 0,4: desviación del ruido gaussiano que se suma a cada punto para crear sus dos vistas. Con σ pequeña las vistas son casi idénticas; con σ grande difieren más. Reinicia el entrenamiento.`],
+      ['Controles de reproducción y Otra semilla (Fig. 1)', String.raw`Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar avanzan el entrenamiento (300 pasos sobre lotes de 48 puntos). Otra semilla cambia los datos y la inicialización de la red.`],
+      ['Ejemplos en el lote (Fig. 2)', String.raw`Deslizador de 3 a 10 ejemplos del lote; las vistas B de los demás ejemplos actúan como negativos de cada fila.`],
+      ['Otros vectores (Fig. 2)', String.raw`Sortea otros ángulos para los vectores del lote y sus parejas.`],
     ],
     visualizaciones: [
       { titulo: 'Entrenar con pares positivos y negativos', descripcion: 'Entrene y observe cómo los tres grupos, que la red nunca vio etiquetados, se separan en el círculo. Pruebe con una aumentación pequeña y con una grande.',
-        ayuda: String.raw`<p>Cada punto es un ejemplo proyectado en el círculo unitario y su color es el grupo al que pertenece, que la red nunca conoce. Los puntos de un mismo grupo deberían ir juntándose y los de grupos distintos separándose.</p>
+        ayuda: String.raw`<p>Dos paneles. A la izquierda, los 90 datos de entrada en el plano; a la derecha, la posición de cada uno en el círculo unitario tras pasar por la red (solo cuenta su ángulo). El color y la forma del marcador indican el grupo (azul, naranja o aguamarina), que la red nunca conoce. Con el entrenamiento, los puntos de un mismo grupo deberían ir juntándose en el círculo y los de grupos distintos separándose.</p>
           <ul>
-          <li><strong>Temperatura τ</strong>: afecta la rapidez y nitidez con que se separan los grupos.</li>
-          <li><strong>Fuerza de la aumentación σ</strong>: con σ pequeña los grupos quedan más compactos; con σ grande se mezclan más.</li>
+          <li><strong>Temperatura τ</strong>: cambia cómo se pondera cada negativo en la pérdida y por tanto la rapidez y nitidez de la separación.</li>
+          <li><strong>Fuerza de la aumentación σ</strong>: controla cuán distintas son las dos vistas de cada punto.</li>
+          <li>El cursor sobre un punto de la izquierda muestra sus coordenadas y su ángulo.</li>
           </ul>`, montar: montarEntrenar },
       { titulo: 'La matriz de similitudes y la pérdida', descripcion: 'Cambie la temperatura y el tamaño del lote y mire cómo se reparte el softmax entre la pareja correcta y las demás.',
-        ayuda: String.raw`<p>Matriz de similitudes entre las parejas del lote: la diagonal son las parejas positivas y la intensidad de cada celda es su peso softmax; cada fila suma 1.</p>
+        ayuda: String.raw`<p>Matriz de similitudes: la fila Ai es la vista A del ejemplo i y la columna Bj la vista B del ejemplo j. Cada celda muestra el peso softmax de esa pareja (escala de azules; cada fila suma 1) y el recuadro verde de la diagonal marca las parejas positivas.</p>
           <ul>
-          <li><strong>Temperatura τ</strong>: con τ baja, el peso se concentra en la pareja más parecida; con τ alta se reparte entre muchas.</li>
-          <li><strong>Ejemplos en el lote</strong>: más ejemplos significan más negativos que se reparten el peso.</li>
+          <li><strong>Temperatura τ</strong>: con τ baja el peso se concentra en la pareja más parecida; con τ alta se reparte entre muchas.</li>
+          <li><strong>Ejemplos en el lote</strong>: más ejemplos significan más negativos que se reparten el peso de cada fila.</li>
           </ul>`, montar: montarMatriz },
     ],
     teoria: String.raw`

@@ -309,32 +309,37 @@
       El objetivo es cubrir toda la demanda sin exceder ninguna oferta al menor costo total. Es el ejemplo clásico de programa lineal con estructura de red: un grafo bipartito donde cada origen se conecta con cada destino.</p>
       <p>Se resuelve sin tableau completo: se construye una solución inicial barata (esquina noroeste o costo mínimo) y se mejora con potenciales, que indican si alguna ruta sin uso convendría. Si la oferta total no iguala a la demanda total, se agrega un origen o destino ficticio de costo cero para equilibrar.</p>`,
     parametros: [
-      ['Solución inicial (Fig. 1)', String.raw`Método para la asignación inicial: esquina noroeste o costo mínimo. Define el punto de partida de las mejoras.`],
-      ['Oferta frente a demanda (Fig. 1)', String.raw`Si la oferta es igual, sobra o falta respecto de la demanda. Cuando difieren se agrega un destino o un origen ficticio.`],
-      ['Nuevos datos y reproductor (Fig. 1)', String.raw`Nuevos datos sortea costos, ofertas y demandas. El reproductor avanza paso a paso, hasta el final o reinicia.`],
-      ['Un clic en un arco o celda (Fig. 2)', String.raw`La cantidad de unidades que suma cada clic.`],
-      ['Mostrar la solución óptima (Fig. 2)', String.raw`Superpone la solución óptima para compararla con la suya.`],
-      ['Esquina noroeste, Costo mínimo, Poner el óptimo, Vaciar y Nuevos datos (Fig. 2)', String.raw`Cargan un plan inicial por cada método, el óptimo o ninguno, o sortean otros datos.`],
+      ['Solución inicial (Fig. 1)', String.raw`Método para la asignación inicial: esquina noroeste o costo mínimo. Define el punto de partida de las mejoras. Reinicia la animación.`],
+      ['Oferta frente a demanda (Fig. 1)', String.raw`Iguales, sobra oferta (destino ficticio) o falta oferta (origen ficticio). Cuando la oferta total difiere de la demanda total se agrega una columna o fila ficticia de costo 0. Regenera los datos con esa opción.`],
+      ['Reproducir, Un paso, Hasta el final, Reiniciar y Velocidad (Fig. 1)', String.raw`Controlan la animación: primero las asignaciones iniciales, luego cada iteración de mejora (celda entrante, ciclo y cambio). Reproducir o pausar, avanzar un paso, saltar al final, volver a la tabla vacía y ajustar la rapidez (empieza en 0, detenida).`],
+      ['Nuevos datos (Fig. 1)', String.raw`Sortea otros costos, ofertas y demandas (3 orígenes y 4 destinos) y reinicia la animación.`],
+      ['Un clic en un arco o celda (Fig. 2)', String.raw`Cuántas unidades cambia cada clic: suma 5, suma 1 o resta 1. El envío no baja de 0.`],
+      ['Mostrar la solución óptima (Fig. 2)', String.raw`Superpone, como líneas verdes discontinuas, los envíos de la solución óptima para compararlos con los suyos.`],
+      ['Esquina noroeste y Costo mínimo (Fig. 2)', String.raw`Cargan el plan inicial que da cada método, reemplazando el actual.`],
+      ['Poner el óptimo (Fig. 2)', String.raw`Carga la solución óptima como su plan.`],
+      ['Vaciar (Fig. 2)', String.raw`Pone todos los envíos en cero.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otros costos, ofertas y demandas (con oferta igual a demanda) y vacía el plan.`],
     ],
     visualizaciones: [
       {
         titulo: 'Solución inicial y mejora paso a paso',
         descripcion: 'Elija esquina noroeste o costo mínimo y avance: primero se asignan las celdas básicas y luego, mientras haya costos reducidos negativos, una celda entra y se compensa a lo largo de un ciclo. Compare el costo inicial con el final, y pruebe el caso con destino ficticio.',
-        ayuda: String.raw`<p>Es la tabla de costos con celdas asignadas. Se distinguen la celda recién asignada, la entrante (costo reducido más negativo), las del ciclo con θ sumado o restado y la que sale.</p>
+        ayuda: String.raw`<p>Es la tabla de transporte: cada celda muestra el costo unitario (gris pequeño) y la cantidad enviada (negrita); las celdas vacías muestran su costo reducido d (rojo si es negativo) y la tabla incluye los potenciales u y v. Colores de fondo: amarillo (C.s4) la celda recién asignada, naranja (C.s2) la entrante (costo reducido más negativo), verde (C.s6) las del ciclo a las que se suma θ (+), rojo (C.s8) las del ciclo a las que se resta θ (−) y, con borde violeta (C.s7), la celda que sale.</p>
           <ul>
           <li><strong>Solución inicial</strong>: cambia las celdas de partida y el número de mejoras.</li>
-          <li><strong>Oferta frente a demanda</strong>: agrega una fila o columna ficticia.</li>
-          <li>El costo total baja en cada ciclo hasta que no quedan costos reducidos negativos.</li>
+          <li><strong>Oferta frente a demanda</strong>: agrega una fila o columna ficticia a la tabla.</li>
+          <li>El costo total baja en cada ciclo hasta que no quedan costos reducidos negativos; las lecturas lo comparan con el costo óptimo.</li>
           </ul>`,
         montar: montarMejora,
       },
       {
         titulo: 'Pruebe sus propios envíos',
         descripcion: 'Distribuya las unidades haciendo clic en arcos o celdas hasta cubrir cada oferta y demanda. Compare con la solución óptima (discontinua verde) y vea la brecha de costo.',
-        ayuda: String.raw`<p>Orígenes y destinos unidos por arcos de envío con grosor igual a la cantidad. El plan óptimo se muestra discontinuo; los nodos se distinguen como cubiertos exactamente o excedidos.</p>
+        ayuda: String.raw`<p>A la izquierda los orígenes O y a la derecha los destinos D, unidos por arcos de envío azules (C.s1) cuyo grosor y número indican la cantidad. El plan óptimo, si se muestra, va en líneas verdes (C.s6) discontinuas. Sobre cada nodo se indica lo enviado y su límite: verde si queda cubierto exactamente, rojo si se excede, y sin relleno si falta. Debajo, la tabla con los mismos envíos.</p>
           <ul>
-          <li><strong>Un clic en un arco o celda</strong>: cambia las unidades en el arco; los nodos pasan a excedidos o cubiertos.</li>
-          <li><strong>Mostrar la solución óptima</strong>: la diferencia de costo con su plan es la brecha.</li>
+          <li><strong>Un clic en un arco o celda</strong>: cambia las unidades de ese envío; los nodos pasan a excedidos o cubiertos.</li>
+          <li><strong>Mostrar la solución óptima</strong>: la diferencia de costo con su plan es la brecha, que se informa solo si el plan es factible.</li>
+          <li>Pasar el cursor sobre un arco muestra su costo unitario, su envío y el envío óptimo.</li>
           </ul>`,
         montar: montarPlan,
       },

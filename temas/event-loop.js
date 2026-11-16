@@ -150,24 +150,25 @@
       El truco es el <strong>bucle de eventos</strong> (<em>event loop</em>): una rutina que, cuando la pila de llamadas queda vacía, toma el siguiente trabajo pendiente de unas colas.</p>
       <p>Hay dos colas con prioridad distinta: las <em>microtareas</em> (callbacks de promesas) y las <em>tareas</em> o macrotareas (timers, eventos de entrada). Entender su orden explica resultados que parecen «al revés».</p>`,
     parametros: [
-      ['Programa (Fig. 1)', String.raw`El fragmento de código cuya ejecución se simula. Cada programa mezcla código síncrono, promesas y temporizadores para ver en qué orden los atiende el bucle de eventos.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza la simulación paso a paso o sola; Reiniciar vuelve al inicio del programa elegido.`],
-      ['Duración del cálculo pesado (Fig. 2)', String.raw`Cuántos milisegundos mantiene ocupado el hilo principal un cálculo largo. Mientras dura, ningún clic puede atenderse.`],
-      ['Dividirlo en trozos de 50 ms (Fig. 2)', String.raw`Reparte el mismo cálculo en tramos cortos que ceden el hilo entre uno y otro, de modo que los clics pendientes se atienden en los huecos.`],
-      ['Otros clics (Fig. 2)', String.raw`Genera otra secuencia de clics de ejemplo para comprobar que el efecto no depende de un caso particular.`],
+      ['Programa (Fig. 1)', String.raw`Selector con tres programas: «Orden básico», «Microtareas encadenadas» y «Timeout dentro de promesa». Cada uno mezcla console.log, setTimeout y callbacks de promesas, y su código aparece sobre la figura con la línea actual resaltada. Al cambiarlo, la simulación vuelve al inicio.`],
+      ['Reproductor (Fig. 1)', String.raw`Controla los pasos: «Velocidad», «Reproducir»/«Pausar», «Un paso», «Hasta el final» y «Reiniciar». Cada paso es una instantánea de la pila y las colas.`],
+      ['Duración del cálculo pesado (Fig. 2)', String.raw`Milisegundos (0 a 2 000, de 50 en 50) que el cálculo ocupa el hilo principal. Empieza en t = 300 ms; mientras corre, ningún clic puede atenderse.`],
+      ['dividirlo en trozos de 50 ms (cediendo el hilo) (Fig. 2)', String.raw`Casilla. Si está marcada, el mismo cálculo se parte en tramos de 50 ms y los clics pendientes se atienden entre un tramo y otro.`],
+      ['Otros clics (Fig. 2)', String.raw`Botón que cambia la semilla y coloca otros seis clics en instantes aleatorios entre 0 y 2 800 ms.`],
     ],
     visualizaciones: [
       { titulo: 'Pila, microtareas y tareas', descripcion: 'Avance paso a paso por tres programas y prediga el orden de la consola antes de verlo; fíjese en cuándo se vacían las microtareas.',
-        ayuda: String.raw`<p>Cuatro zonas coloreadas: la pila de llamadas (azul) con la función en ejecución, las microtareas (violeta) con los callbacks de promesas, las tareas (amarillo de la leyenda: timers y eventos) y la consola (la salida impresa hasta ese paso).</p>
+        ayuda: String.raw`<p>Cuatro recuadros: la pila de llamadas (azul), las microtareas (violeta), la cola de tareas con los timers (amarillo) y la consola (verde) con lo impreso hasta ese paso; cada uno muestra hasta cinco elementos. Sobre la figura está el código del programa y bajo ella, la explicación del paso; las lecturas dan el paso, las microtareas y tareas en cola y la salida.</p>
           <ul>
-          <li><strong>Programa</strong>: cambia el código simulado; compare en qué orden aparece cada línea en la consola.</li>
-          <li>Al avanzar, fíjese en que las microtareas se vacían por completo antes de pasar a la siguiente tarea: por eso una promesa imprime antes que un <code>setTimeout</code> de 0 ms.</li>
+          <li><strong>Programa</strong>: cambia el código simulado; compare el orden en que aparece cada línea en la consola.</li>
+          <li><strong>Reproductor</strong>: al avanzar, las microtareas se vacían por completo antes de pasar a la siguiente tarea; por eso una promesa imprime antes que un <code>setTimeout</code> de 0 ms.</li>
           </ul>`, montar: montarBucle },
       { titulo: 'Un cálculo largo bloquea la interfaz', descripcion: 'Suba la duración del cálculo y mire cuánto esperan los clics; luego divídalo en trozos que ceden el hilo.',
-        ayuda: String.raw`<p>Línea de tiempo del hilo principal: la barra del cálculo pesado, los clics atendidos y la espera de cada clic (latencia) desde que ocurre hasta que se atiende.</p>
+        ayuda: String.raw`<p>Línea de tiempo de 0 a 3 000 ms. La fila «hilo principal» muestra el cálculo pesado (rojo) y la atención a cada clic (azul, 20 ms). La fila inferior marca cada clic con una línea naranja y, hacia la derecha, una barra naranja con su espera hasta que se atiende. Pasar el cursor sobre un bloque del hilo da sus tiempos.</p>
           <ul>
-          <li><strong>Duración del cálculo pesado</strong>: alarga la barra de cálculo y, con ella, la latencia de los clics que caen dentro; con 0 ms no hay espera.</li>
-          <li><strong>Dividirlo en trozos de 50 ms</strong>: la barra se corta en tramos y los clics se atienden entre ellos, de modo que la espera máxima baja a unos 50 ms aunque el trabajo total sea el mismo.</li>
+          <li><strong>Duración del cálculo pesado</strong>: alarga la barra roja y con ella la espera de los clics que caen dentro; con 0 ms no hay cálculo.</li>
+          <li><strong>Dividirlo en trozos de 50 ms</strong>: la barra roja se corta en tramos y los clics se atienden entre ellos, con una espera máxima de pocas decenas de ms aunque el trabajo total sea el mismo.</li>
+          <li><strong>Lecturas</strong>: espera máxima, espera media y cómo se divide el cálculo.</li>
           </ul>`, montar: montarBloqueo },
     ],
     teoria: String.raw`

@@ -247,20 +247,21 @@
       <strong>Chang–Roberts</strong> (1979) es más económico: cada nodo deja pasar solo identificadores mayores que el suyo, así que los
       mensajes de los candidatos débiles mueren pronto y solo el del máximo completa la vuelta.</p>`,
     parametros: [
-      ['Nodos (Fig. 1)', String.raw`Cantidad de nodos del anillo, cada uno con un identificador.`],
-      ['Algoritmo (Fig. 1)', String.raw`Chang–Roberts descarta mensajes con id menor que el del nodo que los recibe; el anillo con lista acumula todos los ids antes de decidir.`],
-      ['Todos inician (Fig. 1)', String.raw`Hace que todos los nodos lancen una elección. Pone a prueba cuántos mensajes sobreviven.`],
-      ['Nuevos ids y reproductor (Fig. 1)', String.raw`Nuevos ids reordena los identificadores; el reproductor avanza o reinicia.`],
-      ['Otras permutaciones al azar (Fig. 2)', String.raw`Sortea nuevos órdenes de ids para la serie al azar.`],
+      ['Nodos (Fig. 1)', String.raw`Deslizador de 3 a 12 nodos del anillo; cada uno recibe un identificador distinto entre 1 y 99. Al cambiarlo, queda solo P1 como iniciador.`],
+      ['Algoritmo (Fig. 1)', String.raw`Selector con dos opciones: «Chang–Roberts» (cada nodo reenvía solo ids mayores que el suyo y descarta los menores) y «Anillo con lista» (cada mensaje da la vuelta anotando todos los ids y el que regresa decide el máximo).`],
+      ['Todos inician (Fig. 1)', String.raw`Casilla: si está marcada, los n nodos lanzan una elección a la vez; si no, inician solo los nodos marcados con clic.`],
+      ['Iniciadores por clic y Nuevos ids (Fig. 1)', String.raw`Un clic en un nodo lo agrega o quita de los iniciadores (siempre queda al menos uno). Nuevos ids sortea otra asignación de identificadores.`],
+      ['Controles de reproducción (Fig. 1)', String.raw`Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar: en cada paso todos los mensajes avanzan un enlace.`],
+      ['Otras permutaciones al azar (Fig. 2)', String.raw`Sortea nuevas permutaciones de ids para la curva «Chang–Roberts, ids al azar» (promedio de 20 por cada n). La Fig. 2 no tiene otros controles; el cursor sobre la gráfica muestra los valores.`],
     ],
     visualizaciones: [
       {
         titulo: 'Elección en el anillo',
         descripcion: 'Avance paso a paso: en cada paso todos los mensajes cruzan un enlace. Compare los dos algoritmos con «Todos inician» marcado y observe cuántos mensajes de Chang–Roberts mueren en el primer salto.',
-        ayuda: String.raw`<p>Los nodos forman un anillo. Las flechas naranja son mensajes de elección y las verdes, el anuncio del líder. Un nodo amarillo es participante y uno azul, iniciador.</p>
+        ayuda: String.raw`<p>Los nodos forman un anillo y cada uno muestra su id; los mensajes giran en sentido horario. Las flechas naranja son mensajes de elección (con el id o la lista que llevan) y las verdes, el anuncio del líder. Relleno amarillo: participante; verde: líder; gris claro: ya conoce al líder; blanco: aún sin participar. Un anillo azul rodea a los iniciadores.</p>
           <ul>
-          <li><strong>Algoritmo</strong>: en Chang–Roberts muchos mensajes mueren al llegar a un nodo con id mayor; en el anillo con lista casi todos circulan la vuelta completa.</li>
-          <li><strong>Todos inician</strong>: con Chang–Roberts hay mensajes que mueren en el primer salto y gana el id mayor.</li>
+          <li><strong>Algoritmo</strong>: en Chang–Roberts muchos mensajes mueren al llegar a un nodo con id mayor; en el anillo con lista todos circulan la vuelta completa.</li>
+          <li><strong>Todos inician</strong>: con Chang–Roberts hay mensajes descartados desde el primer salto y solo el del id mayor da la vuelta.</li>
           <li><strong>Nuevos ids</strong>: el orden de los ids cambia el número de mensajes.</li>
           </ul>`,
         montar: montarAnillo,
@@ -268,10 +269,10 @@
       {
         titulo: 'Mensajes según el orden de los ids',
         descripcion: 'Con Chang–Roberts el costo depende de cómo están ordenados los identificadores: cuadrático en el peor caso y \\(O(n \\log n)\\) en promedio.',
-        ayuda: String.raw`<p>Eje horizontal: nodos n; vertical: mensajes. Cada curva es un caso: anillo con lista \(2n^2\) (azul), Chang–Roberts con ids decrecientes (naranja), al azar (aguamarina) y crecientes (amarillo).</p>
+        ayuda: String.raw`<p>Eje horizontal: nodos n (de 2 a 40, de 2 en 2); vertical: mensajes totales, incluidos los n del anuncio final, con todos los nodos iniciando. Curvas: anillo con lista \(2n^2\) (azul), Chang–Roberts con ids decrecientes (naranja), con ids al azar (aguamarina) y con ids crecientes (amarillo).</p>
           <ul>
-          <li><strong>Otras permutaciones al azar</strong>: mueve solo la curva aguamarina, que queda entre las dos extremas.</li>
-          <li>La naranja crece como \(n^2\) y la amarilla, linealmente.</li>
+          <li><strong>Otras permutaciones al azar</strong>: solo mueve la curva aguamarina, que queda entre las dos extremas.</li>
+          <li>La naranja crece como \(n^2/2\) y la amarilla, linealmente (\(3n-1\)).</li>
           </ul>`,
         montar: montarCosto,
       },

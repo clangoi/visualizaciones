@@ -107,26 +107,28 @@
       <p>Una gramática puede tener <strong>símbolos inútiles</strong>: variables que nunca aparecen en la derivación de una palabra. Unas son <em>improductivas</em> (no pueden terminar nunca, como \(C \to aCb\) sin otra regla) y otras <em>inalcanzables</em> (no se pueden obtener desde el símbolo inicial). Sacarlas no cambia el lenguaje y hace la gramática más pequeña y fácil de analizar.</p>
       <p>Se detectan con dos cálculos de «punto fijo» muy parecidos a una búsqueda en un grafo, y deben aplicarse en el orden correcto.</p>`,
     parametros: [
-      ['Gramática y O escriba la suya (Fig. 1 y 2)', String.raw`La gramática que se simplifica. De sus reglas depende qué variables son productivas, alcanzables o inútiles.`],
-      ['Reproductor (Fig. 1)', String.raw`Cada ronda agrega las variables que ya se pueden demostrar productivas o alcanzables.`],
+      ['Gramática (Fig. 1 y 2)', String.raw`Selector con cuatro gramáticas de ejemplo (en la Fig. 1: «Un ciclo improductivo y una variable inalcanzable», «S → AB | a (B improductiva)», «Cadena de variables» y «Ya está simplificada»; la Fig. 2 parte de la segunda). Elegir una reemplaza el texto del campo y reinicia la figura.`],
+      ['O escriba la suya (reglas separadas por ;) (Fig. 1 y 2)', String.raw`Campo de texto con las reglas de la gramática, escritas con «->» y separadas por «;» (por ejemplo, S -> aS | A; A -> a). Se aplica al salir del campo o al pulsar Enter; si la gramática tiene un error, la figura muestra el mensaje en lugar de dibujar.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza la simulación un paso por vez: primero las rondas de variables productivas, luego la eliminación de las improductivas, después las rondas de alcanzables y por último el resultado. Cambiar la gramática reinicia el recorrido.`],
     ],
     visualizaciones: [
       {
         titulo: 'Productivas y alcanzables, ronda a ronda',
         descripcion: 'Avance paso a paso: en cada ronda se agregan las variables que ya se pueden demostrar productivas (o alcanzables). Cambie la gramática y observe qué se elimina.',
-        ayuda: String.raw`<p>Las variables aparecen como fichas: verdes si ya son productivas o alcanzables, neutras si aún no se sabe y rojas si son inútiles y se eliminan. Debajo se lista la gramática en este paso.</p>
+        ayuda: String.raw`<p>Cada variable de la gramática es una ficha redonda. Verde: ya demostrada productiva (primera fase) o alcanzable (segunda fase). Gris neutro: aún no se sabe. Rojo: inútil, se elimina. Bajo las fichas, una lista de texto muestra las reglas de la gramática en ese paso (con menos reglas a medida que se eliminan variables), y el registro describe la ronda actual.</p>
           <ul>
-          <li><strong>Reproductor</strong>: una variable pasa a verde cuando una de sus reglas solo usa terminales o variables ya demostradas.</li>
-          <li><strong>Gramática</strong>: otra gramática cambia qué variables quedan sin demostrar y se eliminan.</li>
+          <li><strong>Reproductor</strong>: en cada ronda de productivas se pintan de verde las variables con alguna regla cuyo lado derecho solo tiene terminales o variables ya verdes; luego las improductivas pasan a rojo, y en la fase de alcanzables se parte del símbolo inicial y se agregan las variables que aparecen en reglas de las ya alcanzadas.</li>
+          <li><strong>Gramática / O escriba la suya</strong>: cambia qué variables quedan sin demostrar (rojas) y cuáles sobreviven; la lectura cuenta variables, reglas antes y después, improductivas e inalcanzables.</li>
           </ul>`,
         montar: montarAlgoritmo,
       },
       {
         titulo: 'El orden importa',
         descripcion: 'Compare los dos órdenes posibles de eliminación. Con S → AB | a, empezar por lo inalcanzable deja una variable inútil (A).',
-        ayuda: String.raw`<p>Dos listas de texto comparan los resultados de los dos órdenes de eliminación; los símbolos inútiles que quedan se marcan en rojo.</p>
+        ayuda: String.raw`<p>Dos columnas de texto con las reglas que quedan tras aplicar las dos eliminaciones en distinto orden: a la izquierda, primero improductivas y luego inalcanzables; a la derecha, el orden inverso. Las reglas de una variable que no debería sobrevivir se escriben en rojo, y bajo cada lista se indica qué símbolos inútiles quedan.</p>
           <ul>
-          <li><strong>Gramática</strong>: con S → AB | a, empezar por lo inalcanzable deja una variable inútil (A); el orden correcto la elimina.</li>
+          <li><strong>Gramática / O escriba la suya</strong>: con S → AB | a, el orden inverso deja la variable A, que ya es inútil, porque al quitar la improductiva B, A se vuelve inalcanzable cuando ya no se revisa; el orden correcto no deja ninguna.</li>
+          <li>El registro indica si ambos órdenes coinciden para la gramática elegida; la lectura compara cuántas variables quedan en cada orden.</li>
           </ul>`,
         montar: montarOrden,
       },

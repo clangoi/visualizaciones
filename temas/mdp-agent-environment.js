@@ -111,26 +111,28 @@
       <p>En el <strong>aprendizaje por refuerzo</strong> no hay respuestas correctas dadas: un <strong>agente</strong> actúa en un <strong>entorno</strong> y solo recibe una señal de <strong>recompensa</strong>. En cada paso el agente observa un <strong>estado</strong>, elige una <strong>acción</strong>, el entorno le devuelve una recompensa y pasa a otro estado. El objetivo es acumular la mayor recompensa posible a lo largo del tiempo.</p>
       <p>El marco matemático es el <strong>proceso de decisión de Markov</strong> (MDP): el siguiente estado y la recompensa dependen solo del estado y la acción actuales. La <strong>política</strong> \(\pi\) es la regla con que el agente elige acciones.</p>`,
     parametros: [
-      ['Entorno (Fig. 1 y 2)', String.raw`El mapa en el que vive el agente: Pequeño, Pasillo con muros o Trampas. Cambia dónde están la meta y las trampas y, con ello, qué recorridos dan recompensa.`],
-      ['Política del agente / Política (Fig. 1 y 2)', String.raw`La regla con que el agente elige acciones: al azar, la óptima calculada con el modelo o siempre a la derecha y luego abajo. Una mejor política obtiene retornos mayores.`],
-      ['Probabilidad de resbalar (Fig. 1 y 2)', String.raw`Probabilidad de que la acción elegida no se cumpla y el agente se mueva a otro lugar. Subirla hace el entorno más incierto: el mismo plan da resultados distintos.`],
-      ['Descuento γ (Fig. 1 y 2)', String.raw`Cuánto pesa el futuro: la recompensa obtenida en el paso t se multiplica por \(\gamma^t\). Con γ bajo solo importan las recompensas cercanas.`],
-      ['Otro episodio y reproductor (Fig. 1)', String.raw`Otro episodio cambia la semilla del azar para ver un recorrido distinto; el reproductor avanza o reinicia el episodio actual.`],
+      ['Entorno (Fig. 1 y 2)', String.raw`El mapa de casillas: «Pequeño (4×4)», «Pasillo con muros» o «Trampas». Cambia la posición de los muros, de la meta (+1) y de las trampas (−1), y con ello qué recorridos dan recompensa. En la Fig. 1 reinicia el episodio; en la Fig. 2 vuelve a simular los 600 episodios.`],
+      ['Política del agente / Política (Fig. 1 y 2)', String.raw`La regla con que el agente elige acciones: «Al azar», «Óptima (calculada con el modelo)» (usa el γ y la probabilidad de resbalar elegidos) o «Siempre a la derecha, luego abajo» (si la casilla de la derecha está bloqueada, baja). Una mejor política obtiene retornos mayores.`],
+      ['Probabilidad de resbalar (Fig. 1 y 2)', String.raw`De 0 a 0,6. Probabilidad de que la acción elegida no se cumpla y el agente acabe en otra casilla. Subirla hace el entorno más incierto: el mismo plan da resultados distintos.`],
+      ['Descuento γ (Fig. 1 y 2)', String.raw`De 0,5 a 0,99. La recompensa recibida en el paso t se multiplica por \(\gamma^t\) al sumarla al retorno. Con γ bajo solo importan las recompensas cercanas; también modifica la política «Óptima», que se recalcula con ese γ.`],
+      ['Otro episodio y reproductor (Fig. 1)', String.raw`«Otro episodio» cambia la semilla del azar y reinicia, para ver un recorrido distinto con los mismos ajustes. El reproductor avanza el episodio paso a paso, lo reproduce solo o lo reinicia. Cualquier cambio de selector o deslizador también lo reinicia.`],
     ],
     visualizaciones: [
       { titulo: 'El ciclo estado–acción–recompensa', descripcion: 'Avance paso a paso con distintas políticas y probabilidad de resbalar. Mire cómo la recompensa se descuenta con \\(\\gamma^t\\).',
-        ayuda: String.raw`<p>Es el mapa de casillas: el punto negro es el agente, el cuadro verde la meta (+1) y el cuadro rojo la trampa (−1); la línea es el recorrido hecho. Debajo, el registro anota cada paso (estado, acción, recompensa).</p>
+        ayuda: String.raw`<p>Es el mapa de casillas: las casillas negras son muros, la verde es la meta (+1) y la roja la trampa (−1); la casilla «inicio» está rotulada. El punto negro es el agente y la línea naranja es el recorrido hecho. Las flechas negras de cada casilla muestran las acciones que la política puede elegir allí (más largas cuanto más probables). Junto al mapa, una tabla lista los últimos pasos (t, casilla, acción, recompensa y \(\gamma^{t-1}\)); las filas en naranja son pasos en que el agente resbaló. Debajo, el registro describe el último paso y la lectura da pasos, retorno sin descontar, retorno descontado G, política y resbalones. Un episodio termina al llegar a la meta o a una trampa, o a los 60 pasos.</p>
           <ul>
-          <li><strong>Política del agente</strong>: «Al azar» da recorridos largos y erráticos; «Óptima» va casi directo a la meta.</li>
-          <li><strong>Probabilidad de resbalar</strong>: con valores altos el recorrido se desvía de lo que la política ordena, incluso con la óptima.</li>
-          <li><strong>Descuento γ</strong>: no cambia el recorrido, sino cuánto vale la recompensa final en el retorno: más pasos, menos valor.</li>
+          <li><strong>Política del agente</strong>: «Al azar» muestra cuatro flechas por casilla y da recorridos largos y erráticos; «Óptima» muestra una flecha (o más si hay empate) hacia la meta; «Siempre a la derecha, luego abajo» sigue un camino fijo que puede chocar con muros.</li>
+          <li><strong>Probabilidad de resbalar</strong>: con valores altos algunos pasos se desvían de lo que la política ordena (filas naranja en la tabla), incluso con la óptima.</li>
+          <li><strong>Descuento γ</strong>: no cambia el mapa, pero sí el retorno descontado G: cuantos más pasos, menos vale la recompensa final. También puede cambiar las flechas de la política óptima.</li>
+          <li><strong>Otro episodio / reproductor</strong>: cambia la semilla o avanza un paso a la vez el episodio actual.</li>
           </ul>`, montar: montarCiclo },
       { titulo: 'El retorno varía; su promedio es el valor', descripcion: 'Simule 600 episodios y compare el histograma de retornos con el valor exacto del estado inicial.',
-        ayuda: String.raw`<p>El histograma cuenta cuántos de los 600 episodios terminaron con cada retorno descontado G. La marca del promedio estima el valor del estado inicial y la del valor exacto \(V(\text{inicio})\) viene de programación dinámica.</p>
+        ayuda: String.raw`<p>El histograma (24 barras) cuenta cuántos de los 600 episodios terminaron con cada retorno descontado G (eje horizontal: retorno descontado G; eje vertical: episodios). La línea naranja discontinua marca el promedio de los retornos, que estima el valor del estado inicial, y la verde discontinua el valor exacto \(V(\text{inicio})\) calculado por programación dinámica (en la política óptima) o por barridos de Bellman (en las otras). Al pasar el cursor sobre una barra esta se resalta en naranja. El registro y la lectura resumen el retorno medio, el valor exacto, el porcentaje de episodios que llegan a la meta y los pasos medios.</p>
           <ul>
-          <li><strong>Política</strong>: la óptima concentra los retornos en valores altos; al azar los reparte y baja el promedio.</li>
-          <li><strong>Probabilidad de resbalar</strong>: ensancha el histograma, es decir, aumenta la variabilidad del retorno.</li>
-          <li><strong>Descuento γ</strong>: desplaza los retornos hacia cero al bajar γ; el promedio sigue acercándose al valor exacto.</li>
+          <li><strong>Entorno</strong>: cambia las posibles recompensas (meta +1, trampas −1) y por tanto dónde caen los retornos.</li>
+          <li><strong>Política</strong>: la óptima concentra los retornos cerca de los valores altos; al azar los reparte y baja el promedio.</li>
+          <li><strong>Probabilidad de resbalar</strong>: suele ensanchar el histograma, es decir, aumenta la variabilidad del retorno.</li>
+          <li><strong>Descuento γ</strong>: reduce el valor de los retornos obtenidos tras muchos pasos; el promedio se mantiene cerca del valor exacto.</li>
           </ul>`, montar: montarRetornos },
     ],
     teoria: String.raw`

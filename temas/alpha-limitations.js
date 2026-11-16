@@ -241,29 +241,31 @@
       <p>Entender cada fallo ayuda a elegir después el algoritmo adecuado: casi todas las ideas del <a href="tema.html?id=heuristic-miner">minero heurístico</a> y del
       <a href="tema.html?id=inductive-miner">minero inductivo</a> existen para evitar estos problemas.</p>`,
     parametros: [
-      ['Caso (Fig. 1 y 2)', String.raw`El ejemplo donde α falla (bucles, dependencia a distancia, actividad opcional, etc.). Cada uno tiene su registro y su red.`],
-      ['Variante a reproducir y Evento reproducido (Fig. 1)', String.raw`La variante del registro que se reproduce en la red y el evento hasta el que se avanza.`],
-      ['Longitud máxima de traza (Fig. 2)', String.raw`Largo máximo de las trazas que se comparan.`],
-      ['Probar con otro caso (Fig. 2)', String.raw`Salta a otro de los casos.`],
+      ['Caso (Fig. 1 y 2)', String.raw`El ejemplo donde α falla: Bucle de longitud 1, Bucle de longitud 2, Dependencia a distancia, Actividad opcional (invisible) o Actividad que aparece dos veces. Cada caso tiene su registro fijo y la red que α descubre de él. Cada figura tiene su propio selector.`],
+      ['Variante a reproducir (Fig. 1)', String.raw`Elige una de las variantes del registro del caso (se muestra la traza y cuántas veces aparece). Reinicia el evento reproducido.`],
+      ['Evento reproducido (Fig. 1)', String.raw`El evento de la variante hasta el que se avanza (0 es el marcado inicial). Mueve las fichas en la red y marca dónde falta una.`],
+      ['Longitud máxima de traza (Fig. 2)', String.raw`Largo máximo (3 a 9) de las trazas que se cuentan al comparar la red con el registro.`],
+      ['Probar con otro caso (Fig. 2)', String.raw`Pasa al siguiente caso de la lista, en orden circular.`],
     ],
     visualizaciones: [
       {
         titulo: 'Cinco casos donde α falla',
         descripcion: 'Elija un caso y reproduzca sus variantes sobre la red que descubre α: verá exactamente dónde falta una ficha. Observe en la huella la celda roja que causa el error.',
-        ayuda: String.raw`<p>Se reproduce una variante sobre la red que descubre α. Se marca la transición que se dispara, la plaza sin ficha cuando hacía falta (ficha artificial), la plaza con ficha sobrante al terminar y las actividades sin ningún arco, que α no conectó.</p>
+        ayuda: String.raw`<p>Se reproduce una variante sobre la red de Petri que descubre α. Anillos: naranja (C.s2) en la transición que se dispara en ese evento; rojo (C.s8) en la plaza donde faltaba una ficha (se crea una artificial); amarillo (C.s4) en la plaza con ficha sobrante al terminar; las actividades en gris no tienen ningún arco, porque α no las conectó. Debajo hay una tabla de huellas (→ azul, ← aguamarina, ‖ naranja; en rojo las relaciones que engañan a α), el proceso real y la razón del fallo.</p>
           <ul>
-          <li><strong>Caso</strong>: cambia la limitación que se muestra.</li>
-          <li><strong>Variante a reproducir</strong> y <strong>Evento reproducido</strong>: llevan hasta el evento donde falta una ficha.</li>
+          <li><strong>Caso</strong>: cambia la limitación que se muestra, su registro y su red.</li>
+          <li><strong>Variante a reproducir</strong> y <strong>Evento reproducido</strong>: llevan hasta el evento donde falta una ficha; al final se indican las fichas faltantes y sobrantes y el fitness.</li>
           </ul>`,
         montar: montarFallos,
       },
       {
         titulo: 'Lo que permite la red y lo que se vio',
         descripcion: 'Compare, por longitud de traza, las que están en el registro con las que acepta la red. En la dependencia a distancia aparece comportamiento extra; en la actividad opcional, una variante perdida.',
-        ayuda: String.raw`<p>El eje horizontal es la longitud de la traza y el vertical, las trazas distintas. Se comparan las que están en el registro y las que acepta la red.</p>
+        ayuda: String.raw`<p>Eje X: longitud de la traza; eje Y: número de trazas distintas de esa longitud. Tres barras por longitud: verde (C.s6) las que están en el registro y en el modelo, rojo (C.s8) las que solo permite el modelo (comportamiento extra) y naranja (C.s2) las del registro que α no reproduce. Debajo, una ficha por traza con el mismo código de colores.</p>
           <ul>
           <li><strong>Caso</strong>: en la dependencia a distancia la red acepta trazas extra; en la actividad opcional se pierde una variante vista.</li>
           <li><strong>Longitud máxima de traza</strong>: amplía el rango comparado y muestra cómo crece la diferencia.</li>
+          <li>Pasar el cursor sobre una longitud da las cuentas de cada categoría.</li>
           </ul>`,
         montar: montarComportamiento,
       },

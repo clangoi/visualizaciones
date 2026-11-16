@@ -135,22 +135,25 @@
       cuando el estado cambia, construye un árbol nuevo, lo <strong>compara</strong> con el anterior y aplica al DOM real solo las diferencias mínimas. Ese proceso se llama <strong>reconciliación</strong>.</p>
       <p>Comparar dos árboles de forma óptima es costoso, así que React usa dos heurísticas: nodos de distinto tipo producen árboles distintos, y las <code>key</code> identifican qué elemento de una lista es cuál.</p>`,
     parametros: [
-      ['Cambio en el estado (Fig. 1)', String.raw`El tipo de cambio entre el árbol anterior y el nuevo. Decide cuántos nodos se reutilizan, actualizan, crean o eliminan.`],
-      ['Cambio en la lista (Fig. 2)', String.raw`La operación que se aplica a la lista: insertar al principio, quitar el primero o invertir.`],
-      ['key (Fig. 2)', String.raw`Con qué se identifica cada elemento: un id estable o su posición en el arreglo. La identidad determina qué nodos se reutilizan.`],
+      ['Cambio en el estado (Fig. 1)', String.raw`Cinco cambios entre el árbol anterior y el nuevo: cambiar el texto del título, agregar un elemento a la lista, quitar el último, cambiar <code>&lt;ul&gt;</code> por <code>&lt;ol&gt;</code> o no cambiar nada. Decide cuántos nodos se reutilizan, actualizan, crean o eliminan.`],
+      ['Cambio en la lista (Fig. 2)', String.raw`Insertar un elemento al principio, quitar el primero o invertir el orden de una lista de cuatro elementos (A, B, C, D).`],
+      ['key (Fig. 2)', String.raw`«key = id estable» empareja los elementos por identidad; «key = índice» los empareja por posición. Cambia qué nodos se reutilizan y cuántas operaciones se hacen sobre el DOM.`],
     ],
     visualizaciones: [
       { titulo: 'Diferencias entre dos árboles', descripcion: 'Elija un cambio y vea qué nodos se reutilizan, actualizan, crean o eliminan. Cambiar el tipo de un nodo reconstruye todo su subárbol.',
-        ayuda: String.raw`<p>Se comparan el árbol anterior y el nuevo. El color de cada nodo indica su operación (reutilizado, actualizado, creado o eliminado) según la leyenda.</p>
+        ayuda: String.raw`<p>Dos árboles lado a lado (o apilados en pantallas angostas): el anterior a la izquierda y el nuevo a la derecha, con div, h1, ul con tres li y p. Los nodos sin cambio se dibujan sin color (gris); naranja se actualiza, verde se crea, rojo se elimina y violeta se vuelve a crear porque cambió el tipo. La lectura cuenta nodos, creados, eliminados y actualizados.</p>
           <ul>
-          <li><strong>Cambio en el estado</strong>: un cambio de texto o de atributo actualiza solo un nodo; cambiar el tipo de un nodo reconstruye su subárbol.</li>
+          <li><strong>Cambiar el texto del título</strong>: un solo nodo naranja; los demás se reutilizan.</li>
+          <li><strong>Agregar</strong> o <strong>quitar</strong> un elemento: un nodo verde o rojo en la lista.</li>
+          <li><strong>Cambiar ul por ol</strong>: se descarta el subárbol entero (rojo en el anterior) y se recrea (violeta en el nuevo), sin comparar sus hijos.</li>
+          <li><strong>Sin cambios</strong>: todo se reutiliza y no hay operaciones.</li>
           </ul>`, montar: montarDiff },
       { titulo: 'Listas: key por índice o por id', descripcion: 'Inserte un elemento al principio con ambas estrategias y compare cuántas operaciones necesita el DOM.',
-        ayuda: String.raw`<p>Cada elemento de la lista se marca como reutilizado, actualizado, creado, eliminado o movido, y se cuentan las operaciones sobre el DOM.</p>
+        ayuda: String.raw`<p>Dos columnas de cuadros, «antes» y «después», cada una con su <code>key</code> y su letra, unidas por una flecha. Los cuadros sin cambio son grises; naranja cambia de contenido, verde se crea, rojo se elimina y violeta se mueve (al invertir con id estable se marcan violeta los primeros). La lectura da el total de operaciones en el DOM.</p>
           <ul>
-          <li><strong>key = id estable</strong> con insertar al principio: solo se crea un nodo y los demás se reutilizan.</li>
-          <li><strong>key = índice</strong> con el mismo cambio: cada posición cambia de contenido y se actualizan casi todos los nodos.</li>
-          <li><strong>Cambio en la lista</strong>: invertir el orden muestra movimientos con id estable y actualizaciones con índice.</li>
+          <li><strong>Insertar al principio</strong> con id estable: solo el nuevo es verde; con índice, casi todos cambian de contenido (naranja) y aparece uno nuevo al final.</li>
+          <li><strong>Quitar el primero</strong>: con id solo se elimina uno; con índice se actualizan tres y se elimina el último.</li>
+          <li><strong>Invertir</strong>: con id se cuentan movimientos; con índice se actualizan los cuatro.</li>
           </ul>`, montar: montarKeys },
     ],
     teoria: String.raw`

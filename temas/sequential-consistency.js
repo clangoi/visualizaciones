@@ -311,31 +311,32 @@
       único exigido es que todos los procesos estén de acuerdo en un mismo orden. Los procesadores modernos, por eficiencia, ni siquiera
       garantizan eso.</p>`,
     parametros: [
-      ['Historia (Fig. 1)', String.raw`Qué ejemplo de operaciones de varios procesos se analiza, con lecturas y escrituras en orden de programa. Cada historia es o no explicable por un único orden total.`],
-      ['Otra al azar (Fig. 1)', String.raw`Genera una historia aleatoria para ver si admite o no un orden total.`],
-      ['Con buffers de escritura (TSO, x86) (Fig. 2)', String.raw`Activa buffers donde cada procesador guarda sus escrituras antes de hacerlas visibles. Sin ellos el sistema es secuencialmente consistente; con ellos puede dar resultados que ningún orden total explica.`],
-      ['P1 ejecuta, P2 ejecuta, Vaciar buffer de P1, Vaciar buffer de P2 (Fig. 2)', String.raw`Eligen qué paso ocurre a continuación: una instrucción de un procesador o la publicación de sus escrituras pendientes. Así se construye el intercalado a mano.`],
-      ['Al azar hasta el final y Reiniciar (Fig. 2)', String.raw`Completan la ejecución con pasos aleatorios o vuelven al inicio.`],
+      ['Historia (Fig. 1)', String.raw`Cinco opciones: «Dos escrituras vistas igual», «Dos escrituras vistas distinto», «Buffers de escritura», «Paso de mensaje» y «Al azar». Cada una es una lista de operaciones por proceso, en orden de programa; algunas admiten un único orden total y otras no. Todas las variables parten en 0.`],
+      ['Otra al azar (Fig. 1)', String.raw`Genera otra historia aleatoria de tres procesos (y fija el selector en «Al azar») para ver si admite o no un orden total.`],
+      ['Con buffers de escritura (TSO, x86) (Fig. 2)', String.raw`Casilla desmarcada por omisión. Al marcarla (o desmarcarla) se reinicia la ejecución. Con buffers, cada escritura queda primero en el buffer de su procesador y solo se publica en la memoria al vaciarlo; sin ellos, cada escritura va directa a la memoria y el sistema es secuencialmente consistente.`],
+      ['P1 ejecuta, P2 ejecuta, Vaciar buffer de P1, Vaciar buffer de P2 (Fig. 2)', String.raw`Eligen qué paso ocurre a continuación. «P1 ejecuta» y «P2 ejecuta» corren la siguiente instrucción de ese procesador (x ← 1 y luego r1 ← y, o y ← 1 y luego r2 ← x). «Vaciar buffer» publica en la memoria la escritura más antigua pendiente de ese procesador; solo tiene efecto con buffers y si hay algo pendiente (si no, el registro lo avisa).`],
+      ['Al azar hasta el final y Reiniciar (Fig. 2)', String.raw`«Al azar hasta el final» completa la ejecución con pasos aleatorios (incluido vaciar buffers); «Reiniciar» vuelve al estado inicial, con las variables en 0.`],
     ],
     visualizaciones: [
       {
         titulo: 'Buscar un orden total',
         descripcion: 'Cada fila es un proceso y sus operaciones en orden de programa; el número tras el punto es la posición en el orden total encontrado. Cambie el valor de una lectura y observe cuándo deja de existir un orden.',
-        ayuda: String.raw`<p>Cada fila es un proceso con sus operaciones en orden de programa; los números indican la posición en el orden total hallado. Las lecturas se pueden cambiar con un clic. Abajo, el grafo de orden muestra las precedencias, y un ciclo implica que no existe orden total.</p>
+        ayuda: String.raw`<p>Cada fila es un proceso (P1, P2, …) con sus operaciones como cajas a lo largo del tiempo, en orden de programa; el color de las cajas identifica al proceso. Las escrituras W(x)v llevan relleno tenue y las lecturas R(x)v son cajas blancas, que se pueden cambiar con un clic (recorren los valores escritos para esa variable). Si existe un orden total válido, cada caja lleva al final «·k», su posición en él, y debajo se lista «Orden total:» con las operaciones en ese orden; si no, dice «no existe ningún orden total válido». La lectura indica si la historia es secuencial y causal, cuántas intercalaciones respetan el orden de programa y cuántas son legales (cada lectura devuelve la última escritura anterior).</p>
           <ul>
-          <li><strong>Historia</strong>: pruebe las que la nota marca como imposibles; no hay orden total porque dos procesos exigen órdenes opuestos.</li>
-          <li>Cambiar el valor de una lectura rompe o restablece el orden total.</li>
+          <li><strong>Historia</strong>: «Dos escrituras vistas igual» tiene orden total; «Dos escrituras vistas distinto», «Buffers de escritura» y «Paso de mensaje» no, y la nota explica por qué.</li>
+          <li><strong>Clic en una lectura</strong>: cambia el valor devuelto; rompe o restablece el orden total.</li>
+          <li><strong>Otra al azar</strong>: la historia aleatoria puede o no ser secuencialmente consistente.</li>
           </ul>`,
         montar: montarHistoria,
       },
       {
         titulo: 'La prueba de buffers de escritura',
         descripcion: 'Dos procesadores escriben su variable y leen la del otro. Sin buffers, el resultado (0, 0) es imposible; con buffers de escritura, como en x86, aparece.',
-        ayuda: String.raw`<p>Dos procesadores (P1 y P2) escriben su propia variable y leen la del otro. Las escrituras en un buffer son invisibles para el otro procesador hasta que se vacía.</p>
+        ayuda: String.raw`<p>A la izquierda el procesador P1 (borde azul) y a la derecha P2 (borde naranja), con sus dos instrucciones (marcadas con ▸ la siguiente y ✓ las hechas), el registro r1 o r2 y, con buffers, el contenido de su buffer de escritura (cajas amarillas, escrituras aún invisibles para el otro). En el centro, la memoria compartida con x e y. Debajo, una tabla de los cuatro resultados (r1, r2) con cuántas ejecuciones los alcanzan y si la consistencia secuencial los permite; la fila del resultado final se resalta, y el rojo marca los alcanzables solo con buffers. La lectura da r1, r2, el número de ejecuciones posibles y el modelo.</p>
           <ul>
-          <li><strong>Con buffers de escritura</strong> desactivado: el resultado (0, 0) nunca aparece.</li>
-          <li><strong>Con buffers de escritura</strong> activado: si ambos leen antes de vaciar sus buffers, el resultado es (0, 0).</li>
-          <li><strong>Vaciar buffer</strong>: hace visible la escritura de ese procesador.</li>
+          <li><strong>Con buffers de escritura</strong> desactivado: el resultado (0, 0) figura como imposible.</li>
+          <li><strong>Con buffers de escritura</strong> activado: si ambos leen antes de vaciar sus buffers, el resultado es (0, 0), que ningún orden total explica; la tabla lo marca como no secuencialmente consistente.</li>
+          <li><strong>Botones de paso</strong>: permiten armar a mano el intercalado; una lectura toma primero el valor de la propia escritura pendiente del procesador, si la hay.</li>
           </ul>`,
         montar: montarTSO,
       },

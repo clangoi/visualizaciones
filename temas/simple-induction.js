@@ -115,27 +115,29 @@
       <p>La imagen clásica es una fila de fichas de dominó: si se empuja la primera y cada ficha derriba a la siguiente, caen todas.
       Cada una de las dos condiciones es indispensable.</p>`,
     parametros: [
-      ['Caso base: P(0) es verdadero (Fig. 1)', String.raw`Indica si la primera ficha recibe el empujón. Sin caso base, nada arranca aunque todos los pasos sean válidos.`],
-      ['Paso roto en k (Fig. 1)', String.raw`Marca un punto k donde P(k) no implica P(k + 1). Con 0 no hay ninguno; con otro valor la cadena se detiene allí.`],
-      ['n (Fig. 2)', String.raw`Tamaño del cuadrado: cuántas capas en L se han sumado, es decir, los n primeros impares.`],
+      ['Caso base: P(0) es verdadero (Fig. 1)', String.raw`Casilla (marcada al inicio). Indica si se empuja la ficha 0. Sin caso base nada arranca, aunque todos los pasos sean válidos.`],
+      ['Paso roto en k (Fig. 1)', String.raw`De 0 a 22; 0 significa ninguno. Con otro valor, la ficha k cae pero no alcanza a la k + 1, y la cadena se detiene allí.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Controlan cuántas fichas caen por segundo y avanzan la caída de a una ficha, hasta el final o desde el comienzo. Cambiar la casilla o el paso roto reinicia la caída.`],
+      ['n (Fig. 2)', String.raw`De 1 a 12. Lado del cuadrado: cuántas capas en L se han sumado, es decir, los n primeros impares.`],
     ],
     visualizaciones: [
       {
         titulo: 'Efecto dominó',
         descripcion: 'Quite el caso base, o rompa el paso en algún punto, y compare hasta dónde llega la demostración. Las dos condiciones se necesitan a la vez.',
-        ayuda: String.raw`<p>Cada ficha es un caso P(n). Las que están de pie aún no tienen P(n) demostrada; la que cae ahora es la que se demuestra en ese instante y las caídas ya tienen P(n) demostrada. Una ficha con paso roto marca donde P(k) no implica P(k + 1).</p>
+        ayuda: String.raw`<p>Cada ficha numerada de 0 a 23 es un caso P(n). Gris (C.inactivo): de pie, P(n) aún no demostrada. Naranja (C.s2): la que cae en este paso, inclinada a medias. Negra (C.tinta): ya caída, con P(n) demostrada. Una línea roja vertical (C.s8) marca el paso roto entre las fichas k y k + 1. Debajo, un mensaje explica cada paso y la lectura resume caso base, paso roto, fichas caídas y conclusión.</p>
           <ul>
-          <li><strong>Caso base</strong> desmarcado: ninguna ficha cae, porque falta el punto de partida.</li>
-          <li><strong>Paso roto en k</strong> distinto de 0: las fichas caen hasta k y la cadena se corta; el resto queda sin demostrar.</li>
+          <li><strong>Caso base</strong> desmarcado: ninguna ficha cae y no se concluye nada.</li>
+          <li><strong>Paso roto en k</strong>: las fichas caen hasta la k y el resto queda sin demostrar; la conclusión pasa a «P(n) solo hasta n = k».</li>
+          <li><strong>Reproducir / Un paso</strong>: muestran la cadena avanzando una ficha por vez.</li>
           </ul>`,
         montar: montarDomino,
       },
       {
         titulo: 'n² como suma de impares',
         descripcion: 'Aumente \\(n\\) y vea el cuadrado crecer con una capa en L. Esa capa es exactamente el paso inductivo de \\(1 + 3 + \\cdots + (2n-1) = n^2\\).',
-        ayuda: String.raw`<p>El cuadrado de lado n se forma con el cuadrado de n − 1 (capas anteriores) más una capa nueva en L de 2n − 1 cuadritos.</p>
+        ayuda: String.raw`<p>Un cuadrado de n por n cuadritos. Las capas en L anteriores se dibujan con tonos de la escala de azules (VIZ.rampa), y la capa nueva, la más externa, en naranja (C.s2). A la derecha se escribe n². Al pasar el puntero sobre un cuadrito se indica a qué capa j pertenece y que tiene 2j − 1 cuadritos.</p>
           <ul>
-          <li><strong>n</strong>: al aumentarlo se añade una capa más, que es exactamente el paso inductivo \(n^2 = (n-1)^2 + (2n-1)\).</li>
+          <li><strong>n</strong>: al aumentarlo se añade una capa más; la lectura muestra la suma 1 + 3 + … + (2n − 1), n², la capa nueva y el paso inductivo \((n-1)^2 + (2n-1) = n^2\).</li>
           </ul>`,
         montar: montarImpares,
       },

@@ -67,20 +67,25 @@
       <p>En una red local, los hosts se identifican por una dirección <strong>MAC</strong> de 48 bits, grabada en la tarjeta de red. <strong>Ethernet</strong> es la tecnología dominante: los hosts se conectan con cables a un <strong>switch</strong>, que reenvía cada trama solo al puerto del destinatario. El switch no necesita configuración: <em>aprende</em> mirando las direcciones de origen de las tramas que ve.</p>
       <p>Para pasar de una dirección IP a una MAC, un host usa <strong>ARP</strong>.</p>`,
     parametros: [
-      ['Origen y Destino (Fig. 1)', String.raw`Qué host envía la trama y a quién va dirigida, o a difusión (FF:FF). Determina si el switch ya sabe por qué puerto está el destino.`],
-      ['Enviar trama y Vaciar la tabla (Fig. 1)', String.raw`Enviar trama transmite una trama; Vaciar la tabla hace que el switch olvide lo aprendido y vuelva a inundar.`],
-      ['Un paso y reproductor (Fig. 2)', String.raw`Avanzan o reinician los mensajes del ARP.`],
+      ['Origen y Destino (Fig. 1)', String.raw`Dos selectores. Origen: host A, B, C o D (con direcciones MAC AA:11, BB:22, CC:33 y DD:44, cada uno en el puerto 1 a 4). Destino: otro host o difusión (FF:FF). No hacen nada hasta pulsar Enviar trama.`],
+      ['Enviar trama y Vaciar la tabla (Fig. 1)', String.raw`Enviar trama manda una trama del origen al destino elegido; el switch anota la MAC de origen y decide por dónde reenviarla. Vaciar la tabla borra lo aprendido, así que la siguiente trama vuelve a inundarse.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Controles del reproductor: avanzan de a un mensaje del ARP y de la trama posterior. «Velocidad» fija los pasos por segundo.`],
     ],
     visualizaciones: [
       { titulo: 'Un switch que aprende', descripcion: 'Envíe tramas entre hosts. La primera vez el switch inunda; después, reenvía solo al puerto correcto. Pruebe la difusión y vacíe la tabla.',
-        ayuda: String.raw`<p>Los hosts cuelgan de los puertos del switch, que aprende en una tabla qué dirección MAC está en cada puerto. Las tramas naranjas se envían por inundación, las verdes solo al puerto correcto y el punto rojo marca una trama descartada porque origen y destino están en el mismo puerto.</p>
+        ayuda: String.raw`<p>Cuatro hosts (A a D) conectados a los puertos 1 a 4 de un switch central. Debajo, la tabla de conmutación (dirección MAC y puerto) que se va llenando. El enlace del origen se ve azul. Los enlaces de salida se ven naranjas si la trama se inunda y verdes si se reenvía solo al puerto del destino.</p>
           <ul>
-          <li><strong>Destino</strong> aún no aprendido o difusión: el switch inunda todos los puertos salvo el de entrada.</li>
-          <li>Tras haber visto al destino como origen, la trama sale solo por su puerto.</li>
-          <li><strong>Vaciar la tabla</strong>: se pierde lo aprendido y la siguiente trama vuelve a inundarse.</li>
+          <li><strong>Destino</strong> aún no aprendido o difusión: el switch inunda todos los puertos menos el de entrada.</li>
+          <li>Si el destino ya apareció antes como origen, la trama sale solo por su puerto.</li>
+          <li><strong>Vaciar la tabla</strong>: la siguiente trama se inunda otra vez. Pruebe A → B, luego B → A y A → B otra vez.</li>
+          <li>Con origen y destino iguales, el registro avisa que es el mismo host y no se envía nada.</li>
           </ul>`, montar: montarSwitch },
       { titulo: 'ARP: de IP a MAC', descripcion: 'Siga cómo A descubre la MAC de B con una consulta de difusión antes de enviar su primera trama.',
-        ayuda: String.raw`<p>Columnas: host A, la red local y host B. Muestra la consulta ARP por difusión, la respuesta directa con la MAC de B y la trama Ethernet con el datagrama IP ya dirigida a esa MAC. Las figuras no tienen más controles que el reproductor.</p>`, montar: montarARP },
+        ayuda: String.raw`<p>Tres columnas con el tiempo hacia abajo: Host A (10.0.0.2), Switch / red local y Host B (10.0.0.3). Muestra la consulta ARP por difusión de A, su reenvío por el switch hacia B, la respuesta directa de B con su MAC (BB:22) y la trama Ethernet con el datagrama IP ya dirigida a esa MAC. Las flechas azules salen de A (o las reenvía el switch) y la naranja es la respuesta de B.</p>
+          <ul>
+          <li><strong>Un paso</strong>: dibuja el siguiente mensaje y el registro lo explica.</li>
+          <li>La lectura indica cuántos mensajes van y desde qué paso A conoce la MAC de B (tras la respuesta, el tercer mensaje).</li>
+          </ul>`, montar: montarARP },
     ],
     teoria: String.raw`
       <h2>Algoritmo del switch</h2>

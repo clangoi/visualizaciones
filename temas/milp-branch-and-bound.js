@@ -468,38 +468,43 @@
       relajación entre los nodos abiertos (la cota superior). Cuando se cruzan, el incumbente es óptimo. Esta página usa la versión para programación lineal entera mixta;
       el tema <a href="tema.html?id=branch-and-bound">Branch and Bound</a> presenta la idea general sobre otros problemas.</p>`,
     parametros: [
-      ['Problema (Fig. 1 y 2)', String.raw`El modelo entero a resolver; determina la región, el objetivo y el árbol resultante.`],
-      ['Variable de ramificación (Fig. 1)', String.raw`Qué variable fraccionaria se divide en dos subproblemas: la más fraccionaria, x o y primero. Cambia las franjas que se descartan.`],
-      ['Ramificar nodo elegido / mejor abierto / Reiniciar (Fig. 1)', String.raw`Dividen el nodo seleccionado o el de mejor cota, o vuelven al nodo raíz.`],
-      ['Siguiente nodo (Fig. 2 y 3)', String.raw`Regla para elegir el siguiente nodo abierto: mejor cota o profundidad. Afecta cuántos nodos se crean y cuándo aparece el primer incumbente.`],
-      ['Variable (Fig. 2)', String.raw`Criterio para escoger la variable de ramificación: la más fraccionaria o la primera fraccionaria.`],
-      ['Reproductor y Nuevos datos (Fig. 2 y 3)', String.raw`Avanza el algoritmo nodo a nodo o genera otra instancia de seis variables.`],
+      ['Problema (Fig. 1 y 2)', String.raw`Selector con cuatro modelos enteros de dos variables: «Dos recursos (clásico)», «Esquina fraccionaria», «Restricciones oblicuas» y «Región alargada». Determina la región, el objetivo y el árbol resultante.`],
+      ['Variable de ramificación (Fig. 1)', String.raw`Selector con tres reglas para elegir qué variable fraccionaria se divide en dos subproblemas: «la más fraccionaria», «x primero» o «y primero» (si esa variable es entera, se usa la más fraccionaria). Cambia las franjas que se descartan.`],
+      ['Ramificar nodo elegido (Fig. 1)', String.raw`Botón que divide el nodo seleccionado (el del anillo violeta; se elige con un clic en el árbol) en dos subproblemas \(x_j \le \lfloor v \rfloor\) y \(x_j \ge \lceil v \rceil\), si el nodo está abierto.`],
+      ['Ramificar el mejor abierto (Fig. 1)', String.raw`Botón que selecciona el nodo abierto de mayor relajación y lo ramifica.`],
+      ['Reiniciar (Fig. 1)', String.raw`Botón que descarta el árbol y vuelve al nodo raíz.`],
+      ['Siguiente nodo (Fig. 2 y 3)', String.raw`Selector de la regla para elegir el siguiente nodo abierto: «mejor cota» o «profundidad». Afecta cuántos nodos se crean y cuándo aparece el primer incumbente.`],
+      ['Variable (Fig. 2)', String.raw`Selector del criterio para escoger la variable de ramificación: «más fraccionaria» o «primera fraccionaria».`],
+      ['Un paso / Reproducir (Fig. 2 y 3)', String.raw`Control del reproductor que avanza el algoritmo nodo a nodo.`],
+      ['Nuevos datos (Fig. 3)', String.raw`Botón que genera otra instancia de seis objetos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Ramifique usted el árbol',
         descripcion: 'Haga clic en un nodo para ver su región y pulse «Ramificar nodo elegido»: las franjas grises muestran el trozo fraccionario que se descarta sin perder ningún punto entero. Pruebe «Ramificar el mejor abierto» hasta que no queden nodos amarillos.',
-        ayuda: String.raw`<p>Arriba, la región factible del nodo seleccionado: las franjas grises son lo descartado al ramificar, el punto naranja es el óptimo LP del nodo y el verde el incumbente. Abajo, el árbol: azul abierto, ramificado, verde entero, rojo infactible y gris podado por cota.</p>
+        ayuda: String.raw`<p>Arriba, la región factible del nodo seleccionado (azul tenue con borde azul); el contorno gris discontinuo es la región de la raíz, las franjas grises son lo descartado al ramificar, los puntos oscuros son los puntos enteros factibles y los claros, los infactibles. Un punto naranja marca el óptimo LP del nodo con su curva de nivel naranja discontinua, y un punto verde, el incumbente. Abajo, el árbol: cada círculo es un nodo, con su número y su valor z debajo; amarillo abierto, blanco con borde negro ramificado, verde entero, rojo infactible y gris podado por cota.</p>
           <ul>
           <li><strong>Variable de ramificación</strong>: elige qué variable se parte; las dos ramas excluyen una franja sin perder puntos enteros.</li>
           <li><strong>Ramificar el mejor abierto</strong>: expande el nodo con mejor cota, la que más puede mejorar la solución.</li>
+          <li><strong>Clic en un nodo</strong>: muestra su región y su solución.</li>
           </ul>`,
         montar: montarManual,
       },
       {
         titulo: 'Ramificación y acotamiento paso a paso',
         descripcion: 'Cambie la regla de selección de nodo y reproduzca el algoritmo en el mismo problema. Con «profundidad» se encuentra un incumbente pronto; con «mejor cota» se crean menos nodos en general. Observe qué nodos se podan por cota.',
-        ayuda: String.raw`<p>Región y árbol del mismo problema, con el nodo en proceso marcado con un anillo. Los colores de nodo son los de la leyenda; un incumbente verde permite podar por cota.</p>
+        ayuda: String.raw`<p>Región y árbol del mismo problema, ahora con el nodo en proceso marcado con un anillo azul. Los colores de nodo son los de la leyenda (amarillo, blanco con borde negro, verde, rojo y gris); un incumbente verde permite podar por cota los nodos cuya relajación no lo supera.</p>
           <ul>
           <li><strong>Siguiente nodo</strong>: con profundidad el primer entero aparece pronto; con mejor cota suele haber menos nodos.</li>
           <li><strong>Variable</strong>: cambia las ramas y por tanto la forma del árbol.</li>
+          <li><strong>Problema</strong>: cualquier cambio de selector reinicia el algoritmo.</li>
           </ul>`,
         montar: montarAutomatico,
       },
       {
         titulo: 'Seis variables: relajaciones nodo a nodo',
         descripcion: 'Una mochila con dos recursos (peso y volumen) y seis objetos. Avance paso a paso y lea en la tabla la solución relajada de cada nodo: siempre hay a lo sumo unas pocas variables fraccionarias. Pulse «Nuevos datos» para otra instancia.',
-        ayuda: String.raw`<p>Árbol de una mochila con dos recursos y seis objetos; la tabla da la solución relajada de cada nodo, con pocas variables fraccionarias. Los colores son los de la leyenda.</p>
+        ayuda: String.raw`<p>Arriba, una tabla con los datos de la mochila: seis objetos con su valor, su peso (con capacidad) y su volumen (con capacidad). Debajo, el árbol de ramificación con el nodo en proceso marcado con un anillo azul, y una tabla con la rama, la solución relajada, z y el estado de cada nodo (la fila activa se destaca). Cada nodo es un LP con cotas \(0 \le x_j \le 1\) modificadas. Los colores son los de la leyenda.</p>
           <ul>
           <li><strong>Siguiente nodo</strong>: mejor cota o profundidad cambia el orden de exploración y el tamaño del árbol.</li>
           <li><strong>Nuevos datos</strong>: otra instancia, con otro árbol.</li>

@@ -320,31 +320,33 @@
       <p>Con mala suerte, una sucesión de esos pivotes vuelve a la base de partida y el algoritmo <strong>cicla</strong> para siempre. Es raro en la práctica, pero existen
       ejemplos construidos a propósito, y hay reglas simples que lo impiden: la de Bland y la perturbación del lado derecho.</p>`,
     parametros: [
-      ['b₁ (lado derecho de R₁) (Fig. 1)', String.raw`Mueve la primera restricción; con 5,6 tres rectas se cortan en un punto (vértice degenerado) y al alejarse se separan.`],
-      ['c₁ y c₂ (Fig. 1)', String.raw`Componentes del vector objetivo; determinan el camino del Simplex y si pasa por el vértice degenerado.`],
-      ['Regla (Fig. 1)', String.raw`Bland o Dantzig para elegir la variable entrante; en degeneración pueden dar caminos y pivotes distintos.`],
-      ['Reproductor (Fig. 1 y 2)', String.raw`Avanza un pivote por pulsación; Reiniciar vuelve al inicio.`],
-      ['Estrategia (Fig. 2)', String.raw`Regla anticiclo: Dantzig con desempate simple, Bland o perturbación de \(b\); decide si el Simplex entra en ciclo.`],
-      ['perturbación ε = 10^−k (k) (Fig. 2)', String.raw`Tamaño de la perturbación sumada a \(b\): mientras mayor es k, más pequeña es ε. Solo actúa con la estrategia de perturbación.`],
+      ['b₁ (lado derecho de R₁) (Fig. 1)', String.raw`Deslizador de 4,6 a 6,6 (paso 0,2) que mueve la recta R₁ (x₁ + x₂ ≤ b₁). Con 5,6 las tres rectas se cortan en el punto (2,4; 3,2), que queda degenerado; con otros valores las rectas se separan y ese vértice desaparece. Reinicia el recorrido.`],
+      ['c₁ y c₂ (Fig. 1)', String.raw`Coeficientes del objetivo \(z = c_1x_1 + c_2x_2\) (de 1 a 5). Cambian la dirección de mejora y con ella el camino de pivotes. Reinician el recorrido.`],
+      ['Regla (Fig. 1)', String.raw`Selector con dos opciones, Bland y Dantzig: criterio para elegir la variable que entra a la base. Reinicia el recorrido.`],
+      ['Controles de reproducción (Fig. 1 y 2)', String.raw`Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar: avanzan el Simplex pivote a pivote (Reiniciar vuelve a la base inicial).`],
+      ['Estrategia (Fig. 2)', String.raw`Selector con tres opciones sobre el ejemplo de Beale: «Dantzig (empates: menor índice)», «Bland» y «Dantzig con b perturbado». Decide si el Simplex repite una base (ciclo) o llega al óptimo.`],
+      ['perturbación ε = 10^−k (k) (Fig. 2)', String.raw`Deslizador de k entre 2 y 6. Con la estrategia de perturbación se suma a \(b\) una cantidad del orden de \(\varepsilon = 10^{-k}\); a mayor k, más pequeña es. Con las otras estrategias no tiene efecto.`],
     ],
     visualizaciones: [
       {
         titulo: 'Un vértice sobredeterminado',
         descripcion: 'Con \\(b_1=5{,}6\\) tres rectas se cortan en un punto: observe la celda roja (variable básica en cero) y los pivotes que no mejoran \\(z\\). Cambie \\(b_1\\) unas décimas para ver desaparecer la degeneración.',
-        ayuda: String.raw`<p>El polígono es la región factible; las rectas son las restricciones. Los vértices recorridos y el actual están marcados; el vértice degenerado (una variable básica en cero) se distingue en la leyenda. El tableau resalta columna entrante, fila saliente y pivote.</p>
+        ayuda: String.raw`<p>Eje horizontal x₁ y vertical x₂. El polígono gris es la región factible y las rectas R₁ (azul), R₂ (naranja) y R₃ (aguamarina) son las restricciones. Las flechas azules unen los vértices ya recorridos (puntos azules); el vértice actual es un punto naranja. Los vértices de la región se marcan como punto hueco, o rojo si pasan por ellos más de dos restricciones activas (vértice degenerado). Debajo, el tableau resalta la columna entrante (azul), la fila saliente (naranja) y el pivote (violeta); una celda de lado derecho en cero se tiñe de rojo.</p>
           <ul>
-          <li><strong>b₁</strong>: en 5,6 aparece la degeneración y hay pivotes que no mejoran \(z\); un cambio leve la hace desaparecer.</li>
-          <li><strong>Regla</strong>: compara el número de pivotes entre Bland y Dantzig sobre el mismo vértice.</li>
+          <li><strong>b₁</strong>: en 5,6 aparece el vértice rojo (2,4; 3,2); en otros valores deja de haber degeneración.</li>
+          <li><strong>c₁ y c₂</strong>: giran la dirección de mejora y cambian los pivotes y el recorrido.</li>
+          <li><strong>Regla</strong>: compara el camino y el número de pivotes entre Bland y Dantzig.</li>
+          <li><strong>Reproducción</strong>: avanza un pivote por vez; el texto y la lectura indican si el pivote fue degenerado (razón 0, z no cambia).</li>
           </ul>`,
         montar: montarVertice,
       },
       {
         titulo: 'El ciclo de Beale',
         descripcion: 'En un problema de tres restricciones, Dantzig con desempate por menor índice da seis pivotes sin mejora y regresa a la base inicial. Pruebe Bland o la perturbación de \\(b\\), y mire cómo el objetivo sí llega a \\(5/4\\).',
-        ayuda: String.raw`<p>Eje horizontal: iteración; eje vertical: valor de \(z\). Los puntos azules son iteraciones, los de color rojo repiten una base ya vista (ciclo) y el verde es el óptimo. Debajo se listan las bases visitadas.</p>
+        ayuda: String.raw`<p>Eje horizontal: iteración; eje vertical: valor de \(z\). Los puntos azules son iteraciones, el punto rojo marca la base que repite una ya vista (ciclo) y el verde el óptimo. Debajo están el tableau (mismos colores de columna, fila y pivote) y la lista «Bases visitadas».</p>
           <ul>
-          <li><strong>Estrategia</strong>: con Dantzig \(z\) queda plano y la base inicial reaparece (ciclo); con Bland o perturbación \(z\) termina subiendo hasta el óptimo.</li>
-          <li><strong>k</strong>: una perturbación muy pequeña puede no romper el empate numéricamente.</li>
+          <li><strong>Estrategia</strong>: con Dantzig \(z\) queda plano en 0 y la base inicial reaparece (ciclo); con Bland o con b perturbado la línea termina subiendo hasta el óptimo.</li>
+          <li><strong>k</strong>: solo cambia el resultado con la perturbación; al moverlo se reinicia el recorrido.</li>
           </ul>`,
         montar: montarCiclo,
       },

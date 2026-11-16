@@ -381,43 +381,48 @@
       <p>Son cuatro comprobaciones sencillas: que el equilibrio de gradientes se cumpla, que el punto sea factible, que los multiplicadores de desigualdad sean no negativos y que una restricción
       inactiva tenga multiplicador cero. Si las cuatro se cumplen, el punto es un <em>candidato</em> a óptimo; en problemas convexos, además, es un óptimo global.</p>`,
     parametros: [
-      ['Problema (Fig. 1)', String.raw`Problema con restricciones g y h cuyos candidatos se verifican.`],
-      ['Tolerancia ε (Fig. 1)', String.raw`Margen numérico para aceptar cada condición KKT; mayor ε acepta candidatos menos exactos.`],
-      ['Resolver (Lagrangiano aumentado), Candidato incorrecto (Fig. 1)', String.raw`Colocan el candidato en un punto KKT o en uno que falla alguna condición.`],
-      ['Exponente p de la cúspide (Fig. 2)', String.raw`Forma de la cúspide \((1 - x)^p\) en la región factible.`],
-      ['Candidato: abscisa x sobre y = 0 (Fig. 2)', String.raw`Punto candidato sobre el eje y = 0.`],
-      ['Cúspide / Esquina (Fig. 2)', String.raw`Usan una región con LICQ fallida o válida.`],
-      ['Centro a (Fig. 3)', String.raw`Mínimo de \(f(x) = (x - a)^2\); decide si la cota b está activa.`],
-      ['Cota b (Fig. 3)', String.raw`Límite de \(g(x) = x - b \le 0\).`],
-      ['Quitar candidato (Fig. 3)', String.raw`Borra el candidato elegido en el plano.`],
+      ['Problema (Fig. 1)', String.raw`Selector con tres problemas: «Disco» (una restricción \(g_1 \le 0\)), «Triángulo» (tres desigualdades) y «Mixto» (una igualdad \(h_1 = 0\) y una desigualdad \(g_1 \le 0\)). Cambia f, las restricciones y el candidato inicial.`],
+      ['Tolerancia ε (Fig. 1)', String.raw`Deslizador de 0,005 a 0,2: margen numérico para considerar activa una restricción y para aceptar cada condición KKT; mayor ε acepta candidatos menos exactos.`],
+      ['Resolver (Lagrangiano aumentado) (Fig. 1)', String.raw`Botón que coloca el candidato en la solución calculada con el método del Lagrangiano aumentado, que debe cumplir KKT.`],
+      ['Candidato incorrecto (Fig. 1)', String.raw`Botón que coloca el candidato en un punto predefinido del problema que falla alguna condición. También se puede hacer clic o arrastrar en el gráfico para elegir el candidato.`],
+      ['Exponente p de la cúspide (Fig. 2)', String.raw`Deslizador de 1 a 3 (pasos de 0,5): forma \((1 - x)^p\) de la frontera superior de la región factible. Con \(p = 1\) es una esquina; con \(p > 1\), una cúspide.`],
+      ['Candidato: abscisa x sobre y = 0 (Fig. 2)', String.raw`Deslizador de 0,3 a 1: posición del candidato sobre el eje \(y = 0\). Solo con \(x = 1\) están activas las dos restricciones.`],
+      ['Cúspide (LICQ falla), Esquina (LICQ vale) (Fig. 2)', String.raw`Botones que fijan el exponente en \(p = 3\) o en \(p = 1\).`],
+      ['Centro a (Fig. 3)', String.raw`Deslizador de −2 a 4: mínimo libre de \(f(x) = (x - a)^2\); decide si la cota b está activa.`],
+      ['Cota b (Fig. 3)', String.raw`Deslizador de −1 a 3: límite de \(g(x) = x - b \le 0\).`],
+      ['Reproducir (Fig. 3)', String.raw`Botón que barre a de −2 a 4 con b fijo, para ver cómo el punto KKT recorre la «L» del plano inferior.`],
+      ['Quitar candidato (Fig. 3)', String.raw`Borra el candidato elegido con un clic en el plano \((g, \mu)\).`],
     ],
     visualizaciones: [
       {
         titulo: 'Calculadora KKT',
         descripcion: 'Haga clic para elegir un candidato y lea la tabla con las cuatro condiciones. Pruebe «Resolver (Lagrangiano aumentado)» para ver un punto KKT y «Candidato incorrecto» para ver cuál condición falla; luego reduzca la tolerancia ε.',
-        ayuda: String.raw`<p>Región \(g \le 0\), fronteras, \(-\nabla f\), \(\nabla g\) activo y \(\nabla h\). El candidato se marca según cumpla o falle KKT.</p>
+        ayuda: String.raw`<p>La región factible \(g \le 0\) está en aguamarina tenue (si hay desigualdades); las fronteras \(g = 0\) y \(h = 0\) son líneas negras gruesas y las curvas grises, niveles de f. Desde el candidato salen \(-\nabla f\) (naranja), los \(\nabla g\) de las restricciones activas (azul) y \(\nabla h\) (violeta). El candidato es un punto verde si cumple KKT y rojo si falla. Debajo, una tabla evalúa estacionariedad, factibilidad primal, factibilidad dual y holgura complementaria, junto con los multiplicadores \(\lambda\) y \(\mu\).</p>
           <ul>
-          <li><strong>Tolerancia ε</strong>: define cuándo cada condición se considera satisfecha.</li>
-          <li><strong>Candidato incorrecto</strong>: muestra qué condición de la tabla falla.</li>
+          <li><strong>Tolerancia ε</strong>: define qué restricciones se consideran activas y cuándo cada condición se considera satisfecha.</li>
+          <li><strong>Resolver</strong>: lleva el candidato a un punto donde las cuatro condiciones se cumplen.</li>
+          <li><strong>Candidato incorrecto</strong>: la tabla muestra qué condición falla.</li>
           </ul>`,
         montar: montarCalculadora,
       },
       {
         titulo: 'Calificación de restricciones (LICQ)',
         descripcion: 'En una cúspide los gradientes activos quedan alineados y KKT falla aunque el punto sea óptimo. Compare «Cúspide» y «Esquina» y mueva el candidato por la región.',
-        ayuda: String.raw`<p>Región factible con \(\nabla g_1\), \(\nabla g_2\), \(-\nabla f\) y el cono de gradientes activos.</p>
+        ayuda: String.raw`<p>La región factible (aguamarina) está limitada por \(g_1 = y - (1 - x)^p \le 0\) y \(g_2 = -y \le 0\). El candidato está sobre el eje \(y = 0\) y se maximiza x, así que \(-\nabla f\) (naranja) apunta a la derecha. Se dibujan \(\nabla g_1\) (azul) y \(\nabla g_2\) (violeta) cuando están activas, y el cono de gradientes activos (azul translúcido; una recta gruesa si son colineales). El punto es verde si cumple KKT y rojo si falla.</p>
           <ul>
-          <li><strong>Cúspide</strong>: los gradientes activos quedan alineados, \(-\nabla f\) no está en su cono y KKT falla aunque sea óptimo.</li>
+          <li><strong>Cúspide</strong>: en \((1, 0)\) los gradientes activos quedan alineados, \(-\nabla f\) no está en su cono y KKT falla aunque el punto sea óptimo.</li>
           <li><strong>Esquina</strong>: los gradientes son independientes y KKT se cumple.</li>
+          <li><strong>Abscisa x</strong>: con \(x < 1\) solo \(g_2\) está activa y el punto no es KKT.</li>
           </ul>`,
         montar: montarLICQ,
       },
       {
         titulo: 'Holgura complementaria',
         descripcion: 'Cambie a y b (o pulse «Reproducir» para barrer a) y vea que el par \\((g,\\mu)\\) de la solución siempre queda sobre la «L». Haga clic en el plano inferior para probar candidatos fuera de ella.',
-        ayuda: String.raw`<p>Arriba, \(f(x)\) con el candidato. Abajo, el plano \((g, \mu)\) con el conjunto \(g \le 0\), \(\mu \ge 0\), \(\mu g = 0\), el punto KKT y los candidatos.</p>
+        ayuda: String.raw`<p>Arriba, la parábola \(f(x) = (x - a)^2\) (negra) con la cota \(x = b\) en rojo discontinuo y la zona infactible \(x > b\) sombreada en rojo tenue; el punto verde es la solución y el naranja, el candidato. Abajo, el plano \((g, \mu)\): la «L» negra es el conjunto \(g \le 0\), \(\mu \ge 0\), \(\mu g = 0\); el rojo tenue es la zona infactible, el amarillo tenue la zona que viola \(\mu g = 0\), el punto verde es el punto KKT y la línea gris punteada, su recorrido. Un clic en el plano inferior fija un candidato (naranja).</p>
           <ul>
           <li><strong>Centro a</strong> y <strong>Cota b</strong>: el punto KKT queda sobre la «L»: \(\mu = 0\) si g es inactiva, \(g = 0\) si activa.</li>
+          <li><strong>Reproducir</strong>: el punto KKT recorre primero el eje horizontal y luego el vertical.</li>
           </ul>`,
         montar: montarHolgura,
       },

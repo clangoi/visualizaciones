@@ -108,28 +108,31 @@
       La única diferencia entre unión, intersección o diferencia es <em>qué pares</em> se declaran de aceptación.</p>
       <p>El <strong>complemento</strong> es aún más simple: en un AFD completo basta con intercambiar los estados de aceptación y de rechazo.</p>`,
     parametros: [
-      ['Autómata A y Autómata B (Fig. 1 y 2)', String.raw`Los dos AFD que se combinan. Los estados del producto son pares (estado de A, estado de B).`],
-      ['Operación (Fig. 1)', String.raw`Cómo se combinan los lenguajes. Solo cambia qué pares son de aceptación, no las transiciones.`],
-      ['Palabra y reproductor (Fig. 1)', String.raw`Entrada que se ejecuta sobre A y B a la vez, y los botones que avanzan la lectura símbolo por símbolo.`],
+      ['Autómata A y Autómata B (Fig. 1 y 2)', String.raw`Selectores con seis lenguajes: «Número par de a», «Número par de b», «Contiene «aba»», «Sin dos b seguidas», «a*b* (todas las a antes de las b)» y «Longitud múltiplo de 3». En la Fig. 1 parten A = par de a y B = sin dos b seguidas; en la Fig. 2, A = contiene «aba» y B = par de b. Cambiarlos cambia el producto (Fig. 1) o la tabla (Fig. 2).`],
+      ['Operación (Fig. 1)', String.raw`Selector con cuatro opciones: unión A ∪ B, intersección A ∩ B (inicial), diferencia A ∖ B y diferencia simétrica A △ B. Solo cambia qué pares de estados son de aceptación; las transiciones del producto no cambian.`],
+      ['Palabra (Fig. 1)', String.raw`Campo de texto (inicia en «abbab») con la entrada que se ejecuta sobre A y B a la vez. Solo conserva los símbolos a y b; al editarla o pulsar Enter, la lectura se reinicia.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Controlan la lectura de la palabra: cada paso consume un símbolo y mueve el par actual por una transición del producto. «Hasta el final» lee todo de una vez y «Reiniciar» vuelve al estado inicial.`],
     ],
     visualizaciones: [
       {
         titulo: 'El autómata producto en marcha',
         descripcion: 'Elija dos autómatas y una operación; el diagrama es el producto. Avance sobre una palabra y vea cómo se mueve el par (estado de A, estado de B).',
-        ayuda: String.raw`<p>El diagrama es el autómata producto. El par resaltado en azul es el estado actual (pA, pB); al terminar, verde significa que el par acepta según la operación y rojo, que rechaza.</p>
+        ayuda: String.raw`<p>Arriba hay una cinta con la palabra y el símbolo que se lee; debajo, el diagrama del autómata producto, cuyos estados son pares (estado de A, estado de B) alcanzables desde el inicial. El par actual va con relleno y borde azules mientras se lee; al terminar la palabra, verde si el par acepta según la operación y rojo si rechaza. La última transición recorrida se resalta en naranja.</p>
           <ul>
-          <li><strong>Operación</strong>: la misma ejecución puede acabar en verde o en rojo según qué pares cuenten como aceptación.</li>
-          <li><strong>Autómata A / B</strong>: cambian los pares del diagrama y su tamaño.</li>
-          <li><strong>Palabra</strong>: otra entrada lleva el par por otro camino.</li>
+          <li><strong>Autómata A / B</strong>: cambian los pares y las transiciones del diagrama, y con ello el número de estados alcanzables.</li>
+          <li><strong>Operación</strong>: la misma palabra puede terminar en verde o en rojo, porque cambia qué pares son de aceptación.</li>
+          <li><strong>Cursor sobre un par</strong>: indica qué significa el estado en A y en B. El texto inferior dice si A y B aceptan en el par actual y qué concluye la operación.</li>
+          <li><strong>Lectura</strong>: estados de A × B, alcanzables del producto, cuántos aceptan y símbolos leídos.</li>
           </ul>`,
         montar: montarProducto,
       },
       {
         titulo: 'Tamaños y leyes de De Morgan',
         descripcion: 'Compare los estados de cada construcción y compruebe, buscando una palabra distinguidora, que \\(\\overline{A\\cup B} = \\overline{A}\\cap\\overline{B}\\).',
-        ayuda: String.raw`<p>Tabla de texto sin colores con los estados de cada construcción (A, B, producto y sus variantes) y dos filas que verifican las leyes de De Morgan mediante una palabra distinguidora.</p>
+        ayuda: String.raw`<p>Tabla de texto con columnas Autómata, Alcanzables, Mínimo (estados del AFD mínimo) y Palabras ≤ 6 (cuántas palabras de hasta 6 símbolos acepta). Las filas son A, B, el complemento de A y las cuatro operaciones entre A y B. Las dos últimas filas comprueban las leyes de De Morgan buscando una palabra donde las dos expresiones difieran: el texto aparece en verde si resultan equivalentes y en rojo, con la palabra que las distingue, si no.</p>
           <ul>
-          <li><strong>Autómata A / B</strong>: cambian los tamaños; el producto tiene a lo más n·m estados y el mínimo suele ser menor.</li>
+          <li><strong>Autómata A / B</strong>: recalculan toda la tabla.</li>
+          <li><strong>Alcanzables frente a Mínimo</strong>: el producto tiene a lo más n·m estados y el autómata mínimo suele ser menor.</li>
           </ul>`,
         montar: montarLeyes,
       },

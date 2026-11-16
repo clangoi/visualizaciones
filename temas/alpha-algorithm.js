@@ -342,18 +342,20 @@
       <p>De la forma de esas plazas sale el significado: dos actividades que comparten plaza de entrada son una elección; una transición que
       alimenta dos plazas arranca ramas paralelas; un arco que vuelve atrás forma un ciclo.</p>`,
     parametros: [
-      ['Registro de ejemplo (Fig. 1, 2 y 3)', String.raw`El registro del que se descubre la red.`],
-      ['Trazas (Fig. 1, 2 y 3)', String.raw`Trazas editables con sus frecuencias. Cambian los conjuntos que calcula α y la red resultante.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza por los conjuntos T<sub>L</sub>, T<sub>I</sub>, T<sub>O</sub>, X<sub>L</sub>, Y<sub>L</sub> y las plazas.`],
-      ['Red descubierta de y Variante a reproducir (Fig. 2)', String.raw`La red y la variante que se prueba sobre ella.`],
-      ['Disparar al azar (Fig. 2)', String.raw`Dispara una transición habilitada elegida al azar.`],
-      ['Variante y Evento reproducido (Fig. 3)', String.raw`La variante del registro que se reproduce sobre la red y el punto de ella que se muestra.`],
+      ['Registro de ejemplo (Fig. 1 y 3)', String.raw`El registro del que se descubre la red: Elección y paralelo (clásico), Elección seguida de paralelo, Tres actividades en paralelo o Ciclo de longitud 3. Al elegirlo se reemplaza el texto de las trazas. En la Fig. 2 se elige con «Red descubierta de».`],
+      ['Trazas (Fig. 1 y 3)', String.raw`Texto con las trazas y sus frecuencias, en la forma traza:veces (por ejemplo abcd:3), con actividades a–j. Cambia los conjuntos que calcula α y la red resultante.`],
+      ['Reproducir, Un paso, Hasta el final, Reiniciar y Velocidad (Fig. 1 y 2)', String.raw`En la Fig. 1 avanzan por las fases de α: T<sub>L</sub>, T<sub>I</sub>, T<sub>O</sub>, X<sub>L</sub>, Y<sub>L</sub> y las plazas. En la Fig. 2 reproducen la variante elegida sobre la red.`],
+      ['Red descubierta de (Fig. 2)', String.raw`El registro de ejemplo (de los cuatro) del que se obtiene la red que se juega.`],
+      ['Variante a reproducir (Fig. 2)', String.raw`La variante del registro que el reproductor dispara sobre la red.`],
+      ['Disparar al azar (Fig. 2)', String.raw`Dispara una transición habilitada elegida al azar. También puede hacerse clic sobre una transición habilitada.`],
+      ['Variante (Fig. 3)', String.raw`La variante del registro que se reproduce sobre la red; también se elige con un clic en su fila de la tabla.`],
+      ['Evento reproducido (Fig. 3)', String.raw`El evento de la variante hasta el que se avanza (0 es el marcado inicial).`],
     ],
     visualizaciones: [
       {
         titulo: 'α paso a paso',
         descripcion: 'Siga cada conjunto: T<sub>L</sub>, T<sub>I</sub>, T<sub>O</sub>, los candidatos X<sub>L</sub>, los maximales Y<sub>L</sub> y las plazas. Observe qué pares se descartan por estar contenidos en otro.',
-        ayuda: String.raw`<p>Se construye la red de Petri. Se destacan las actividades de inicio y fin, las plazas recién creadas y los conjuntos A y B del par examinado.</p>
+        ayuda: String.raw`<p>Se construye la red de Petri por fases. Anillo verde (C.s6) en las actividades de inicio y fin y en la plaza recién creada; anillo y relleno azul (C.s1) en las transiciones del conjunto A del par examinado y naranja (C.s2) en las del conjunto B. Debajo se muestran T<sub>L</sub>, T<sub>I</sub>, T<sub>O</sub>, los pares X<sub>L</sub> (descartados con tijera y gris, maximales en verde) y Y<sub>L</sub>.</p>
           <ul>
           <li><strong>Reproductor</strong>: muestra qué pares (A, B) se descartan por estar contenidos en otro, y los maximales dan las plazas.</li>
           <li><strong>Trazas</strong>: otro registro da otros conjuntos y otras plazas.</li>
@@ -363,17 +365,17 @@
       {
         titulo: 'Leer la red: elecciones, paralelos y ciclos',
         descripcion: 'Dispare las transiciones a mano y compruebe que una plaza con dos salidas obliga a escoger, mientras que una transición con dos salidas abre ramas concurrentes. Pruebe el registro con ciclo.',
-        ayuda: String.raw`<p>La red descubierta, con las transiciones habilitadas, las plazas de elección (XOR) con varias entradas o salidas y las transiciones que bifurcan o unen en paralelo (AND).</p>
+        ayuda: String.raw`<p>La red descubierta. Una transición con anillo verde (C.s6) está habilitada; una plaza con anillo naranja (C.s2) es de elección (XOR: varias entradas o salidas); una transición con relleno violeta (C.s7) bifurca o une en paralelo (AND). Las lecturas indican transiciones habilitadas, fichas, traza disparada, si está en el registro y si hay ciclos.</p>
           <ul>
-          <li><strong>Disparar al azar</strong>: en una plaza con dos salidas hay que escoger una; en una transición con dos salidas se abren ramas concurrentes.</li>
-          <li><strong>Registro de ejemplo</strong>: el ejemplo con ciclo muestra cómo se leen los bucles.</li>
+          <li><strong>Disparar al azar</strong> y el clic en una transición habilitada: en una plaza con dos salidas hay que escoger una; en una transición con dos salidas se abren ramas concurrentes.</li>
+          <li><strong>Red descubierta de</strong>: el ejemplo con ciclo muestra cómo se leen los bucles.</li>
           </ul>`,
         montar: montarJuego,
       },
       {
         titulo: 'Edite el registro, vea la red',
         descripcion: 'Cambie las trazas y compare la red con su reproducción: cada variante muestra fichas producidas, consumidas, faltantes y sobrantes. Agregue una traza «extraña» y mire cuál plaza falla.',
-        ayuda: String.raw`<p>Reproducción de las trazas sobre la red. Se marca la transición que se dispara, las fichas faltantes (creadas artificialmente) y las sobrantes al final del caso.</p>
+        ayuda: String.raw`<p>Reproducción de las trazas sobre la red. Anillo naranja (C.s2) en la transición que se dispara, rojo (C.s8) en la plaza con ficha faltante (creada artificialmente) y amarillo (C.s4) en las plazas con fichas sobrantes al final del caso. La tabla da, por variante, casos, fichas producidas (p), consumidas (c), faltantes (m), sobrantes (r) y fitness.</p>
           <ul>
           <li><strong>Evento reproducido</strong>: recorre la variante evento a evento y muestra en cuál plaza falla.</li>
           <li><strong>Trazas</strong>: agregar una traza extraña produce fichas faltantes o sobrantes, o sea, la red no la explica.</li>

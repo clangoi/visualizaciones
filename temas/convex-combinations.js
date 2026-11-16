@@ -370,31 +370,35 @@
       <p>Esta idea explica por qué la programación lineal es tan manejable: como \(c\cdot x\) es lineal, el valor de una mezcla es la mezcla de los valores, y nunca puede superar al
       mejor de los puntos mezclados. Por eso el óptimo se busca solo entre los <a href="tema.html?id=extreme-points-directions">puntos extremos</a>.</p>`,
     parametros: [
-      ['λ₁, λ₂ y λ₃ (pesos de A, B y C) (Fig. 1)', String.raw`Pesos de cada vértice en P = λ₁A + λ₂B + λ₃C. Mover uno reparte el resto entre los demás; con pesos no negativos, P queda dentro del triángulo.`],
-      ['Pesos iguales y Vértices por defecto (Fig. 1)', String.raw`Pesos iguales pone P en el baricentro; Vértices por defecto restaura A, B y C.`],
-      ['Puntos (Fig. 2)', String.raw`La cantidad de puntos cuya envoltura convexa se dibuja.`],
-      ['Dirección de c y Minimizar en vez de maximizar (Fig. 2)', String.raw`Dirección del objetivo c·x y si se busca el mínimo o el máximo. Define qué vértice de la envoltura es el óptimo.`],
-      ['Nuevos puntos y Quitar el último (Fig. 2)', String.raw`Sortean otros puntos o eliminan el último agregado.`],
+      ['λ₁, λ₂ y λ₃ (pesos de A, B y C) (Fig. 1)', String.raw`Pesos (0 a 1) de cada vértice en P = λ₁A + λ₂B + λ₃C. Al mover uno, los otros dos se reescalan en proporción para que los tres sumen 1; con pesos no negativos, P queda dentro del triángulo.`],
+      ['Pesos iguales (Fig. 1)', String.raw`Pone λ₁ = λ₂ = λ₃ = 1/3, con P en el baricentro.`],
+      ['Vértices por defecto (Fig. 1)', String.raw`Restaura las posiciones originales de A, B y C (que se pueden arrastrar).`],
+      ['Puntos (Fig. 2)', String.raw`La cantidad de puntos (4 a 40). Al cambiarla se sortea de nuevo el conjunto.`],
+      ['Dirección de c (Fig. 2)', String.raw`Ángulo del vector objetivo c (0° a 355°). Define qué punto maximiza (o minimiza) c·x.`],
+      ['Minimizar en vez de maximizar (Fig. 2)', String.raw`Invierte el sentido de c: se busca el mínimo en lugar del máximo de c·x.`],
+      ['Nuevos puntos (Fig. 2)', String.raw`Sortea otro conjunto de puntos con la misma cantidad.`],
+      ['Quitar el último (Fig. 2)', String.raw`Elimina el último punto de la lista (hay un mínimo de 3). También se pueden agregar puntos con un clic en el gráfico.`],
     ],
     visualizaciones: [
       {
         titulo: 'Pesos y coordenadas baricéntricas',
         descripcion: 'Mueva los pesos o arrastre P dentro del triángulo y vea que cada peso es el área relativa del subtriángulo opuesto; saque P del triángulo para ver aparecer un peso negativo.',
-        ayuda: String.raw`<p>Los vértices A, B y C forman un triángulo; P es la mezcla ponderada. Cada peso es el área relativa del subtriángulo opuesto al vértice. Si P sale del triángulo, algún λ es negativo.</p>
+        ayuda: String.raw`<p>Los vértices A (azul, C.s1), B (naranja, C.s2) y C (aguamarina, C.s3) forman un triángulo; P es la mezcla ponderada y el valor de cada λ aparece junto a su vértice. Cuando P está dentro, los tres subtriángulos que forma con los lados se sombrean con el color del vértice opuesto: el área relativa de cada uno es su peso. Si P sale del triángulo (rojo, C.s8), algún λ es negativo y la combinación es afín, no convexa.</p>
           <ul>
           <li><strong>Pesos λ</strong>: acercan P al vértice con mayor peso.</li>
           <li><strong>Pesos iguales</strong>: P queda en el centro.</li>
+          <li>Arrastrar P recalcula los pesos; arrastrar un vértice lo mueve y P lo sigue con los mismos pesos.</li>
           </ul>`,
         montar: montarMezcla,
       },
       {
         titulo: 'Envoltura convexa y un LP sobre ella',
         descripcion: 'Gire la dirección c y agregue puntos con clic: el mejor valor de c·x siempre se alcanza en un vértice de la envoltura, nunca en un punto interior.',
-        ayuda: String.raw`<p>Los puntos se distinguen en vértices de la envoltura e interiores o en el borde; se dibuja la envoltura convexa, la dirección c con la curva de nivel óptima y el óptimo de c·x.</p>
+        ayuda: String.raw`<p>Los puntos son los datos: azul (C.s1) los vértices de la envoltura convexa y gris los interiores o del borde. La envoltura es el polígono azul claro. La línea naranja discontinua (C.s2) es la curva de nivel de c·x que pasa por el óptimo, y la flecha naranja marca la dirección c. El óptimo de c·x es el punto verde grande (C.s6).</p>
           <ul>
           <li><strong>Dirección de c</strong>: al girar, el óptimo salta entre vértices de la envoltura.</li>
-          <li><strong>Minimizar</strong>: invierte el sentido y elige el vértice opuesto.</li>
-          <li>Un punto interior nunca es óptimo.</li>
+          <li><strong>Minimizar</strong>: invierte el sentido de c y elige el vértice opuesto.</li>
+          <li>Un punto interior nunca es óptimo: las lecturas comparan el mejor c·x entre todos, entre vértices y entre interiores.</li>
           </ul>`,
         montar: montarEnvoltura,
       },

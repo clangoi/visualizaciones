@@ -196,28 +196,29 @@
       de un estado válido a otro válido. a<strong>I</strong>slamiento: aunque muchas transacciones corran a la vez, el resultado es como si
       corrieran de a una. <strong>D</strong>urabilidad: lo confirmado sobrevive a una caída.</p>`,
     parametros: [
-      ['Planificación (Fig. 1)', String.raw`Una forma de intercalar las operaciones de dos transacciones. Cada una puede dar el mismo resultado que una ejecución serial (serializable) o uno distinto.`],
-      ['Reproductor (Fig. 1)', String.raw`Ejecuta las operaciones de la planificación una a una; Reiniciar las vuelve a su estado pendiente.`],
-      ['La falla ocurre después del paso (Fig. 2)', String.raw`Punto de la transferencia en que se interrumpe el sistema, de «antes de empezar» a «sin falla».`],
-      ['dentro de una transacción con bitácora (Fig. 2)', String.raw`Si está activa, la recuperación usa la bitácora para dejar la transferencia completa o sin efecto.`],
+      ['Planificación (Fig. 1)', String.raw`Selector con cinco opciones: serial T1 y luego T2, serial T2 y luego T1, intercalada serializable, intercalada no serializable y actualización perdida. Cada una fija el orden de las ocho operaciones; cambiarla reinicia la ejecución.`],
+      ['Reproductor (Fig. 1)', String.raw`Control con cinco partes: Velocidad (deslizador de pasos por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Cada paso ejecuta una operación.`],
+      ['La falla ocurre después del paso (Fig. 2)', String.raw`Deslizador de 0 a 5. Los valores son: 0 antes de empezar, 1 leer A, 2 escribir A − 300, 3 leer B, 4 escribir B + 300, 5 sin falla (llega al COMMIT).`],
+      ['dentro de una transacción con bitácora (Fig. 2)', String.raw`Casilla. Activada, si la falla ocurre antes del COMMIT la recuperación deshace lo escrito y A y B vuelven a sus valores iniciales; desactivada, lo ya escrito en disco queda como está.`],
     ],
     visualizaciones: [
       {
         titulo: 'Planificaciones y serializabilidad',
         descripcion: 'Dos transacciones intercaladas de distintas formas. Compare el resultado de cada planificación con las dos ejecuciones seriales y mire si el grafo de precedencia tiene ciclo.',
-        ayuda: String.raw`<p>Las operaciones de las transacciones se ordenan en el tiempo y se colorean según estén pendientes, sean la actual o ya se hayan ejecutado. Junto a ellas está el grafo de precedencia; las aristas de un ciclo se destacan.</p>
+        ayuda: String.raw`<p>Dos filas, T1 (transfiere 100 de A a B) y T2 (aplica 10 % de interés a ambas cuentas), con las operaciones R y W ordenadas en el tiempo. Los bordes de cada caja son grises (C.inactivo) si la operación está pendiente, naranjas (C.s2) la actual y negros (C.tinta) las ya ejecutadas. Bajo ellas se ven A, B, A + B y los valores leídos por cada transacción. A la derecha (o abajo, en pantallas angostas) está el grafo de precedencia con los nodos T1 y T2; si hay aristas en ambos sentidos (ciclo) se dibujan en rojo (C.s8), si no, en negro. Al pasar el cursor sobre una operación se ve su detalle.</p>
           <ul>
-          <li><strong>Planificación</strong>: si el grafo tiene ciclo, la planificación no es serializable y el resultado no coincide con ninguna ejecución serial.</li>
+          <li><strong>Planificación</strong>: las dos seriales dan los resultados de referencia; la serializable y la no serializable solo difieren en el orden; la actualización perdida hace que una escritura use un valor ya viejo. Un ciclo en el grafo indica que no es serializable por conflictos.</li>
+          <li><strong>Reproductor</strong>: muestra cómo se acumulan las aristas y los valores a medida que se ejecutan las operaciones; al terminar, el mensaje compara con las ejecuciones seriales.</li>
           </ul>`,
         montar: montarPlanificacion,
       },
       {
         titulo: 'Atomicidad ante una caída',
         descripcion: 'Una transferencia de $300 de A a B que se interrumpe. Sin transacción el dinero puede desaparecer; con bitácora, la recuperación deshace lo incompleto.',
-        ayuda: String.raw`<p>Saldos guardados en disco de las dos cuentas, en el eje vertical «saldo», comparados con el saldo antes de la transferencia; el dinero que desapareció se marca aparte.</p>
+        ayuda: String.raw`<p>Gráfico de barras con eje vertical «saldo» (0 a 1.600) y tres barras azules (C.s1): A, B y A + B, con su valor numérico. La línea punteada gris (C.apagado) en cada barra marca el valor antes de la transferencia (1.000, 500 y 1.500). Si A + B queda por debajo de 1.500, la diferencia se sombrea en rojo (C.s8). Bajo el gráfico, el mensaje explica qué ocurrió y las lecturas indican A, B, A + B y si se cumple el invariante A + B = 1.500.</p>
           <ul>
-          <li><strong>La falla ocurre después del paso</strong>: si cae entre el retiro y el depósito, sin transacción falta dinero en el total.</li>
-          <li><strong>dentro de una transacción con bitácora</strong>: la recuperación deshace lo incompleto y los saldos vuelven a los iniciales.</li>
+          <li><strong>La falla ocurre después del paso</strong>: sin transacción, entre los pasos 2 y 3 el disco tiene A debitada y B sin acreditar, por lo que faltan 300; con 4 ya están ambas escrituras y el total es correcto.</li>
+          <li><strong>dentro de una transacción con bitácora</strong>: con una falla anterior al COMMIT, las barras vuelven a los valores iniciales; con 5 la transferencia se conserva.</li>
           </ul>`,
         montar: montarFalla,
       },

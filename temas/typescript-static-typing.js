@@ -98,22 +98,23 @@
       <strong>TypeScript</strong> añade un sistema de <em>tipado estático</em>: se declaran los tipos y un compilador los comprueba <strong>antes</strong> de ejecutar, para luego convertir todo en JavaScript común.</p>
       <p>Los tipos funcionan además como documentación y permiten que el editor autocomplete y refactorice con seguridad.</p>`,
     parametros: [
-      ['Fragmento (Fig. 1)', String.raw`El programa de ejemplo con un error típico; cada uno ilustra otro tipo de problema que un tipo puede prevenir.`],
-      ['Lenguaje y modo (Fig. 1)', String.raw`JavaScript, TypeScript o TypeScript estricto: cambia cuántos errores señala el compilador antes de ejecutar.`],
-      ['Tipo (Fig. 2)', String.raw`El tipo contra el cual se comprueban varios valores de ejemplo para ver cuáles se pueden asignar.`],
+      ['Fragmento (Fig. 1)', String.raw`Selector con cuatro programas de ejemplo: sumar un texto como si fuera número, error de tipeo en una propiedad, valor que puede ser null y falta un campo obligatorio. Cada uno ilustra otro error que un tipo puede prevenir; parte en el primero.`],
+      ['Lenguaje y modo (Fig. 1)', String.raw`Selector con tres opciones: «JavaScript (sin tipos)», «TypeScript» y «TypeScript con strict: true» (parte en la segunda). En JavaScript no hay compilación; en TypeScript el compilador revisa los tipos; el modo estricto añade la comprobación de null, que solo cambia el resultado del fragmento «valor que puede ser null».`],
+      ['Tipo (Fig. 2)', String.raw`Selector con cinco tipos: Punto, Persona, Id (número o texto), Lado (&quot;izq&quot; o &quot;der&quot;) y Notas (arreglo de números). Se comprueban trece valores de ejemplo contra el tipo elegido; parte en Punto.`],
     ],
     visualizaciones: [
       { titulo: 'Lo que atrapa el compilador', descripcion: 'Elija un fragmento con un error típico y compare JavaScript, TypeScript y el modo estricto: ¿cuándo se descubre cada problema?',
-        ayuda: String.raw`<p>Arriba está el fragmento; en «Al compilar» las fichas con los diagnósticos del compilador y en «Al ejecutar el JavaScript resultante» lo que realmente ocurre al correrlo.</p>
+        ayuda: String.raw`<p>Un recuadro con el código del fragmento (sin anotaciones de tipo en modo JavaScript), el subtítulo «Al compilar (antes de ejecutar)» con fichas de diagnóstico, y «Al ejecutar el JavaScript resultante» con lo que ocurre al correrlo. Las fichas son grises si no hay compilación (JavaScript), rojas con «línea N: error TS» si el compilador encuentra un error y verdes con «sin errores de tipos» si no. Abajo se leen los errores detectados al compilar, si hubo error o resultado inesperado al ejecutar, y el modo.</p>
           <ul>
-          <li><strong>Lenguaje y modo</strong> en JavaScript: no hay diagnósticos y el error, si existe, aparece al ejecutar.</li>
-          <li>En TypeScript o su modo estricto el compilador señala el problema antes de ejecutar; el modo estricto detecta más casos.</li>
-          <li>Cada <strong>Fragmento</strong> activa un error distinto, por lo que el resultado depende de qué comprobaciones actúen.</li>
+          <li><strong>Fragmento</strong>: cambia el código y el error de ese caso; «valor que puede ser null» solo se detecta en modo estricto.</li>
+          <li><strong>Lenguaje y modo</strong>: en JavaScript no hay diagnósticos y el programa se ejecuta de verdad (lanza un error o da un resultado equivocado); en TypeScript y TypeScript estricto, si hay un error de tipos, se rechaza el programa y no se ejecuta.</li>
+          <li>En TypeScript sin modo estricto, el fragmento de null no muestra errores y falla al ejecutarse.</li>
           </ul>`, montar: montarCompilador },
       { titulo: 'Tipado estructural', descripcion: 'Seleccione un tipo y compruebe qué valores se pueden asignar: lo que importa es la forma, no el nombre.',
-        ayuda: String.raw`<p>Cada fila de la tabla es un valor candidato y la columna final indica si puede asignarse al tipo elegido, y por qué.</p>
+        ayuda: String.raw`<p>Tabla de trece valores candidatos con dos columnas: el valor y «¿asignable a el tipo?», con una ficha verde «sí» o roja «no». Abajo se leen cuántos valores se aceptan y el tipo elegido; el texto bajo la figura resume la regla de ese tipo.</p>
           <ul>
-          <li><strong>Tipo</strong>: al cambiarlo cambian los campos exigidos; un valor con campos de más sigue siendo válido porque basta que tenga la forma pedida, sin importar su nombre.</li>
+          <li><strong>Tipo</strong>: cambia qué filas están en verde. Con Punto, un valor con campos de más, como <code>{ x: 1, y: 2, z: 3 }</code>, se acepta porque basta con tener la forma pedida.</li>
+          <li>Con Persona la propiedad edad es opcional; con Id se acepta número o texto; con Lado, solo «izq» o «der»; con Notas, solo arreglos de números.</li>
           </ul>`, montar: montarEstructural },
     ],
     teoria: String.raw`

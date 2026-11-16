@@ -162,29 +162,32 @@
       un modelo por descenso de gradiente o aplicar <a href="tema.html?id=pca">PCA</a>. Hay varias formas, y difieren sobre todo en
       cómo reaccionan ante valores extremos.</p>`,
     parametros: [
-      ['Escalamiento (Fig. 1)', String.raw`Cómo se transforman edad e ingreso antes de calcular distancias: sin escalar, min-max o z. Decide cuál de las dos variables pesa más al buscar vecinos.`],
-      ['Vecinos k (Fig. 1)', String.raw`Cuántos vecinos más cercanos se consideran alrededor del punto elegido.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra aleatoria de clientes o de valores.`],
-      ['Valores atípicos (Fig. 2)', String.raw`Cuántos valores extremos se agregan a la columna. Cada atípico estira el rango o la desviación que usan los escalamientos.`],
+      ['Escalamiento (Fig. 1)', String.raw`Selector con cuatro opciones: Sin escalar, Min-max a [0, 1], Estandarizar (z) y Robusta (mediana, IQR). Transforma edad e ingreso antes de calcular las distancias y decide cuál de las dos variables pesa más al buscar vecinos.`],
+      ['Vecinos k (Fig. 1)', String.raw`De 1 a 15 vecinos más cercanos al punto elegido.`],
+      ['Clic en un punto (Fig. 1)', String.raw`Elige el cliente cuyos vecinos se buscan; al inicio es el primero de la muestra.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra aleatoria: 70 clientes en la Fig. 1 y 200 valores típicos en la Fig. 2.`],
+      ['Valores atípicos (Fig. 2)', String.raw`De 0 a 15 valores extremos agregados a la columna (valores de 160 en adelante, frente a unos 50 de los típicos). Estiran el rango y la desviación que usan los escalamientos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Vecinos según la escala',
         descripcion: 'El segmento de cada cliente depende de su edad. Sin escalar, el ingreso domina la distancia y los vecinos salen de ambos segmentos; pruebe min-max o z.',
-        ayuda: String.raw`<p>Los puntos son clientes con edad e ingreso, coloreados según su segmento (A o B). Se resaltan el punto elegido y sus k vecinos más cercanos.</p>
+        ayuda: String.raw`<p>Cada punto es un cliente: edad en el eje horizontal e ingreso en el vertical (en sus unidades originales si no se escala; escalados en otro caso, con la misma unidad en ambos ejes). El segmento A son círculos azules y el B, cuadrados naranja. El punto elegido se marca en negro; sus k vecinos más cercanos llevan anillo amarillo y una línea amarilla hacia el punto elegido. La lectura da cuántos vecinos son del mismo segmento y el peso del ingreso en la distancia. Los datos están hechos de modo que el segmento depende de la edad (A cerca de 30 años, B cerca de 52) y el ingreso varía mucho en ambos.</p>
           <ul>
-          <li><strong>Escalamiento</strong>: sin escalar, el ingreso domina la distancia y los vecinos salen de ambos segmentos; con min-max o z, la edad vuelve a contar y los vecinos pertenecen al mismo segmento.</li>
-          <li><strong>Vecinos k</strong>: con k mayor entran puntos más lejanos, que pueden ser del otro segmento.</li>
+          <li><strong>Sin escalar</strong>: el ingreso, de escala mucho mayor, domina la distancia y los vecinos se reparten entre segmentos.</li>
+          <li><strong>Min-max</strong>, <strong>z</strong> y <strong>robusta</strong>: ambas variables pesan de modo comparable y la edad vuelve a contar; compare cuántos vecinos son del mismo segmento.</li>
+          <li><strong>Vecinos k</strong>: al aumentarlo, entran puntos más lejanos.</li>
+          <li><strong>Clic en un punto</strong>: cambia el punto de referencia.</li>
           </ul>`,
         montar: montarVecinos,
       },
       {
         titulo: 'El efecto de los valores atípicos',
         descripcion: 'La misma columna con tres escalamientos, sobre un eje común. La barra gris es el rango intercuartílico de los datos típicos: mire cuánto se angosta al agregar atípicos.',
-        ayuda: String.raw`<p>Una misma columna aparece con tres escalamientos sobre un eje común. Los puntos son datos típicos y valores atípicos, y la barra gris es el rango intercuartílico de los típicos.</p>
+        ayuda: String.raw`<p>Tres filas, una por escalamiento (Min-max, Estandarizar y Robusta), con la misma columna y un eje común de −2 a 4. Cada fila es un histograma: barras azules para los datos típicos y rojas para los valores atípicos; los atípicos que quedan más allá del eje se resumen con una flecha roja y su cantidad. La barra gris bajo cada eje es el rango intercuartílico (IQR) de los típicos, ya escalado, y la lectura da su ancho. Al pasar el cursor sobre una fila se ven la mediana típica y el máximo escalados.</p>
           <ul>
-          <li><strong>Valores atípicos</strong>: al agregar atípicos, el min-max y el z comprimen los datos típicos en un tramo más angosto, y la barra gris se estrecha; el escalamiento con cuartiles casi no cambia.</li>
-          <li><strong>Nuevos datos</strong>: repite el experimento con otra muestra.</li>
+          <li><strong>Valores atípicos</strong>: con más atípicos, min-max y z comprimen a los típicos en un tramo más angosto (barra gris más corta); la robusta casi no cambia.</li>
+          <li><strong>Nuevos datos</strong>: repite con otra muestra de valores típicos.</li>
           </ul>`,
         montar: montarAtipicos,
       },

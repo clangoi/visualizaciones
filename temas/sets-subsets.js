@@ -140,27 +140,27 @@
       <p>De la pertenencia se deduce todo lo demás. \(A\) es <strong>subconjunto</strong> de \(B\) si todo lo que está en \(A\) está también en \(B\); y dos conjuntos son
       iguales si tienen exactamente los mismos elementos. Con ellos se arman uniones, intersecciones y el conjunto de todos los subconjuntos.</p>`,
     parametros: [
-      ['Ejemplo (Fig. 1)', String.raw`Elige el par de conjuntos A y B con que se trabaja. Define sus elementos y su relación.`],
-      ['Elementos de A (Fig. 2)', String.raw`Cuántos elementos tiene A, entre 2 y 4. Con n elementos hay \(2^n\) subconjuntos.`],
+      ['Ejemplo (Fig. 1)', String.raw`Cuatro opciones que reparten los elementos 1 a 12: «A = pares, B = múltiplos de 3», «A ⊆ B (A está contenido en B)», «A y B disjuntos» y «A = B». Define los elementos iniciales de cada región y su relación.`],
+      ['Elementos de A (Fig. 2)', String.raw`Deslizador de 2 a 4: cuántos elementos tiene A (a, b, c, d). Con n elementos hay \(2^n\) subconjuntos, es decir, esa cantidad de cajas en el diagrama.`],
     ],
     visualizaciones: [
       {
         titulo: 'Pertenencia e inclusión en un diagrama de Venn',
         descripcion: 'Mueva elementos entre las regiones y vea cómo cambian \\(A \\cap B\\), \\(A \\cup B\\) y las preguntas \\(A \\subseteq B\\), \\(A = B\\).',
-        ayuda: String.raw`<p>Dos círculos representan los conjuntos A (azul) y B (naranja); cada elemento está en la región que corresponde a su pertenencia. La lectura muestra \(A \cap B\), \(A \cup B\) y si valen \(A \subseteq B\) y \(A = B\).</p>
+        ayuda: String.raw`<p>Dos círculos, A (azul) y B (naranja), dentro de un rectángulo U. Los elementos 1 a 12 se dibujan como círculos pequeños numerados: los de la zona solo de A, la intersección o solo de B, y los de fuera de ambos quedan abajo. Al pasar el cursor sobre un elemento se indica si pertenece a A y a B. La lectura muestra A, B, \(A \cap B\), \(A \cup B\) y si valen \(A \subseteq B\), \(B \subseteq A\) y \(A = B\).</p>
           <ul>
-          <li><strong>Ejemplo</strong>: cada ejemplo da una relación distinta, como inclusión, igualdad o disjunción.</li>
-          <li>Al mover un elemento entre regiones cambian la intersección y la unión.</li>
+          <li><strong>Ejemplo</strong>: cada opción da una relación distinta (ni una ni otra, inclusión, disjunción o igualdad).</li>
+          <li><strong>Clic en un elemento</strong>: lo mueve de región en el ciclo fuera, solo A, ambos, solo B; cambian la intersección, la unión y las relaciones de inclusión.</li>
           </ul>`,
         montar: montarVenn,
       },
       {
         titulo: 'El conjunto potencia',
         descripcion: 'Con \\(n\\) elementos hay \\(2^n\\) subconjuntos. Elija uno y vea cuáles están dentro de él y cuáles lo contienen.',
-        ayuda: String.raw`<p>Se muestran los subconjuntos de A. Al elegir uno (S), se marcan los subconjuntos contenidos en S y los conjuntos que lo contienen.</p>
+        ayuda: String.raw`<p>Diagrama de Hasse del conjunto potencia de A: cada caja es un subconjunto (de ∅ abajo a A arriba, por niveles según su tamaño) y cada línea une X con X ∪ {x}. La caja verde es el conjunto S elegido, las azules los subconjuntos de S y las naranjas los conjuntos que lo contienen; las demás no se resaltan. La lectura da |A|, \(2^n\), S y cuántos subconjuntos y conjuntos que lo contienen tiene.</p>
           <ul>
-          <li><strong>Elementos de A</strong>: cada elemento más duplica la cantidad de subconjuntos (\(2^n\)).</li>
-          <li>Al elegir S, los subconjuntos de S son menos cuanto menos elementos tenga S.</li>
+          <li><strong>Elementos de A</strong>: cada elemento más duplica la cantidad de cajas (\(2^n\)).</li>
+          <li><strong>Clic en una caja</strong>: la elige como S; si S tiene k elementos, tiene \(2^k\) subconjuntos y está contenido en \(2^{n-k}\) conjuntos.</li>
           </ul>`,
         montar: montarPotencia,
       },

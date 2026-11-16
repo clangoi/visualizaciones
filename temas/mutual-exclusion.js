@@ -288,32 +288,33 @@
       de tiempo (Ricart–Agrawala), o hacer circular un <strong>token</strong> que autoriza a quien lo tiene. Se comparan por mensajes por entrada,
       demora y tolerancia a fallas.</p>`,
     parametros: [
-      ['Algoritmo (Fig. 1)', String.raw`Servidor central, Ricart–Agrawala o anillo con token. Cambia quién concede la entrada a la sección crítica y cuántos mensajes cuesta.`],
-      ['Procesos (Fig. 1)', String.raw`Cantidad de procesos que pueden competir por la sección crítica.`],
-      ['Los pedidos llegan (Fig. 1)', String.raw`Si todos piden a la vez o escalonados. Juntos, hay más conflicto y más espera.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza o reinicia la ejecución paso a paso.`],
-      ['Proteger con un lock (Fig. 2)', String.raw`Con lock, un proceso espera si el otro está dentro de la sección que lee y escribe x. Sin él, las lecturas y escrituras se intercalan libremente.`],
-      ['P1 avanza, P2 avanza, Intercalado peligroso y Reiniciar (Fig. 2)', String.raw`Avanzar ejecuta una instrucción de ese proceso. Intercalado peligroso ejecuta un orden que provoca el fallo; Reiniciar vuelve al inicio.`],
+      ['Algoritmo (Fig. 1)', String.raw`Selector con tres opciones: «Servidor central», «Ricart–Agrawala» y «Anillo con token». Cambia quién concede la entrada a la sección crítica y cuántos mensajes cuesta.`],
+      ['Procesos (Fig. 1)', String.raw`Deslizador de 3 a 7 procesos.`],
+      ['Los pedidos llegan (Fig. 1)', String.raw`Selector con dos opciones: «todos a la vez» (todos piden en el paso 1) y «escalonados» (cada pedido llega 3 pasos después del anterior).`],
+      ['Quién pide y controles de reproducción (Fig. 1)', String.raw`Un clic en un proceso lo agrega o quita de los que pedirán (anillo azul). Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar avanzan la simulación; cada proceso permanece 2 pasos en la sección crítica.`],
+      ['Proteger con un lock (Fig. 2)', String.raw`Casilla: con ella el código de cada proceso se envuelve en lock() y unlock(), y un proceso se bloquea si el otro tiene el lock. Sin ella, las instrucciones se intercalan libremente.`],
+      ['P1 avanza, P2 avanza, Intercalado peligroso y Reiniciar (Fig. 2)', String.raw`P1 avanza y P2 avanza ejecutan una instrucción de ese proceso. Intercalado peligroso reinicia y ejecuta una secuencia fija de pasos: sin lock termina con x = 1; con lock termina con x = 2. Reiniciar vuelve al inicio.`],
     ],
     visualizaciones: [
       {
         titulo: 'Tres algoritmos',
         descripcion: 'Avance paso a paso y compare los mensajes por entrada. En Ricart–Agrawala, cada pedido lleva (reloj de Lamport, id): gana la marca menor, y el perdedor difiere su permiso hasta salir.',
-        ayuda: String.raw`<p>Cada fila es un proceso. Las flechas son mensajes: pedido azul, permiso verde, liberación aguamarina y token violeta. Un punto amarillo es un proceso esperando y uno verde, dentro de la sección crítica.</p>
+        ayuda: String.raw`<p>Los procesos están en círculo (con servidor central, el coordinador C va al centro). Las flechas son mensajes del paso actual: pedido azul, permiso verde, liberación aguamarina y token violeta. Relleno amarillo: proceso esperando; verde: dentro de la sección crítica; gris claro: ya entró y salió; blanco: libre. En Ricart–Agrawala cada nodo muestra su reloj y su marca de pedido, y con el token un punto violeta indica quién lo tiene.</p>
           <ul>
-          <li><strong>Algoritmo</strong>: cambia quién emite los permisos y el número de flechas por entrada.</li>
-          <li><strong>Los pedidos llegan</strong> «todos a la vez»: aparecen más puntos amarillos, porque solo uno puede estar en verde.</li>
-          <li><strong>Procesos</strong>: más pedidos y más mensajes en total.</li>
+          <li><strong>Algoritmo</strong>: cambia quién emite los permisos y el número de mensajes por entrada (se compara con la teoría en la lectura).</li>
+          <li><strong>Los pedidos llegan</strong>: «todos a la vez» provoca más espera simultánea; con «escalonados» hay menos contención.</li>
+          <li><strong>Procesos</strong>: más procesos, más mensajes por entrada en Ricart–Agrawala.</li>
           </ul>`,
         montar: montarAlgoritmos,
       },
       {
         titulo: 'La actualización perdida',
         descripcion: 'Sin exclusión mutua, dos incrementos pueden producir x = 1. Pulse «Intercalado peligroso» con y sin lock y compare cuántas intercalaciones terminan mal.',
-        ayuda: String.raw`<p>Cada proceso (P1 azul, P2 naranja) lee x, la modifica y la escribe. Un punto amarillo indica que espera el lock; uno rojo, una actualización perdida.</p>
+        ayuda: String.raw`<p>Dos cuadros de código, P1 (azul) y P2 (naranja), cada uno con las instrucciones <code>r ← x</code>, <code>r ← r + 1</code>, <code>x ← r</code> (y lock/unlock si está activo) y su registro r. Al centro, la memoria compartida con x; con lock se muestra además quién lo tiene. Un cuadro de código con borde y resaltado amarillos es un proceso bloqueado esperando el lock; la memoria se tiñe de rojo si termina con x distinto de 2 (actualización perdida).</p>
           <ul>
-          <li><strong>Proteger con un lock</strong>: con lock, el segundo proceso espera y x termina bien; sin él, ambos leen el mismo valor y una actualización se pierde.</li>
-          <li><strong>Intercalado peligroso</strong>: ejecuta una intercalación que sin lock termina en rojo y con lock queda protegida.</li>
+          <li><strong>Proteger con un lock</strong>: el segundo proceso espera y x termina en 2; sin lock, ambos pueden leer el mismo valor y x termina en 1.</li>
+          <li><strong>Intercalado peligroso</strong>: sin lock deja x = 1; con lock el mismo intento queda protegido.</li>
+          <li>La lectura cuenta las intercalaciones posibles y cuántas terminan con x = 2 o x = 1.</li>
           </ul>`,
         montar: montarCarrera,
       },

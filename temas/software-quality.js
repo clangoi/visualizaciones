@@ -107,25 +107,25 @@
       <p>Un programa de calidad no es solo uno «sin errores»: es uno que hace lo que se necesita (<strong>requisitos funcionales</strong>) y lo hace <em>bien</em> —rápido, seguro, usable, mantenible— (<strong>requisitos no funcionales</strong>, o atributos de calidad).</p>
       <p>El <strong>aseguramiento de calidad</strong> (QA) es el conjunto de prácticas para lograrlo durante todo el desarrollo, no solo al final. Su idea central: cuanto antes se detecta un problema, más barato es corregirlo.</p>`,
     parametros: [
-      ['Tipo de proyecto (Fig. 1)', String.raw`El tipo de sistema (por ejemplo, uno crítico o uno experimental) cuyo perfil de importancia por atributo se compara con su propio reparto.`],
-      ['Esfuerzo por atributo (Fig. 1)', String.raw`Un control por cada uno de los ocho atributos de calidad, de 0 a 5. Representa cuánto presupuesto dedica a ese atributo; subir uno obliga a pensar de dónde se quita.`],
-      ['Ajustar al perfil (Fig. 1)', String.raw`Copia en los controles el esfuerzo que el tipo de proyecto elegido pide.`],
-      ['Defectos introducidos (Fig. 2)', String.raw`Cuántos defectos se cometen durante el desarrollo; escala los hallazgos y los costos.`],
-      ['Estrategia de verificación (Fig. 2)', String.raw`En qué fases se buscan los defectos. Determina cuántos se encuentran temprano, cuántos llegan a producción y el costo total.`],
+      ['Tipo de proyecto (Fig. 1)', String.raw`Selector con cuatro perfiles: Banca en línea, Juego móvil, Blog personal y Sistema médico. Cada uno fija cuánta importancia (de 0 a 5) pide cada atributo; cambiarlo redibuja la línea punteada naranja y los déficits.`],
+      ['Esfuerzo por atributo (Fig. 1)', String.raw`Ocho controles (Funcionalidad, Rendimiento, Seguridad, Usabilidad, Mantenibilidad, Fiabilidad, Portabilidad, Compatibilidad), de 0 a 5, que parten en 3. Representan el esfuerzo que usted dedica a cada atributo; el total se compara con un presupuesto de 24 puntos.`],
+      ['Ajustar al perfil (Fig. 1)', String.raw`Botón que copia en los ocho controles los valores que pide el tipo de proyecto elegido, de modo que el esfuerzo iguale a lo requerido.`],
+      ['Defectos introducidos (Fig. 2)', String.raw`Control de 20 a 300 (paso 10) con la cantidad de defectos cometidos. Multiplica los defectos hallados en cada fase y su costo.`],
+      ['Estrategia de verificación (Fig. 2)', String.raw`Selector con dos opciones: «pruebas solo al final» (la mayoría de los defectos aparece en Pruebas y Producción) y «revisiones y pruebas desde el inicio» (se hallan sobre todo en Requisitos, Diseño y Código). Cambia cuántos defectos se hallan en cada fase y el costo total.`],
     ],
     visualizaciones: [
       { titulo: 'Atributos de calidad y compromisos', descripcion: 'Elija un tipo de proyecto, reparta su presupuesto de esfuerzo entre ocho atributos y compare con lo que ese proyecto realmente necesita.',
-        ayuda: String.raw`<p>Gráfico radial con un eje por atributo de calidad. Una forma muestra el esfuerzo que usted asigna y otra la importancia que pide el proyecto; los atributos con déficit se resaltan.</p>
+        ayuda: String.raw`<p>Gráfico radial con ocho ejes, uno por atributo, con anillos de 1 a 5 desde el centro. El polígono azul relleno es el esfuerzo que usted asigna; el contorno naranja punteado es la importancia que pide el proyecto. En cada vértice azul hay un punto: rojo si el esfuerzo queda por debajo de lo pedido (déficit) y azul si lo alcanza. Al pasar el puntero sobre un eje se muestra el esfuerzo y lo que se pide. Abajo se lee el esfuerzo usado frente a 24, el porcentaje de necesidad cubierta y la cantidad de atributos con déficit.</p>
           <ul>
-          <li><strong>Tipo de proyecto</strong>: cambia la forma de la importancia requerida.</li>
-          <li><strong>Esfuerzo por atributo</strong>: acerca o aleja su forma del borde en ese eje; un atributo con esfuerzo menor que el pedido queda marcado como déficit.</li>
-          <li><strong>Ajustar al perfil</strong>: ambas formas coinciden y el déficit desaparece.</li>
+          <li><strong>Tipo de proyecto</strong>: cambia solo el contorno naranja y, con él, qué puntos pasan a rojo.</li>
+          <li><strong>Esfuerzo por atributo</strong>: mueve el vértice azul de ese eje hacia el borde (5) o el centro (0); si el total supera 24 aparece un aviso de que se pasó del presupuesto.</li>
+          <li><strong>Ajustar al perfil</strong>: el polígono azul queda sobre el contorno naranja y no quedan puntos rojos, aunque el total puede exceder 24.</li>
           </ul>`, montar: montarRadar },
       { titulo: 'El costo de hallar un defecto tarde', descripcion: 'Compare dos estrategias de verificación y vea cuánto se paga en total y cuántos defectos llegan a producción.',
-        ayuda: String.raw`<p>Una columna por fase del desarrollo, con los defectos hallados en esa fase y el costo relativo de corregirlos, que crece cuanto más tarde se descubren.</p>
+        ayuda: String.raw`<p>Gráfico de barras con una columna doble por fase (Requisitos, Diseño, Código, Pruebas, Producción). La barra azul es la cantidad de defectos hallados en esa fase y la naranja el costo de corregirlos en unidades relativas. Bajo cada nombre figura el multiplicador de costo por defecto (×1, ×3, ×6, ×15, ×80). Al pasar el puntero se ven los defectos, el costo unitario y el costo total de la fase. Abajo se leen el costo total con cada estrategia y los defectos que llegan a producción.</p>
           <ul>
-          <li><strong>Defectos introducidos</strong>: aumenta los hallazgos de cada fase y el costo total.</li>
-          <li><strong>Estrategia de verificación</strong>: si detecta más en las fases iniciales, baja el costo total y los defectos que llegan a producción.</li>
+          <li><strong>Defectos introducidos</strong>: escala el costo total y los defectos que llegan a producción; la forma de las barras azules no cambia.</li>
+          <li><strong>Estrategia de verificación</strong>: con «pruebas solo al final» las barras naranjas crecen hacia Pruebas y Producción; con «revisiones y pruebas desde el inicio» se desplazan a las primeras fases y el costo total baja.</li>
           </ul>`, montar: montarCosto },
     ],
     teoria: String.raw`

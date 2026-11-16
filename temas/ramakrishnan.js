@@ -166,17 +166,18 @@
       uno») y una <strong>línea gruesa</strong> es una <em>participación total</em> («al menos uno»). Una flecha gruesa significa
       «exactamente uno».</p>`,
     parametros: [
-      ['Casillas de llave y total (Fig. 1)', String.raw`Las dos «llave» (flecha) limitan a cuántos pares puede pertenecer cada entidad (a lo más uno); las dos «total» (línea gruesa) exigen que toda entidad participe en al menos un par. Al activarlas cambia la notación del diagrama y las violaciones de la instancia.`],
-      ['Ejemplo y Vaciar pares (Fig. 1)', String.raw`Ejemplo carga pares de muestra entre empleados y departamentos; Vaciar pares los quita.`],
+      ['Casillas llave y total (Fig. 1)', String.raw`Cuatro casillas: «llave» en Departamento (a lo más un director), «total» en Departamento (todo departamento tiene director), «llave» en Empleado (dirige a lo más un departamento) y «total» en Empleado (todo empleado dirige alguno). Inicialmente están activas las dos de Departamento. Una llave dibuja una flecha hacia el rombo en ese lado; total dibuja la línea gruesa; ambas, una flecha gruesa.`],
+      ['Ejemplo y Vaciar pares (Fig. 1)', String.raw`Ejemplo restablece tres pares de muestra entre empleados y departamentos; Vaciar pares los quita y deselecciona al empleado.`],
     ],
     visualizaciones: [
       {
         titulo: 'Flechas, líneas gruesas e instancias',
         descripcion: 'El ejemplo clásico del libro: Empleado dirige Departamento. Active y desactive las restricciones y vea el diagrama, las violaciones en la instancia y la traducción a SQL.',
-        ayuda: String.raw`<p>Diagrama Empleado dirige Departamento con las restricciones elegidas, instancia de pares (empleado, departamento) y traducción a SQL. Se marcan los pares que violan una restricción de llave y las entidades que violan la participación total.</p>
+        ayuda: String.raw`<p>Arriba, el diagrama Empleado, rombo «dirige» y Departamento, cuyas líneas cambian según las casillas: flecha = llave, línea gruesa = total. Debajo (bajo «instancia») hay cinco empleados a la izquierda y cuatro departamentos a la derecha, unidos por una línea negra por cada par. Una línea roja gruesa es un par que viola una restricción de llave activa; un punto amarillo y más grande es una entidad que viola una participación total activa (sin ningún par); el empleado elegido tiene el punto azul. Debajo, el texto describe la notación y las violaciones, el SQL de la traducción y la lectura (pares, violaciones de llave, violaciones de participación y tablas).</p>
           <ul>
-          <li><strong>llave</strong>: con la casilla de Departamento activa, un departamento con dos directores se marca como violación.</li>
-          <li><strong>total</strong>: con la casilla activa, una entidad sin ningún par se marca como violación de la participación total.</li>
+          <li><strong>llave</strong>: con la de Departamento activa, un departamento con dos directores marca sus pares en rojo; con la de Empleado, un empleado con dos departamentos. Con llave en Departamento, la relación se absorbe en una tabla y quedan 2 tablas; sin ella, 3.</li>
+          <li><strong>total</strong>: con la casilla activa, una entidad sin ningún par aparece en amarillo.</li>
+          <li><strong>Instancia</strong>: haga clic en un empleado y luego en un departamento para agregar o quitar el par.</li>
           </ul>`,
         montar: montarNotacion,
       },

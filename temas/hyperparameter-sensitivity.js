@@ -151,26 +151,27 @@
       <p>El <strong>análisis de robustez</strong> recorre un rango razonable de cada hiperparámetro y, con <a href="tema.html?id=bootstrap">bootstrap</a>,
       mide también cuánto varía el resultado con los datos. Lo que se busca son <strong>mesetas</strong>: zonas donde el resultado es estable en ambos sentidos.</p>`,
     parametros: [
-      ['Datos (Fig. 1)', String.raw`El tipo de datos sintéticos sobre los que se corre DBSCAN. Con manchas de igual densidad hay una meseta clara; con densidades distintas no existe un solo ε que sirva para todas.`],
-      ['MinPts (Fig. 1)', String.raw`El número mínimo de vecinos dentro de ε para que un punto sea núcleo. Más MinPts exige zonas más densas y declara más puntos como ruido.`],
-      ['Confusión (Fig. 2)', String.raw`La intensidad del confusor que sesga la asignación del tratamiento. Con más confusión, el efecto estimado se aleja del verdadero cuando el emparejamiento es poco estricto.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra y recalcula las bandas de remuestreo.`],
+      ['Datos (Fig. 1)', String.raw`Selector con cinco formas de datos sintéticos (200 puntos, con 5 % de ruido de fondo): «Tres manchas», «Densidades distintas», «Manchas alargadas», «Dos lunas» y «Anillos concéntricos». Con manchas de igual densidad hay una meseta clara; con densidades distintas no existe un solo ε que sirva para todas.`],
+      ['MinPts (Fig. 1)', String.raw`Deslizador de 2 a 15: el número mínimo de vecinos dentro de ε para que un punto sea núcleo. Más MinPts exige zonas más densas y declara más puntos como ruido. Se recalcula al soltar el deslizador.`],
+      ['Confusión (Fig. 2)', String.raw`Deslizador de 0 a 2,5: la intensidad del confusor que sesga la asignación del tratamiento. Con más confusión, el efecto estimado se aleja del verdadero cuando el emparejamiento es poco estricto. Se recalcula al soltar.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Botón que genera otra muestra y recalcula las bandas de remuestreo.`],
     ],
     visualizaciones: [
       {
         titulo: 'DBSCAN según ε',
         descripcion: 'Número de grupos y estabilidad a lo largo de ε, con remuestras bootstrap. Compare la meseta de «Tres manchas» con la de «Densidades distintas».',
-        ayuda: String.raw`<p>El eje horizontal es ε. Una curva con banda es el número de grupos (mediana y banda 10–90 % en 20 remuestras); otra, el ARI con los datos completos (estabilidad). Una zona marcada es la meseta: grupos constantes y ARI alto.</p>
+        ayuda: String.raw`<p>Dos paneles apilados con el mismo eje horizontal, ε (de 0,03 a 0,29). El superior muestra el número de grupos de DBSCAN: la línea azul es la mediana en 20 remuestras bootstrap y la banda azul va del percentil 10 al 90. El inferior muestra en naranja el ARI medio entre las remuestras y el resultado con todos los datos (estabilidad). Un fondo verde tenue marca la meseta: ε donde la banda tiene ancho cero y el ARI es al menos 0,9. Al pasar el cursor aparece una guía vertical en ambos paneles y los valores de ese ε; debajo se leen el rango de ε de la meseta, los grupos en ella y el mejor ARI con los grupos reales.</p>
           <ul>
           <li><strong>Datos</strong>: en «Tres manchas» aparece una meseta ancha en 3 grupos; con densidades distintas no hay un ε que acierte en todos.</li>
-          <li><strong>MinPts</strong>: al subirlo, la meseta se desplaza hacia ε mayores y puede estrecharse; cuanto más ancha, más confiable es el resultado.</li>
+          <li><strong>MinPts</strong>: al subirlo, la meseta suele desplazarse hacia ε mayores y puede estrecharse; cuanto más ancha, más confiable es el resultado.</li>
+          <li><strong>Nuevos datos</strong>: una meseta que desaparece con otra muestra era frágil.</li>
           </ul>`,
         montar: montarDBSCAN,
       },
       {
         titulo: 'Un efecto causal según el caliper',
         descripcion: 'El ATT estimado por matching para distintos calipers, con su banda bootstrap y el valor verdadero.',
-        ayuda: String.raw`<p>El eje horizontal es el caliper (escala log) y el vertical, el ATT. Una curva con banda es el ATT estimado (banda 10–90 % en 30 remuestras bootstrap); una referencia indica el ATT verdadero de los tratados emparejados; otra curva, con el eje derecho (×5), muestra cuántos tratados se conservan.</p>
+        ayuda: String.raw`<p>El eje horizontal es el caliper (escala logarítmica, de 0,02 a 2,5) y el vertical, el ATT. La línea azul con su banda es el ATT estimado por emparejamiento 1 a 1 (banda 10–90 % en 30 remuestras bootstrap); la línea amarilla discontinua es el ATT verdadero de los tratados emparejados; la línea aguamarina, leída en la misma escala como valor ×5, es la fracción de tratados que se conservan. Al pasar el cursor se marcan los tres valores para ese caliper; debajo se leen el ATT y el ancho de la banda en los calipers extremos y el rango de estimaciones.</p>
           <ul>
           <li><strong>Confusión</strong>: con más confusión, la estimación se aleja del valor verdadero, sobre todo con calipers grandes, donde se emparejan unidades muy distintas.</li>
           <li><strong>Nuevos datos</strong>: la banda ancha con caliper chico señala ruido; si la conclusión cambia de signo o magnitud a lo largo del rango, no es robusta.</li>

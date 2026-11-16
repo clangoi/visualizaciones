@@ -103,23 +103,29 @@
       <p>Cuando dos hilos leen y escriben el mismo dato sin coordinarse, el resultado depende del orden exacto en que el planificador intercala sus instrucciones: es una <strong>condición de carrera</strong>. Lo traicionero es que el programa a veces funciona y a veces no, y los errores desaparecen al depurar.</p>
       <p>El ejemplo mínimo es <code>contador++</code>, que parece una sola operación pero son tres: leer, sumar, escribir. Si dos hilos intercalan esos pasos, un incremento se pierde.</p>`,
     parametros: [
-      ['Avanza A, Avanza B, Intercalado al azar y Reiniciar (Fig. 1)', String.raw`Cada botón ejecuta la siguiente instrucción (leer, sumar o escribir) del hilo indicado, o varias al azar. El orden en que se intercalan decide si se pierde una actualización.`],
-      ['Hilos (Fig. 2)', String.raw`Cuántos hilos incrementan el mismo contador sin sincronización. Más hilos, más oportunidades de intercalado malo.`],
-      ['Incrementos por hilo (Fig. 2)', String.raw`Cuántas veces incrementa cada hilo. El resultado correcto es hilos por incrementos.`],
-      ['Otras 500 ejecuciones (Fig. 2)', String.raw`Repite el experimento con otros intercalados al azar; muestra que el resultado varía de una ejecución a otra.`],
+      ['Avanza A (Fig. 1)', String.raw`Ejecuta la siguiente instrucción del hilo A: leer el contador en r, sumar uno a r o escribir r en el contador. No hace nada si A ya terminó.`],
+      ['Avanza B (Fig. 1)', String.raw`Igual que «Avanza A», pero para el hilo B. El orden en que alterne los botones decide si se pierde una actualización.`],
+      ['Intercalado al azar (Fig. 1)', String.raw`Ejecuta al azar las instrucciones que queden de ambos hilos hasta que los dos terminen.`],
+      ['Reiniciar (Fig. 1)', String.raw`Vuelve el contador a 0 y los dos hilos a su primera instrucción.`],
+      ['Hilos (Fig. 2)', String.raw`Cuántos hilos (2 a 8) incrementan el mismo contador sin sincronización. Más hilos, más oportunidades de intercalado malo.`],
+      ['Incrementos por hilo (Fig. 2)', String.raw`Cuántas veces incrementa cada hilo (1 a 30). El resultado correcto es hilos por incrementos.`],
+      ['Otras 500 ejecuciones (Fig. 2)', String.raw`Botón que cambia la semilla y repite las 500 ejecuciones con otros intercalados al azar. Cambiar Hilos o Incrementos también produce una muestra distinta.`],
     ],
     visualizaciones: [
       { titulo: 'Dos hilos, un contador', descripcion: 'Avance A y B a mano. Pruebe «A lee, B lee, A escribe, B escribe» para provocar la pérdida; luego use el intercalado al azar.',
-        ayuda: String.raw`<p>Cada hilo (A, B) ejecuta tres pasos sobre el contador compartido: leer, sumar uno y escribir. Un marcador señala una actualización perdida, cuando un hilo escribe un valor calculado con una lectura ya vieja.</p>
+        ayuda: String.raw`<p>A la izquierda el hilo A (azul) y a la derecha el hilo B (naranja), cada uno con sus tres instrucciones: leer contador → r, r ← r + 1 y escribir r → contador. La instrucción siguiente aparece resaltada con ▸ y las ya ejecutadas con ✓. En el centro está el cuadro del contador compartido, que se pone rojo si ambos terminaron y el valor no es 2. Debajo se lista el orden en que se avanzó y el texto bajo la figura explica cada paso.</p>
           <ul>
-          <li><strong>Avanza A</strong> y <strong>Avanza B</strong>: con A lee, B lee, A escribe, B escribe, ambos parten del mismo valor y el contador sube solo 1 en vez de 2.</li>
-          <li><strong>Intercalado al azar</strong>: mezcla los pasos; el resultado final correcto o equivocado depende del azar.</li>
+          <li><strong>Avanza A</strong> y <strong>Avanza B</strong>: si A lee, B lee, A escribe y B escribe, ambos parten del mismo valor y el contador queda en 1 en vez de 2.</li>
+          <li><strong>Intercalado al azar</strong>: completa lo que falte con orden aleatorio; el resultado puede ser 1 o 2.</li>
+          <li><strong>Reiniciar</strong>: permite probar otro orden.</li>
+          <li><strong>Lecturas</strong>: contador, valor esperado (2) y estado (en curso, correcto o carrera).</li>
           </ul>`, montar: montarManual },
       { titulo: 'Qué tan frecuente es el error', descripcion: 'Con más hilos e incrementos casi nunca se obtiene el valor correcto, y el error es impredecible de una ejecución a otra.',
-        ayuda: String.raw`<p>Histograma: el eje horizontal es el valor final del contador y el vertical, la frecuencia entre 500 ejecuciones. La barra oscura es el valor correcto (hilos por incrementos); las demás son resultados con actualizaciones perdidas.</p>
+        ayuda: String.raw`<p>Histograma: el eje horizontal va del resultado mínimo observado al valor correcto (los extremos están rotulados) y el vertical es la frecuencia entre 500 ejecuciones; los resultados se agrupan en hasta 40 barras. Las barras azules son resultados con actualizaciones perdidas; la barra oscura, la del extremo derecho, contiene el valor correcto (hilos por incrementos). Pasar el cursor sobre una barra da su rango y su número de ejecuciones.</p>
           <ul>
           <li><strong>Hilos</strong> e <strong>Incrementos por hilo</strong>: al subirlos el valor correcto queda más lejos y casi ninguna ejecución lo alcanza; la distribución se ensancha hacia valores menores.</li>
           <li><strong>Otras 500 ejecuciones</strong>: la forma cambia un poco, así que el error es impredecible.</li>
+          <li><strong>Lecturas</strong>: valor correcto, ejecuciones correctas de 500, resultado mínimo e incrementos perdidos en promedio.</li>
           </ul>`, montar: montarDistribucion },
     ],
     teoria: String.raw`

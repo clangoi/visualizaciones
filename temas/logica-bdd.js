@@ -168,32 +168,35 @@
       <p>Tener la lógica junto a los datos garantiza que se cumpla para <em>todas</em> las aplicaciones que usan la base y ahorra viajes
       por la red. El costo es que esa lógica es más difícil de versionar, probar y depurar que el código de la aplicación.</p>`,
     parametros: [
-      ['Depositar, Retirar y Abrir cuenta (Fig. 1)', String.raw`Modifican la tabla base Cuentas (cambian un saldo o agregan a Elena) y con ello pueden entrar o salir filas de la vista.`],
-      ['REFRESH MATERIALIZED VIEW (Fig. 1)', String.raw`Vuelve a calcular y guardar el contenido de la vista materializada.`],
-      ['Reiniciar (Fig. 1)', String.raw`Devuelve las tres tablas a su estado inicial.`],
-      ['transferir(1 → 4, monto) (Fig. 2)', String.raw`Monto que mueve el procedimiento. El valor mayor que el saldo prueba qué ocurre cuando falta dinero.`],
-      ['trigger validar y trigger auditar (Fig. 2)', String.raw`El primero rechaza una transferencia que dejaría saldo negativo; el segundo registra cada cambio en la tabla de auditoría.`],
-      ['Reproductor (Fig. 2)', String.raw`Ejecuta el procedimiento línea por línea; Reiniciar lo vuelve al comienzo.`],
+      ['Depositar &#36;400.000 a Bruno, Retirar &#36;300.000 de Carla y Abrir cuenta de Elena (Fig. 1)', String.raw`Tres botones que modifican la tabla base Cuentas (Bruno +400.000, Carla −300.000, o una fila nueva para Elena con &#36;1.200.000). Según el saldo, una fila entra o sale de la condición saldo &gt; 500.000 de las vistas.`],
+      ['REFRESH MATERIALIZED VIEW (Fig. 1)', String.raw`Vuelve a ejecutar la consulta y guarda el resultado en SaldosAltosMat; desde ese momento coincide con la vista virtual y el contador de cambios sin refrescar vuelve a cero.`],
+      ['Reiniciar (Fig. 1)', String.raw`Devuelve Cuentas a sus cuatro filas iniciales y recalcula la materializada.`],
+      ['transferir(1 → 4, monto) (Fig. 2)', String.raw`Selector con dos montos: &#36;300.000 o &#36;900.000 (más que el saldo de la cuenta 1, que es &#36;820.000). Cambiarlo reinicia la ejecución.`],
+      ['trigger validar (Fig. 2)', String.raw`Casilla. Activada, el trigger BEFORE UPDATE lanza una excepción si el nuevo saldo sería negativo y la transacción se aborta. Desactivada, el saldo negativo se acepta. Cambiarla reinicia la ejecución.`],
+      ['trigger auditar (Fig. 2)', String.raw`Casilla. Activada, el trigger AFTER UPDATE agrega a Auditoria una fila (id, antes, después, cuando) por cada UPDATE aplicado. Cambiarla reinicia la ejecución.`],
+      ['Reproductor (Fig. 2)', String.raw`Control con cinco partes: Velocidad (deslizador de pasos por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Cada paso ejecuta una línea del procedimiento o de un trigger.`],
     ],
     visualizaciones: [
       {
         titulo: 'Vista virtual y vista materializada',
         descripcion: 'Una vista virtual se recalcula en cada lectura; una materializada guarda el resultado y queda desactualizada hasta el próximo REFRESH.',
-        ayuda: String.raw`<p>Tres tablas: Cuentas (base), SaldosAltos (vista virtual) y SaldosAltosMat (materializada). Se resaltan las filas de la base que entran en la vista y las filas de la materializada que están desactualizadas.</p>
+        ayuda: String.raw`<p>Se muestra el código de las dos vistas y tres tablas: Cuentas (base), SaldosAltos (virtual) y SaldosAltosMat (materializada), todas con los saldos en pesos. En Cuentas se tiñe de azul (C.s1) la fila cuyo saldo supera &#36;500.000, es decir, la que entra en la vista. En SaldosAltosMat se tiñe de rojo (C.s8) la fila que ya no figura en la vista virtual. Debajo, un mensaje con la sentencia ejecutada y cuatro lecturas: cambios sin refrescar, filas que difieren, y el costo de leer cada vista.</p>
           <ul>
-          <li><strong>Depositar, Retirar y Abrir cuenta</strong>: la virtual cambia de inmediato; la materializada queda desactualizada hasta el REFRESH.</li>
-          <li><strong>REFRESH MATERIALIZED VIEW</strong>: la materializada vuelve a coincidir con la virtual.</li>
+          <li><strong>Depositar, Retirar y Abrir cuenta</strong>: la virtual se recalcula de inmediato; la materializada conserva la copia antigua y el contador de cambios aumenta.</li>
+          <li><strong>REFRESH MATERIALIZED VIEW</strong>: la materializada vuelve a coincidir con la virtual y desaparece el rojo.</li>
+          <li><strong>Reiniciar</strong>: restaura el estado inicial.</li>
           </ul>`,
         montar: montarVistas,
       },
       {
         titulo: 'Procedimiento con disparadores',
         descripcion: 'Una transferencia entre cuentas, con un trigger que valida el saldo y otro que audita cada cambio. Avance línea por línea y pruebe el monto que deja saldo negativo.',
-        ayuda: String.raw`<p>Código del procedimiento con la línea que se ejecuta, y tablas de Cuentas y auditoría. Las filas modificadas sin confirmar se distinguen de las confirmadas y de los cambios deshechos.</p>
+        ayuda: String.raw`<p>Se muestra el código del procedimiento y de los dos triggers; la línea que se ejecuta se resalta (naranja, C.s2). Abajo, la tabla Cuentas y la tabla Auditoria. En Cuentas las filas modificadas se tiñen de azul (C.s1) mientras la transacción está activa, de verde (C.s6) tras el COMMIT y de rojo (C.s8) si se hizo ROLLBACK. Las lecturas indican el estado de la transacción, la suma de saldos, el saldo de la cuenta 1 y las filas de Auditoria.</p>
           <ul>
-          <li><strong>transferir(1 → 4, monto)</strong>: con &#36;900.000 el saldo quedaría negativo.</li>
-          <li><strong>trigger validar</strong>: activado, la transferencia excesiva se rechaza y el cambio se deshace; sin él, el saldo queda negativo.</li>
-          <li><strong>trigger auditar</strong>: activado, cada cambio queda escrito en la auditoría.</li>
+          <li><strong>transferir(1 → 4, monto)</strong>: con &#36;900.000 el UPDATE de la cuenta 1 dejaría el saldo en −&#36;80.000.</li>
+          <li><strong>trigger validar</strong>: activado, la excepción provoca ROLLBACK, los saldos vuelven a los iniciales y la auditoría se vacía; desactivado, la transferencia se confirma con saldo negativo.</li>
+          <li><strong>trigger auditar</strong>: activado, aparece una fila en Auditoria tras cada UPDATE aplicado; desactivado, la tabla queda vacía.</li>
+          <li><strong>Reproductor</strong>: avanza línea por línea o de corrido.</li>
           </ul>`,
         montar: montarProcedimiento,
       },

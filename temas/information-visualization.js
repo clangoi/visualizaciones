@@ -143,29 +143,30 @@
       <em>mirar</em> para pensar mejor. Su apuesta es que el sistema visual humano procesa en paralelo lo que la lectura de números hace en serie.</p>
       <p>No se trata de decorar una tabla: se trata de elegir qué se dibuja y cómo, para que la pregunta que usted tiene se responda con el menor esfuerzo posible.</p>`,
     parametros: [
-      ['Representación (Fig. 1)', String.raw`Cómo se presentan los datos de las ciudades: tabla de números, barras o barras ordenadas. Cambia cuánto esfuerzo cuesta responder.`],
-      ['Pregunta (Fig. 1)', String.raw`Qué se busca: la ciudad con mayor valor, la de menor valor o cuántas superan el promedio.`],
-      ['Mostrar la respuesta y Nuevos datos (Fig. 1)', String.raw`La respuesta se resalta para comprobar su propia lectura; Nuevos datos genera otra tabla con otros valores.`],
-      ['Mostrar los puntos (Fig. 2)', String.raw`Muestra u oculta las observaciones de los cuatro conjuntos de Anscombe, que comparten estadísticas resumen pero tienen forma distinta.`],
+      ['Representación (Fig. 1)', String.raw`Selector con tres opciones: «Tabla de números», «Barras» (parte en esta) y «Barras ordenadas» (de mayor a menor). Muestra los mismos datos de las ciudades de tres formas distintas.`],
+      ['Pregunta (Fig. 1)', String.raw`Selector con tres preguntas: «¿Cuál ciudad tiene el mayor valor?» (parte en esta), «¿Cuál tiene el menor?» y «¿Cuántas superan el promedio?». Define qué se marca como respuesta.`],
+      ['Mostrar la respuesta (Fig. 1)', String.raw`Casilla (desmarcada por defecto). Marcada, resalta en verde las ciudades que responden la pregunta y escribe la respuesta en la lectura.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Botón que genera otros valores (entre 20 y 100) para las mismas ciudades.`],
+      ['Mostrar los puntos (Fig. 2)', String.raw`Casilla (desmarcada por defecto). Desmarcada, cada panel muestra solo sus estadísticas; marcada, muestra las observaciones y la recta de regresión.`],
     ],
     visualizaciones: [
       {
         titulo: 'La misma pregunta en tabla y en gráfico',
         descripcion: 'Responda cada pregunta con la tabla y luego con las barras. Pruebe las barras ordenadas: ¿qué preguntas se vuelven triviales?',
-        ayuda: String.raw`<p>Cada barra o fila es una ciudad. Con la respuesta visible, la que responde la pregunta se marca en verde y las demás en azul.</p>
+        ayuda: String.raw`<p>En barras, cada barra horizontal es una ciudad (azul), con el valor al pasar el puntero; con la respuesta visible, las que responden quedan en verde. En la tabla, cada fila muestra ciudad y valor, y las que responden se sombrean y su cifra se pone verde. Con la pregunta del promedio, las barras muestran además una línea punteada vertical con la etiqueta «promedio». Abajo se leen la representación, qué hay que hacer para responder y la respuesta (o «oculta»).</p>
           <ul>
-          <li><strong>Representación</strong> «Tabla de números»: para hallar el mayor hay que leer todas las cifras; con «Barras» se ve a simple vista la más larga.</li>
-          <li>En «Barras ordenadas», el máximo y el mínimo quedan en los extremos y contar las que superan el promedio se vuelve fácil.</li>
-          <li><strong>Pregunta</strong> cambia qué barras se resaltan al mostrar la respuesta.</li>
+          <li><strong>Representación</strong>: «Tabla de números» exige leer y comparar todas las cifras; «Barras» permite comparar longitudes de un vistazo; «Barras ordenadas» deja el máximo y el mínimo en los extremos.</li>
+          <li><strong>Pregunta</strong>: elige qué barras o filas se resaltan al mostrar la respuesta.</li>
+          <li><strong>Nuevos datos</strong>: cambia las longitudes y, por tanto, la respuesta.</li>
           </ul>`,
         montar: montarTablaGrafico,
       },
       {
         titulo: 'El cuarteto de Anscombe',
         descripcion: 'Cuatro conjuntos con las mismas estadísticas resumen. Active los puntos y compare lo que las cifras ocultaban.',
-        ayuda: String.raw`<p>Cuatro paneles con puntos azules (x, y) y su recta de regresión naranja; las estadísticas de cada panel aparecen en la lectura.</p>
+        ayuda: String.raw`<p>Cuatro paneles (I a IV) del cuarteto de Anscombe, con x en el eje horizontal e y en el vertical. Sin los puntos, cada panel muestra la media de x y de y, la correlación r y la ecuación de la recta, que son casi idénticas en los cuatro. Con los puntos, cada panel muestra las observaciones en azul y la recta de regresión en naranja; al pasar el puntero sobre un punto se ven sus x e y. Abajo se leen las medias de y, las correlaciones y las pendientes de los cuatro conjuntos.</p>
           <ul>
-          <li><strong>Mostrar los puntos</strong>: sin los puntos solo hay cifras idénticas; con ellos, las nubes resultan muy distintas (una curva, un valor atípico) aunque la recta sea la misma.</li>
+          <li><strong>Mostrar los puntos</strong>: desmarcada, solo hay cifras que parecen iguales; marcada, se ven formas muy distintas (una nube lineal, una curva, un punto atípico, una x casi constante con un punto lejano) con la misma recta.</li>
           </ul>`,
         montar: montarAnscombe,
       },

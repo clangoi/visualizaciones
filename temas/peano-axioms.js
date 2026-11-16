@@ -175,29 +175,31 @@
       <p>Las demás operaciones no se postulan: <em>se definen</em> repitiendo el sucesor. Sumar \(b\) es aplicar \(S\) \(b\) veces; multiplicar es sumar repetidamente.
       Esa definición recursiva es lo que permite después demostrar propiedades por inducción.</p>`,
     parametros: [
-      ['Operación (Fig. 1)', String.raw`Elige la suma o el producto, definidos solo con el sucesor. Cada operación tiene su ecuación recursiva.`],
-      ['a y b (Fig. 1)', String.raw`Los operandos: a es fijo y b indica cuántas veces se aplica la ecuación recursiva.`],
-      ['Estructura candidata (Fig. 2)', String.raw`Una estructura con un elemento inicial y una función sucesor. Se comprueba cuáles axiomas de Peano cumple.`],
-      ['Reproductor (Fig. 1 y 2)', String.raw`Un paso aplica una ecuación o un sucesor más; también reproduce solo o reinicia.`],
+      ['Operación (Fig. 1)', String.raw`«suma: a + S(n) = S(a + n)» o «producto: a · S(n) = a · n + a», definidas solo con el sucesor. Cada operación tiene su ecuación recursiva.`],
+      ['a y b (Fig. 1)', String.raw`Deslizadores de 0 a 6. a es el primer operando y b, cuántas veces se aplica la ecuación recursiva (cuántos pasos). En la suma el cálculo parte de a y avanza de uno en uno; en el producto parte de 0 y avanza de a en a.`],
+      ['Estructura candidata (Fig. 2)', String.raw`Cinco opciones: ℕ estándar (se corta a la vista), ciclo de 5 elementos (módulo 5), cadena que vuelve sobre sí misma, ℕ más una cadena ajena y cadena finita. Se muestra cuáles de los cinco axiomas cumple cada una.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`En la Fig. 1 un paso aplica la ecuación una vez más; en la Fig. 2 un paso alcanza todos los elementos que son sucesor de los recién alcanzados. También reproduce solo o reinicia.`],
     ],
     visualizaciones: [
       {
         titulo: 'Sumar y multiplicar con el sucesor',
         descripcion: 'Cada paso aplica una ecuación recursiva más. Compruebe que la suma avanza de uno en uno y que el producto avanza a saltos de \\(a\\).',
-        ayuda: String.raw`<p>Sobre la recta, el valor actual, los valores ya calculados y el salto del paso. Cada paso aplica una ecuación recursiva más.</p>
+        ayuda: String.raw`<p>Una tira de casillas numeradas de 0 hasta el mayor valor que se alcanza. La casilla azul es el valor actual, las negras son los valores ya calculados y las grises los que aún no se han alcanzado. Los arcos naranjas unen cada valor con el siguiente (el «salto del paso»). Debajo, el registro escribe la ecuación aplicada en cada paso y la lectura da a, b, el valor actual y los pasos hechos.</p>
           <ul>
-          <li><strong>Operación</strong>: la suma avanza de uno en uno; el producto salta de a en a.</li>
-          <li><strong>a</strong> y <strong>b</strong>: a fija el tamaño del salto del producto y el punto de partida de la suma; b, cuántos pasos se necesitan.</li>
+          <li><strong>Operación</strong>: la suma da saltos de 1 desde a; el producto da saltos de a desde 0.</li>
+          <li><strong>a</strong>: es el punto de partida en la suma y el tamaño del salto en el producto (con a = 0 el producto no se mueve).</li>
+          <li><strong>b</strong>: es el número de pasos que se terminan haciendo.</li>
           </ul>`,
         montar: montarOperacion,
       },
       {
         titulo: '¿Cumple los axiomas de Peano?',
         descripcion: 'Elija una estructura y vea qué axiomas fallan. Reproduzca la construcción desde 0: lo que no se alcanza es la señal de que falla la inducción.',
-        ayuda: String.raw`<p>Se parte de 0 y se aplica S. Los elementos alcanzados son una marca, el recién alcanzado otra, y los demás no alcanzados. Aparece cuáles axiomas se cumplen.</p>
+        ayuda: String.raw`<p>Diagrama de círculos unidos por flechas, que representan la función sucesor S. Los círculos azules fueron alcanzados desde 0 aplicando S, el naranja es el recién alcanzado en este paso y los de contorno gris aún no se alcanzan. Las flechas discontinuas con «…» indican que la cadena sigue; una «✕» roja marca un elemento sin sucesor. Bajo el diagrama, la lista de los cinco axiomas muestra ✓ en negro si la estructura lo cumple y ✗ en rojo si no, y el registro explica el motivo.</p>
           <ul>
-          <li><strong>Estructura candidata</strong>: cada estructura incumple un axioma distinto (por ejemplo, ciclos o elementos repetidos).</li>
-          <li>Los elementos que nunca se alcanzan desde 0 son la señal de que falla la inducción.</li>
+          <li><strong>Estructura candidata</strong>: cada opción incumple a lo sumo un axioma: el ciclo falla el tercero, la cadena que vuelve sobre sí misma la inyectividad, la cadena ajena la inducción y la cadena finita el segundo.</li>
+          <li>Los elementos que nunca se alcanzan desde 0 (grises al terminar, como la cadena ajena) son la señal de que falla la inducción.</li>
+          <li><strong>Reproductor</strong>: cada paso extiende lo alcanzado un sucesor más allá hasta que no queda nada nuevo.</li>
           </ul>`,
         montar: montarAxiomas,
       },

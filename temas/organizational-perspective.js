@@ -354,31 +354,34 @@
       <p>La herramienta básica es la <strong>matriz de asignación</strong> recurso × actividad. Sus filas son perfiles de trabajo; si dos personas tienen
       perfiles parecidos, probablemente cumplen el mismo rol y pueden agruparse automáticamente.</p>`,
     parametros: [
-      ['Proceso (Fig. 1 y 2)', String.raw`Elige el proceso (y su conjunto de roles) del que se genera el registro.`],
-      ['Casos (Fig. 1)', String.raw`Tamaño del registro: más casos hacen más estables los perfiles.`],
-      ['Polivalencia (Fig. 1 y 2)', String.raw`Probabilidad de que una persona haga actividades fuera de su rol. Al subirla, los perfiles se parecen más entre roles.`],
-      ['Valores (Fig. 1)', String.raw`Si cada celda muestra eventos absolutos o porcentaje del trabajo de la persona, para comparar personas con distinta carga.`],
-      ['Grupos buscados (Fig. 2)', String.raw`Cuántos grupos se forman al terminar el agrupamiento. Más grupos que roles parte grupos naturales.`],
-      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Genera otro registro; los pasos avanzan el agrupamiento.`],
+      ['Proceso (Fig. 1 y 2)', String.raw`Selector: Gestión de pedidos o Atención de reclamos. Determina el registro y las personas que aparecen, con sus roles.`],
+      ['Casos (Fig. 1)', String.raw`Deslizador de 30 a 300: tamaño del registro. Con más casos los perfiles son más estables. La Fig. 2 usa 120 casos.`],
+      ['Polivalencia (Fig. 1 y 2)', String.raw`Deslizador de 0 a 60 %: probabilidad de que cada evento lo ejecute una persona elegida al azar, sin importar su rol. Al subirla los perfiles de distintos roles se parecen más.`],
+      ['Valores (Fig. 1)', String.raw`Selector: «Eventos» muestra el número de eventos de cada celda; «% del trabajo de cada persona» lo muestra como porcentaje del total de esa persona (se compara el perfil sin importar cuánto trabaja).`],
+      ['Grupos buscados (Fig. 2)', String.raw`Deslizador de 1 a 8: número de grupos en que se detiene el agrupamiento. Con más grupos que roles se detiene antes y puede dividir un rol.`],
+      ['Reproductor (Fig. 2)', String.raw`Control con cinco partes: Velocidad (deslizador de pasos por segundo), Reproducir/Pausar, Un paso, Hasta el final y Reiniciar. Cada paso une dos grupos.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Botón que genera otro registro con distinta semilla.`],
     ],
     visualizaciones: [
       {
         titulo: 'Matriz de asignación recurso × actividad',
         descripcion: 'Cada fila es el perfil de una persona. Con polivalencia 0 se ven bloques por rol; súbala y observe cómo se difuminan, y cambie a «% del trabajo» para comparar personas con distinta carga.',
-        ayuda: String.raw`<p>Matriz con una fila por persona y una columna por actividad; cada celda indica cuántos eventos (o qué porcentaje) la persona ejecutó, de pocos a muchos. Las celdas vacías son actividades que nunca ejecuta.</p>
+        ayuda: String.raw`<p>Matriz con una fila por persona (un cuadrado del color de su rol: ventas azul C.s1, bodega naranja C.s2, finanzas aguamarina C.s3, soporte amarillo C.s4, gerencia rosado C.s5) y una columna por actividad, ordenadas por su posición media en las trazas. Cada celda va en una escala de azules (de pocos a muchos eventos) con su valor escrito si cabe; las celdas grises son actividades que la persona nunca ejecuta. Un clic en una fila o en el nombre de una actividad la enmarca en naranja (C.s2) y detalla el perfil.</p>
           <ul>
-          <li><strong>Polivalencia</strong>: con 0 se ven bloques por rol; al subirla los bloques se difuminan.</li>
-          <li><strong>Valores</strong>: en porcentaje, se compara el perfil sin que influya cuánto trabaja cada persona.</li>
+          <li><strong>Polivalencia</strong>: con 0 se ven bloques por rol; al subirla aparecen celdas fuera de esos bloques.</li>
+          <li><strong>Valores</strong>: en porcentaje, la intensidad es la fracción del trabajo de cada persona.</li>
+          <li><strong>Casos</strong> y <strong>Proceso</strong>: cambian las cantidades y las personas.</li>
           </ul>`,
         montar: montarMatriz,
       },
       {
         titulo: 'Descubrir grupos de trabajo',
         descripcion: 'Agrupamiento jerárquico paso a paso de los perfiles. Con polivalencia baja los grupos coinciden con los roles (pureza 100 %); súbala o pida más grupos que roles y vea qué se rompe.',
-        ayuda: String.raw`<p>Agrupamiento jerárquico de los perfiles: cada paso une los dos grupos más parecidos; la persona sola aún no se ha unido a otras.</p>
+        ayuda: String.raw`<p>Dendrograma horizontal del agrupamiento jerárquico (distancia coseno entre perfiles, enlace promedio). Cada persona es una hoja, con un cuadrado del color de su rol; el eje horizontal es la distancia entre perfiles. Cada paso une dos grupos con un nodo. Los grupos con más de una persona se pintan con un color propio (nombre y líneas) y la persona aún sin unir se ve en negro. Al pasar el cursor sobre un nombre o una unión se ven sus detalles. Las lecturas incluyen la pureza respecto al rol.</p>
           <ul>
-          <li><strong>Polivalencia</strong>: baja, los grupos coinciden con los roles; alta, se mezclan.</li>
-          <li><strong>Grupos buscados</strong>: pedir más grupos que roles detiene antes el agrupamiento y divide un rol.</li>
+          <li><strong>Reproductor</strong>: avanza el agrupamiento hasta llegar al número de grupos buscado.</li>
+          <li><strong>Polivalencia</strong>: con valores bajos los grupos coinciden con los roles; con altos se mezclan.</li>
+          <li><strong>Grupos buscados</strong>: con más grupos que roles el proceso se detiene antes y divide un rol.</li>
           </ul>`,
         montar: montarGrupos,
       },

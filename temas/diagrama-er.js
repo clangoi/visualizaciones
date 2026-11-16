@@ -191,29 +191,29 @@
       <p>Lo más importante de un diagrama no son las cajas, sino las <strong>restricciones</strong>: cuántas veces puede participar cada
       entidad en una relación. De ellas depende dónde va cada clave foránea.</p>`,
     parametros: [
-      ['Cardinalidad (Fig. 1)', String.raw`Cuántos cursos puede dictar un profesor y cuántos profesores puede tener un curso (1:1, 1:N, N:1 o N:M). Decide dónde viaja la clave en las tablas.`],
-      ['teléfono multivalor (Fig. 1)', String.raw`Marca que un profesor puede tener varios teléfonos; el atributo se convierte en una tabla aparte.`],
-      ['Restricción (Fig. 2)', String.raw`Cardinalidad que deben cumplir los pares de la relación dicta.`],
-      ['Vaciar y Ejemplo (Fig. 2)', String.raw`Vaciar quita todos los pares; Ejemplo carga un conjunto de pares de muestra.`],
+      ['Cardinalidad (Fig. 1)', String.raw`Selector 1:1, 1:N, N:1 o N:M de Profesor dicta Curso (el primer valor es el del lado Profesor, el segundo el del lado Curso). Decide en qué tabla va la clave foránea o si hay una tabla nueva.`],
+      ['teléfono multivalor (Fig. 1)', String.raw`Casilla que agrega al profesor un atributo multivalor (óvalo doble); en la traducción pasa a ser la tabla TelefonoProfesor.`],
+      ['Restricción (Fig. 2)', String.raw`Selector 1:1, 1:N, N:1 o N:M: la cardinalidad que deben cumplir los pares de la instancia.`],
+      ['Vaciar y Ejemplo (Fig. 2)', String.raw`Vaciar quita todos los pares y el profesor elegido; Ejemplo restablece los cinco pares de muestra.`],
     ],
     visualizaciones: [
       {
         titulo: 'Del diagrama a las tablas',
         descripcion: 'Profesor dicta Curso, con un atributo de la relación (semestre). Cambie la cardinalidad: con 1:N la clave viaja al lado N; con N:M nace una tabla propia.',
-        ayuda: String.raw`<p>Diagrama entidad-relación de Profesor dicta Curso (con el atributo semestre) y, junto a él, las tablas relacionales a las que se traduce.</p>
+        ayuda: String.raw`<p>Diagrama entidad-relación: rectángulos Profesor y Curso, rombo «dicta», óvalos para atributos (rut y sigla subrayados por ser claves; el doble óvalo es multivalor), el atributo semestre colgado de la relación, y la cardinalidad escrita sobre cada línea. No usa colores. Debajo, el SQL de la traducción y una lectura con número de tablas, tabla que recibe la clave foránea y si hace falta UNIQUE.</p>
           <ul>
-          <li><strong>Cardinalidad</strong>: con 1:N la clave foránea va a la tabla del lado N; con N:M la relación pasa a tener tabla propia.</li>
-          <li><strong>teléfono multivalor</strong>: el teléfono sale a su propia tabla enlazada al profesor.</li>
+          <li><strong>Cardinalidad</strong>: con 1:N la clave foránea va a Curso, con N:1 a Profesor, con 1:1 va a Curso con UNIQUE y con N:M se crea la tabla Dicta con semestre.</li>
+          <li><strong>teléfono multivalor</strong>: agrega una tabla aparte enlazada al profesor por rut.</li>
           </ul>`,
         montar: montarDiagrama,
       },
       {
         titulo: 'Instancias y cardinalidad',
         descripcion: 'Una relación es un conjunto de pares. Agregue pares y vea cuáles violan la cardinalidad elegida; con N:M nunca hay conflictos.',
-        ayuda: String.raw`<p>Profesores a un lado y cursos al otro, con una línea por cada par de la relación dicta. Un par se marca si viola la cardinalidad; el profesor elegido se resalta.</p>
+        ayuda: String.raw`<p>Cuatro profesores a la izquierda y cinco cursos a la derecha, con una línea por cada par de la relación dicta (gris). Una línea roja y gruesa es un par que viola la cardinalidad elegida; el profesor elegido tiene el punto azul y más grande. Haga clic en un profesor y luego en un curso para agregar o quitar ese par; clic de nuevo en el profesor lo deselecciona. La lectura da los pares, los pares en conflicto y la restricción.</p>
           <ul>
-          <li><strong>Restricción</strong>: con 1:N, un curso con dos profesores se marca como violación; con N:M no hay conflictos.</li>
-          <li><strong>Ejemplo</strong> y <strong>Vaciar</strong>: permiten partir de un conjunto con violaciones o de uno vacío para agregar pares.</li>
+          <li><strong>Restricción</strong>: con 1:N, un curso con dos profesores se marca (cada curso a lo más un profesor); con N:1, un profesor con dos cursos; con 1:1 se marcan ambos casos; con N:M nunca hay conflictos.</li>
+          <li><strong>Ejemplo</strong> y <strong>Vaciar</strong>: permiten partir del conjunto de muestra (que viola 1:1, N:1 y 1:N según el caso) o de uno vacío.</li>
           </ul>`,
         montar: montarInstancias,
       },

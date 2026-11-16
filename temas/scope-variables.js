@@ -88,26 +88,28 @@
       <p>Un cuantificador no actúa sobre toda la fórmula, sino sobre una parte: su <strong>alcance</strong>. Las apariciones de una variable dentro del alcance de un cuantificador sobre esa misma variable están <strong>ligadas</strong>; las demás son <strong>libres</strong>.</p>
       <p>Una fórmula con variables libres no es verdadera ni falsa por sí misma: depende de qué elemento se asigne a cada una. Una fórmula sin variables libres es una <strong>sentencia</strong>, y es la que realmente tiene un valor en cada interpretación.</p>`,
     parametros: [
-      ['Fórmula y Ejemplos (Fig. 1)', String.raw`La fórmula cuyo alcance de cuantificadores se analiza. Los ejemplos cargan casos con variables libres y ligadas, con o sin paréntesis.`],
-      ['Fórmula con variables libres, Asignación de x y de y (Fig. 2)', String.raw`La fórmula a evaluar y los elementos que se asignan a sus variables libres. Una asignación distinta cambia el valor de las subfórmulas que dependen de ellas.`],
+      ['Fórmula (Fig. 1)', String.raw`Caja de texto con la fórmula cuyo alcance se analiza; los botones de símbolos ayudan a escribir ¬, ∧, ∨, →, ↔, ∀, ∃ y paréntesis. Si la fórmula no se entiende, el panel de texto muestra el error.`],
+      ['Ejemplos (Fig. 1)', String.raw`Selector que carga fórmulas de ejemplo: una variable libre y otra ligada, el alcance de ∀x con y sin paréntesis, x ligada y libre a la vez, y una sentencia sin variables libres.`],
+      ['Fórmula (Fig. 2)', String.raw`Caja de texto con la fórmula a evaluar en una interpretación fija de 4 elementos (a, b, c, d). Su etiqueta indica que las variables libres esperadas son x e y.`],
+      ['Asignación de x y Asignación de y (Fig. 2)', String.raw`Dos selectores (a, b, c o d): el elemento que se asigna a x y a y. Cambiar la asignación cambia el valor de las subfórmulas que usan esas variables libres.`],
     ],
     visualizaciones: [
       {
         titulo: 'El alcance de cada cuantificador',
         descripcion: 'Escriba fórmulas con varios cuantificadores y vea el fondo de cada alcance. Pruebe \\(\\forall x\\, P(x) \\land Q(x)\\) con y sin paréntesis, y una variable que aparece libre y ligada a la vez.',
-        ayuda: String.raw`<p>Cada cuantificador tiene un fondo que cubre su alcance, es decir, la subfórmula donde liga a su variable. Las variables fuera del alcance de un cuantificador quedan libres.</p>
+        ayuda: String.raw`<p>No es un gráfico, sino la fórmula escrita con cada símbolo coloreado. Cada cuantificador tiene un color propio de la paleta y su alcance (la subfórmula que cubre) se pinta con un fondo suave de ese color; el cuantificador y las apariciones de la variable que liga se escriben en negrita de ese color. Una variable libre se muestra en rojo y subrayada. Debajo, fichas indican el alcance de cada cuantificador y las variables libres, y una lectura cuenta cuantificadores, variables libres y ligadas y si es una sentencia.</p>
           <ul>
-          <li><strong>Fórmula</strong>: los paréntesis alteran el alcance; \(\forall x\, P(x) \land Q(x)\) y \(\forall x\,(P(x) \land Q(x))\) cubren distinto.</li>
-          <li><strong>Ejemplos</strong>: cargan casos donde la misma letra aparece libre y ligada a la vez.</li>
+          <li><strong>Fórmula</strong>: los paréntesis cambian el alcance; \(\forall x\, P(x) \land Q(x)\) y \(\forall x\,(P(x) \land Q(x))\) cubren cosas distintas. Si una variable se cuantifica dos veces, el texto avisa que la interna oculta a la externa.</li>
+          <li><strong>Ejemplos</strong>: cargan casos donde la misma variable aparece libre y ligada a la vez.</li>
           </ul>`,
         montar: montarAlcance,
       },
       {
         titulo: 'Satisfacción bajo una asignación',
         descripcion: 'Elija una asignación para las variables libres y siga el valor de cada subfórmula en un árbol, sobre una interpretación fija.',
-        ayuda: String.raw`<p>El árbol de la fórmula se pinta con el valor de cada subfórmula: verdadera con la asignación o falsa. Una marca indica que el valor depende de una variable ligada más arriba.</p>
+        ayuda: String.raw`<p>Arriba están los círculos de los predicados P y Q y la matriz de la relación R sobre los elementos a, b, c y d (azul: verdadero). Abajo, el árbol de la fórmula: cada nodo es una subfórmula, con relleno azul claro y borde azul si es verdadera bajo la asignación, relleno gris si es falsa, y fondo blanco con borde gris y «…» si depende de una variable ligada por un cuantificador más arriba y no tiene valor aislado. El texto debajo da la asignación y el valor de la fórmula; la lectura incluye cuántas asignaciones de las variables libres la satisfacen.</p>
           <ul>
-          <li><strong>Asignación de x / y</strong>: cambia los valores de las hojas con variables libres y puede cambiar el de la raíz.</li>
+          <li><strong>Asignación de x / y</strong>: cambia los valores de las subfórmulas con x o y libres y puede cambiar el de la raíz. Otras variables libres, si las hay, valen a.</li>
           <li><strong>Fórmula</strong>: una variable ligada no depende de la asignación; una libre sí.</li>
           </ul>`,
         montar: montarSatisfaccion,

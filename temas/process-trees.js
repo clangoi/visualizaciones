@@ -420,31 +420,36 @@
       <p>Esa propiedad hace de los árboles el modelo preferido de algoritmos como el <a href="tema.html?id=inductive-miner">Inductive Miner</a>: descubren primero un árbol y,
       si hace falta, lo traducen a una red de Petri o a BPMN para mostrarlo.</p>`,
     parametros: [
-      ['Operador (Fig. 1)', String.raw`El operador del nodo raíz: secuencia, elección exclusiva (×), paralelismo (∧) o bucle. Define cómo se combinan las trazas de los operandos.`],
-      ['Primer operando y Segundo operando (Fig. 1)', String.raw`Los subárboles que combina el operador. Su elección cambia el lenguaje resultante.`],
-      ['Repeticiones máx. (bucle) (Fig. 1 y 2)', String.raw`Cuántas veces se repite el bucle al listar trazas. Sin él, el lenguaje sería infinito.`],
-      ['Ejemplo (Fig. 2)', String.raw`El árbol de partida del editor.`],
-      ['Cambiar operador, Cambiar actividad, Agregar nodo y Eliminar nodo (Fig. 2)', String.raw`Editan el nodo seleccionado del árbol. Cambian el lenguaje, pero la red de Petri equivalente siempre es sound.`],
-      ['Árbol (Fig. 3)', String.raw`El árbol del que se simulan casos.`],
-      ['Casos y Nuevos datos (Fig. 3)', String.raw`Tamaño del registro simulado y una nueva muestra aleatoria.`],
-      ['Probabilidad de repetir el bucle (Fig. 3)', String.raw`Con qué probabilidad se vuelve a ejecutar el bucle. Define qué trazas son frecuentes o raras.`],
+      ['Operador (Fig. 1)', String.raw`El operador del nodo raíz: secuencia (→), elección exclusiva (×), paralelo (∧) o bucle (↺). Define cómo se combinan las trazas de los dos operandos.`],
+      ['Primer operando (Fig. 1)', String.raw`Uno de tres subárboles: a, a → b o a × b. En el bucle es la parte «hacer».`],
+      ['Segundo operando (Fig. 1)', String.raw`Uno de tres subárboles: c, c → d o τ (nada). En el bucle es la parte «rehacer».`],
+      ['Repeticiones máx. (bucle) (Fig. 1 y 2)', String.raw`Cuántas veces (0 a 3) se repite el bucle al listar las trazas; sin este corte el lenguaje sería infinito. Cada figura tiene su propio control.`],
+      ['Ejemplo (Fig. 2)', String.raw`El árbol de partida del editor: Pedido, Bucle, Complejo o Solo una actividad. Al cargarlo se descarta la edición anterior.`],
+      ['Cambiar operador (Fig. 2)', String.raw`Con un nodo interno seleccionado, lo cambia al siguiente operador en el orden → , × , ∧ , ↺ (de forma circular). Al pasar a bucle conserva solo dos hijos.`],
+      ['Cambiar actividad (Fig. 2)', String.raw`Con una hoja seleccionada, le asigna la siguiente actividad (a a f) y luego τ.`],
+      ['Agregar nodo (Fig. 2)', String.raw`Con una hoja seleccionada, la reemplaza por una secuencia con una actividad nueva; con un operador seleccionado, agrega una actividad nueva como último hijo. No se puede en un bucle.`],
+      ['Eliminar nodo (Fig. 2)', String.raw`Quita el nodo seleccionado (no la raíz); en un bucle lo reemplaza por τ. Los operadores que quedan sin hijos desaparecen.`],
+      ['Árbol (Fig. 3)', String.raw`El árbol del que se simulan casos: el pedido, el bucle o el complejo.`],
+      ['Casos (Fig. 3)', String.raw`Cuántos casos tiene el registro simulado (10 a 400).`],
+      ['Probabilidad de repetir el bucle (Fig. 3)', String.raw`Con qué probabilidad (10 a 70 %) se vuelve a ejecutar el bucle en cada caso simulado. Define qué trazas con repeticiones son frecuentes o raras.`],
+      ['Nuevos datos (Fig. 3)', String.raw`Cambia la semilla y simula otro registro con el mismo árbol.`],
     ],
     visualizaciones: [
       {
         titulo: 'Lenguaje de cada operador',
         descripcion: 'Elija un operador y dos operandos: vea el árbol, las trazas que acepta y la red de Petri equivalente. Compare × con ∧ sobre los mismos operandos.',
-        ayuda: String.raw`<p>Se ve el árbol de proceso, la lista de trazas que acepta y la red de Petri equivalente. Los colores de la leyenda identifican los operadores.</p>
+        ayuda: String.raw`<p>Arriba, el árbol de procesos: los nodos de operador son círculos coloreados (azul → secuencia, naranja × elección, aguamarina ∧ paralelo, violeta ↺ bucle, con las ramas «hacer» y «rehacer»); las hojas son cuadros con la actividad. Luego se lista el lenguaje (hasta 14 trazas) y debajo la red de Petri equivalente en su marcado inicial. Las lecturas dan el número de trazas, plazas y transiciones, marcados de la red y si es sound.</p>
           <ul>
-          <li><strong>Operador</strong>: × da una traza por operando; ∧ da todos los entrelazados; la secuencia concatena; el bucle repite.</li>
+          <li><strong>Operador</strong>: × da las trazas de uno u otro operando; ∧ da todos los entrelazados; → concatena; ↺ repite «hacer», «rehacer», «hacer».</li>
           <li><strong>Primer operando</strong> y <strong>Segundo operando</strong>: cambian las trazas y el tamaño de la red.</li>
-          <li><strong>Repeticiones máx. (bucle)</strong>: acota la lista con bucle.</li>
+          <li><strong>Repeticiones máx. (bucle)</strong>: acota la lista cuando el operador es un bucle.</li>
           </ul>`,
         montar: montarOperadores,
       },
       {
         titulo: 'Editor de árboles de procesos',
         descripcion: 'Seleccione nodos, cambie operadores y actividades, agregue y elimine. Pruebe convertir un × en ∧ y vea cómo cambia el número de trazas; la red equivalente siempre sale sound.',
-        ayuda: String.raw`<p>El árbol del ejemplo, con el nodo seleccionado marcado con un anillo, y debajo la red de Petri equivalente. La lectura indica el número de trazas y un mensaje con el resultado de la edición.</p>
+        ayuda: String.raw`<p>El árbol del ejemplo, con el nodo seleccionado (se elige con un clic) marcado con un borde amarillo (C.s4) más grueso, y debajo la red de Petri equivalente. Se lista el árbol en texto y sus trazas (hasta 12). Las lecturas dan operadores y hojas, trazas, plazas y transiciones, marcados y si es sound; el registro muestra el resultado de la última edición.</p>
           <ul>
           <li><strong>Cambiar operador</strong>: convertir × en ∧ aumenta el número de trazas porque aparecen todos los órdenes.</li>
           <li><strong>Agregar nodo</strong> y <strong>Eliminar nodo</strong>: cambian la estructura, y la red sigue siendo sound.</li>
@@ -454,10 +459,11 @@
       {
         titulo: 'De un árbol a un registro',
         descripcion: 'Simule casos de un árbol con bucles y compare con su lenguaje. Suba la probabilidad de repetir y los casos para ver qué trazas posibles faltan en el registro.',
-        ayuda: String.raw`<p>Cada barra es una traza del lenguaje del árbol y su altura es el número de casos que la siguen, ordenadas por frecuencia. Las marcas vacías son trazas posibles que nunca aparecieron en el registro.</p>
+        ayuda: String.raw`<p>Eje X: las trazas del lenguaje del árbol (con a lo sumo 3 repeticiones por bucle), ordenadas por frecuencia; eje Y: número de casos. Cada barra azul (C.s1) es una traza que aparece en el registro simulado y su altura es el número de casos que la siguen. Una marca baja y gris es una traza posible que nunca apareció.</p>
           <ul>
-          <li><strong>Casos</strong>: con más casos aparecen más trazas raras y las marcas vacías disminuyen.</li>
-          <li><strong>Probabilidad de repetir el bucle</strong>: subirla genera trazas más largas, y muchas posibles faltan en el registro.</li>
+          <li><strong>Casos</strong>: con más casos aparecen más trazas raras y las marcas grises disminuyen.</li>
+          <li><strong>Probabilidad de repetir el bucle</strong>: subirla genera trazas con más repeticiones; si pasan del corte de 3 se cuentan aparte, y muchas trazas posibles faltan en el registro.</li>
+          <li>Pasar el cursor sobre una barra muestra la traza, sus casos y su porcentaje.</li>
           </ul>`,
         montar: montarMuestreo,
       },

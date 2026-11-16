@@ -118,22 +118,26 @@
       <p>Una red que ya sabe hacer la tarea A y se entrena después con la tarea B puede <strong>olvidar</strong> A casi por completo. No es un defecto del algoritmo, sino de la manera de aprender: el descenso de gradiente solo minimiza la pérdida de B, y si los pesos que codificaban A estorban, los modifica. A este fenómeno se le llama <strong>olvido catastrófico</strong>.</p>
       <p>Importa cada vez que se hace ajuste fino de un modelo preentrenado, o cuando un sistema debe aprender de forma continua sin volver a entrenar con todos los datos anteriores.</p>`,
     parametros: [
-      ['Estrategia al aprender la tarea B (Fig. 1)', String.raw`Cómo se entrena la red con la tarea B: entrenar todo, congelar convoluciones, y variantes que mezclan ejemplos de A. Determina cuánto de A se conserva.`],
-      ['Otra semilla y reproductor (Fig. 1)', String.raw`Cambian los datos y pesos al azar, y controlan el entrenamiento.`],
-      ['Con repaso (50 % de ejemplos de A) (Fig. 2)', String.raw`Si se activa, el entrenamiento de B incluye ejemplos de A, que protegen lo aprendido.`],
+      ['Estrategia al aprender la tarea B (Fig. 1)', String.raw`Selector con cuatro opciones: Ajuste fino completo (tasa 0,03), Ajuste fino con tasa baja (0,003), Convoluciones congeladas (tasa 0,03, solo se entrenan las capas posteriores) y Repaso: 50 % de ejemplos de A (tasa 0,03, la mitad de cada lote viene de la tarea A). Al cambiarla se reinicia el entrenamiento.`],
+      ['Reproductor (Fig. 1)', String.raw`Avanza el entrenamiento en B de a una época o lo reproduce solo (30 épocas), con control de velocidad y reinicio.`],
+      ['Otra semilla (Fig. 1)', String.raw`Repite el entrenamiento con otros datos de entrenamiento sorteados.`],
+      ['Con repaso (50 % de ejemplos de A) (Fig. 2)', String.raw`Casilla: si está activa, cada lote de entrenamiento en B incluye ejemplos de A en la mitad de los casos; al cambiarla se recalcula todo el gráfico.`],
     ],
     visualizaciones: [
       { titulo: 'Aprender B y olvidar A', descripcion: 'Compare las cuatro estrategias. Fíjese en que congelar las convoluciones no evita el olvido (la cabeza cambia), mientras que mezclar ejemplos de A sí.',
-        ayuda: String.raw`<p>Exactitud por época de entrenamiento en B. La línea azul es la tarea A (ya aprendida) y la naranja es la tarea B (nueva).</p>
+        ayuda: String.raw`<p>Eje horizontal: épocas entrenando B (0 a 30); eje vertical: exactitud. La línea azul es la exactitud en la tarea A (la ya aprendida) y la naranja, en la tarea B (la nueva); en el punto 0 están los valores antes de entrenar B. Al pasar el cursor se ven ambos valores de esa época. Bajo la figura se lee cuántos puntos de exactitud perdió A y cuánto cambiaron los filtros convolucionales.</p>
           <ul>
-          <li><strong>Estrategia</strong> sin repaso: la naranja sube mientras la azul cae (olvido).</li>
-          <li>Congelar convoluciones no evita la caída de A, porque la cabeza cambia; mezclar ejemplos de A sí la limita.</li>
+          <li><strong>Ajuste fino completo</strong>: todos los pesos se entrenan solo con B; muestra cuánto cae la línea azul mientras sube la naranja.</li>
+          <li><strong>Tasa baja</strong>: los mismos cambios, más lentos.</li>
+          <li><strong>Convoluciones congeladas</strong>: los filtros no cambian (la medida de cambio queda en cero); solo se adaptan las demás capas.</li>
+          <li><strong>Repaso</strong>: mezclar ejemplos de A busca que la línea azul se mantenga.</li>
           </ul>`, montar: montarOlvido },
       { titulo: 'Plasticidad frente a estabilidad', descripcion: 'Con y sin repaso, mire cómo cambia la exactitud final en A y en B para cuatro tasas de aprendizaje.',
-        ayuda: String.raw`<p>Exactitud final tras 30 épocas según la tasa de aprendizaje: en A (azul) y en B (naranja, según la leyenda).</p>
+        ayuda: String.raw`<p>Cuatro grupos de barras, uno por tasa de aprendizaje (0,001; 0,003; 0,01 y 0,03), con la exactitud al terminar 30 épocas en B: barra azul para la tarea A y barra naranja para la tarea B. Al pasar el cursor sobre un grupo se ven ambos valores.</p>
           <ul>
-          <li><strong>Con repaso</strong>: la exactitud en A se conserva a casi todas las tasas.</li>
-          <li>Sin repaso: tasas mayores aprenden más B pero olvidan más A.</li>
+          <li><strong>Con repaso</strong> desactivado: se entrena solo con B; la barra azul muestra cuánto se olvidó de A con cada tasa.</li>
+          <li><strong>Con repaso</strong> activado: la mitad de los ejemplos son de A y la barra azul muestra cuánto de A se conserva; el registro bajo la figura comenta el resultado.</li>
+          <li>Entre tasas, la barra naranja indica cuánto alcanzó a aprender B en 30 épocas.</li>
           </ul>`, montar: montarBarrido },
     ],
     teoria: String.raw`

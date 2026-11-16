@@ -142,29 +142,33 @@
       <p>El <strong>criterio back-door</strong> indica qué variables controlar para cerrar los caminos de confusión (y cuáles no tocar). El
       <strong>criterio front-door</strong> permite estimar el efecto aun con un confusor no medido, si el efecto pasa por un mediador observado.</p>`,
     parametros: [
-      ['Ajustar por {Z₁, Z₃}, Solo {Z₃} y Nada (Fig. 1)', String.raw`Eligen el conjunto de variables por el que se ajusta. Cada conjunto cierra o deja abiertos caminos back-door entre X e Y.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera una muestra simulada nueva.`],
-      ['Confusión oculta U (Fig. 2)', String.raw`Intensidad de la confusión por una variable no observada. A más confusión, más sesgo en la regresión ingenua.`],
-      ['Muestra n (Fig. 2)', String.raw`Tamaño de la muestra. Con más datos las estimaciones varían menos.`],
+      ['Ajustar por {Z₁, Z₃}, Solo {Z₃} y Nada (Fig. 1)', String.raw`Atajos que fijan el conjunto de ajuste: {Z₁, Z₃}, solo {Z₃} o ninguna variable. Cada conjunto cierra o deja abiertos caminos back-door entre X e Y.`],
+      ['Clic en un nodo Z₁, Z₂, Z₃ o W (Fig. 1)', String.raw`Agrega o quita esa variable del conjunto de ajuste. X e Y no se pueden elegir. Si se ajusta por W, un descendiente de X, el ajuste es inválido.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera una muestra simulada nueva con la misma estructura causal.`],
+      ['Confusión oculta U (Fig. 2)', String.raw`Fuerza de U sobre X y sobre Y, de 0 a 1,5. Con más confusión, más sesgo en la regresión ingenua.`],
+      ['Muestra n (Fig. 2)', String.raw`Tamaño de la muestra, de 100 a 5000; se aplica al soltar el control. Con más datos las estimaciones varían menos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Elegir el conjunto de ajuste',
         descripcion: 'Elija qué variables controlar y vea qué caminos back-door quedan abiertos y cuánto sesgo tiene la estimación.',
-        ayuda: String.raw`<p>Grafo con X, Y y las variables Z. Se marcan los nodos del conjunto de ajuste, los caminos back-door abiertos, los ajustes inválidos (descendientes de X) y el camino causal X → W → Y. El registro indica el sesgo.</p>
+        ayuda: String.raw`<p>Grafo con Z₁, Z₂ y Z₃ arriba, y X, W e Y abajo. Los nodos del conjunto de ajuste se rellenan de amarillo (de rojo si son descendientes de X, lo que invalida el ajuste); X e Y llevan un anillo negro. Las aristas naranja gruesas forman caminos back-door abiertos; las azules, el camino causal X → W → Y; las grises, el resto. Bajo el grafo, la lista indica para cada camino back-door si está abierto o en qué nodo se bloquea; el registro dice si el conjunto cumple el criterio, y la lectura compara el coeficiente de X ajustado con el efecto real.</p>
           <ul>
-          <li><strong>Ajustar por {Z₁, Z₃}</strong>: cierra los caminos back-door sin abrir otros.</li>
-          <li><strong>Solo {Z₃}</strong>: deja caminos abiertos y queda sesgo.</li>
-          <li><strong>Nada</strong>: todos los caminos back-door siguen abiertos.</li>
+          <li><strong>Ajustar por {Z₁, Z₃}</strong>: no deja caminos naranja y el sesgo es casi cero.</li>
+          <li><strong>Solo {Z₃}</strong>: Z₃ es un collider; al condicionarla se abre un camino back-door que pasa por Z₁ y Z₂, y queda sesgo.</li>
+          <li><strong>Nada</strong>: los caminos de confusión quedan abiertos y la regresión de Y sobre X está sesgada.</li>
+          <li><strong>Clic en un nodo</strong>: permite probar cualquier otro conjunto, incluido uno inválido con W.</li>
           </ul>`,
         montar: montarBackdoor,
       },
       {
         titulo: 'El criterio front-door',
         descripcion: 'Con confusión no medida, la regresión ingenua está sesgada; el estimador front-door no. Suba la confusión.',
-        ayuda: String.raw`<p>Estimaciones del efecto de X en Y (vertical): regresión ingenua, front-door a través de M, ajuste por U (imposible, porque no se observa) y efecto real.</p>
+        ayuda: String.raw`<p>A la izquierda (o arriba en pantallas angostas), el grafo U → X, U → Y, X → M → Y; U se dibuja gris, punteado y rotulado «no observada», y su arista se engrosa con la confusión. A la derecha, barras de la estimación del efecto de X en Y (eje vertical): roja, regresión ingenua; azul, front-door a través de M; gris, ajuste por U (no realizable en la práctica porque U no se observa); la línea punteada verde es el efecto real. Al pasar el cursor sobre una barra se ven su valor y el real.</p>
           <ul>
-          <li><strong>Confusión oculta U</strong> alta: la regresión ingenua se aleja del efecto real; front-door sigue cerca.</li>
+          <li><strong>Confusión oculta U</strong>: al subirla, la barra roja se aleja de la línea verde; la azul se mantiene cerca de ella.</li>
+          <li><strong>Muestra n</strong>: con n pequeña las barras fluctúan más alrededor del efecto real.</li>
+          <li><strong>Nuevos datos</strong>: repite el experimento con otra muestra.</li>
           </ul>`,
         montar: montarFrontdoor,
       },

@@ -110,32 +110,36 @@
       <p>Los autómatas finitos no pueden contar ni anidar: no reconocen \(a^nb^n\) ni los paréntesis balanceados. Las <strong>gramáticas libres de contexto</strong> (GLC) sí. Una gramática es un conjunto de <em>reglas de reescritura</em> «variable → cadena de variables y terminales». Se parte del símbolo inicial y se reemplaza una variable tras otra hasta que solo queden terminales.</p>
       <p>Cada derivación dibuja un <strong>árbol de derivación</strong>: la raíz es el símbolo inicial, los hijos de un nodo son los símbolos del lado derecho de la regla usada, y las hojas, leídas de izquierda a derecha, forman la palabra.</p>`,
     parametros: [
-      ['Gramática (Fig. 1 y 2)', String.raw`Las reglas que generan el lenguaje. Elegir otra cambia las palabras posibles y la forma de los árboles.`],
-      ['O escriba la suya (reglas separadas por ;) (Fig. 1)', String.raw`Una gramática propia en lugar de las de muestra.`],
-      ['Derivación (Fig. 1)', String.raw`Qué variable se expande en cada paso: la más a la izquierda o la más a la derecha. Cambia el orden de los pasos, no el árbol final.`],
-      ['Profundidad máxima (Fig. 1)', String.raw`Límite de profundidad de la derivación generada; menor profundidad da palabras más cortas.`],
-      ['Otra palabra y reproductor (Fig. 1)', String.raw`Otra palabra genera una derivación distinta; el reproductor avanza o reinicia la derivación.`],
-      ['Gramática (reglas separadas por ;) y Largo máximo al listar (Fig. 2)', String.raw`La gramática a analizar y hasta qué largo se listan sus palabras más cortas.`],
-      ['Palabra a reconocer (Fig. 2)', String.raw`La cadena cuya pertenencia se comprueba y de la que se muestra su árbol de derivación.`],
+      ['Gramática (Fig. 1 y 2)', String.raw`Selector con cinco gramáticas de muestra: aⁿbⁿ, «Paréntesis balanceados», «Expresiones aritméticas», «Palíndromos sobre {a, b}» y a⁺b⁺. Inicia en aⁿbⁿ en la Fig. 1 y en paréntesis balanceados en la Fig. 2; en esta última también carga una palabra de ejemplo.`],
+      ['O escriba la suya (reglas separadas por ;) (Fig. 1)', String.raw`Campo de texto con las reglas (alternativas con «|», reglas separadas por «;»). Reemplaza a la gramática del selector y genera una derivación nueva; si hay errores o la gramática no produce palabras, se muestra el mensaje en rojo.`],
+      ['Derivación (Fig. 1)', String.raw`Selector «por la izquierda» (inicial) o «por la derecha»: en cada paso se expande la variable más a la izquierda o la más a la derecha. Cambia el orden de los pasos, no el árbol final.`],
+      ['Profundidad máxima (Fig. 1)', String.raw`Deslizador de 1 a 7 (inicia en 4): límite de profundidad para elegir al azar la derivación; con valores bajos se prefieren derivaciones cortas y árboles más pequeños.`],
+      ['Otra palabra (Fig. 1)', String.raw`Botón que sortea otra derivación de la misma gramática, con otra palabra posible.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Cada paso aplica una regla y muestra en el árbol los hijos de la variable expandida. «Reiniciar» vuelve a la raíz, con la misma derivación.`],
+      ['Gramática (reglas separadas por ;) (Fig. 2)', String.raw`Campo de texto con la gramática a analizar; se vuelve a evaluar al editarlo o pulsar Enter.`],
+      ['Palabra a reconocer (Fig. 2)', String.raw`Cadena (hasta 14 símbolos, sin espacios) cuya pertenencia se comprueba; si pertenece, se dibuja su primer árbol de derivación.`],
+      ['Largo máximo al listar (Fig. 2)', String.raw`Deslizador de 2 a 8 (inicia en 6): largo máximo de las palabras de la lista «Primeras palabras del lenguaje» (hasta 40 palabras).`],
     ],
     visualizaciones: [
       {
         titulo: 'Derivar y ver crecer el árbol',
         descripcion: 'Elija una gramática (o escriba la suya) y avance: se expande una variable por paso, por la izquierda o por la derecha, y el árbol de derivación aparece nodo a nodo.',
-        ayuda: String.raw`<p>El árbol de derivación que crece nodo a nodo. La variable que se expande en este paso, las pendientes de expandir y los terminales (hojas) tienen colores distintos.</p>
+        ayuda: String.raw`<p>Árbol de derivación que crece con cada paso; sobre él se escribe la sucesión de formas sentenciales. Naranja: la variable que se expande en este paso; amarillo: variables ya reveladas que se expandirán después; gris con borde tenue: terminales y nodos ya expandidos. La raíz es el símbolo inicial y las hojas, de izquierda a derecha, forman la palabra.</p>
           <ul>
-          <li><strong>Derivación</strong>: por la izquierda o por la derecha se expande una variable distinta en cada paso, pero el árbol resultante es el mismo.</li>
-          <li><strong>Profundidad máxima</strong>: limita cuántos niveles se permiten.</li>
+          <li><strong>Derivación</strong>: por la izquierda o por la derecha, las variables se expanden en distinto orden pero el árbol final es el mismo.</li>
+          <li><strong>Profundidad máxima</strong> y <strong>Otra palabra</strong>: cambian el árbol que se deriva.</li>
+          <li><strong>Cursor sobre un nodo ya mostrado</strong>: indica la regla aplicada y la subcadena que deriva. La lectura da pasos, forma sentencial, palabra generada y tamaño y altura del árbol.</li>
           </ul>`,
         montar: montarDerivacion,
       },
       {
         titulo: 'Palabras del lenguaje y reconocimiento',
         descripcion: 'Liste las palabras más cortas que genera la gramática y compruebe si una palabra pertenece, con su árbol de derivación y el número de árboles.',
-        ayuda: String.raw`<p>Lista de palabras más cortas que genera la gramática y, para la palabra a reconocer, su primer árbol de derivación y el número de árboles.</p>
+        ayuda: String.raw`<p>Dos partes. Arriba, el primer árbol de derivación de la palabra a reconocer, si pertenece al lenguaje (círculos son variables y cuadros, terminales). Debajo, la lista de las primeras palabras del lenguaje, obtenidas con derivaciones por la izquierda. El texto inferior indica el número de árboles de la palabra.</p>
           <ul>
-          <li><strong>Palabra a reconocer</strong>: si no pertenece, no se muestra árbol; si pertenece con varios árboles, la gramática es ambigua para ella.</li>
-          <li><strong>Largo máximo al listar</strong>: lista más palabras, de mayor largo.</li>
+          <li><strong>Palabra a reconocer</strong>: si no pertenece, no se dibuja árbol; si hay más de un árbol, la gramática es ambigua para esa palabra.</li>
+          <li><strong>Largo máximo al listar</strong>: agrega a la lista palabras de mayor largo.</li>
+          <li><strong>Lectura</strong>: reglas, variables, terminales, árboles de la palabra y palabras listadas.</li>
           </ul>`,
         montar: montarReconocer,
       },

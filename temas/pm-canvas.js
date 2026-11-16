@@ -283,31 +283,38 @@
       quiénes participan (interesados, equipo), qué condiciona al proyecto (premisas, restricciones, riesgos) y cuánto cuesta y dura (línea de tiempo, costos). Se completa en equipo, en una reunión, antes de escribir un plan detallado.</p>
       <p>Su valor no está en llenar casilleros, sino en la <strong>coherencia</strong>: cada justificativa debe tener un objetivo, cada objetivo un beneficio medible y un producto, cada requisito un interesado que lo pida y un grupo de entrega que lo construya, y los plazos y costos deben caber en las restricciones.</p>`,
     parametros: [
-      ['Proyecto (Fig. 1)', String.raw`Cuál caso de canvas se muestra, con sus objetivos, requisitos y restricciones.`],
-      ['Quitar o restaurar el elemento elegido y Restaurar todo (Fig. 1)', String.raw`Retiran o devuelven elementos para ver qué validaciones del canvas dejan de cumplirse.`],
-      ['Redacción del objetivo y Se justifica por (Fig. 2)', String.raw`Cómo se escribe el objetivo y qué problema lo respalda. Una redacción vaga no es medible ni acotada.`],
-      ['Meta de primera respuesta, Plazo del objetivo y Mejora mensual que el equipo logra (Fig. 2)', String.raw`La meta a alcanzar, el tiempo para lograrla y el ritmo real del equipo. Dicen si la meta es alcanzable.`],
-      ['Presupuesto aprobado (Fig. 2)', String.raw`Cuánto dinero hay para lograrla. Junto con el plazo decide si el objetivo es coherente.`],
+      ['Proyecto (Fig. 1)', String.raw`Selector entre dos casos: «CRM para el equipo comercial» y «Portal de autoservicio para clientes». Cambiarlo carga todos los elementos del canvas del caso y borra la selección y los elementos quitados.`],
+      ['Quitar o restaurar el elemento elegido (Fig. 1)', String.raw`Botón que quita del canvas el elemento en el que hizo clic, o lo restaura si ya estaba quitado. Las validaciones se recalculan sin él y señalan qué quedó sin sustento o qué sumas cambiaron.`],
+      ['Restaurar todo (Fig. 1)', String.raw`Devuelve al canvas todos los elementos quitados.`],
+      ['Redacción del objetivo (Fig. 2)', String.raw`Selector con tres redacciones: a) «Mejorar la atención al cliente», b) «Reducir el tiempo de primera respuesta» y c) la que incluye valor de partida, meta y plazo. Solo la c) cumple los criterios específico (junto con la b), medible y temporal.`],
+      ['Se justifica por (Fig. 2)', String.raw`Selector entre «ventas perdidas por responder tarde» y «renovar la imagen de las oficinas». Solo la primera respalda el objetivo y hace cumplir el criterio relevante.`],
+      ['Meta de primera respuesta (Fig. 2)', String.raw`Horas que se quieren alcanzar en la primera respuesta (4 a 40 h; el punto de partida es 48 h). Una meta más baja es más ambiciosa.`],
+      ['Plazo del objetivo (Fig. 2)', String.raw`Meses disponibles para alcanzar la meta (3 a 18). También se compara con la suma de los plazos de los grupos de entrega (8 meses).`],
+      ['Mejora mensual que el equipo logra (Fig. 2)', String.raw`Porcentaje en que el equipo reduce cada mes el tiempo de respuesta (5 a 30 %). Determina la curva «lo que el equipo logra».`],
+      ['Presupuesto aprobado (Fig. 2)', String.raw`Monto disponible (200 a 600 mil). Solo interviene en el criterio «Cabe en el presupuesto», que compara este valor con la suma de los costos de los grupos (360 mil).`],
     ],
     visualizaciones: [
       {
         titulo: 'Un canvas completo y sus validaciones',
         descripcion: 'Haga clic en un elemento para ver qué otros lo sustentan o lo usan; quítelo y observe qué validaciones fallan. Pruebe quitar el objetivo O2, el requisito R4 o la restricción de plazo X2.',
-        ayuda: String.raw`<p>Los elementos del canvas se muestran en cajas conectadas. El elemento elegido se destaca, los relacionados se marcan, los que incumplen una validación se señalan y los quitados aparecen aparte.</p>
+        ayuda: String.raw`<p>El canvas es una cuadrícula de cuadros con bloques por tema (justificativas, objetivos SMART, beneficios, producto, requisitos, interesados, equipo, premisas, grupos de entrega, línea de tiempo, costos, restricciones y riesgos); cada elemento tiene un código (J1, O1, R2…). El elemento elegido se rellena de azul con borde azul; los relacionados con él (los que lo sustentan o lo usan) llevan borde aguamarina; los que incumplen una validación, borde rojo; y los quitados aparecen en gris, con borde discontinuo y el texto tachado. Bajo el canvas, una lista marca en verde las validaciones cumplidas y en rojo las que fallan, con los elementos implicados.</p>
           <ul>
-          <li><strong>Quitar el elemento elegido</strong>: los elementos que dependían de él quedan sin sustento y fallan validaciones.</li>
-          <li><strong>Proyecto</strong>: cambia el conjunto completo de elementos y de relaciones.</li>
+          <li><strong>Clic en un elemento</strong>: lo elige y el registro dice en qué se apoya y quién lo usa; un segundo clic lo deselecciona. Al pasar el cursor, un cuadro muestra lo mismo.</li>
+          <li><strong>Quitar o restaurar el elemento elegido</strong>: lo saca o lo vuelve a poner; por ejemplo, quitar un objetivo deja una justificativa sin objetivo que la atienda.</li>
+          <li><strong>Restaurar todo</strong>: deja el canvas completo; la lectura muestra validaciones cumplidas, elementos en el canvas, plazo y costo totales.</li>
+          <li><strong>Proyecto</strong>: cambia el conjunto de elementos y relaciones.</li>
           </ul>`,
         montar: montarCanvas,
       },
       {
         titulo: 'Objetivo SMART y coherencia con plazo y presupuesto',
         descripcion: 'Elija la redacción c) y suba el plazo hasta que el objetivo sea alcanzable al ritmo del equipo; después reduzca el plazo del objetivo a menos de 8 meses y vea que deja de ser coherente con la línea de tiempo.',
-        ayuda: String.raw`<p>Arriba, eje horizontal: mes; eje vertical: horas hasta la primera respuesta. Una curva es lo que el equipo logra y otra lo que exige el objetivo, con el mes en que se alcanza la meta y el plazo. Abajo, grupos dentro o fuera del plazo y del presupuesto.</p>
+        ayuda: String.raw`<p>Arriba, eje horizontal: mes (0 a 18); eje vertical: horas hasta la primera respuesta. La curva azul es lo que el equipo logra (parte de 48 h y baja según la mejora mensual); la curva naranja discontinua es lo que exige el objetivo (de 48 h a la meta en el plazo, y luego plana). Una línea horizontal marca la meta, una vertical discontinua gris marca el plazo, y un punto (verde si cae dentro del plazo, rojo si no) señala el mes en que la curva azul alcanza la meta. Abajo, tres barras horizontales, una por grupo de entrega (G1 a G3), colocadas una tras otra en meses, con su costo escrito; son azules si terminan dentro del plazo y rojas si lo exceden. Debajo, siete fichas verdes o rojas con los criterios cumplidos o no: específico, medible, alcanzable, relevante, temporal, cabe en el plazo y cabe en el presupuesto.</p>
           <ul>
-          <li><strong>Plazo del objetivo</strong> corto: la curva exigida baja más rápido que la del equipo y los grupos pasan a exceder el plazo.</li>
-          <li><strong>Mejora mensual que el equipo logra</strong> mayor: la curva del equipo cae antes y se cumple la meta en menos meses.</li>
-          <li><strong>Meta de primera respuesta</strong> más baja: la meta queda más lejos y se tarda más en alcanzarla.</li>
+          <li><strong>Redacción del objetivo</strong>: con a) fallan específico, medible y temporal; con b) fallan medible y temporal; con c) los tres se cumplen.</li>
+          <li><strong>Se justifica por</strong>: con la imagen de las oficinas falla «Relevante».</li>
+          <li><strong>Meta, plazo y mejora mensual</strong>: una meta baja, un plazo corto o una mejora pequeña hacen que el punto caiga después de la línea del plazo y falle «Alcanzable»; un plazo menor que 8 meses deja barras rojas y falla «Cabe en el plazo».</li>
+          <li><strong>Presupuesto aprobado</strong>: por debajo de 360 mil falla «Cabe en el presupuesto»; no modifica los gráficos.</li>
           </ul>`,
         montar: montarSmart,
       },

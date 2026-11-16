@@ -138,27 +138,31 @@
       Las cadenas no tienen por qué avanzar de uno en uno. Una regla «\(k \to k+2\)» necesita dos casos base; una regla «\(k \to 2k\)» solo alcanza potencias de dos a partir del 1.</p>
       <p>Pensar en lo que <em>alcanza</em> la cadena aclara qué casos base hacen falta y por qué. Es también la forma de entender los conjuntos definidos por reglas.</p>`,
     parametros: [
-      ['Caso base n₀ (Fig. 1)', String.raw`Primer elemento que se declara alcanzado desde el principio.`],
-      ['Agregar un segundo caso base / Segundo caso base (Fig. 1)', String.raw`Añade otro punto de partida. Sirve cuando las reglas saltan y no alcanzan todos los números desde uno solo.`],
-      ['Estampilla a y Estampilla b (Fig. 2)', String.raw`Los dos valores de estampilla disponibles. Determinan qué montos se pagan exactamente y cuál es el mayor imposible.`],
+      ['Caso base n₀ (Fig. 1)', String.raw`De 0 a 8. Primer número que se declara alcanzado desde el principio (generación 0).`],
+      ['Agregar un segundo caso base / Segundo caso base (Fig. 1)', String.raw`La casilla agrega un segundo punto de partida y el control de 0 a 8 fija su valor (inicial: 1). Sirve cuando las reglas saltan y desde un solo número no se alcanzan todos.`],
+      ['Reglas k → k + 1, k → k + 2, k → k + 3, k → k + 5 y k → 2k (Fig. 1)', String.raw`Cinco casillas; al inicio solo está activa k → k + 2. Cada regla activa genera, a partir de cada número alcanzado, uno nuevo (solo se muestran los menores que 40).`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Avanzan las generaciones: cada paso aplica las reglas a los números de la generación anterior. Cambiar cualquier control reinicia la simulación.`],
+      ['Estampilla a y Estampilla b (Fig. 2)', String.raw`Valores de las dos estampillas: a de 2 a 9 y b de 2 a 11. Determinan qué montos se pagan exactamente y cuál es el mayor imposible.`],
     ],
     visualizaciones: [
       {
         titulo: 'La cadena que generan unas reglas',
         descripcion: 'Elija casos base y reglas, y reproduzca las generaciones. Pruebe «+2» con base 0, luego agregue base 1, y «+2» y «+3» juntas.',
-        ayuda: String.raw`<p>Los números se colorean por generación: alcanzados en una generación anterior, alcanzados en esta, o aún no alcanzados.</p>
+        ayuda: String.raw`<p>Una cuadrícula de los números 0 a 39 en cuatro filas de 10. Negro (C.tinta): alcanzado en una generación anterior, incluidos los casos base. Naranja (C.s2): alcanzado en la generación actual. Gris: no alcanzado todavía. Al pasar el puntero se indica «caso base» o la generación en que se alcanzó el número. La lectura muestra cuántos se alcanzaron, la generación actual, el primer natural no alcanzado y las reglas activas.</p>
           <ul>
           <li><strong>Caso base</strong>: define de qué números parte el conjunto generado.</li>
-          <li><strong>Segundo caso base</strong>: añade una cadena nueva; por ejemplo, con «+2» y base 0 solo salen pares, y con base 1 también los impares.</li>
+          <li><strong>Segundo caso base</strong>: añade otra cadena; por ejemplo, con «+2» y base 0 solo salen pares, y con base 1 también los impares.</li>
+          <li><strong>Reglas</strong>: activar o desactivar cada una cambia los saltos posibles y qué números son alcanzables.</li>
           </ul>`,
         montar: montarReglas,
       },
       {
         titulo: 'Estampillas de a y b',
         descripcion: 'Montos que se pueden pagar con estampillas de dos valores. Busque el mayor monto imposible y la racha de casos base que permite inducir desde ahí.',
-        ayuda: String.raw`<p>Cada monto se marca como pagable exactamente o no, se señala el mayor monto imposible, y los casos base son una racha de montos seguidos pagables.</p>
+        ayuda: String.raw`<p>Una cuadrícula de los montos 0 a 59 en seis filas de 10. Azul (C.s1): se puede pagar exactamente con estampillas de a y b. Gris: no se puede. Borde rojo (C.s8): el mayor monto imposible. Borde verde (C.s6): los a montos seguidos que sirven de casos base. Los bordes solo aparecen si a y b son coprimos. Al pasar el puntero se muestra una descomposición del monto, por ejemplo «2·3 + 1·5».</p>
           <ul>
-          <li><strong>Estampilla a / b</strong>: cambian los montos pagables y el mayor imposible; la racha de casos base mide a montos consecutivos, desde los cuales se induce sumando a.</li>
+          <li><strong>Estampilla a / b</strong>: cambian los montos pagables y el mayor imposible; si mcd(a, b) &gt; 1 no hay mayor imposible y solo se pagan múltiplos del mcd.</li>
+          <li><strong>Casos base</strong>: desde el primer monto después del mayor imposible hay a montos consecutivos pagables, y sumando a se llega a todos los siguientes.</li>
           </ul>`,
         montar: montarEstampillas,
       },

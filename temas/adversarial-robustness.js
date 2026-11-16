@@ -107,24 +107,24 @@
       <p>Una red que acierta el 99 % de las imágenes de prueba puede equivocarse con total seguridad ante una imagen casi idéntica, modificada de forma imperceptible. Un <strong>ejemplo adversarial</strong> es una entrada con una perturbación pequeña, elegida a propósito para engañar al modelo: la perturbación no es ruido al azar, sino que va en la dirección en que más sube la pérdida.</p>
       <p>Esto importa en la práctica: un letrero de «pare» con unas pegatinas, un archivo de malware con unos bytes extra o un texto con una palabra cambiada pueden saltarse un clasificador. La <strong>robustez</strong> es una propiedad distinta de la exactitud, y mide cuánto aguanta el modelo ante perturbaciones deliberadas y ante cambios naturales de los datos.</p>`,
     parametros: [
-      ['Tamaño máximo de la perturbación ε (por coordenada) (Fig. 1)', String.raw`Cuánto se puede mover cada coordenada del punto para engañar a la red. Con ε = 0 no hay ataque; más ε da más libertad al atacante.`],
-      ['Elegir otro punto (Fig. 1)', String.raw`Sortea otro punto de prueba para atacar.`],
-      ['Imagen (Fig. 2)', String.raw`La imagen que clasifica la CNN y sobre la que se calcula el ataque.`],
-      ['Perturbación máxima por píxel ε (Fig. 2)', String.raw`Cuánto puede cambiar cada píxel. Es el presupuesto del atacante: más ε vuelve la perturbación más visible y el error más probable.`],
+      ['Tamaño máximo de la perturbación ε (por coordenada) (Fig. 1)', String.raw`Deslizador de 0 a 0,6. Cuánto puede moverse cada coordenada (x e y) del punto atacado. Con ε = 0 no hay ataque; más ε da más libertad al atacante. También se usa para calcular la exactitud bajo ataque sobre los 200 puntos de prueba.`],
+      ['Elegir otro punto (Fig. 1)', String.raw`Sortea al azar uno de los 200 puntos de prueba para atacarlo (puede ser uno que la red ya clasificaba mal). También se puede elegir un punto haciendo clic cerca de él en el plano.`],
+      ['Imagen (Fig. 2)', String.raw`Una de las seis figuras (cruz, cuadrado, diagonal, anillo, letra T o letra L) que clasifica la CNN y sobre la que se calcula el ataque.`],
+      ['Perturbación máxima por píxel ε (Fig. 2)', String.raw`Deslizador de 0 a 1. Cuánto puede cambiar cada píxel (suma o resta ε). Es el presupuesto del atacante: más ε vuelve la perturbación más visible y el error más probable.`],
     ],
     visualizaciones: [
       { titulo: 'Un empujón que cruza la frontera', descripcion: 'Elija un punto bien clasificado y suba ε hasta que la red cambie de opinión. Compare la exactitud limpia con la exactitud bajo ataque.',
-        ayuda: String.raw`<p>Se ven las regiones de cada clase, la frontera de la red y el punto atacado; la flecha es la perturbación que lo empuja. La exactitud limpia y la exactitud bajo ataque aparecen en la lectura.</p>
+        ayuda: String.raw`<p>Es un plano con dos clases de puntos de prueba (azul y naranja, la clase 0 como punto y la 1 como cuadro), las regiones coloreadas de cada clase y la frontera de la red en negro. El punto atacado se marca en rojo y la flecha roja va hasta el punto perturbado (marcador negro); el cuadro rojo discontinuo es el conjunto de perturbaciones permitidas (ε en cada coordenada). La lectura da la confianza en la clase correcta antes y después, la exactitud limpia y la exactitud bajo ataque con ese ε.</p>
           <ul>
-          <li><strong>ε</strong>: al crecer, la flecha se alarga y, pasado cierto valor, el punto cruza la frontera y cambia de clase.</li>
+          <li><strong>ε</strong>: al crecer, la flecha se alarga y, pasado cierto valor, el punto cruza la frontera y la red se equivoca (lo dice el registro).</li>
           <li><strong>Elegir otro punto</strong>: los puntos cercanos a la frontera cambian con ε pequeño; los alejados resisten más.</li>
-          <li>La exactitud bajo ataque cae al subir ε aunque la limpia no cambie.</li>
+          <li>La exactitud bajo ataque cae al subir ε aunque la exactitud limpia no cambie.</li>
           </ul>`, montar: montarPlano },
       { titulo: 'El mismo ataque sobre una imagen', descripcion: 'Suba ε y observe la perturbación, la imagen atacada y cuándo la CNN se equivoca; la curva muestra la exactitud sobre 60 imágenes.',
-        ayuda: String.raw`<p>Se muestran la imagen original, la perturbación (más intensidad o positiva y negativa, según la leyenda) y la imagen atacada. La curva es la exactitud de la red bajo ataque sobre 60 imágenes, según ε.</p>
+        ayuda: String.raw`<p>Tres mapas de 12×12 píxeles: la imagen original (con la clase predicha y su probabilidad), la perturbación (±ε por píxel, con azul para la positiva y naranja para la negativa) y la imagen atacada con su nueva predicción. A la derecha (o debajo) la curva verde es la exactitud de la red bajo ataque sobre 60 imágenes, con ε en el eje horizontal (0 a 1); el punto naranja marca el ε actual. Al pasar el cursor sobre un mapa aparece el valor de cada píxel.</p>
           <ul>
-          <li><strong>Perturbación máxima por píxel ε</strong>: al subirla, la perturbación se intensifica y, desde cierto punto, la CNN se equivoca con esta imagen.</li>
-          <li><strong>Imagen</strong>: cambia el ejemplo mostrado, no la curva global de exactitud.</li>
+          <li><strong>Perturbación máxima por píxel ε</strong>: al subirla, la perturbación se intensifica y, desde cierto valor, la CNN cambia de predicción con esta imagen (lo dice el registro); el punto de la curva baja.</li>
+          <li><strong>Imagen</strong>: cambia el ejemplo mostrado, no la curva de exactitud, que se calculó con 60 imágenes fijas.</li>
           </ul>`, montar: montarImagen },
     ],
     teoria: String.raw`

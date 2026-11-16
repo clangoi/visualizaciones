@@ -262,31 +262,34 @@
       <p>Conocer el ciclo importa porque <strong>cambiar de idea cuesta más cuanto más avanzado está el proyecto</strong>: una corrección en el papel es barata;
       la misma corrección con el sistema ya programado, probado y capacitado puede costar decenas de veces más.</p>`,
     parametros: [
-      ['Costo de un cambio en la preparación (Fig. 1)', String.raw`Horas que cuesta cambiar una decisión al comienzo del proyecto, cuando aún no hay nada construido.`],
-      ['Multiplicador al cierre (×) (Fig. 1)', String.raw`Cuántas veces más cuesta el mismo cambio al final. Hace la curva de costo más o menos empinada.`],
-      ['Valor del cambio (horas que ahorra) (Fig. 1)', String.raw`Las horas que ahorra hacer el cambio. Mientras supere el costo, conviene cambiar.`],
-      ['Tipo de proyecto y Duración total (Fig. 2)', String.raw`El tipo define qué entregables hay y la duración total (12 a 60 semanas) reparte las fases en ese tiempo.`],
-      ['Reproductor (Fig. 2)', String.raw`Avanza semana a semana y muestra qué se aprueba.`],
+      ['Costo de un cambio en la preparación (Fig. 1)', String.raw`Horas (2 a 40) que cuesta un cambio al comienzo del proyecto. Es el punto de partida de la curva de costo.`],
+      ['Multiplicador al cierre (×) (Fig. 1)', String.raw`Cuántas veces más cuesta el mismo cambio al final del proyecto (de ×5 a ×100). Hace la curva más o menos empinada.`],
+      ['Valor del cambio (horas que ahorra) (Fig. 1)', String.raw`Horas que ahorra hacer el cambio (10 a 400), dibujadas como una línea horizontal. Mientras el costo esté por debajo de esa línea, conviene cambiar.`],
+      ['Tipo de proyecto (Fig. 2)', String.raw`Selector con tres proyectos: «Implantación de un ERP», «App móvil para clientes» y «Migración a la nube». Cambia los entregables de la fase de ejecución y cómo se reparte el calendario entre las fases.`],
+      ['Duración total (Fig. 2)', String.raw`De 12 a 60 semanas. Estira o comprime las fases en ese tiempo.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`En la Fig. 1 recorre las cinco fases una por una y sitúa el cambio solicitado en el medio de cada fase; en la Fig. 2 avanza el proyecto semana a semana. Incluye Un paso, Hasta el final y Reiniciar.`],
     ],
     visualizaciones: [
       {
         titulo: 'El costo de cambiar según el avance',
         descripcion: 'Recorra las fases o haga clic en cualquier punto para situar un cambio. Suba el valor del cambio y vea cómo crece la zona verde; suba el multiplicador y observe cómo la curva se hace más empinada.',
-        ayuda: String.raw`<p>Eje horizontal: avance del proyecto; eje vertical: horas por cambio. La curva es el costo de un cambio y una línea es su valor; la zona en que conviene cambiar es donde el valor supera al costo. Las fases (preparación, planificación, ejecución, monitoreo y cierre) se distinguen por color.</p>
+        ayuda: String.raw`<p>Eje horizontal: avance del proyecto (0 a 100 %); eje vertical: horas por cambio. Arriba, bandas de colores con las cinco fases: preparación (azul), planificación (naranja), ejecución (aguamarina), cierre (rosado) y, en una segunda fila, monitoreo y control (amarillo), que cubre todo el proyecto. La curva negra es el costo de un cambio, que crece de forma exponencial; la línea horizontal discontinua gris es el valor del cambio. La zona verde clara, hasta la línea vertical verde, es donde el costo es menor que el valor. Una línea vertical roja discontinua con un punto rojo es el cambio solicitado.</p>
           <ul>
-          <li><strong>Multiplicador al cierre</strong> alto: la curva sube más y la zona de conveniencia se acorta hacia el inicio.</li>
-          <li><strong>Valor del cambio</strong> alto: la línea sube y la zona verde se extiende a fases más avanzadas.</li>
-          <li><strong>Costo de un cambio en la preparación</strong>: desplaza toda la curva hacia arriba o abajo.</li>
+          <li><strong>Clic en el gráfico</strong>: coloca el cambio solicitado en ese punto y la lectura da su fase, costo y múltiplo; al pasar el cursor se leen los valores.</li>
+          <li><strong>Multiplicador al cierre</strong>: una curva más empinada acorta la zona verde hacia el inicio.</li>
+          <li><strong>Valor del cambio</strong>: una línea más alta extiende la zona verde a fases más avanzadas.</li>
+          <li><strong>Costo en la preparación</strong>: eleva o baja toda la curva desde su origen.</li>
           </ul>`,
         montar: montarCosto,
       },
       {
         titulo: 'Entregables y puertas de aprobación',
         descripcion: 'Reproduzca el proyecto semana a semana y observe qué fase está activa y qué entregables ya se aprobaron. Cambie el tipo de proyecto y la duración: las fases mantienen su orden pero cambian de proporción.',
-        ayuda: String.raw`<p>Un diagrama de fases con sus entregables. Cada entregable aparece como aprobado o pendiente según la semana, y se indica la fase activa.</p>
+        ayuda: String.raw`<p>Cinco filas, una por fase (preparación, planificación, ejecución, monitoreo y control, cierre), con una barra del color de cada fase que se llena con las semanas. Los rombos son entregables: rellenos de negro si están aprobados (su fecha ya pasó) y vacíos si están pendientes. En la fila de monitoreo, los círculos son informes de estado cada 2 semanas. Una línea vertical roja marca la semana actual en el eje de semanas inferior.</p>
           <ul>
-          <li><strong>Tipo de proyecto</strong>: cambia los entregables de cada fase.</li>
-          <li><strong>Duración total</strong>: estira o comprime las fases en semanas manteniendo su orden.</li>
+          <li><strong>Reproductor</strong>: avanza la línea roja semana a semana y aprueba los entregables cuyo vencimiento se cumple; también puede hacer clic en el gráfico para saltar a una semana.</li>
+          <li><strong>Tipo de proyecto</strong>: cambia los tres entregables de la ejecución y el reparto de semanas entre fases.</li>
+          <li><strong>Duración total</strong>: escala todas las fases a la nueva duración, manteniendo su orden.</li>
           </ul>`,
         montar: montarEntregables,
       },

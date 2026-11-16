@@ -119,20 +119,21 @@
       <p>De esa diferencia salen todas las demás: forma de los grupos, tratamiento del ruido, si hay que fijar \(k\), y si la
       pertenencia es una probabilidad o una etiqueta.</p>`,
     parametros: [
-      ['Datos (Fig. 1 y 2)', String.raw`La forma de los datos (manchas, lunas, anillos, densidades distintas…) sobre la que se comparan ambos métodos.`],
-      ['GMM: componentes k (Fig. 1 y 2)', String.raw`Número de gaussianas de la mezcla. GMM siempre asigna cada punto a alguna de las k componentes.`],
-      ['DBSCAN: ε y MinPts (Fig. 1)', String.raw`Radio de vecindad y número mínimo de puntos para que un punto sea núcleo. Deciden qué es grupo y qué es ruido en DBSCAN.`],
-      ['Ruido de fondo (Fig. 1)', String.raw`Cantidad de puntos sueltos añadidos. Pone a prueba cómo trata cada método los puntos fuera de los grupos.`],
+      ['Datos (Fig. 1 y 2)', String.raw`Selector con cinco conjuntos 2-D: «Tres manchas», «Densidades distintas», «Manchas alargadas», «Dos lunas» (inicial en la Fig. 1), «Anillos concéntricos». En la Fig. 2 el inicial es «Tres manchas».`],
+      ['GMM: componentes k (Fig. 1 y 2)', String.raw`Número de gaussianas de la mezcla (1 a 6 en la Fig. 1; 2 a 6 en la Fig. 2). GMM siempre asigna cada punto a alguna de las k componentes.`],
+      ['DBSCAN: ε (Fig. 1)', String.raw`Deslizador de 0,04 a 0,35. Radio de vecindad de DBSCAN. En la Fig. 2, DBSCAN usa ε = 0,12 fijo.`],
+      ['DBSCAN: MinPts (Fig. 1)', String.raw`Deslizador de 2 a 15. Número mínimo de puntos en la vecindad para que un punto sea núcleo. En la Fig. 2 es 5, fijo.`],
+      ['Ruido de fondo (Fig. 1)', String.raw`Deslizador de 0 % a 20 %: fracción de puntos sueltos añadidos, que se regenera al soltar. En la Fig. 2 el ruido es fijo (6 %).`],
       ['Nuevos datos (Fig. 1 y 2)', String.raw`Sortea otra muestra.`],
     ],
     visualizaciones: [
       {
         titulo: 'Lado a lado',
         descripcion: 'Los dos métodos sobre los mismos datos. Busque un conjunto donde cada uno gane claramente al otro.',
-        ayuda: String.raw`<p>Dos paneles con los mismos puntos: GMM, con una elipse 2σ por componente, y DBSCAN, con el ruido marcado con cruz. Cada color es un grupo.</p>
+        ayuda: String.raw`<p>Dos paneles con los mismos puntos (arriba y abajo en pantallas angostas): GMM a la izquierda, con una elipse discontinua 2σ por componente y el color de cada punto según su componente más probable; DBSCAN a la derecha, con un color por grupo (círculo hueco si el punto es de borde) y el ruido como cruz negra. La lectura da el índice de Rand ajustado (ARI) de cada método, el número de grupos de DBSCAN, y el ruido hallado frente al real.</p>
           <ul>
           <li><strong>Datos</strong> lunas o anillos: las elipses de GMM no siguen la forma; DBSCAN sí.</li>
-          <li><strong>Ruido de fondo</strong>: GMM asigna todo punto a una componente; DBSCAN lo deja como ruido.</li>
+          <li><strong>Ruido de fondo</strong>: GMM asigna todo punto a una componente; DBSCAN puede dejarlo como ruido.</li>
           <li><strong>ε</strong> y <strong>MinPts</strong>: con ε chico DBSCAN deja más ruido; con densidades distintas no hay un ε que sirva para todos los grupos.</li>
           </ul>`,
         montar: montarLados,
@@ -140,7 +141,7 @@
       {
         titulo: 'Pertenencia blanda frente a dura',
         descripcion: 'El fondo muestra dónde GMM duda entre componentes; los colores, la respuesta de DBSCAN. Observe los puntos con anillo rojo.',
-        ayuda: String.raw`<p>El fondo oscuro marca dónde GMM duda entre componentes (entropía alta). Los colores son los grupos de DBSCAN (relleno núcleo, hueco borde) y las cruces su ruido; los puntos con anillo rojo son ruido para DBSCAN pero GMM está seguro de ellos (p &gt; 0,95).</p>
+        ayuda: String.raw`<p>El fondo en escala de grises es la entropía de las probabilidades de GMM: más oscuro donde duda entre componentes (el blanco indica seguridad). Los puntos tienen el color del grupo de DBSCAN (relleno si es núcleo, hueco si es borde) y el ruido de DBSCAN es una cruz negra. Los puntos con anillo rojo son ruido para DBSCAN, pero GMM los asigna a una componente con p &gt; 0,95. Al pasar el puntero sobre un punto, el tooltip da sus probabilidades en cada componente, la densidad de la mezcla y la etiqueta de DBSCAN.</p>
           <ul>
           <li><strong>GMM: componentes k</strong>: cambia dónde se solapan las componentes y, con ello, las zonas de duda.</li>
           <li>GMM puede estar muy seguro de un punto lejano a todo: su probabilidad posterior es relativa a las componentes, no a la densidad.</li>

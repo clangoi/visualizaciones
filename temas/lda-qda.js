@@ -176,30 +176,31 @@
       <p>Ambos se apoyan en la <strong>distancia de Mahalanobis</strong>, que mide qué tan lejos está un punto de una media en unidades
       de desviación estándar, teniendo en cuenta que los datos pueden variar más en unas direcciones que en otras.</p>`,
     parametros: [
-      ['Datos (Fig. 1)', String.raw`La distribución de las clases (por ejemplo, covarianzas parecidas o muy distintas). Determina qué clasificador se ajusta mejor.`],
-      ['Clasificador (Fig. 1)', String.raw`El modelo que se estima: LDA (covarianza común), QDA (covarianza por clase), Mahalanobis a la media o Euclidiana a la media. Cambia la forma de la frontera.`],
-      ['Muestras por clase y Nuevos datos (Fig. 1)', String.raw`Con pocas muestras las medias y covarianzas estimadas son inestables, y más aún en QDA.`],
-      ['σ en el eje mayor, σ en el eje menor y Orientación (Fig. 2)', String.raw`Forma y giro de la covarianza común. Determinan en qué direcciones la distancia de Mahalanobis penaliza más.`],
+      ['Datos (Fig. 1)', String.raw`Escenario de las clases: Covarianzas iguales, Covarianzas distintas, Elipses cruzadas o Tres clases. Determina qué clasificador se ajusta mejor.`],
+      ['Clasificador (Fig. 1)', String.raw`El modelo que se estima: LDA (covarianza común), QDA (covarianza por clase), Mahalanobis a la media (covarianza común, sin priores) o Euclidiana a la media. Cambia la forma de la frontera.`],
+      ['Muestras por clase y Nuevos datos (Fig. 1)', String.raw`Muestras por clase (de 6 a 150) fija cuántos puntos se generan; la mitad se usa para entrenar y la otra mitad, de prueba. «Nuevos datos» cambia la semilla. Con pocas muestras las medias y covarianzas estimadas son inestables, más aún en QDA.`],
+      ['σ en el eje mayor, σ en el eje menor y Orientación (Fig. 2)', String.raw`Desviaciones (de 0,05 a 0,60) y giro (de 0° a 180°) de la covarianza compartida por las clases A y B. Determinan en qué direcciones la distancia de Mahalanobis penaliza más. Un clic en el gráfico mueve el punto de consulta.`],
     ],
     visualizaciones: [
       {
         titulo: 'Clasificadores gaussianos',
         descripcion: 'Regiones de decisión de cuatro clasificadores que estiman medias y covarianzas a partir de los datos. La intensidad del color es la probabilidad a posteriori.',
-        ayuda: String.raw`<p>Los puntos son las muestras; las elipses son 2σ de la covarianza que usa el clasificador, centradas en la media estimada. La intensidad de color indica la probabilidad a posteriori y el cambio de color marca la frontera de decisión.</p>
+        ayuda: String.raw`<p>El fondo se colorea con la clase más probable; la intensidad del color indica la probabilidad a posteriori, y la frontera aparece donde cambia el color. Los puntos rellenos son de entrenamiento y los huecos, de prueba. Las elipses discontinuas son 2σ de la covarianza que usa el clasificador, con un punto negro en la media estimada. La lectura da la exactitud en entrenamiento y prueba, los parámetros estimados y el tipo de frontera.</p>
           <ul>
-          <li><strong>Clasificador</strong>: con LDA la frontera es una recta; con QDA, una curva, porque cada clase tiene su elipse.</li>
+          <li><strong>Clasificador</strong>: con LDA la frontera es lineal y con QDA, cuadrática, porque cada clase tiene su propia elipse.</li>
           <li><strong>Muestras por clase</strong>: con pocas, las elipses estimadas se deforman y la frontera varía mucho.</li>
-          <li><strong>Datos</strong>: si las clases tienen covarianzas distintas, QDA se ajusta mejor que LDA.</li>
+          <li><strong>Datos</strong>: con Elipses cruzadas las medias casi coinciden y LDA no separa bien; con Covarianzas distintas QDA se ajusta mejor.</li>
           </ul>`,
         montar: montarClasificadores,
       },
       {
         titulo: 'Distancia de Mahalanobis frente a euclidiana',
         descripcion: 'Dos clases con la misma covarianza. Cambie la forma de la covarianza y vea cómo la frontera de Mahalanobis se separa de la mediatriz euclidiana.',
-        ayuda: String.raw`<p>Las curvas son las líneas de Mahalanobis 1, 2 y 3 de cada clase. La frontera de Mahalanobis se compara con la mediatriz euclidiana y se muestra un punto de consulta.</p>
+        ayuda: String.raw`<p>Las curvas azules (C.s1, clase A) y naranja (C.s2, clase B) son las líneas de Mahalanobis 1, 2 y 3 de cada media, con la misma covarianza. La línea negra es la frontera por Mahalanobis, la gris discontinua es la mediatriz euclidiana y el punto amarillo (C.s4) es la consulta, unida a ambas medias. La lectura compara las distancias euclidiana y de Mahalanobis a A y a B.</p>
           <ul>
           <li><strong>σ en el eje mayor</strong> y <strong>σ en el eje menor</strong>: alargan o estrechan las elipses; cuanto más alargadas, más se separa la frontera de Mahalanobis de la euclidiana.</li>
           <li><strong>Orientación</strong>: gira las elipses y con ellas la frontera de Mahalanobis, que deja de ser perpendicular a la línea entre medias.</li>
+          <li><strong>Clic en el gráfico</strong>: mueve la consulta; entre las dos fronteras queda más cerca de una media en distancia euclidiana y de la otra en Mahalanobis.</li>
           </ul>`,
         montar: montarMahalanobis,
       },

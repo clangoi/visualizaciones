@@ -266,32 +266,33 @@
       El descriptor junta histogramas de direcciones de gradiente medidos desde la orientación propia del punto, lo que lo hace
       invariante a la rotación.</p>`,
     parametros: [
-      ['Escala de la DoG (Fig. 1)', String.raw`El nivel de suavizado cuya diferencia de gaussianas se muestra. Cada escala resalta estructuras de un tamaño distinto.`],
-      ['Umbral de contraste (Fig. 1)', String.raw`Mínima respuesta para aceptar un extremo como punto de interés. Subirlo deja solo los puntos más marcados.`],
-      ['Ruido σ y Nueva imagen (Fig. 1)', String.raw`El ruido de la imagen. Genera extremos espurios y cambia los detectados.`],
-      ['descartar respuestas de borde (Fig. 1)', String.raw`Elimina los extremos que responden a bordes rectos, poco estables, y deja las esquinas y manchas.`],
-      ['Rotación del parche (Fig. 2)', String.raw`Ángulo con que se gira el parche. Sirve para comprobar si el descriptor cambia con el giro.`],
-      ['alinear con la orientación dominante (Fig. 2)', String.raw`Si el descriptor se calcula tras girar el parche a su orientación dominante, lo que lo vuelve invariante al giro.`],
+      ['Escala de la DoG (Fig. 1)', String.raw`Control deslizante cuyo valor se muestra como σ. Elige qué nivel de la pila de diferencias de gaussianas se dibuja a la derecha y cuáles puntos se resaltan como detectados en esa escala. Cada escala resalta estructuras de un tamaño distinto.`],
+      ['Umbral de contraste (Fig. 1)', String.raw`Mínima respuesta de la DoG (de 0,002 a 0,030) para aceptar un extremo como punto de interés. Subirlo deja solo los puntos más marcados.`],
+      ['Ruido σ y Nueva imagen (Fig. 1)', String.raw`Ruido (de 0 a 0,06) agregado a la imagen; «Nueva imagen» genera otra escena. El ruido puede producir extremos espurios y cambiar los puntos detectados.`],
+      ['descartar respuestas de borde (Fig. 1)', String.raw`Casilla que elimina los extremos que responden a bordes y no a manchas o esquinas, por ser poco estables; si se desmarca, esos puntos aparecen en rojo.`],
+      ['Rotación del parche (Fig. 2)', String.raw`Ángulo (de 0° a 360°, de 5 en 5) con que se gira el parche. Sirve para comprobar si el descriptor cambia con el giro.`],
+      ['alinear con la orientación dominante (Fig. 2)', String.raw`Con la casilla marcada, el descriptor se mide desde la orientación dominante del parche rotado, lo que lo vuelve invariante al giro. Desmarcada, se mide siempre desde la orientación dominante del parche sin rotar.`],
     ],
     visualizaciones: [
       {
         titulo: 'Espacio de escalas y diferencia de gaussianas',
         descripcion: 'A la derecha, la diferencia de gaussianas en una escala; a la izquierda, los extremos detectados en todas las escalas, con radio proporcional a σ.',
-        ayuda: String.raw`<p>A la derecha, la DoG de la escala elegida (gris medio = 0, claro positivo, oscuro negativo). A la izquierda, los puntos de interés con radio proporcional a σ; se distinguen los detectados en la escala mostrada y las respuestas de borde.</p>
+        ayuda: String.raw`<p>A la izquierda está la imagen con los puntos de interés como círculos de radio proporcional a σ, y a la derecha la DoG de la escala elegida (gris medio = 0, claro positivo, oscuro negativo). Los círculos azules (C.s1) son puntos de otras escalas, los naranja (C.s2) y más gruesos son los detectados en la escala mostrada (con un punto sobre la DoG) y los rojos (C.s8), las respuestas de borde. La lectura cuenta puntos totales, en esta escala, de borde y las manchas reales de la imagen.</p>
           <ul>
-          <li><strong>Escala de la DoG</strong>: cambia la imagen DoG y qué círculos se destacan como detectados en esa escala.</li>
+          <li><strong>Escala de la DoG</strong>: cambia la imagen DoG y qué círculos se destacan en naranja.</li>
           <li><strong>Umbral de contraste</strong>: al subirlo desaparecen puntos débiles.</li>
-          <li><strong>descartar respuestas de borde</strong>: quita los marcados como respuesta de borde.</li>
+          <li><strong>descartar respuestas de borde</strong>: quita los puntos rojos.</li>
+          <li><strong>Ruido σ</strong>: regenera la imagen con más ruido y cambia el conjunto de puntos.</li>
           </ul>`,
         montar: montarEscalas,
       },
       {
         titulo: 'Orientación dominante y descriptor',
         descripcion: 'El parche se describe con 4 × 4 celdas y 8 direcciones por celda. Gire el parche y compare su descriptor (barras) con el del parche sin rotar (línea).',
-        ayuda: String.raw`<p>Se dibujan el gradiente de cada píxel del parche y la orientación dominante. Abajo, las barras (eje X: componente, celda por 8 orientaciones) son el descriptor del parche rotado y la línea es el del parche sin rotar.</p>
+        ayuda: String.raw`<p>A la izquierda está el parche rotado con el gradiente de algunos de sus píxeles (líneas grises), la rejilla 4×4 del descriptor y la orientación dominante (línea naranja gruesa, C.s2). Al lado, una rosa de 36 casillas muestra el histograma de orientaciones, con la casilla dominante en naranja. Abajo, las barras azules (C.s1; eje X: componente, celda por 8 orientaciones) son el descriptor del parche rotado y la línea gris (C.apagado) es el del parche sin rotar. La lectura da la orientación dominante, la rotación aplicada y la distancia entre ambos descriptores.</p>
           <ul>
-          <li><strong>Rotación del parche</strong> sin alinear: las barras se alejan de la línea, el descriptor no es invariante.</li>
-          <li><strong>alinear con la orientación dominante</strong>: las barras vuelven a coincidir con la línea aunque el parche esté girado.</li>
+          <li><strong>Rotación del parche</strong>: la orientación dominante gira con el parche.</li>
+          <li><strong>alinear con la orientación dominante</strong>: marcada, las barras casi coinciden con la línea aunque el parche esté girado; desmarcada, se alejan y la distancia crece.</li>
           </ul>`,
         montar: montarDescriptor,
       },

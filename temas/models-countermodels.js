@@ -117,27 +117,28 @@
       Aun así, el método para refutar un argumento es el mismo: encontrar un <strong>contramodelo</strong>, una interpretación que cumple las premisas y viola la conclusión.</p>
       <p>Los contramodelos suelen ser pequeñísimos. Para razonamientos que parecen razonables —como los silogismos de Aristóteles— permiten separar con claridad los válidos de los falaces.</p>`,
     parametros: [
-      ['Premisas, Conclusión y Ejemplos (Fig. 1)', String.raw`El argumento con cuantificadores que se pone a prueba; los ejemplos cargan casos como \(\forall\exists\) frente a \(\exists\forall\).`],
-      ['Tamaño máximo del dominio (Fig. 1)', String.raw`Hasta qué tamaño se buscan interpretaciones. Un contramodelo puede requerir más elementos de los que hay disponibles.`],
-      ['Silogismo (Fig. 2)', String.raw`Cuál de las cuatro formas válidas o tres falacias de Aristóteles se examina.`],
+      ['Premisas y Conclusión (Fig. 1)', String.raw`Cajas de texto con el argumento con cuantificadores (premisas separadas por «;» y una conclusión). Se admiten los símbolos de los botones sobre la figura. Si hay constantes (a, b), se prueban todas sus asignaciones.`],
+      ['Ejemplos (Fig. 1)', String.raw`Selector con seis argumentos, tres válidos y tres inválidos, como \(\forall\exists\) frente a \(\exists\forall\), modus ponens con constante y \(\forall\) sobre \(\vee\). Al elegir uno se reemplazan las cajas.`],
+      ['Tamaño máximo del dominio (Fig. 1)', String.raw`Deslizador de 1 a 4: hasta cuántos elementos tiene el dominio de las interpretaciones que se prueban, empezando por 1. Un contramodelo puede requerir más elementos; la búsqueda también se detiene antes si hay demasiadas combinaciones.`],
+      ['Silogismo (Fig. 2)', String.raw`Selector con siete formas: cuatro silogismos válidos (Barbara, Celarent, Darii, Ferio) y tres falacias (dos particulares, medio no distribuido, existencia).`],
     ],
     visualizaciones: [
       {
         titulo: 'Busque un contramodelo',
         descripcion: 'Escriba premisas y una conclusión con cuantificadores y busque una interpretación pequeña que los refute. Contraste \\(\\forall\\exists\\) con \\(\\exists\\forall\\) y \\(\\forall x\\,P \\to \\exists x\\,P\\).',
-        ayuda: String.raw`<p>Se dibuja la primera interpretación pequeña que cumple las premisas y falsifica la conclusión (contramodelo): los elementos que cumplen el predicado o R se marcan según la leyenda.</p>
+        ayuda: String.raw`<p>Cada predicado unario (por ejemplo P, Q) es una fila de círculos, uno por elemento del dominio (a, b, c, …); cada relación binaria (R) es una matriz de cuadrados con filas y columnas rotuladas por elemento. Azul significa que el elemento cumple el predicado (o que R vale verdadero para ese par); círculo vacío o cuadrado gris significa falso. Si hay contramodelo se dibuja el primero encontrado (el de menor tamaño); si no, la figura queda vacía y el texto explica que no se halló ninguno.</p>
           <ul>
-          <li><strong>Premisas / Conclusión</strong>: si hay contramodelo, el argumento no es válido; si no se halla ninguno hasta el tamaño máximo, no hay evidencia en contra.</li>
-          <li><strong>Tamaño máximo del dominio</strong>: ampliarlo puede revelar contramodelos que antes no cabían.</li>
+          <li><strong>Premisas / Conclusión</strong>: si hay contramodelo, el argumento no es válido; si no se halla ninguno, solo es evidencia de validez, no una prueba.</li>
+          <li><strong>Tamaño máximo del dominio</strong>: ampliarlo puede revelar contramodelos que antes no cabían. La lectura indica los casos revisados, si se halló contramodelo y el dominio máximo alcanzado.</li>
           </ul>`,
         montar: montarContramodelo,
       },
       {
         titulo: 'Silogismos de Aristóteles',
         descripcion: 'Cuatro formas válidas y tres falacias clásicas. En las falacias aparece el contramodelo que las refuta; en las válidas, un modelo de las premisas.',
-        ayuda: String.raw`<p>Diagrama de conjuntos A, B y C con los elementos de cada uno. En una forma válida se muestra un modelo de las premisas; en una falacia, el contramodelo.</p>
+        ayuda: String.raw`<p>No es un diagrama de conjuntos: son filas de círculos para los predicados A, B y C sobre los elementos a, b, c (azul: el elemento pertenece al predicado). Encima aparecen el enunciado en palabras y su formalización. Si el silogismo es inválido se dibuja un contramodelo (de hasta 3 elementos) donde las premisas son verdaderas y la conclusión falsa; si es válido, se dibuja un modelo cualquiera de las premisas, en el que la conclusión también se cumple.</p>
           <ul>
-          <li><strong>Silogismo</strong>: las formas válidas no admiten contramodelo; las falacias sí, y aparece como elementos en regiones que las premisas permiten pero la conclusión prohíbe.</li>
+          <li><strong>Silogismo</strong>: las formas válidas dicen «VÁLIDO» y no tienen contramodelo; las falacias dicen «INVÁLIDO» y su contramodelo muestra por qué falla. La lectura da forma, veredicto y casos revisados.</li>
           </ul>`,
         montar: montarSilogismos,
       },

@@ -134,30 +134,33 @@
       sesga el resultado. Los estimadores <strong>doblemente robustos</strong> combinan un modelo de resultado con uno de
       <a href="tema.html?id=propensity-score">propensión</a> y solo necesitan que uno de los dos sea correcto.</p>`,
     parametros: [
-      ['Modelo de resultado (Fig. 1)', String.raw`Forma con que se ajusta la relación entre gravedad y resultado: lineal o cuadrática. Si no coincide con la verdadera, el efecto estimado sale sesgado.`],
-      ['Confusión (Fig. 1)', String.raw`Cuánto depende el tratamiento de la gravedad. Mayor confusión hace más grande la extrapolación del modelo.`],
-      ['Nuevos datos y Repetir (Fig. 1 y 2)', String.raw`Generan una muestra nueva o repiten los estudios simulados.`],
-      ['modelo de resultado correcto (Fig. 2)', String.raw`Indica si el modelo de resultado incluye gravedad² como el verdadero.`],
-      ['modelo de propensión correcto (Fig. 2)', String.raw`Indica si el modelo de tratamiento incluye gravedad² como el verdadero.`],
+      ['Modelo de resultado (Fig. 1)', String.raw`Selector: «Lineal en la gravedad» o «Cuadrático en la gravedad». Es la forma con que se ajustan, por separado para tratados y controles, μ₁(x) y μ₀(x). Las curvas verdaderas son cuadráticas, así que el modelo lineal las aproxima mal y puede sesgar el efecto estimado.`],
+      ['Confusión (Fig. 1)', String.raw`Deslizador de 0 a 3. Cuánto depende la asignación del tratamiento de la gravedad. Con valores altos casi no hay controles graves, y el modelo de los controles debe extrapolar.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Botón que genera otra muestra de 300 pacientes con distinta semilla.`],
+      ['modelo de resultado correcto (incluye gravedad²) (Fig. 2)', String.raw`Casilla (desmarcada al inicio). Marcada, los modelos de resultado de la regresión y del AIPW incluyen gravedad²; desmarcada, solo términos lineales.`],
+      ['modelo de propensión correcto (incluye gravedad²) (Fig. 2)', String.raw`Casilla (marcada al inicio). Marcada, el modelo logístico de la probabilidad de tratamiento, usado por IPW y AIPW, incluye gravedad²; desmarcada, solo términos lineales.`],
+      ['Repetir (Fig. 2)', String.raw`Botón que simula otros 60 estudios con distinta semilla.`],
     ],
     visualizaciones: [
       {
         titulo: 'Ajuste por regresión',
         descripcion: 'Un modelo por grupo (T-learner) y la diferencia promedio. Suba la confusión con el modelo lineal y luego cambie a cuadrático.',
-        ayuda: String.raw`<p>Puntos de tratados y controles según gravedad (horizontal) y resultado Y (vertical), con sus modelos ajustados μ₁(x) y μ₀(x) y las curvas verdaderas E[Y(t) | x].</p>
+        ayuda: String.raw`<p>Gráfico de dispersión con la gravedad en el eje horizontal y el resultado Y en el vertical. Los pacientes tratados son cuadrados naranjas (C.s2) y los controles puntos azules (C.s1). Las dos curvas gruesas son los modelos ajustados: μ₁(x) en naranja y μ₀(x) en azul. Las dos curvas grises punteadas (C.apagado) son las verdaderas E[Y(t) | x]. Al pasar el cursor se muestra el efecto verdadero en esa gravedad. Las lecturas comparan el ATE estimado por regresión con el verdadero y con la diferencia ingenua.</p>
           <ul>
-          <li><strong>Modelo de resultado</strong> lineal sobre curvas cuadráticas: los modelos ajustados se separan de las verdaderas.</li>
-          <li><strong>Confusión</strong> alta: los grupos se solapan menos en gravedad y el error se nota más.</li>
+          <li><strong>Modelo de resultado</strong>: con el lineal, las curvas ajustadas se separan de las grises, sobre todo donde hay pocos puntos.</li>
+          <li><strong>Confusión</strong>: al subirla, la nube de controles se concentra en gravedades bajas y el error en la extrapolación aumenta.</li>
+          <li><strong>Nuevos datos</strong>: muestra otra realización.</li>
           </ul>`,
         montar: montarRegresion,
       },
       {
         titulo: 'Doble robustez',
         descripcion: 'Regresión, IPW y AIPW en muchos estudios simulados, con modelos correctos o mal especificados.',
-        ayuda: String.raw`<p>Estimaciones del ATE de regresión, IPW y AIPW en muchos estudios (puntos por estudio, promedio y ATE verdadero).</p>
+        ayuda: String.raw`<p>Tres columnas: regresión, IPW y AIPW. Cada punto azul (C.s1) es la estimación de un estudio (60 estudios de 500 pacientes, con confusión fija), la línea negra gruesa (C.tinta) es el promedio de cada estimador y la línea verde punteada (C.s6) es el ATE verdadero. Las lecturas dan el sesgo y la desviación de cada estimador.</p>
           <ul>
-          <li>Con una sola casilla correcta, AIPW suele quedar cerca del verdadero.</li>
-          <li>Con ambas incorrectas, todos los estimadores se desvían.</li>
+          <li><strong>modelo de resultado correcto</strong>: lo usan la regresión y el AIPW; si falta gravedad², la regresión se desvía.</li>
+          <li><strong>modelo de propensión correcto</strong>: lo usan IPW y el AIPW; si falta gravedad², IPW se desvía.</li>
+          <li>Con una sola casilla marcada, el AIPW suele quedar cerca del ATE verdadero; con ambas desmarcadas, todos se desvían.</li>
           </ul>`,
         montar: montarRobustez,
       },

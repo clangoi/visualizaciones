@@ -234,27 +234,31 @@
       termina antes de que otra empiece, la primera debe ir antes en el orden. Una lectura que empieza después de que una escritura terminó
       tiene que verla.</p>`,
     parametros: [
-      ['Historia (Fig. 1 y 2)', String.raw`Qué ejemplo de operaciones se analiza: cada una tiene un intervalo de invocación a respuesta. Los casos incluyen historias linealizables y otras solo secuencialmente consistentes.`],
-      ['Restaurar (Fig. 1)', String.raw`Devuelve las operaciones a su posición original tras arrastrarlas.`],
-      ['Reproductor (Fig. 2)', String.raw`Avanza el verificador paso a paso y lo reinicia.`],
+      ['Historia (Fig. 1 y 2)', String.raw`Qué historia se analiza: «Registro con lecturas concurrentes», «Secuencial pero no linealizable», «Lectura nueva y luego vieja» o «Dos escrituras solapadas». Cada figura tiene su propio selector; cambiarlo recarga las operaciones de esa figura (y en la Fig. 2 reinicia la búsqueda).`],
+      ['Restaurar (Fig. 1)', String.raw`Vuelve la historia seleccionada a su estado original: deshace los arrastres y los valores de lectura cambiados.`],
+      ['Arrastrar una operación (Fig. 1)', String.raw`Mover una barra a lo largo del tiempo cambia qué operaciones se solapan o se preceden en tiempo real; no puede cruzar a otra operación del mismo proceso. Un clic sin arrastrar sobre una lectura cambia el valor que devolvió.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Velocidad fija cuántos pasos de la búsqueda se ejecutan por segundo; Reproducir/Pausar los recorre solos, Un paso avanza uno, Hasta el final muestra el resultado y Reiniciar empieza la búsqueda de nuevo.`],
     ],
     visualizaciones: [
       {
         titulo: 'Arrastre las operaciones',
         descripcion: 'Cada barra va de la invocación a la respuesta. Si existe una linealización, se dibujan sus puntos y su orden. Arrastre la lectura de «Secuencial pero no linealizable» hacia la izquierda hasta que se solape con la escritura.',
-        ayuda: String.raw`<p>Cada barra es una operación, del instante de invocación al de respuesta; se distinguen escrituras y lecturas. Cuando existe una linealización se dibujan los puntos de linealización con su orden dentro de cada operación.</p>
+        ayuda: String.raw`<p>Cada fila es un proceso (P1, P2, …) y el eje horizontal es el tiempo real. Cada barra va de la invocación a la respuesta de una operación: gris claro las escrituras W y blancas las lecturas R. Cuando la historia es linealizable se dibuja en naranja (C.s2) el punto de linealización de cada operación, numerado en el orden de la linealización y unido por una línea punteada.</p>
           <ul>
-          <li>Arrastrar una operación para que dos intervalos dejen de solaparse, o para que una lectura termine antes que una escritura, cambia el orden de tiempo real: puede desaparecer la linealización.</li>
-          <li><strong>Restaurar</strong>: vuelve a la historia original.</li>
+          <li><strong>Arrastrar</strong> una barra para que una lectura quede completamente después de una escritura (o antes) crea o rompe una precedencia en tiempo real y puede hacer desaparecer la linealización.</li>
+          <li><strong>Clic en una lectura</strong>: cambia el valor leído entre 0 y los valores escritos.</li>
+          <li><strong>Restaurar</strong>: recarga la historia original.</li>
+          <li>El panel de lectura indica si es linealizable, si es secuencial y cuántos pares de operaciones están ordenados en tiempo real.</li>
           </ul>`,
         montar: montarArrastre,
       },
       {
         titulo: 'Buscar una linealización',
         descripcion: 'El verificador de Wing y Gong elige en cada paso una operación mínima, comprueba que sea legal y retrocede si se atasca. «Dos escrituras solapadas» obliga a retroceder.',
-        ayuda: String.raw`<p>El verificador elige en cada paso una operación mínima, es decir, una que ninguna pendiente haya terminado antes. Los colores de la leyenda distinguen las operaciones ya linealizadas (con su posición), la candidata que se agrega, la rechazada por lectura incorrecta y las mínimas. Debajo se muestra el orden parcial por tiempo real.</p>
+        ayuda: String.raw`<p>La misma figura de barras, ahora coloreada según la búsqueda. Azul (C.s1) con número: operación ya linealizada y su posición. Naranja (C.s2): candidata que se agrega. Rojo (C.s8): candidata rechazada porque su lectura no coincide con el valor del registro. Amarillo (C.s4): operaciones mínimas, es decir, aquellas que ninguna operación pendiente terminó antes de que empezaran. La tira «Orden parcial» lista el orden construido hasta ahora; al terminar, si hay linealización, aparecen sus puntos en naranja.</p>
           <ul>
-          <li><strong>Historia</strong>: en «Dos escrituras solapadas» aparecen candidatas rechazadas y el verificador retrocede para probar otro orden.</li>
+          <li><strong>Un paso</strong>: muestra cada decisión (agrega, falla o retrocede) en el texto inferior.</li>
+          <li><strong>Historia</strong>: en «Dos escrituras solapadas» hay candidatas rechazadas y retrocesos; el panel de lectura cuenta paso, retrocesos y operaciones linealizadas.</li>
           </ul>`,
         montar: montarBusqueda,
       },

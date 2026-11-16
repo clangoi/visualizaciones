@@ -205,32 +205,37 @@
       <p>Los errores de requisitos son los más caros de la ingeniería de software porque se propagan: un malentendido al redactar se diseña, se programa y se prueba antes de descubrirse. Las dos figuras muestran qué se pierde
       cuando se prioriza mal y cuánto cuesta cada defecto según la fase en que se detecta.</p>`,
     parametros: [
-      ['Presupuesto del release (Fig. 1)', String.raw`Cuántos puntos de esfuerzo caben en la versión. Los requerimientos que no caben quedan como círculos vacíos.`],
-      ['Asignar por valor/esfuerzo y Nuevos requerimientos (Fig. 1)', String.raw`El primer botón reasigna categorías MoSCoW según valor/esfuerzo; el segundo genera otro conjunto de requerimientos.`],
-      ['Defectos por requisito al redactar (Fig. 2)', String.raw`Cuántos defectos nacen con cada requisito. Son el punto de partida de los costos de corrección.`],
-      ['Volatilidad (requisitos que cambian) (Fig. 2)', String.raw`Qué proporción de requisitos cambia, lo que introduce defectos nuevos.`],
-      ['Eficacia de la revisión de requisitos, de diseño y de las pruebas (Fig. 2)', String.raw`Qué fracción de defectos atrapa cada etapa. Los que pasan siguen a fases más caras.`],
-      ['Matriz de trazabilidad (Fig. 2)', String.raw`Si se mantiene el vínculo entre requisitos, diseño y pruebas. Ayuda a hallar los defectos antes.`],
+      ['Presupuesto del release (Fig. 1)', String.raw`De 10 a 70 puntos. Esfuerzo que caben en la versión. Se financian primero los Must, luego los Should y los Could, en el orden de la lista, mientras quepan; los que no caben quedan como círculos vacíos.`],
+      ['Asignar por valor/esfuerzo (Fig. 1)', String.raw`Reasigna las categorías según la razón valor/esfuerzo, de mayor a menor: Must hasta el 60 % del presupuesto, Should hasta el 100 %, Could hasta el 135 % y Won’t el resto.`],
+      ['Nuevos requerimientos (Fig. 1)', String.raw`Genera otro conjunto de catorce requerimientos, con otros esfuerzos, valores y categorías iniciales.`],
+      ['Defectos por requisito al redactar (Fig. 2)', String.raw`De 5 a 30 %. Proporción de los 100 requisitos que nacen con un defecto.`],
+      ['Volatilidad (requisitos que cambian) (Fig. 2)', String.raw`De 0 a 60 %. Proporción de requisitos que cambian durante el proyecto; cada cambio introduce defectos nuevos que entran junto con los iniciales.`],
+      ['Eficacia de la revisión de requisitos (Fig. 2)', String.raw`De 0 a 90 %. Fracción de los defectos que atrapa la primera revisión.`],
+      ['Eficacia de la revisión de diseño (Fig. 2)', String.raw`De 0 a 90 %. Fracción de los defectos restantes que atrapa la revisión de diseño.`],
+      ['Eficacia de las pruebas (Fig. 2)', String.raw`De 0 a 95 %. Fracción de los defectos restantes que atrapan las pruebas; el resto llega a producción.`],
+      ['Matriz de trazabilidad (Fig. 2)', String.raw`Casilla. Al marcarla, aumenta un 15 % relativo la eficacia de las tres etapas y baja la cantidad de defectos que introduce cada cambio.`],
     ],
     visualizaciones: [
       {
         titulo: 'Priorizar con MoSCoW y valor/esfuerzo',
         descripcion: 'Cambie las categorías con clic y compare el valor capturado con el máximo posible. Pruebe «Asignar por valor/esfuerzo» y vea cómo suben la eficiencia y la cantidad de requerimientos Must que caben; luego reduzca el presupuesto.',
-        ayuda: String.raw`<p>Cada círculo es un requerimiento: eje horizontal, esfuerzo en puntos; eje vertical, valor para el negocio (1–10). El color es la categoría (Must, Should, Could, Won’t); un círculo vacío no cabe en el presupuesto y una línea marca el corte por valor/esfuerzo.</p>
+        ayuda: String.raw`<p>Cada círculo es un requerimiento (R1 a R14): eje horizontal, esfuerzo en puntos; eje vertical, valor para el negocio (1 a 10). El color indica la categoría: Must azul, Should naranja, Could aguamarina y Won’t gris. Un círculo relleno está financiado; uno vacío, con borde de su color, no cabe en el presupuesto. La línea gris discontinua desde el origen es el corte por valor/esfuerzo del enfoque voraz: lo que queda sobre ella tiene mejor razón.</p>
           <ul>
-          <li><strong>Presupuesto del release</strong> menor: más círculos quedan vacíos y algunos Must pueden no caber.</li>
-          <li><strong>Asignar por valor/esfuerzo</strong>: los círculos de arriba a la izquierda pasan a Must y sube el valor capturado.</li>
+          <li><strong>Presupuesto del release</strong>: al bajarlo quedan más círculos vacíos y algunos Must pueden no caber (el registro lo advierte).</li>
+          <li><strong>Clic en un círculo</strong>: cambia su categoría en el orden Must, Should, Could, Won’t; al pasar el cursor se ven su nombre, valor, esfuerzo y razón.</li>
+          <li><strong>Asignar por valor/esfuerzo</strong>: reordena las categorías según la razón y sube el valor capturado respecto del máximo posible.</li>
+          <li><strong>Nuevos requerimientos</strong>: otro conjunto de círculos.</li>
           </ul>`,
         montar: montarPriorizar,
       },
       {
         titulo: 'Costo de un defecto de requisitos',
         descripcion: 'Suba la eficacia de las revisiones tempranas y active la trazabilidad: los defectos se hallan antes y el costo cae. Aumente la volatilidad para ver cómo los cambios traen defectos nuevos.',
-        ayuda: String.raw`<p>Barras por fase del ciclo de vida: la altura es el costo en horas de corregir los defectos hallados en esa fase, y una barra distinta marca los que ya llegaron al usuario.</p>
+        ayuda: String.raw`<p>Cuatro barras, una por etapa: revisión de requisitos, revisión de diseño, pruebas (azules) y producción (roja, los defectos que ya llegaron al usuario). La altura es el costo en horas de corregir los defectos hallados en esa etapa (2, 10, 40 y 200 horas por defecto, respectivamente), y sobre cada barra se indica cuántos defectos se hallan.</p>
           <ul>
-          <li><strong>Eficacia de la revisión de requisitos</strong> alta: más defectos se hallan en la primera fase, donde corregir es barato, y bajan las barras tardías.</li>
-          <li><strong>Volatilidad</strong> alta: se agregan defectos nuevos en fases posteriores y el costo sube.</li>
-          <li><strong>Matriz de trazabilidad</strong>: encuentra defectos antes, así que el costo total baja.</li>
+          <li><strong>Defectos por requisito</strong> y <strong>Volatilidad</strong>: más defectos entran al principio del proceso (los cambios se suman a los iniciales) y todas las barras suben.</li>
+          <li><strong>Eficacia de la revisión de requisitos, de diseño y de las pruebas</strong>: más eficacia mueve defectos a barras más baratas y baja la barra roja.</li>
+          <li><strong>Matriz de trazabilidad</strong>: sube la eficacia de cada etapa y baja los defectos introducidos por cambios, por lo que el costo total disminuye.</li>
           </ul>`,
         montar: montarCostoDefecto,
       },

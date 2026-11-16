@@ -110,27 +110,29 @@
       <p>Definir y demostrar son dos caras de lo mismo: las funciones recursivas se analizan por inducción, y la forma de la definición dicta qué clase de inducción hace falta
       (simple para \(n!\), fuerte para Fibonacci).</p>`,
     parametros: [
-      ['Definición recursiva y n (Fig. 1)', String.raw`La función cuyo árbol de llamadas se despliega y el tamaño del argumento. Un n mayor genera más subproblemas.`],
-      ['Discos (Fig. 2)', String.raw`Cantidad de discos de las Torres de Hanoi; cada disco extra duplica los movimientos más uno.`],
-      ['Reproductor (Fig. 2)', String.raw`Reproducir, dar un paso o reiniciar para ver los movimientos uno a uno.`],
+      ['Definición recursiva (Fig. 1)', String.raw`Selector con tres definiciones: factorial n! = n · (n − 1)!, Fibonacci F(n) = F(n − 1) + F(n − 2) y Hanoi T(n) = 2·T(n − 1) + 1. Cambia la forma del árbol de llamadas (inicia en Fibonacci).`],
+      ['n (Fig. 1)', String.raw`De 1 a 6 (en Hanoi, hasta 5). Argumento de la llamada inicial; un n mayor genera más llamadas.`],
+      ['Discos (Fig. 2)', String.raw`De 1 a 6 (inicial: 3). Cantidad de discos de las Torres de Hanoi; cada disco extra duplica los movimientos más uno. Cambiarlo reinicia la simulación.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Controlan cuántos movimientos por segundo se hacen y avanzan los movimientos de a uno, hasta el final o desde el comienzo.`],
     ],
     visualizaciones: [
       {
         titulo: 'El árbol de llamadas',
         descripcion: 'Cada definición despliega un árbol de subproblemas. Compare cuántas llamadas hay y cuáles se repiten; en Fibonacci el mismo \\(F(k)\\) se calcula muchas veces.',
-        ayuda: String.raw`<p>Cada nodo es una llamada a la función. Los nodos de la leyenda distinguen la primera vez que se calcula un subproblema de los subproblemas repetidos.</p>
+        ayuda: String.raw`<p>Un árbol cuya raíz es la llamada inicial; cada nodo es una llamada (por ejemplo F(3)) y el número bajo él es su valor. Las hojas son los casos base. Un nodo con borde gris oscuro es la primera vez que se calcula ese subproblema; uno con relleno y borde rojo (C.s8) es un subproblema que ya apareció antes (mismo argumento) en el recorrido. La lectura da el valor, el número de llamadas, los subproblemas distintos y la profundidad.</p>
           <ul>
-          <li><strong>Definición recursiva</strong>: cambia la forma del árbol; en Fibonacci aparecen muchos nodos repetidos, en otras definiciones no.</li>
-          <li><strong>n</strong>: al aumentarlo crece el número de llamadas y, en Fibonacci, el de repetidas.</li>
+          <li><strong>Definición recursiva</strong>: en el factorial el árbol es una cadena sin repetidos; en Fibonacci aparecen repetidos; en Hanoi las dos ramas llaman al mismo n − 1, de modo que la segunda rama aparece en rojo.</li>
+          <li><strong>n</strong>: al aumentarlo crece el número de llamadas y, en Fibonacci y Hanoi, el de repetidas.</li>
           </ul>`,
         montar: montarLlamadas,
       },
       {
         titulo: 'Torres de Hanoi',
         descripcion: 'Resuelva el rompecabezas con la recursión \\(T(n) = 2T(n-1) + 1\\) y cuente los movimientos. Reproduzca con 4 o 5 discos.',
-        ayuda: String.raw`<p>Tres varillas con discos pequeños y grandes; el disco recién movido se destaca y el registro lista los movimientos.</p>
+        ayuda: String.raw`<p>Tres clavijas A, B y C, con todos los discos al inicio en A. Los discos se pintan con tonos de la escala de azules (VIZ.rampa), más claros los pequeños y más oscuros los grandes; el último disco movido se destaca en naranja (C.s2). Debajo, el registro dice cada movimiento y la lectura compara los movimientos hechos con 2ⁿ − 1.</p>
           <ul>
           <li><strong>Discos</strong>: con n discos se hacen \(2^n - 1\) movimientos, resultado de \(T(n) = 2T(n-1) + 1\).</li>
+          <li><strong>Reproducir</strong> / <strong>Un paso</strong>: muestran cómo se mueven n − 1 discos a la clavija auxiliar, luego el mayor y luego los n − 1 encima.</li>
           </ul>`,
         montar: montarHanoi,
       },

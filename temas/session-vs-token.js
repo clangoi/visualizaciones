@@ -103,22 +103,27 @@
       En el <strong>token</strong> (por ejemplo un JWT) el estado viaja <em>con el cliente</em>, firmado para que no pueda alterarse.</p>
       <p>Cada modelo resuelve bien un problema y empeora otro: revocar un acceso, repartir la carga entre muchos servidores, el tamaño de las peticiones o la exposición a ciertos ataques.</p>`,
     parametros: [
-      ['Estrategia (Fig. 1)', String.raw`Cómo se reconoce al usuario entre varios servidores: sesión en la memoria de cada uno, sesión en un almacén compartido o token firmado. Cambia dónde está la información de la sesión.`],
-      ['Enviar una petición, Enviar 20 y Reiniciar (Fig. 1)', String.raw`Envían una o veinte peticiones a través del balanceador; Reiniciar pone en cero los contadores.`],
-      ['Importancia (Fig. 2)', String.raw`Peso de cada criterio en una escala de 0 a 5. Refleja qué le importa más a su aplicación.`],
+      ['Estrategia (Fig. 1)', String.raw`Selector con cuatro opciones: «Sesión en la memoria de cada servidor», «Sesión local con balanceo pegajoso», «Sesión en un almacén compartido» y «Token firmado (JWT), sin estado». Cambia dónde está la información de la sesión y a qué servidor llega cada petición; al cambiarlo, los contadores se reinician.`],
+      ['Enviar una petición (Fig. 1)', String.raw`Envía una petición a través del balanceador y la dibuja sobre el servidor que la recibe.`],
+      ['Enviar 20 (Fig. 1)', String.raw`Envía veinte peticiones seguidas; la figura muestra la última y los contadores acumulan todas.`],
+      ['Reiniciar (Fig. 1)', String.raw`Pone en cero los contadores y cambia la secuencia aleatoria de servidores.`],
+      ['Importancia (cinco controles) (Fig. 2)', String.raw`Hay un deslizador de 0 a 5 por criterio: «revocar al instante», «escalar sin estado compartido», «simplicidad de implementación», «peso de cada petición» y «varios servicios o dominios». Indica cuánto pesa cada criterio en el puntaje.`],
     ],
     visualizaciones: [
       { titulo: 'Varios servidores y una sesión', descripcion: 'Envíe peticiones a través de un balanceador con cada estrategia: vea cuándo un servidor «no reconoce» al usuario y cuántas consultas extra implica cada solución.',
-        ayuda: String.raw`<p>Tres servidores tras un balanceador. Verde indica petición aceptada, rojo rechazada porque el servidor no conoce la sesión y violeta consulta al almacén compartido; los contadores resumen aciertos, fallos y consultas.</p>
+        ayuda: String.raw`<p>Un balanceador arriba y debajo tres servidores: A (donde el usuario inició sesión), B y C, cada uno con su contador de peticiones. El servidor que recibió la última petición se resalta en verde si la aceptó y en rojo si la rechazó porque no conoce la sesión. Con almacén compartido, flechas punteadas aguamarina unen cada servidor con el «almacén de sesiones».</p>
           <ul>
-          <li><strong>Estrategia</strong> de sesión local: las peticiones que caen en un servidor distinto al del login se rechazan.</li>
-          <li><strong>Estrategia</strong> con almacén compartido: todas se aceptan, pero cada una cuesta una consulta extra.</li>
-          <li><strong>Estrategia</strong> con token: se aceptan todas sin consultar nada, porque cada servidor verifica la firma.</li>
+          <li><strong>Sesión en la memoria de cada servidor</strong>: el balanceador elige al azar entre A, B y C, y solo A acepta; B y C rechazan.</li>
+          <li><strong>Balanceo pegajoso</strong>: todas las peticiones van a A, que las acepta; la sesión sigue ligada a ese servidor.</li>
+          <li><strong>Almacén compartido</strong>: reparto al azar; todos aceptan, pero cada petición suma una consulta al almacén.</li>
+          <li><strong>Token firmado (JWT)</strong>: reparto al azar; todos aceptan sin guardar sesiones, verificando la firma.</li>
+          <li><strong>Lecturas</strong>: aceptadas, rechazadas, consultas al almacén y peticiones atendidas por A / B / C.</li>
           </ul>`, montar: montarEscala },
       { titulo: 'Qué conviene según sus prioridades', descripcion: 'Ajuste la importancia de cada criterio y compare el puntaje de ambas opciones; pase el cursor sobre una barra para ver el desglose.',
-        ayuda: String.raw`<p>Una barra por opción, naranja la sesión en el servidor y azul el token firmado (JWT); su longitud es el puntaje ponderado por la importancia de cada criterio.</p>
+        ayuda: String.raw`<p>Dos barras horizontales, «Sesión» (naranja, sesión en el servidor) y «JWT» (azul, token firmado). La longitud de cada una es su puntaje, la suma de importancia por puntaje de cada criterio (de 1 a 5), y el número se escribe al final. Pasar el cursor sobre una barra desglosa los productos criterio por criterio.</p>
           <ul>
-          <li><strong>Importancia</strong>: subir un criterio hace crecer la barra de la opción que lo cumple mejor; la que gana depende de sus prioridades.</li>
+          <li><strong>Importancia</strong>: «revocar al instante», «simplicidad» y «peso de cada petición» favorecen a la sesión; «escalar sin estado compartido» y «varios servicios o dominios» favorecen al token.</li>
+          <li><strong>Lecturas</strong>: puntaje de cada opción y máximo posible; el texto bajo la figura dice cuál conviene o si hay empate.</li>
           </ul>`, montar: montarDecision },
     ],
     teoria: String.raw`

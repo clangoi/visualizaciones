@@ -135,19 +135,21 @@
       toda lectura ve la última escritura) y <strong>disponibilidad</strong> (toda réplica viva responde). Hay que renunciar a una: rechazar operaciones en el lado minoritario
       (CP) o aceptarlas en ambos lados y reconciliar después (AP).</p>`,
     parametros: [
-      ['Ante una partición, el sistema elige (Fig. 1)', String.raw`La política cuando la red se parte. CP exige mayoría para operar y por tanto rechaza en el lado minoritario; AP deja operar a ambos lados y acepta que diverjan.`],
-      ['Cortar / reparar la red (Fig. 1)', String.raw`Separa o une los dos lados de la red. Representa una partición de red.`],
-      ['Cliente 1 escribe, Cliente 2 escribe, Cliente 1 lee, Cliente 2 lee (Fig. 1)', String.raw`Cada cliente opera en su lado de la red. Permiten ver qué operaciones se aceptan o rechazan.`],
-      ['Reiniciar (Fig. 1)', String.raw`Restablece las réplicas y la red.`],
+      ['Ante una partición, el sistema elige (Fig. 1)', String.raw`«CP: consistencia (mayoría)» solo acepta una operación si el cliente alcanza al menos 3 de las 5 réplicas; «AP: disponibilidad (cada lado sigue)» acepta siempre lo que su lado alcance. Cambiarlo reinicia la figura.`],
+      ['Cortar / reparar la red (Fig. 1)', String.raw`Alterna entre la red conectada y partida en {A, B, C} y {D, E}. Al reparar, las réplicas atrasadas se ponen al día; en AP, si quedaron valores distintos, gana la escritura más reciente («última escritura gana») y las demás se pierden.`],
+      ['Cliente 1 escribe y Cliente 2 escribe (Fig. 1)', String.raw`El cliente 1 habla con el lado izquierdo (A, B, C) y el 2 con el derecho (D, E). Con la red conectada la escritura llega a las cinco réplicas; partida, solo a las de su lado, y en CP el lado derecho (2 de 5) la rechaza.`],
+      ['Cliente 1 lee y Cliente 2 lee (Fig. 1)', String.raw`Lee el valor más reciente entre las réplicas que el cliente alcanza. Si ya se escribió algo más nuevo del otro lado, la lectura es inconsistente; en CP, el lado sin mayoría la rechaza.`],
+      ['Reiniciar (Fig. 1)', String.raw`Restablece las cinco réplicas con x = 0, reconecta la red y pone en cero los contadores.`],
     ],
     visualizaciones: [
       {
         titulo: 'Partir la red',
         descripcion: 'Corte la red y haga que ambos clientes escriban y lean. En modo CP el lado derecho, sin mayoría, rechaza todo. En modo AP ambos lados responden, las réplicas divergen y al reparar se pierde una escritura.',
-        ayuda: String.raw`<p>Cinco réplicas se reparten en dos lados. La leyenda distingue las operaciones aceptadas, las rechazadas o por la partición, y las réplicas con un valor que otra no tiene.</p>
+        ayuda: String.raw`<p>Cinco réplicas (A, B, C a la izquierda; D, E a la derecha), cada una con su valor x, y dos clientes abajo. Con la red partida aparece una línea roja discontinua central y los enlaces que la cruzan se atenúan. La última operación se dibuja como flechas verdes (C.s6) del cliente a las réplicas que alcanza, o como una flecha roja discontinua rotulada «rechazada» (C.s8). Las réplicas con relleno amarillo (C.s4) tienen valores distintos entre sí; las de amarillo más intenso son las que no tienen el valor más reciente.</p>
           <ul>
-          <li><strong>CP</strong> con la red cortada: el lado sin mayoría rechaza todo; se pierde disponibilidad pero no hay divergencia.</li>
-          <li><strong>AP</strong> con la red cortada: ambos lados aceptan y las réplicas divergen; al reparar la red hay conflicto y una escritura se pierde.</li>
+          <li><strong>CP</strong> con la red cortada: el cliente 2 no alcanza mayoría y todo lo suyo se rechaza; no hay divergencia, pero se pierde disponibilidad.</li>
+          <li><strong>AP</strong> con la red cortada: ambos clientes escriben en su lado, las réplicas divergen y las lecturas pueden ser viejas. Al reparar se pierden las escrituras que no ganan.</li>
+          <li>El panel de lectura cuenta operaciones respondidas, lecturas inconsistentes y escrituras perdidas al reconciliar.</li>
           </ul>`,
         montar,
       },

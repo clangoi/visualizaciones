@@ -163,31 +163,34 @@
       <p>Repetirlo con muchos árboles y promediar la profundidad a la que se aísla cada punto da un puntaje de anomalía rápido,
       que no calcula ninguna distancia y escala bien a muchos datos.</p>`,
     parametros: [
-      ['Otro árbol y Nuevos datos (Fig. 1)', String.raw`Otro árbol repite los cortes al azar para el mismo punto; Nuevos datos sortea otro conjunto.`],
-      ['Árboles t (Fig. 2)', String.raw`Cuántos árboles de aislamiento se promedian. Con pocos el puntaje es ruidoso; con muchos es estable.`],
-      ['Submuestra ψ (Fig. 2)', String.raw`Cuántos puntos usa cada árbol. Es la muestra sobre la que se construye cada árbol y limita su profundidad.`],
-      ['Contaminación (Fig. 2)', String.raw`Fracción de puntos que se marca como atípica: fija el umbral sobre el puntaje.`],
-      ['Nuevo bosque (Fig. 2)', String.raw`Reconstruye el bosque con otras muestras y cortes.`],
+      ['Reproductor (Fig. 1)', String.raw`Hace los cortes de uno en uno (con control de velocidad) hasta aislar el punto elegido. También se puede elegir el punto objetivo haciendo clic sobre cualquiera de los puntos.`],
+      ['Otro árbol (Fig. 1)', String.raw`Repite el aislamiento del mismo punto con otra secuencia de cortes al azar.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Sortea otro conjunto de datos (tres manchas más ocho puntos sueltos) y reinicia el promedio de profundidades.`],
+      ['Árboles t (Fig. 2)', String.raw`Deslizador de 1 a 200. Cuántos árboles de aislamiento se promedian. El bosque se reconstruye al soltar el deslizador. Con pocos el puntaje es ruidoso; con muchos es estable.`],
+      ['Submuestra ψ (Fig. 2)', String.raw`Deslizador de 8 a 208, de 8 en 8. Cuántos puntos toma cada árbol; fija también su altura máxima, \(\lceil\log_2\psi\rceil\). Se reconstruye al soltar.`],
+      ['Contaminación (Fig. 2)', String.raw`Deslizador de 1 % a 20 %. Fracción de los puntos con mayor puntaje que se marca como atípica: fija el umbral sobre s.`],
+      ['Nuevo bosque (Fig. 2)', String.raw`Reconstruye el bosque con otras submuestras y otros cortes.`],
     ],
     visualizaciones: [
       {
         titulo: 'Aislar un punto',
         descripcion: 'Cortes aleatorios hasta que el punto elegido queda solo en su región. Pulse «Otro árbol» varias veces para ver cómo varía la profundidad.',
-        ayuda: String.raw`<p>Se ve el punto que se quiere aislar, los puntos que siguen en su región, los ya separados y los cortes al azar. El registro cuenta los cortes hasta dejarlo solo.</p>
+        ayuda: String.raw`<p>El punto objetivo es naranja y más grande; los azules siguen en la misma región que él; los grises ya quedaron separados. El rectángulo gris claro es la región actual del objetivo. Las líneas negras son los cortes al azar hechos hasta ahora y el último corte se resalta en naranja más grueso. El registro cuenta los cortes y la lectura da el promedio de profundidades de los árboles vistos y el puntaje s de un bosque de 100 árboles.</p>
           <ul>
+          <li><strong>Clic en un punto</strong>: lo toma como objetivo y reinicia el promedio.</li>
           <li><strong>Otro árbol</strong>: los cortes cambian y la profundidad varía de un árbol a otro; un solo árbol es ruidoso.</li>
-          <li>Un punto suelto queda solo con pocos cortes; uno del centro de una mancha necesita muchos: la profundidad media mide cuán anómalo es.</li>
+          <li>Un punto suelto queda solo con pocos cortes; uno del centro de una mancha necesita muchos.</li>
           </ul>`,
         montar: montarAislar,
       },
       {
         titulo: 'El mapa de puntajes',
         descripcion: 'El puntaje de anomalía del bosque en todo el plano. Pruebe t = 1 y t = 200, y una submuestra ψ pequeña.',
-        ayuda: String.raw`<p>El fondo muestra el puntaje s que el bosque asignaría a un punto en cada lugar: s ≈ 0,4 es normal y s cercano a 1 es anómalo. Los puntos marcados como atípicos se distinguen del resto de los datos.</p>
+        ayuda: String.raw`<p>El fondo es el puntaje s que el bosque asignaría a un punto en cada lugar, en la rampa de azules: claro es s cercano a 0,35 (normal) y oscuro, s cercano a 0,75 o más (anómalo). Los datos son puntos negros; los que superan el umbral de contaminación llevan un anillo rojo (C.s8). Al pasar el puntero se lee s y el largo medio de camino en ese lugar.</p>
           <ul>
-          <li><strong>Árboles t</strong> = 1: el mapa es de bloques; con t = 200 se suaviza.</li>
-          <li><strong>Submuestra ψ</strong> pequeña: el mapa se vuelve más grueso y menos preciso.</li>
-          <li><strong>Contaminación</strong> mayor: se marcan más puntos como atípicos, incluidos otros de puntaje menos alto.</li>
+          <li><strong>Árboles t</strong>: con t = 1 el mapa es de bloques; con t = 200 se suaviza.</li>
+          <li><strong>Submuestra ψ</strong> pequeña: árboles más bajos, mapa más grueso y menos preciso.</li>
+          <li><strong>Contaminación</strong> mayor: se marcan más puntos, incluidos otros de puntaje menos alto; la lectura cuenta cuántos de los 8 atípicos plantados se detectan.</li>
           </ul>`,
         montar: montarMapa,
       },

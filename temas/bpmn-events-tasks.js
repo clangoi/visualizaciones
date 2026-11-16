@@ -444,47 +444,48 @@
       <p>Cuando un tramo del proceso es complejo, se agrupa en un <strong>subproceso</strong>: colapsado es un solo rectángulo con un +, expandido muestra su interior. Así un mismo diagrama
       sirve a la gerencia (vista general) y a quien lo ejecuta (detalle). Las compuertas, que deciden por dónde sigue la ficha, se estudian en <a href="tema.html?id=bpmn-gateways">compuertas BPMN</a>.</p>`,
     parametros: [
-      ['Evento de inicio (Fig. 1)', String.raw`Qué dispara el proceso (mensaje, temporizador, etc.). Cambia el símbolo del inicio y la frase que explica cuándo nace un caso.`],
-      ['Tipo de tarea (Fig. 1)', String.raw`Quién o qué ejecuta la tarea (persona, servicio, envío, etc.). Cambia el ícono de la tarea.`],
-      ['Evento intermedio (Fig. 1)', String.raw`Qué ocurre en medio del flujo, por ejemplo una espera o un mensaje. Cambia su símbolo y su significado.`],
-      ['Evento de fin (Fig. 1)', String.raw`Cómo termina el caso (normal, con error, etc.). Cambia el símbolo del fin.`],
-      ['Tarea como subproceso colapsado (Fig. 1)', String.raw`Muestra la tarea como un solo rectángulo con + que esconde varias tareas.`],
-      ['Combinación al azar (Fig. 1)', String.raw`Elige al azar un conjunto de elementos para practicar la lectura.`],
-      ['Resultado del pago (Fig. 2)', String.raw`Define por cuál rama sale la compuerta: pago aprobado o rechazado.`],
-      ['Plazo del temporizador (Fig. 2)', String.raw`Tiempo que la ficha espera en el evento temporizador. Domina el tiempo total transcurrido.`],
-      ['Duración de «Embalar» y de «Recoger productos» (Fig. 3)', String.raw`Tiempo de cada tarea interna. El subproceso colapsado suma las tareas que contiene.`],
-      ['Expandir todo y Colapsar todo (Fig. 3)', String.raw`Abre o cierra todos los subprocesos para ver u ocultar sus tareas internas.`],
+      ['Evento de inicio (Fig. 1)', String.raw`Selector: sin disparador (a mano), mensaje recibido o temporizador (fecha programada). Cambia el símbolo del círculo inicial (vacío, sobre o reloj), su etiqueta y la frase que explica cuándo nace el caso.`],
+      ['Tipo de tarea (Fig. 1)', String.raw`Selector: de usuario, de servicio, manual, de envío, de recepción o de script. Cambia el ícono de la esquina de la tarea y la frase sobre quién la ejecuta. Se ignora si está marcado el subproceso colapsado.`],
+      ['Evento intermedio (Fig. 1)', String.raw`Selector: sin evento intermedio, esperar un mensaje o esperar un plazo. Añade o quita el círculo de borde doble entre la tarea y el fin, con sobre o reloj.`],
+      ['Evento de fin (Fig. 1)', String.raw`Selector: fin normal, fin con mensaje o fin con error. Cambia el símbolo del círculo de borde grueso (vacío, sobre relleno o error).`],
+      ['Tarea como subproceso colapsado (Fig. 1)', String.raw`Casilla. Reemplaza la tarea por un rectángulo «Tramitar pedido» con +, que esconde varias tareas.`],
+      ['Combinación al azar (Fig. 1)', String.raw`Elige al azar inicio, tipo de tarea, evento intermedio y fin; no cambia la casilla del subproceso. También se pueden recorrer las variantes con clic en el diagrama.`],
+      ['Resultado del pago (Fig. 2)', String.raw`Selector: pago aprobado o rechazado. Define por cuál salida de la compuerta «¿Pago?» sigue la ficha, y reinicia el recorrido.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Controles del reproductor: avanzan la ficha un elemento por paso (velocidad en pasos por segundo).`],
+      ['Plazo del temporizador (Fig. 2)', String.raw`Deslizador de 1 a 10 días de espera en el evento «Esperar plazo de devolución». Es el elemento de mayor duración (los demás miden minutos u horas), así que fija casi todo el tiempo transcurrido.`],
+      ['Duración de «Embalar» y de «Recoger productos» (Fig. 3)', String.raw`Dos deslizadores en horas (Embalar de 0,1 a 4 h; Recoger productos de 0,2 a 4 h). La duración de un subproceso es la suma de las tareas que contiene, aunque esté colapsado.`],
+      ['Expandir todo y Colapsar todo (Fig. 3)', String.raw`Expandir todo abre «Preparar y despachar» y «Empacar» para ver todas las tareas. Colapsar todo vuelve a la vista general. También se abre un subproceso con clic sobre su rectángulo con + y se cierra con clic en su caja.`],
     ],
     visualizaciones: [
       {
         titulo: 'Arme un inicio, una tarea y un fin',
         descripcion: 'Elija el disparador del inicio, el tipo de tarea, un evento intermedio y el tipo de fin, o haga clic en cada elemento: el diagrama cambia y la frase explica qué significa. Pruebe «Temporizador» como inicio y «Fin con error».',
-        ayuda: String.raw`<p>Diagrama BPMN con un evento de inicio, una tarea, un evento intermedio y un evento de fin. Debajo, una frase explica qué significa la combinación elegida.</p>
+        ayuda: String.raw`<p>Diagrama de izquierda a derecha (o de arriba abajo en pantallas angostas): evento de inicio, tarea (o subproceso), evento intermedio si lo hay y evento de fin, unidos por flechas. El borde del evento indica su tipo (fino: inicio, doble: intermedio, grueso: fin) y el símbolo interior, su disparador. Debajo, una frase resume el significado de la combinación.</p>
           <ul>
-          <li><strong>Evento de inicio</strong>: cambia el símbolo del círculo inicial y qué hace nacer el caso.</li>
-          <li><strong>Tipo de tarea</strong>: cambia el ícono que indica quién ejecuta el trabajo.</li>
-          <li><strong>Evento intermedio</strong> y <strong>Evento de fin</strong>: cambian si el caso espera, avisa o termina con error.</li>
-          <li><strong>Tarea como subproceso colapsado</strong>: añade el + que esconde tareas internas.</li>
+          <li><strong>Evento de inicio</strong>: sin símbolo, sobre (mensaje) o reloj (temporizador).</li>
+          <li><strong>Tipo de tarea</strong>: persona (usuario), engranaje (servicio), mano (manual), sobre lleno (envío), sobre vacío (recepción) o página (script).</li>
+          <li><strong>Evento intermedio</strong> y <strong>Evento de fin</strong>: cambian su símbolo; el fin con error se dibuja con un rayo.</li>
+          <li><strong>Subproceso colapsado</strong>: sustituye la tarea por un rectángulo con +.</li>
           </ul>`,
         montar: montarConstructor,
       },
       {
         titulo: 'Una ficha recorre el pedido',
         descripcion: 'Avance paso a paso y lea qué hace cada tipo de elemento. Cambie a «Pago rechazado» para ver la otra rama, y mueva el plazo del temporizador: el tiempo transcurrido casi solo depende de la espera.',
-        ayuda: String.raw`<p>Proceso de pedido con una ficha que avanza por sus elementos. Los pasos ya recorridos se distinguen de los que faltan por recorrer.</p>
+        ayuda: String.raw`<p>Proceso de pedido con una compuerta «¿Pago?» y dos ramas (sí y no). Una ficha naranja marca el elemento que se ejecuta. Los elementos ya recorridos tienen relleno azul claro y los que faltan, relleno blanco. Al pasar el cursor se ve el tipo de cada elemento y su duración. La lectura da el elemento actual, tipo, tiempo transcurrido, elementos recorridos y estado final.</p>
           <ul>
-          <li><strong>Resultado del pago</strong>: elige entre la rama de cobro correcto y la de rechazo, que termina en cancelación.</li>
-          <li><strong>Plazo del temporizador</strong>: cambia casi todo el tiempo transcurrido, pues es la espera más larga.</li>
+          <li><strong>Resultado del pago</strong>: aprobado recorre ocho elementos hasta «Pedido completado»; rechazado, seis, hasta «Pedido cancelado» (fin con error).</li>
+          <li><strong>Plazo del temporizador</strong>: solo cambia el tiempo si la ficha llega a «Esperar»; el resto suma pocas horas (el subproceso «Preparar y despachar» dura 6 h).</li>
           </ul>`,
         montar: montarRecorrido,
       },
       {
         titulo: 'Subprocesos colapsados y expandidos',
         descripcion: 'Expanda «Preparar y despachar» y luego «Empacar»: aparecen las tareas internas dentro de cajas. Cambie la duración de «Embalar» y compruebe que el subproceso colapsado la incluye.',
-        ayuda: String.raw`<p>Subproceso «Preparar y despachar» que se abre en cajas con sus tareas internas.</p>
+        ayuda: String.raw`<p>Proceso «Orden recibida → Registrar orden → Preparar y despachar → Confirmar entrega → Orden cerrada». El subproceso colapsado es un rectángulo con + que muestra su duración total; expandido se vuelve una caja con sus tareas (Recoger productos, Empacar, Entregar al transportista). «Empacar» es a su vez un subproceso con tres tareas. Al pasar el cursor sobre una tarea o subproceso se ven su duración y su número de tareas. La lectura da el tiempo total, el peso de «Preparar y despachar» y el nivel de detalle.</p>
           <ul>
-          <li><strong>Duración de «Embalar»</strong> y <strong>de «Recoger productos»</strong>: el tiempo del subproceso colapsado las incluye.</li>
-          <li><strong>Expandir todo</strong> / <strong>Colapsar todo</strong>: muestran el detalle o solo la caja con +.</li>
+          <li><strong>Duración de «Embalar»</strong> y <strong>de «Recoger productos»</strong>: cambian la duración de «Empacar», de «Preparar y despachar» y del total, aunque estén colapsados.</li>
+          <li><strong>Expandir todo</strong> / <strong>Colapsar todo</strong>: muestran todas las tareas o solo los rectángulos con +.</li>
           </ul>`,
         montar: montarSubprocesos,
       },

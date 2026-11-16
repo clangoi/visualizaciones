@@ -320,30 +320,34 @@
       Todas las combinaciones son correctas (llegan al mismo óptimo), pero el tamaño del árbol puede cambiar varias veces según la elección.</p>
       <p>Los resolvedores comerciales combinan estas piezas: preprocesamiento, cortes en la raíz, heurísticas de buceo y redondeo, y reglas de ramificación aprendidas de las decisiones anteriores. Aquí se compara lo esencial sobre un problema pequeño que cualquiera puede seguir paso a paso.</p>`,
     parametros: [
-      ['Selección de nodo y Variable de ramificación (Fig. 1)', String.raw`Regla para escoger el siguiente nodo y la variable que se divide. Cambian la forma del árbol y el número de nodos.`],
-      ['Cortes de cobertura en la raíz (Fig. 1 y 2)', String.raw`Agrega desigualdades válidas antes de ramificar; endurece la cota y puede reducir nodos.`],
-      ['Incumbente inicial por heurística (Fig. 1 y 2)', String.raw`Parte con una solución entera hallada por heurística, lo que permite podar desde el inicio.`],
-      ['Nuevos datos y reproductor (Fig. 1) / Nuevas instancias (Fig. 2)', String.raw`Generan otra instancia y controlan la ejecución del árbol.`],
-      ['Medida (Fig. 2)', String.raw`Nodos hasta terminar o hasta hallar el mejor incumbente: separa probar optimalidad de encontrar buenas soluciones.`],
+      ['Selección de nodo (Fig. 1)', String.raw`Regla para elegir el próximo nodo abierto: profundidad, mejor cota o anchura (FIFO). Cambia el orden en que se recorre el árbol, cuándo aparece el primer incumbente y cuántos nodos se crean.`],
+      ['Variable de ramificación (Fig. 1)', String.raw`Qué variable fraccionaria se divide en un nodo: la más fraccionaria, la primera fraccionaria o la de mayor valor. Cambia la forma del árbol.`],
+      ['Cortes de cobertura en la raíz (Fig. 1 y 2)', String.raw`Casilla que agrega desigualdades de cobertura a la raíz antes de ramificar. Endurece la cota de la raíz y suele reducir los nodos; en la Fig. 1 el registro lista los cortes y la cota antes y después.`],
+      ['Incumbente inicial por heurística (Fig. 1 y 2)', String.raw`Casilla que parte con una solución entera voraz como incumbente. Permite podar por cota desde el primer nodo.`],
+      ['Nuevos datos y botones del reproductor (Fig. 1)', String.raw`Nuevos datos genera otra instancia de mochila con dos recursos; el reproductor (paso a paso, hasta el final, velocidad) avanza la ejecución y se reinicia al cambiar cualquier opción.`],
+      ['Medida (Fig. 2)', String.raw`«Nodos hasta terminar» cuenta todos los nodos creados; «nodos hasta el mejor incumbente» cuenta los creados hasta la última mejora de la solución. Separa probar optimalidad de encontrar la solución.`],
+      ['Nuevas instancias (Fig. 2)', String.raw`Genera otras 10 instancias y recalcula las nueve combinaciones.`],
     ],
     visualizaciones: [
       {
         titulo: 'Una ejecución con sus opciones',
         descripcion: 'Elija la selección de nodo y la variable de ramificación y reproduzca el árbol. Active los cortes de cobertura o la heurística inicial y compare el contador de nodos al llegar al final con la misma instancia.',
-        ayuda: String.raw`<p>Árbol de ramificación con nodos abiertos, ramificados, enteros, infactibles y podados por cota; el anillo marca el nodo en proceso. Un contador muestra los nodos.</p>
+        ayuda: String.raw`<p>Árbol de ramificación sobre una instancia de mochila con 7 objetos (la tabla superior da valores, pesos y volúmenes). Cada círculo es un nodo y su número es el orden de creación. Colores: amarillo (C.s4) abierto en cola, blanco con borde negro ramificado, verde entero, rojo infactible, gris podado por cota; un anillo azul marca el nodo en proceso. La lectura muestra nodos creados, incumbente, cota de la raíz, cortes y nodos abiertos.</p>
           <ul>
-          <li><strong>Selección de nodo</strong>: profundidad halla incumbentes pronto; mejor cota suele terminar con menos nodos.</li>
-          <li><strong>Cortes de cobertura</strong> e <strong>incumbente inicial</strong>: compare el número de nodos al final con la misma instancia.</li>
+          <li><strong>Selección de nodo</strong> y <strong>Variable de ramificación</strong>: al cambiarlos el árbol se rehace; compare el contador de nodos al final con la misma instancia.</li>
+          <li><strong>Cortes de cobertura</strong> e <strong>incumbente inicial</strong>: cambian la cota de la raíz y la poda; el óptimo no cambia.</li>
+          <li>Pase el cursor sobre un nodo para ver su solución relajada, su valor z y su estado.</li>
           </ul>`,
         montar: montarEjecucion,
       },
       {
         titulo: 'Comparar estrategias en 10 instancias',
         descripcion: 'Nueve combinaciones de selección y variable sobre 10 mochilas de dos recursos: la barra es el promedio de nodos. Cambie la medida a «hasta el mejor incumbente» y active cortes o heurística para ver cuánto baja cada barra.',
-        ayuda: String.raw`<p>Barras con el promedio de nodos en 10 instancias para cada combinación de selección (profundidad, mejor cota, anchura) y variable.</p>
+        ayuda: String.raw`<p>Nueve barras horizontales, una por combinación de selección de nodo y variable de ramificación (etiqueta a la izquierda). El largo es el promedio de nodos en 10 instancias; el color indica la selección: azul profundidad, naranja mejor cota, aguamarina anchura. Al cursor se muestran mínimo y máximo.</p>
           <ul>
-          <li><strong>Medida</strong>: «hasta el mejor incumbente» mide cuándo se halla la solución, no cuándo se prueba.</li>
-          <li><strong>Cortes de cobertura</strong> / <strong>heurística inicial</strong>: muestran cuánto bajan las barras al activarlas.</li>
+          <li><strong>Medida</strong>: cambia lo que se cuenta; «hasta el mejor incumbente» suele ser mucho menor que el total.</li>
+          <li><strong>Cortes de cobertura</strong> y <strong>heurística inicial</strong>: recalculan las barras; la lectura da la mejor y la peor combinación y su razón.</li>
+          <li><strong>Nuevas instancias</strong>: otro conjunto de 10 instancias.</li>
           </ul>`,
         montar: montarComparacion,
       },

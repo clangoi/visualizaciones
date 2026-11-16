@@ -89,22 +89,25 @@
       <code>useState</code> guarda un valor entre renders, y <code>useEffect</code> ejecuta código <em>después</em> de pintar, como pedir datos o suscribirse a algo.</p>
       <p>Para usarlos bien hay que recordar dos ideas: cada render es una «foto» con sus propios valores, y los cambios de estado se encolan y se procesan juntos.</p>`,
     parametros: [
-      ['Al hacer clic, el manejador ejecuta (Fig. 1)', String.raw`Si las tres llamadas usan el valor capturado del render o una función que recibe el valor más reciente. Determina cuánto sube el estado por clic.`],
-      ['Dependencias del efecto (Fig. 2)', String.raw`La lista que le dice a <code>useEffect</code> cuándo volver a ejecutarse. Cambiarla modifica qué cambios disparan el efecto.`],
-      ['Incrementar a, Incrementar b y Reiniciar (Fig. 2)', String.raw`Cambian cada uno de los dos estados y vuelven al inicio.`],
+      ['Al hacer clic, el manejador ejecuta (Fig. 1)', String.raw`«setCuenta(cuenta + 1) × 3» usa tres veces el valor capturado del render (0): se encolan tres veces el mismo resultado y el estado queda en 1. «setCuenta(c =&gt; c + 1) × 3» encola funciones que reciben el valor más reciente y el estado queda en 3. Reinicia la secuencia.`],
+      ['Reproductor (Fig. 1)', String.raw`Un paso avanza por las etapas: clic, ejecución del manejador, cada llamada encolada y procesamiento de la cola.`],
+      ['Dependencias del efecto (Fig. 2)', String.raw`Cuatro opciones: <code>[]</code> (solo al montar), <code>[a]</code>, <code>[a, b]</code> o sin arreglo (en cada render). Define qué cambios disparan el efecto, que usa el valor de <code>a</code>. Al cambiarla se reinicia la figura.`],
+      ['Incrementar a e Incrementar b (Fig. 2)', String.raw`Suben en 1 el estado <code>a</code> o <code>b</code> y provocan un render; el registro dice si el efecto se ejecuta, con su limpieza previa, o se omite.`],
+      ['Reiniciar (Fig. 2)', String.raw`Pone <code>a</code> y <code>b</code> en 0, limpia el registro y vuelve a montar el componente.`],
     ],
     visualizaciones: [
       { titulo: 'useState y la cola de actualizaciones', descripcion: 'Compare tres llamadas con un valor calculado y tres con una función: avance paso a paso hasta el nuevo render.',
-        ayuda: String.raw`<p>Se ven las actualizaciones encoladas, el render actual con su valor capturado y el estado nuevo, según la leyenda.</p>
+        ayuda: String.raw`<p>Un recuadro de código con el manejador, un cuadro azul con el render #1 (cuenta = 0), una cola de cuadros naranja (una por llamada, con el valor calculado o la función) y, al final, un cuadro verde con el render #2 y el estado nuevo. El registro y la lectura describen cada paso.</p>
           <ul>
-          <li><strong>setCuenta(cuenta + 1) × 3</strong>: las tres llamadas usan el mismo valor capturado y el estado sube solo 1.</li>
-          <li><strong>setCuenta(c =&gt; c + 1) × 3</strong>: cada actualización parte del resultado anterior y el estado sube 3.</li>
+          <li><strong>setCuenta(cuenta + 1) × 3</strong>: los tres cuadros naranja dicen «→ 1» y el render #2 tiene cuenta = 1.</li>
+          <li><strong>setCuenta(c =&gt; c + 1) × 3</strong>: los tres cuadros son funciones y el render #2 tiene cuenta = 3.</li>
           </ul>`, montar: montarEstado },
       { titulo: 'useEffect y sus dependencias', descripcion: 'Cambie las dependencias y pulse los botones: observe cuándo corre el efecto, cuándo se limpia y cuándo se omite.',
-        ayuda: String.raw`<p>El registro muestra en qué momento se ejecuta el efecto, cuándo se limpia y cuándo se omite tras cada render.</p>
+        ayuda: String.raw`<p>No hay canvas: se ve el código del efecto con su arreglo de dependencias y una bitácora de las últimas 12 líneas, la más reciente arriba: cada render, y debajo si el efecto se ejecutó (con la limpieza del anterior) o se omitió. La lectura cuenta renders, efectos ejecutados y limpiezas.</p>
           <ul>
-          <li><strong>Dependencias del efecto</strong>: con una lista que no incluye una variable, cambiarla no ejecuta el efecto; con la lista vacía solo corre al inicio.</li>
-          <li><strong>Incrementar a</strong> e <strong>Incrementar b</strong>: provocan un render y muestran si el efecto se ejecuta o se omite según las dependencias.</li>
+          <li><strong>Dependencias del efecto</strong>: con <code>[a]</code> o <code>[a, b]</code> se ejecuta al cambiar <code>a</code>; con <code>[a]</code> incrementar <code>b</code> lo omite y con <code>[a, b]</code> lo ejecuta; con <code>[]</code> solo corre al montar; sin arreglo corre en cada render.</li>
+          <li><strong>Incrementar a</strong> e <strong>Incrementar b</strong>: provocan un render.</li>
+          <li><strong>Reiniciar</strong>: vuelve al montaje.</li>
           </ul>`, montar: montarEfecto },
     ],
     teoria: String.raw`

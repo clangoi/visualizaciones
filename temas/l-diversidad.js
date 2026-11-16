@@ -155,28 +155,28 @@
       <p>Tampoco basta siempre. Si en la población hay 10 % de cáncer y en una clase hay 50 %, el atacante aprendió mucho aunque la clase
       tenga cuatro diagnósticos distintos. La <strong>t-cercanía</strong> pide que la distribución en cada clase se parezca a la global.</p>`,
     parametros: [
-      ['Nivel de cp, Nivel de edad, Nivel de sexo (Fig. 1 y 2)', String.raw`Cuánto se generaliza cada cuasi-identificador. Más generalización forma clases de equivalencia más grandes y con más diagnósticos distintos. En la figura 2, cambiarlos deja sin clase elegida.`],
-      ['l objetivo (Fig. 1)', String.raw`El número mínimo de diagnósticos bien representados que debe tener cada clase para considerarse l-diversa.`],
-      ['Clase (Fig. 2)', String.raw`La clase de equivalencia cuya distribución de diagnósticos se compara con la de toda la tabla.`],
+      ['Nivel de cp, Nivel de edad, Nivel de sexo (Fig. 1 y 2)', String.raw`Cuánto se generaliza cada cuasi-identificador (cp: exacto, 751*, 75**, ****; edad: exacta, tramo de 5, tramo de 10, *; sexo: exacto, *). Más generalización forma clases más grandes y suele darles más diagnósticos distintos. En la figura 2, cambiarlos vuelve a elegir la primera clase.`],
+      ['l objetivo (Fig. 1)', String.raw`El número mínimo (de 2 a 4) de diagnósticos distintos que debe tener cada clase; las que no llegan se marcan con ✗ en rojo.`],
+      ['Clase (Fig. 2)', String.raw`Selector con las clases de equivalencia (con su número de filas) cuya distribución de diagnósticos se compara con la de toda la tabla.`],
     ],
     visualizaciones: [
       {
         titulo: 'l-diversidad por clase',
         descripcion: 'Diagnósticos dentro de cada clase de equivalencia, con su l distinta y su l entrópica. Busque niveles de generalización que hagan la tabla 2-diversa y luego 3-diversa.',
-        ayuda: String.raw`<p>Cada fila de la figura es una clase de equivalencia y sus segmentos de color muestran los diagnósticos que contiene, según la leyenda. La lectura da la l de cada clase y su l entrópica.</p>
+        ayuda: String.raw`<p>Cada fila del gráfico es una clase de equivalencia (su nombre está a la izquierda, o sobre la barra en pantallas angostas). La barra apilada tiene un segmento por diagnóstico (Gripe, Diabetes, Cáncer, Hepatitis y VIH, con los colores de la leyenda) y su largo es el número de filas con ese diagnóstico. A la derecha, cada clase muestra ✓ o ✗ (verde o rojo), su l distinta y su l entrópica; al pasar el cursor se ve el desglose.</p>
           <ul>
           <li><strong>Niveles</strong>: al generalizar más, las clases engloban más filas y suele subir la diversidad de diagnósticos.</li>
-          <li><strong>l objetivo</strong>: indica qué clases no llegan a esa diversidad y siguen exponiendo el diagnóstico; busque niveles donde todas cumplan 2 y luego 3.</li>
+          <li><strong>l objetivo</strong>: decide qué clases reciben ✓ o ✗; una clase de un solo color revela el diagnóstico.</li>
           </ul>`,
         montar: montarL,
       },
       {
         titulo: 't-cercanía',
         descripcion: 'Compare la distribución de diagnósticos de una clase con la de toda la tabla. La distancia entre ambas es el t de la clase.',
-        ayuda: String.raw`<p>Cada diagnóstico es una categoría del eje horizontal y el eje vertical es su proporción. Las barras comparan la distribución en toda la tabla con la de la clase elegida; la distancia entre ambas es el t de la clase.</p>
+        ayuda: String.raw`<p>El eje horizontal tiene los cinco diagnósticos y el vertical es la proporción (en %). Para cada diagnóstico, la barra gris (C.apagado) es su proporción en toda la tabla y la barra azul (C.s1), su proporción en la clase elegida. La distancia entre ambas distribuciones es la t de la clase (variación total), y la lectura da también la t de la tabla (el máximo entre clases).</p>
           <ul>
-          <li><strong>Clase</strong>: una clase cuya distribución se parece a la global tiene t bajo; una muy distinta revela información sobre quien pertenece a ella.</li>
-          <li><strong>Niveles</strong>: más generalización acerca las distribuciones y baja t, a costa de precisión.</li>
+          <li><strong>Clase</strong>: una clase cuya distribución se parece a la global tiene t baja; una muy distinta revela información sobre quien pertenece a ella.</li>
+          <li><strong>Niveles</strong>: cambian las clases disponibles y, con ellas, t; más generalización acerca las distribuciones, a costa de precisión.</li>
           </ul>`,
         montar: montarT,
       },

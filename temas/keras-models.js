@@ -174,24 +174,27 @@
       La API <strong>funcional</strong> trata cada capa como una función sobre tensores, y construye un grafo: permite atajos residuales, ramas paralelas y varias entradas o salidas.</p>
       <p>En ambos casos Keras infiere las formas de los tensores y cuenta los parámetros al construir el modelo, lo que ayuda a detectar errores de forma antes de entrenar.</p>`,
     parametros: [
-      ['Entrada (Fig. 1)', String.raw`Forma de los datos que recibe el modelo (p. ej. imagen gris 28×28). Las formas siguientes se calculan desde ella.`],
-      ['Empezar desde (Fig. 1)', String.raw`Carga un modelo de ejemplo como punto de partida.`],
-      ['Agregar capas, Quitar la última y Vaciar (Fig. 1)', String.raw`Construyen el modelo capa a capa; cada capa cambia la forma de salida y el número de parámetros.`],
-      ['Modelo (Fig. 2)', String.raw`Qué arquitectura funcional se muestra: con atajo, con ramas o con dos entradas.`],
-      ['Filtros por convolución (Fig. 2)', String.raw`Número de filtros de las convoluciones; cambia los parámetros de las capas.`],
+      ['Entrada (Fig. 1)', String.raw`Selector con dos opciones: imagen gris 28×28 o imagen en color 32×32. Fija la forma de entrada de la que se calculan todas las demás.`],
+      ['Empezar desde (Fig. 1)', String.raw`Selector con dos opciones: Perceptrón multicapa o CNN pequeña. Reemplaza las capas actuales por ese modelo de ejemplo.`],
+      ['Botones «+» (Fig. 1)', String.raw`Agregan al final una capa: Conv2D(16), MaxPooling2D, BatchNormalization, Flatten, Dense(64), Dropout(0,3) o Dense(10, softmax). Cada una cambia la forma de salida y los parámetros.`],
+      ['Quitar la última y Vaciar (Fig. 1)', String.raw`Quitan la última capa o todas.`],
+      ['Modelo (Fig. 2)', String.raw`Selector con tres opciones: Bloque con atajo residual, Ramas paralelas (estilo Inception) y Dos entradas (imagen y datos).`],
+      ['Filtros por convolución (Fig. 2)', String.raw`De 4 a 64, en pasos de 4. Es el número de filtros de cada Conv2D del modelo mostrado; cambia sus parámetros y las formas de salida.`],
     ],
     visualizaciones: [
       { titulo: 'Construir un modelo Sequential', descripcion: 'Agregue capas y observe cómo cambian las formas y el número de parámetros. Intente poner Conv2D después de Flatten o demasiados MaxPooling2D.',
-        ayuda: String.raw`<p>Una tabla equivalente a <code>model.summary()</code>: cada fila es una capa con su forma de salida y sus parámetros, y el total al final. Se marca el primer error de forma.</p>
+        ayuda: String.raw`<p>Una tabla del tipo model.summary(): cada fila es una capa con su forma de salida y su número de parámetros, y la última fila es el total. Debajo aparece el código Keras equivalente. No hay colores con significado. Si una capa no puede construirse, su fila lleva una ✗ y las siguientes dicen «no se construye»; el registro explica el error.</p>
           <ul>
-          <li><strong>Entrada</strong>: fija la forma inicial.</li>
-          <li>Agregar capas cambia la forma y los parámetros; una capa incompatible (p. ej. Conv2D tras Flatten) se señala como error.</li>
+          <li><strong>Entrada</strong>: cambia la primera fila y, con ella, todas las formas y parámetros.</li>
+          <li><strong>Empezar desde</strong>: carga un modelo completo que se puede seguir modificando.</li>
+          <li><strong>Botones «+»</strong>: por ejemplo, una Conv2D después de un Flatten da error de forma.</li>
+          <li><strong>Quitar la última</strong> y <strong>Vaciar</strong>: permiten reconstruir el modelo desde cero.</li>
           </ul>`, montar: montarSecuencial },
       { titulo: 'La API funcional', descripcion: 'Elija un modelo con atajo, con ramas o con dos entradas, cambie los filtros y lea el código que lo define.',
-        ayuda: String.raw`<p>Grafo del modelo: nodos de entrada, de capa con parámetros, sin parámetros y de unión de ramas, junto con el código que lo define.</p>
+        ayuda: String.raw`<p>Grafo del modelo, con flechas que indican el flujo de tensores y en cada caja el nombre de la capa y su forma. Colores: verde, entrada; azul, capa con parámetros; aguamarina, capa sin parámetros; violeta, capa que une dos o más ramas. Debajo se muestra el código de la API funcional. Al pasar el cursor sobre una caja se ven su forma de salida y sus parámetros.</p>
           <ul>
-          <li><strong>Modelo</strong>: cambia el grafo (atajo, ramas, dos entradas) y el punto donde se unen las ramas.</li>
-          <li><strong>Filtros por convolución</strong>: modifica los parámetros de las capas convolucionales, no la estructura.</li>
+          <li><strong>Modelo</strong>: cambia el grafo: el atajo residual salta una capa; las ramas paralelas se unen al final; con dos entradas se combinan imagen y datos.</li>
+          <li><strong>Filtros por convolución</strong>: modifica los parámetros de las Conv2D y las formas que dependen de ellos, no la estructura.</li>
           </ul>`, montar: montarFuncional },
     ],
     teoria: String.raw`

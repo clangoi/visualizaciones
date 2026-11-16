@@ -96,28 +96,31 @@
       «<em>si</em> llueve <em>entonces</em> me mojo». Lo único que importa de una proposición compuesta es su valor de verdad, y este depende solo de los valores de las partes.</p>
       <p>La lógica proposicional deja de lado el contenido de las oraciones y se queda con ese esqueleto: variables \(p, q, r, \dots\) que valen V o F, y los conectivos \(\neg,\ \land,\ \lor,\ \to,\ \leftrightarrow\).</p>`,
     parametros: [
-      ['Conectivo (Fig. 1)', String.raw`Qué operación lógica se muestra (negación, conjunción, implicación, etc.). Cada una define una columna distinta de la tabla.`],
-      ['Valores de p y q (Fig. 1)', String.raw`Los valores de entrada de la operación; la tabla resalta la fila que corresponde.`],
-      ['Oración, fórmula y Mostrar una respuesta (Fig. 2)', String.raw`La oración en español que se traduce y la fórmula propuesta con \(p\) y \(q\); la respuesta muestra una traducción correcta.`],
+      ['Conectivo (Fig. 1)', String.raw`Selector con seis opciones: ¬ negación, ∧ conjunción, ∨ disyunción, → implicación, ↔ bicondicional y ⊕ o exclusivo. Cambia la operación del recuadro central y la columna de la tabla.`],
+      ['p = «llueve» es verdadera, q = «hay clases» es verdadera (Fig. 1)', String.raw`Dos casillas que fijan el valor de entrada de p y de q. Con la negación solo cuenta p (q no se dibuja).`],
+      ['Oración (Fig. 2)', String.raw`Selector con nueve oraciones en español (por ejemplo, «Si llueve, me mojo», «Ni llueve ni hace frío»). Cada una tiene una fórmula de referencia oculta con las variables indicadas en la lectura. Al cambiarla se borra su traducción.`],
+      ['Su traducción (Fig. 2)', String.raw`Campo donde escribe la fórmula con p y q, con botones de símbolos ¬ ∧ ∨ → ↔ ⊕ y paréntesis. Se compara con la referencia fila por fila; si aparece otra variable, se pide usar solo p y q.`],
+      ['Mostrar una respuesta (Fig. 2)', String.raw`Escribe en el campo la fórmula de referencia de la oración elegida.`],
     ],
     visualizaciones: [
       {
         titulo: 'Cada conectivo con su tabla de verdad',
         descripcion: 'Elija un conectivo y cambie los valores de \\(p\\) y \\(q\\). Preste atención a la implicación: es falsa en una sola fila.',
-        ayuda: String.raw`<p>Se dibuja el conectivo con sus entradas y su salida: verdadero (V) o falso (F). La tabla de verdad lista las cuatro combinaciones de \(p\) y \(q\).</p>
+        ayuda: String.raw`<p>A la izquierda están las entradas p y q, en el centro el conectivo y a la derecha la salida. Una caja azul con borde azul vale V; una caja gris con borde gris vale F. Debajo, la tabla de verdad del conectivo, con la fila correspondiente a los valores de las casillas resaltada, y el registro lee la oración en español con su valor.</p>
           <ul>
-          <li><strong>Conectivo</strong>: cambia la columna de salida de la tabla.</li>
-          <li><strong>p y q</strong>: seleccionan la fila; en la implicación solo \(p\) verdadero y \(q\) falso da F.</li>
+          <li><strong>Conectivo</strong>: cambia el símbolo central, la salida y la columna de la tabla.</li>
+          <li><strong>Casillas de p y q</strong>: mueven la fila resaltada y el color de las cajas de entrada y de salida; por ejemplo, en la implicación solo p verdadera con q falsa da F.</li>
           </ul>`,
         montar: montarConectivo,
       },
       {
         titulo: 'Del español a la lógica',
         descripcion: 'Traduzca oraciones usando solo \\(p\\) y \\(q\\). Algunas son engañosas: «solo si», «a menos que», «ni… ni».',
-        ayuda: String.raw`<p>La tabla compara la fórmula escrita con la oración elegida, fila por fila.</p>
+        ayuda: String.raw`<p>Una tabla de verdad con las cuatro combinaciones de p y q, con una columna para su fórmula y otra llamada «referencia». Las filas en rojo son aquellas donde ambas dan valores distintos. El registro indica si la traducción es equivalente (✓) o no (✗), y la lectura muestra las variables de la oración y la fórmula escrita.</p>
           <ul>
-          <li><strong>Oración</strong>: cambia la tabla de verdad que la traducción debe reproducir.</li>
-          <li><strong>Fórmula</strong>: si su tabla coincide con la de la oración, la traducción es correcta; «solo si», «a menos que» y «ni… ni» suelen dar diferencias.</li>
+          <li><strong>Oración</strong>: cambia la columna de referencia; «solo si», «necesario» y «suficiente» invierten el sentido de la flecha.</li>
+          <li><strong>Su traducción</strong>: sin filas rojas la traducción es correcta, aunque se escriba distinto.</li>
+          <li><strong>Mostrar una respuesta</strong>: carga la referencia para comparar con su intento.</li>
           </ul>`,
         montar: montarTraduccion,
       },

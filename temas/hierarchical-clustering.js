@@ -152,20 +152,21 @@
       cada fusión. Cortarlo a una altura da los grupos. La pregunta clave es cómo medir la distancia entre dos grupos: eso
       es el <strong>enlace</strong> (<em>linkage</em>), y cambia por completo el resultado.</p>`,
     parametros: [
-      ['Enlace (Fig. 1)', String.raw`Cómo se mide la distancia entre dos grupos al decidir cuáles fusionar (por ejemplo mínimo, máximo, promedio o Ward). Cambia qué pares se unen primero y la forma del dendrograma.`],
-      ['Puntos n (Fig. 1)', String.raw`Cuántos puntos se agrupan, es decir, cuántas hojas tiene el dendrograma y cuántas fusiones hay.`],
-      ['Datos (Fig. 2)', String.raw`La forma de los datos (manchas, lunas, anillos…) sobre la que se comparan los enlaces.`],
-      ['Grupos k (Fig. 2)', String.raw`En cuántos grupos se corta cada dendrograma. Con k igual al número real de grupos, el ARI mide el acierto de cada enlace.`],
-      ['Nuevos datos y reproductor (Fig. 1 y 2)', String.raw`Nuevos datos sortea otra muestra. El reproductor (Fig. 1) avanza o reinicia las fusiones.`],
+      ['Enlace (Fig. 1)', String.raw`Selector con cuatro opciones: «Single linkage» (distancia mínima entre grupos), «Complete linkage» (máxima), «Average linkage» (promedio; la inicial) y «Ward» (aumento de varianza). Cambia qué pares se unen primero y la forma del dendrograma. Al cambiarlo, las fusiones vuelven a empezar.`],
+      ['Puntos n (Fig. 1)', String.raw`Deslizador de 6 a 40 (24 al inicio). Cuántos puntos se agrupan: número de hojas del dendrograma (hay n − 1 fusiones).`],
+      ['Reproductor (Fig. 1)', String.raw`Aplica las fusiones una a una, con control de velocidad.`],
+      ['Datos (Fig. 2)', String.raw`Selector con cinco conjuntos 2-D: «Tres manchas», «Densidades distintas», «Manchas alargadas», «Dos lunas» (inicial) y «Anillos concéntricos». Al elegirlo, k se ajusta solo a 2 (lunas, anillos) o a 3.`],
+      ['Grupos k (Fig. 2)', String.raw`Deslizador de 1 a 8. En cuántos grupos se corta cada uno de los cuatro dendrogramas. El ARI de la lectura compara cada resultado con los grupos reales.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Sortea otra muestra de puntos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Fusiones y dendrograma',
         descripcion: 'El algoritmo paso a paso, con el dendrograma creciendo a la derecha. Busque el salto más grande entre alturas: es un buen lugar para cortar.',
-        ayuda: String.raw`<p>A la izquierda, los puntos; a la derecha, el dendrograma, cuya altura es la distancia de fusión. Se distinguen la fusión del paso actual, los grupos ya formados y la línea de corte que se fija con un clic en el dendrograma.</p>
+        ayuda: String.raw`<p>A la izquierda, los puntos con los grupos formados dibujados como su envolvente convexa; a la derecha (debajo en pantallas angostas), el dendrograma, cuyo eje vertical es la distancia de fusión. La fusión del paso actual se resalta en naranja (en el dendrograma y en el grupo recién formado); los grupos ya formados se dibujan en azul. Las fusiones aún no hechas aparecen en el dendrograma en gris tenue.</p>
           <ul>
           <li><strong>Enlace</strong>: cambia el orden de las fusiones y las alturas; busque el salto más grande entre alturas, un buen lugar para cortar.</li>
-          <li>El corte (clic en el dendrograma) colorea los grupos que quedan bajo esa altura: un corte más alto da menos grupos.</li>
+          <li><strong>Clic en el dendrograma</strong>: fija un corte (línea amarilla discontinua) y colorea los puntos por los grupos que quedan bajo esa altura; un corte más alto da menos grupos. Al pasar el puntero se lee la altura y cuántos grupos resultarían.</li>
           <li><strong>Puntos n</strong> mayor: más fusiones y un dendrograma más denso.</li>
           </ul>`,
         montar: montarPasos,
@@ -173,10 +174,10 @@
       {
         titulo: 'Cuatro enlaces sobre los mismos datos',
         descripcion: 'Single, complete, average y Ward cortados en k grupos. El ARI compara con los grupos verdaderos (1 = idénticos, 0 = al azar).',
-        ayuda: String.raw`<p>Cuatro paneles con los mismos datos: single, complete, average y Ward, cortados en k grupos y coloreados por grupo. El ARI compara cada resultado con los grupos verdaderos (1 = idénticos, 0 = al azar).</p>
+        ayuda: String.raw`<p>Cuatro paneles con los mismos puntos y un mismo número de grupos k: Single linkage, Complete linkage, Average linkage y Ward. Cada color y forma de marca es un grupo. La lectura da, por enlace, el ARI frente a los grupos reales (1 = idénticos, 0 = al azar) y el tamaño del mayor grupo.</p>
           <ul>
           <li><strong>Datos</strong> lunas o anillos: solo el enlace simple sigue cada forma; los otros cortan por la mitad.</li>
-          <li><strong>Datos</strong> manchas de densidad distinta: el enlace simple une todo en un grupo y deja puntos sueltos.</li>
+          <li><strong>Datos</strong> de densidades distintas: el enlace simple puede unir casi todo en un grupo y dejar puntos sueltos.</li>
           <li><strong>Grupos k</strong>: cambia cuántas partes tiene cada resultado y con ello el ARI.</li>
           </ul>`,
         montar: montarEnlaces,

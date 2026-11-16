@@ -199,29 +199,29 @@
       Se desnormaliza a propósito: se copian datos para que cada consulta frecuente sea una sola lectura, y se paga en consistencia y en
       actualizaciones más difíciles.</p>`,
     parametros: [
-      ['Modelo (Fig. 1)', String.raw`Cómo se organizan los mismos datos: tablas, documentos, clave-valor, familias de columnas o grafo.`],
-      ['Consulta (Fig. 1)', String.raw`La pregunta que se hace a los datos. Según el modelo, es una lectura directa o un recorrido completo.`],
-      ['8 nodos virtuales por servidor (Fig. 2)', String.raw`Coloca cada servidor en el anillo ocho veces, lo que reparte las claves de forma más pareja.`],
-      ['Agregar servidor y Quitar servidor (Fig. 2)', String.raw`Cambian el número de servidores y muestran cuántas claves deben moverse.`],
+      ['Modelo (Fig. 1)', String.raw`Cómo se organizan los mismos datos de alumnos, cursos e inscripciones: relacional (tablas), documentos (MongoDB), clave-valor (Redis), familias de columnas (Cassandra) o grafo (Neo4j). Inicia en documentos.`],
+      ['Consulta (Fig. 1)', String.raw`«cursos de Ana» o «alumnos de Bases de Datos». Cambia la consulta resaltada y el texto de ejemplo con que cada modelo la responde; algunas son un acceso directo y otras un recorrido o una estructura extra.`],
+      ['8 nodos virtuales por servidor (Fig. 2)', String.raw`Casilla. Coloca cada servidor en el anillo ocho veces en vez de una, lo que reparte las claves de forma más pareja.`],
+      ['Agregar servidor y Quitar servidor (Fig. 2)', String.raw`Cambian el número de servidores (entre 2 y 8, con 4 al inicio) y muestran cuántas claves cambiaron de dueño, comparado con hash(k) mod n.`],
     ],
     visualizaciones: [
       {
         titulo: 'Los mismos datos en cinco modelos',
         descripcion: 'Alumnos, cursos e inscripciones como tablas, documentos, pares clave-valor, filas anchas y grafo. Cambie la consulta: lo que es una lectura en un modelo es un recorrido completo en otro.',
-        ayuda: String.raw`<p>Los datos de alumnos, cursos e inscripciones se dibujan según el modelo elegido; en el grafo, nodos Alumno, nodos Curso y aristas INSCRITO con la nota.</p>
+        ayuda: String.raw`<p>Para relacional, documentos, clave-valor y columnas se muestra texto o tablas (no hay lienzo); para grafo, un diagrama con nodos Alumno (azul, a la izquierda), nodos Curso (naranja, a la derecha) y aristas INSCRITO. Debajo, el registro con la consulta equivalente en ese modelo y la lectura con esquema, acceso y consistencia.</p>
           <ul>
-          <li><strong>Modelo</strong>: cambia la forma de la estructura y con ello dónde están los datos que la consulta necesita.</li>
-          <li><strong>Consulta</strong>: se resalta lo que se lee; en un modelo es un acceso directo y en otro, un recorrido por todo.</li>
+          <li><strong>Modelo</strong>: cambia la estructura mostrada y con ello dónde están los datos que la consulta necesita.</li>
+          <li><strong>Consulta</strong>: en el grafo resalta en negro las aristas de Ana o las del curso IIC2413 (Bases de Datos); en los demás modelos cambia solo el texto del registro.</li>
           </ul>`,
         montar: montarModelos,
       },
       {
         titulo: 'Hashing consistente',
         descripcion: 'Cómo una base distribuida reparte claves entre servidores. Al agregar un servidor solo se mueve ~1/n de las claves, en vez de casi todas. Active los nodos virtuales para equilibrar la carga.',
-        ayuda: String.raw`<p>Anillo de hashing consistente: las claves (k0 a k59) y los servidores se ubican en el círculo, y cada clave pertenece al servidor siguiente. El registro cuenta cuántas claves se movieron.</p>
+        ayuda: String.raw`<p>Anillo de hashing consistente: los puntos son las claves (k0 a k59) y los cuadrados son posiciones de servidores en el círculo; el color indica el servidor dueño, que es el primero que aparece en sentido horario desde la clave. Un anillo negro rodea las claves que cambiaron de dueño en el último cambio. La leyenda muestra cuántas claves tiene cada servidor, y la lectura compara las claves movidas con el anillo y con mod n.</p>
           <ul>
           <li><strong>Agregar servidor</strong> / <strong>Quitar servidor</strong>: solo se mueven alrededor de 1/n de las claves, no casi todas como con módulo.</li>
-          <li><strong>Nodos virtuales</strong>: equilibran cuántas claves recibe cada servidor.</li>
+          <li><strong>Nodos virtuales</strong>: cada servidor aparece en 8 posiciones y la carga por servidor queda más pareja (se recalcula el anillo sin contar movidas).</li>
           </ul>`,
         montar: montarAnillo,
       },

@@ -286,32 +286,33 @@
       admiten grupos elípticos de distinto tamaño; <strong>DBSCAN</strong> define un grupo como una región densa y deja fuera el ruido;
       el <a href="tema.html?id=unsupervised-learning">agrupamiento jerárquico</a> de enlace simple encadena vecinos cercanos.</p>`,
     parametros: [
-      ['Datos (Fig. 1 y 2)', String.raw`La forma de los grupos reales (por ejemplo, redondos o alargados). Algunos algoritmos solo funcionan bien con ciertas formas.`],
-      ['Algoritmo (Fig. 1)', String.raw`k-means, mezcla gaussiana (EM), DBSCAN o jerárquico con enlace simple. Cada uno define distinto qué es un grupo.`],
-      ['Grupos k (k-means, EM, enlace) (Fig. 1)', String.raw`Cuántos grupos se piden a los algoritmos que lo requieren.`],
-      ['Radio ε (DBSCAN) y Vecinos mínimos (DBSCAN) (Fig. 1)', String.raw`El radio de vecindad y cuántos vecinos deben caber para considerar densa una zona. Controlan qué puntos son núcleo y qué puntos son ruido.`],
-      ['Componentes k y Otra inicialización (Fig. 2)', String.raw`Cuántas gaussianas tiene la mezcla y con qué valores parte. El resultado de EM depende del punto de partida.`],
-      ['Nuevos datos (Fig. 1)', String.raw`Regenera los datos.`],
+      ['Datos (Fig. 1 y 2)', String.raw`Forma de los grupos reales: Manchas de distinto tamaño, Grupos alargados, Dos lunas o Círculos concéntricos. Algunos algoritmos solo funcionan bien con ciertas formas.`],
+      ['Algoritmo (Fig. 1)', String.raw`k-means, Mezcla gaussiana (EM), DBSCAN o Jerárquico con enlace simple. Cada uno define distinto qué es un grupo.`],
+      ['Grupos k (k-means, EM, enlace) (Fig. 1)', String.raw`Cuántos grupos (de 2 a 6) se piden a los algoritmos que lo requieren; DBSCAN lo ignora.`],
+      ['Radio ε (DBSCAN) y Vecinos mínimos (DBSCAN) (Fig. 1)', String.raw`El radio de vecindad (de 0,03 a 0,30) y cuántos vecinos mínimos (de 2 a 15) deben caber para considerar densa una zona. Solo afectan a DBSCAN; controlan qué puntos son núcleo y cuáles son ruido.`],
+      ['Nuevos datos (Fig. 1)', String.raw`Regenera los datos con otra semilla.`],
+      ['Componentes k, Otra inicialización y controles de reproducción (Fig. 2)', String.raw`Componentes k (de 1 a 6) es cuántas gaussianas tiene la mezcla; «Otra inicialización» cambia sus valores de partida, y la reproducción avanza los pasos E y M. El resultado de EM depende del punto de partida.`],
     ],
     visualizaciones: [
       {
         titulo: 'Cuatro algoritmos sobre los mismos datos',
         descripcion: 'Elija un conjunto de datos y un algoritmo. El índice de Rand ajustado compara los grupos con las clases reales: 1 es acuerdo perfecto y 0, el de una partición al azar.',
-        ayuda: String.raw`<p>Cada color es un grupo encontrado (la forma es una segunda codificación). El ruido de DBSCAN se marca aparte; también se dibujan el radio ε, los centroides y las elipses 2σ de cada componente cuando corresponden. Ejes: \(x_1\), \(x_2\).</p>
+        ayuda: String.raw`<p>Cada punto se pinta con el color (y la forma) del grupo encontrado, sin usar las etiquetas reales; el ruido de DBSCAN es gris (C.inactivo). Los ejes son \(x_1\) y \(x_2\). Con k-means se marcan los centroides en negro, con EM las elipses 2σ de cada componente y con DBSCAN un círculo de radio ε alrededor de un punto. La lectura da los grupos encontrados y reales, los puntos de ruido y el índice de Rand ajustado.</p>
           <ul>
-          <li><strong>Algoritmo</strong>: k-means parte en regiones redondeadas; DBSCAN y enlace simple siguen formas alargadas.</li>
+          <li><strong>Algoritmo</strong>: k-means parte en regiones redondeadas; DBSCAN y el enlace simple pueden seguir formas alargadas o curvas.</li>
           <li><strong>Grupos k</strong>: cambia el número de colores y de centroides.</li>
-          <li><strong>Radio ε</strong>: con ε pequeño, más puntos son ruido; con ε grande, los grupos se fusionan.</li>
+          <li><strong>Radio ε</strong> y <strong>Vecinos mínimos</strong>: con ε pequeño o muchos vecinos mínimos hay más puntos de ruido; con ε grande los grupos se fusionan.</li>
           </ul>`,
         montar: montarComparacion,
       },
       {
         titulo: 'Mezcla gaussiana con EM, paso a paso',
         descripcion: 'El algoritmo EM alterna un paso E, que reparte cada punto entre las componentes, y un paso M, que reajusta cada gaussiana.',
-        ayuda: String.raw`<p>El color del punto es el de la componente más responsable (la opacidad es la responsabilidad). Las elipses son 1σ y 2σ y cada componente tiene su media marcada.</p>
+        ayuda: String.raw`<p>El color de cada punto es el de la componente más responsable y su opacidad es esa responsabilidad (gris antes de la primera iteración). Las elipses son 1σ (línea continua) y 2σ (discontinua) de cada componente y un punto negro marca su media. Un registro indica si el paso es E o M, y la lectura da la iteración, la log-verosimilitud media y los pesos.</p>
           <ul>
           <li><strong>Componentes k</strong>: cambia el número de elipses que compiten por los puntos.</li>
           <li><strong>Otra inicialización</strong>: reinicia desde otras elipses; EM puede converger a soluciones distintas.</li>
+          <li><strong>Datos</strong>: con grupos alargados las elipses se ajustan; con lunas o círculos una gaussiana no basta.</li>
           </ul>`,
         montar: montarEM,
       },

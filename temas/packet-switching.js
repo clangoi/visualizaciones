@@ -76,25 +76,29 @@
       <p>Una red de computadores es un conjunto de <em>hosts</em> conectados por <em>enlaces</em> (cobre, fibra, radio) a través de <em>routers</em> y <em>switches</em>. Hay dos formas de repartir los enlaces: <strong>conmutación de circuitos</strong>, que reserva una porción del enlace para cada comunicación (como la telefonía clásica), y <strong>conmutación de paquetes</strong>, donde los datos se cortan en paquetes que comparten los enlaces según se necesitan.</p>
       <p>La de paquetes aprovecha que el tráfico viene a ráfagas (<em>multiplexación estadística</em>): casi nunca todos transmiten a la vez.</p>`,
     parametros: [
-      ['Usuarios N (Fig. 1)', String.raw`Cuántos usuarios comparten el enlace. Más usuarios elevan la probabilidad de que muchos transmitan a la vez.`],
-      ['Fracción del tiempo que transmite cada uno (Fig. 1)', String.raw`Qué tan activo es cada usuario. A más actividad, más probable es superar la capacidad.`],
-      ['Usuarios que caben con circuitos (Fig. 1)', String.raw`La capacidad del enlace expresada en usuarios simultáneos; es el umbral que separa barras azules de rojas.`],
-      ['Mensaje (bits), Tamaño de paquete (bits) y Enlaces en el camino (Fig. 2)', String.raw`El tamaño del mensaje, cómo se divide y cuántos enlaces atraviesa. Determinan cuánto se solapan las transmisiones.`],
+      ['Usuarios N (Fig. 1)', String.raw`Cuántos usuarios comparten el enlace (2 a 80). Más usuarios elevan el número esperado de activos a la vez y la probabilidad de superar la capacidad.`],
+      ['Fracción del tiempo que transmite cada uno (Fig. 1)', String.raw`Porcentaje del tiempo que cada usuario está activo (1 a 50 %). A más actividad, más probable es superar la capacidad.`],
+      ['Usuarios que caben con circuitos (Fig. 1)', String.raw`Capacidad del enlace expresada en usuarios simultáneos (2 a 30). Es el umbral que separa barras azules (k hasta ese valor) de rojas (k mayor).`],
+      ['Mensaje (bits) (Fig. 2)', String.raw`Tamaño del mensaje, de 1 000 a 24 000 bits. Alarga cada transmisión y el tiempo total.`],
+      ['Tamaño de paquete (bits) (Fig. 2)', String.raw`Cuánto mide cada paquete, de 500 a 24 000 bits. Con paquetes menores hay más paquetes y se solapan más entre enlaces.`],
+      ['Enlaces en el camino (Fig. 2)', String.raw`Número de enlaces, de 1 a 6; cada uno es una fila de la figura.`],
     ],
     visualizaciones: [
       { titulo: 'Multiplexación estadística', descripcion: 'Con 35 usuarios que transmiten el 10 % del tiempo, un enlace para 10 sirve casi siempre. Suba la fracción de actividad y vea crecer la probabilidad de congestión.',
-        ayuda: String.raw`<p>Eje horizontal, k usuarios activos a la vez; vertical, probabilidad. Las barras azules son valores de k que el enlace soporta; las rojas, los que superan su capacidad y causan cola o pérdida.</p>
+        ayuda: String.raw`<p>Eje horizontal, k usuarios activos a la vez; vertical, probabilidad de cada k (distribución binomial, escalada a la barra más alta). Las barras azules son valores de k que el enlace soporta; las rojas, los que superan «Usuarios que caben», es decir, cola o pérdida. Pasar el cursor sobre una barra muestra su probabilidad.</p>
           <ul>
           <li><strong>Usuarios N</strong>: desplaza la distribución hacia la derecha.</li>
-          <li><strong>Fracción del tiempo</strong>: lo mismo, y aumenta la suma de las barras rojas.</li>
+          <li><strong>Fracción del tiempo</strong>: también la desplaza y aumenta la suma de las barras rojas.</li>
           <li><strong>Usuarios que caben</strong>: mueve el límite entre azul y rojo.</li>
+          <li><strong>Lecturas</strong>: usuarios con circuitos, usuarios con paquetes (N), activos en promedio y la probabilidad de más de «cap» activos.</li>
           </ul>`, montar: montarMux },
       { titulo: 'Almacenar y reenviar', descripcion: 'Divida un mensaje en paquetes más pequeños y compare el tiempo de entrega con enviarlo entero por varios enlaces.',
-        ayuda: String.raw`<p>Cada fila es un enlace del camino y el eje horizontal es el tiempo. Las barras azules son los paquetes que se transmiten por ese enlace (1 000 bits/ms), reenviados por el siguiente cuando llegan completos.</p>
+        ayuda: String.raw`<p>Cada fila es un enlace del camino y el eje horizontal es el tiempo. Cada paquete es una barra de un color distinto (se repiten cada ocho) y aparece en la fila siguiente un tiempo de transmisión después, porque el router lo recibe completo antes de reenviarlo (1 000 bits/ms). La línea negra de abajo marca el tiempo total con paquetes.</p>
           <ul>
-          <li><strong>Tamaño de paquete</strong>: con paquetes menores el mensaje se divide en más barras que se solapan en filas distintas y el tiempo total baja.</li>
+          <li><strong>Tamaño de paquete</strong>: con paquetes menores el mensaje se divide en más barras, que ocupan filas distintas a la vez, y el tiempo total baja.</li>
           <li><strong>Enlaces en el camino</strong>: agrega filas y suma el retraso de cada salto.</li>
-          <li><strong>Mensaje</strong>: alarga cada transmisión.</li>
+          <li><strong>Mensaje</strong>: alarga cada transmisión y el total.</li>
+          <li><strong>Lecturas</strong>: número de paquetes, tiempo con paquetes, tiempo sin dividir y la aceleración entre ambos.</li>
           </ul>`, montar: montarAlmacenaReenvia },
     ],
     teoria: String.raw`

@@ -300,30 +300,34 @@
       <p>Es el modelo que evita las anomalías que notan las personas: ver una respuesta antes de la pregunta, o un comentario en una foto
       que todavía no aparece. Y, a diferencia de la consistencia fuerte, se puede implementar sin bloquear aunque la red se particione.</p>`,
     parametros: [
-      ['Historia (Fig. 1)', String.raw`Qué ejemplo se analiza. Cada uno muestra un caso distinto: orden causal respetado, escrituras concurrentes o una violación.`],
-      ['Otra al azar (Fig. 1)', String.raw`Genera una historia aleatoria para comprobar si es causalmente consistente.`],
-      ['Escenario (Fig. 2)', String.raw`Elige entre «Publicación y respuesta» y seis mensajes al azar entre réplicas. Determina qué mensajes dependen causalmente de otros.`],
-      ['Entrega causal (relojes vectoriales) (Fig. 2)', String.raw`Si está activa, cada réplica retiene un mensaje hasta recibir sus causas. Si no, entrega en el orden de llegada y puede mostrar un efecto antes que su causa.`],
-      ['Nuevos datos y reproductor (Fig. 2)', String.raw`Nuevos datos sortea otra ejecución; el reproductor avanza y reinicia.`],
+      ['Historia (Fig. 1)', String.raw`Qué historia de lecturas y escrituras se analiza: «Causa vista después del efecto», «Escrituras concurrentes», «Paso de mensaje», «Cadena de tres procesos» o «Al azar». Cambiarla reemplaza todas las operaciones y recalcula si es causal y secuencial.`],
+      ['Otra al azar (Fig. 1)', String.raw`Genera una historia aleatoria nueva (tres procesos, dos o tres operaciones cada uno) y selecciona «Al azar» en el selector. Sirve para comprobar si resulta causal o no.`],
+      ['Clic sobre una lectura (Fig. 1)', String.raw`Cada clic en una lectura R cambia el valor que devolvió, recorriendo 0 y los valores escritos en esa variable. Permite crear o deshacer una violación.`],
+      ['Escenario (Fig. 2)', String.raw`«Publicación y respuesta» es el caso fijo: A publica, B responde y el mensaje de A tarda mucho en llegar a C. «Seis mensajes al azar» sortea réplica emisora, instante y demora de cada mensaje.`],
+      ['Entrega causal (relojes vectoriales) (Fig. 2)', String.raw`Si está marcada, una réplica retiene el mensaje que llega antes que sus causas y lo entrega cuando ya mostró todo lo que éste dependía. Si no, lo entrega apenas llega y puede mostrar una respuesta antes de la pregunta. Al cambiarla la simulación se reinicia.`],
+      ['Nuevos datos (Fig. 2)', String.raw`Sortea otra ejecución con mensajes al azar (fija el escenario en «Seis mensajes al azar»).`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Velocidad fija cuántos eventos (llegadas o entregas) se avanzan por segundo; Reproducir/Pausar los recorre solos, Un paso avanza al siguiente evento, Hasta el final salta al resultado y Reiniciar vuelve al instante cero con los mismos datos.`],
     ],
     visualizaciones: [
       {
         titulo: 'Historias causales',
         descripcion: 'Las flechas aguamarina dicen de qué escritura leyó cada lectura; junto con el orden de programa forman el orden causal. Bajo el diagrama, la vista de cada proceso.',
-        ayuda: String.raw`<p>Cada fila es un proceso con escrituras y lecturas; las flechas aguamarina unen cada lectura con la escritura de la que lee y, con el orden de programa, forman el orden causal. Los procesos sin vista causal válida se marcan, y debajo se ve la vista de cada uno.</p>
+        ayuda: String.raw`<p>Cada fila es un proceso (P1, P2, …) y el tiempo avanza hacia la derecha. Las barras son operaciones: gris claro las escrituras W, blancas las lecturas R. Las flechas punteadas aguamarina (C.s3) unen cada escritura con las lecturas que leen su valor. Si un proceso no tiene ninguna vista legal que respete la causalidad, su nombre se pinta en rojo. Debajo, una tira por proceso muestra su vista: sus propias operaciones en negro y las ajenas en gris.</p>
           <ul>
-          <li><strong>Historia</strong> con escrituras concurrentes: cada proceso puede verlas en orden distinto y sigue siendo causal.</li>
-          <li>Cambiar una lectura (clic) puede crear una dependencia que ningún proceso cumple y marcar una violación.</li>
+          <li><strong>Historia</strong>: «Escrituras concurrentes» es causal pero no secuencial (cada proceso ve las dos escrituras en otro orden); «Causa vista después del efecto» y «Paso de mensaje» no son causales; «Cadena de tres procesos» es causal y secuencial.</li>
+          <li><strong>Clic en una lectura</strong>: cambia el valor leído y con él las flechas, las vistas y el veredicto (causal, secuencial y número de pares causales en el panel de lectura).</li>
+          <li>Si el orden causal tiene un ciclo, la historia no es causal y se explica en el texto inferior.</li>
           </ul>`,
         montar: montarHistoria,
       },
       {
         titulo: 'Entrega causal en réplicas',
         descripcion: 'En «Publicación y respuesta», C recibe la respuesta de B antes que la publicación de A. Active la entrega causal: C la retiene (tramo amarillo) hasta tener la publicación.',
-        ayuda: String.raw`<p>Cada réplica recibe mensajes por la red. Los mensajes en tránsito, los retenidos hasta tener sus causas, las entregas y las entregas anómalas (antes que una causa) se distinguen por la leyenda.</p>
+        ayuda: String.raw`<p>Las filas son las réplicas A, B y C; el eje horizontal es el tiempo. Las líneas azules (C.s1) son mensajes en la red, rotuladas m1, m2, … Cada punto es una entrega en esa réplica: negro si es normal y rojo (C.s8) si la réplica mostró el mensaje sin haber mostrado antes alguna de sus causas. El tramo grueso amarillo (C.s4) sobre una fila marca el tiempo que un mensaje llegó y quedó retenido. Debajo, «Pantalla de A/B/C» lista lo que cada réplica ha mostrado, en orden.</p>
           <ul>
-          <li><strong>Entrega causal</strong> desactivada en «Publicación y respuesta»: C recibe la respuesta antes que la publicación y aparece una anomalía.</li>
-          <li><strong>Entrega causal</strong> activada: C retiene la respuesta (tramo amarillo) hasta tener la publicación, y la anomalía desaparece.</li>
+          <li><strong>Entrega causal</strong> desactivada en «Publicación y respuesta»: la respuesta m2 llega a C antes que la publicación m1 y se marca en rojo.</li>
+          <li><strong>Entrega causal</strong> activada: C retiene m2 (tramo amarillo) hasta que llega m1 y no hay anomalías.</li>
+          <li><strong>Un paso</strong> y el panel de lectura (tiempo, entregas, anomalías, retenidos) permiten seguir cada evento.</li>
           </ul>`,
         montar: montarReplicas,
       },

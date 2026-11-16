@@ -39,14 +39,16 @@
       <p>El correo electrónico usa tres piezas: el <strong>agente de usuario</strong> (el cliente donde se escribe y lee), los <strong>servidores de correo</strong> con los buzones, y los <strong>protocolos</strong>. <strong>SMTP</strong> sirve para <em>enviar</em> (de cliente a servidor y entre servidores); <strong>POP3</strong> e <strong>IMAP</strong> sirven para <em>leer</em> el buzón.</p>
       <p>SMTP es un protocolo de texto sobre TCP, de empuje: quien tiene el mensaje se lo entrega al siguiente hasta llegar al servidor del destinatario.</p>`,
     parametros: [
-      ['Etapa (Fig. 1)', String.raw`Elige entre el recorrido completo del correo, de Ana a Beto, o solo el diálogo SMTP entre los servidores.`],
-      ['Reproductor (Fig. 1)', String.raw`Muestra los mensajes de uno en uno con su explicación.`],
+      ['Etapa (Fig. 1)', String.raw`Selector con dos opciones: «Recorrido completo del correo» (de Ana a Beto, con SMTP, DNS e IMAP/POP3) y «Diálogo SMTP entre servidores» (solo los comandos entre el servidor de Ana y el de Beto). Al cambiarlo, la figura vuelve al inicio.`],
+      ['Reproductor (Fig. 1)', String.raw`Controla cuántos mensajes se ven: «Velocidad» (pasos por segundo), «Reproducir»/«Pausar», «Un paso», «Hasta el final» y «Reiniciar». Cada paso agrega una flecha y su explicación en el texto bajo la figura.`],
     ],
     visualizaciones: [
       { titulo: 'El viaje de un correo', descripcion: 'Recorra el camino de un mensaje de Ana a Beto y luego el diálogo de comandos SMTP entre los servidores.',
-        ayuda: String.raw`<p>Las columnas son el cliente y el servidor de Ana y el servidor y el cliente de Beto. Las flechas azules son SMTP (envío), las violetas IMAP/POP3 (lectura), las naranjas respuestas del servidor y las aguamarina consultas DNS.</p>
+        ayuda: String.raw`<p>Cuatro columnas verticales: cliente de Ana, servidor de Ana, servidor de Beto y cliente de Beto. El tiempo corre hacia abajo y cada flecha horizontal es un mensaje; solo aparecen los ya reproducidos, y la última se dibuja más gruesa. Azul: SMTP (envío); violeta: IMAP/POP3 (lectura); naranja: respuestas del servidor; aguamarina: consulta DNS.</p>
           <ul>
-          <li><strong>Etapa</strong>: «Recorrido completo» muestra de punta a punta quién usa SMTP, DNS (MX) e IMAP/POP3; «Diálogo SMTP» muestra los comandos HELO, MAIL FROM, RCPT TO y DATA con sus respuestas numéricas.</li>
+          <li><strong>Etapa</strong>: «Recorrido completo» muestra el envío SMTP de Ana, la consulta MX (flecha sobre el servidor de Ana), el SMTP entre servidores, el «250 OK» y la lectura de Beto con IMAP/POP3. «Diálogo SMTP» muestra TCP, 220, HELO, MAIL FROM, RCPT TO, DATA y QUIT con cada respuesta numérica.</li>
+          <li><strong>Reproductor</strong>: «Un paso» avanza una flecha; «Hasta el final» las dibuja todas; «Reiniciar» borra y vuelve al principio.</li>
+          <li><strong>Lecturas</strong>: muestran «mensajes» (paso actual de total) y recuerdan que el envío es SMTP (empuja) y la lectura IMAP/POP3 (tira).</li>
           </ul>`, montar },
     ],
     teoria: String.raw`

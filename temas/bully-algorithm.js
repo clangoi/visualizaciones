@@ -219,29 +219,30 @@
       <p>Quien detecta la caída desafía a todos los que tienen identificador mayor. Si alguno responde, ese «matón» toma el control de la
       elección y el desafiante se retira; si nadie responde a tiempo, el desafiante gana y se lo comunica a los menores.</p>`,
     parametros: [
-      ['Procesos (Fig. 1)', String.raw`Cantidad de procesos. Fija cuántos hay por encima del iniciador y cuántos mensajes se encadenan.`],
-      ['Inicia la elección (Fig. 1)', String.raw`Proceso que detecta la falla del coordinador. Mientras más bajo su número, más procesos mayores contestan e inician sus elecciones.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza ronda a ronda, pausa o reinicia la elección.`],
-      ['Procesos n (Fig. 2)', String.raw`Cantidad de procesos de la gráfica de costo.`],
+      ['Procesos (Fig. 1)', String.raw`Deslizador de 4 a 8 procesos. Al cambiarlo, queda caído el de mayor número (el coordinador) y se reinicia la elección.`],
+      ['Inicia la elección (Fig. 1)', String.raw`Deslizador entre P1 y el penúltimo proceso: quien detecta la falla. Cuanto más bajo, más procesos mayores contestan e inician sus propias elecciones. Se marca con un anillo azul.`],
+      ['Marcar procesos caídos (Fig. 1)', String.raw`Un clic sobre un proceso (salvo el iniciador) lo hace caer o lo revive y reinicia la elección. Los mensajes enviados a un proceso caído se pierden.`],
+      ['Controles de reproducción (Fig. 1)', String.raw`Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar: avanzan la elección ronda a ronda.`],
+      ['Procesos n (Fig. 2)', String.raw`Deslizador de 4 a 20 procesos para el gráfico de costo. Se supone que solo cae el coordinador Pn.`],
     ],
     visualizaciones: [
       {
         titulo: 'Elección paso a paso',
         descripcion: 'Avance ronda a ronda. Pruebe a que inicie P1 o el proceso más alto vivo, y a hacer caer también al segundo más alto: gana siempre el mayor que sigue vivo.',
-        ayuda: String.raw`<p>Los procesos están en círculo. Las flechas naranja son ELECTION, las aguamarina OK y las verdes COORDINATOR. Un proceso amarillo está en elección y uno gris, caído; el gris no responde y sus mensajes se pierden.</p>
+        ayuda: String.raw`<p>Los procesos están en círculo. Las flechas naranja son ELECTION, las aguamarina OK y las verdes COORDINATOR; las grises discontinuas van a un proceso caído y se pierden. Relleno amarillo: proceso en elección (más tenue si ya recibió OK); verde: coordinador; blanco: aún sin participar; gris: caído. El anillo azul marca al iniciador y bajo cada nodo hay una etiqueta de estado.</p>
           <ul>
-          <li><strong>Inicia la elección</strong>: con P1 se encadenan más ELECTION y OK; con el más alto vivo, casi nadie responde y se proclama enseguida.</li>
-          <li><strong>Procesos</strong>: más procesos superiores al iniciador y más mensajes.</li>
-          <li>Siempre gana el proceso vivo de mayor número.</li>
+          <li><strong>Inicia la elección</strong>: con P1 se encadenan más ELECTION y OK; con el más alto vivo no hay nadie arriba y se proclama sin respuestas.</li>
+          <li><strong>Procesos</strong>: más procesos superiores al iniciador, más mensajes.</li>
+          <li><strong>Clic en un nodo</strong>: simula otra falla; gana siempre el proceso vivo de mayor número.</li>
           </ul>`,
         montar: montarEleccion,
       },
       {
         titulo: 'Mensajes según quién inicia',
         descripcion: 'Cuantos más procesos haya por encima del que detecta la falla, más elecciones se encadenan. El peor caso es cuadrático en \\(n\\).',
-        ayuda: String.raw`<p>Eje horizontal: proceso que inicia; vertical: mensajes. Las series (ELECTION naranja, OK aguamarina, COORDINATOR verde) se apilan, y la línea gris es el peor caso \((n-1)^2 + n - 2\).</p>
+        ayuda: String.raw`<p>Eje horizontal: proceso que inicia; vertical: mensajes. Cada barra apila ELECTION (naranja), OK (aguamarina) y COORDINATOR (verde), y la línea gris punteada marca el peor caso \((n-1)^2 + n - 2\). Al pasar el cursor por una barra se ven sus tres conteos.</p>
           <ul>
-          <li><strong>Procesos n</strong>: al aumentar n los totales crecen y la curva de iniciadores bajos se acerca al peor caso, cuadrático.</li>
+          <li><strong>Procesos n</strong>: al aumentar n los totales crecen y la barra de P1 llega al peor caso, cuadrático; la de Pn−1 es la más barata.</li>
           </ul>`,
         montar: montarCosto,
       },

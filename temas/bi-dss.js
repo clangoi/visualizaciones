@@ -264,32 +264,35 @@
       («¿qué pasa si subo el precio?») en lugar de solo mirar lo ocurrido.</p>
       <p>En la primera figura recorra la cadena completa con 336 ventas simuladas; en la segunda juegue con un modelo de precio y demanda, y vea qué supuesto pesa más en el resultado.</p>`,
     parametros: [
-      ['Margen mínimo exigido (Fig. 1)', String.raw`Umbral de la regla de decisión. Los resultados bajo el mínimo no pasan, así que la misma tabla puede llevar a otra decisión.`],
-      ['Nuevos datos (Fig. 1)', String.raw`Genera otros datos de las fuentes.`],
-      ['Precio de venta (Fig. 2)', String.raw`Precio que se prueba en el modelo. Mueve el punto elegido sobre la curva de utilidad.`],
-      ['Elasticidad de la demanda (Fig. 2)', String.raw`Qué tanto cae la demanda cuando sube el precio. Con elasticidad alta, subir el precio rinde menos.`],
-      ['Costo variable por unidad (Fig. 2)', String.raw`Costo de cada unidad vendida. Desplaza el precio óptimo.`],
-      ['Costos fijos mensuales (Fig. 2)', String.raw`Costo que no depende del volumen. Baja o sube la utilidad sin cambiar el precio óptimo.`],
-      ['Ir al precio óptimo (Fig. 2)', String.raw`Mueve el precio elegido a la cima de la curva.`],
+      ['Margen mínimo exigido (Fig. 1)', String.raw`Deslizador de 30 % a 50 %: umbral de la regla de decisión. Los productos con margen bajo el umbral se marcan para revisar, así que la misma tabla lleva a otra decisión sin repetir el análisis.`],
+      ['Reproductor y Nuevos datos (Fig. 1)', String.raw`El reproductor avanza una etapa por paso (Un paso, Reproducir). Nuevos datos genera otras 336 ventas simuladas y reinicia el flujo.`],
+      ['Precio de venta (Fig. 2)', String.raw`Precio entre &#36;50 y &#36;200 que se prueba en el modelo. Mueve el marcador naranja sobre la curva de utilidad; también se fija con clic sobre la curva.`],
+      ['Elasticidad de la demanda (Fig. 2)', String.raw`De 1,2 a 4. Con mayor elasticidad la demanda cae más al subir el precio: la curva se achata y el precio óptimo baja.`],
+      ['Costo variable por unidad (Fig. 2)', String.raw`De &#36;20 a &#36;80. Un costo mayor baja la utilidad y desplaza el precio óptimo hacia la derecha.`],
+      ['Costos fijos mensuales (Fig. 2)', String.raw`De &#36;0 a &#36;60.000. Sube o baja toda la curva por igual, sin cambiar el precio óptimo.`],
+      ['Ir al precio óptimo (Fig. 2)', String.raw`Lleva el precio elegido al precio que maximiza la utilidad (redondeado al entero).`],
     ],
     visualizaciones: [
       {
         titulo: 'De las fuentes a la decisión',
         descripcion: 'Avance etapa por etapa y observe cuántas filas sobreviven en cada una. Al final mueva el margen mínimo exigido: la misma tabla de resultados lleva a otra decisión.',
-        ayuda: String.raw`<p>Etapas del flujo desde las fuentes hasta la decisión: pendientes, la que acaba de ejecutarse y las completadas. Al final aparecen los márgenes calculados, señalados como suficientes o bajo el mínimo, con una línea del margen mínimo.</p>
+        ayuda: String.raw`<p>Cinco cajas en secuencia: Fuentes, ETL, Almacén, Análisis y Decisión, con la cantidad de filas o productos de cada etapa. Borde gris discontinuo es etapa pendiente, borde naranja la que acaba de ejecutarse y borde negro las completadas. Desde el análisis aparecen barras con el margen por producto: azules al calcularse, y en la etapa de decisión verdes si cumplen el mínimo y rojas si quedan bajo él; una línea negra vertical marca el margen mínimo.</p>
           <ul>
-          <li><strong>Margen mínimo exigido</strong>: sube o baja la línea; más márgenes quedan bajo el mínimo si se exige más.</li>
+          <li><strong>Margen mínimo exigido</strong>: mueve la línea negra; los productos que quedan a su izquierda pasan a rojo y cambia el texto de la decisión.</li>
+          <li><strong>Clic en una caja</strong>: el registro explica qué hace esa etapa.</li>
+          <li><strong>Nuevos datos</strong>: otras ventas; cambia cuántas filas rechaza el ETL y los márgenes.</li>
           </ul>`,
         montar: montarFlujo,
       },
       {
         titulo: 'Modelo «qué pasa si»',
         descripcion: 'Cambie el precio y la elasticidad y busque la cima de la curva; luego mire cuál supuesto mueve más la utilidad. Pruebe elasticidades cercanas a 1,2 y costos altos.',
-        ayuda: String.raw`<p>Arriba, la utilidad mensual según el precio, con el precio elegido y el óptimo. Abajo, un gráfico de sensibilidad: cuánto cambia la utilidad con un -10 % y un +10 % en cada supuesto.</p>
+        ayuda: String.raw`<p>Arriba, la utilidad mensual según el precio: línea azul (C.s1) con un marcador naranja en el precio elegido, uno verde en el óptimo y una línea punteada en utilidad cero. Abajo, un gráfico de sensibilidad con una fila por supuesto, ordenadas de mayor a menor efecto: barra azul con el cambio de utilidad si el supuesto baja 10 % y barra naranja si sube 10 %, a ambos lados de una línea central.</p>
           <ul>
-          <li><strong>Precio de venta</strong>: acercarlo al óptimo sube la utilidad.</li>
-          <li><strong>Elasticidad de la demanda</strong>: cambia la forma de la curva y el precio óptimo.</li>
-          <li><strong>Costo variable</strong> y <strong>Costos fijos</strong>: cambian el nivel de utilidad y las barras de sensibilidad muestran cuál supuesto pesa más.</li>
+          <li><strong>Precio de venta</strong>: mueve el marcador naranja; la utilidad es mayor cuanto más cerca del verde.</li>
+          <li><strong>Elasticidad</strong> y <strong>Costo variable</strong>: cambian la forma de la curva y la posición del óptimo.</li>
+          <li><strong>Costos fijos</strong>: desplazan la curva verticalmente; el óptimo no se mueve.</li>
+          <li>La fila superior del gráfico de sensibilidad es el supuesto más sensible, que conviene estimar mejor.</li>
           </ul>`,
         montar: montarQueSiPasa,
       },

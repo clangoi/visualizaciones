@@ -102,23 +102,23 @@
       (por ejemplo la API con la base de datos); una prueba <strong>end-to-end</strong> maneja la aplicación completa en un navegador como lo haría una persona.</p>
       <p>Cuanto más arriba, más realista pero también más lenta, cara y frágil. La <strong>pirámide de pruebas</strong> aconseja muchas pruebas unitarias, algunas de integración y pocas end-to-end.</p>`,
     parametros: [
-      ['Forma predefinida (Fig. 1)', String.raw`Una distribución típica de pruebas (pirámide, cono de helado, trofeo) que fija de una vez las tres cantidades.`],
-      ['Pruebas end-to-end, de integración y unitarias (Fig. 1)', String.raw`Cuántas pruebas hay de cada nivel. Los niveles se distinguen por lo que recorren y por su velocidad y fragilidad.`],
-      ['Esfuerzo en cada nivel (Fig. 2)', String.raw`Porcentaje del esfuerzo de pruebas dedicado a cada nivel. Define cuánta cobertura de defectos aporta cada uno.`],
+      ['Forma predefinida (Fig. 1)', String.raw`Selector con tres opciones: pirámide (20 end-to-end, 100 integración, 600 unitarias), cono de helado invertido (300, 100, 40) y trofeo (30, 300, 120). Al elegir una, fija de una vez los tres controles de cantidad.`],
+      ['Pruebas end-to-end, de integración y unitarias (Fig. 1)', String.raw`Tres controles de 0 a 800 (paso 10): «Pruebas end-to-end», «Pruebas integración» y «Pruebas unitarias». Cada uno es la cantidad de pruebas de ese nivel. Los niveles difieren en duración por prueba (20 s, 0,5 s y 0,01 s) y en probabilidad de fallo espurio por prueba (3 %, 0,8 % y 0,03 %).`],
+      ['Esfuerzo en cada nivel (Fig. 2)', String.raw`Tres controles de 0 a 100 % (paso 5), «Esfuerzo en unitarias», «en integración» y «en end-to-end», que parten en 60, 30 y 10 %. Solo importa su proporción respecto del total: lo que cada nivel aporta a la detección depende de la parte del esfuerzo que recibe.`],
     ],
     visualizaciones: [
       { titulo: 'La mezcla de pruebas', descripcion: 'Cambie la cantidad de cada tipo o elija una forma predefinida y compare el tiempo de la suite y la probabilidad de fallos espurios.',
-        ayuda: String.raw`<p>Una capa por nivel: violeta end-to-end, aguamarina integración y azul unitarias. Su tamaño es la cantidad de pruebas, y la lectura da el tiempo total de la suite y la probabilidad de fallos espurios.</p>
+        ayuda: String.raw`<p>Tres barras horizontales centradas, de arriba abajo: end-to-end (violeta), integración (aguamarina) y unitarias (azul). El ancho es la cantidad de pruebas relativa a la mayor, y cada barra indica su número. A la derecha se ven los segundos por prueba y el porcentaje de fragilidad de ese nivel. Abajo se leen el tiempo de la suite, la probabilidad de un fallo espurio, el total de pruebas y la parte del tiempo que corresponde a end-to-end. Al pasar el puntero sobre una barra se describe el nivel.</p>
           <ul>
-          <li><strong>Forma predefinida</strong>: la pirámide da una suite rápida y estable; el cono de helado, lenta y con más fallos espurios.</li>
-          <li><strong>Pruebas end-to-end</strong>: cada una suma segundos de ejecución y es la que más contribuye a los fallos espurios.</li>
-          <li><strong>Pruebas unitarias</strong>: añadirlas casi no cambia el tiempo ni la fragilidad.</li>
+          <li><strong>Forma predefinida</strong>: mueve los tres controles a la vez; la pirámide da una barra ancha abajo y estrecha arriba, el cono de helado lo inverso, con suite mucho más lenta.</li>
+          <li><strong>Pruebas end-to-end</strong>: cada una suma 20 s y es la que más aumenta la probabilidad de fallo espurio.</li>
+          <li><strong>Pruebas de integración y unitarias</strong>: las de integración suman 0,5 s cada una y las unitarias 0,01 s, por lo que añadir unitarias apenas cambia el tiempo.</li>
           </ul>`, montar: montarMezcla },
       { titulo: 'Qué prueba atrapa qué defecto', descripcion: 'Reparta el esfuerzo entre los tres niveles y mire cuántos defectos típicos quedan cubiertos; ninguna capa sola basta.',
-        ayuda: String.raw`<p>Una fila por defecto típico y una columna por nivel de prueba; el tono más oscuro indica mayor probabilidad de que ese nivel lo detecte. Una marca muestra la detección con su mezcla de esfuerzo.</p>
+        ayuda: String.raw`<p>Tabla de calor con seis defectos típicos como filas y cuatro columnas: Unitarias, Integración, End-to-end (todas en azul) y «Su mezcla» (verde). Cada celda muestra la probabilidad de detección en porcentaje y es más oscura cuanto mayor es. Al pasar el puntero sobre una celda se ven el defecto y el valor. Abajo se leen la detección promedio, el porcentaje del defecto más expuesto y cuántos defectos superan 80 %.</p>
           <ul>
-          <li><strong>Esfuerzo en cada nivel</strong>: mover el esfuerzo a un nivel eleva la detección de los defectos que ese nivel atrapa bien y baja la de los demás.</li>
-          <li>Ninguna combinación extrema cubre todas las filas: hace falta repartir entre los tres niveles.</li>
+          <li><strong>Esfuerzo en unitarias, integración y end-to-end</strong>: cambian solo la columna «Su mezcla»; las tres primeras columnas son fijas. Subir un nivel eleva los defectos que ese nivel detecta bien (por ejemplo, la fórmula de descuento con unitarias) y resta peso a los otros.</li>
+          <li>Como solo cuenta la proporción, poner los tres controles iguales da el mismo reparto que cualquier otro valor igual entre ellos; con los tres en 0 se usa un reparto nulo y la mezcla no detecta nada.</li>
           </ul>`, montar: montarDeteccion },
     ],
     teoria: String.raw`

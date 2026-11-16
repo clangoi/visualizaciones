@@ -154,27 +154,29 @@
       Las expresiones aritméticas, las fórmulas lógicas, los programas bien escritos y las cadenas de paréntesis balanceados se definen así.</p>
       <p>Lo bueno de una definición inductiva es que viene con su propio método de demostración: si algo vale para los elementos base y se conserva con cada regla, vale para todo el conjunto.</p>`,
     parametros: [
-      ['Conjunto (Fig. 1 y 2)', String.raw`Elige el conjunto definido inductivamente: su caso base y sus reglas (por ejemplo, 3 ∈ M y la suma).`],
-      ['Generaciones aplicadas (Fig. 1)', String.raw`Cuántas veces se aplican las reglas a lo ya obtenido.`],
-      ['Elemento a probar y Derivar (Fig. 2)', String.raw`El elemento cuya pertenencia se quiere justificar; Derivar busca la secuencia de reglas que lo produce.`],
+      ['Conjunto (Fig. 1)', String.raw`Dos conjuntos: M (3 ∈ M; x, y ∈ M ⇒ x + y ∈ M) y B (ε ∈ B; w ∈ B ⇒ (w) ∈ B; u, v ∈ B ⇒ uv ∈ B). Cambia la vista: M se muestra en una cuadrícula y B como fichas de cadenas.`],
+      ['Generaciones aplicadas (Fig. 1)', String.raw`De 0 a 5. Cuántas veces se aplican todas las reglas a lo ya obtenido.`],
+      ['Conjunto (Fig. 2)', String.raw`Tres conjuntos: M (múltiplos positivos de 3), B (paréntesis balanceados) y L (0ⁿ1ⁿ con n ≥ 0). Al cambiarlo, el campo se rellena con un ejemplo.`],
+      ['Elemento a probar y Derivar (Fig. 2)', String.raw`Texto cuya pertenencia se quiere justificar (un número en M, una cadena de paréntesis en B, una cadena de 0 y 1 en L; ε es la cadena vacía). Derivar muestra la derivación o la razón por la que no pertenece.`],
     ],
     visualizaciones: [
       {
         titulo: 'Generaciones de un conjunto',
         descripcion: 'Aplique las reglas generación por generación. Con la suma de múltiplos de 3 aparecen más números cada vez; con los paréntesis, las cadenas balanceadas de cada longitud.',
-        ayuda: String.raw`<p>Cada elemento se colorea según la generación en que aparece: anterior, nueva en esta, o todavía fuera del conjunto.</p>
+        ayuda: String.raw`<p>Para M se dibuja la cuadrícula de los números 0 a 39: negro (C.tinta) para los de una generación anterior (incluido el caso base 3), naranja (C.s2) para los nuevos de esta generación y gris para los que todavía no están; al pasar el puntero se indica la generación de cada número. Para B se muestran fichas con las cadenas de longitud hasta 8, y las nuevas de la generación actual van en naranja. La lectura da cuántos elementos hay y, en M, recuerda que todos son múltiplos de 3.</p>
           <ul>
-          <li><strong>Generaciones aplicadas</strong>: más generaciones traen más elementos nuevos; el conjunto es la unión de todas.</li>
-          <li><strong>Conjunto</strong>: cambia las reglas y, con ellas, qué elementos aparecen.</li>
+          <li><strong>Generaciones aplicadas</strong>: más generaciones traen más elementos nuevos; el conjunto es la unión de todas. Con 0 solo está el caso base.</li>
+          <li><strong>Conjunto</strong>: cambia las reglas y la vista.</li>
           </ul>`,
         montar: montarGeneraciones,
       },
       {
         titulo: 'Derivación y pertenencia',
         descripcion: 'Escriba un elemento y obtenga su derivación. Pruebe uno que no esté en el conjunto y vea qué invariante viola.',
-        ayuda: String.raw`<p>El registro muestra la derivación paso a paso o el resultado de que el elemento no pertenece.</p>
+        ayuda: String.raw`<p>No hay lienzo. El registro muestra la derivación, una lista de pasos cada uno justificado por el caso base o por una regla, o bien la razón (un invariante violado) por la que el elemento no pertenece. La lectura indica el elemento, si pertenece y cuántos pasos tiene la derivación.</p>
           <ul>
-          <li><strong>Elemento a probar</strong>: si pertenece, se obtiene una derivación; si no, se indica qué invariante viola.</li>
+          <li><strong>Elemento a probar</strong>: si pertenece, se obtiene una derivación (se acorta con «…» si es muy larga); si no, se indica qué propiedad viola.</li>
+          <li><strong>Conjunto</strong>: cambia las reglas con que se justifica cada paso.</li>
           </ul>`,
         montar: montarDerivacion,
       },

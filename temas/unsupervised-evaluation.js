@@ -140,25 +140,26 @@
       <p>Ninguno basta solo: un criterio interno favorece las formas que el algoritmo ya supone, y la estabilidad puede ser alta para una
       partición mala pero consistente.</p>`,
     parametros: [
-      ['Datos (Fig. 1 y 2)', String.raw`La forma de los datos sintéticos (por ejemplo, manchas, lunas o anillos). Decide si los grupos que k-means puede encontrar coinciden con la estructura real.`],
-      ['k-means con k (Fig. 1)', String.raw`El número de grupos que se le pide a k-means. Si no coincide con la estructura de los datos, la silueta de varios puntos baja.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra del mismo tipo de datos.`],
+      ['Datos (Fig. 1 y 2)', String.raw`Selector con cinco formas de datos sintéticos: «Tres manchas», «Densidades distintas», «Manchas alargadas», «Dos lunas» y «Anillos concéntricos». Decide si los grupos esféricos que k-means puede encontrar coinciden con la estructura real.`],
+      ['k-means con k (Fig. 1)', String.raw`Deslizador de 2 a 8: el número de grupos que se le pide a k-means. Si no coincide con la estructura de los datos, la silueta de varios puntos baja.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Botón que genera otra muestra del mismo tipo de datos y recalcula todo.`],
     ],
     visualizaciones: [
       {
         titulo: 'El gráfico de silueta',
         descripcion: 'k-means con el k elegido y la silueta de cada punto. Los puntos huecos tienen silueta negativa.',
-        ayuda: String.raw`<p>A un lado, los puntos coloreados por el grupo que asignó k-means; al otro, un gráfico de barras con la silueta de cada punto, agrupadas por grupo y ordenadas. Cerca de 1 el punto está bien dentro de su grupo, cerca de 0 está en la frontera y negativo, probablemente en el grupo equivocado (huecos en la figura). Una línea marca la silueta media.</p>
+        ayuda: String.raw`<p>A la izquierda (arriba en pantallas angostas), 180 puntos coloreados y con forma según el grupo que asignó k-means; los puntos huecos tienen silueta negativa. A la derecha (abajo en pantallas angostas), una barra horizontal por punto: la longitud es su silueta, las barras se agrupan por grupo con el mismo color y se ordenan de menor a mayor dentro de cada uno. La línea negra discontinua marca la silueta media. Cerca de 1 el punto está bien dentro de su grupo, cerca de 0 está en la frontera y negativo, probablemente en el grupo equivocado. Debajo se leen la silueta media, los puntos con silueta negativa y el ARI con los grupos reales.</p>
           <ul>
-          <li><strong>k-means con k</strong>: con k igual al número real de manchas, las barras son largas y la silueta media es máxima; con k de más o de menos, aparecen barras cortas o negativas.</li>
+          <li><strong>k-means con k</strong>: con k igual al número real de manchas, las barras suelen ser largas y la silueta media alta; con k de más o de menos, aparecen barras cortas o negativas.</li>
           <li><strong>Datos</strong>: en lunas o anillos, k-means corta la estructura y la silueta media no mejora con ningún k.</li>
+          <li><strong>Nuevos datos</strong>: permite comprobar si el k que luce mejor se repite en otras muestras.</li>
           </ul>`,
         montar: montarSilueta,
       },
       {
         titulo: 'Elegir k con tres criterios',
         descripcion: 'Silueta, estabilidad bootstrap y ARI externo para k = 2 … 8. Compare en qué conjuntos coinciden.',
-        ayuda: String.raw`<p>El eje horizontal es k (de 2 a 8) y el vertical, el valor de cada criterio (mayor es mejor): silueta media (interno), estabilidad bootstrap (ARI entre corridas) y ARI con los grupos reales (externo, posible solo porque los datos son sintéticos).</p>
+        ayuda: String.raw`<p>El eje horizontal es k (de 2 a 8) y el vertical, el valor de cada criterio (mayor es mejor). Hay tres curvas con marcadores: silueta media (azul, interno), estabilidad bootstrap (aguamarina; ARI medio entre 8 corridas de k-means sobre remuestras) y ARI con los grupos reales (naranja, externo, posible solo porque los datos son sintéticos). Al pasar el cursor se ve el valor de cada criterio para ese k; debajo se lee qué k gana en cada criterio.</p>
           <ul>
           <li><strong>Datos</strong>: con manchas los tres criterios suelen coincidir en el k real; con lunas o anillos ninguno encuentra la estructura.</li>
           <li><strong>Nuevos datos</strong>: si el k óptimo cambia entre muestras, el criterio no es confiable.</li>

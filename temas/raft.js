@@ -217,20 +217,24 @@
       <p>El tiempo se divide en <strong>términos</strong> numerados, cada uno con a lo más un líder. El líder recibe los comandos de los clientes, los agrega a su registro y
       los replica; una entrada está <strong>confirmada</strong> cuando la tiene una mayoría. Si los seguidores dejan de oír al líder, uno de ellos se postula en un término nuevo.</p>`,
     parametros: [
-      ['Velocidad (Fig. 1)', String.raw`Cuántos ticks de simulación avanzan por segundo real. No cambia el comportamiento, solo el ritmo con que se ve.`],
-      ['Reproducir, Avanzar 50 ms y Reiniciar (Fig. 1)', String.raw`Reproducir avanza solo, Avanzar 50 ms da un paso fijo y Reiniciar crea un nuevo clúster con otra semilla de temporizadores.`],
-      ['Comando del cliente (Fig. 1)', String.raw`Hace que el líder agregue una entrada a su registro. Replicarla y confirmarla requiere que la mayoría de los servidores la reciba.`],
-      ['Hacer caer al líder (Fig. 1)', String.raw`Detiene al líder actual. Sin latidos, el primer seguidor cuyo temporizador venza inicia una elección con un término mayor.`],
+      ['Velocidad (Fig. 1)', String.raw`Ritmo de la simulación, de 0,1× a 2× (milisegundos simulados por milisegundo real). No cambia el comportamiento del algoritmo, solo qué tan rápido se ve.`],
+      ['Reproducir / Pausar (Fig. 1)', String.raw`Hace avanzar la simulación sola con la velocidad elegida, o la detiene.`],
+      ['Avanzar 50 ms (Fig. 1)', String.raw`Avanza 50 ms simulados de una vez (diez ticks) y se detiene.`],
+      ['Comando del cliente (Fig. 1)', String.raw`Si hay un líder vivo, agrega una entrada nueva a su registro (en el término actual); se replicará con los siguientes latidos y quedará confirmada cuando la mayoría la tenga. Sin líder, solo avisa que el cliente debe esperar.`],
+      ['Hacer caer al líder (Fig. 1)', String.raw`Apaga el líder vivo (nodo gris). Los seguidores dejan de recibir latidos y el primer temporizador que venza inicia una elección con un término mayor.`],
+      ['Clic en un servidor (Fig. 1)', String.raw`Hace caer o revive ese servidor (cualquiera, no solo el líder). Al volver lo hace como seguidor, con su término y registro intactos.`],
+      ['Reiniciar (Fig. 1)', String.raw`Crea un clúster nuevo con otra semilla para los temporizadores aleatorios; los registros se vacían.`],
     ],
     visualizaciones: [
       {
         titulo: 'Elección y replicación',
         descripcion: 'Reproduzca, envíe comandos del cliente y haga caer al líder. Observe el temporizador (arco azul): el primero que vence inicia la elección. Con dos servidores caídos todavía hay mayoría (3 de 5); con tres, nada avanza.',
-        ayuda: String.raw`<p>Cada servidor es un nodo cuyo color indica su rol: seguidor, candidato o líder. El arco alrededor es su temporizador de elección. Los mensajes en tránsito son pedidos de voto o latidos y entradas, y abajo se ve el registro de cada servidor.</p>
+        ayuda: String.raw`<p>Arriba hay cinco servidores en círculo, cada uno con su término (y su voto, si lo tiene). Relleno blanco: seguidor; amarillo (C.s4): candidato; verde (C.s6): líder; gris: caído. El arco azul (C.s1) es el temporizador de elección; al agotarse el seguidor se postula. Los puntos que viajan son mensajes: naranja (C.s2) pedidos de voto y sus respuestas, violeta (C.s7) latidos y entradas; los más pequeños son respuestas. Abajo, una fila por servidor muestra su registro: el color y el número de cada celda es el término de la entrada y el borde grueso indica que está confirmada.</p>
           <ul>
-          <li><strong>Comando del cliente</strong>: aparece una entrada nueva en el registro del líder y luego en los seguidores, a medida que llegan los latidos.</li>
-          <li><strong>Hacer caer al líder</strong>: el nodo se apaga, algún temporizador vence, surgen pedidos de voto y se elige un líder con término mayor.</li>
-          <li>Al hacer clic en servidores hasta dejar menos de la mayoría vivos, no se elige líder: sin quórum no hay progreso.</li>
+          <li><strong>Comando del cliente</strong>: aparece una celda nueva en el registro del líder y luego en los seguidores, con los latidos.</li>
+          <li><strong>Hacer caer al líder</strong> o <strong>clic en un servidor</strong>: el temporizador de algún seguidor vence, surgen pedidos de voto y se elige un líder con término mayor.</li>
+          <li>Con menos de la mayoría (3 de 5) vivos no se elige líder ni se confirma nada.</li>
+          <li>El panel de lectura muestra tiempo, líder actual, elecciones iniciadas y entradas confirmadas.</li>
           </ul>`,
         montar,
       },

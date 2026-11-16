@@ -175,17 +175,20 @@
       <p>El problema es que la pantalla tiene dos dimensiones y los datos, muchas. Las matrices de dispersión y las coordenadas
       paralelas son dos formas clásicas de ver varias dimensiones a la vez.</p>`,
     parametros: [
-      ['colorear por especie (Fig. 1)', String.raw`Colorea los puntos según la especie. Permite comparar la correlación de un par de variables en todos los datos con la que hay dentro de cada especie.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra de flores sintéticas.`],
-      ['Limpiar filtros (Fig. 2)', String.raw`Quita todos los filtros de los ejes y vuelve a mostrar todas las flores.`],
+      ['colorear por especie (Fig. 1)', String.raw`Casilla: colorea cada flor según su especie (A azul, B naranja, C aguamarina, con distinta forma de marca). Desactivada, todas son grises y los histogramas se unen en uno solo.`],
+      ['Clic en una celda (Fig. 1)', String.raw`Elige el par de variables que se resume bajo la figura; en la diagonal resume una variable.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Genera otra muestra de 150 flores sintéticas (en la Fig. 2 también borra los filtros).`],
+      ['Arrastrar sobre un eje (Fig. 2)', String.raw`Arrastrar en vertical sobre un eje fija el rango de filtro de esa variable; un clic sin arrastrar borra el filtro de ese eje. Los filtros de varios ejes se combinan.`],
+      ['Limpiar filtros (Fig. 2)', String.raw`Quita todos los filtros y vuelve a mostrar todas las flores.`],
     ],
     visualizaciones: [
       {
         titulo: 'Matriz de dispersión',
         descripcion: 'Todas las vistas de a pares de cuatro variables de flores sintéticas. Compare la correlación total de un par con la que hay dentro de cada especie.',
-        ayuda: String.raw`<p>Es una matriz de gráficos de dispersión de cuatro variables: cada celda fuera de la diagonal enfrenta un par de variables y la diagonal indica la variable. Cada punto es una flor.</p>
+        ayuda: String.raw`<p>Matriz de 4×4 con las variables largo y ancho de sépalo y largo y ancho de pétalo. En la diagonal, el histograma de cada variable; bajo la diagonal, la dispersión de cada par (una flor por punto); sobre la diagonal, la correlación de Pearson, con fondo en escala de azules (más oscuro, más fuerte). La celda elegida lleva borde amarillo. Al pasar el cursor se ve el par y su correlación. Bajo la figura, la lectura da la correlación total del par elegido y la que hay dentro de cada especie.</p>
           <ul>
-          <li><strong>colorear por especie</strong>: activada, se ve que la correlación global de un par puede venir de la diferencia entre especies y ser distinta (o nula) dentro de cada una.</li>
+          <li><strong>colorear por especie</strong>: muestra que una correlación global puede venir de la diferencia entre especies y ser menor dentro de cada una.</li>
+          <li><strong>Clic en una celda</strong>: cambia el par resumido en la lectura.</li>
           <li><strong>Nuevos datos</strong>: otra muestra con la misma estructura.</li>
           </ul>`,
         montar: montarMatriz,
@@ -193,10 +196,11 @@
       {
         titulo: 'Coordenadas paralelas con filtros',
         descripcion: 'Las cuatro variables como ejes verticales. Filtre por largo de pétalo y observe qué especies quedan y qué valores toman en los otros ejes.',
-        ayuda: String.raw`<p>Cada eje vertical es una variable y cada flor, una línea que cruza los cuatro ejes, con el color de su especie. Las líneas fuera del filtro aparecen atenuadas y los filtros se marcan sobre los ejes.</p>
+        ayuda: String.raw`<p>Cuatro ejes verticales, uno por variable, con su máximo y mínimo; cada flor es una poligonal que los cruza, coloreada por especie (A azul, B naranja, C aguamarina). Las flores fuera del filtro se dibujan en gris tenue. Los filtros aparecen como una banda amarilla sobre el eje. La lectura cuenta las flores seleccionadas, en total y por especie. Al pasar el cursor sobre un eje se ve el valor a esa altura.</p>
           <ul>
-          <li><strong>Filtros</strong> sobre un eje: quedan resaltadas las flores en ese rango, y se ve qué especies son y qué valores toman en los otros ejes.</li>
-          <li><strong>Limpiar filtros</strong>: vuelven todas las líneas.</li>
+          <li><strong>Arrastrar sobre un eje</strong>: deja destacadas las flores cuyo valor cae en ese rango; con varios ejes filtrados se exige cumplir todos.</li>
+          <li><strong>Limpiar filtros</strong>: devuelve todas las líneas a color.</li>
+          <li><strong>Nuevos datos</strong>: otra muestra y sin filtros.</li>
           </ul>`,
         montar: montarParalelas,
       },

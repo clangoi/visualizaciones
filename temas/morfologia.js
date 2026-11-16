@@ -260,31 +260,34 @@
       grietas, se rellenan agujeros, se extrae el contorno para medir el perímetro y se reduce una forma a su
       <strong>esqueleto</strong>.</p>`,
     parametros: [
-      ['Operación y Elemento estructurante B (Fig. 1)', String.raw`La operación aplicada (dilatar, erosionar, abrir, cerrar…) y la forma de la sonda B con la que se recorre la imagen. B decide qué detalles sobreviven o se rellenan.`],
-      ['Radio de B (Fig. 1)', String.raw`El tamaño de la sonda. Con radio mayor la operación afecta estructuras más grandes.`],
-      ['Área mínima (limpieza) (Fig. 1)', String.raw`Superficie bajo la cual se eliminan los objetos pequeños en la operación de limpieza.`],
-      ['Aplicar al original, Imagen nueva y Borrar todo (Fig. 1)', String.raw`Volver a partir del original, generar otra imagen o vaciar el lienzo para dibujar.`],
-      ['Operación y Elemento estructurante B (Fig. 2)', String.raw`La dilatación (unión de copias de A desplazadas) o la erosión (lo común a las copias desplazadas), y los píxeles de B que fijan los desplazamientos.`],
+      ['Operación (Fig. 1)', String.raw`Selector con nueve opciones: dilatación, erosión, apertura, cierre, perímetro, relleno de agujeros, limpieza de objetos pequeños, esqueletización y unión con una segunda figura S.`],
+      ['Elemento estructurante B y Radio de B (Fig. 1)', String.raw`B puede ser Cuadrado, Cruz, Disco o Segmento horizontal, y el radio (1 a 3) fija su tamaño (por ejemplo, 3×3 con radio 1). Solo influyen en dilatación, erosión, apertura y cierre.`],
+      ['Área mínima (limpieza) (Fig. 1)', String.raw`De 2 a 30 píxeles: los objetos con menos píxeles que este valor se eliminan en la operación de limpieza. No afecta a las demás operaciones.`],
+      ['Aplicar al original, Imagen nueva y Borrar todo (Fig. 1)', String.raw`«Aplicar al original» reemplaza A por el resultado para encadenar operaciones; «Imagen nueva» genera otra imagen de formas; «Borrar todo» deja A vacía para dibujarla. También se pinta o borra sobre A con clic y arrastre.`],
+      ['Operación (Fig. 2)', String.raw`Dilatación (unión de las copias A + b desplazadas) o erosión (intersección de las copias A − b).`],
+      ['Elemento estructurante B (Fig. 2)', String.raw`Cruz (5 píxeles), Cuadrado 3×3 o Segmento 1×3; cada píxel de B fija un desplazamiento y por tanto un paso.`],
     ],
     visualizaciones: [
       {
         titulo: 'Operaciones sobre una imagen binaria',
         descripcion: 'A la izquierda la imagen original, a la derecha el resultado con los cambios en color. Pruebe la apertura con radio 1: borra los granos sueltos sin cambiar las formas grandes.',
-        ayuda: String.raw`<p>A la izquierda la imagen original y a la derecha el resultado. Los píxeles de objeto están en su color; los agregados por la operación y los eliminados se distinguen por colores propios, y la segunda figura S aparece cuando la operación es una unión.</p>
+        ayuda: String.raw`<p>A la izquierda está la imagen original A (editable) y a la derecha el resultado de la operación elegida. En el original, los píxeles de objeto son negros (C.tinta) y, en la unión, la segunda figura S se ve en aguamarina (C.s3). En el resultado, los píxeles agregados son azules (C.s1), los eliminados son rojizos (C.s8 atenuado) y los que se conservan, negros. La lectura cuenta los píxeles de A y del resultado, los agregados, los eliminados y los objetos (vecindad 8) antes y después.</p>
           <ul>
-          <li><strong>Radio de B</strong>: aumenta la cantidad de píxeles agregados (dilatación) o eliminados (erosión).</li>
-          <li><strong>Apertura con radio 1</strong>: elimina granos más pequeños que B sin alterar las formas grandes.</li>
+          <li><strong>Radio de B</strong>: con B mayor se agregan más píxeles (dilatación) o se eliminan más (erosión).</li>
           <li><strong>Elemento estructurante B</strong>: su forma determina qué se redondea o se conserva en los bordes.</li>
+          <li><strong>Apertura y cierre</strong>: la apertura (erosión y luego dilatación) quita granos más pequeños que B; el cierre (dilatación y luego erosión) rellena grietas y huecos pequeños.</li>
+          <li><strong>Aplicar al original</strong>: pruebe una erosión seguida de una dilatación y compárela con la apertura.</li>
           </ul>`,
         montar: montarOperaciones,
       },
       {
         titulo: 'Dilatación como unión de traslaciones',
         descripcion: 'La dilatación junta copias de A desplazadas por cada píxel de B; la erosión se queda con lo común a todas las copias desplazadas en sentido contrario.',
-        ayuda: String.raw`<p>Se muestra el contorno de A, la traslación del paso actual, el resultado acumulado y el píxel b de B que produce ese desplazamiento.</p>
+        ayuda: String.raw`<p>La imagen grande es el resultado acumulado (azul, C.s1) sobre una rejilla; el contorno negro es A original. Los puntos naranja (C.s2) son la traslación del paso actual. A la derecha se dibuja B como una cuadrícula 3×3 con su origen al centro (círculo naranja): los píxeles de B son negros y el b del paso actual es violeta (C.s7). Un registro explica cada paso y la lectura da el número de traslación, los píxeles de A y los del resultado.</p>
           <ul>
-          <li><strong>Operación</strong>: en la dilatación el resultado crece con cada copia unida; en la erosión se reduce a lo que todas las copias comparten.</li>
+          <li><strong>Operación</strong>: en la dilatación se parte del conjunto vacío y cada copia se une; en la erosión se parte de la imagen completa y cada copia se intersecta, de modo que queda lo común a todas.</li>
           <li><strong>Elemento estructurante B</strong>: cada píxel de B agrega un paso; una cruz de 5 píxeles genera 5 traslaciones.</li>
+          <li><strong>Controles de reproducción</strong>: avance las traslaciones paso a paso o de corrido; cambiar la operación o B reinicia.</li>
           </ul>`,
         montar: montarTraslaciones,
       },

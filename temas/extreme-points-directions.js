@@ -383,31 +383,32 @@
       <p>El <strong>teorema de representación</strong> dice que todo punto es un vértice «promedio» más un desplazamiento hacia el infinito en esas direcciones. Con él se entiende de inmediato
       por qué un LP tiene su óptimo en un vértice, o ninguno si hay una dirección que mejora el objetivo sin límite.</p>`,
     parametros: [
-      ['λ₁, λ₂ y λ₃ (V₁, V₂, V₃) (Fig. 1)', String.raw`Pesos de la combinación convexa de vértices que da la parte acotada q.`],
-      ['μ₁ y μ₂ (d₁, d₂) (Fig. 1)', String.raw`Cuánto se avanza en cada dirección extrema. Aumentarlas aleja P hacia el infinito.`],
-      ['Al arrastrar P, usar (Fig. 1)', String.raw`Un mismo punto puede tener varias representaciones; elige la de mínimo o máximo de direcciones.`],
-      ['Región (Fig. 2)', String.raw`Elige el poliedro del LP: acotado, con una dirección extrema o con varias.`],
-      ['Dirección de c (Fig. 2)', String.raw`Dirección del objetivo. Decide qué vértice es óptimo o si el problema es no acotado.`],
+      ['λ₁, λ₂ y λ₃ (V₁, V₂, V₃) (Fig. 1)', String.raw`Pesos (0 a 1) de la combinación convexa de los tres vértices del poliedro que da la parte acotada q = Σ λᵢVᵢ. Al mover uno, los otros se reescalan para sumar 1.`],
+      ['μ₁ y μ₂ (d₁, d₂) (Fig. 1)', String.raw`Cuánto se avanza (0 a 6) en cada dirección extrema, a partir de q. Aumentarlas aleja P hacia el infinito.`],
+      ['Al arrastrar P, usar (Fig. 1)', String.raw`Un mismo punto puede tener varias representaciones; el selector indica si, al arrastrar P, se muestra la de mínimo o máximo de direcciones (μ).`],
+      ['Región (Fig. 2)', String.raw`Elige el poliedro del LP: No acotada con dos direcciones extremas, Franja con una dirección extrema o Acotada sin direcciones.`],
+      ['Dirección de c (Fig. 2)', String.raw`Ángulo del objetivo c (0° a 355°); también se puede girar arrastrando sobre el gráfico. Decide qué vértice es óptimo o si el problema es no acotado.`],
     ],
     visualizaciones: [
       {
         titulo: 'Un punto como vértices más direcciones',
         descripcion: 'Arrastre P por el poliedro y vea su descomposición \\(P = q + \\mu_1 d_1 + \\mu_2 d_2\\) con \\(q\\) en el triángulo de los vértices; cambie el criterio para ver otra representación del mismo punto y pruebe a salir del poliedro.',
-        ayuda: String.raw`<p>Los vértices V₁, V₂ y V₃ forman un triángulo, y d₁ y d₂ son las direcciones extremas. P = q + μ₁d₁ + μ₂d₂, con q = Σ λᵢVᵢ en el triángulo. Si P cae fuera, no hay representación.</p>
+        ayuda: String.raw`<p>El poliedro es la región verde; el triángulo azul claro es conv(V₁, V₂, V₃). Desde el origen una línea gris punteada llega a q (punto azul), y de q salen la flecha naranja μ₁d₁ y a continuación la aguamarina μ₂d₂ hasta P. P es verde (C.s6) dentro del poliedro y rojo (C.s8) fuera. Se arrastra P con el puntero.</p>
           <ul>
           <li><strong>λ</strong>: mueven q dentro del triángulo.</li>
           <li><strong>μ</strong>: desplazan P a lo largo de las direcciones extremas.</li>
-          <li><strong>Al arrastrar P</strong>: cambia la descomposición, pero P no cambia.</li>
+          <li><strong>Al arrastrar P</strong>: se recalcula una representación (por programación lineal); P no cambia, pero sí los λ y μ.</li>
+          <li>Si P cae fuera, no hay representación.</li>
           </ul>`,
         montar: montarRepresentacion,
       },
       {
         titulo: 'Direcciones extremas y el óptimo del LP',
         descripcion: 'Gire c y compare los valores c·v de los vértices con c·d de las direcciones: el problema es no acotado justo cuando alguna c·d es positiva. Cambie de región para ver el caso acotado y el de una sola dirección.',
-        ayuda: String.raw`<p>Se dibujan los vértices, las direcciones extremas d, el objetivo c, el óptimo de max c·x y las direcciones que mejoran c sin límite (c·d &gt; 0).</p>
+        ayuda: String.raw`<p>El poliedro de la región elegida (verde), sus vértices (puntos negros V₁, V₂…), las direcciones extremas d (flechas), el objetivo c (flecha violeta, C.s7), la curva de nivel del óptimo (violeta discontinua) y el óptimo de max c·x (vértice verde grande). Una dirección extrema en rojo (C.s8) mejora c sin límite (c·d &gt; 0); en naranja (C.s2), no.</p>
           <ul>
           <li><strong>Dirección de c</strong>: cuando alguna c·d es positiva, el problema es no acotado; si no, el óptimo está en un vértice.</li>
-          <li><strong>Región</strong>: cambia el caso acotado, el de una dirección y el de varias.</li>
+          <li><strong>Región</strong>: cambia entre el caso con dos direcciones, el de una y el acotado, sin direcciones.</li>
           </ul>`,
         montar: montarLP,
       },

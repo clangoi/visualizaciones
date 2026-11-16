@@ -4,7 +4,7 @@
 
   const ESC = {
     seguro: { nombre: 'Estado seguro (ejemplo clásico)', disp: [3, 3, 2], max: [[7, 5, 3], [3, 2, 2], [9, 0, 2], [2, 2, 2], [4, 3, 3]], asig: [[0, 1, 0], [2, 0, 0], [3, 0, 2], [2, 1, 1], [0, 0, 2]] },
-    inseguro: { nombre: 'Estado inseguro', disp: [1, 0, 1], max: [[7, 5, 3], [3, 2, 2], [9, 0, 2], [2, 2, 2], [4, 3, 3]], asig: [[0, 1, 0], [2, 0, 0], [3, 0, 2], [2, 1, 1], [3, 3, 2]] },
+    inseguro: { nombre: 'Estado inseguro', disp: [0, 1, 0], max: [[7, 5, 3], [3, 2, 2], [9, 0, 2], [2, 2, 2], [4, 3, 3]], asig: [[0, 1, 0], [2, 0, 0], [3, 0, 2], [2, 1, 1], [3, 3, 2]] },
   };
 
   function montarBanquero(cuerpo) {
@@ -101,22 +101,24 @@
       <p>Un <strong>interbloqueo</strong> (<em>deadlock</em>) ocurre cuando varios procesos esperan recursos que otros del grupo retienen, de modo que ninguno puede avanzar. Cada uno tiene lo que el siguiente necesita: un círculo de esperas.</p>
       <p>Se puede <em>prevenir</em> negando una de sus condiciones (por ejemplo, ordenando los recursos), <em>evitar</em> negando solicitudes que llevarían a un estado inseguro (algoritmo del banquero), o <em>detectar</em> y recuperarse después.</p>`,
     parametros: [
-      ['Estado y reproductor (Fig. 1)', String.raw`Elige entre un estado seguro y uno inseguro (distinta asignación y recursos disponibles). El reproductor avanza el algoritmo de seguridad un proceso por paso.`],
-      ['Procesos y recursos (Fig. 2)', String.raw`Cuántos procesos y recursos forman el sistema; cada proceso retiene uno y pide el siguiente. Con más procesos el ciclo es más largo.`],
-      ['Pedir los recursos en orden global (Fig. 2)', String.raw`Obliga a pedir siempre el recurso de menor número primero. Elimina la espera circular, una de las cuatro condiciones del interbloqueo.`],
+      ['Estado (Fig. 1)', String.raw`Selector con dos opciones: «Estado seguro (ejemplo clásico)» y «Estado inseguro», que cambian el vector disponible y la asignación de recursos. Al cambiarlo, el algoritmo vuelve al inicio.`],
+      ['Reproductor (Fig. 1)', String.raw`Controla el algoritmo de seguridad: «Velocidad», «Reproducir»/«Pausar», «Un paso», «Hasta el final» y «Reiniciar». El primer paso fija Trabajo = Disponible y cada paso siguiente termina un proceso.`],
+      ['Procesos y recursos (Fig. 2)', String.raw`Número de procesos (y de recursos), de 2 a 8; cada proceso retiene el recurso con su número y pide el siguiente.`],
+      ['Pedir los recursos en orden global (menor número primero) (Fig. 2)', String.raw`Casilla. Si está marcada, el último proceso pide primero R0 y no retiene nada, de modo que el ciclo de espera no se cierra.`],
     ],
     visualizaciones: [
       { titulo: 'Algoritmo del banquero: ¿es seguro el estado?', descripcion: 'Recorra el algoritmo de seguridad en un estado seguro y en uno inseguro. Observe qué ocurre cuando ningún proceso pendiente cabe en lo disponible.',
-        ayuda: String.raw`<p>Una tabla con, para cada proceso, su máximo, su asignación y su necesidad (máximo menos asignación), junto con el vector de recursos disponibles y el vector de trabajo del algoritmo de seguridad. Cada paso marca qué proceso cabe en el trabajo actual y termina devolviendo su asignación.</p>
+        ayuda: String.raw`<p>Tabla con una fila por proceso y las columnas «proceso», «asignado (A B C)», «máximo», «necesidad» (máximo menos asignado) y «estado». Un proceso pendiente aparece en gris; al terminar se pone en verde como «terminado (#k)», con su orden en la secuencia. Bajo la tabla, un texto explica cada paso y las lecturas muestran el trabajo (A B C), cuántos terminaron y el veredicto.</p>
           <ul>
-          <li><strong>Estado</strong> seguro: se encuentra una secuencia en la que todos terminan, y el estado es seguro.</li>
-          <li><strong>Estado</strong> inseguro: llega un punto en que ningún proceso pendiente cabe en lo disponible; el estado es inseguro y podría haber interbloqueo.</li>
+          <li><strong>Estado</strong>: cada escenario tiene sus propios disponibles y asignaciones; el algoritmo busca en cada paso un proceso pendiente cuya necesidad cabe en el trabajo.</li>
+          <li><strong>Reproductor</strong>: cada paso suma al trabajo la asignación del proceso que termina; al final el veredicto es «seguro» (todos terminaron) o «inseguro» (ninguno pendiente cabe).</li>
           </ul>`, montar: montarBanquero },
       { titulo: 'Espera circular y orden de recursos', descripcion: 'Con cada proceso reteniendo un recurso y pidiendo el siguiente se forma un ciclo. Active el orden global de adquisición y vea desaparecer el interbloqueo.',
-        ayuda: String.raw`<p>Procesos y recursos son nodos; una arista de retención va del recurso al proceso que lo tiene y una de solicitud, del proceso al recurso que pide. Los procesos que avanzan se distinguen de los bloqueados dentro de un ciclo.</p>
+        ayuda: String.raw`<p>Los procesos P0, P1… son círculos en un anillo exterior, verdes si avanzan y rojos si están bloqueados en un ciclo. Los recursos R0, R1… son cuadros en el anillo interior. Una flecha negra continua va del recurso al proceso que lo retiene; una flecha amarilla discontinua va del proceso al recurso que pide. Pasar el cursor sobre un proceso indica qué retiene y qué pide.</p>
           <ul>
-          <li><strong>Procesos y recursos</strong>: cada proceso retiene uno y pide el siguiente, así que se forma un ciclo y todos quedan bloqueados.</li>
-          <li><strong>Pedir los recursos en orden global</strong> marcado: el último proceso pide primero el recurso menor, el ciclo se rompe y los procesos avanzan.</li>
+          <li><strong>Procesos y recursos</strong>: cada proceso Pi retiene Ri y pide R(i+1), con el último pidiendo R0, así que se forma un ciclo y todos quedan en rojo.</li>
+          <li><strong>Pedir en orden global</strong>: el último proceso no retiene nada y pide R0; el ciclo se rompe y todos pasan a verde, con un recurso libre.</li>
+          <li><strong>Lecturas</strong>: procesos en el ciclo, si hay interbloqueo y recursos libres.</li>
           </ul>`, montar: montarCiclo },
     ],
     teoria: String.raw`

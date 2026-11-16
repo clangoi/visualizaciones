@@ -73,21 +73,22 @@
       <p>Un paquete que cruza un router sufre cuatro retardos: el de <strong>procesamiento</strong> (leer su cabecera y decidir), el de <strong>cola</strong> (esperar su turno), el de <strong>transmisión</strong> (poner todos sus bits en el enlace) y el de <strong>propagación</strong> (que la señal viaje por el medio). Cada uno depende de cosas distintas, y por eso la red puede ser lenta por razones muy diferentes.</p>
       <p>El retardo de cola es el más caprichoso: depende de cuánto tráfico llega y se dispara cuando el enlace se acerca a su capacidad.</p>`,
     parametros: [
-      ['Tamaño del paquete L (bits) (Fig. 1)', String.raw`Longitud del paquete. Aumenta el retardo de transmisión L/R y también la cola.`],
-      ['Velocidad del enlace R (Mbps) (Fig. 1)', String.raw`Qué tan rápido se emite el paquete. Más velocidad reduce la transmisión, no la propagación.`],
-      ['Distancia (km) (Fig. 1)', String.raw`Largo del enlace; solo afecta a la propagación d/s.`],
-      ['Tráfico en la cola (ρ = La/R) (Fig. 1)', String.raw`Qué tan cargado está el enlace. Cerca de 1 el retardo de cola se dispara.`],
+      ['Tamaño del paquete L (bits) (Fig. 1)', String.raw`Longitud del paquete, de 500 a 24 000 bits. Aumenta el retardo de transmisión L/R y, como la cola se mide en múltiplos de L/R, también el de cola; no cambia la propagación.`],
+      ['Velocidad del enlace R (Mbps) (Fig. 1)', String.raw`Velocidad de emisión, de 1 a 1 000 Mbps. Más velocidad reduce la transmisión y la cola, pero no la propagación.`],
+      ['Distancia (km) (Fig. 1)', String.raw`Largo del enlace, de 1 a 20 000 km. Solo cambia la propagación d/s, calculada con 2 × 10<sup>8</sup> m/s.`],
+      ['Tráfico en la cola (ρ = La/R) (Fig. 1)', String.raw`Intensidad de tráfico en porcentaje, de 0 a 98 %. Cerca de 100 % el retardo de cola se dispara.`],
     ],
     visualizaciones: [
       { titulo: 'Los cuatro retardos de un salto', descripcion: 'Un paquete de 12 000 bits en un enlace de 10 Mbps tarda 1,2 ms en transmitirse; a 1 000 km, la propagación es 5 ms. Cambie las magnitudes y vea cuál domina.',
-        ayuda: String.raw`<p>Una barra horizontal apilada muestra el retardo total de un salto, dividido en procesamiento (azul), cola (amarillo), transmisión L/R (naranja) y propagación d/s (aguamarina).</p>
+        ayuda: String.raw`<p>Una barra horizontal apilada muestra el retardo total de un salto, repartido en procesamiento (azul, fijo en 0,1 ms), cola (amarillo), transmisión L/R (naranja) y propagación d/s (aguamarina). El ancho de cada segmento es proporcional a su parte del total; arriba se ve 0 y el total en ms. Pasar el cursor sobre un segmento muestra su valor en ms.</p>
           <ul>
-          <li><strong>Tamaño del paquete L</strong> y <strong>Velocidad R</strong>: cambian el segmento de transmisión.</li>
-          <li><strong>Distancia</strong>: solo ensancha el segmento de propagación.</li>
-          <li><strong>Tráfico en la cola</strong>: ensancha el segmento de cola, poco con ρ bajo y mucho cerca de 1.</li>
+          <li><strong>Tamaño del paquete L</strong> y <strong>Velocidad R</strong>: cambian el segmento naranja, y con él el amarillo, que depende de L/R.</li>
+          <li><strong>Distancia</strong>: solo ensancha el segmento aguamarina.</li>
+          <li><strong>Tráfico en la cola</strong>: ensancha el segmento amarillo, poco con ρ bajo y mucho cerca de 98 %.</li>
+          <li><strong>Lecturas</strong>: transmisión, propagación, cola y cuál de las cuatro partes es la dominante.</li>
           </ul>`, montar: montarNodal },
       { titulo: 'Cola e intensidad de tráfico', descripcion: 'Recorra la curva con el cursor: el retardo de cola crece sin límite cuando ρ se acerca a 1.',
-        ayuda: String.raw`<p>Eje horizontal, intensidad de tráfico ρ; vertical, retardo medio de cola en múltiplos de L/R. La curva azul sube hasta ρ = 1 y la parte roja (ρ ≥ 1) indica cola sin límite. La figura no tiene controles: use el cursor para leer valores.</p>`, montar: montarCola },
+        ayuda: String.raw`<p>Eje horizontal, intensidad de tráfico ρ (de 0 a 1); vertical, retardo medio de cola en múltiplos de L/R (hasta 10). La curva azul es ρ/(2(1−ρ)) y sube sin límite al acercarse a 1; la línea roja discontinua vertical marca ρ = 1, donde la cola crece sin límite. La figura no tiene controles: al mover el cursor sobre el plano aparece un punto en la curva y un cuadro con ρ y el retardo de cola.</p>`, montar: montarCola },
     ],
     teoria: String.raw`
       <h2>Retardo en un salto</h2>

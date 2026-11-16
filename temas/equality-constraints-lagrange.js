@@ -366,41 +366,46 @@
       <p>La condición clave es geométrica: en el óptimo la curva de nivel de \(f\) es <strong>tangente</strong> a la restricción, o dicho con gradientes,
       \(\nabla f\) es paralelo a \(\nabla h\). El factor de proporcionalidad es el <strong>multiplicador de Lagrange</strong> \(\lambda\).</p>`,
     parametros: [
-      ['Problema (Fig. 1, 2 y 3)', String.raw`Objetivo f y restricción \(h = 0\) del ejemplo; cambia las curvas y los puntos críticos.`],
-      ['Posición sobre la restricción (Fig. 1 y 2)', String.raw`Punto de la curva \(h = 0\) donde se evalúan los gradientes.`],
-      ['Siguiente punto crítico, Ir al mínimo restringido (Fig. 1 y 2)', String.raw`Llevan el punto a donde \(\nabla f\) y \(\nabla h\) son paralelos.`],
-      ['Dirección d (ángulo) (Fig. 2)', String.raw`Dirección de prueba desde el punto; determina \(\nabla h \cdot d\) y \(\nabla f \cdot d\).`],
-      ['Alinear con la tangente, Alinear con −∇f (Fig. 2)', String.raw`Colocan d tangente a la restricción o en el descenso más rápido de f.`],
-      ['Nivel c de la curva f = c (Fig. 3)', String.raw`Valor de f cuya curva de nivel se cruza con la restricción.`],
-      ['Nivel = mínimo / máximo restringido (Fig. 3)', String.raw`Fijan c en los valores extremos de f sobre la restricción.`],
+      ['Problema (Fig. 1, 2 y 3)', String.raw`Selector de cuatro ejemplos: «Función lineal sobre un círculo», «Distancia a un punto desde una recta», «…desde una elipse» y «…desde una parábola». Cambia f, la restricción \(h = 0\) y sus puntos críticos.`],
+      ['Posición sobre la restricción (Fig. 1 y 2)', String.raw`Deslizador (0 a 100 %) que recorre la curva \(h = 0\) y fija el punto donde se evalúan los gradientes. También se puede arrastrar sobre el gráfico superior: el punto se ajusta a la curva.`],
+      ['Siguiente punto crítico (Fig. 1 y 2)', String.raw`Botón que lleva el punto, uno tras otro, a cada punto donde \(\nabla f\) y \(\nabla h\) son paralelos.`],
+      ['Ir al mínimo restringido (Fig. 1)', String.raw`Botón que lleva el punto al mínimo de f sobre la restricción.`],
+      ['Dirección d (ángulo) (Fig. 2)', String.raw`Deslizador de 0° a 359° para la dirección de prueba desde el punto; determina \(\nabla h \cdot d\) y \(\nabla f \cdot d\). Un clic en el gráfico inferior también fija el ángulo.`],
+      ['Alinear con la tangente (Fig. 2)', String.raw`Botón que pone d a lo largo de la tangente a la restricción.`],
+      ['Alinear con −∇f (Fig. 2)', String.raw`Botón que pone d en el sentido opuesto a \(\nabla f\), el descenso más rápido de f.`],
+      ['Nivel c de la curva f = c (Fig. 3)', String.raw`Deslizador del valor c de f cuya curva de nivel se compara con la restricción.`],
+      ['Nivel = mínimo restringido, Nivel = máximo restringido (Fig. 3)', String.raw`Botones que fijan c en el mínimo o en el máximo de f sobre la restricción.`],
     ],
     visualizaciones: [
       {
         titulo: 'Muévase sobre la restricción',
         descripcion: 'Arrastre el punto por la curva negra y observe los dos gradientes: solo en los círculos verdes \\(\\nabla f\\) y \\(\\nabla h\\) quedan paralelos. Pruebe «Siguiente punto crítico» y compare los valores de \\(\\lambda\\).',
-        ayuda: String.raw`<p>La restricción \(h = 0\), las curvas de nivel de f, el gradiente \(\nabla f\) con su nivel, \(\nabla h\) y la tangente en el punto. Se marcan los puntos con \(\nabla f \parallel \nabla h\).</p>
+        ayuda: String.raw`<p>La restricción \(h = 0\) es la curva negra gruesa; las curvas grises son niveles de f y la naranja es el nivel que pasa por el punto. Desde el punto negro salen \(\nabla f\) (naranja) y \(\nabla h\) (azul), ambos con el mismo largo, y la tangente aguamarina discontinua. Los círculos verdes marcan los puntos con \(\nabla f \parallel \nabla h\). Debajo se leen el punto, f, el ángulo entre gradientes, df/ds, \(\lambda\) y si son paralelos.</p>
           <ul>
-          <li><strong>Posición sobre la restricción</strong>: solo en los puntos marcados los gradientes son paralelos; allí f no mejora moviéndose sobre h.</li>
+          <li><strong>Posición sobre la restricción</strong>: solo en los círculos verdes los gradientes son paralelos; allí f no mejora moviéndose sobre h.</li>
           <li><strong>Siguiente punto crítico</strong>: salta a cada candidato a extremo.</li>
+          <li><strong>Ir al mínimo restringido</strong>: salta al punto crítico de menor f.</li>
           </ul>`,
         montar: montarMovimiento,
       },
       {
         titulo: 'Direcciones factibles y derivada direccional',
         descripcion: 'Gire la dirección \\(d\\): solo las tangentes son factibles (\\(\\nabla h\\cdot d=0\\)). Pruebe «Alinear con la tangente» y vea cuándo \\(\\nabla f\\cdot d\\) deja de ser negativa.',
-        ayuda: String.raw`<p>Arriba, la dirección d con \(\nabla f\), \(\nabla h\) y la tangente. Abajo, \(\nabla f \cdot d\) y \(\nabla h \cdot d\) según el ángulo de d.</p>
+        ayuda: String.raw`<p>Arriba, el mismo plano con la dirección d (flecha negra), \(\nabla f\) (naranja), \(\nabla h\) (azul) y la tangente (aguamarina). Abajo, el eje horizontal es el ángulo de d (0° a 360°): la curva naranja es \(\nabla f \cdot d\), la azul es \(\nabla h \cdot d\), los puntos aguamarina marcan los dos ángulos tangentes (donde la azul vale 0) y una línea negra vertical indica el ángulo actual.</p>
           <ul>
           <li><strong>Dirección d</strong>: solo es factible si \(\nabla h \cdot d = 0\), o sea tangente.</li>
-          <li><strong>Alinear con la tangente</strong>: en un punto crítico \(\nabla f \cdot d\) deja de ser negativa y no hay descenso factible.</li>
+          <li><strong>Alinear con la tangente</strong>: pone la línea negra sobre uno de los puntos aguamarina; en un punto crítico la curva naranja también vale 0 allí y no hay descenso factible.</li>
+          <li><strong>Alinear con −∇f</strong>: d apunta al descenso más rápido, pero en general no es tangente.</li>
           </ul>`,
         montar: montarDirecciones,
       },
       {
         titulo: 'Bajar el nivel hasta rozar la restricción',
         descripcion: 'Cambie el nivel \\(c\\) de la curva \\(f=c\\) y cuente los cruces con la restricción. Pruebe los botones de mínimo y máximo: en esos niveles hay tangencia.',
-        ayuda: String.raw`<p>La restricción, la curva de nivel \(f = c\), los cruces entre ambas y las tangencias donde está el extremo.</p>
+        ayuda: String.raw`<p>La restricción (negra), la curva de nivel \(f = c\) (naranja), los cruces entre ambas (puntos azules) y las tangencias (puntos verdes) donde f alcanza su extremo sobre la restricción. Debajo se leen c, el número de cruces y el mínimo y el máximo de f sobre \(h = 0\).</p>
           <ul>
-          <li><strong>Nivel c</strong>: hay cruces mientras c esté entre el mínimo y el máximo restringidos; en los extremos las curvas se tocan.</li>
+          <li><strong>Nivel c</strong>: hay cruces mientras c esté entre el mínimo y el máximo restringidos; en los extremos la curva naranja solo roza la restricción.</li>
+          <li><strong>Nivel = mínimo / máximo restringido</strong>: coloca c en una tangencia.</li>
           </ul>`,
         montar: montarNivel,
       },

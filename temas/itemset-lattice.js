@@ -164,26 +164,30 @@
       <p>Por la <strong>monotonía del soporte</strong>, los frecuentes forman una región conectada en la parte superior. Encontrar
       itemsets frecuentes es encontrar la <strong>frontera</strong> de esa región, y podar todo lo que queda bajo un nodo infrecuente.</p>`,
     parametros: [
-      ['Soporte mínimo (Fig. 1 y 2)', String.raw`Umbral de frecuencia. En la Fig. 1 mueve la frontera entre frecuentes e infrecuentes; en la Fig. 2 decide qué se cuenta y qué se poda.`],
-      ['Nuevas canastas y reproductor (Fig. 1 y 2)', String.raw`Nueva muestra de transacciones y, en la Fig. 2, avance del recorrido por niveles.`],
+      ['Soporte mínimo (Fig. 1 y 2)', String.raw`Umbral de frecuencia, de 2 % a 50 %. En la Fig. 1 decide qué nodos cuentan como frecuentes; en la Fig. 2 decide cuáles se cuentan como frecuentes y, por tanto, cuáles se podan. En la Fig. 2, al moverlo se reinicia el recorrido.`],
+      ['Nuevas canastas (Fig. 1 y 2)', String.raw`Genera otra muestra de 200 transacciones; en la Fig. 1 se redibuja de inmediato y en la Fig. 2 reinicia el recorrido.`],
+      ['Reproductor (Fig. 2)', String.raw`Botones que avanzan el algoritmo un nivel de la retícula por paso (de tamaño 1 a 5), o lo reproducen solo, y lo reinician.`],
     ],
     visualizaciones: [
       {
         titulo: 'Frecuentes, maximales y cerrados',
         descripcion: 'La retícula de los cinco productos más vendidos. Mueva el soporte mínimo y observe la frontera; los anillos marcan los resúmenes compactos.',
-        ayuda: String.raw`<p>Cada nodo es un itemset de los cinco productos más vendidos, ordenados por tamaño. La intensidad indica el soporte de los frecuentes; los anillos marcan los maximales (sin superconjuntos frecuentes) y los cerrados (ningún superconjunto con su mismo soporte).</p>
+        ayuda: String.raw`<p>Cada caja es un itemset de los cinco productos más vendidos (A a E, listados bajo la figura), con la cantidad de ítems creciendo hacia abajo (arriba el conjunto vacío). Una línea une cada conjunto con los que tienen un ítem más; es azul si ambos extremos son frecuentes. Los frecuentes se rellenan en escala de azules según su soporte (más oscuro, más soporte); los infrecuentes quedan blancos con borde gris. El anillo verde marca un itemset maximal (frecuente sin superconjuntos frecuentes) y el violeta, uno cerrado que no es maximal (ningún superconjunto con su mismo soporte). Al pasar el cursor sobre una caja se ve su soporte.</p>
           <ul>
-          <li><strong>Soporte mínimo</strong> alto: pocos nodos frecuentes y la frontera baja hacia los itemsets pequeños.</li>
-          <li><strong>Soporte mínimo</strong> bajo: la frontera sube y los maximales son itemsets grandes.</li>
+          <li><strong>Soporte mínimo</strong> más alto: menos cajas azules; la región frecuente se achica hacia la cima de la retícula y los maximales son conjuntos pequeños.</li>
+          <li><strong>Soporte mínimo</strong> más bajo: la región frecuente se extiende hacia abajo y los maximales son conjuntos más grandes.</li>
+          <li><strong>Nuevas canastas</strong>: cambia los soportes, y con ellos qué cajas son frecuentes, maximales o cerradas.</li>
           </ul>`,
         montar: montarBorde,
       },
       {
         titulo: 'Apriori recorre la retícula',
         descripcion: 'Nivel por nivel: qué se cuenta y qué se poda. Suba el soporte mínimo para ver podas más tempranas.',
-        ayuda: String.raw`<p>La misma retícula, recorrida nivel por nivel. Los nodos se colorean como contados frecuentes, contados infrecuentes, podados sin contar o aún no visitados.</p>
+        ayuda: String.raw`<p>La misma retícula, coloreada según lo que hace Apriori nivel por nivel. Verde: conjunto contado y frecuente. Rojo (borde y texto): contado e infrecuente. Blanco con borde punteado: podado sin contar, porque algún subconjunto no era frecuente; la línea hacia un podado desde un infrecuente se dibuja roja punteada. Gris: nivel aún no visitado. Bajo la figura, el registro dice cuántos conjuntos se contaron y se podaron en cada nivel, y la lectura compara con los 31 conjuntos que contaría la fuerza bruta.</p>
           <ul>
-          <li><strong>Soporte mínimo</strong>: al subirlo, más nodos quedan podados porque un subconjunto ya era infrecuente.</li>
+          <li><strong>Soporte mínimo</strong>: más alto, aparecen infrecuentes más pronto y se poda más; se reinicia el recorrido.</li>
+          <li><strong>Reproductor</strong>: cada paso procesa un nivel completo; si en un nivel no hay frecuentes, el algoritmo termina y poda el resto.</li>
+          <li><strong>Nuevas canastas</strong>: reinicia con otra muestra de transacciones.</li>
           </ul>`,
         montar: montarRecorrido,
       },

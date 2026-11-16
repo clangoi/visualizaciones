@@ -78,25 +78,25 @@
       <p>Una vez que las palabras, frases, imágenes o usuarios están representados como vectores, «¿qué tan parecidos son?» se vuelve una pregunta geométrica. Hay varias maneras de contestarla, y la elección importa: el <strong>coseno</strong> mide el ángulo (la dirección), el <strong>producto punto</strong> mezcla ángulo y longitud, y la <strong>distancia euclidiana</strong> mide qué tan lejos están los extremos.</p>
       <p>Con la medida elegida se pueden buscar los vecinos de una consulta (<em>búsqueda semántica</em>), agrupar, recomendar, o ponderar valores en la atención. Es también la base del <a href="tema.html?id=contrastive-learning">aprendizaje contrastivo</a>, donde la red aprende los vectores para que esa similitud signifique algo.</p>`,
     parametros: [
-      ['Medida (Fig. 1 y 2)', String.raw`La forma de comparar dos vectores: coseno (solo el ángulo), producto punto (ángulo y longitud) o distancia euclidiana negativa (cercanía en el espacio).`],
-      ['Otro corpus (Fig. 1)', String.raw`Genera otras incrustaciones a partir de otras frases.`],
-      ['Palabra de consulta (Fig. 2)', String.raw`La palabra cuyos vecinos más cercanos se buscan.`],
-      ['Longitud de la consulta (Fig. 2)', String.raw`Multiplica el vector de la consulta sin cambiar su dirección. Muestra qué medidas dependen de la magnitud y cuáles solo del ángulo.`],
-      ['Temperatura del softmax (Fig. 2)', String.raw`Qué tan concentrados quedan los pesos de similitud. Con valores bajos casi todo el peso va al vecino más cercano.`],
+      ['Medida (Fig. 1 y 2)', String.raw`Selector con tres opciones: «Coseno» (solo el ángulo entre vectores), «Producto punto» (ángulo y longitud) y «Distancia euclidiana (negativa)» (cercanía en el espacio, con signo negativo para que mayor sea más parecido).`],
+      ['Otro corpus (Fig. 1)', String.raw`Genera un corpus pequeño distinto de frases y recalcula los vectores de las 18 palabras a partir de cómo co-ocurren.`],
+      ['Palabra de consulta (Fig. 2)', String.raw`Selector con las 18 palabras: la que se compara con todas las demás.`],
+      ['Longitud de la consulta (Fig. 2)', String.raw`Deslizador de × 0,2 a × 4 que multiplica el vector de la consulta sin cambiar su dirección. Muestra qué medidas dependen de la magnitud y cuáles solo del ángulo.`],
+      ['Temperatura del softmax (Fig. 2)', String.raw`Deslizador de 0,02 a 1 que controla la columna «softmax» de la derecha. Con valores bajos casi todo el peso va a la palabra más parecida; con valores altos se reparte.`],
     ],
     visualizaciones: [
       { titulo: 'Matriz de similitudes', descripcion: 'Compare las tres medidas sobre las 18 palabras. Busque los bloques de cada categoría y compare cómo cambia la escala de colores.',
-        ayuda: String.raw`<p>Matriz de las 18 palabras: cada celda es la similitud entre dos palabras; más oscuro significa más parecidas. Los bloques oscuros corresponden a palabras de una misma categoría.</p>
+        ayuda: String.raw`<p>Matriz de las 18 palabras ordenadas por categoría (marcas de color en los márgenes). Cada celda es la similitud entre dos palabras, en escala de azules: más oscuro es más parecidas, según el rango de la medida elegida. Al pasar el cursor se ve el valor de la celda.</p>
           <ul>
-          <li><strong>Medida</strong>: con coseno los bloques son nítidos; con producto punto, las palabras de mayor norma dominan; con distancia euclidiana, se mide cercanía absoluta.</li>
-          <li><strong>Otro corpus</strong>: cambian los valores, pero las categorías siguen formando bloques.</li>
+          <li><strong>Medida</strong>: con coseno se comparan solo ángulos; con producto punto pesan también las longitudes; con distancia euclidiana negativa se mide cercanía absoluta.</li>
+          <li><strong>Otro corpus</strong>: cambian los valores; la lectura compara el promedio dentro de una misma categoría con el de categorías distintas.</li>
           </ul>`, montar: montarMatriz },
       { titulo: 'Búsqueda semántica', descripcion: 'Elija una consulta y mire sus vecinas más cercanas. Alargue la consulta y vea qué medidas cambian y cuáles no.',
-        ayuda: String.raw`<p>Se ordenan las palabras por similitud con la consulta. El color corresponde a su categoría, y la longitud de cada barra, a su similitud o peso.</p>
+        ayuda: String.raw`<p>Lista de las otras 17 palabras ordenadas de más a menos parecida a la consulta. Cada barra, de color según su categoría, es proporcional a la similitud y lleva su valor; a la derecha, el porcentaje del softmax con la temperatura elegida.</p>
           <ul>
           <li><strong>Palabra de consulta</strong> y <strong>Medida</strong>: cambian el ranking de vecinas.</li>
-          <li><strong>Longitud de la consulta</strong>: con coseno el ranking no cambia; con producto punto y con distancia euclidiana, sí.</li>
-          <li><strong>Temperatura del softmax</strong>: baja concentra el peso en las primeras; alta lo reparte.</li>
+          <li><strong>Longitud de la consulta</strong>: con coseno el ranking y los pesos no cambian; con producto punto y con distancia euclidiana sí.</li>
+          <li><strong>Temperatura del softmax</strong>: baja concentra el porcentaje en las primeras filas; alta lo reparte.</li>
           </ul>`, montar: montarBusqueda },
     ],
     teoria: String.raw`

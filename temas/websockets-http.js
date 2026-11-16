@@ -85,23 +85,27 @@
       con peticiones que casi siempre vuelven vacías y noticias que llegan tarde.</p>
       <p>Los <strong>WebSockets</strong> abren una conexión <strong>persistente y bidireccional</strong>: tras un saludo inicial por HTTP, cliente y servidor se envían mensajes en cualquier momento.</p>`,
     parametros: [
-      ['Intervalo de sondeo y Eventos del servidor por minuto (Fig. 1)', String.raw`Cada cuántos segundos el cliente pregunta al servidor y cuántos eventos genera el servidor por minuto. Juntos determinan la espera y el desperdicio.`],
-      ['Otros eventos (Fig. 1)', String.raw`Genera otra secuencia aleatoria de eventos con la misma frecuencia.`],
-      ['Figuras sin más controles (Fig. 2)', String.raw`Esta figura no tiene controles: use el cursor sobre los mensajes o las notas del diagrama para leer cada paso.`],
+      ['Intervalo de sondeo (polling) (Fig. 1)', String.raw`Deslizador de 1 a 15 s (inicia en 5 s): cada cuánto pregunta el cliente al servidor. Más corto da menos espera por evento pero más peticiones; más largo, lo contrario.`],
+      ['Eventos del servidor por minuto (Fig. 1)', String.raw`Deslizador de 1 a 30 (inicia en 6): cuántos eventos aleatorios ocurren en la ventana de 60 s. Con más eventos, menos peticiones de sondeo salen vacías.`],
+      ['Otros eventos (Fig. 1)', String.raw`Botón que sortea nuevos instantes para los eventos, con la misma cantidad, para ver cuánto depende el resultado del azar.`],
+      ['Casillas «el servidor envía mensajes por iniciativa propia», «se corta la red» y «cierre ordenado» (Fig. 2)', String.raw`Al inicio están marcadas «iniciativa propia» y «cierre ordenado»; «se corta la red» está desmarcada. «Iniciativa propia» agrega los dos mensajes del servidor sin petición previa; «Se corta la red» agrega la falla y la reconexión con un nuevo saludo; «Cierre ordenado» agrega el cierre con código 1000 en ambos sentidos.`],
+      ['Reproducir, Pausar, Un paso, Hasta el final, Reiniciar y Velocidad (Fig. 2)', String.raw`Controlan cuántos mensajes del diagrama se muestran. Cada paso revela un mensaje más y su explicación aparece en el texto inferior; la velocidad va de 0,5 a 256 pasos/s en escala logarítmica, con valor inicial de aproximadamente 1,4 pasos/s.`],
     ],
     visualizaciones: [
       { titulo: 'Sondeo frente a WebSocket', descripcion: 'Cambie el intervalo de sondeo y la frecuencia de eventos: compare cuánto tardan en llegar los eventos y cuántas peticiones se desperdician.',
-        ayuda: String.raw`<p>Línea de tiempo: marcas naranjas son eventos en el servidor; azules, peticiones de sondeo con datos; grises, peticiones vacías (desperdicio); verdes, mensajes por WebSocket.</p>
+        ayuda: String.raw`<p>Tres carriles horizontales sobre un eje de 0 a 60 s: servidor (arriba), sondeo (en medio) y WebSocket (abajo). Las marcas naranjas del carril superior son eventos del servidor; una línea punteada naranja une cada evento con la siguiente petición de sondeo que lo recoge. En el carril de sondeo, los círculos azules grandes son peticiones que traen datos y los grises pequeños, peticiones vacías (desperdicio). En el carril inferior, un círculo verde bajo cada evento es el mensaje por WebSocket, unido al evento por una línea vertical verde: se entrega al instante.</p>
           <ul>
-          <li><strong>Intervalo de sondeo</strong> largo: cada evento espera hasta la siguiente pregunta, por lo que llega más tarde; uno corto reduce la espera pero aumenta las peticiones vacías.</li>
-          <li><strong>Eventos del servidor por minuto</strong> alto: se aprovechan más peticiones y bajan las vacías.</li>
-          <li>Los mensajes verdes salen en el instante del evento, sin esperar.</li>
+          <li><strong>Intervalo de sondeo</strong>: cambia la separación entre círculos del carril medio; la lectura muestra peticiones, porcentaje de vacías y latencia media.</li>
+          <li><strong>Eventos por minuto</strong>: cambia cuántas marcas naranjas hay (se redondea sobre 60 s).</li>
+          <li><strong>Cursor</strong>: sobre un evento indica su instante; sobre una petición, cuántos eventos entregó. La lectura compara además los bytes aproximados de cabeceras de sondeo (800 B por petición) y WebSocket (8 B por mensaje).</li>
           </ul>`, montar: montarTiempos },
       { titulo: 'Ciclo de vida de una conexión', descripcion: 'Recorra el saludo de actualización, los mensajes en ambos sentidos, una caída de red con reconexión y el cierre.',
-        ayuda: String.raw`<p>Diagrama de secuencia entre cliente y servidor con el saludo HTTP de actualización, los mensajes en ambos sentidos, ping/pong, una caída con reconexión y el cierre ordenado. Los colores distinguen solicitud HTTP, cambio de protocolo, mensajes, ping/pong, cierre y falla.</p>
+        ayuda: String.raw`<p>Diagrama de secuencia con dos actores, Cliente (izquierda) y Servidor (derecha), y una flecha por mensaje, de arriba abajo en orden temporal. Colores: azul solicitud HTTP de apertura, naranja cambio de protocolo (101), verde mensajes WebSocket, aguamarina ping/pong, violeta cierre y rojo falla. Los mensajes aparecen de uno en uno; el actual va resaltado y los anteriores atenuados.</p>
           <ul>
-          <li>Los mensajes del servidor aparecen sin petición previa, a diferencia de HTTP.</li>
-          <li>Tras la falla, el cliente debe reconectar con un nuevo saludo: la conexión no se recupera sola.</li>
+          <li><strong>Iniciativa propia</strong>: añade dos flechas verdes del servidor al cliente sin petición previa, a diferencia de HTTP.</li>
+          <li><strong>Se corta la red</strong>: añade en rojo la caída, el reintento con espera y un nuevo saludo HTTP con su 101; la conexión no se recupera sola.</li>
+          <li><strong>Cierre ordenado</strong>: añade los dos mensajes de cierre en violeta.</li>
+          <li><strong>Lectura</strong>: paso actual, mensajes de datos mostrados y una sola petición HTTP. Cambiar una casilla reinicia el diagrama.</li>
           </ul>`, montar: montarCiclo },
     ],
     teoria: String.raw`

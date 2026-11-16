@@ -93,15 +93,15 @@
       <p>La <strong>inducción fuerte</strong> permite suponer que la propiedad vale para <em>todos</em> los casos anteriores. Aunque parece más potente, es equivalente a la simple;
       la diferencia es de comodidad y de claridad al escribir la prueba.</p>`,
     parametros: [
-      ['n (Fig. 1)', String.raw`El número que se descompone en primos. Si es compuesto se parte en dos factores menores, y así recursivamente.`],
-      ['Qué casos usa el paso (Fig. 2)', String.raw`Cómo depende cada caso de los anteriores: de uno solo o de varios casos menores.`],
-      ['Caso que se demuestra, n (Fig. 2)', String.raw`El caso concreto cuyas dependencias se resaltan.`],
+      ['n (Fig. 1)', String.raw`De 2 a 120. Número que se descompone en primos. Si es compuesto se parte en dos factores menores (por su menor divisor), y así recursivamente.`],
+      ['Qué casos usa el paso (Fig. 2)', String.raw`Cuatro opciones: P(n) depende solo de P(n − 1), de P(n − 1) y P(n − 2), de P(⌊n/2⌋) o de los factores de n. Cambia los casos de los que se apoya el paso.`],
+      ['Caso que se demuestra, n (Fig. 2)', String.raw`De 0 a 29. El caso cuyas dependencias se resaltan.`],
     ],
     visualizaciones: [
       {
         titulo: 'Todo número es producto de primos',
         descripcion: 'Elija \\(n\\): si es compuesto se parte en dos factores menores, y así recursivamente hasta llegar a primos. Cada partición usa la hipótesis fuerte.',
-        ayuda: String.raw`<p>Los primos son los casos base; un compuesto se apoya en dos números menores que lo multiplican.</p>
+        ayuda: String.raw`<p>Un árbol de factorización con n en la raíz. Un número primo es una hoja con relleno y borde verdes (C.s6) y es caso base; un compuesto tiene borde gris oscuro y se apoya en sus dos hijos, que son los factores menores. La lectura da la factorización, la cantidad de factores primos y la profundidad del árbol.</p>
           <ul>
           <li><strong>n</strong> primo: no hay descomposición, es caso base.</li>
           <li><strong>n</strong> compuesto: aparecen sus dos factores menores, que a su vez se descomponen hasta llegar a primos.</li>
@@ -111,10 +111,10 @@
       {
         titulo: 'De qué casos depende cada caso',
         descripcion: 'Compare qué casos necesita cada tipo de paso. Con la dependencia de \\(n-1\\) y \\(n-2\\) o de los factores, la inducción simple no basta.',
-        ayuda: String.raw`<p>Se resalta el caso que se demuestra, las dependencias directas, los casos necesarios de forma indirecta y los que no se necesitan.</p>
+        ayuda: String.raw`<p>Una tira con los casos 0 a 29. Verde (C.s6): el caso que se demuestra. Naranja (C.s2): sus dependencias directas, unidas a él con arcos naranjas. Azul (C.s1): los casos necesarios de forma indirecta (las dependencias de las dependencias). Gris: no se necesita. La lectura indica las dependencias, cuántos casos se necesitan en total y si basta la inducción simple.</p>
           <ul>
-          <li><strong>Qué casos usa el paso</strong>: cambia las flechas de dependencia; si necesita varios casos menores, la inducción simple no basta.</li>
-          <li><strong>Caso que se demuestra</strong>: mueve el caso resaltado y con él cuántos casos previos se necesitan.</li>
+          <li><strong>Qué casos usa el paso</strong>: cambia las dependencias; si no es solo n − 1, la inducción simple no basta.</li>
+          <li><strong>Caso que se demuestra</strong>: mueve el caso resaltado; los casos pequeños no tienen dependencias y son casos base.</li>
           </ul>`,
         montar: montarDependencias,
       },

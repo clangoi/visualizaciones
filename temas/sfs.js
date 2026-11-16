@@ -218,25 +218,27 @@
       <a href="tema.html?id=exhaustive-search">búsqueda exhaustiva</a>, y suele quedar cerca del óptimo. Falla cuando dos
       características solo sirven juntas: ninguna de las dos gana por sí sola el paso en que se decide.</p>`,
     parametros: [
-      ['Método (Fig. 1)', String.raw`Elige entre SFS (agrega características) y SBS (quita características) como estrategia secuencial.`],
-      ['Nuevos datos (Fig. 1 y 2)', String.raw`Regenera los datos; cambia qué características resultan mejores y su orden.`],
+      ['Método (Fig. 1)', String.raw`Selector entre SFS (selección hacia adelante: agrega la mejor característica en cada paso) y SBS (eliminación hacia atrás: parte de las diez y quita en cada paso la que menos J hace perder). Cambiarlo reinicia la animación.`],
+      ['Controles de reproducción (Fig. 1)', String.raw`Permiten avanzar la búsqueda paso a paso o de corrido y ajustar su velocidad.`],
+      ['Nuevos datos (Fig. 1 y 2)', String.raw`Regenera las características y las clases; cambia qué características resultan mejores y su orden.`],
     ],
     visualizaciones: [
       {
         titulo: 'Selección secuencial paso a paso',
         descripcion: 'Las barras muestran el criterio de Fisher con cada candidata. Compare el orden en que SFS agrega características con el orden en que SBS las quita.',
-        ayuda: String.raw`<p>Eje Y: \(J\) de Fisher. Cada barra es una candidata: las ya en el subconjunto (SFS) o ya quitadas (SBS), las candidatas evaluadas, la que se evalúa y la elegida. Se muestra el registro de cada paso.</p>
+        ayuda: String.raw`<p>El eje X tiene las diez características (nombres bajo las barras) y el eje Y es el \(J\) de Fisher. Cada barra es el \(J\) que tendría el subconjunto si se agregara (SFS) o quitara (SBS) esa característica: gris (C.inactivo) las candidatas ya evaluadas, naranja (C.s2) la que se evalúa y verde (C.s6) la elegida. Una franja negra en la base marca las que ya están en el subconjunto (SFS, con su orden #n) o ya fueron quitadas (SBS). El registro explica cada paso y la lectura da el tamaño, el \(J\) actual, las evaluaciones y el subconjunto.</p>
           <ul>
           <li><strong>Método</strong>: con SFS se construye el subconjunto desde vacío; con SBS se parte de todas y se quita la que menos \(J\) pierde.</li>
+          <li><strong>Nuevos datos</strong>: las barras y el orden de elección cambian.</li>
           </ul>`,
         montar: montarPasos,
       },
       {
         titulo: 'SFS, SBS y SFFS frente al óptimo',
         descripcion: 'El valor de J alcanzado por cada método para cada número de características, comparado con el máximo exacto.',
-        ayuda: String.raw`<p>Eje X: características elegidas m; eje Y: \(J\) de Fisher. Cada curva es el valor alcanzado por el óptimo (búsqueda exhaustiva), SFS, SBS y SFFS (flotante).</p>
+        ayuda: String.raw`<p>El eje X es el número m de características elegidas y el eje Y, el \(J\) de Fisher del subconjunto de ese tamaño. La curva negra gruesa es el óptimo por búsqueda exhaustiva, la azul (C.s1) es SFS, la naranja (C.s2) es SBS y la aguamarina discontinua (C.s3) es SFFS (flotante). Al pasar el cursor se ve el subconjunto óptimo de cada m y la lectura cuenta en cuántos tamaños falla cada método y las evaluaciones que hizo.</p>
           <ul>
-          <li><strong>Nuevos datos</strong>: los métodos pueden quedar por debajo del óptimo en algunos m; la brecha muestra el costo de no buscar exhaustivamente.</li>
+          <li><strong>Nuevos datos</strong>: donde una curva queda bajo la negra, el método no halló el óptimo; la brecha muestra el costo de no buscar exhaustivamente.</li>
           </ul>`,
         montar: montarComparacion,
       },

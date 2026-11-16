@@ -169,16 +169,17 @@
       <p>Por dentro es una pila de capas. Cada una resuelve un problema distinto y le habla solo a la de abajo: el optimizador no sabe de
       sectores del disco, y el gestor de disco no sabe qué es una junta.</p>`,
     parametros: [
-      ['Consulta (Fig. 1)', String.raw`Qué se ejecuta: una búsqueda por clave que encuentra su página en el buffer, un recorrido secuencial que va al disco o una actualización con bitácora. Define qué capas y componentes se consultan.`],
-      ['Reproductor (Fig. 1)', String.raw`Avanza el viaje de la consulta capa a capa; Reiniciar vuelve a la capa superior.`],
+      ['Consulta (Fig. 1)', String.raw`Selector con tres consultas: búsqueda por clave (la página está en el buffer, 0 lecturas de disco), recorrido secuencial (4 páginas del disco) y actualización con bitácora (1 lectura y 1 escritura de bitácora). Cada una recorre distintas capas y componentes laterales; cambiarla reinicia el recorrido.`],
+      ['Reproductor (Fig. 1)', String.raw`Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar: avanzan el viaje de la consulta un paso por vez; Reiniciar vuelve al comienzo sin paso activo.`],
     ],
     visualizaciones: [
       {
         titulo: 'El viaje de una consulta',
         descripcion: 'Siga tres consultas por las capas del motor. Compare la búsqueda que encuentra su página en memoria con la que debe ir al disco, y vea cuándo interviene la bitácora.',
-        ayuda: String.raw`<p>Capas del motor de la base de datos, de la superior a la inferior. Se destacan la capa que trabaja ahora, las capas ya recorridas y los componentes consultados; el registro y la lectura describen cada paso.</p>
+        ayuda: String.raw`<p>Encima se lee la consulta SQL. El diagrama apila las siete capas del motor, de arriba abajo: aplicación cliente, analizador, optimizador, ejecutor, métodos de acceso, gestor de buffer y gestor de disco. A la derecha (o bajo las capas en pantallas angostas) están tres componentes laterales: transacciones y bloqueos, recuperación (bitácora) y catálogo. Una caja con borde y relleno naranja es la capa que trabaja en el paso actual; azul, las capas ya recorridas; aguamarina, el componente lateral consultado en ese paso; gris oscuro, las no visitadas. El texto explica el paso y la lectura da el paso, las capas recorridas y, al terminar, las lecturas de disco y escrituras forzadas. Al pasar el puntero sobre una caja se lee qué hace.</p>
           <ul>
-          <li><strong>Consulta</strong>: la búsqueda en buffer se resuelve sin tocar el disco; el recorrido secuencial baja hasta el disco; la actualización con bitácora además escribe en el registro de transacciones.</li>
+          <li><strong>Consulta</strong>: la búsqueda por clave nunca llega al gestor de disco porque la página está en el buffer; el recorrido secuencial sí; la actualización pasa por transacciones y bitácora (escritura previa, WAL).</li>
+          <li><strong>Un paso</strong>: avanza a la siguiente capa del viaje, que puede volver a una capa ya visitada (por ejemplo el ejecutor al subir la fila).</li>
           </ul>`,
         montar: montarCapas,
       },

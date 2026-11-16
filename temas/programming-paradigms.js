@@ -88,20 +88,22 @@
       el <strong>orientado a objetos</strong> (objetos que encapsulan datos y comportamiento) y el <strong>funcional</strong> (funciones puras que transforman valores sin modificarlos).</p>
       <p>Ninguno es «el mejor»: cada uno hace más fácil razonar sobre cierto tipo de problemas. Conocerlos ayuda a leer código ajeno y a elegir bien.</p>`,
     parametros: [
-      ['Paradigma (Fig. 1)', String.raw`Una forma de resolver el mismo problema (sumar los cuadrados de los pares del 1 al 10): se compara el código, las variables que cambian de valor y el resultado.`],
-      ['Estilo (Fig. 2)', String.raw`Imperativo (bucle con acumulador) o funcional (tubería de arreglos). Reproductor: Reproducir avanza solo, Un paso un cambio y Reiniciar vuelve al inicio.`],
+      ['Paradigma (Fig. 1)', String.raw`Selector con tres opciones: Imperativo, Funcional y Orientado a objetos (parte en Imperativo). Cambia el código mostrado y la fila resaltada de la tabla; el problema, sumar los cuadrados de los pares del 1 al 10, y el resultado no cambian.`],
+      ['Estilo (Fig. 2)', String.raw`Selector con dos opciones: «imperativo (bucle y acumulador)» y «funcional (tubería de arreglos)». Cambiarlo reinicia la traza.`],
+      ['Velocidad, Reproducir, Un paso, Hasta el final y Reiniciar (Fig. 2)', String.raw`Controlan la traza: «Reproducir» avanza sola (se vuelve «Pausar») a la velocidad elegida, «Un paso» avanza un paso, «Hasta el final» lo muestra todo y «Reiniciar» vuelve al primer paso.`],
     ],
     visualizaciones: [
       { titulo: 'Un problema, tres paradigmas', descripcion: 'Cambie de paradigma y compare el código de cada uno, cuántas variables cambian de valor y que el resultado es el mismo.',
-        ayuda: String.raw`<p>Se muestra el código del paradigma elegido y una tabla de las variables con cuántas veces cambia su valor. El resultado es siempre 220.</p>
+        ayuda: String.raw`<p>Se ven el enunciado, el código del paradigma elegido y una tabla que compara los tres con las columnas Paradigma (fichas azul, naranja y violeta para imperativo, funcional y orientado a objetos), Resultado, Estado mutable y Efectos; la fila del elegido queda resaltada. Abajo se leen el resultado de ejecutar el código (220), las variables que cambian de valor y las líneas de código.</p>
           <ul>
-          <li><strong>Paradigma</strong>: al cambiarlo cambia el código, no el resultado; la tabla muestra cuántas variables se reasignan en cada estilo.</li>
+          <li><strong>Paradigma</strong>: cambia el código y la fila resaltada; el resultado es 220 en los tres.</li>
+          <li>El estado mutable es 3 en imperativo, 1 en orientado a objetos (el total del objeto) y 0 en funcional.</li>
           </ul>`, montar: montarComparacion },
       { titulo: 'La traza de la ejecución', descripcion: 'Avance paso a paso en el estilo imperativo y en el funcional: observe qué se reasigna y qué se crea de nuevo.',
-        ayuda: String.raw`<p>La tabla va mostrando, paso a paso, el estado de las variables o los arreglos creados.</p>
+        ayuda: String.raw`<p>Una tabla que crece con un renglón por paso, de modo que la fila actual queda resaltada, y bajo ella un texto que explica ese paso. En el estilo imperativo las columnas son i y suma (la primera fila es la inicialización, luego una por valor de i del 1 al 10); en el funcional son etapa y valor, con las etapas entrada, filter(par), map(n → n²) y reduce(+). Abajo se leen el paso, las asignaciones sobre la misma variable y los valores nuevos creados.</p>
           <ul>
-          <li><strong>Estilo</strong> imperativo: la misma variable suma se reasigna en cada vuelta del bucle.</li>
-          <li>Estilo funcional: filter, map y reduce crean arreglos nuevos sin modificar el original y ninguna variable se reasigna.</li>
+          <li><strong>Estilo</strong> imperativo: la variable suma cambia solo cuando i es par; con i impar «no pasa nada».</li>
+          <li><strong>Estilo</strong> funcional: cada etapa crea un arreglo nuevo (o el valor final) sin reasignar variables.</li>
           </ul>`, montar: montarTraza },
     ],
     teoria: String.raw`

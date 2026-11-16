@@ -99,21 +99,24 @@
       <p>Un mismo fenómeno puede describirse con distintas <strong>abstracciones de datos</strong>. Los viajes en bicicleta compartida son una <em>tabla</em> (estaciones y sus atributos), una <em>red</em> (estaciones unidas por rutas) y un conjunto <em>espacial</em> (puntos en el territorio). Cada una vuelve fácil unas preguntas y difíciles otras.</p>
       <p>Elegir la abstracción es parte del diseño: determina qué codificaciones son posibles.</p>`,
     parametros: [
-      ['Abstracción (Fig. 1)', String.raw`Forma de modelar las mismas ocho estaciones y once rutas: tabla de ítems y atributos, red de nodos y enlaces o mapa por posición. Cada una facilita una pregunta distinta.`],
-      ['Peso mínimo del enlace (viajes) (Fig. 2)', String.raw`Número mínimo de viajes para que una ruta se dibuje como enlace. Subirlo deja solo las conexiones fuertes y puede partir la red en componentes.`],
-      ['Quitar selección (Fig. 2)', String.raw`Deselecciona el nodo para volver a la vista general.`],
+      ['Abstracción (Fig. 1)', String.raw`Selector con tres formas de modelar las mismas ocho estaciones y once rutas: «Tabla: ítems y atributos» (inicial), «Red: nodos y enlaces» y «Espacial: posición geográfica». Cada una facilita una pregunta distinta.`],
+      ['Peso mínimo del enlace (viajes) (Fig. 2)', String.raw`Deslizador de 0 a 40 (inicia en 15): número mínimo de viajes para que una ruta se dibuje como enlace. Subirlo deja solo las conexiones fuertes y puede partir la red en componentes.`],
+      ['Quitar selección (Fig. 2)', String.raw`Botón que deselecciona el nodo y devuelve la vista general. Un clic sobre el nodo seleccionado también lo deselecciona.`],
     ],
     visualizaciones: [
       { titulo: 'Un fenómeno, tres abstracciones', descripcion: 'Alterne entre tabla, red y mapa para las mismas estaciones; la selección se conserva entre vistas.',
-        ayuda: String.raw`<p>Las estaciones se muestran como puntos o filas azules y la estación seleccionada en naranja; las líneas grises son los viajes entre estaciones. La selección se conserva al cambiar de abstracción.</p>
+        ayuda: String.raw`<p>Las mismas estaciones en tres vistas. Tabla: una fila por estación con columnas estación, capacidad, x e y. Red: nodos en círculo, con enlaces cuyo grosor crece con los viajes. Espacial: los nodos según sus coordenadas (con la indicación N ↑) y radio según la capacidad. Las estaciones son azules y la seleccionada, naranja (en la tabla, su fila se resalta en naranja claro); las líneas grises son los viajes.</p>
           <ul>
-          <li><strong>Abstracción</strong>: «Tabla» facilita leer atributos de cada estación, «Red» ver quién se conecta con quién y «Espacial» ver dónde están.</li>
+          <li><strong>Abstracción</strong>: la tabla facilita ordenar y buscar por atributo, la red ver conexiones y la vista espacial ver cercanía y distribución.</li>
+          <li><strong>Clic en una estación</strong>: la selecciona en las tres vistas; en red y mapa, los enlaces que no la tocan se atenúan.</li>
+          <li><strong>Cursor sobre una estación</strong>: muestra capacidad y número de rutas.</li>
           </ul>`, montar: montarAbstracciones },
       { titulo: 'Atributos de una red', descripcion: 'Filtre los enlaces por peso y vea cómo cambian el grado, los vecinos y las componentes conexas.',
-        ayuda: String.raw`<p>Cada nodo es una estación, con tamaño proporcional a su grado (cantidad de enlaces visibles). El nodo seleccionado es naranja y sus vecinos, aguamarina. La lectura indica grado, vecinos y componentes.</p>
+        ayuda: String.raw`<p>Red de ocho estaciones en círculo. El tamaño del nodo crece con su grado (enlaces visibles) y el grosor del enlace, con sus viajes. Los nodos son azules, el seleccionado naranja y sus vecinos aguamarina. La lectura indica nodos y enlaces, componentes conexas, grado máximo y la estación seleccionada con su grado.</p>
           <ul>
-          <li><strong>Peso mínimo del enlace</strong>: al subirlo desaparecen los enlaces débiles, los nodos se achican (menor grado) y la red se fragmenta en componentes conexas.</li>
-          <li><strong>Quitar selección</strong>: los nodos naranja y aguamarina vuelven a azul.</li>
+          <li><strong>Peso mínimo del enlace</strong>: al subirlo desaparecen los enlaces débiles, los nodos se achican y la red se fragmenta en componentes.</li>
+          <li><strong>Clic en un nodo</strong>: lo selecciona, pinta de aguamarina a sus vecinos y atenúa los enlaces ajenos.</li>
+          <li><strong>Quitar selección</strong>: los nodos vuelven a azul.</li>
           </ul>`, montar: montarRed },
     ],
     teoria: String.raw`

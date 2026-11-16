@@ -141,25 +141,28 @@
       <p>Entrenar una red desde cero exige muchos datos etiquetados. Pero las primeras capas de una CNN aprenden características generales (bordes, texturas) que sirven para muchas tareas. El <strong>aprendizaje por transferencia</strong> (<em>transfer learning</em>) reutiliza una red ya entrenada en una tarea grande y la adapta a otra con pocos datos.</p>
       <p>Hay dos estrategias principales. <strong>Extracción de características</strong>: se congelan las capas convolucionales y solo se entrena una cabeza nueva. <strong>Ajuste fino</strong> (<em>fine-tuning</em>): se entrena toda la red, o parte de ella, con una tasa de aprendizaje baja, para no destruir lo aprendido. Cuando el dominio nuevo difiere del de origen (<em>cambio de dominio</em>), hay que adaptar también las capas convolucionales, y se ajusta más de la red.</p>`,
     parametros: [
-      ['Dominio nuevo (Fig. 1 y 2)', String.raw`Tipo de imágenes distintas de las del preentrenamiento (ruido, contraste invertido, desplazamientos). Define cuánto sirve lo ya aprendido.`],
-      ['Ejemplos por clase en el dominio nuevo (Fig. 1)', String.raw`Cantidad de ejemplos etiquetados disponibles. Con pocos, entrenar desde cero rinde mal y reutilizar pesos ayuda más.`],
-      ['Otros datos y reproductor (Fig. 1)', String.raw`Sortean otros ejemplos y controlan el entrenamiento.`],
-      ['Congelar capa convolucional 1 y 2 (Fig. 2)', String.raw`Fija los pesos de esa capa para que no cambien al entrenar. Congelar mantiene lo aprendido, pero limita la adaptación.`],
-      ['Tasa de aprendizaje (Fig. 2)', String.raw`Tamaño del paso en el ajuste. Alta puede destruir lo preentrenado.`],
-      ['Borrar corridas anteriores y reproductor (Fig. 2)', String.raw`Limpia las corridas superpuestas; el reproductor las entrena.`],
+      ['Dominio nuevo (Fig. 1 y 2)', String.raw`Selector con tres opciones: ruido muy alto (σ = 0,6), contraste invertido y desplazamientos de ±2 píxeles. Son las imágenes del dominio nuevo, distintas de las limpias del preentrenamiento. En la Fig. 2, al cambiarlo se borran las corridas anteriores.`],
+      ['Ejemplos por clase en el dominio nuevo (Fig. 1)', String.raw`De 1 a 10 ejemplos de entrenamiento por cada una de las 6 figuras. Con pocos, entrenar desde cero rinde peor y reutilizar pesos ayuda más.`],
+      ['Reproductor (Fig. 1 y 2)', String.raw`Entrena durante 40 épocas, de a una época por paso o de forma continua, con control de velocidad y reinicio. En la Fig. 2 cada reproducción agrega una corrida.`],
+      ['Otros datos (Fig. 1)', String.raw`Sortea otros ejemplos de entrenamiento y otra inicialización de la red desde cero.`],
+      ['Congelar capa convolucional 1 y Congelar capa convolucional 2 (Fig. 2)', String.raw`Casillas: fijan los pesos de esa capa para que no cambien al entrenar (la capa densa final siempre se reentrena). Congelar reduce los parámetros entrenables, de un total de 364. Al cambiarlas se inicia una corrida nueva.`],
+      ['Tasa de aprendizaje (Fig. 2)', String.raw`Selector con tres opciones: 0,003, 0,01 y 0,03. Es el tamaño del paso de ajuste; al cambiarlo se inicia una corrida nueva.`],
+      ['Borrar corridas anteriores (Fig. 2)', String.raw`Elimina las líneas de corridas previas y arranca una nueva corrida con la configuración actual.`],
     ],
     visualizaciones: [
       { titulo: 'Desde cero, extracción o ajuste fino', descripcion: 'Con pocos ejemplos, compare las tres estrategias en un dominio con ruido, con contraste invertido o con desplazamientos. Mire la línea punteada: la red sin adaptar puede fallar por completo. Pruebe con 1 y con 10 ejemplos por clase.',
-        ayuda: String.raw`<p>Exactitud en el dominio nuevo por época. Las líneas son tres estrategias: desde cero (naranja), extracción de características con convoluciones congeladas (azul) y ajuste fino (verde). La línea gris es la red preentrenada sin adaptar.</p>
+        ayuda: String.raw`<p>Eje horizontal: época en el dominio nuevo (0 a 40); vertical: exactitud sobre ejemplos nuevos de ese dominio. Cada línea es una estrategia: naranja, desde cero (pesos al azar, tasa 0,03); azul, extracción de características (convoluciones congeladas, tasa 0,03); verde, ajuste fino (todo se entrena con tasa baja, 0,01). La línea gris punteada horizontal es la exactitud de la red preentrenada sin adaptar. Al pasar el cursor se ven los valores de cada época.</p>
           <ul>
-          <li><strong>Ejemplos por clase</strong> bajos: desde cero queda por debajo de las otras dos.</li>
-          <li><strong>Dominio nuevo</strong> muy distinto: la línea gris puede quedar muy baja, es decir, la red sin adaptar falla.</li>
+          <li><strong>Ejemplos por clase</strong>: con pocos, las curvas suben menos y más irregulares.</li>
+          <li><strong>Dominio nuevo</strong>: cambia la altura de la línea gris, que indica cuánto de lo aprendido se aplica sin adaptar.</li>
+          <li><strong>Otros datos</strong>: muestra cuánto varían las curvas con otra muestra.</li>
           </ul>`, montar: montarEstrategias },
       { titulo: 'Congelar y descongelar capas', descripcion: 'Elija qué capas se entrenan y con qué tasa; compare corridas superpuestas.',
-        ayuda: String.raw`<p>Exactitud por época de cada corrida, superpuestas con su configuración.</p>
+        ayuda: String.raw`<p>Eje horizontal: época (0 a 40); vertical: exactitud en el dominio nuevo con 4 ejemplos por clase. Cada corrida parte de la misma red preentrenada. La corrida actual se dibuja gruesa y las anteriores, finas (se conservan hasta cuatro, cada una con un color distinto: azul, naranja, aguamarina, violeta, amarillo). La leyenda, que se arma sola, nombra la configuración de cada una; el símbolo ❄ marca las capas congeladas. Al pasar el cursor se ven los valores por corrida.</p>
           <ul>
-          <li><strong>Congelar capa convolucional</strong> 1 y 2: menos parámetros se entrenan; compare con la corrida que entrena todo.</li>
-          <li><strong>Tasa de aprendizaje</strong>: valores altos con todo descongelado pueden bajar la exactitud.</li>
+          <li><strong>Congelar capa 1 y 2</strong>: menos parámetros entrenables (se informan bajo la figura); compare con una corrida sin congelar.</li>
+          <li><strong>Tasa de aprendizaje</strong>: compare la pendiente y el valor final entre tasas con la misma configuración de capas.</li>
+          <li><strong>Borrar corridas anteriores</strong>: deja solo la corrida nueva.</li>
           </ul>`, montar: montarCongelar },
     ],
     teoria: String.raw`

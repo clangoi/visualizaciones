@@ -358,32 +358,34 @@
       Ese último contacto es el óptimo, y casi siempre es una <strong>esquina</strong>. Cuando la recta queda paralela a un lado, el contacto es una <strong>arista entera</strong> y hay infinitos óptimos con el mismo valor.</p>
       <p>Si la región es abierta en la dirección de mejora, la recta nunca deja de tocar: el problema es <strong>no acotado</strong> y no hay óptimo. Y si no hay puntos factibles, tampoco. Estos son los únicos casos posibles de un LP, y por eso los algoritmos basta con que recorran vértices.</p>`,
     parametros: [
-      ['Región (Fig. 1)', String.raw`Elige la región; con la no acotada algunas direcciones de c dan problema no acotado.`],
-      ['Ángulo de c (Fig. 1 y 2)', String.raw`La dirección del objetivo. Girarla cambia el vértice óptimo; en ciertos ángulos el óptimo se extiende a una arista.`],
-      ['Minimizar c·x (Fig. 1)', String.raw`Cambia el sentido de la mejora a minimizar.`],
-      ['Saltar al siguiente ángulo de arista (Fig. 1)', String.raw`Lleva c al siguiente ángulo con arista óptima.`],
-      ['Siguiente vértice e Ir al vértice óptimo (Fig. 2)', String.raw`Cambian el vértice elegido o lo llevan al óptimo.`],
+      ['Región (Fig. 1)', String.raw`Elige entre Polígono acotado, Región no acotada y Región vacía. Con la no acotada, algunos ángulos de c dan un problema no acotado; con la vacía no hay óptimo.`],
+      ['Ángulo de c (Fig. 1)', String.raw`La dirección del objetivo (0° a 359°); también se gira arrastrando sobre el gráfico. Girarla cambia el vértice óptimo; en ciertos ángulos el óptimo se extiende a una arista.`],
+      ['Ángulo de c (Fig. 2)', String.raw`La dirección del objetivo (0° a 355°) sobre un polígono fijo. Determina en qué vértices c cae dentro del cono de normales.`],
+      ['Minimizar c·x (Fig. 1)', String.raw`Cambia el sentido de la mejora: se minimiza en vez de maximizar y se dibuja −c.`],
+      ['Saltar al siguiente ángulo de arista (Fig. 1)', String.raw`Lleva c al siguiente ángulo, mayor que el actual, que coincide con la normal de alguna restricción de la región elegida (desplazado 180° si se minimiza), donde puede haber una arista de óptimos.`],
+      ['Siguiente vértice (Fig. 2)', String.raw`Pasa al siguiente vértice del polígono como vértice elegido (también se elige con un clic sobre un vértice o una fila de la tabla).`],
+      ['Ir al vértice óptimo (Fig. 2)', String.raw`Selecciona el vértice en cuyo cono cae c.`],
     ],
     visualizaciones: [
       {
         titulo: 'Gire la función objetivo',
         descripcion: 'Gire c por toda la circunferencia: el óptimo salta de vértice en vértice y, en los ángulos 0°, 45°, 90°, 135°, 180° y 270°, se extiende a una arista. Cambie a la región no acotada y busque los ángulos sin óptimo.',
-        ayuda: String.raw`<p>Se dibujan la región factible, la dirección de mejora con la curva de nivel óptima, el conjunto de óptimos, otras curvas de nivel y las direcciones que mejoran sin límite.</p>
+        ayuda: String.raw`<p>La región factible es el polígono verde; las rectas grises son sus restricciones. La flecha violeta (C.s7) muestra la dirección de mejora (aparece como −c si se minimiza) y la recta violeta discontinua es la curva de nivel óptima; las grises tenues, otras curvas de nivel. El conjunto de óptimos se marca en verde (C.s6): un vértice o, si la curva coincide con una arista, un segmento o una semirrecta. Las flechas rojas (C.s8) son las direcciones no acotadas que mejoran sin límite.</p>
           <ul>
-          <li><strong>Ángulo de c</strong>: el óptimo salta de vértice en vértice; en 0°, 45°, 90°, 135°, 180° y 270° se extiende a una arista.</li>
+          <li><strong>Ángulo de c</strong>: el óptimo salta de vértice en vértice; en la región acotada, en 0°, 45°, 90°, 135°, 180° y 270° se extiende a una arista.</li>
           <li><strong>Minimizar c·x</strong>: invierte el sentido y elige el vértice opuesto.</li>
-          <li><strong>Región</strong>: en la no acotada, algunos ángulos dan una dirección sin límite.</li>
+          <li><strong>Región</strong>: en la no acotada, algunos ángulos dan una dirección sin límite; la vacía muestra «sin puntos factibles».</li>
           </ul>`,
         montar: montarGiro,
       },
       {
         titulo: 'c dentro del cono de normales',
         descripcion: 'Elija un vértice y gire c: solo en el óptimo c cae dentro del cono que forman las normales de las restricciones activas. Los coeficientes que expresan c en esas normales son los multiplicadores (variables duales).',
-        ayuda: String.raw`<p>Desde el vértice elegido salen c y las normales aᵢ de sus restricciones activas, y se sombrea el cono que forman. Si c está dentro del cono, el vértice es óptimo; si no, el cono se muestra aparte.</p>
+        ayuda: String.raw`<p>Sobre el polígono fijo, desde el vértice elegido salen c (flecha violeta, C.s7) y las normales aᵢ de sus dos restricciones activas (flechas gris oscuro), y se sombrea el cono que forman: azul si c está dentro (el vértice es óptimo) y rojo si no. Los vértices óptimos se marcan en verde (C.s6). La tabla da, por vértice, las restricciones activas, los coeficientes y₁ y y₂ de c = y₁a₁ + y₂a₂ (en rojo si son negativos), c·v y el veredicto.</p>
           <ul>
-          <li><strong>Ángulo de c</strong>: sólo en el óptimo cae dentro del cono.</li>
-          <li><strong>Siguiente vértice</strong>: cambia el cono y la posición de c.</li>
-          <li><strong>Ir al vértice óptimo</strong>: c queda dentro del cono; sus coeficientes son los multiplicadores.</li>
+          <li><strong>Ángulo de c</strong>: solo en el óptimo cae dentro del cono, con y₁, y₂ ≥ 0.</li>
+          <li><strong>Siguiente vértice</strong>: cambia el cono y la posición de c respecto de él.</li>
+          <li><strong>Ir al vértice óptimo</strong>: c queda dentro del cono; sus coeficientes y son los multiplicadores del dual.</li>
           </ul>`,
         montar: montarCono,
       },

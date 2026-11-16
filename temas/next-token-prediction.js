@@ -118,23 +118,25 @@
       <p>Un <strong>GPT</strong> (<em>Generative Pre-trained Transformer</em>) es, en el fondo, un solo mecanismo: dado el texto hasta ahora, producir una distribución de probabilidad sobre el <strong>siguiente token</strong>. Para generar, se elige uno, se agrega al texto y se repite (<a href="tema.html?id=autoregressive-generation">generación autorregresiva</a>).</p>
       <p>Su preentrenamiento es <strong>autosupervisado</strong>: no necesita etiquetas humanas, porque la respuesta correcta en cada posición es el token que de hecho viene en el texto. Eso permite aprender de billones de palabras. Y cómo se elige el token a partir de las probabilidades —temperatura, top-k, top-p— determina cuánto se parece a un resumen predecible o a una improvisación.</p>`,
     parametros: [
-      ['Temperatura (Fig. 1)', String.raw`Ajusta qué tan afilada es la distribución. Baja concentra la probabilidad en la palabra más probable; alta la reparte.`],
-      ['top-k (Fig. 1)', String.raw`Conserva solo las k palabras más probables; 0 no descarta ninguna.`],
-      ['top-p (Fig. 1)', String.raw`Conserva el menor conjunto de palabras cuya probabilidad acumulada llega a ese valor.`],
-      ['Muestrear una palabra, Generar la frase y Reiniciar (Fig. 1)', String.raw`Muestrear elige una palabra con las probabilidades vigentes; Generar la frase repite hasta el final; Reiniciar vuelve a empezar.`],
-      ['Otro corpus (Fig. 2)', String.raw`Genera otro texto de entrenamiento y recalcula la pérdida.`],
+      ['Temperatura (Fig. 1)', String.raw`Va de 0,1 a 2,5. Divide el logaritmo de cada probabilidad antes de renormalizar: baja concentra la probabilidad en la palabra más probable; alta la reparte entre más palabras.`],
+      ['top-k (0 = todos) (Fig. 1)', String.raw`Va de 0 a 15. Conserva solo las k palabras más probables; con 0 (se muestra «todos») no descarta ninguna por este criterio.`],
+      ['top-p (masa acumulada) (Fig. 1)', String.raw`Va de 0,1 a 1. Conserva las palabras más probables, en orden, hasta que su probabilidad acumulada alcanza ese valor (siempre queda al menos una); con 1 no descarta nada por este criterio.`],
+      ['Muestrear una palabra, Generar la frase y Reiniciar (Fig. 1)', String.raw`Muestrear elige una palabra al azar entre las que quedan, con probabilidades renormalizadas, y la agrega al texto. Generar la frase repite hasta 12 veces o hasta llegar a un punto. Reiniciar vuelve al texto «el».`],
+      ['Otro corpus (Fig. 2)', String.raw`Cambia la semilla: genera otro corpus de entrenamiento y otras frases de prueba, y recalcula las tres curvas de pérdida; también cambia la frase de ejemplo de arriba.`],
     ],
     visualizaciones: [
       { titulo: 'De las probabilidades a la palabra elegida', descripcion: 'Cambie la temperatura, top-k y top-p y genere varias frases. Con temperatura 0,1 casi siempre sale la misma; con 2,5, cosas raras.',
-        ayuda: String.raw`<p>Cada barra es la probabilidad de una palabra candidata. Azul es la probabilidad con la temperatura elegida; gris, la que top-k o top-p descartaron; naranja, la palabra muestreada.</p>
+        ayuda: String.raw`<p>Arriba está el texto generado hasta ahora. Debajo, una barra horizontal por cada una de las 12 palabras más probables como siguiente palabra, con su porcentaje. La longitud de la barra es la probabilidad ya ajustada por la temperatura (antes de descartar con top-k o top-p). Azul (C.s1) marca las palabras que aún pueden elegirse; gris, las descartadas por top-k o top-p; naranja, la palabra recién muestreada.</p>
           <ul>
-          <li><strong>Temperatura</strong>: con 0,1 una barra domina; con 2,5 las barras se igualan.</li>
-          <li><strong>top-k</strong> y <strong>top-p</strong>: marcan como descartadas las palabras menos probables, que dejan de poder elegirse.</li>
+          <li><strong>Temperatura</strong>: con valores bajos una barra domina; con valores altos las barras se igualan.</li>
+          <li><strong>top-k</strong> y <strong>top-p</strong>: pasan a gris las palabras menos probables, que dejan de poder elegirse; las que quedan se renormalizan.</li>
+          <li><strong>Muestrear una palabra</strong>, <strong>Generar la frase</strong> y <strong>Reiniciar</strong>: modifican el texto y el contexto de dos palabras que define las barras.</li>
           </ul>`, montar: montarMuestreo },
       { titulo: 'El texto crudo es su propio profesor', descripcion: 'Vea cómo una frase genera ejemplos de entrenamiento y cómo mejora la pérdida con más datos y más contexto.',
-        ayuda: String.raw`<p>Eje horizontal: frases de entrenamiento (escala log). Eje vertical: pérdida en frases nuevas, en bits por palabra. Hay una curva por tamaño de contexto: 0, 1 y 2 palabras. Arriba se ve cómo una frase genera ejemplos de entrenamiento.</p>
+        ayuda: String.raw`<p>Arriba se muestra una frase sin etiquetar y los ejemplos de entrenamiento que genera (lo ya leído → palabra siguiente, esta última en naranja). Abajo, el eje horizontal son las frases de entrenamiento (escala logarítmica, de 4 a 1&nbsp;024) y el vertical, la pérdida en frases nuevas, en bits por palabra (hasta 6). Hay una curva por tamaño de contexto: 0 palabras (naranja), 1 palabra (azul) y 2 palabras (verde). La línea gris discontinua es la pérdida de adivinar al azar entre todo el vocabulario.</p>
           <ul>
-          <li><strong>Otro corpus</strong>: las curvas cambian algo por el azar; un contexto mayor suele tener menor pérdida con suficientes datos, pero con pocas frases puede ir peor.</li>
+          <li><strong>Otro corpus</strong>: las curvas cambian algo por el azar; con suficientes frases un contexto mayor suele dar menor pérdida, pero con pocas puede ir peor.</li>
+          <li>Al pasar el puntero sobre el gráfico se marca el tamaño de entrenamiento más cercano y se listan las tres pérdidas.</li>
           </ul>`, montar: montarPreentrenamiento },
     ],
     teoria: String.raw`

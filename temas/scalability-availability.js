@@ -255,43 +255,45 @@
       <p>Ambas ideas se calculan: la capacidad rinde cada vez menos por cada peso adicional, y la disponibilidad se mide en «nueves» que se traducen en minutos de caída al año. Con esos números, una frase como «necesitamos alta disponibilidad»
       se vuelve una decisión de ingeniería y de presupuesto. Para el reparto de solicitudes entre servidores, véase también <a href="tema.html?id=scalability-load-balancing">escalabilidad y balanceo de carga</a>.</p>`,
     parametros: [
-      ['Demanda a atender (Fig. 1)', String.raw`Solicitudes por segundo que debe soportar el sistema; se compara con la capacidad de cada opción.`],
-      ['Contención α (parte que no se paraleliza) (Fig. 1)', String.raw`Fracción del trabajo que no se puede repartir. Limita lo que ganan más servidores.`],
-      ['Coordinación β entre servidores (Fig. 1)', String.raw`Costo de que los servidores se coordinen; a partir de cierto tamaño, más servidores reducen la capacidad.`],
-      ['Disponibilidad de cada servidor (Fig. 2)', String.raw`Probabilidad de que un servidor esté funcionando.`],
-      ['Al hacer clic (Fig. 2)', String.raw`Define si un clic cambia las réplicas de una capa o apaga y enciende un servidor.`],
-      ['Un servidor por capa y Todo duplicado (Fig. 2)', String.raw`Dejan cada capa con una o dos réplicas.`],
-      ['Objetivo de disponibilidad (Fig. 3)', String.raw`Número de nueves exigido, que fija la caída anual máxima tolerable.`],
-      ['Fallas de causa común (Fig. 3)', String.raw`Fallas que afectan a todas las réplicas a la vez, y por eso las réplicas adicionales no las evitan.`],
+      ['Demanda a atender (Fig. 1)', String.raw`De 100 a 3.500 solicitudes por segundo. Fija la línea gris punteada de demanda; la figura y la lectura dicen qué máquina o cuántos servidores la alcanzan y a qué costo.`],
+      ['Contención α (parte que no se paraleliza) (Fig. 1)', String.raw`De 0 % a 10 %. Fracción del trabajo que no se reparte entre servidores; aplana la curva horizontal (naranja).`],
+      ['Coordinación β entre servidores (Fig. 1)', String.raw`De 0 % a 0,2 %. Costo de coordinación que crece con el cuadrado de los servidores; con β alto la curva horizontal llega a un máximo y luego baja.`],
+      ['Disponibilidad de cada servidor (Fig. 2)', String.raw`99 %, 99,5 %, 99,9 % o 99,99 % para cada servidor (el balanceador mantiene fija su disponibilidad de 99,95 %). Se refleja en la disponibilidad de cada capa y del sistema.`],
+      ['Al hacer clic (Fig. 2)', String.raw`«Cambiar réplicas de la capa»: cada clic en una capa agrega una réplica (de 1 a 4, y vuelve a 1). «Apagar o encender un servidor»: el clic sobre una caja de servidor la apaga o la enciende.`],
+      ['Un servidor por capa y Todo duplicado (Fig. 2)', String.raw`Dejan cada capa con una o con dos réplicas y encienden todos los servidores.`],
+      ['Objetivo de disponibilidad (Fig. 3)', String.raw`De 2 a 6 nueves, en pasos de 0,5. Fija la línea negra discontinua con la caída anual máxima que admite el objetivo.`],
+      ['Fallas de causa común (Fig. 3)', String.raw`De 0 % a 10 %. Parte de las fallas que afectan a todas las réplicas a la vez (energía, red, software); impone un piso a la caída que más réplicas no bajan.`],
     ],
     visualizaciones: [
       {
         titulo: 'Escalar hacia arriba o hacia los lados',
         descripcion: 'Compare el costo de lograr una capacidad con una máquina grande o con muchas pequeñas. Suba la contención α y la coordinación β: llega un punto en que sumar servidores deja de ayudar.',
-        ayuda: String.raw`<p>Capacidad (solicitudes/s) frente al costo anual (miles de USD) de las opciones de escalar. Una línea marca la demanda.</p>
+        ayuda: String.raw`<p>Capacidad (solicitudes/s, vertical) frente al costo anual (miles de USD, horizontal). La curva azul (C.s1) es una sola máquina más grande, hasta 64 núcleos; la naranja (C.s2) son más servidores de 2 núcleos. Una línea gris punteada marca la demanda; la primera curva que la cruza es la opción más barata que la atiende.</p>
           <ul>
-          <li><strong>Demanda a atender</strong>: sube la línea; se ve qué costo mínimo la alcanza.</li>
-          <li><strong>Contención α</strong> y <strong>Coordinación β</strong> más altas: las curvas de muchos servidores se aplanan o bajan, así que sumar servidores deja de ayudar.</li>
+          <li><strong>Demanda a atender</strong>: sube o baja la línea gris.</li>
+          <li><strong>Contención α</strong> y <strong>Coordinación β</strong>: aplanan (y con β incluso bajan) la curva naranja; la azul no depende de ellos.</li>
+          <li>Cursor: compara ambas opciones con el mismo presupuesto.</li>
           </ul>`,
         montar: montarEscalas,
       },
       {
         titulo: 'Disponibilidad en serie y en paralelo',
         descripcion: 'Agregue réplicas a cada capa y mire cómo cambia la disponibilidad del sistema; luego apague servidores para ver cuántos puede perder una capa antes de que todo caiga.',
-        ayuda: String.raw`<p>Capas en serie con sus servidores: en servicio, apagados o capa sin servidores (el sistema cae).</p>
+        ayuda: String.raw`<p>Cuatro capas en serie (Balanceador, Web, Aplicación, Base de datos), cada una con 1 a 4 cajas de servidores en paralelo, y a la derecha el sistema. Caja azul «activo», caja roja «apagado»; una capa con borde rojo grueso no tiene servidores activos y el sistema muestra «SIN SERVICIO». Debajo de cada capa se indican réplicas, disponibilidad y nueves.</p>
           <ul>
-          <li><strong>Disponibilidad de cada servidor</strong>: se refleja en la disponibilidad total del sistema.</li>
-          <li>Más réplicas por capa elevan la disponibilidad; apagar todos los servidores de una capa derriba el sistema.</li>
+          <li><strong>Disponibilidad de cada servidor</strong>: cambia la disponibilidad de cada capa (salvo el balanceador).</li>
+          <li><strong>Al hacer clic</strong>: elige entre agregar réplicas o simular fallas.</li>
+          <li><strong>Un servidor por capa</strong> y <strong>Todo duplicado</strong>: configuraciones rápidas.</li>
           </ul>`,
         montar: montarSerieParalelo,
       },
       {
         titulo: 'Nueves y minutos de caída',
         descripcion: 'Elija cuántos nueves necesita y vea cuántas réplicas lo logran con servidores de distinta calidad. Active las fallas de causa común y observe que las curvas dejan de caer.',
-        ayuda: String.raw`<p>Minutos de caída al año según los servidores en paralelo (r), con una línea del máximo que admite el objetivo.</p>
+        ayuda: String.raw`<p>Minutos de caída al año (eje vertical logarítmico) según el número r de servidores en paralelo (1 a 6). Una curva por tipo de servidor: azul 99 %, naranja 99,9 %, aguamarina 99,99 %. La línea negra discontinua es la caída máxima del objetivo (rotulada con su duración).</p>
           <ul>
-          <li><strong>Objetivo de disponibilidad</strong> más exigente: baja la línea y se necesitan más réplicas para cruzarla.</li>
-          <li><strong>Fallas de causa común</strong>: las curvas dejan de caer y añadir réplicas no alcanza el objetivo.</li>
+          <li><strong>Objetivo de disponibilidad</strong>: mueve la línea negra; la lectura da cuántas réplicas hacen falta con cada tipo de servidor.</li>
+          <li><strong>Fallas de causa común</strong>: aplanan las curvas, que no bajan de un piso aunque se agreguen réplicas.</li>
           </ul>`,
         montar: montarNueves,
       },

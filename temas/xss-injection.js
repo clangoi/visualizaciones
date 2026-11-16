@@ -107,26 +107,25 @@
       En <strong>XSS</strong> (<em>Cross-Site Scripting</em>) el código es JavaScript que se ejecuta en el navegador de otra persona; en la <strong>inyección SQL</strong>, comandos que ejecuta la base de datos.</p>
       <p>La defensa también es común: tratar siempre lo que viene del usuario como dato, nunca como código, usando el mecanismo adecuado a cada contexto.</p>`,
     parametros: [
-      ['Comentario enviado por un atacante (Fig. 1)', String.raw`El texto que el atacante deja guardado en la página: un comentario normal, código en una etiqueta, en un atributo, en un enlace o HTML inofensivo. Define qué intenta ejecutar el navegador del lector.`],
-      ['Defensa de la página (Fig. 1)', String.raw`Cómo se inserta el comentario en el HTML: tal cual, escapado o sanitizado con lista blanca. Decide si el texto llega como dato o como código.`],
-      ['cabecera Content-Security-Policy (Fig. 1)', String.raw`Activa una política que prohíbe los scripts en línea, de modo que aun si el código llega al HTML el navegador se niega a ejecutarlo.`],
-      ['Lo que escribe el usuario (Fig. 2)', String.raw`La entrada de usuario y clave que se envía al login: una normal o dos con trucos de SQL.`],
-      ['Cómo arma la consulta el servidor (Fig. 2)', String.raw`Concatenar texto deja que la entrada se vuelva parte del SQL; la consulta parametrizada la trata siempre como un dato.`],
+      ['Comentario enviado por un atacante (Fig. 1)', String.raw`Selector con cinco opciones: comentario normal, etiqueta &lt;script&gt;, atributo de evento (onerror), enlace javascript: y HTML inofensivo (negrita). Es el texto que queda guardado y que cada lector recibirá; parte en «etiqueta &lt;script&gt;».`],
+      ['Defensa de la página (Fig. 1)', String.raw`Selector con tres opciones: «sin defensa: innerHTML con el texto tal cual», «escapar la salida (textContent)» y «sanitizar con lista blanca (solo b, i, em)». Decide cómo se transforma el comentario antes de ponerlo en el HTML; parte en «sin defensa».`],
+      ['cabecera Content-Security-Policy (bloquea scripts en línea) (Fig. 1)', String.raw`Casilla (desmarcada por defecto). Marcada, el navegador no ejecuta el código en línea que llegue al HTML; no modifica el HTML, solo impide su ejecución.`],
+      ['Lo que escribe el usuario (Fig. 2)', String.raw`Selector con tres entradas: usuario «ana» con clave «1234» (legítima), usuario «x» con clave «' OR '1'='1» (tautología) y usuario «admin'--» con cualquier clave (comentario SQL). Parte en la tautología.`],
+      ['Cómo arma la consulta el servidor (Fig. 2)', String.raw`Selector con dos opciones: «concatenando texto» (la entrada se pega dentro del SQL) y «consulta parametrizada» (la entrada viaja aparte, como dato). Parte en «concatenando texto».`],
     ],
     visualizaciones: [
       { titulo: 'XSS en un comentario', descripcion: 'Envíe distintas cargas y active defensas: escape de salida, lista blanca y política CSP. El análisis busca lo que el navegador ejecutaría.',
-        ayuda: String.raw`<p>A la izquierda se ve lo que guarda la base de datos (el comentario sin cambios) y a la derecha el HTML que recibe el navegador del lector, ya procesado por la defensa. Debajo, las fichas de veredicto indican si el análisis encontró algo que el navegador ejecutaría.</p>
+        ayuda: String.raw`<p>Dos paneles de código: a la izquierda «Lo que guarda la base de datos», el comentario sin cambios, y a la derecha «HTML que recibe el navegador del lector», con el comentario ya procesado por la defensa dentro de un párrafo. Debajo, una ficha de resultado: roja si se ejecuta código del atacante y verde si el navegador lo bloquea por la CSP o si solo muestra texto o HTML inofensivo. El análisis busca elementos &lt;script&gt;, atributos que empiezan por «on» y URL javascript: en href o src. Abajo se leen los elementos peligrosos, la defensa y si la CSP está activa.</p>
           <ul>
-          <li><strong>Comentario enviado por un atacante</strong> con «etiqueta &lt;script&gt;» y <strong>Defensa</strong> «sin defensa»: el HTML recibido contiene el script intacto y el veredicto lo marca como ejecutable.</li>
-          <li>Con <strong>Defensa de la página</strong> en «escapar la salida», el HTML recibido muestra los símbolos escapados (&amp;lt;): el navegador lo dibuja como texto, no lo ejecuta.</li>
-          <li>Con «lista blanca» el comentario «HTML inofensivo» conserva la negrita, pero las etiquetas peligrosas desaparecen.</li>
-          <li><strong>cabecera Content-Security-Policy</strong> bloquea los scripts en línea aunque no haya otra defensa; no corrige el HTML, solo impide su ejecución.</li>
+          <li><strong>Comentario enviado por un atacante</strong>: cambia el panel izquierdo; el normal y la negrita no tienen nada ejecutable, los otros tres sí si llegan sin tratar.</li>
+          <li><strong>Defensa de la página</strong>: «sin defensa» deja el panel derecho igual al izquierdo; «escapar» convierte los símbolos en entidades (&amp;lt;) y se ve como texto; la lista blanca conserva solo b, i y em y elimina las demás etiquetas.</li>
+          <li><strong>Content-Security-Policy</strong>: si había algo ejecutable y la casilla está marcada, la ficha pasa de roja a verde «bloqueado por la política CSP».</li>
           </ul>`, montar: montarXss },
       { titulo: 'Inyección SQL en un login', descripcion: 'Pruebe una entrada normal y dos maliciosas, con consulta concatenada y con parámetros.',
-        ayuda: String.raw`<p>Arriba está el código de la consulta que arma el servidor con la entrada del usuario; debajo, la consulta SQL que realmente ejecuta la base de datos y la tabla de usuarios que devuelve.</p>
+        ayuda: String.raw`<p>Un recuadro con el código de servidor que arma la consulta, el subtítulo «Consulta que ejecuta la base de datos» con el SQL resultante y, debajo, una tabla de usuario y clave con las filas que devuelve (o «sin filas»). La tabla de usuarios es ana/1234, admin/s3cr3to y beto/abcd. Abajo se leen las filas devueltas, si se inicia sesión y si hubo un ataque exitoso.</p>
           <ul>
-          <li><strong>Lo que escribe el usuario</strong> con la tautología o el comentario «--» y consulta <strong>concatenando texto</strong>: la consulta cambia de estructura y la tabla devuelve filas sin conocer la clave.</li>
-          <li>Con <strong>consulta parametrizada</strong>, la misma entrada se busca como texto literal y no coincide con ningún usuario: el ataque falla.</li>
+          <li><strong>Lo que escribe el usuario</strong>: con la tautología concatenada la condición se vuelve siempre verdadera y salen las tres filas; con «admin'--» el resto de la consulta queda comentado y sale la fila de admin; la entrada legítima devuelve solo a ana.</li>
+          <li><strong>Cómo arma la consulta el servidor</strong>: con «consulta parametrizada» el SQL conserva los signos «?» y los valores se muestran como parámetros aparte; las dos entradas maliciosas no coinciden con ningún usuario y la tabla queda vacía.</li>
           </ul>`, montar: montarSql },
     ],
     teoria: String.raw`

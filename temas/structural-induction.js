@@ -134,27 +134,31 @@
       se prueba la propiedad para los <em>casos base</em> y se prueba que cada <em>regla de construcción</em> la conserva.</p>
       <p>Es una demostración que se lee como un recorrido del árbol sintáctico de abajo hacia arriba. Cuando una regla no conserva la propiedad, aparece de inmediato el contraejemplo más pequeño.</p>`,
     parametros: [
-      ['Fórmula y Propiedad P(φ) (Fig. 1)', String.raw`La fórmula recorrida y la propiedad que se verifica nodo por nodo desde las hojas.`],
-      ['Propiedad a poner a prueba (Fig. 2)', String.raw`La propiedad que se contrasta con fórmulas aleatorias.`],
-      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otra muestra de fórmulas para buscar contraejemplos.`],
+      ['Fórmula (Fig. 1)', String.raw`Fórmula proposicional cuyo árbol se recorre desde las hojas. Si tiene un error, el registro lo muestra. Al cambiarla, la verificación se reinicia.`],
+      ['Propiedad P(φ) (Fig. 1)', String.raw`Una de tres propiedades que se verifica en cada nodo: hojas = conectivos binarios + 1; tamaño ≤ 2^(profundidad + 1) − 1; o tantos «(» como «)» en la forma totalmente parentizada.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final, Reiniciar (Fig. 1)', String.raw`Controlan el recorrido: pasos por segundo, avanzar un nodo, saltar al final o volver al principio.`],
+      ['Propiedad a poner a prueba (Fig. 2)', String.raw`Una de seis afirmaciones sobre fórmulas: hojas = binarios + 1; tamaño ≥ profundidad + 1; hay menos ¬ que variables; tiene algún conectivo binario; más variables que conectivos; tamaño impar. Al elegirla se vuelve a muestrear.`],
+      ['Nuevo muestreo (Fig. 2)', String.raw`Genera otras 3000 fórmulas aleatorias para buscar contraejemplos.`],
     ],
     visualizaciones: [
       {
         titulo: 'La demostración como recorrido del árbol',
         descripcion: 'Escriba una fórmula y verifique una propiedad nodo por nodo: en cada paso se usa la propiedad de los hijos para concluirla en el padre.',
-        ayuda: String.raw`<p>Se resalta la subfórmula que se verifica, sus hijos (cuya hipótesis inductiva se usa) y los nodos con P ya verificada.</p>
+        ayuda: String.raw`<p>El árbol de la fórmula se verifica de hojas a raíz. El nodo que se verifica ahora tiene relleno y borde naranja; sus hijos, cuya hipótesis inductiva se usa, tienen relleno y borde azul; los nodos con P ya verificada tienen borde negro y llevan escrito debajo el valor que se calculó (por ejemplo, hojas/binarios). El registro enuncia la hipótesis inductiva, la comprobación en el nodo y un ✓ o ✗; debajo se leen la propiedad, cuántas subfórmulas van verificadas y la conclusión.</p>
           <ul>
-          <li><strong>Propiedad P(φ)</strong>: cambia lo que se comprueba en cada nodo con la hipótesis de sus hijos.</li>
+          <li><strong>Propiedad P(φ)</strong>: cambia qué cantidades se calculan en cada nodo y qué igualdad o desigualdad se comprueba.</li>
           <li><strong>Fórmula</strong>: cambia el árbol recorrido.</li>
+          <li><strong>Reproducir, Un paso, Hasta el final, Reiniciar</strong>: avanzan la verificación o la reinician.</li>
           </ul>`,
         montar: montarDemostracion,
       },
       {
         titulo: 'Busque contraejemplos',
         descripcion: 'Ponga a prueba propiedades verdaderas y falsas con miles de fórmulas aleatorias. Las falsas se delatan con una fórmula mínima; las verdaderas no tienen ninguna.',
-        ayuda: String.raw`<p>El registro informa el resultado de probar la propiedad en muchas fórmulas generadas.</p>
+        ayuda: String.raw`<p>Se dibuja solo el contraejemplo más pequeño encontrado, con borde y relleno rojo claro; si no hay ninguno, aparece en verde el aviso «Sin contraejemplos en la muestra». El registro dice cuántas fórmulas violan la propiedad y cuál es la menor; debajo se leen las fórmulas generadas, cuántas la cumplen, los contraejemplos y el tamaño del menor.</p>
           <ul>
-          <li><strong>Propiedad a poner a prueba</strong>: una falsa muestra una fórmula mínima que la viola; una verdadera no encuentra ninguna.</li>
+          <li><strong>Propiedad a poner a prueba</strong>: las falsas (como «hay menos ¬ que variables» o «tamaño impar») muestran un contraejemplo pequeño; las verdaderas (hojas = binarios + 1, tamaño ≥ profundidad + 1) no encuentran ninguno, lo que es evidencia y no demostración.</li>
+          <li><strong>Nuevo muestreo</strong>: otra muestra; el contraejemplo mostrado puede cambiar.</li>
           </ul>`,
         montar: montarContraejemplos,
       },

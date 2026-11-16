@@ -89,27 +89,31 @@
       las variables son fórmulas, y si \(A\) y \(B\) lo son, también lo son \(\neg A\), \((A \land B)\), \((A \lor B)\), \((A \to B)\) y \((A \leftrightarrow B)\).</p>
       <p>Esta definición es una <a href="tema.html?id=structural-definitions">definición estructural</a>. Que cada fórmula se pueda leer de una única manera —sin ambigüedad— es lo que permite después asignarle un significado.</p>`,
     parametros: [
-      ['Fórmula y Ejemplos (Fig. 1)', String.raw`La cadena que se analiza; los ejemplos cargan cadenas bien y mal formadas.`],
-      ['Presupuesto de conectivos (Fig. 2)', String.raw`Cuántos conectivos como máximo puede usar la fórmula generada: limita su tamaño.`],
-      ['Nueva fórmula y reproductor (Fig. 2)', String.raw`Genera otra fórmula al azar y avanza su derivación paso a paso.`],
+      ['Fórmula (Fig. 1)', String.raw`Cadena que se analiza, con botones para insertar símbolos. Se vuelve a evaluar con cada tecla.`],
+      ['Ejemplos (Fig. 1)', String.raw`Selector con diez cadenas bien y mal formadas, como «(p ∧ q)», «p ∧ q ∨ r», «(p ∧ q» o «p ∧ ∨ q». Al elegir una, se copia al campo.`],
+      ['Presupuesto de conectivos (Fig. 2)', String.raw`Deslizador de 1 a 6: es la profundidad máxima con la que se genera la fórmula al azar; mayor presupuesto permite árboles más grandes. Al cambiarlo se genera otra fórmula.`],
+      ['Nueva fórmula (Fig. 2)', String.raw`Genera otra fórmula aleatoria con el mismo presupuesto.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final, Reiniciar (Fig. 2)', String.raw`Controlan la derivación: pasos por segundo, avanzar un paso, saltar al final o volver a la cadena inicial φ.`],
     ],
     visualizaciones: [
       {
         titulo: '¿Es una fórmula bien formada?',
         descripcion: 'Escriba o elija una cadena. Si está mal formada, se marca el primer símbolo que no encaja; si está bien, se muestra su forma estricta.',
-        ayuda: String.raw`<p>La lectura indica si la cadena es una fórmula bien formada; si no lo es, marca el primer símbolo que no encaja según la gramática, y si lo es muestra su forma estricta.</p>
+        ayuda: String.raw`<p>La cadena se muestra como texto. Si es una fórmula, aparece en verde; si no, el primer símbolo que no encaja se marca en rojo y el registro explica el error. La lectura indica si es fbf, y si lo es, también las variables, el tamaño, la profundidad y el conectivo principal. Si falta algún paréntesis que la gramática estricta exige, se acepta con abreviaturas y el registro da su forma estricta.</p>
           <ul>
-          <li><strong>Fórmula</strong>: cada símbolo que se agregue o quite cambia si la cadena sigue la gramática.</li>
+          <li><strong>Fórmula</strong>: cualquier símbolo que agregue o quite puede hacer que deje de ser una fbf.</li>
+          <li><strong>Ejemplos</strong>: cargan casos como paréntesis sin cerrar, dos conectivos seguidos o variables juntas.</li>
           </ul>`,
         montar: montarReconocedor,
       },
       {
         titulo: 'Derivación con la gramática',
         descripcion: 'Genere una fórmula al azar y reproduzca su derivación: cada paso aplica una regla de la gramática al símbolo φ más a la izquierda.',
-        ayuda: String.raw`<p>Se deriva la fórmula desde φ: φ sin expandir, expansión de este paso y ya expandido.</p>
+        ayuda: String.raw`<p>El árbol de una fórmula aleatoria, derivada con la gramática desde φ. Un nodo gris es un φ todavía sin expandir; el de borde naranja es la expansión de este paso; los de borde negro ya fueron expandidos. El registro lista las formas sucesivas de la cadena con la regla aplicada al φ más a la izquierda.</p>
           <ul>
           <li><strong>Presupuesto de conectivos</strong>: más presupuesto da derivaciones más largas y árboles más grandes.</li>
-          <li><strong>Nueva fórmula</strong>: otra derivación, otra secuencia de reglas aplicadas al φ más a la izquierda.</li>
+          <li><strong>Nueva fórmula</strong>: otra fórmula y otra secuencia de reglas.</li>
+          <li><strong>Reproducir, Un paso, Hasta el final, Reiniciar</strong>: avanzan la derivación o la vuelven a empezar.</li>
           </ul>`,
         montar: montarGramatica,
       },

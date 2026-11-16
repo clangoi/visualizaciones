@@ -237,30 +237,32 @@
       <p><strong>Económica</strong>: el multiplicador mide cuánto mejora el valor óptimo si se relaja la restricción en una unidad. Es el análogo no lineal del precio sombra del Simplex: una restricción
       con \(\mu=0\) sobra, y una con \(\mu\) grande es un cuello de botella.</p>`,
     parametros: [
-      ['Empuja contra una pared, una esquina, Dentro (Fig. 1)', String.raw`Colocan el mínimo libre para que actúen una fuerza, dos o ninguna.`],
-      ['Restricción (Fig. 2)', String.raw`Restricción que se relaja.`],
-      ['Mínimo libre, coordenadas x e y (Fig. 2)', String.raw`Posición del mínimo sin restricciones; decide si la restricción está activa.`],
-      ['Relajación ε de la restricción (Fig. 2)', String.raw`Cuánto se afloja el límite. El valor óptimo cambia con pendiente \(-\mu\).`],
-      ['Poner el mínimo libre dentro (Fig. 2)', String.raw`Hace inactiva la restricción: \(\mu = 0\).`],
+      ['Empuja contra una pared (Fig. 1)', String.raw`Botón que coloca el mínimo libre fuera del triángulo, de modo que una sola pared actúe.`],
+      ['Empuja contra una esquina (Fig. 1)', String.raw`Botón que lo coloca de modo que dos paredes se repartan la fuerza.`],
+      ['Dentro (sin fuerzas) (Fig. 1)', String.raw`Botón que coloca el mínimo libre dentro de la región: ninguna pared empuja. En todos los casos también se puede arrastrar el círculo hueco sobre el gráfico.`],
+      ['Restricción (Fig. 2)', String.raw`Selector entre «Disco: x² + y² ≤ 2 + ε» y «Semiplano: (x + y)/√2 ≤ 1,4 + ε».`],
+      ['Mínimo libre, coordenada x y coordenada y (Fig. 2)', String.raw`Dos deslizadores de −3 a 3 con la posición del mínimo sin restricciones; deciden si la restricción está activa. También se puede arrastrar sobre el gráfico superior.`],
+      ['Relajación ε de la restricción (Fig. 2)', String.raw`Deslizador de −1,2 a 1,5: cuánto se afloja (o aprieta) el límite. Con la restricción activa, el valor óptimo cambia con pendiente \(-\mu\).`],
+      ['Poner el mínimo libre dentro (Fig. 2)', String.raw`Botón que lo coloca en (0,3; 0,2), dentro de la región: la restricción es inactiva y \(\mu = 0\).`],
     ],
     visualizaciones: [
       {
         titulo: 'Los multiplicadores como pesos de fuerzas',
         descripcion: 'Arrastre el mínimo libre fuera del triángulo y vea cómo −∇f se descompone en las flechas de las paredes activas. Pruebe los botones: contra una pared actúa una sola fuerza, en la esquina dos, dentro ninguna.',
-        ayuda: String.raw`<p>Región factible, \(-\nabla f\), fuerzas \(\mu_1 \nabla g_1\) de la pared oblicua y \(\mu \nabla g\) de las paredes x ≥ 0, y ≥ 0. En el óptimo hay equilibrio.</p>
+        ayuda: String.raw`<p>La región factible es el triángulo \(x + y \le 3\), \(x \ge 0\), \(y \ge 0\) (aguamarina tenue); el círculo hueco es el mínimo libre, con circunferencias grises concéntricas. En el óptimo (punto verde), la flecha naranja es \(-\nabla f\) y se equilibra con las fuerzas de las paredes activas: \(\mu_1 \nabla g_1\) (azul, pared oblicua) y \(\mu \nabla g\) de las paredes \(x \ge 0\), \(y \ge 0\) (violeta), apiladas una tras otra.</p>
           <ul>
-          <li><strong>Empuja contra una esquina</strong>: dos paredes equilibran la fuerza; sus μ son los pesos.</li>
-          <li><strong>Dentro</strong>: no hay fuerzas.</li>
+          <li><strong>Empuja contra una esquina</strong>: dos paredes equilibran la fuerza; sus \(\mu\) son los pesos.</li>
+          <li><strong>Dentro</strong>: no hay fuerzas y todos los \(\mu\) valen 0.</li>
           </ul>`,
         montar: montarFuerzas,
       },
       {
         titulo: 'Sensibilidad: relajar la restricción',
         descripcion: 'Mueva ε y compare la pendiente de \\(p^*(\\varepsilon)\\) con \\(-\\mu\\). Pruebe poner el mínimo libre dentro de la región: \\(\\mu=0\\) y la curva es plana.',
-        ayuda: String.raw`<p>Arriba, región con ε y frontera con ε = 0, con \(x^*(\varepsilon)\). Abajo, \(p^*(\varepsilon)\) en función de ε con su tangente de pendiente \(-\mu\).</p>
+        ayuda: String.raw`<p>Arriba, la región con relajación ε (aguamarina), la frontera con \(\varepsilon = 0\) (gris discontinua) y la actual (negra), el mínimo libre (círculo hueco) y el óptimo \(x^*(\varepsilon)\) (verde). Abajo, el eje horizontal es ε y el vertical \(p^*\): la curva azul es \(p^*(\varepsilon)\) y la línea naranja discontinua es la tangente de pendiente \(-\mu\) en el ε actual (punto verde).</p>
           <ul>
-          <li><strong>Relajación ε</strong>: \(p^*\) baja a razón \(\mu\).</li>
-          <li><strong>Mínimo libre</strong>: dentro, \(\mu = 0\) y la curva es plana.</li>
+          <li><strong>Relajación ε</strong>: con la restricción activa, \(p^*\) baja a razón \(\mu\); la lectura compara la pendiente medida con \(-\mu\).</li>
+          <li><strong>Mínimo libre</strong>: dentro de la región, \(\mu = 0\) y la curva es plana.</li>
           </ul>`,
         montar: montarSensibilidad,
       },

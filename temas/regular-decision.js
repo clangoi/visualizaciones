@@ -148,30 +148,32 @@
       <p>Una gran ventaja de los lenguajes regulares es que muchas preguntas sobre ellos <strong>se pueden responder siempre</strong>, con un algoritmo: ¿acepta el autómata alguna palabra? ¿dos expresiones describen el mismo lenguaje? ¿un lenguaje está contenido en otro?</p>
       <p>Todas se reducen a una pregunta de alcanzabilidad en un grafo. Si la respuesta es «hay una palabra», el algoritmo entrega además un <em>testigo</em> (o un <em>contraejemplo</em>), que es la mejor explicación posible.</p>`,
     parametros: [
-      ['Pregunta (Fig. 1)', String.raw`Qué se decide sobre las expresiones: por ejemplo equivalencia o vacío. Define qué par de estados cuenta como testigo.`],
-      ['Expresión A y Expresión B (Fig. 1)', String.raw`Las expresiones que se comparan; con ellas se arma el autómata producto que se recorre.`],
-      ['Ejemplos (Fig. 1)', String.raw`Parejas de expresiones de muestra para cargar sin escribirlas.`],
-      ['Reproductor (Fig. 1)', String.raw`Cada paso visita un par de estados del producto en anchura; Reiniciar empieza la búsqueda de nuevo.`],
-      ['Restaurar finales (Fig. 2)', String.raw`Devuelve los estados finales originales después de los cambios hechos con clic.`],
+      ['Pregunta (Fig. 1)', String.raw`Selector con cuatro preguntas: «¿L(A) es vacío?», «¿L(A) = L(B)?» (inicial), «¿L(A) ⊆ L(B)?» y «¿L(A) ∩ L(B) es vacío?». Define qué pares del producto son testigos: aceptados por A (vacío; ignora la expresión B), por uno solo (equivalencia), por A y no por B (inclusión) o por ambos (intersección).`],
+      ['Expresión A y Expresión B (Fig. 1)', String.raw`Campos de texto con las expresiones regulares a comparar (inician en (a|b)*abb y (a|b)*b). Se aplican al editar o pulsar Enter y reinician la búsqueda; si hay un error de sintaxis, la figura lo muestra en rojo.`],
+      ['Ejemplos (Fig. 1)', String.raw`Selector que carga una de cinco parejas de expresiones: (a|b)*abb con (a|b)*b, (a|b)* con (a*b*)*, a*b* con (ab)*, (aa)* con a*, y a(a|b)* con b(a|b)*.`],
+      ['Velocidad, Reproducir/Pausar, Un paso, Hasta el final y Reiniciar (Fig. 1)', String.raw`Cada paso visita un par más del producto, en el orden en que lo numera la búsqueda en anchura, y se detiene al hallar un testigo. «Reiniciar» comienza de nuevo.`],
+      ['Restaurar finales (Fig. 2)', String.raw`Botón que devuelve el conjunto original de estados finales después de los cambios hechos con clic sobre los estados.`],
     ],
     visualizaciones: [
       {
         titulo: 'Testigos en el autómata producto',
         descripcion: 'Escriba dos expresiones y elija la pregunta. La búsqueda en anchura recorre los pares de estados hasta hallar una palabra testigo, que además es la más corta.',
-        ayuda: String.raw`<p>Cada nodo es un par de estados del autómata producto de A y B. Se resalta el par que se visita ahora, los ya visitados y, al hallarlo, el par testigo con el camino más corto hasta él; ese camino da una palabra testigo.</p>
+        ayuda: String.raw`<p>Cada nodo es un par de estados (A0, B1, etc.) del autómata producto, con aceptación definida por la pregunta. El par que se visita ahora tiene relleno azul; los visitados, relleno gris; los aún no visitados, borde y letra tenues. El par testigo se pinta en rojo y el camino más corto hasta él, en naranja; las etiquetas de ese camino forman la palabra testigo.</p>
           <ul>
-          <li><strong>Pregunta</strong>: cambia qué pares son testigos; si no existe ninguno alcanzable, la respuesta es la contraria.</li>
+          <li><strong>Pregunta</strong>: cambia qué pares son testigos; si ninguno es alcanzable, la respuesta es la contraria (por ejemplo, equivalentes).</li>
           <li><strong>Expresión A / B</strong>: dos expresiones equivalentes no producen testigo; una diferencia mínima sí lo hace.</li>
+          <li><strong>Cursor sobre un par</strong>: indica con qué palabra se llega a él y si es testigo. La lectura da pares alcanzables, visitados, testigos, palabra testigo y respuesta.</li>
           </ul>`,
         montar: montarBusqueda,
       },
       {
         titulo: 'Alcanzabilidad y estados muertos',
         descripcion: 'Clasifique los estados en útiles, muertos e inalcanzables, y alterne estados finales con un clic para ver cuándo el lenguaje se vacía.',
-        ayuda: String.raw`<p>Los estados se clasifican en útiles (alcanzables y con camino a un final), muertos (alcanzables sin camino a un final) e inalcanzables desde el inicial.</p>
+        ayuda: String.raw`<p>Un autómata fijo de seis estados sobre {a, b}. Verde: útil (alcanzable y con camino a un final). Rojo: muerto (alcanzable pero sin camino a un final). Gris con transiciones punteadas: inalcanzable desde el inicial.</p>
           <ul>
-          <li><strong>Clic en un estado</strong>: alterna si es final; si ningún estado útil es final, el lenguaje queda vacío.</li>
-          <li><strong>Restaurar finales</strong>: recupera el autómata original.</li>
+          <li><strong>Clic en un estado</strong>: alterna si es de aceptación; la clasificación de todos los estados se recalcula y el texto inferior dice si L(A) es vacío o cuál es su palabra más corta.</li>
+          <li><strong>Restaurar finales</strong>: recupera el único estado final original.</li>
+          <li><strong>Cursor sobre un estado</strong>: muestra si acepta y con qué palabra más corta se alcanza, o que no se alcanza.</li>
           </ul>`,
         montar: montarAlcanzabilidad,
       },
